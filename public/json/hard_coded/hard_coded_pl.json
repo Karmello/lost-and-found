@@ -1,0 +1,140 @@
+{
+	"_id": "pl",
+	"languages": [
+		{ "value": "en", "label": "Angielski" },
+		{ "value": "pl", "label": "Polski" }
+	],
+	"currencies": [
+		{ "value": "USD", "label": "Dolar" },
+		{ "value": "EUR", "label": "Euro" },
+		{ "value": "GBP", "label": "Funt" }
+	],
+	"themes": [
+		{ "value": "standard", "label": "Standardowy" },
+		{ "value": "darkly", "label": "Ciemny" },
+		{ "value": "cerulean", "label": "Błękit" },
+		{ "value": "slate", "label": "Ciemnoszary" },
+		{ "value": "cosmo", "label": "Cosmo" },
+		{ "value": "raw", "label": "Czysty" }
+	],
+	"phrases": [
+		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
+		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Email", "Nazwa użytkownika", "Hasło",
+		"Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Nazwa", "Kraj", "Wybierz", "Język", "Opis", "Wiadomość",
+		"Oryginał", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Data rejestracji", "Strona główna", "Uczestnicy", "Przeglądaj","Użytkownik", "Ustawienia",
+		"O nas", "Pomoc", "Zgłoś", "Aplikacja", "Konto", "Płatności", "Uwaga !", "Logowanie", "Rejestracja", "Status",
+		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "Paypal", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Dodano",
+		"Kategoria", "Podkategoria", "Przedmiot", "Moje przedmioty", "Pusto", "Usuwanie przedmiotu", "Waluta", "Wartość początkowa", "Edytuj", "Upublicznij",
+		"Zdjęcia", "Subskrybenci", "Upublicznianie przedmiotu", "Wygląd", "Cześć", "Przedmioty", "Wszystkie", "Publiczne", "Prywatne", "Zobacz",
+		"Info", "Sprzedający", "Zobacz profil", "Szukaj", "Tytułu", "Wartości pocz.", "Odwróć", "Rosnąco", "Malejąco", "Strona",
+		"Według", "Przewiń do góry", "Znaleziono", "LostAndFoundApp", "Przesyłanie zdjęcia profilowego", "Usuwanie zdjęcia profilowego", "", "Przebitka", "Cena minimalna", "Przebitki",
+
+		"Ceny minimalnej", "Subskrybuj", "Waluty", "Ilość", "Ilości", "Usuń subskrybcję", "Odśwież", "Zaznacz wszystkie", "Ustaw jako avatar", "Usuwanie",
+		"Odznacz wszystkie", "Zamknij", "Przesyłanych", "Przesłanych", "Usuwanych", "Usuniętych", "Niepowodzeń", "Motyw", "użytkownika", "Zobacz aukcję",
+		"Aukcja", "W przybliżeniu", "Moje subskrybcje", "Subskrybcje", "Zwiększ", "Zmniejsz", "Złóż ofertę", "Przebieg aukcji", "Wybierz zdjęcie", "Obróć",
+		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "Aukcje", "Przesuń w lewo", "Przesuń w prawo", "Daty dodania", "Data dodania", "temu"
+	],
+	"sentences": [
+		"Dlaczego nas opuszczasz ?",
+		"Typ zgłoszenia ?",
+		"Subskrybowałeś do aukcji tego produktu.",
+		"wita Cię gorąco !",
+		"Zaloguj się i korzystaj z serwisu.",
+		"Zarejestruj się jeśli jeszcze tego nie zrobiłeś.",
+		"Problem z zalogowaniem ? Poproś o nowe hasło.",
+		"Korzystasz z aplikacji jako",
+		"Regionalne ustawienia aplikacji.",
+		"Zaaktualizuj swoje dane personalne.",
+
+		"Zmień swoje aktualne hasło.",
+		"Zmień lub usuń zdjęcie profilowe.",
+		"Ustawienia konta w Paypal.",
+		"Tutaj możesz usunąć swoje konto. Pamiętaj, że nie będziesz w stanie odzyskać utraconych plików i ustawień !",
+		"Twoje konto, wszystkie pliki i ustawienia zostaną usunięte ! Czy napewno chcesz kontynuować ?",
+		"To twoja ostatnia szansa odwrotu ! Jeśli kontynuujesz twoje konto zostanie deaktywowane !",
+		"",
+		"",
+		"Czy napewno chcesz kontynuować ?",
+		"Czy napewno chcesz usunąć zdjęcie ?",
+
+		"Nie udało się wykonać żądania. Spróbuj ponownie za kilka minut.",
+		"Plik jest zbyt duży !",
+		"",
+		"",
+		"",
+		"Próbujesz wrzucić plik w złym formacie.",
+		"Próbujesz wrzucić zbyt duży plik. Maksymalny rozmiar to ",
+		"",
+		"Właśnie deaktywowałeś swoje konto !",
+		"Twój przedmiot zmienił status na publiczny i jest widoczny dla wszystkich użytkowników. Możesz go znaleźć w sekcji \"Szukaj\".",
+
+		"Wrzuciłeś już maksymalną liczbę plików.",
+		"Próbujesz wrzucić zbyt dużo plików.",
+		"Nie możesz mieć dwóch plików z tą samą nazwą.",
+		"Będziesz mógł jeszcze zmienić te ustawienia zanim upublicznisz przedmiot.",
+		"Wystąpił błąd. Spróbuj odświeżyć stronę.",
+		"Musisz zaznaczyć jakieś pliki.",
+		"",
+		"",
+		"",
+		"",
+
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"Stracisz wszystkie dane związane z tym przedmiotem (zdjęcia, subskrybentów). Czy napewno chcesz to zrobić ?",
+		"Publiczny przedmiot musi mieć conajmniej 1 zdjęcie.",
+
+		"Przedmiot nie został jeszcze upubliczniony",
+		"Przedmiot widoczny publicznie",
+		"Czy chcesz upublicznić swój przedmiot własnie teraz ?",
+		"",
+		"Dostosuj wygląd.",
+		"Klikając w link poniżej potwierdzisz zmianę hasła. Będzie on aktywny przez najbliższe 24 godziny.",
+		"Możesz zmienić je w każdej chwili pod zakładką \"Hasło\" w ustawieniach konta.",
+		"Miłego korzystania z aplikacji Auction House !",
+		"Email z nowym hasłem został wysłany na podany przez ciebie adres. W razie problemów z jego znalezieniem sprawdź folder spam",
+		"Auction House - link do zresetowania hasła",
+
+		"Auction House - nowe hasło",
+		"Oto twoje nowe hasło",
+		"Zignoruj tego maila jeśli nie wysyłałeś prośby o reset.",
+		"Przedmiot dodany przez ciebie."
+	],
+	"validation": [
+		"jest polem wymaganym",
+		"ma nieprawidłowy format",
+		"ma nieprawidłową wartość",
+		"znajduje się juz w bazie",
+		"Nieprawidłowe dane",
+		"nie może składać się ze specjalnych znaków",
+		"nie może składać się z cyfr",
+		"musi być pojedynczym słowem",
+		"ma być liczbą całkowitą",
+		"musi być liczbą dodatnią",
+		"nie może być liczbą ujemną",
+		"nie znajduję sie w bazie",
+		"musi mieć wartość większą od początkowej",
+		"może mieć długość maksymalnie",
+		"musi mieć długość"
+	],
+	"msgs": {
+		"titles": [
+			"Witamy !",
+			"Aktualizacja ustawień",
+			"Zmiana hasła"
+		],
+		"infos": [
+			"Dziękujemy za rejestrację :) Życzymy udanego korzystania z serwisu :)",
+			"Ustawienia zostały pomyślnie zaktualizowane !",
+			"Ustawienia zostały pomyślnie zaktualizowane ! Teraz nastąpi odświeżenie aplikacji.",
+			"Email z linkiem do zmiany hasła został wysłany. W razie problemów z jego znalezieniem sprawdź folder spam.",
+			"Dziękujemy za twoją wiadomość. Weźmiemy ją pod uwagę i postaramy się jak najszybciej odpowiedzieć."
+		]
+	}
+}

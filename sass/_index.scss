@@ -1,0 +1,54 @@
+@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '_vars';
+
+body {
+
+	a, a:link, a:visited, a:hover, a:active { cursor: pointer !important; }
+
+	.navbar-fixed-top {
+		position: relative;
+		margin-bottom: 35px;
+	}
+
+	.btn { outline: none !important; }
+
+	.badge {
+		margin-left: 8px;
+		margin-top: 1px;
+		border-radius: 100px;
+		padding: 6px;
+	}
+
+	.close {
+		outline: none;
+		margin-bottom: 15px;
+		margin-left: 15px;
+	}
+
+	.modal {
+		padding-left: 15px !important;
+		padding-right: 15px !important;
+	}
+
+	&.modal-open {
+		margin-right: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	select {
+		option { color: $text-color; }
+		option:empty { display: none; }
+		&.empty { color: #C0C0C0; }
+	}
+
+	textarea.form-control {
+		resize: none;
+		height: 100px !important;
+		min-height: 100px !important;
+		max-height: 100px !important;
+	}
+
+	.form-group {
+		margin: 5px;
+	}
+}

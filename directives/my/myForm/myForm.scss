@@ -1,0 +1,38 @@
+.myFormContainer {
+
+	position: relative;
+
+	.myForm {
+
+		position: relative;
+
+		input, select {
+			max-width: 300px;
+		}
+
+		input, textarea {
+			padding: 10px;
+		}
+
+		input, select, textarea {
+			margin: 5px 0 5px 0;
+		}
+
+		select {
+			padding: 5px;
+		}
+
+		textarea {
+			min-height: 200px;
+		}
+
+		.myLabel.text-info {
+			margin-top: 10px;
+			margin-bottom: 0;
+		}
+
+		.myBtnsGroup {
+			margin-top: 25px;
+		}
+	}
+}

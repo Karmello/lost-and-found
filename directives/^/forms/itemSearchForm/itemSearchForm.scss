@@ -1,0 +1,25 @@
+#itemSearchForm {
+
+	.myForm {
+
+		.myBtnsGroup {
+			margin-left: 25px;
+			margin-right: 25px;
+		}
+
+		@media only screen and (min-width: 530px) and (max-width: 991px) {
+
+			> div, .mySelectsGroup > div {
+				display: flex;
+				justify-content: center;
+				flex-flow: row wrap;
+			}
+
+			select { min-width: 125px; }
+		}
+
+		@media only screen and (min-width: 992px) {
+			margin: 0 25px 0 25px;
+		}
+	}
+}

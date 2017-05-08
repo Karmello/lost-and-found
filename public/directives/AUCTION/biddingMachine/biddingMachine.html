@@ -1,0 +1,24 @@
+<div class="biddingMachine">
+	<div>
+		<div class="well">
+			<span ng-bind="bid"></span>&nbsp;&nbsp;&nbsp;<span ng-bind="item.currency"></span>
+		</div>
+	</div>
+	<div class="myBtnsGroupCenter">
+		<my-btn
+			ctrl-class="'btn-default'"
+			click-action="onDecreaseBtnClick"
+			hard-data="{ label: ['phrases', 125] }"
+		></my-btn>
+		<my-btn
+			ctrl-class="'btn-default'"
+			click-action="onIncreaseBtnClick"
+			hard-data="{ label: ['phrases', 124] }"
+		></my-btn>
+		<my-btn
+			ctrl-class="'btn-primary'"
+			click-action="onPlaceBidBtnClick"
+			hard-data="{ label: ['phrases', 126] }"
+		></my-btn>
+	</div>
+</div>

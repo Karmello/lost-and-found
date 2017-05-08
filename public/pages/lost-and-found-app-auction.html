@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="fragment" content="!" />
+	</head>
+	<body>
+		<div id="lost-and-found-app-auction" ng-controller="AuctionController">
+			<my-page is-loading="!apiData.auction">
+				<my-page-body>
+					<div>
+						<div id="topSection">
+							<div>
+								<item-avatar item="apiData.item"></item-avatar>
+							</div>
+							<div>
+								<div class="myBtnsGroupCenter">
+									<my-btn ng-if="!apiData.item._isOwn() && apiData.auction._haveSubscribed()" ctrl-class="'btn-primary'" click-action="onUnsubscribeFromAnAuctionClick" hard-data="{ label: ['phrases', 105] }"></my-btn>
+									<my-btn ng-if="!apiData.item._isOwn() && !apiData.auction._haveSubscribed()" ctrl-class="'btn-primary'" click-action="onSubscribeToAnAuctionClick" hard-data="{ label: ['phrases', 101] }"></my-btn>
+									<my-btn ctrl-class="'btn-default'" click-action="onSeeAuctionSubscribersClick" hard-data="{ label: ['phrases', 71] }"></my-btn>
+								</div>
+							</div>
+						</div>
+					</div>
+				</my-page-body>
+			</my-page>
+		</div>
+	</body>
+</html>

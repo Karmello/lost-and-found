@@ -1,0 +1,17 @@
+<my-form ins="myForm">
+	<my-select
+		ctrl-id="'deactivationReason'"
+		model="myForm.model.values.deactivationReasonId"
+		collection="deactivationReasons"
+		option-zero="true"
+		prop-names="{ optionValue: '_id', optionLabel: 'label' }"
+		hard-data="{ label: ['sentences', 0], placeholder: ['phrases', 26] }"
+	></my-select>
+	<form-action-btns my-form="myForm">
+		<my-btn
+			ctrl-class="'btn-danger'"
+			click-action="onDeactivateClick"
+			hard-data="{ label: ['phrases', 14] }"
+		></my-btn>
+	</form-action-btns>
+</my-form>

@@ -1,0 +1,76 @@
+@import '_vars';
+
+.myModal {
+
+	text-align: left;
+
+	.modal-dialog {
+		display: table;
+		margin: 15px auto;
+	}
+
+	.modal-header {
+		h4 {
+			font-weight: bold;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+			word-break: break-all;
+			word-break: break-word;
+			hyphens: auto;
+		}
+	}
+
+	.modal-title {}
+
+	.modal-body {
+	    max-height: calc(100vh - 180px);
+	    overflow-y: auto;
+	    img { width: 150px; }
+	}
+
+	.modal-footer {
+		.btn { margin: 0; }
+	}
+
+	&.modalSlideInFromLeft {
+		&.modal.fade:not(.in) .modal-dialog {
+		    -webkit-transform: translate3d(-25%, 0, 0);
+		    transform: translate3d(-25%, 0, 0);
+		}
+	}
+
+	.myForm {
+		margin: 0 auto;
+	}
+}
+
+
+
+.wideModal {
+	.modal-dialog {
+		@media only screen and (min-width: 768px) { width: 720px; }
+		@media only screen and (min-width: 900px) { width: 850px; }
+	}
+}
+
+.responsiveImgAndDesc {
+
+	display: table;
+	width: 100%;
+
+	img { max-width: 200px; }
+
+	> div {
+
+		display: table-cell;
+		vertical-align: top;
+
+		p {
+			margin: 25px;
+			text-align: justify;
+		}
+	}
+
+	> div:first-child { text-align: center; }
+	@media only screen and (max-width: 600px) { > div { display: block; } }
+}

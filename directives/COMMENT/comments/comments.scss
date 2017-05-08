@@ -1,0 +1,17 @@
+.comments {
+
+	.myTextArea {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.userAvatar {
+		> div {
+			.mySrc {
+				img {
+					@extend .tinyAvatarSize;
+				}
+			}
+		}
+	}
+}

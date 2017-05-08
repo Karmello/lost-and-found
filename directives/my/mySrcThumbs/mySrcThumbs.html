@@ -1,0 +1,45 @@
+<div class="mySrcThumbs">
+	<div id="contextMenuContainer">
+		<my-context-menu
+			ng-show="mainContextMenu"
+			ins="mainContextMenu"
+		></my-context-menu>
+	</div>
+	<div ng-hide="srcThumbsCollection.loader.isLoading">
+		<div id="allSrcsContainer">
+			<div
+				class="singleSrcContainer"
+				ng-repeat="src in srcThumbsCollection.collection"
+			>
+				<my-src
+					ins="src"
+					type="{{ srcType }}"
+					is-selectable="isSrcSelectable()"
+					context-menu-conf="srcContextMenuConf"
+				></my-src>
+			</div>
+		</div>
+		<div class="myBtnsGroupCenter" ng-show="srcThumbsCollection.collection.length == 0">
+			<my-alert ctrl-class="'alert-warning'" hard-data="{ message: ['phrases', 64] }"></my-alert>
+		</div>
+	</div>
+	<my-loader ng-show="srcThumbsCollection.loader.isLoading"></my-loader>
+	<my-modal ins="srcSlidesModal" slide-in-from-left="true">
+		<my-modal-body>
+			<my-src-slides
+				my-src-collection="srcSlidesCollection"
+				src-type="{{ srcType }}"
+			></my-src-slides>
+		</my-modal-body>
+		<my-modal-footer>
+			<div class="myBtnsGroupCenter">
+				<my-btn
+					ctrl-class="'btn-default'"
+					click-action="srcSlidesModal.dismiss"
+					click-context="srcSlidesModal"
+					hard-data="{ label: ['phrases', 111] }"
+				></my-btn>
+			</div>
+		</my-modal-footer>
+	</my-modal>
+</div>

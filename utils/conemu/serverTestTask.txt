@@ -1,0 +1,5 @@
+> cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -new_console:d:D:\Workspace\laf\dev\tests\server\specs -new_console:t:mocha
+
+cmd.exe /k timeout 5 & "%ConEmuBaseDir%\CmdInit.cmd" -new_console:t:db & mongo laf-test
+
+cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -new_console:t:mongo & mongod

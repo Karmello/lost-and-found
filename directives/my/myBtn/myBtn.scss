@@ -1,0 +1,23 @@
+.myBtn {
+	padding: 7px 15px 7px 14px;
+}
+
+.myBtnsGroup {
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.myBtnsGroupCenter {
+
+	@extend .myBtnsGroup;
+	margin: 0 auto;
+}
+
+.myBtnsGroupRight {
+
+	@extend .myBtnsGroup;
+	margin-left: auto;
+	margin-right: 0;
+}

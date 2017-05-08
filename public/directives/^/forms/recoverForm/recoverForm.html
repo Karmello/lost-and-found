@@ -1,0 +1,14 @@
+<my-form ins="myForm">
+	<my-captcha
+		ctrl-id="'recoverFormCaptcha'"
+		action-name="'recover'"
+	></my-captcha>
+	<my-input
+		ctrl-id="'email'"
+		ctrl-type="'text'"
+		ctrl-max-length="254"
+		model="myForm.model.values.email"
+		hard-data="{ label: ['phrases', 17] }"
+	></my-input>
+	<form-action-btns my-form="myForm"></form-action-btns>
+</my-form>

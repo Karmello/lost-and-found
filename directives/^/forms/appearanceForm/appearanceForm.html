@@ -1,0 +1,11 @@
+<my-form ins="myForm">
+	<my-select
+		ctrl-id="'theme'"
+		model="myForm.model.values.theme"
+		collection="hardData.themes"
+		option-zero="false"
+		prop-names="{ optionValue: 'value', optionLabel: 'label' }"
+		hard-data="{ label: ['phrases', 117] }"
+	></my-select>
+	<form-action-btns my-form="myForm"></form-action-btns>
+</my-form>

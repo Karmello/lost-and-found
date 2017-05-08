@@ -1,0 +1,19 @@
+<div class="myPage">
+	<my-panel>
+		<title-section>
+			<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+			<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+		</title-section>
+		<action-section>
+			<my-context-menu ng-if="contextMenu" ins="contextMenu"></my-context-menu>
+		</action-section>
+		<body-section>
+			<div id="pageBody">
+				<div ng-transclude="body" ng-if="!isLoading"></div>
+				<my-loader ng-show="isLoading"></my-loader>
+			</div>
+		</body-section>
+	</my-panel>
+	<br />
+	<scroll-top-btn ng-if="scrollTopBtn && !isLoading"></scroll-top-btn>
+</div>

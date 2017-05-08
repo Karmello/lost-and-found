@@ -1,0 +1,28 @@
+<ul class="nav navbar-nav" ng-class="ins.class" my-directive>
+	<li class="dropdown">
+		<a
+			class="dropdown-toggle"
+			data-toggle="dropdown"
+			role="button"
+			aria-haspopup="true"
+			aria-expanded="false"
+		>
+			<span ng-class="ins.icon"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li
+				ng-repeat="switcher in ins.switchers"
+				role="{{ switcher._id == 'separator' ? 'separator' : undefined }}"
+				ng-class="switcher._id == 'separator' ? 'divider' : undefined"
+			>
+				<a
+					ng-if="switcher._id != 'separator'"
+					ng-href="{{ switcher.getRoute ? switcher.getRoute() : switcher.route }}"
+					ng-click="switcher.onClick()"
+				>
+					<span ng-class="switcher.icon"></span>&nbsp;&nbsp;&nbsp;{{ switcher.label }}
+				</a>
+			</li>
+		</ul>
+	</li>
+</ul>

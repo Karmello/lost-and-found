@@ -1,0 +1,37 @@
+#imgCropWindow {
+
+	img { max-width: 100%; }
+	input { display: none; }
+
+	.modal-body { position: relative; max-height: calc(100vh - 275px); }
+	.myLoader { background-color: white; }
+
+	#modalHeader {
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+
+		> div {
+			flex-grow: 1;
+			align-content: center;
+		}
+	}
+
+	#cropImgContainer {
+		height: 350px;
+		> * { margin: 0 auto; }
+	}
+
+	#alertContainer {
+		position: absolute;
+		top: 120px;
+		left: 0;
+		right: 0;
+
+		.myAlert {
+			margin: 50px auto;
+		}
+	}
+}

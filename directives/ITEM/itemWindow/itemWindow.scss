@@ -1,0 +1,37 @@
+#itemWindow {
+
+	.myModal {
+		.modal-content {
+			background-color: $gray-lighter;
+		}
+	}
+
+	.formCtrls {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		> div {
+			flex-grow: 1;
+			padding: 0 10px 0 10px;
+
+			.mySelectsGroup {
+				> div {
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: center;
+
+					.mySelect {
+						min-width: 150px;
+						margin: 3px;
+					}
+				}
+			}
+		}
+
+		textarea {
+			min-height: 175px !important;
+			text-align: justify;
+		}
+	}
+}

@@ -1,0 +1,49 @@
+<div class="items">
+	<my-collection-browser ins="collectionBrowser">
+		<extractrls ng-if="ctrlId == 'UserItems' && apiData.profileUser._isTheOneLoggedIn()">
+			<div id="actionBtns" class="myBtnsGroupCenter" ng-if="collectionBrowser.isReady()">
+				<my-btn
+					ctrl-class="'btn-primary'"
+					show-modal-id="displayAddItemWindow"
+					hard-data="{ label: ['phrases', 16] }"
+				></my-btn>
+				<my-btn
+					ng-if="collectionBrowser.collection.length > 0"
+					ctrl-class="'btn-danger'"
+					click-action="deleteElems"
+					hard-data="{ label: ['phrases', 14] }"
+				></my-btn>
+			</div>
+		</extractrls>
+		<elems>
+			<my-collection-elem
+				ng-repeat="item in collectionBrowser.collection"
+				data="item"
+				context-menu-conf="elemContextMenuConf"
+				is-selectable="ctrlId == 'UserItems' && apiData.profileUser._isTheOneLoggedIn()"
+			>
+				<title-section>
+					<a ui-sref="main.item({ tab: 'photos', id: item._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ item.title }}</a>
+				</title-section>
+				<avatar-section>
+					<item-avatar item="item"></item-avatar>
+				</avatar-section>
+				<top-info-section>
+					<div>
+						<p><span>{{ item.fullCategory }}</span></p>
+						<p>
+							<span ng-bind="hardData.phrases[59]"></span>
+							<span>{{ item.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
+							<span>({{ item.formattedDateAdded }})</span>
+						</p>
+						<p><span>{{ hardData.phrases[70] + ': ' + item.photos.length }}</span></p>
+						<p><span>{{ hardData.phrases[58] + ': ' + item.comments.length }}</span></p>
+					</div>
+					<div>
+						<item-icon-menu item="item"></item-icon-menu>
+					</div>
+				</top-info-section>
+			</my-collection-elem>
+		</elems>
+	</my-collection-browser>
+</div>

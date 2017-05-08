@@ -1,0 +1,26 @@
+<div class="comments">
+	<my-form ins="myForm">
+		<my-text-area model="myForm.model.values.content"></my-text-area>
+		<form-action-btns my-form="myForm"></form-action-btns>
+	</my-form>
+	<br />
+	<my-collection-browser ins="collectionBrowser" no-scroll-top-btn="true">
+		<elems>
+			<my-collection-elem
+				ng-repeat="comment in collectionBrowser.collection"
+				data="comment"
+				context-menu-conf="comment.userId == apiData.loggedInUser._id ? commentContextMenuConf : undefined"
+			>
+				<title-section>
+					{{ comment.user.username }} | {{ comment.pastSinceAdded + ' ' + hardData.phrases[139] }}
+				</title-section>
+				<avatar-section>
+					<user-avatar user="comment.user"></user-avatar>
+				</avatar-section>
+				<top-info-section>
+					<span ng-bind="comment.content"></span>
+				</top-info-section>
+			</my-collection-elem>
+		</elems>
+	</my-collection-browser>
+</div>

@@ -1,0 +1,22 @@
+#auctionSubscribersWindow {
+
+	@extend .wideModal;
+
+	.mySrcThumbs {
+		div.singleSrcContainer {
+
+			margin: 1px;
+
+			.mySrc {
+
+				img {
+					@extend .tinyAvatarSize;
+				}
+
+				.srcLabel {
+					width: 80px;
+				}
+			}
+		}
+	}
+}

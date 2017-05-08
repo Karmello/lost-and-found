@@ -1,0 +1,35 @@
+#lost-and-found-app-main {
+
+	padding-bottom: 50px;
+
+	.container-fluid {
+		max-width: 950px;
+	}
+
+	#underNavbarPanel {
+
+		display: flex;
+		justify-content: flex-end;
+		padding: 0;
+		margin: 0 0 10px 0;
+
+		> div {
+			.userAvatar {
+
+				display: flex;
+				align-items: center;
+				margin: 5px 0 5px 0;
+
+				> div {
+					padding: 0 5px 0 5px;
+					.mySrc {
+						img { @extend .tinyAvatarSize; }
+						.srcLabel {
+							width: 60px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

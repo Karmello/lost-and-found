@@ -1,0 +1,21 @@
+#auctionNumBox {
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	text-align: center;
+
+	.well {
+
+		padding: 5px 10px 5px 10px;
+		margin: 2px;
+		border: 2px solid $brand-info;
+
+		span {
+			display: block;
+			white-space: nowrap;
+			margin: 2px 5px 2px 5px;
+			line-height: 18px;
+		}
+	}
+}

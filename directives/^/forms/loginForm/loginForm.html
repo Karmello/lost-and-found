@@ -1,0 +1,24 @@
+<my-form ins="myForm">
+	<my-captcha
+		ctrl-id="'loginFormCaptcha'"
+		action-name="'login'"
+	></my-captcha>
+	<my-form-error-icon args="{ error: myForm.model.values.username.error, hideErrors: hideErrors }"></my-form-error-icon>
+	<my-input
+		ctrl-id="'username'"
+		ctrl-type="'text'"
+		ctrl-max-length="20"
+		model="myForm.model.values.username"
+		hard-data="{ label: ['phrases', 18] }"
+		hide-errors="true"
+	></my-input>
+	<my-input
+		ctrl-id="'password'"
+		ctrl-type="'password'"
+		ctrl-max-length="25"
+		model="myForm.model.values.password"
+		hard-data="{ label: ['phrases', 19] }"
+		hide-errors="true"
+	></my-input>
+	<form-action-btns my-form="myForm"></form-action-btns>
+</my-form>

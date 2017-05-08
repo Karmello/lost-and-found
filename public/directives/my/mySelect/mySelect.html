@@ -1,0 +1,18 @@
+<div class="mySelect myFormCtrl" my-directive>
+	<my-label text="label" css-class="'text-info'"></my-label>
+	<my-form-error-icon args="{ error: model.error, hideErrors: hideErrors }"></my-form-error-icon>
+	<select
+		id="{{ ctrlId }}"
+		class="form-control"
+		ng-class="{ empty: !model.value }"
+		ng-model="model.value"
+		ng-change="onSelect()"
+	>
+		<option ng-if="optionZero" value="" selected>{{ placeholder + ' ...' || '...' }}</option>
+		<option
+			ng-repeat="elem in collection"
+			ng-bind="elem[propNames.optionLabel]"
+			value="{{ elem[propNames.optionValue] }}"
+		></option>
+	</select>
+</div>

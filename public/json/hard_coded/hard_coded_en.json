@@ -1,0 +1,140 @@
+{
+	"_id": "en",
+	"languages": [
+		{ "value": "en", "label": "English" },
+		{ "value": "pl", "label": "Polish" }
+	],
+	"currencies": [
+		{ "value": "USD", "label": "Dollar" },
+		{ "value": "EUR", "label": "Euro" },
+		{ "value": "GBP", "label": "Pound" }
+	],
+	"themes": [
+		{ "value": "standard", "label": "Standard" },
+		{ "value": "darkly", "label": "Dark" },
+		{ "value": "cerulean", "label": "Cerulean" },
+		{ "value": "slate", "label": "Slate" },
+		{ "value": "cosmo", "label": "Cosmo" },
+		{ "value": "raw", "label": "Raw" }
+	],
+	"phrases": [
+		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
+		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Email", "Username", "Password",
+		"Current password", "New password", "First name", "Last name", "Title", "Country", "Choose", "Language", "Description", "Message",
+		"Original", "Cropped", "Logged out", "Logged in as", "Registration date", "Home", "Participants", "Browse", "User", "Settings",
+		"About", "Help", "Report", "Application", "Account", "Payment", "Danger zone", "Login", "Register", "Status",
+		"Regional", "Personal details", "Password", "Profile picture", "Paypal", "Delete account", "Deactivating", "Error", "Comments", "Added",
+		"Category", "Subcategory", "Item", "My items", "Nothing to show", "Deleting the item", "Currency", "Initial value", "Edit", "Go public",
+		"Photos", "Subscribers", "Going public", "Appearance", "Hello", "Items", "All", "Public", "Private", "View",
+		"Info", "Seller", "View profile", "Search", "Title", "Initial value", "Reverse", "Ascending", "Descending", "Page",
+		"By", "Scroll to top", "Found", "LostAndFoundApp", "Uploading profile picture", "Removing profile picture", "", "Bid increment", "Min. price", "Bid increment",
+
+		"Min. price", "Subscribe", "Currency", "Amount", "Amount", "Unsubscribe", "Refresh", "Select all", "Set as avatar", "Deleting",
+		"Deselect all", "Close", "Uploading", "Uploaded", "Deleting", "Deleted", "Failed", "Theme", "of user", "View an auction",
+		"Auction", "Approximately", "My subscriptions", "Subscriptions", "Increase", "Decrease", "Place bid", "The course of the auction", "Choose an image", "Rotate",
+		"Zoom in", "Zoom out", "Crop mode", "Move mode", "Auctions", "Move left", "Move right", "Date added", "Date added", "ago"
+	],
+	"sentences": [
+		"Why leaving us ?",
+		"The type of a report ?",
+		"You have subscribed to an aunction of this item.",
+		"welcomes You !",
+		"Log in to your account and take advantage of our services.",
+		"Register if you're not yet part of our community.",
+		"Couldn't log in ? Request new password.",
+		"Currently logged in as",
+		"Application regional settings.",
+		"Change your personal details.",
+
+		"Change your current password.",
+		"Upload new or remove existing profile picture.",
+		"Paypal account settings.",
+		"This action will completely delete your account and all the files and other information associated with it. You won't be able to restore it anytime later.",
+		"You are going to remove your account totally and loose all the data ! Are you sure you really wanna do that ?",
+		"This is your last chance ! If you continue your account will be gone !",
+		"",
+		"",
+		"Sure you want to continue ?",
+		"Are you sure you want to remove your profile picture ?",
+
+		"Something went wrong :( Try again later.",
+		"File is too large !",
+		"",
+		"",
+		"",
+		"You are trying to upload file with the wrong type.",
+		"You are trying to upload too large file. Max size is ",
+		"",
+		"You have just deactivated your account !",
+		"Your item has become public and is visible to all users from now on. You can find it in the \"Search\" section.",
+
+		"You have already reached maximum number of uploaded files allowed.",
+		"You are trying to upload too many files.",
+		"You cannot upload file with the same name again.",
+		"You'll be able to adjust these settings before going public.",
+		"Something went wrong :( Try to refresh the page.",
+		"You need to select some files.",
+		"",
+		"",
+		"",
+		"",
+
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"You'll lose all the data associated with this item (photos, subscribers). Are you sure you want to delete it ?",
+		"Public item needs to have at least 1 photo.",
+
+		"The item hasn't been made public yet.",
+		"This item is public.",
+		"Are you ready to make your item public ?",
+		"",
+		"Adjust appearance.",
+		"Below is verification link for resetting password. It will be active for the next 24 hours.",
+		"You can change it again anytime under password tab in account settings.",
+		"Enjoy using Auction House application !",
+		"Your new password have been emailed to you. Check spam folder in case you don't receive it in your inbox.",
+		"Auction House - password reset link",
+
+		"Auction House - new password",
+		"This is your new password",
+		"If it's not you who have made the request just ignore this email.",
+		"This item has been added by you."
+	],
+	"validation": [
+		"is required",
+		"is invalid",
+		"is incorrect",
+		"is already taken",
+		"Wrong credentials",
+		"must not contain any special characters",
+		"must not contain digits",
+		"must be a single word",
+		"must be an integer",
+		"must be a positive number",
+		"must not be a negative number",
+		"not found in database",
+		"must be greater than initial value",
+		"must not be longer than",
+		"must have length of"
+	],
+	"msgs": {
+		"titles": [
+			"Welcome !",
+			"Updating settings",
+			"Requesting new password"
+		],
+		"infos": [
+			"You are a part of are community now ! Thanks for joining :)",
+			"You have successfully updated your settings !",
+			"You have successfully updated your settings ! The app will be reloaded now.",
+			"Verification email with link to change the password have been sent. Check spam folder in case you don't receive it in your inbox.",
+			"Thank you for your message. We'll take it into account and try to respond as soon as possible."
+		]
+	}
+}

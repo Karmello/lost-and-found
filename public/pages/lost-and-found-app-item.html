@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="fragment" content="!" />
+	</head>
+	<body>
+		<div id="lost-and-found-app-item" ng-controller="ItemController">
+			<my-page scroll-top-btn="true" is-loading="!apiData.item || !apiData.itemUser" context-menu="itemContextMenu">
+				<my-page-body>
+					<div id="topSection">
+						<div id="usersSection">
+							<user-avatar user="apiData.itemUser"></user-avatar>
+						</div>
+						<div id="infoSection">
+							<div id="top">
+								<div>
+									<div>
+										<span>{{ apiData.item.title }}</span>
+									</div>
+									<div>
+										<span>{{ apiData.item.fullCategory }}</span>
+									</div>
+									<div>
+										<p>
+											<span ng-bind="hardData.phrases[59]"></span>
+											<span>{{ apiData.item.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
+											<span style="white-space: nowrap;">({{ apiData.item.formattedDateAdded }})</span>
+										</p>
+									</div>
+								</div>
+								<div>
+									<item-icon-menu item="apiData.item"></item-icon-menu>
+								</div>
+							</div>
+							<div id="description">
+								<p ng-bind="apiData.item.description"></p>
+							</div>
+						</div>
+					</div>
+					<br />
+					<my-tabs ins="ui.tabs.item"></my-tabs>
+					<div id="photosSection" ng-show="ui.tabs.item.activeSwitcherId == 'photos'">
+						<my-panel>
+							<title-section>
+								<span class="glyphicon glyphicon-picture"></span>
+								<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[70] }} ({{ apiData.item.photos.length }})</span>
+							</title-section>
+							<body-section>
+								<item-photos item="apiData.item" editable="apiData.itemUser._isTheOneLoggedIn()"></item-photos>
+							</body-section>
+						</my-panel>
+					</div>
+					<div id="auctionsSection" ng-show="ui.tabs.item.activeSwitcherId == 'auctions'">
+						<my-panel>
+							<title-section>
+								<span ng-class="ui.frames.main.getSwitcher('_id', 'auction').icon"></span>
+								<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[134] }} ({{ auctionsBrowser.meta.count }})</span>
+							</title-section>
+							<action-section>
+								<my-context-menu
+									ng-if="apiData.item.isPublic && apiData.itemUser._isTheOneLoggedIn()"
+									ins="auctionsContextMenu"
+								></my-context-menu>
+							</action-section>
+							<body-section>
+								<div id="collectionSection">
+									<auctions ctrl-id="ItemAuctions"></auctions>
+								</div>
+							</body-section>
+						</my-panel>
+					</div>
+					<div id="commentsSection" ng-show="ui.tabs.item.activeSwitcherId == 'comments'">
+						<my-panel>
+							<title-section>
+								<span class="glyphicon glyphicon-comment"></span>
+								<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[58] }} ({{ commentsBrowser.meta.count }})</span>
+							</title-section>
+							<body-section>
+								<comments ctrl-id="ItemComments"></comments>
+							</body-section>
+						</my-panel>
+					</div>
+				</my-page-body>
+			</my-page>
+		</div>
+	</body>
+</html>

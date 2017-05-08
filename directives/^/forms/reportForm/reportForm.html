@@ -1,0 +1,23 @@
+<div id="reportForm">
+	<my-form ins="myForm">
+		<div>
+			<my-select
+				ctrl-id="'reportType'"
+				model="myForm.model.values.reportTypeId"
+				collection="reportTypes"
+				option-zero="true"
+				prop-names="{ optionValue: '_id', optionLabel: 'label' }"
+				hard-data="{ label: ['sentences', 1], placeholder: ['phrases', 26] }"
+			></my-select>
+		</div>
+		<div>
+			<my-text-area
+				ctrl-id="'reportMessage'"
+				ctrl-max-length="2000"
+				model="myForm.model.values.reportMessage"
+				hard-data="{ label: ['phrases', 29] }"
+			></my-text-area>
+			<form-action-btns my-form="myForm"></form-action-btns>
+		</div>
+	</my-form>
+</div>

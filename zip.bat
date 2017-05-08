@@ -1,0 +1,1 @@
+7z a -tzip C:\Users\Kamil\Desktop\laf.zip D:\Workspace\laf\dev

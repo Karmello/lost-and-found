@@ -1,0 +1,64 @@
+<my-form ins="myForm">
+	<my-captcha
+		ctrl-id="'registerFormCaptcha'"
+		action-name="'register'"
+	></my-captcha>
+	<my-input
+		ctrl-id="'email'"
+		ctrl-type="'text'"
+		ctrl-max-length="254"
+		model="myForm.model.values.email"
+		hard-data="{ label: ['phrases', 17] }"
+	></my-input>
+	<my-input
+		ctrl-id="'username'"
+		ctrl-type="'text'"
+		ctrl-max-length="20"
+		model="myForm.model.values.username"
+		hard-data="{ label: ['phrases', 18] }"
+	></my-input>
+	<my-input
+		ctrl-id="'password'"
+		ctrl-type="'password'"
+		ctrl-max-length="25"
+		model="myForm.model.values.password"
+		hard-data="{ label: ['phrases', 19] }"
+	></my-input>
+	<my-input
+		ctrl-id="'firstname'"
+		ctrl-type="'text'"
+		ctrl-max-length="20"
+		model="myForm.model.values.firstname"
+		hard-data="{ label: ['phrases', 22] }"
+	></my-input>
+	<my-input
+		ctrl-id="'lastname'"
+		ctrl-type="'text'"
+		ctrl-max-length="20"
+		model="myForm.model.values.lastname"
+		hard-data="{ label: ['phrases', 23] }"
+	></my-input>
+	<my-selects-group
+		collection="countries.data"
+		model="myForm.model.values.country"
+		hard-data="{ label: ['phrases', 25] }"
+	>
+		<my-select
+			ctrl-id="'countryFirstLetter'"
+			collection=""
+			model="myForm.model.values.countryFirstLetter"
+			prop-names="{ optionValue: 'label', optionLabel: 'label' }"
+		></my-select>
+		<my-select
+			ctrl-id="'country'"
+			collection=""
+			nested-collection-field-name="'children'"
+			model="myForm.model.values.country"
+			option-zero="true"
+			prop-names="{ optionValue: 'name', optionLabel: 'name' }"
+			hide-errors="true"
+			hard-data="{ placeholder: ['phrases', 26] }"
+		></my-select>
+	</my-selects-group>
+	<form-action-btns my-form="myForm"></form-action-btns>
+</my-form>

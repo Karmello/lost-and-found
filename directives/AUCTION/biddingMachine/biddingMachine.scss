@@ -1,0 +1,25 @@
+.biddingMachine {
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	text-align: center;
+
+	> div {
+		flex-grow: 1;
+	}
+
+	.well {
+
+		min-width: 200px;
+		border: 2px solid $brand-info;
+		border-radius: 20px;
+
+		span {
+			font-size: 32px;
+			font-weight: bold;
+		}
+	}
+}

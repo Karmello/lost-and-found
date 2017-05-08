@@ -1,0 +1,11 @@
+<my-form ins="myForm">
+	<my-select
+		ctrl-id="'language'"
+		model="myForm.model.values.language"
+		collection="hardData.languages"
+		option-zero="false"
+		prop-names="{ optionValue: 'value', optionLabel: 'label' }"
+		hard-data="{ label: ['phrases', 27] }"
+	></my-select>
+	<form-action-btns my-form="myForm"></form-action-btns>
+</my-form>

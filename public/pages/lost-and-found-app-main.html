@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="fragment" content="!" />
+	</head>
+	<body>
+		<div id="lost-and-found-app-main" ng-controller="MainController">
+
+			<!-- File inputs -->
+			<single-file-input></single-file-input>
+			<multiple-files-input></multiple-files-input>
+
+			<!-- Custom modals -->
+			<item-window></item-window>
+			<auction-window></auction-window>
+			<auction-subscribers-window my-modal="ui.modals.auctionSubscribersModal"></auction-subscribers-window>
+
+
+
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<div class="navbar-brand" ng-bind="hardData.phrases[93]"></div>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<my-nav-menu ins="ui.menus.top"></my-nav-menu>
+						<div class="navbar-right">
+							<my-nav-drop-down ins="ui.dropdowns.mainFrameNav"></my-nav-drop-down>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<div class="container-fluid">
+				<div id="underNavbarPanel" class="well">
+					<div>
+						<user-avatar user="apiData.loggedInUser" no-label="true"></user-avatar>
+					</div>
+				</div>
+				<div>
+					<ng-include
+						ng-repeat="page in ui.frames.main.switchers"
+						src="page.templateName ? 'public/pages/lost-and-found-app-' + page.templateName + '.html' : 'public/pages/lost-and-found-app-' + page._id + '.html'"
+						ng-show="page._id == ui.frames.main.activeSwitcherId"
+					></ng-include>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

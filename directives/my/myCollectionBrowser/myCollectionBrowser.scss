@@ -1,0 +1,27 @@
+.myCollectionBrowser {
+
+	position: relative;
+
+	.ctrls {
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: flex-start;
+		align-content: flex-start;
+
+		width: 100%;
+		padding: 0 15px 15px 15px;
+
+		> div.myPager {}
+
+		> div.refresher {
+
+			.glyphicon-refresh {
+				top: 2px;
+			}
+		}
+	}
+
+	.collection {}
+}

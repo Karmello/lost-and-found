@@ -1,0 +1,41 @@
+<div class="myCollectionBrowser">
+	<div class="ctrls">
+		<div ng-transclude="frontctrls"></div>
+		<div ng-if="ins.filterer">
+			<my-drop-down ins="ins.filterer" open-direction="'down'"></my-drop-down>
+		</div>
+		<div ng-if="ins.sorter && ins.collection.length > 0">
+			<my-drop-down ins="ins.sorter" open-direction="'down'"></my-drop-down>
+		</div>
+		<div ng-if="ins.orderer && ins.collection.length > 0">
+			<my-drop-down ins="ins.orderer" open-direction="'down'"></my-drop-down>
+		</div>
+		<div class="myPager" ng-show="ins.pager.switchers.length > 1">
+			<my-drop-down ins="ins.pager" open-direction="'down'"></my-drop-down>
+		</div>
+		<div class="refresher">
+			<div>
+				<button
+					type="button"
+					class="myBtn btn"
+					ng-class="ins.refresher.class"
+					ng-click="ins.onRefreshClick()"
+					ng-show="ins.refresher"
+				>
+					<span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;
+					<span ng-bind="ins.refresher.refresherLabel"></span>
+				</button>
+			</div>
+		</div>
+		<div ng-transclude="endctrls"></div>
+	</div>
+	<div ng-transclude="extractrls"></div>
+	<div class="collection" ng-if="!ins.loader.isLoading" ng-show="ins.collection.length > 0">
+		<br />
+		<div ng-transclude="elems"></div>
+		<br />
+		<scroll-top-btn ng-if="!noScrollTopBtn && ins.collection.length >= 5" ng-show="ins.pager"></scroll-top-btn>
+		<br />
+	</div>
+	<my-loader ng-show="ins.loader.isLoading"></my-loader>
+</div>

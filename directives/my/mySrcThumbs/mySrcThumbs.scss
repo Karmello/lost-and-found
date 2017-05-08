@@ -1,0 +1,42 @@
+.mySrcThumbs {
+
+	position: relative;
+	padding: 15px 0 15px 0;
+
+	#contextMenuContainer {
+		position: absolute;
+		top: -50px;
+		right: 0;
+	}
+
+	#allSrcsContainer {
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+
+		div.singleSrcContainer {
+			margin: 3px;
+		}
+	}
+
+	.myModal {
+
+		img {
+			width: auto;
+		}
+
+		.close {
+			color: $gray-lighter;
+		}
+
+		.modal-dialog {
+
+		}
+
+		.modal-content {
+			color: $gray-lighter;
+			background-color: black;
+		}
+	}
+}

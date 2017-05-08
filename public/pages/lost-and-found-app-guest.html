@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="fragment" content="!" />
+	</head>
+	<body>
+		<div id="lost-and-found-app-guest" class="container" ng-controller="GuestController">
+			<div class="row">
+				<div id="infoSection" class="col-md-6">
+					<div class="page-header jumbotron">
+						<h2>{{ hardData.phrases[93] }}<br /><small>{{ hardData.sentences[3] }}</small></h2>
+					</div>
+				</div>
+				<div id="formSection" class="col-md-6">
+					<my-tabs ins="ui.tabs.guest"></my-tabs>
+					<login-form ng-show="ui.tabs.guest.activeSwitcherId == 'login'"></login-form>
+					<register-form ng-show="ui.tabs.guest.activeSwitcherId == 'register'"></register-form>
+					<recover-form ng-show="ui.tabs.guest.activeSwitcherId == 'recover'"></recover-form>
+					<user-badge ng-if="ui.tabs.guest.activeSwitcherId == 'status'"></user-badge>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+#lost-and-found-app-guest {
+
+	#infoSection {
+
+		> div {
+			text-align: center;
+			@media only screen and (min-width: 768px) { text-align: left; }
+		}
+	}
+
+	#formSection {
+
+		.myTabs { max-width: 450px; }
+		.myForm { max-width: 300px; }
+		.myTabs, .myForm { margin: 50px auto; }
+		.userBadge { margin-bottom: 50px; }
+	}
+}

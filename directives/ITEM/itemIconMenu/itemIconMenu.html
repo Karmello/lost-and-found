@@ -1,0 +1,33 @@
+<div class="itemIconMenu">
+
+	<!-- own item icon -->
+	<div
+		ng-if="item._isOwn() && (mainFrame.activeSwitcherId == 'search' || mainFrame.activeSwitcherId == 'item')"
+		class="own"
+	>
+		<my-pop-over-icon hard-data="{ title: ['phrases', 80], message: ['sentences', 63] }">
+			<span class="glyphicon glyphicon-star"></span>
+		</my-pop-over-icon>
+	</div>
+
+	<!-- public item icon -->
+	<div
+		ng-if="item._isOwn() && item.isPublic && (mainFrame.activeSwitcherId == 'user' || mainFrame.activeSwitcherId == 'item')"
+		class="public"
+	>
+		<my-pop-over-icon hard-data="{ title: ['phrases', 49], message: ['sentences', 51] }">
+			<span class="glyphicon glyphicon-check"></span>
+		</my-pop-over-icon>
+	</div>
+
+	<!-- private item icon -->
+	<div
+		ng-if="item._isOwn() && !item.isPublic && (mainFrame.activeSwitcherId == 'user' || mainFrame.activeSwitcherId == 'item')"
+		class="private"
+	>
+		<my-pop-over-icon hard-data="{ title: ['phrases', 49], message: ['sentences', 50] }">
+			<span class="glyphicon glyphicon-ban-circle"></span>
+		</my-pop-over-icon>
+	</div>
+
+</div>

@@ -13,7 +13,7 @@
 				<avatar-section ng-if="ctrlId == 'UserAuctions'">
 					<item-avatar item="auction.item"></item-avatar>
 				</avatar-section>
-				<top-info-section>
+				<info-section>
 					<div>
 						<span ng-bind="hardData.phrases[59]"></span>
 						<span>{{ auction.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
@@ -23,10 +23,7 @@
 						<span>{{ hardData.phrases[71] }}:</span>
 						<span>{{ auction.subscribers.length }}</span>
 					</div>
-				</top-info-section>
-				<bottom-section>
-					<auction-num-box auction="auction"></auction-num-box>
-				</bottom-section>
+				</info-section>
 			</my-collection-elem>
 		</elems>
 	</my-collection-browser>

@@ -5,13 +5,15 @@
 	</head>
 	<body>
 		<div id="lost-and-found-app-report" ng-controller="ReportController">
-			<my-page>
-				<my-page-body>
-					<div>
-						<report-form></report-form>
-					</div>
-				</my-page-body>
-			</my-page>
+			<my-panel>
+				<title-section>
+					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+				</title-section>
+				<body-section>
+					<report-form></report-form>
+				</body-section>
+			</my-panel>
 		</div>
 	</body>
 </html>

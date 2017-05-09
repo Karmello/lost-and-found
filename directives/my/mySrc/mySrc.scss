@@ -5,7 +5,6 @@
 	position: relative;
 	display: table;
 	margin: 0 auto;
-	//background-color: $body-bg;
 
 	a.linkDisabled {
 		cursor: default !important;
@@ -39,7 +38,6 @@
 	}
 
 	.isSelected {
-		background-color: black;
 		img { opacity: 0.3; }
 	}
 

@@ -57,8 +57,7 @@
 
 	var nums = {
 		itemMaxPhotos: 15,
-		photoMaxSize: 1048576,
-		publicItemMinPhotos: 1
+		photoMaxSize: 1048576
 	};
 
 	angular.module('appModule').constant('URLS', urls);
@@ -132,7 +131,7 @@
 
 				switch (toState.name) {
 
-					case 'main.user':
+					case 'main.profile':
 					case 'main.item':
 
 						if (toState.id == toParams.id) {
@@ -186,7 +185,7 @@
 					icon: 'glyphicon glyphicon-search'
 				},
 				{
-					_id: 'user',
+					_id: 'profile',
 					label: hardData.phrases[38],
 					icon: 'glyphicon glyphicon-user'
 				},
@@ -212,11 +211,6 @@
 					_id: 'item',
 					label: hardData.phrases[62],
 					icon: 'glyphicon glyphicon-shopping-cart'
-				},
-				{
-					_id: 'auction',
-					label: hardData.phrases[120],
-					icon: 'glyphicon glyphicon-flag'
 				},
 				{
 					_id: 'settings',
@@ -366,23 +360,6 @@
 			deleteItemModal: new MyModal({
 				typeId: 'confirmDangerModal',
 				title: hardData.phrases[65]
-			}),
-			makeItemPublicModal: new MyModal({
-				typeId: 'confirmModal',
-				title: hardData.phrases[72],
-				message: hardData.sentences[52],
-				img: 'public/imgs/item.png'
-			}),
-			cannotMakeItemPublicModal: new MyModal({
-				typeId: 'infoModal',
-				title: hardData.phrases[72],
-				message: hardData.sentences[49]
-			}),
-			itemMadePublicModal: new MyModal({
-				typeId: 'infoModal',
-				title: hardData.phrases[72],
-				message: hardData.sentences[29],
-				img: 'public/imgs/item.png'
 			}),
 			auctionSubscribersModal: new MyModal({
 				id: 'auctionSubscribersModal',
@@ -586,34 +563,13 @@
 		return tabs;
 	};
 
-	var userTabsConf = function($rootScope) {
-
-		var getRoute = function() {
-			return '/#/user/' + this._id + '?id=' + $rootScope.apiData.profileUser._id;
-		};
-
-		var config = {
-			_ctrlId: 'userTabs',
-			switchers: [
-				{
-					_id: 'items',
-					getRoute: getRoute
-				},
-				{
-					_id: 'subscriptions',
-					getRoute: getRoute
-				}
-			],
-			hardData: { switchers_label: ['phrases', [75, 123]] }
-		};
-
-		return config;
-	};
-
 	var itemTabsConf = function($rootScope) {
 
 		var getRoute = function() {
-			return '/#/item/' + this._id + '?id=' + $rootScope.apiData.item._id;
+
+			if ($rootScope.apiData.item) {
+				return '/#/item/' + this._id + '?id=' + $rootScope.apiData.item._id;
+			}
 		};
 
 		var config = {
@@ -645,12 +601,10 @@
 
 	guestTabsConf.$inject = ['$rootScope'];
 	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
-	userTabsConf.$inject = ['$rootScope'];
 	itemTabsConf.$inject = ['$rootScope'];
 
 	angular.module('appModule').service('guestTabsConf', guestTabsConf);
 	angular.module('appModule').service('settingsTabsConf', settingsTabsConf);
-	angular.module('appModule').service('userTabsConf', userTabsConf);
 	angular.module('appModule').service('itemTabsConf', itemTabsConf);
 
 })();
@@ -922,6 +876,19 @@
 
 	'use strict';
 
+	var ProfileController = function($rootScope, $scope) {
+
+
+	};
+
+	ProfileController.$inject = ['$rootScope', '$scope'];
+	angular.module('appModule').controller('ProfileController', ProfileController);
+
+})();
+(function() {
+
+	'use strict';
+
 	var ReportController = function($scope, sessionConst) {
 
 
@@ -956,19 +923,6 @@
 
 	SettingsController.$inject = ['$scope', 'ui'];
 	angular.module('appModule').controller('SettingsController', SettingsController);
-
-})();
-(function() {
-
-	'use strict';
-
-	var UserController = function($rootScope, $scope) {
-
-
-	};
-
-	UserController.$inject = ['$rootScope', '$scope'];
-	angular.module('appModule').controller('UserController', UserController);
 
 })();
 (function() {
@@ -1109,40 +1063,6 @@
 				ui.frames.main.activateSwitcher('about');
 				ui.menus.top.activateSwitcher('about');
 			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.auction', {
-			url: '/auction/:id',
-			resolve: {
-				_apiData: function(itemCategories, $rootScope, $q) {
-
-					return $q(function(resolve) {
-						$rootScope.apiData.auction = undefined;
-						resolve();
-					});
-				},
-				_ui: function(_apiData, $q, ui) {
-
-					return $q(function(resolve) {
-						ui.menus.top.activateSwitcher();
-						ui.frames.main.activateSwitcher('auction');
-						resolve();
-					});
-				},
-				_auction: function(_ui, $stateParams, AuctionsRest) {
-					return AuctionsRest.getList({ _id: $stateParams.id });
-				},
-				_item: function(_auction, $rootScope, ItemsRest) {
-					return ItemsRest.getList({ _id: $rootScope.apiData.auction.itemId });
-				}
-			},
-			onEnter: function() {}
 		});
 	});
 
@@ -1387,6 +1307,43 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
+		$stateProvider.state('main.profile', {
+			url: '/profile?id',
+			resolve: {
+				_ui: function(itemCategories, $q, ui)	 {
+
+					return $q(function(resolve) {
+
+						ui.menus.top.activateSwitcher();
+						ui.frames.main.activateSwitcher('profile');
+						resolve();
+					});
+				},
+				_user: function(_ui, $stateParams, $q, UsersRest) {
+
+					return $q(function(resolve) {
+
+						UsersRest.getList({ _id: $stateParams.id }).then(function() {
+							resolve(true);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				}
+			},
+			onEnter: function(_user, $rootScope) {
+
+				if (!_user) { $rootScope.ui.modals.tryAgainLaterModal.show(); }
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
 		$stateProvider.state('main.report', {
 			url: '/report',
 			onEnter: function(ui) {
@@ -1418,7 +1375,7 @@
 			},
 			onEnter: function($rootScope) {
 
-				//$rootScope.$broadcast('initSearchItems');
+
 			}
 		});
 	});
@@ -1547,70 +1504,6 @@
 })();
 (function() {
 
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.user', {
-			url: '/user/:tab?id',
-			resolve: {
-				_apiData: function(itemCategories, $rootScope, $stateParams, $q) {
-
-					return $q(function(resolve) {
-
-						if ($rootScope.apiData.profileUser && $rootScope.apiData.profileUser._id != $stateParams.id) {
-							$rootScope.apiData.profileUser = undefined;
-						}
-
-						resolve();
-					});
-				},
-				_ui: function(_apiData, $q, $stateParams, ui)	 {
-
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher();
-						ui.frames.main.activateSwitcher('user');
-						ui.tabs.user.activateSwitcher($stateParams.tab);
-						resolve();
-					});
-				},
-				_user: function(_ui, $stateParams, $q, UsersRest) {
-
-					return $q(function(resolve) {
-
-						UsersRest.getList({ _id: $stateParams.id }).then(function() {
-							resolve(true);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				}
-			},
-			onEnter: function(_user, $rootScope, $stateParams) {
-
-				if (!_user) {
-					$rootScope.ui.modals.tryAgainLaterModal.show();
-
-				} else {
-
-					// switch ($stateParams.tab) {
-
-					// 	case 'items':
-					// 		$rootScope.$broadcast('initUserItems', { userId: $stateParams.id });
-					// 		break;
-
-					// 	case 'subscriptions':
-					// 		$rootScope.$broadcast('initUserAuctions', { userId: $stateParams.id });
-					// 		break;
-					// }
-				}
-			}
-		});
-	});
-
-})();
-(function() {
-
 	'use strict';
 
 	var apiService = function(
@@ -1642,6 +1535,7 @@
 				});
 
 				Restangular.addElementTransformer('items', false, function(item) {
+					item.truncatedTitle = item.title.truncate(25);
 					item.formattedDateAdded = $moment(item.dateAdded).format('DD-MM-YYYY HH:mm');
 					item.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(item.dateAdded))).humanize();
 					service.createItemFullCategoryString(item);
@@ -1734,13 +1628,7 @@
 
 									} else if (res.config.params.userId) {
 
-										if (res.config.params.userId == $rootScope.apiData.loggedInUser._id) {
-											itemsConf.ownCollectionBrowser.setData(data);
-
-										} else {
-											itemsConf.anotherUsersCollectionBrowser.setData(data);
-										}
-
+										itemsConf.profileCollectionBrowser.setData(data);
 										return data.collection;
 
 									} else {
@@ -2450,8 +2338,8 @@
 	'use strict';
 
 	var ui = function(
-		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, userTabsConf,
-		itemTabsConf, mainFrameNavConf, modalsConf, myClass, uiSetupService
+		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, itemTabsConf,
+		mainFrameNavConf, modalsConf, myClass, uiSetupService
 	) {
 
 		angular.forEach(mainFrameConf.switchers, function(source) {
@@ -2483,7 +2371,6 @@
 				account: new myClass.MySwitchable(settingsTabsConf.account),
 				payment: new myClass.MySwitchable(settingsTabsConf.payment),
 				danger: new myClass.MySwitchable(settingsTabsConf.danger),
-				user: new myClass.MySwitchable(userTabsConf),
 				item: new myClass.MySwitchable(itemTabsConf)
 			},
 			dropdowns: {
@@ -2503,8 +2390,8 @@
 	};
 
 	ui.$inject = [
-		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'userTabsConf',
-		'itemTabsConf', 'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
+		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'itemTabsConf',
+		'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
 	];
 
 	angular.module('appModule').service('ui', ui);
@@ -2730,9 +2617,9 @@
 
 				// Fetching collection to display
 
-				that.fetchData(that.createFetchQuery()).then(function(res) {
+				try {
 
-					try {
+					that.fetchData(that.createFetchQuery()).then(function(res) {
 
 						// Initializing pager ctrl
 
@@ -2776,17 +2663,17 @@
 						that.updateRefresher();
 						that.loader.stop(function() { if (cb) { cb(true); } });
 
-					} catch (ex) {
+					}, function(res) {
 
 						that.flush();
 						that.loader.stop(function() { if (cb) { cb(false); } });
-					}
+					});
 
-				}, function(res) {
+				} catch (ex) {
 
 					that.flush();
 					that.loader.stop(function() { if (cb) { cb(false); } });
-				});
+				}
 			});
 		};
 
@@ -2881,19 +2768,22 @@
 					currentPage = that.pager.activeSwitcherId;
 				}
 
-				// Reinitializing
-				that.init(function() {
+				if (switcher.parent._id == 'pager') {
 
-					// Activating stored pager's switcher
-					if (that.pager && angular.isDefined(currentPage)) {
-						that.pager.activateSwitcher(currentPage);
-					}
+					// Reinitializing
+					that.init(function() {
 
-					// If ctrl other than pager is being switched
-					if (switcher.parent._id !== 'pager') {
-						that[switcher.parent._id].activateSwitcher(switcher._id);
-					}
-				});
+						// Activating stored pager's switcher
+						if (that.pager && angular.isDefined(currentPage)) {
+							that.pager.activateSwitcher(currentPage);
+						}
+
+						// If ctrl other than pager is being switched
+						if (switcher.parent._id !== 'pager') {
+							that[switcher.parent._id].activateSwitcher(switcher._id);
+						}
+					});
+				}
 			}
 		};
 
@@ -4230,7 +4120,7 @@
 
 			user._isTheOneLoggedIn = function() {
 
-				return user._id == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+				return user._id == $rootScope.apiData.loggedInUser._id;
 			};
 
 			return user;
@@ -4325,31 +4215,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('scrollTopBtn', function() {
-
-		var scrollTopBtn = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
-			controller: function($scope) {
-
-				$scope.scroll = function() {
-					$('html, body').animate({ scrollTop: 0 }, 'fast');
-				};
-			}
-		};
-
-		return scrollTopBtn;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('appearanceForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
 
 		var appearanceForm = {
@@ -4376,6 +4241,31 @@
 		};
 
 		return appearanceForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('scrollTopBtn', function() {
+
+		var scrollTopBtn = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
+			controller: function($scope) {
+
+				$scope.scroll = function() {
+					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				};
+			}
+		};
+
+		return scrollTopBtn;
 	});
 
 })();
@@ -4686,50 +4576,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $http, $timeout, ReportTypesRest, myClass) {
-
-		var reportForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/reportForm/reportForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				var formModel = new myClass.MyFormModel('reportModel', ['reportTypeId', 'reportMessage'], false);
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'reportForm',
-					model: formModel,
-					submitAction: function(args) {
-
-						return ReportTypesRest.post(formModel.getValues());
-					},
-					submitSuccessCb: function(res) {
-
-						formModel.clear();
-					}
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return $rootScope.apiData.reportTypes; }, function(newValue) {
-						scope.reportTypes = newValue;
-					});
-				};
-			}
-		};
-
-		return reportForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 
 
 	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, fileService, MyForm, UsersRest) {
@@ -4768,6 +4614,50 @@
 		};
 
 		return registerForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('reportForm', function($rootScope, $http, $timeout, ReportTypesRest, myClass) {
+
+		var reportForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/reportForm/reportForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				var formModel = new myClass.MyFormModel('reportModel', ['reportTypeId', 'reportMessage'], false);
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'reportForm',
+					model: formModel,
+					submitAction: function(args) {
+
+						return ReportTypesRest.post(formModel.getValues());
+					},
+					submitSuccessCb: function(res) {
+
+						formModel.clear();
+					}
+				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return $rootScope.apiData.reportTypes; }, function(newValue) {
+						scope.reportTypes = newValue;
+					});
+				};
+			}
+		};
+
+		return reportForm;
 	});
 
 })();
@@ -5195,7 +5085,7 @@
 
 				switch ($state.current.name) {
 
-					case 'main.user':
+					case 'main.profile':
 						$rootScope.$broadcast('initUserAuctions');
 						break;
 
@@ -5375,7 +5265,7 @@
 							var that = this;
 
 							$rootScope.ui.modals.auctionSubscribersModal.hide(function() {
-								$state.go('main.user', { id: that._id });
+								$state.go('main.profile', { id: that._id });
 							});
 						};
 
@@ -5610,8 +5500,10 @@
 			singlePageSize: 10,
 			fetchData: function(query) {
 
-				query.itemId = $rootScope.apiData.item._id;
-				return CommentsRest.getList(query);
+				if ($rootScope.apiData.item) {
+					query.itemId = $rootScope.apiData.item._id;
+					return CommentsRest.getList(query);
+				}
 			}
 		});
 
@@ -6107,6 +5999,119 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('itemWindow', function($rootScope, $timeout, $state, myClass, Restangular, ItemsRest) {
+
+		var actionMethodName;
+
+		var itemWindow = {
+			restrict: 'E',
+			templateUrl: 'public/directives/ITEM/itemWindow/itemWindow.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.itemCategories = $rootScope.apiData.itemCategories;
+
+				$scope.myModal = new myClass.MyModal({ id: 'itemModal', title: $rootScope.hardData.phrases[62] });
+				$scope.myModel = new myClass.MyFormModel('itemModel', ['_id', 'userId', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				$scope.myForm = new myClass.MyForm({ ctrlId: 'itemForm', model: $scope.myModel });
+
+
+
+				$scope.addItem = function(args) {
+
+					// Setting model userId value
+					$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+
+					$scope.myForm.submitSuccessCb = function(res) {
+						$scope.myModal.hide(function() {
+							$rootScope.$broadcast('initUserItems', { userId: $scope.myModel.getValue('userId') });
+						});
+					};
+
+					// Making http request
+					return ItemsRest.post($scope.myModel.getValues());
+				};
+
+				$scope.editItem = function(args) {
+
+					// Making copy of active item
+					var copy = Restangular.copy($rootScope.apiData.item);
+
+					// Updating model values
+					$scope.myModel.setRestObj(copy);
+
+					$scope.myForm.submitSuccessCb = function(res) {
+
+						$scope.myModal.hide(function() {
+
+							$rootScope.apiData.item = undefined;
+
+							$timeout(function() {
+
+								$rootScope.apiData.item = res.data;
+
+								if ($state.current.name == 'main.profile') {
+									$rootScope.$broadcast('initUserItems', { userId: $rootScope.apiData.item.userId });
+								}
+							}, 300);
+						});
+					};
+
+					$scope.myForm.submitErrorCb = function(res) {
+
+						$rootScope.apiData.item = copy;
+					};
+
+					// Making request
+					return copy.put();
+				};
+
+				$scope.myForm.submitAction = function(args) {
+
+					return $scope[actionMethodName](args);
+				};
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$on('displayAddItemWindow', function(e, args) {
+
+						actionMethodName = 'addItem';
+						scope.myForm.showResetBtn = false;
+
+						scope.myModel.set({});
+						scope.myModel.clearErrors();
+						scope.myModal.show();
+					});
+
+					scope.$on('displayEditItemWindow', function(e, args) {
+
+						var item;
+						if (args && args.item) { $rootScope.apiData.item = args.item; }
+
+						actionMethodName = 'editItem';
+						scope.topText = '';
+						scope.myForm.showResetBtn = true;
+
+						scope.myModel.set($rootScope.apiData.item);
+						scope.myModel.clearErrors();
+						scope.myModal.show();
+					});
+				};
+			}
+		};
+
+		return itemWindow;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('items', function($rootScope, itemsConf, itemsService) {
 
 		var items = {
@@ -6124,46 +6129,32 @@
 
 					itemsService.deleteItems($scope.collectionBrowser.getSelectedCollection());
 				};
-
-				$scope.init = function() {
-
-					switch ($scope.ctrlId) {
-
-						case 'UserItems':
-
-							if ($rootScope.apiData.profileUser._id == $rootScope.apiData.loggedInUser._id) {
-								$scope.collectionBrowser = itemsConf.ownCollectionBrowser;
-								$scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
-
-							} else {
-								$scope.collectionBrowser = itemsConf.anotherUsersCollectionBrowser;
-							}
-
-							break;
-
-						case 'SearchItems':
-							$scope.collectionBrowser = itemsConf.searchCollectionBrowser;
-							break;
-					}
-
-					$scope.collectionBrowser.init();
-				};
-
-				if (!$scope.collectionBrowser) { $scope.init(); }
 			},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
-					if (!$rootScope.$$listeners['init' + scope.ctrlId]) {
-						$rootScope.$on('init' + scope.ctrlId, function(e, args) {
-							scope.init();
-						});
-					}
+					switch (scope.ctrlId) {
 
-					scope.$on('$destroy', function() {
-						$rootScope.$$listeners['init' + scope.ctrlId] = null;
-					});
+						case 'UserItems':
+
+							scope.collectionBrowser = itemsConf.profileCollectionBrowser;
+							scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
+
+							scope.$watch('apiData.profileUser._id', function(userId) {
+								if (angular.isDefined(userId)) {
+									scope.collectionBrowser.init();
+								}
+							});
+
+							break;
+
+						case 'SearchItems':
+
+							scope.collectionBrowser = itemsConf.searchCollectionBrowser;
+							scope.collectionBrowser.init();
+							break;
+					}
 				};
 			}
 		};
@@ -6181,7 +6172,23 @@
 		var hardData = hardDataService.get();
 
 		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 10,
+			singlePageSize: 25,
+			filterer: {
+				switchers: [
+					{
+						_id: 'all',
+						label: hardData.phrases[76]
+					},
+					{
+						_id: 'L',
+						label: hardData.itemTypes[0].label
+					},
+					{
+						_id: 'F',
+						label: hardData.itemTypes[1].label
+					}
+				]
+			},
 			sorter: {
 				switchers: [
 					{
@@ -6206,8 +6213,8 @@
 			}
 		});
 
-		this.ownCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 10,
+		this.profileCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 25,
 			filterer: {
 				switchers: [
 					{
@@ -6215,41 +6222,12 @@
 						label: hardData.phrases[76]
 					},
 					{
-						_id: 'public',
-						label: hardData.phrases[77]
+						_id: 'L',
+						label: hardData.itemTypes[0].label
 					},
 					{
-						_id: 'private',
-						label: hardData.phrases[78]
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.phrases[84]
-					},
-					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.userId = $rootScope.apiData.loggedInUser._id;
-				return ItemsRest.getList(query);
-			}
-		});
-
-		this.anotherUsersCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 10,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.phrases[76]
+						_id: 'F',
+						label: hardData.itemTypes[1].label
 					}
 				]
 			},
@@ -6280,18 +6258,6 @@
 					label: hardData.phrases[68],
 					onClick: function() {
 						$rootScope.$broadcast('displayEditItemWindow', { item: this.parent.data });
-					}
-				},
-				{
-					_id: 'make_public',
-					label: hardData.phrases[69],
-					onClick: function() {
-						itemsService.makeItemPublic(this.parent.data);
-					},
-					isHidden: function() {
-						if (this.parent.data) {
-							return this.parent.data.isPublic;
-						}
 					}
 				},
 				{
@@ -6364,50 +6330,18 @@
 
 							switch ($state.current.name) {
 
-								case 'main.user':
+								case 'main.profile':
 									$rootScope.$broadcast('initUserItems', { userId: $stateParams.id });
 									break;
 
 								case 'main.item':
-									$state.go('main.user', { id: item.userId });
+									$state.go('main.profile', { id: item.userId });
 									break;
 							}
 						});
 					}
 				});
 			}
-		};
-
-		service.makeItemPublic = function(item) {
-
-			// Showing goPublic confirm modal
-			$rootScope.ui.modals.makeItemPublicModal.show({
-				acceptCb: function() {
-
-					var copy = Restangular.copy(item);
-					copy.isPublic = true;
-
-					if ($state.current.name == 'main.item') { $rootScope.apiData.item = undefined; }
-
-					// Making http request
-					copy.put().then(function(res) {
-
-						if ($state.current.name == 'main.item') {
-							$rootScope.apiData.item = copy;
-
-						} else {
-							$rootScope.$broadcast('initUserItems', { userId: $stateParams.id });
-						}
-
-						$timeout(function() {
-							$rootScope.ui.modals.itemMadePublicModal.show();
-						}, 500);
-
-					}, function(res) {
-						$rootScope.ui.modals.tryAgainLaterModal.show();
-					});
-				}
-			});
 		};
 
 		return service;
@@ -6417,120 +6351,6 @@
 
 	itemsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'Restangular'];
 	angular.module('appModule').service('itemsService', itemsService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('itemWindow', function($rootScope, $timeout, $state, myClass, Restangular, ItemsRest) {
-
-		var actionMethodName;
-
-		var itemWindow = {
-			restrict: 'E',
-			templateUrl: 'public/directives/ITEM/itemWindow/itemWindow.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.itemCategories = $rootScope.apiData.itemCategories;
-
-				$scope.myModal = new myClass.MyModal({ id: 'itemModal', title: $rootScope.hardData.phrases[62] });
-				$scope.myModel = new myClass.MyFormModel('itemModel', ['_id', 'userId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
-				$scope.myForm = new myClass.MyForm({ ctrlId: 'itemForm', model: $scope.myModel });
-
-
-
-				$scope.addItem = function(args) {
-
-					// Setting model userId value
-					$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
-
-					$scope.myForm.submitSuccessCb = function(res) {
-						$scope.myModal.hide(function() {
-							$rootScope.$broadcast('initUserItems', { userId: $scope.myModel.getValue('userId') });
-						});
-					};
-
-					// Making http request
-					return ItemsRest.post($scope.myModel.getValues());
-				};
-
-				$scope.editItem = function(args) {
-
-					// Making copy of active item
-					var copy = Restangular.copy($rootScope.apiData.item);
-
-					// Updating model values
-					$scope.myModel.setRestObj(copy);
-
-					$scope.myForm.submitSuccessCb = function(res) {
-
-						$scope.myModal.hide(function() {
-
-							$rootScope.apiData.item = undefined;
-
-							$timeout(function() {
-
-								$rootScope.apiData.item = res.data;
-
-								if ($state.current.name == 'main.user') {
-									$rootScope.$broadcast('initUserItems', { userId: $rootScope.apiData.item.userId });
-								}
-							}, 300);
-						});
-					};
-
-					$scope.myForm.submitErrorCb = function(res) {
-
-						$rootScope.apiData.item = copy;
-					};
-
-					// Making request
-					return copy.put();
-				};
-
-				$scope.myForm.submitAction = function(args) {
-
-					return $scope[actionMethodName](args);
-				};
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$on('displayAddItemWindow', function(e, args) {
-
-						actionMethodName = 'addItem';
-						scope.topText = $rootScope.hardData.sentences[33];
-						scope.myForm.showResetBtn = false;
-
-						scope.myModel.set({});
-						scope.myModel.clearErrors();
-						scope.myModal.show();
-					});
-
-					scope.$on('displayEditItemWindow', function(e, args) {
-
-						var item;
-						if (args && args.item) { $rootScope.apiData.item = args.item; }
-
-						actionMethodName = 'editItem';
-						scope.topText = '';
-						scope.myForm.showResetBtn = true;
-
-						scope.myModel.set($rootScope.apiData.item);
-						scope.myModel.clearErrors();
-						scope.myModal.show();
-					});
-				};
-			}
-		};
-
-		return itemWindow;
-	});
 
 })();
 (function() {
@@ -6710,9 +6530,7 @@
 			transclude: {
 				titleSection: '?titleSection',
 				avatarSection: '?avatarSection',
-				topInfoSection: '?topInfoSection',
-				bottomInfoSection: '?bottomInfoSection',
-				bottomSection: '?bottomSection'
+				infoSection: '?infoSection'
 			},
 			scope: {
 				data: '=',
@@ -6811,7 +6629,8 @@
 			templateUrl: 'public/directives/my/myDropDown/myDropDown.html',
 			scope: {
 				ins: '=',
-				openDirection: '='
+				openDirection: '=',
+				ctrlClass: '='
 			}
 		};
 	});
@@ -7098,35 +6917,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('myPage', function($rootScope, ui, MySwitchable) {
-
-		var myPage = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myPage/myPage.html',
-			transclude: {
-				body: '?myPageBody'
-			},
-			scope: {
-				scrollTopBtn: '<',
-				isLoading: '=',
-				contextMenu: '='
-			},
-			controller: function($scope) {
-
-				$scope.ui = ui;
-			}
-		};
-
-		return myPage;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('myPanel', function(ui) {
 
 		var myPanel = {
@@ -7140,31 +6930,6 @@
 		};
 
 		return myPanel;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myPopOverIcon', function() {
-
-		var myPopOverIcon = {
-			restrict: 'E',
-			transclude: {
-				icon: 'span'
-			},
-			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
-			scope: {
-				hardData: '='
-			}
-		};
-
-		return myPopOverIcon;
 	});
 
 })();
@@ -7281,6 +7046,31 @@
 				}
 			}
 		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myPopOverIcon', function() {
+
+		var myPopOverIcon = {
+			restrict: 'E',
+			transclude: {
+				icon: 'span'
+			},
+			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
+			scope: {
+				hardData: '='
+			}
+		};
+
+		return myPopOverIcon;
 	});
 
 })();
@@ -7415,6 +7205,26 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('myTabs', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTabs/myTabs.html',
+			scope: {
+				ins: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
@@ -7501,26 +7311,6 @@
 
 
 
-	appModule.directive('myTabs', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTabs/myTabs.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('myTextArea', function() {
 
 		var myTextArea = {
@@ -7551,7 +7341,7 @@
 			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
 			scope: {
 				user: '=',
-				editable: '&',
+				editable: '=',
 				noLabel: '&',
 				noLink: '&'
 			},
@@ -7563,9 +7353,7 @@
 					removeRequest: userAvatarService.removeRequest
 				});
 
-				if ($scope.editable()) {
-					$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
-				}
+				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
 			},
 			compile: function(elem, attrs) {
 
@@ -7576,7 +7364,7 @@
 						if (user) {
 
 							if (!scope.noLabel()) { scope.src.label = scope.user.truncatedUsername; }
-							if (!scope.noLink()) { scope.src.href = '/#/user/items?id=' + scope.user._id; }
+							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
 
 							userAvatarService.loadPhoto(scope);
 						}

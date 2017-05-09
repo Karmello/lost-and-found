@@ -9,8 +9,7 @@
 
 	var nums = {
 		itemMaxPhotos: 15,
-		photoMaxSize: 1048576,
-		publicItemMinPhotos: 1
+		photoMaxSize: 1048576
 	};
 
 	angular.module('appModule').constant('URLS', urls);

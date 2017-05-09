@@ -5,21 +5,21 @@
 
 		&.public {
 			.myPopOverIcon {
-				background-color: $brand-info;
+				//background-color: $brand-info;
 				.glyphicon { color: $gray-dark; }
 			}
 		}
 
 		&.private {
-			.myPopOverIcon { background-color: $brand-danger; }
+			//.myPopOverIcon { background-color: $brand-danger; }
 		}
 
 		&.own {
-			.myPopOverIcon { background-color: $brand-success; }
+			//.myPopOverIcon { background-color: $brand-success; }
 		}
 
 		&.subscribed {
-			.myPopOverIcon { background-color: $brand-primary; }
+			//.myPopOverIcon { background-color: $brand-primary; }
 		}
 	}
 }

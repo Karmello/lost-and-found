@@ -104,7 +104,7 @@
 
 				switch ($state.current.name) {
 
-					case 'main.user':
+					case 'main.profile':
 						$rootScope.$broadcast('initUserAuctions');
 						break;
 

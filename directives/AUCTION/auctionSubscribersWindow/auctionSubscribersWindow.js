@@ -34,7 +34,7 @@
 							var that = this;
 
 							$rootScope.ui.modals.auctionSubscribersModal.hide(function() {
-								$state.go('main.user', { id: that._id });
+								$state.go('main.profile', { id: that._id });
 							});
 						};
 

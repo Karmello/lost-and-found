@@ -54,23 +54,6 @@
 				typeId: 'confirmDangerModal',
 				title: hardData.phrases[65]
 			}),
-			makeItemPublicModal: new MyModal({
-				typeId: 'confirmModal',
-				title: hardData.phrases[72],
-				message: hardData.sentences[52],
-				img: 'public/imgs/item.png'
-			}),
-			cannotMakeItemPublicModal: new MyModal({
-				typeId: 'infoModal',
-				title: hardData.phrases[72],
-				message: hardData.sentences[49]
-			}),
-			itemMadePublicModal: new MyModal({
-				typeId: 'infoModal',
-				title: hardData.phrases[72],
-				message: hardData.sentences[29],
-				img: 'public/imgs/item.png'
-			}),
 			auctionSubscribersModal: new MyModal({
 				id: 'auctionSubscribersModal',
 				title: hardData.phrases[71]

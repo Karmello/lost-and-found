@@ -1,13 +1,14 @@
 .myPanel {
 
+	.panel-default {}
+
 	.panel-heading {
 		display: flex;
 		align-items: center;
 		min-height: 41px;
 		padding: 5px 15px 5px 15px;
-		background-color: $body-bg;
 
-		.titleSection {
+		#titleSection {
 			flex-grow: 1;
 			font-weight: bold;
 			line-height: 18px;
@@ -16,7 +17,7 @@
   			.glyphicon { top: 2px; }
 		}
 
-		.actionSection {
+		#actionSection {
 			> * {
 				display: flex;
 				justify-content: flex-end;

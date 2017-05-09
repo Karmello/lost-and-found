@@ -18,7 +18,7 @@
 			},
 			onEnter: function($rootScope) {
 
-				//$rootScope.$broadcast('initSearchItems');
+
 			}
 		});
 	});

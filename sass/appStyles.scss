@@ -148,31 +148,6 @@ $avatarSize: 240px;
 		flex-basis: 650px;
 	}
 }
-#lost-and-found-app-auction {
-
-	#pageHeader {}
-
-	#pageBody {
-
-		#topSection {
-
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: center;
-			align-items: center;
-
-			> div { padding: 15px; }
-
-			> div:first-child {
-				.itemAvatar { margin-bottom: 5px; }
-			}
-
-			> div:last-child { flex-grow: 1; }
-		}
-
-		#mainSection {}
-	}
-}
 #lost-and-found-app-guest {
 
 	#infoSection {
@@ -193,63 +168,61 @@ $avatarSize: 240px;
 }
 #lost-and-found-app-item {
 
-	#pageBody {
+	#topSection {
 
-		#topSection {
+		display: flex;
+		margin: 0 auto;
+		> div { flex-grow: 1; }
 
-			display: flex;
-			margin: 0 auto;
-			> div { flex-grow: 1; }
+		#infoSection {
 
-			#infoSection {
+			margin: 15px;
 
-				margin: 15px;
+			> #top {
 
-				> #top {
+				display: flex;
 
+				> div { flex-grow: 1; }
+				> div { padding: 0; font-weight: bold; }
+				> div:first-child { margin-bottom: 15px; }
+
+				> div:last-child {
 					display: flex;
-
-					> div { flex-grow: 1; }
-					> div { padding: 0; font-weight: bold; }
-					> div:first-child { margin-bottom: 15px; }
-
-					> div:last-child {
-						display: flex;
-						justify-content: flex-end;
-						.itemIconMenu { margin: 0 0 15px 15px; }
-					}
-				}
-
-				> #description {
-					p { margin: 0 auto; text-align: justify; }
+					justify-content: flex-end;
+					.itemIconMenu { margin: 0 0 15px 15px; }
 				}
 			}
 
-			@media only screen and (max-width: 600px) {
-				flex-wrap: wrap;
-				#usersSection { margin-bottom: 25px; }
-			}
-
-			@media only screen and (min-width: 601px) {
-				#usersSection {
-					.mySrc { img { width: 150px; height: 150px; } margin-right: 10px; }
-				}
+			> #description {
+				p { margin: 0 auto; text-align: justify; }
 			}
 		}
 
-		#navBtnsSection {
-			margin-top: 15px;
-			padding-bottom: 25px;
+		@media only screen and (max-width: 600px) {
+			flex-wrap: wrap;
+			#usersSection { margin-bottom: 25px; }
 		}
 
-		#auctionsSection, #photosSection, #commentsSection {
-			margin-top: 25px;
-			.panel-default { border: 3px solid $body-bg; border-top: none; }
+		@media only screen and (min-width: 601px) {
+			#usersSection {
+				.mySrc { img { width: 150px; height: 150px; } margin-right: 10px; }
+			}
 		}
+	}
+
+	#navBtnsSection {
+		margin-top: 15px;
+		padding-bottom: 25px;
+	}
+
+	#auctionsSection, #photosSection, #commentsSection {
+		margin-top: 25px;
+		.panel-default { border: 3px solid $body-bg; border-top: none; }
 	}
 }
 #lost-and-found-app-main {
 
+	min-height: 1000px;
 	padding-bottom: 50px;
 
 	.container-fluid {
@@ -259,9 +232,8 @@ $avatarSize: 240px;
 	#underNavbarPanel {
 
 		display: flex;
-		justify-content: flex-end;
 		padding: 0;
-		margin: 0 0 10px 0;
+		margin: 0 0 50px 0;
 
 		> div {
 			.userAvatar {
@@ -283,83 +255,68 @@ $avatarSize: 240px;
 		}
 	}
 }
+#lost-and-found-app-profile {
+
+	#userSection {
+
+		display: flex;
+		flex-flow: row wrap;
+
+		@media only screen and (max-width: 767px) {
+			justify-content: center;
+		}
+
+		> div { padding: 10px 10px 0 10px; }
+
+		table {
+
+			td {
+				padding: 0;
+				span { white-space: nowrap; }
+				span.text-info { font-weight: bold; }
+			}
+		}
+
+		.userAvatar {
+			.mySrc { img { @extend .smallAvatarSize; } }
+		}
+	}
+}
 #lost-and-found-app-report {
 
-	#pageHeader {}
-	#pageBody {}
+
 }
 #lost-and-found-app-search {
 
-	#pageHeader {}
 
-	#pageBody {
-
-		#asideSection {}
-
-		#collectionSection {
-
-
-		}
-	}
 }
 #lost-and-found-app-settings {
 
-	#pageHeader {}
-
-	#pageBody {
-
-		#dropdownSection {
-			@media only screen and (min-width: 700px) { display: none; }
-		}
-
-		#mainSection {
-			display: flex;
-
-			> div {
-				flex-grow: 1;
-				padding: 5px;
-			}
-
-			> div:first-child {
-				flex-basis: 35%;
-				@media only screen and (max-width: 699px) { display: none; }
-			}
-
-			> div:last-child {
-				flex-basis: 65%;
-			}
-		}
-
-		.myTabs { margin-bottom: 50px; }
-		.myForm { max-width: 300px; }
-		.myForm, .mySrc { margin: 0 auto; }
+	#dropdownSection {
+		@media only screen and (min-width: 700px) { display: none; }
 	}
-}
-#lost-and-found-app-user {
 
-	#pageHeader {}
+	#mainSection {
+		display: flex;
 
-	#pageBody {
-
-		#asideSection {
-
-			table {
-				display: flex;
-				justify-content: center;
-				td { padding: 0; span { white-space: nowrap; } span.text-info { font-weight: bold; } }
-			}
-
-			.userAvatar {
-				.mySrc { img { @extend .smallAvatarSize; } }
-			}
+		> div {
+			flex-grow: 1;
+			padding: 5px;
 		}
 
-		#collectionSection {
-			.auctionBadge {
-				.mySrc { img { width: 150px; } }
-			}
+		> div:first-child {
+			flex-basis: 35%;
+			@media only screen and (max-width: 699px) { display: none; }
+		}
+
+		> div:last-child {
+			flex-basis: 65%;
 		}
 	}
+
+	.myTabs { margin-bottom: 50px; }
+	.myForm { max-width: 300px; }
+	.myForm, .mySrc { margin: 0 auto; }
 }
 #auctionNumBox {
 
@@ -480,21 +437,21 @@ $avatarSize: 240px;
 
 		&.public {
 			.myPopOverIcon {
-				background-color: $brand-info;
+				//background-color: $brand-info;
 				.glyphicon { color: $gray-dark; }
 			}
 		}
 
 		&.private {
-			.myPopOverIcon { background-color: $brand-danger; }
+			//.myPopOverIcon { background-color: $brand-danger; }
 		}
 
 		&.own {
-			.myPopOverIcon { background-color: $brand-success; }
+			//.myPopOverIcon { background-color: $brand-success; }
 		}
 
 		&.subscribed {
-			.myPopOverIcon { background-color: $brand-primary; }
+			//.myPopOverIcon { background-color: $brand-primary; }
 		}
 	}
 }
@@ -503,31 +460,6 @@ $avatarSize: 240px;
 	img {
 		max-width: 200px;
 		max-height: 200px;
-	}
-}
-.items {
-
-	#actionBtns { margin-bottom: 25px; }
-
-	.topInfoSection > * {
-
-		display: flex;
-		flex-flow: row wrap;
-		align-items: center;
-
-		> div:first-child {
-			padding-right: 10px;
-		}
-
-		> div:last-child {
-			display: flex;
-			justify-content: flex-end;
-			flex-grow: 1;
-			padding-top: 5px;
-			padding-bottom: 5px;
-
-			.itemIconMenu { margin: -15px -15px 15px 15px; }
-		}
 	}
 }
 #itemWindow {
@@ -564,6 +496,20 @@ $avatarSize: 240px;
 		textarea {
 			min-height: 175px !important;
 			text-align: justify;
+		}
+	}
+}
+.items {
+
+	#actionBtns { margin-bottom: 25px; }
+
+	.myCollectionElem {
+		background-color: $brand-danger;
+	}
+
+	.isFound {
+		.myCollectionElem {
+			background-color: $brand-success;
 		}
 	}
 }
@@ -604,7 +550,6 @@ $avatarSize: 240px;
 
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: center;
 		align-items: flex-start;
 		align-content: flex-start;
 
@@ -621,52 +566,71 @@ $avatarSize: 240px;
 		}
 	}
 
-	.collection {}
+	.collection {
+
+		> div {
+			> * {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: center;
+
+				.myCollectionElem {
+					margin: 5px;
+				}
+			}
+		}
+	}
 }
 .myCollectionElem {
 
-	max-width: 700px;
 	margin: 10px auto;
-	//&.isSelected { .panel-body { background-color: $brand-warning; } }
+	border: 2px solid transparent;
+	border-radius: 5px;
+	&.isSelected { border: 2px solid; }
 
 	.panel-default { border: 0 !important; }
-	.panel-heading { border-bottom: 3px solid $gray-lighter; }
-	.panel-body { background-color: $body-bg; }
+	.panel-heading {}
 
-	body-section {
+	#bodySection {
 
 		display: flex;
-		flex-flow: row wrap;
 		justify-content: center;
 
 		@media only screen and (max-width: 599px) { flex-flow: row wrap; }
-		> div {}
 
-		.avatarSection {
-			@media only screen and (max-width: 599px) { margin-bottom: 15px; }
-			.mySrc {
-				img { width: 150px; height: 100px; object-fit: cover; }
-			}
+		#actionSection {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: center;
+
+			> * { margin: 0 0 10px 0; }
 		}
 
-		.infoSection {
+		#mainSection {
 
-			flex-grow: 1;
-			padding: 0 15px 0 15px;
+			display: flex;
+			justify-content: center;
+			flex-flow: row wrap;
 
-			.topInfoSection {
-				margin-bottom: 15px;
+			@media only screen and (min-width: 768px) {
+				flex-flow: column wrap;
+			}
+
+			> div { margin: 5px 10px 5px 10px; }
+
+			#infoSection {
+				text-align: center;
+				font-size: 14px;
+				margin-bottom: 10px;
 				p { margin: 0; }
-				span { white-space: nowrap; }
 			}
 
-			.bottomInfoSection {
-				text-align: justify;
+			#avatarSection {
+				@media only screen and (max-width: 599px) { margin-bottom: 15px; }
+				.mySrc {
+					img { width: 150px; height: 100px; object-fit: cover; }
+				}
 			}
-		}
-
-		.bottomSection {
-			margin-top: 15px;
 		}
 	}
 }
@@ -775,11 +739,11 @@ $avatarSize: 240px;
 	.list-group-item.active {}
 
 	.list-group-item:hover {
-		background-color: $body-bg;
+		//background-color: $body-bg;
 	}
 
 	.list-group-item:focus {
-		background-color: $body-bg;
+		//background-color: $body-bg;
 	}
 }
 .myLoader {
@@ -1015,30 +979,17 @@ $avatarSize: 240px;
 
 
 }
-.myPage {
-
-	margin: 0 auto;
-	min-height: 1300px;
-
-	.panel-default {
-		background-color: $gray-lighter;
-		border: 3px solid $gray-lighter;
-	}
-
-	#pageBody {
-		min-height: 650px;
-	}
-}
 .myPanel {
+
+	.panel-default {}
 
 	.panel-heading {
 		display: flex;
 		align-items: center;
 		min-height: 41px;
 		padding: 5px 15px 5px 15px;
-		background-color: $body-bg;
 
-		.titleSection {
+		#titleSection {
 			flex-grow: 1;
 			font-weight: bold;
 			line-height: 18px;
@@ -1047,7 +998,7 @@ $avatarSize: 240px;
   			.glyphicon { top: 2px; }
 		}
 
-		.actionSection {
+		#actionSection {
 			> * {
 				display: flex;
 				justify-content: flex-end;
@@ -1112,7 +1063,6 @@ $avatarSize: 240px;
 	position: relative;
 	display: table;
 	margin: 0 auto;
-	//background-color: $body-bg;
 
 	a.linkDisabled {
 		cursor: default !important;
@@ -1146,7 +1096,6 @@ $avatarSize: 240px;
 	}
 
 	.isSelected {
-		background-color: black;
 		img { opacity: 0.3; }
 	}
 
@@ -1252,7 +1201,7 @@ $avatarSize: 240px;
 	.tab-content {}
 
 	.nav-tabs > li > a {
-		background-color: $body-bg;
+		//background-color: $body-bg;
 	}
 
 	.nav-tabs > li > a:hover {}
@@ -1316,7 +1265,12 @@ $avatarSize: 240px;
 			margin-right: 25px;
 		}
 
-		@media only screen and (min-width: 530px) and (max-width: 991px) {
+		> div {
+			display: table;
+			margin: 0 auto;
+		}
+
+		@media only screen and (min-width: 450px) {
 
 			> div, .mySelectsGroup > div {
 				display: flex;
@@ -1350,7 +1304,7 @@ $avatarSize: 240px;
 	input { display: none; }
 
 	.modal-body { position: relative; max-height: calc(100vh - 275px); }
-	.myLoader { background-color: white; }
+	//.myLoader { background-color: white; }
 
 	#modalHeader {
 

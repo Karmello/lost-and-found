@@ -2,24 +2,13 @@
 
 	#actionBtns { margin-bottom: 25px; }
 
-	.topInfoSection > * {
+	.myCollectionElem {
+		background-color: $brand-danger;
+	}
 
-		display: flex;
-		flex-flow: row wrap;
-		align-items: center;
-
-		> div:first-child {
-			padding-right: 10px;
-		}
-
-		> div:last-child {
-			display: flex;
-			justify-content: flex-end;
-			flex-grow: 1;
-			padding-top: 5px;
-			padding-bottom: 5px;
-
-			.itemIconMenu { margin: -15px -15px 15px 15px; }
+	.isFound {
+		.myCollectionElem {
+			background-color: $brand-success;
 		}
 	}
 }

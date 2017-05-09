@@ -17,6 +17,10 @@
 		{ "value": "cosmo", "label": "Cosmo" },
 		{ "value": "raw", "label": "Czysty" }
 	],
+	"itemTypes": [
+		{ "value": "L", "label": "Stracone" },
+		{ "value": "F", "label": "Znalezione" }
+	],
 	"phrases": [
 		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Email", "Nazwa użytkownika", "Hasło",
@@ -32,7 +36,8 @@
 		"Ceny minimalnej", "Subskrybuj", "Waluty", "Ilość", "Ilości", "Usuń subskrybcję", "Odśwież", "Zaznacz wszystkie", "Ustaw jako avatar", "Usuwanie",
 		"Odznacz wszystkie", "Zamknij", "Przesyłanych", "Przesłanych", "Usuwanych", "Usuniętych", "Niepowodzeń", "Motyw", "użytkownika", "Zobacz aukcję",
 		"Aukcja", "W przybliżeniu", "Moje subskrybcje", "Subskrybcje", "Zwiększ", "Zmniejsz", "Złóż ofertę", "Przebieg aukcji", "Wybierz zdjęcie", "Obróć",
-		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "Aukcje", "Przesuń w lewo", "Przesuń w prawo", "Daty dodania", "Data dodania", "temu"
+		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "Aukcje", "Przesuń w lewo", "Przesuń w prawo", "Daty dodania", "Data dodania", "temu",
+		"Typ"
 	],
 	"sentences": [
 		"Dlaczego nas opuszczasz ?",

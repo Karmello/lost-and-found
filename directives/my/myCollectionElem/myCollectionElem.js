@@ -12,9 +12,7 @@
 			transclude: {
 				titleSection: '?titleSection',
 				avatarSection: '?avatarSection',
-				topInfoSection: '?topInfoSection',
-				bottomInfoSection: '?bottomInfoSection',
-				bottomSection: '?bottomSection'
+				infoSection: '?infoSection'
 			},
 			scope: {
 				data: '=',

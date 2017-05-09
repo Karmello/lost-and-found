@@ -8,7 +8,7 @@ module.exports = {
 		var other = {
 			label: {
 				en: 'Other',
-				pl: 'Inne'
+				pl: 'Inny'
 			}
 		};
 

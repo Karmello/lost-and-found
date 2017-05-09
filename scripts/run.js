@@ -33,7 +33,7 @@
 
 				switch (toState.name) {
 
-					case 'main.user':
+					case 'main.profile':
 					case 'main.item':
 
 						if (toState.id == toParams.id) {

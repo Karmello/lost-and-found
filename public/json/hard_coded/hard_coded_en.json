@@ -17,6 +17,10 @@
 		{ "value": "cosmo", "label": "Cosmo" },
 		{ "value": "raw", "label": "Raw" }
 	],
+	"itemTypes": [
+		{ "value": "L", "label": "Lost" },
+		{ "value": "F", "label": "Found" }
+	],
 	"phrases": [
 		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
 		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Email", "Username", "Password",
@@ -32,7 +36,8 @@
 		"Min. price", "Subscribe", "Currency", "Amount", "Amount", "Unsubscribe", "Refresh", "Select all", "Set as avatar", "Deleting",
 		"Deselect all", "Close", "Uploading", "Uploaded", "Deleting", "Deleted", "Failed", "Theme", "of user", "View an auction",
 		"Auction", "Approximately", "My subscriptions", "Subscriptions", "Increase", "Decrease", "Place bid", "The course of the auction", "Choose an image", "Rotate",
-		"Zoom in", "Zoom out", "Crop mode", "Move mode", "Auctions", "Move left", "Move right", "Date added", "Date added", "ago"
+		"Zoom in", "Zoom out", "Crop mode", "Move mode", "Auctions", "Move left", "Move right", "Date added", "Date added", "ago",
+		"Type"
 	],
 	"sentences": [
 		"Why leaving us ?",

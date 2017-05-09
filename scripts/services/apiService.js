@@ -31,6 +31,7 @@
 				});
 
 				Restangular.addElementTransformer('items', false, function(item) {
+					item.truncatedTitle = item.title.truncate(25);
 					item.formattedDateAdded = $moment(item.dateAdded).format('DD-MM-YYYY HH:mm');
 					item.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(item.dateAdded))).humanize();
 					service.createItemFullCategoryString(item);
@@ -123,13 +124,7 @@
 
 									} else if (res.config.params.userId) {
 
-										if (res.config.params.userId == $rootScope.apiData.loggedInUser._id) {
-											itemsConf.ownCollectionBrowser.setData(data);
-
-										} else {
-											itemsConf.anotherUsersCollectionBrowser.setData(data);
-										}
-
+										itemsConf.profileCollectionBrowser.setData(data);
 										return data.collection;
 
 									} else {

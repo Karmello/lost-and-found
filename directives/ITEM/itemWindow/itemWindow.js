@@ -17,7 +17,7 @@
 				$scope.itemCategories = $rootScope.apiData.itemCategories;
 
 				$scope.myModal = new myClass.MyModal({ id: 'itemModal', title: $rootScope.hardData.phrases[62] });
-				$scope.myModel = new myClass.MyFormModel('itemModel', ['_id', 'userId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				$scope.myModel = new myClass.MyFormModel('itemModel', ['_id', 'userId', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
 				$scope.myForm = new myClass.MyForm({ ctrlId: 'itemForm', model: $scope.myModel });
 
 
@@ -55,7 +55,7 @@
 
 								$rootScope.apiData.item = res.data;
 
-								if ($state.current.name == 'main.user') {
+								if ($state.current.name == 'main.profile') {
 									$rootScope.$broadcast('initUserItems', { userId: $rootScope.apiData.item.userId });
 								}
 							}, 300);
@@ -83,7 +83,6 @@
 					scope.$on('displayAddItemWindow', function(e, args) {
 
 						actionMethodName = 'addItem';
-						scope.topText = $rootScope.hardData.sentences[33];
 						scope.myForm.showResetBtn = false;
 
 						scope.myModel.set({});

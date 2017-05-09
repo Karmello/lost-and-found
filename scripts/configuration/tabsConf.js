@@ -115,34 +115,13 @@
 		return tabs;
 	};
 
-	var userTabsConf = function($rootScope) {
-
-		var getRoute = function() {
-			return '/#/user/' + this._id + '?id=' + $rootScope.apiData.profileUser._id;
-		};
-
-		var config = {
-			_ctrlId: 'userTabs',
-			switchers: [
-				{
-					_id: 'items',
-					getRoute: getRoute
-				},
-				{
-					_id: 'subscriptions',
-					getRoute: getRoute
-				}
-			],
-			hardData: { switchers_label: ['phrases', [75, 123]] }
-		};
-
-		return config;
-	};
-
 	var itemTabsConf = function($rootScope) {
 
 		var getRoute = function() {
-			return '/#/item/' + this._id + '?id=' + $rootScope.apiData.item._id;
+
+			if ($rootScope.apiData.item) {
+				return '/#/item/' + this._id + '?id=' + $rootScope.apiData.item._id;
+			}
 		};
 
 		var config = {
@@ -174,12 +153,10 @@
 
 	guestTabsConf.$inject = ['$rootScope'];
 	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
-	userTabsConf.$inject = ['$rootScope'];
 	itemTabsConf.$inject = ['$rootScope'];
 
 	angular.module('appModule').service('guestTabsConf', guestTabsConf);
 	angular.module('appModule').service('settingsTabsConf', settingsTabsConf);
-	angular.module('appModule').service('userTabsConf', userTabsConf);
 	angular.module('appModule').service('itemTabsConf', itemTabsConf);
 
 })();

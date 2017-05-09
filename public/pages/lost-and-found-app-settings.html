@@ -5,8 +5,12 @@
 	</head>
 	<body>
 		<div id="lost-and-found-app-settings" ng-controller="SettingsController">
-			<my-page>
-				<my-page-body>
+			<my-panel>
+				<title-section>
+					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+				</title-section>
+				<body-section>
 					<div id="dropdownSection" class="myBtnsGroupRight marginBottomSmall">
 						<my-drop-down ins="ui.dropdowns.settingsCategories"></my-drop-down>
 					</div>
@@ -23,8 +27,8 @@
 							<deactivation-form ng-show="activeTabs.activeSwitcherId == 'deactivate'"></deactivation-form>
 						</div>
 					</div>
-				</my-page-body>
-			</my-page>
+				</body-section>
+			</my-panel>
 		</div>
 	</body>
 </html>

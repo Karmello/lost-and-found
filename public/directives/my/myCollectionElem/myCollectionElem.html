@@ -3,17 +3,15 @@
 		<title-section>
 			<div ng-transclude="titleSection"></div>
 		</title-section>
-		<action-section>
-			<my-context-menu ng-if="contextMenu" ins="contextMenu"></my-context-menu>
-			<my-elem-selector ng-if="isSelectable" is-selected="data.isSelected"></my-elem-selector>
-		</action-section>
 		<body-section>
-			<div class="avatarSection" ng-transclude="avatarSection"></div>
-			<div class="infoSection">
-				<div class="topInfoSection" ng-transclude="topInfoSection"></div>
-				<div class="bottomInfoSection" ng-transclude="bottomInfoSection"></div>
+			<div id="actionSection">
+				<my-elem-selector ng-if="isSelectable" is-selected="data.isSelected"></my-elem-selector>
+				<my-context-menu ng-if="contextMenu" ins="contextMenu"></my-context-menu>
 			</div>
-			<div class="bottomSection" ng-transclude="bottomSection"></div>
+			<div id="mainSection">
+				<div id="infoSection" ng-transclude="infoSection"></div>
+				<div id="avatarSection" ng-transclude="avatarSection"></div>
+			</div>
 		</body-section>
 	</my-panel>
 </div>

@@ -10,7 +10,7 @@
 
 			user._isTheOneLoggedIn = function() {
 
-				return user._id == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+				return user._id == $rootScope.apiData.loggedInUser._id;
 			};
 
 			return user;

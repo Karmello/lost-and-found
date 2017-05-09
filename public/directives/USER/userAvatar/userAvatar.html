@@ -1,8 +1,15 @@
 <div class="userAvatar">
-	<div ng-if="!editable()">
-		<my-src ins="src" type="img"></my-src>
-	</div>
-	<div ng-if="editable()">
-		<my-src ins="src" type="img" context-menu-conf="srcContextMenuConf"></my-src>
+	<div>
+		<my-src
+			ins="src"
+			type="img"
+			ng-show="!editable || !user._isTheOneLoggedIn()"
+		></my-src>
+		<my-src
+			ins="src"
+			type="img"
+			context-menu-conf="srcContextMenuConf"
+			ng-show="editable && user._isTheOneLoggedIn()"
+		></my-src>
 	</div>
 </div>

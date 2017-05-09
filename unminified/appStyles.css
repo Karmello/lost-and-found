@@ -133,23 +133,6 @@ body .form-group {
     -ms-flex-preferred-size: 650px;
     flex-basis: 650px; }
 
-#lost-and-found-app-auction #pageBody #topSection {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-align: center;
-  align-items: center; }
-  #lost-and-found-app-auction #pageBody #topSection > div {
-    padding: 15px; }
-  #lost-and-found-app-auction #pageBody #topSection > div:first-child .itemAvatar {
-    margin-bottom: 5px; }
-  #lost-and-found-app-auction #pageBody #topSection > div:last-child {
-    -ms-flex-positive: 1;
-    flex-grow: 1; }
-
 #lost-and-found-app-guest #infoSection > div {
   text-align: center; }
   @media only screen and (min-width: 768px) {
@@ -168,70 +151,69 @@ body .form-group {
 #lost-and-found-app-guest #formSection .userBadge {
   margin-bottom: 50px; }
 
-#lost-and-found-app-item #pageBody #topSection {
+#lost-and-found-app-item #topSection {
   display: -ms-flexbox;
   display: flex;
   margin: 0 auto; }
-  #lost-and-found-app-item #pageBody #topSection > div {
+  #lost-and-found-app-item #topSection > div {
     -ms-flex-positive: 1;
     flex-grow: 1; }
-  #lost-and-found-app-item #pageBody #topSection #infoSection {
+  #lost-and-found-app-item #topSection #infoSection {
     margin: 15px; }
-    #lost-and-found-app-item #pageBody #topSection #infoSection > #top {
+    #lost-and-found-app-item #topSection #infoSection > #top {
       display: -ms-flexbox;
       display: flex; }
-      #lost-and-found-app-item #pageBody #topSection #infoSection > #top > div {
+      #lost-and-found-app-item #topSection #infoSection > #top > div {
         -ms-flex-positive: 1;
         flex-grow: 1; }
-      #lost-and-found-app-item #pageBody #topSection #infoSection > #top > div {
+      #lost-and-found-app-item #topSection #infoSection > #top > div {
         padding: 0;
         font-weight: bold; }
-      #lost-and-found-app-item #pageBody #topSection #infoSection > #top > div:first-child {
+      #lost-and-found-app-item #topSection #infoSection > #top > div:first-child {
         margin-bottom: 15px; }
-      #lost-and-found-app-item #pageBody #topSection #infoSection > #top > div:last-child {
+      #lost-and-found-app-item #topSection #infoSection > #top > div:last-child {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-pack: end;
         justify-content: flex-end; }
-        #lost-and-found-app-item #pageBody #topSection #infoSection > #top > div:last-child .itemIconMenu {
+        #lost-and-found-app-item #topSection #infoSection > #top > div:last-child .itemIconMenu {
           margin: 0 0 15px 15px; }
-    #lost-and-found-app-item #pageBody #topSection #infoSection > #description p {
+    #lost-and-found-app-item #topSection #infoSection > #description p {
       margin: 0 auto;
       text-align: justify; }
   @media only screen and (max-width: 600px) {
-    #lost-and-found-app-item #pageBody #topSection {
+    #lost-and-found-app-item #topSection {
       -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
-      #lost-and-found-app-item #pageBody #topSection #usersSection {
+      #lost-and-found-app-item #topSection #usersSection {
         margin-bottom: 25px; } }
   @media only screen and (min-width: 601px) {
-    #lost-and-found-app-item #pageBody #topSection #usersSection .mySrc {
+    #lost-and-found-app-item #topSection #usersSection .mySrc {
       margin-right: 10px; }
-      #lost-and-found-app-item #pageBody #topSection #usersSection .mySrc img {
+      #lost-and-found-app-item #topSection #usersSection .mySrc img {
         width: 150px;
         height: 150px; } }
 
-#lost-and-found-app-item #pageBody #navBtnsSection {
+#lost-and-found-app-item #navBtnsSection {
   margin-top: 15px;
   padding-bottom: 25px; }
 
-#lost-and-found-app-item #pageBody #auctionsSection, #lost-and-found-app-item #pageBody #photosSection, #lost-and-found-app-item #pageBody #commentsSection {
+#lost-and-found-app-item #auctionsSection, #lost-and-found-app-item #photosSection, #lost-and-found-app-item #commentsSection {
   margin-top: 25px; }
-  #lost-and-found-app-item #pageBody #auctionsSection .panel-default, #lost-and-found-app-item #pageBody #photosSection .panel-default, #lost-and-found-app-item #pageBody #commentsSection .panel-default {
+  #lost-and-found-app-item #auctionsSection .panel-default, #lost-and-found-app-item #photosSection .panel-default, #lost-and-found-app-item #commentsSection .panel-default {
     border: 3px solid #fff;
     border-top: none; }
 
 #lost-and-found-app-main {
+  min-height: 1000px;
   padding-bottom: 50px; }
   #lost-and-found-app-main .container-fluid {
     max-width: 950px; }
   #lost-and-found-app-main #underNavbarPanel {
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
     padding: 0;
-    margin: 0 0 10px 0; }
+    margin: 0 0 50px 0; }
     #lost-and-found-app-main #underNavbarPanel > div .userAvatar {
       display: -ms-flexbox;
       display: flex;
@@ -243,50 +225,53 @@ body .form-group {
         #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc .srcLabel {
           width: 60px; }
 
+#lost-and-found-app-profile #userSection {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap; }
+  @media only screen and (max-width: 767px) {
+    #lost-and-found-app-profile #userSection {
+      -ms-flex-pack: center;
+      justify-content: center; } }
+  #lost-and-found-app-profile #userSection > div {
+    padding: 10px 10px 0 10px; }
+  #lost-and-found-app-profile #userSection table td {
+    padding: 0; }
+    #lost-and-found-app-profile #userSection table td span {
+      white-space: nowrap; }
+    #lost-and-found-app-profile #userSection table td span.text-info {
+      font-weight: bold; }
+
 @media only screen and (min-width: 700px) {
-  #lost-and-found-app-settings #pageBody #dropdownSection {
+  #lost-and-found-app-settings #dropdownSection {
     display: none; } }
 
-#lost-and-found-app-settings #pageBody #mainSection {
+#lost-and-found-app-settings #mainSection {
   display: -ms-flexbox;
   display: flex; }
-  #lost-and-found-app-settings #pageBody #mainSection > div {
+  #lost-and-found-app-settings #mainSection > div {
     -ms-flex-positive: 1;
     flex-grow: 1;
     padding: 5px; }
-  #lost-and-found-app-settings #pageBody #mainSection > div:first-child {
+  #lost-and-found-app-settings #mainSection > div:first-child {
     -ms-flex-preferred-size: 35%;
     flex-basis: 35%; }
     @media only screen and (max-width: 699px) {
-      #lost-and-found-app-settings #pageBody #mainSection > div:first-child {
+      #lost-and-found-app-settings #mainSection > div:first-child {
         display: none; } }
-  #lost-and-found-app-settings #pageBody #mainSection > div:last-child {
+  #lost-and-found-app-settings #mainSection > div:last-child {
     -ms-flex-preferred-size: 65%;
     flex-basis: 65%; }
 
-#lost-and-found-app-settings #pageBody .myTabs {
+#lost-and-found-app-settings .myTabs {
   margin-bottom: 50px; }
 
-#lost-and-found-app-settings #pageBody .myForm {
+#lost-and-found-app-settings .myForm {
   max-width: 300px; }
 
-#lost-and-found-app-settings #pageBody .myForm, #lost-and-found-app-settings #pageBody .mySrc {
+#lost-and-found-app-settings .myForm, #lost-and-found-app-settings .mySrc {
   margin: 0 auto; }
-
-#lost-and-found-app-user #pageBody #asideSection table {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-  justify-content: center; }
-  #lost-and-found-app-user #pageBody #asideSection table td {
-    padding: 0; }
-    #lost-and-found-app-user #pageBody #asideSection table td span {
-      white-space: nowrap; }
-    #lost-and-found-app-user #pageBody #asideSection table td span.text-info {
-      font-weight: bold; }
-
-#lost-and-found-app-user #pageBody #collectionSection .auctionBadge .mySrc img {
-  width: 150px; }
 
 #auctionNumBox {
   display: -ms-flexbox;
@@ -351,44 +336,12 @@ body .form-group {
 
 .itemIconMenu > div {
   display: table-cell; }
-  .itemIconMenu > div.public .myPopOverIcon {
-    background-color: #5bc0de; }
-    .itemIconMenu > div.public .myPopOverIcon .glyphicon {
-      color: #333333; }
-  .itemIconMenu > div.private .myPopOverIcon {
-    background-color: #d9534f; }
-  .itemIconMenu > div.own .myPopOverIcon {
-    background-color: #5cb85c; }
-  .itemIconMenu > div.subscribed .myPopOverIcon {
-    background-color: #337ab7; }
+  .itemIconMenu > div.public .myPopOverIcon .glyphicon {
+    color: #333333; }
 
 .itemPhotos img {
   max-width: 200px;
   max-height: 200px; }
-
-.items #actionBtns {
-  margin-bottom: 25px; }
-
-.items .topInfoSection > * {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center; }
-  .items .topInfoSection > * > div:first-child {
-    padding-right: 10px; }
-  .items .topInfoSection > * > div:last-child {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    padding-top: 5px;
-    padding-bottom: 5px; }
-    .items .topInfoSection > * > div:last-child .itemIconMenu {
-      margin: -15px -15px 15px 15px; }
 
 #itemWindow .myModal .modal-content {
   background-color: #eeeeee; }
@@ -417,6 +370,15 @@ body .form-group {
   #itemWindow .formCtrls textarea {
     min-height: 175px !important;
     text-align: justify; }
+
+.items #actionBtns {
+  margin-bottom: 25px; }
+
+.items .myCollectionElem {
+  background-color: #d9534f; }
+
+.items .isFound .myCollectionElem {
+  background-color: #5cb85c; }
 
 .myAlert {
   display: table;
@@ -449,8 +411,6 @@ body .form-group {
     display: flex;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
-    -ms-flex-pack: center;
-    justify-content: center;
     -ms-flex-align: start;
     align-items: flex-start;
     -ms-flex-line-pack: start;
@@ -459,48 +419,68 @@ body .form-group {
     padding: 0 15px 15px 15px; }
     .myCollectionBrowser .ctrls > div.refresher .glyphicon-refresh {
       top: 2px; }
-
-.myCollectionElem {
-  max-width: 700px;
-  margin: 10px auto; }
-  .myCollectionElem .panel-default {
-    border: 0 !important; }
-  .myCollectionElem .panel-heading {
-    border-bottom: 3px solid #eeeeee; }
-  .myCollectionElem .panel-body {
-    background-color: #fff; }
-  .myCollectionElem body-section {
+  .myCollectionBrowser .collection > div > * {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
     -ms-flex-pack: center;
     justify-content: center; }
+    .myCollectionBrowser .collection > div > * .myCollectionElem {
+      margin: 5px; }
+
+.myCollectionElem {
+  margin: 10px auto;
+  border: 2px solid transparent;
+  border-radius: 5px; }
+  .myCollectionElem.isSelected {
+    border: 2px solid; }
+  .myCollectionElem .panel-default {
+    border: 0 !important; }
+  .myCollectionElem #bodySection {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center; }
     @media only screen and (max-width: 599px) {
-      .myCollectionElem body-section {
+      .myCollectionElem #bodySection {
         -ms-flex-flow: row wrap;
         flex-flow: row wrap; } }
-    @media only screen and (max-width: 599px) {
-      .myCollectionElem body-section .avatarSection {
-        margin-bottom: 15px; } }
-    .myCollectionElem body-section .avatarSection .mySrc img {
-      width: 150px;
-      height: 100px;
-      object-fit: cover; }
-    .myCollectionElem body-section .infoSection {
-      -ms-flex-positive: 1;
-      flex-grow: 1;
-      padding: 0 15px 0 15px; }
-      .myCollectionElem body-section .infoSection .topInfoSection {
-        margin-bottom: 15px; }
-        .myCollectionElem body-section .infoSection .topInfoSection p {
+    .myCollectionElem #bodySection #actionSection {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .myCollectionElem #bodySection #actionSection > * {
+        margin: 0 0 10px 0; }
+    .myCollectionElem #bodySection #mainSection {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap; }
+      @media only screen and (min-width: 768px) {
+        .myCollectionElem #bodySection #mainSection {
+          -ms-flex-flow: column wrap;
+          flex-flow: column wrap; } }
+      .myCollectionElem #bodySection #mainSection > div {
+        margin: 5px 10px 5px 10px; }
+      .myCollectionElem #bodySection #mainSection #infoSection {
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 10px; }
+        .myCollectionElem #bodySection #mainSection #infoSection p {
           margin: 0; }
-        .myCollectionElem body-section .infoSection .topInfoSection span {
-          white-space: nowrap; }
-      .myCollectionElem body-section .infoSection .bottomInfoSection {
-        text-align: justify; }
-    .myCollectionElem body-section .bottomSection {
-      margin-top: 15px; }
+      @media only screen and (max-width: 599px) {
+        .myCollectionElem #bodySection #mainSection #avatarSection {
+          margin-bottom: 15px; } }
+      .myCollectionElem #bodySection #mainSection #avatarSection .mySrc img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover; }
 
 .myContextMenu {
   position: relative; }
@@ -561,12 +541,6 @@ body .form-group {
 
 .myLabel {
   padding: 1px; }
-
-.myListGroup .list-group-item:hover {
-  background-color: #fff; }
-
-.myListGroup .list-group-item:focus {
-  background-color: #fff; }
 
 .myLoader {
   z-index: 1;
@@ -696,34 +670,24 @@ body .form-group {
     .responsiveImgAndDesc > div {
       display: block; } }
 
-.myPage {
-  margin: 0 auto;
-  min-height: 1300px; }
-  .myPage .panel-default {
-    background-color: #eeeeee;
-    border: 3px solid #eeeeee; }
-  .myPage #pageBody {
-    min-height: 650px; }
-
 .myPanel .panel-heading {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
   align-items: center;
   min-height: 41px;
-  padding: 5px 15px 5px 15px;
-  background-color: #fff; }
-  .myPanel .panel-heading .titleSection {
+  padding: 5px 15px 5px 15px; }
+  .myPanel .panel-heading #titleSection {
     -ms-flex-positive: 1;
     flex-grow: 1;
     font-weight: bold;
     line-height: 18px;
     padding-right: 15px; }
-    .myPanel .panel-heading .titleSection a {
+    .myPanel .panel-heading #titleSection a {
       color: #337ab7; }
-    .myPanel .panel-heading .titleSection .glyphicon {
+    .myPanel .panel-heading #titleSection .glyphicon {
       top: 2px; }
-  .myPanel .panel-heading .actionSection > * {
+  .myPanel .panel-heading #actionSection > * {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: end;
@@ -780,10 +744,8 @@ body .form-group {
     left: 10px; }
   .mySrc .srcCtrls .myContextMenu {
     right: 10px; }
-  .mySrc .isSelected {
-    background-color: black; }
-    .mySrc .isSelected img {
-      opacity: 0.3; }
+  .mySrc .isSelected img {
+    opacity: 0.3; }
   .mySrc .myLoader {
     padding: 0; }
     .mySrc .myLoader .sk-circle {
@@ -838,9 +800,6 @@ body .form-group {
     color: #eeeeee;
     background-color: black; }
 
-.myTabs .nav-tabs > li > a {
-  background-color: #fff; }
-
 .myTabs h5 {
   margin-left: 10px;
   margin-right: 10px; }
@@ -855,7 +814,7 @@ body .form-group {
   width: 200px;
   height: 200px; }
 
-.smallAvatarSize, #lost-and-found-app-user #pageBody #asideSection .userAvatar .mySrc img {
+.smallAvatarSize, #lost-and-found-app-profile #userSection .userAvatar .mySrc img {
   width: 150px;
   height: 150px; }
 
@@ -876,7 +835,11 @@ body .form-group {
   margin-left: 25px;
   margin-right: 25px; }
 
-@media only screen and (min-width: 530px) and (max-width: 991px) {
+#itemSearchForm .myForm > div {
+  display: table;
+  margin: 0 auto; }
+
+@media only screen and (min-width: 450px) {
   #itemSearchForm .myForm > div, #itemSearchForm .myForm .mySelectsGroup > div {
     display: -ms-flexbox;
     display: flex;
@@ -911,9 +874,6 @@ body .form-group {
 #imgCropWindow .modal-body {
   position: relative;
   max-height: calc(100vh - 275px); }
-
-#imgCropWindow .myLoader {
-  background-color: white; }
 
 #imgCropWindow #modalHeader {
   display: -ms-flexbox;

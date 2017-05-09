@@ -12,7 +12,7 @@
 
 	<!-- public item icon -->
 	<div
-		ng-if="item._isOwn() && item.isPublic && (mainFrame.activeSwitcherId == 'user' || mainFrame.activeSwitcherId == 'item')"
+		ng-if="item._isOwn() && (mainFrame.activeSwitcherId == 'user' || mainFrame.activeSwitcherId == 'item')"
 		class="public"
 	>
 		<my-pop-over-icon hard-data="{ title: ['phrases', 49], message: ['sentences', 51] }">
@@ -22,7 +22,7 @@
 
 	<!-- private item icon -->
 	<div
-		ng-if="item._isOwn() && !item.isPublic && (mainFrame.activeSwitcherId == 'user' || mainFrame.activeSwitcherId == 'item')"
+		ng-if="item._isOwn() && (mainFrame.activeSwitcherId == 'user' || mainFrame.activeSwitcherId == 'item')"
 		class="private"
 	>
 		<my-pop-over-icon hard-data="{ title: ['phrases', 49], message: ['sentences', 50] }">

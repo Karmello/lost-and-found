@@ -5,8 +5,15 @@
 	</head>
 	<body>
 		<div id="lost-and-found-app-item" ng-controller="ItemController">
-			<my-page scroll-top-btn="true" is-loading="!apiData.item || !apiData.itemUser" context-menu="itemContextMenu">
-				<my-page-body>
+			<my-panel>
+				<title-section>
+					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+				</title-section>
+				<action-section>
+					<my-context-menu ins="itemContextMenu"></my-context-menu>
+				</action-section>
+				<body-section>
 					<div id="topSection">
 						<div id="usersSection">
 							<user-avatar user="apiData.itemUser"></user-avatar>
@@ -28,9 +35,7 @@
 										</p>
 									</div>
 								</div>
-								<div>
-									<item-icon-menu item="apiData.item"></item-icon-menu>
-								</div>
+								<div></div>
 							</div>
 							<div id="description">
 								<p ng-bind="apiData.item.description"></p>
@@ -50,25 +55,6 @@
 							</body-section>
 						</my-panel>
 					</div>
-					<div id="auctionsSection" ng-show="ui.tabs.item.activeSwitcherId == 'auctions'">
-						<my-panel>
-							<title-section>
-								<span ng-class="ui.frames.main.getSwitcher('_id', 'auction').icon"></span>
-								<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[134] }} ({{ auctionsBrowser.meta.count }})</span>
-							</title-section>
-							<action-section>
-								<my-context-menu
-									ng-if="apiData.item.isPublic && apiData.itemUser._isTheOneLoggedIn()"
-									ins="auctionsContextMenu"
-								></my-context-menu>
-							</action-section>
-							<body-section>
-								<div id="collectionSection">
-									<auctions ctrl-id="ItemAuctions"></auctions>
-								</div>
-							</body-section>
-						</my-panel>
-					</div>
 					<div id="commentsSection" ng-show="ui.tabs.item.activeSwitcherId == 'comments'">
 						<my-panel>
 							<title-section>
@@ -80,8 +66,8 @@
 							</body-section>
 						</my-panel>
 					</div>
-				</my-page-body>
-			</my-page>
+				</body-section>
+			</my-panel>
 		</div>
 	</body>
 </html>

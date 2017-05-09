@@ -3,8 +3,8 @@
 	'use strict';
 
 	var ui = function(
-		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, userTabsConf,
-		itemTabsConf, mainFrameNavConf, modalsConf, myClass, uiSetupService
+		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, itemTabsConf,
+		mainFrameNavConf, modalsConf, myClass, uiSetupService
 	) {
 
 		angular.forEach(mainFrameConf.switchers, function(source) {
@@ -36,7 +36,6 @@
 				account: new myClass.MySwitchable(settingsTabsConf.account),
 				payment: new myClass.MySwitchable(settingsTabsConf.payment),
 				danger: new myClass.MySwitchable(settingsTabsConf.danger),
-				user: new myClass.MySwitchable(userTabsConf),
 				item: new myClass.MySwitchable(itemTabsConf)
 			},
 			dropdowns: {
@@ -56,8 +55,8 @@
 	};
 
 	ui.$inject = [
-		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'userTabsConf',
-		'itemTabsConf', 'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
+		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'itemTabsConf',
+		'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
 	];
 
 	angular.module('appModule').service('ui', ui);

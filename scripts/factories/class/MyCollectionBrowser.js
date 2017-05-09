@@ -58,9 +58,9 @@
 
 				// Fetching collection to display
 
-				that.fetchData(that.createFetchQuery()).then(function(res) {
+				try {
 
-					try {
+					that.fetchData(that.createFetchQuery()).then(function(res) {
 
 						// Initializing pager ctrl
 
@@ -104,17 +104,17 @@
 						that.updateRefresher();
 						that.loader.stop(function() { if (cb) { cb(true); } });
 
-					} catch (ex) {
+					}, function(res) {
 
 						that.flush();
 						that.loader.stop(function() { if (cb) { cb(false); } });
-					}
+					});
 
-				}, function(res) {
+				} catch (ex) {
 
 					that.flush();
 					that.loader.stop(function() { if (cb) { cb(false); } });
-				});
+				}
 			});
 		};
 
@@ -209,19 +209,22 @@
 					currentPage = that.pager.activeSwitcherId;
 				}
 
-				// Reinitializing
-				that.init(function() {
+				if (switcher.parent._id == 'pager') {
 
-					// Activating stored pager's switcher
-					if (that.pager && angular.isDefined(currentPage)) {
-						that.pager.activateSwitcher(currentPage);
-					}
+					// Reinitializing
+					that.init(function() {
 
-					// If ctrl other than pager is being switched
-					if (switcher.parent._id !== 'pager') {
-						that[switcher.parent._id].activateSwitcher(switcher._id);
-					}
-				});
+						// Activating stored pager's switcher
+						if (that.pager && angular.isDefined(currentPage)) {
+							that.pager.activateSwitcher(currentPage);
+						}
+
+						// If ctrl other than pager is being switched
+						if (switcher.parent._id !== 'pager') {
+							that[switcher.parent._id].activateSwitcher(switcher._id);
+						}
+					});
+				}
 			}
 		};
 

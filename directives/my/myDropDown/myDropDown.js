@@ -13,7 +13,8 @@
 			templateUrl: 'public/directives/my/myDropDown/myDropDown.html',
 			scope: {
 				ins: '=',
-				openDirection: '='
+				openDirection: '=',
+				ctrlClass: '='
 			}
 		};
 	});

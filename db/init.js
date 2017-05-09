@@ -1,3 +1,5 @@
+// Data
+
 var item_categories = [
 	{
 		_id: 'electronics',
@@ -7,38 +9,17 @@ var item_categories = [
 		},
 		subcategories: [
 			{
-				_id: 'smartphones',
+				_id: 'smartphone',
 				label: {
-					en: 'Smartphones',
-					pl: 'Smartfony'
+					en: 'Smartphone',
+					pl: 'Smartfon'
 				}
 			},
 			{
-				_id: 'laptops',
+				_id: 'laptop',
 				label: {
-					en: 'Laptops',
-					pl: 'Laptopy'
-				}
-			},
-			{
-				_id: 'pcs',
-				label: {
-					en: 'Pcs',
-					pl: 'Pecety'
-				}
-			},
-			{
-				_id: 'tv',
-				label: {
-					en: 'Tv',
-					pl: 'Tv'
-				}
-			},
-			{
-				_id: 'screens',
-				label: {
-					en: 'Screens',
-					pl: 'Ekrany'
+					en: 'Laptop',
+					pl: 'Laptop'
 				}
 			}
 		]
@@ -51,100 +32,24 @@ var item_categories = [
 		},
 		subcategories: [
 			{
-				_id: 'watches',
+				_id: 'watch',
 				label: {
-					en: 'Watches',
-					pl: 'Zegarki'
+					en: 'Watch',
+					pl: 'Zegarek'
 				}
 			},
 			{
-				_id: 'bracelets',
+				_id: 'bracelet',
 				label: {
-					en: 'Bracelets',
-					pl: 'Bransoletki'
+					en: 'Bracelet',
+					pl: 'Bransoletka'
 				}
 			},
 			{
-				_id: 'earrings',
+				_id: 'necklace',
 				label: {
-					en: 'Earrings',
-					pl: 'Kolczyki'
-				}
-			},
-			{
-				_id: 'necklaces',
-				label: {
-					en: 'Necklaces',
-					pl: 'Naszyjniki'
-				}
-			},
-			{
-				_id: 'rings',
-				label: {
-					en: 'Rings',
-					pl: 'Pierścienie'
-				}
-			}
-		]
-	},
-	{
-		_id: 'furniture',
-		label: {
-			en: 'Furniture',
-			pl: 'Meble'
-		},
-		subcategories: [
-			{
-				_id: 'beds',
-				label: {
-					en: 'Beds',
-					pl: 'Łóżka'
-				}
-			}
-		]
-	},
-	{
-		_id: 'real_estate',
-		label: {
-			en: 'Real estate',
-			pl: 'Nieruchomość'
-		},
-		subcategories: [
-			{
-				_id: 'houses',
-				label: {
-					en: 'Houses',
-					pl: 'Domy'
-				}
-			},
-			{
-				_id: 'apartments',
-				label: {
-					en: 'Apartments',
-					pl: 'Mieszkania'
-				}
-			},
-			{
-				_id: 'land',
-				label: {
-					en: 'Land',
-					pl: 'Grunt'
-				}
-			}
-		]
-	},
-	{
-		_id: 'art',
-		label: {
-			en: 'Art',
-			pl: 'Sztuka'
-		},
-		subcategories: [
-			{
-				_id: 'painting',
-				label: {
-					en: 'Painting',
-					pl: 'Malarstwo'
+					en: 'Necklace',
+					pl: 'Naszyjnik'
 				}
 			}
 		]
@@ -157,40 +62,10 @@ var item_categories = [
 		},
 		subcategories: [
 			{
-				_id: 'tshirts',
-				label: {
-					en: 'T-shirts',
-					pl: 'Podkoszulki'
-				}
-			},
-			{
 				_id: 'shoes',
 				label: {
 					en: 'Shoes',
 					pl: 'Buty'
-				}
-			}
-		]
-	},
-	{
-		_id: 'movies',
-		label: {
-			en: 'Movies',
-			pl: 'Filmy'
-		},
-		subcategories: [
-			{
-				_id: 'dvd',
-				label: {
-					en: 'Dvd',
-					pl: 'Dvd'
-				}
-			},
-			{
-				_id: 'blue-ray',
-				label: {
-					en: 'Blue-ray',
-					pl: 'Blue-ray'
 				}
 			}
 		]
@@ -261,50 +136,55 @@ var report_types = [
 
 
 
+// Collections
+
 use laf-dev
 
-db.dropDatabase();
-db.createCollection('counters');
+//db.dropDatabase();
+//db.createCollection('counters');
+db.item_categories.drop();
 db.createCollection('item_categories');
-db.createCollection('deactivation_reasons');
-db.createCollection('report_types');
+//db.createCollection('deactivation_reasons');
+//db.createCollection('report_types');
 
-db.counters.insert({"_id": "auctionId", "seq": 0 });
+//db.counters.insert({"_id": "auctionId", "seq": 0 });
 for (var i = 0; i < item_categories.length; ++i) { db.item_categories.insert(item_categories[i]); }
-for (var i = 0; i < deactivation_reasons.length; ++i) { db.deactivation_reasons.insert(deactivation_reasons[i]); }
-for (var i = 0; i < report_types.length; ++i) { db.report_types.insert(report_types[i]); }
+//for (var i = 0; i < deactivation_reasons.length; ++i) { db.deactivation_reasons.insert(deactivation_reasons[i]); }
+//for (var i = 0; i < report_types.length; ++i) { db.report_types.insert(report_types[i]); }
 
 
 
-use admin
-db.dropUser('Karmello');
+// Users
 
-db.createUser(
-  {
-    user: "Karmello",
-    pwd: "wantpeanutbutter",
-    roles: [{ role: "root", db: "admin" }]
-  }
-);
+// use admin
+// db.dropUser('Karmello');
 
-use laf-dev
-db.dropUser('Karmello');
+// db.createUser(
+//   {
+//     user: "Karmello",
+//     pwd: "wantpeanutbutter",
+//     roles: [{ role: "root", db: "admin" }]
+//   }
+// );
 
-db.createUser(
-  {
-    user: "Karmello",
-    pwd: "wantpeanutbutter",
-    roles: [{ role: "readWrite", db: "laf-dev" }]
-  }
-);
+// use laf-dev
+// db.dropUser('Karmello');
 
-use laf-test
-db.dropUser('Karmello');
+// db.createUser(
+//   {
+//     user: "Karmello",
+//     pwd: "wantpeanutbutter",
+//     roles: [{ role: "readWrite", db: "laf-dev" }]
+//   }
+// );
 
-db.createUser(
-  {
-    user: "Karmello",
-    pwd: "wantpeanutbutter",
-    roles: [{ role: "readWrite", db: "laf-test" }]
-  }
-);
+// use laf-test
+// db.dropUser('Karmello');
+
+// db.createUser(
+//   {
+//     user: "Karmello",
+//     pwd: "wantpeanutbutter",
+//     roles: [{ role: "readWrite", db: "laf-test" }]
+//   }
+// );

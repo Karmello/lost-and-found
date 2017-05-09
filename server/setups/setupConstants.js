@@ -26,10 +26,9 @@ module.exports = function(app, cb) {
 	// Item photos
 	app.set('ITEM_MAX_PHOTOS', 15);
 	app.set('PHOTO_MAX_SIZE', 1048576);
-	app.set('PUBLIC_ITEM_MIN_PHOTOS', 1);
 
 	// Max gets
-	app.set('ITEMS_MAX_GET', 10);
+	app.set('ITEMS_MAX_GET', 25);
 	app.set('AUCTIONS_MAX_GET', 3);
 	app.set('COMMENTS_MAX_GET', 10);
 

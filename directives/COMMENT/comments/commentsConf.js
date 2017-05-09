@@ -33,8 +33,10 @@
 			singlePageSize: 10,
 			fetchData: function(query) {
 
-				query.itemId = $rootScope.apiData.item._id;
-				return CommentsRest.getList(query);
+				if ($rootScope.apiData.item) {
+					query.itemId = $rootScope.apiData.item._id;
+					return CommentsRest.getList(query);
+				}
 			}
 		});
 

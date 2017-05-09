@@ -11,7 +11,7 @@
 			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
 			scope: {
 				user: '=',
-				editable: '&',
+				editable: '=',
 				noLabel: '&',
 				noLink: '&'
 			},
@@ -23,9 +23,7 @@
 					removeRequest: userAvatarService.removeRequest
 				});
 
-				if ($scope.editable()) {
-					$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
-				}
+				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
 			},
 			compile: function(elem, attrs) {
 
@@ -36,7 +34,7 @@
 						if (user) {
 
 							if (!scope.noLabel()) { scope.src.label = scope.user.truncatedUsername; }
-							if (!scope.noLink()) { scope.src.href = '/#/user/items?id=' + scope.user._id; }
+							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
 
 							userAvatarService.loadPhoto(scope);
 						}

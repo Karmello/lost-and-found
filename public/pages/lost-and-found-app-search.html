@@ -5,18 +5,25 @@
 	</head>
 	<body>
 		<div id="lost-and-found-app-search" ng-controller="SearchController">
-			<my-page>
-				<my-page-body>
-					<div class="main-with-aside-1">
-						<div id="asideSection">
-							<item-search-form></item-search-form>
-						</div>
-						<div id="collectionSection">
-							<items ctrl-id="SearchItems"></items>
-						</div>
-					</div>
-				</my-page-body>
-			</my-page>
+			<my-panel>
+				<title-section>
+					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+				</title-section>
+				<body-section>
+					<item-search-form></item-search-form>
+				</body-section>
+			</my-panel>
+			<div style="height: 50px;"></div>
+			<my-panel>
+				<title-section>
+					<span class="glyphicon glyphicon-list"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }}</span>
+				</title-section>
+				<body-section>
+					<items ctrl-id="SearchItems"></items>
+				</body-section>
+			</my-panel>
 		</div>
 	</body>
 </html>

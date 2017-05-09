@@ -22,7 +22,7 @@
 					icon: 'glyphicon glyphicon-search'
 				},
 				{
-					_id: 'user',
+					_id: 'profile',
 					label: hardData.phrases[38],
 					icon: 'glyphicon glyphicon-user'
 				},
@@ -48,11 +48,6 @@
 					_id: 'item',
 					label: hardData.phrases[62],
 					icon: 'glyphicon glyphicon-shopping-cart'
-				},
-				{
-					_id: 'auction',
-					label: hardData.phrases[120],
-					icon: 'glyphicon glyphicon-flag'
 				},
 				{
 					_id: 'settings',

@@ -8,7 +8,7 @@ module.exports = {
 
 			return r.Item.findOne({ _id: req.query._id }, function(err, item) {
 
-				if (!err && item && (item.isPublic || r.User.isCurrentRequester(req, item.userId))) {
+				if (!err && item && r.User.isCurrentRequester(req, item.userId)) {
 					res.status(200).send([item]);
 
 				} else { res.status(400).send(err); }
@@ -22,29 +22,16 @@ module.exports = {
 
 			try {
 
+				if (action.req.query.filter != 'all') { query.typeId = action.req.query.filter; }
+
 				if (action.req.query.userId) {
-
-					// When requesting own items
-					if (r.User.isCurrentRequester(action.req, action.req.query.userId)) {
-
-						query = { userId: action.req.query.userId };
-						if (action.req.query.filter != 'all') { query.isPublic = action.req.query.filter == 'public'; }
-
-					// When requesting other users items
-					} else {
-
-						query = {
-							userId: action.req.query.userId,
-							isPublic: true
-						};
-					}
+					query.userId = action.req.query.userId;
 
 				} else {
 
 					if (action.req.query.title) { query.title = { '$regex': action.req.query.title, '$options': 'i' }; }
 					if (action.req.query.categoryId) { query.categoryId = action.req.query.categoryId; }
 					if (action.req.query.subcategoryId) { query.subcategoryId = action.req.query.subcategoryId; }
-					query.isPublic = true;
 				}
 
 				// Getting requested items count

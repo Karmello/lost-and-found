@@ -9,6 +9,10 @@ var ItemSchema = new r.mongoose.Schema({
 		ref: 'user',
 		required: true
 	},
+	typeId: {
+		type: String,
+		required: true
+	},
 	categoryId: {
 		type: String,
 		ref: 'item_category',
@@ -30,11 +34,6 @@ var ItemSchema = new r.mongoose.Schema({
 		type: String,
 		validate: [itemVal.description.length],
 		required: true
-	},
-	isPublic: {
-		type: Boolean,
-		required: true,
-		default: false
 	},
 	dateAdded: {
 		type: Date,

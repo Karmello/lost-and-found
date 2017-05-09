@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="fragment" content="!" />
+	</head>
+	<body>
+		<div id="lost-and-found-app-profile" ng-controller="ProfileController">
+			<my-panel>
+				<title-section>
+					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+				</title-section>
+				<body-section>
+					<div id="userSection">
+						<div>
+							<user-avatar
+								user="apiData.profileUser"
+								editable="true"
+								no-link="true"
+							></user-avatar>
+						</div>
+						<div>
+							<table class="table">
+								<tr>
+									<td>
+										<span ng-bind="apiData.profileUser.firstname" class="text-info"></span>
+										<span class="text-info">{{ apiData.profileUser.lastname }},</span>
+										<span ng-bind="apiData.profileUser.country" class="text-info"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>{{ hardData.phrases[17] }}:&nbsp;</span>
+										<span ng-bind="apiData.profileUser.email" class="text-info"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>{{ hardData.phrases[34] }}:&nbsp;</span>
+										<span ng-bind="apiData.profileUser.formattedRegistrationDate" class="text-info"></span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</body-section>
+			</my-panel>
+			<div style="height: 50px;"></div>
+			<my-panel>
+				<title-section>
+					<span class="glyphicon glyphicon-list"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }}</span>
+				</title-section>
+				<body-section>
+					<items ctrl-id="UserItems"></items>
+				</body-section>
+			</my-panel>
+		</div>
+	</body>
+</html>

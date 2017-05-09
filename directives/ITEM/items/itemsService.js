@@ -22,50 +22,18 @@
 
 							switch ($state.current.name) {
 
-								case 'main.user':
+								case 'main.profile':
 									$rootScope.$broadcast('initUserItems', { userId: $stateParams.id });
 									break;
 
 								case 'main.item':
-									$state.go('main.user', { id: item.userId });
+									$state.go('main.profile', { id: item.userId });
 									break;
 							}
 						});
 					}
 				});
 			}
-		};
-
-		service.makeItemPublic = function(item) {
-
-			// Showing goPublic confirm modal
-			$rootScope.ui.modals.makeItemPublicModal.show({
-				acceptCb: function() {
-
-					var copy = Restangular.copy(item);
-					copy.isPublic = true;
-
-					if ($state.current.name == 'main.item') { $rootScope.apiData.item = undefined; }
-
-					// Making http request
-					copy.put().then(function(res) {
-
-						if ($state.current.name == 'main.item') {
-							$rootScope.apiData.item = copy;
-
-						} else {
-							$rootScope.$broadcast('initUserItems', { userId: $stateParams.id });
-						}
-
-						$timeout(function() {
-							$rootScope.ui.modals.itemMadePublicModal.show();
-						}, 500);
-
-					}, function(res) {
-						$rootScope.ui.modals.tryAgainLaterModal.show();
-					});
-				}
-			});
 		};
 
 		return service;

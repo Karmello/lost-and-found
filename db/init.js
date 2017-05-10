@@ -103,7 +103,7 @@ var deactivation_reasons = [
 	}
 ];
 
-var report_types = [
+var contact_types = [
 	{
 		index: 0,
 		label: {
@@ -140,51 +140,51 @@ var report_types = [
 
 use laf-dev
 
-//db.dropDatabase();
-//db.createCollection('counters');
-db.item_categories.drop();
+db.dropDatabase();
+db.createCollection('counters');
+//db.item_categories.drop();
 db.createCollection('item_categories');
-//db.createCollection('deactivation_reasons');
-//db.createCollection('report_types');
+db.createCollection('deactivation_reasons');
+db.createCollection('contact_types');
 
-//db.counters.insert({"_id": "auctionId", "seq": 0 });
+db.counters.insert({"_id": "auctionId", "seq": 0 });
 for (var i = 0; i < item_categories.length; ++i) { db.item_categories.insert(item_categories[i]); }
-//for (var i = 0; i < deactivation_reasons.length; ++i) { db.deactivation_reasons.insert(deactivation_reasons[i]); }
-//for (var i = 0; i < report_types.length; ++i) { db.report_types.insert(report_types[i]); }
+for (var i = 0; i < deactivation_reasons.length; ++i) { db.deactivation_reasons.insert(deactivation_reasons[i]); }
+for (var i = 0; i < contact_types.length; ++i) { db.contact_types.insert(contact_types[i]); }
 
 
 
 // Users
 
-// use admin
-// db.dropUser('Karmello');
+use admin
+db.dropUser('Karmello');
 
-// db.createUser(
-//   {
-//     user: "Karmello",
-//     pwd: "wantpeanutbutter",
-//     roles: [{ role: "root", db: "admin" }]
-//   }
-// );
+db.createUser(
+  {
+    user: "Karmello",
+    pwd: "wantpeanutbutter",
+    roles: [{ role: "root", db: "admin" }]
+  }
+);
 
-// use laf-dev
-// db.dropUser('Karmello');
+use laf-dev
+db.dropUser('Karmello');
 
-// db.createUser(
-//   {
-//     user: "Karmello",
-//     pwd: "wantpeanutbutter",
-//     roles: [{ role: "readWrite", db: "laf-dev" }]
-//   }
-// );
+db.createUser(
+  {
+    user: "Karmello",
+    pwd: "wantpeanutbutter",
+    roles: [{ role: "readWrite", db: "laf-dev" }]
+  }
+);
 
-// use laf-test
-// db.dropUser('Karmello');
+use laf-test
+db.dropUser('Karmello');
 
-// db.createUser(
-//   {
-//     user: "Karmello",
-//     pwd: "wantpeanutbutter",
-//     roles: [{ role: "readWrite", db: "laf-test" }]
-//   }
-// );
+db.createUser(
+  {
+    user: "Karmello",
+    pwd: "wantpeanutbutter",
+    roles: [{ role: "readWrite", db: "laf-test" }]
+  }
+);

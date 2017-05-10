@@ -38,16 +38,16 @@ module.exports = {
 
 				return mail;
 
-			case 'report_msg':
+			case 'contact_msg':
 
-				mail.subject = 'New report from Auction House ...';
+				mail.subject = 'New msg from LostAndFoundApp user ...';
 				mail.html = '\
 				<p>User id: ' + data.userId + '</p>\
 				<p>Username: ' + data.username + '</p>\
-				<p>Type of report: ' + data.reportTypeId + '</p>\
+				<p>Type of message: ' + data.contactType + '</p>\
 				<p>Number: ' + data.number + '</p>\
 				<br /><p>Message:</p>\
-				<p>' + data.reportMessage + '</p>\
+				<p>' + data.contactMsg + '</p>\
 				';
 
 				return mail;

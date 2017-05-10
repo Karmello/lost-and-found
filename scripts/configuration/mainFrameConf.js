@@ -39,8 +39,8 @@
 					icon: 'glyphicon glyphicon-question-sign'
 				},
 				{
-					_id: 'report',
-					route: '/#/report',
+					_id: 'contact',
+					route: '/#/contact',
 					label: hardData.phrases[42],
 					icon: 'glyphicon glyphicon-envelope'
 				},

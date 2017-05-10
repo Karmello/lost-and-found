@@ -26,7 +26,7 @@
 		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Email", "Username", "Password",
 		"Current password", "New password", "First name", "Last name", "Title", "Country", "Choose", "Language", "Description", "Message",
 		"Original", "Cropped", "Logged out", "Logged in as", "Registration date", "Home", "Participants", "Browse", "User", "Settings",
-		"About", "Help", "Report", "Application", "Account", "Payment", "Danger zone", "Login", "Register", "Status",
+		"About", "Help", "Contact", "Application", "Account", "Payment", "Danger zone", "Login", "Register", "Status",
 		"Regional", "Personal details", "Password", "Profile picture", "Paypal", "Delete account", "Deactivating", "Error", "Comments", "Added",
 		"Category", "Subcategory", "Item", "My items", "Nothing to show", "Deleting the item", "Currency", "Initial value", "Edit", "Go public",
 		"Photos", "Subscribers", "Going public", "Appearance", "Hello", "Items", "All", "Public", "Private", "View",
@@ -41,7 +41,7 @@
 	],
 	"sentences": [
 		"Why leaving us ?",
-		"The type of a report ?",
+		"",
 		"You have subscribed to an aunction of this item.",
 		"welcomes You !",
 		"Log in to your account and take advantage of our services.",

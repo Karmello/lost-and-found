@@ -8,7 +8,7 @@ module.exports = {
 	Item: require(path + 'ItemSchema'),
 	Auction: require(path + 'AuctionSchema'),
 	DeactivationReason: require(path + 'DeactivationReasonSchema'),
-	ReportType: require(path + 'ReportTypeSchema'),
+	ContactType: require(path + 'ContactTypeSchema'),
 	Counter: require(path + 'CounterSchema'),
 	Comment: require(path + 'CommentSchema')
 };

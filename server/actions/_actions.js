@@ -35,8 +35,8 @@ module.exports = {
 	deactivation_reason: {
 		get: require('./DeactivationReason/getDeactivationReasons')
 	},
-	report_type: {
-		post: require('./ReportType/postReport'),
-		get: require('./ReportType/getReportTypes')
+	contact_type: {
+		post: require('./ContactType/postContactType'),
+		get: require('./ContactType/getContactTypes')
 	}
 };

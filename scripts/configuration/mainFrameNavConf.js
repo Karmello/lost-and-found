@@ -14,7 +14,7 @@
 				{ _id: 'separator' },
 				{ _id: 'about' },
 				{ _id: 'help' },
-				{ _id: 'report' },
+				{ _id: 'contact' },
 				{ _id: 'separator' },
 				{
 					_id: 'logout',

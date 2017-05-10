@@ -343,6 +343,15 @@ body .form-group {
   max-width: 200px;
   max-height: 200px; }
 
+.items #actionBtns {
+  margin-bottom: 25px; }
+
+.items .myCollectionElem {
+  background-color: #d9534f; }
+
+.items .isFound .myCollectionElem {
+  background-color: #5cb85c; }
+
 #itemWindow .myModal .modal-content {
   background-color: #eeeeee; }
 
@@ -370,15 +379,6 @@ body .form-group {
   #itemWindow .formCtrls textarea {
     min-height: 175px !important;
     text-align: justify; }
-
-.items #actionBtns {
-  margin-bottom: 25px; }
-
-.items .myCollectionElem {
-  background-color: #d9534f; }
-
-.items .isFound .myCollectionElem {
-  background-color: #5cb85c; }
 
 .myAlert {
   display: table;
@@ -831,6 +831,17 @@ body .form-group {
 #singleFileInput, #multipleFilesInput {
   display: none; }
 
+#contactForm .myForm {
+  margin: 0 auto;
+  max-width: 400px; }
+  @media only screen and (min-width: 768px) {
+    #contactForm .myForm {
+      max-width: 600px; } }
+  #contactForm .myForm .mySelect {
+    display: table; }
+  #contactForm .myForm .myTextArea textarea {
+    min-height: 300px !important; }
+
 #itemSearchForm .myForm .myBtnsGroup, #itemSearchForm .myForm .myBtnsGroupCenter, #itemSearchForm .myForm .myBtnsGroupRight {
   margin-left: 25px;
   margin-right: 25px; }
@@ -853,17 +864,6 @@ body .form-group {
 @media only screen and (min-width: 992px) {
   #itemSearchForm .myForm {
     margin: 0 25px 0 25px; } }
-
-#reportForm .myForm {
-  margin: 0 auto;
-  max-width: 400px; }
-  @media only screen and (min-width: 768px) {
-    #reportForm .myForm {
-      max-width: 600px; } }
-  #reportForm .myForm .mySelect {
-    display: table; }
-  #reportForm .myForm .myTextArea textarea {
-    min-height: 300px !important; }
 
 #imgCropWindow img {
   max-width: 100%; }

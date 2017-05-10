@@ -98,20 +98,20 @@
 						});
 					});
 				},
-				reportTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ReportTypesRest) {
+				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
 					return $q(function(resolve) {
 
-						ReportTypesRest.getList().then(function(res) {
-							$rootScope.apiData.reportTypes = $filter('orderBy')(res.data.plain(), 'index');
+						ContactTypesRest.getList().then(function(res) {
+							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
 							resolve(true);
 
 						}, function() {
-							$rootScope.apiData.reportTypes = undefined;
+							$rootScope.apiData.contactTypes = undefined;
 							resolve(false);
 						});
 					});
 				},
-				itemCategories: function(reportTypes, $q, $rootScope, ItemCategoriesRest, ui) {
+				itemCategories: function(contactTypes, $q, $rootScope, ItemCategoriesRest, ui) {
 
 					return $q(function(resolve, reject) {
 

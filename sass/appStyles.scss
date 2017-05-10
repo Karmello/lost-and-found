@@ -148,6 +148,10 @@ $avatarSize: 240px;
 		flex-basis: 650px;
 	}
 }
+#lost-and-found-app-contact {
+
+
+}
 #lost-and-found-app-guest {
 
 	#infoSection {
@@ -281,10 +285,6 @@ $avatarSize: 240px;
 			.mySrc { img { @extend .smallAvatarSize; } }
 		}
 	}
-}
-#lost-and-found-app-report {
-
-
 }
 #lost-and-found-app-search {
 
@@ -462,6 +462,20 @@ $avatarSize: 240px;
 		max-height: 200px;
 	}
 }
+.items {
+
+	#actionBtns { margin-bottom: 25px; }
+
+	.myCollectionElem {
+		background-color: $brand-danger;
+	}
+
+	.isFound {
+		.myCollectionElem {
+			background-color: $brand-success;
+		}
+	}
+}
 #itemWindow {
 
 	.myModal {
@@ -496,20 +510,6 @@ $avatarSize: 240px;
 		textarea {
 			min-height: 175px !important;
 			text-align: justify;
-		}
-	}
-}
-.items {
-
-	#actionBtns { margin-bottom: 25px; }
-
-	.myCollectionElem {
-		background-color: $brand-danger;
-	}
-
-	.isFound {
-		.myCollectionElem {
-			background-color: $brand-success;
 		}
 	}
 }
@@ -1256,6 +1256,18 @@ $avatarSize: 240px;
 
 	display: none;
 }
+#contactForm {
+
+	.myForm {
+
+		margin: 0 auto;
+		max-width: 400px;
+		@media only screen and (min-width: 768px) { max-width: 600px; }
+
+		.mySelect { display: table; }
+		.myTextArea { textarea { min-height: 300px !important; } }
+	}
+}
 #itemSearchForm {
 
 	.myForm {
@@ -1284,18 +1296,6 @@ $avatarSize: 240px;
 		@media only screen and (min-width: 992px) {
 			margin: 0 25px 0 25px;
 		}
-	}
-}
-#reportForm {
-
-	.myForm {
-
-		margin: 0 auto;
-		max-width: 400px;
-		@media only screen and (min-width: 768px) { max-width: 600px; }
-
-		.mySelect { display: table; }
-		.myTextArea { textarea { min-height: 300px !important; } }
 	}
 }
 #imgCropWindow {

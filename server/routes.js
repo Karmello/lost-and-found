@@ -6,7 +6,7 @@ module.exports = {
 	'/items': require(global.paths.controllers + 'ItemController'),
 	'/auctions': require(global.paths.controllers + 'AuctionController'),
 	'/deactivation_reasons': require(global.paths.controllers + 'DeactivationReasonController'),
-	'/report_types': require(global.paths.controllers + 'ReportTypeController'),
+	'/contact_types': require(global.paths.controllers + 'ContactTypeController'),
 	'/counters': require(global.paths.controllers + 'CounterController'),
 	'/comments': require(global.paths.controllers + 'CommentController')
 };

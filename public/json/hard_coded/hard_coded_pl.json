@@ -26,7 +26,7 @@
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Email", "Nazwa użytkownika", "Hasło",
 		"Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Nazwa", "Kraj", "Wybierz", "Język", "Opis", "Wiadomość",
 		"Oryginał", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Data rejestracji", "Strona główna", "Uczestnicy", "Przeglądaj","Użytkownik", "Ustawienia",
-		"O nas", "Pomoc", "Zgłoś", "Aplikacja", "Konto", "Płatności", "Uwaga !", "Logowanie", "Rejestracja", "Status",
+		"O nas", "Pomoc", "Kontakt", "Aplikacja", "Konto", "Płatności", "Uwaga !", "Logowanie", "Rejestracja", "Status",
 		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "Paypal", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Dodano",
 		"Kategoria", "Podkategoria", "Przedmiot", "Moje przedmioty", "Pusto", "Usuwanie przedmiotu", "Waluta", "Wartość początkowa", "Edytuj", "Upublicznij",
 		"Zdjęcia", "Subskrybenci", "Upublicznianie przedmiotu", "Wygląd", "Cześć", "Przedmioty", "Wszystkie", "Publiczne", "Prywatne", "Zobacz",
@@ -41,7 +41,7 @@
 	],
 	"sentences": [
 		"Dlaczego nas opuszczasz ?",
-		"Typ zgłoszenia ?",
+		"",
 		"Subskrybowałeś do aukcji tego produktu.",
 		"wita Cię gorąco !",
 		"Zaloguj się i korzystaj z serwisu.",

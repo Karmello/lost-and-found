@@ -68,7 +68,7 @@ r.setups.setupConstants(app, function() {
 				r.Item = r.mongoose.model('item');
 				r.Auction = r.mongoose.model('auction');
 				r.DeactivationReason = r.mongoose.model('deactivation_reason');
-				r.ReportType = r.mongoose.model('report_type');
+				r.ContactType = r.mongoose.model('contact_type');
 				r.Counter = r.mongoose.model('counter');
 				r.Comment = r.mongoose.model('comment');
 

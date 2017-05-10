@@ -202,8 +202,8 @@
 					icon: 'glyphicon glyphicon-question-sign'
 				},
 				{
-					_id: 'report',
-					route: '/#/report',
+					_id: 'contact',
+					route: '/#/contact',
 					label: hardData.phrases[42],
 					icon: 'glyphicon glyphicon-envelope'
 				},
@@ -284,7 +284,7 @@
 				{ _id: 'separator' },
 				{ _id: 'about' },
 				{ _id: 'help' },
-				{ _id: 'report' },
+				{ _id: 'contact' },
 				{ _id: 'separator' },
 				{
 					_id: 'logout',
@@ -654,7 +654,7 @@
 			auction: undefined,
 			itemCategories: undefined,
 			deactivationReasons: undefined,
-			reportTypes: undefined
+			contactTypes: undefined
 		};
 
 		$rootScope.globalFormModels = {
@@ -775,6 +775,19 @@
 
 	'use strict';
 
+	var ContactController = function($scope, sessionConst) {
+
+
+	};
+
+	ContactController.$inject = ['$scope', 'sessionConst'];
+	angular.module('appModule').controller('ContactController', ContactController);
+
+})();
+(function() {
+
+	'use strict';
+
 	var GuestController = function($scope, authService) {
 
 		$scope.$watch(function() { return authService.state.loggedIn; }, function(loggedIn) {
@@ -883,19 +896,6 @@
 
 	ProfileController.$inject = ['$rootScope', '$scope'];
 	angular.module('appModule').controller('ProfileController', ProfileController);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ReportController = function($scope, sessionConst) {
-
-
-	};
-
-	ReportController.$inject = ['$scope', 'sessionConst'];
-	angular.module('appModule').controller('ReportController', ReportController);
 
 })();
 (function() {
@@ -1062,6 +1062,21 @@
 
 				ui.frames.main.activateSwitcher('about');
 				ui.menus.top.activateSwitcher('about');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.contact', {
+			url: '/contact',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('contact');
+				ui.menus.top.activateSwitcher('contact');
 			}
 		});
 	});
@@ -1258,20 +1273,20 @@
 						});
 					});
 				},
-				reportTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ReportTypesRest) {
+				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
 					return $q(function(resolve) {
 
-						ReportTypesRest.getList().then(function(res) {
-							$rootScope.apiData.reportTypes = $filter('orderBy')(res.data.plain(), 'index');
+						ContactTypesRest.getList().then(function(res) {
+							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
 							resolve(true);
 
 						}, function() {
-							$rootScope.apiData.reportTypes = undefined;
+							$rootScope.apiData.contactTypes = undefined;
 							resolve(false);
 						});
 					});
 				},
-				itemCategories: function(reportTypes, $q, $rootScope, ItemCategoriesRest, ui) {
+				itemCategories: function(contactTypes, $q, $rootScope, ItemCategoriesRest, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -1335,21 +1350,6 @@
 			onEnter: function(_user, $rootScope) {
 
 				if (!_user) { $rootScope.ui.modals.tryAgainLaterModal.show(); }
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.report', {
-			url: '/report',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('report');
-				ui.menus.top.activateSwitcher('report');
 			}
 		});
 	});
@@ -4074,6 +4074,20 @@
 
 	'use strict';
 
+	var ContactTypesRest = function(Restangular, storageService) {
+
+		var contactTypes = Restangular.service('contact_types');
+		return contactTypes;
+	};
+
+	ContactTypesRest.$inject = ['Restangular', 'storageService'];
+	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
+
+})();
+(function() {
+
+	'use strict';
+
 	var DeactivationReasonsRest = function(Restangular) {
 		return Restangular.service('deactivation_reasons');
 	};
@@ -4092,20 +4106,6 @@
 
 	ItemCategoriesRest.$inject = ['Restangular'];
 	angular.module('appModule').factory('ItemCategoriesRest', ItemCategoriesRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ReportTypesRest = function(Restangular, storageService) {
-
-		var reportTypes = Restangular.service('report_types');
-		return reportTypes;
-	};
-
-	ReportTypesRest.$inject = ['Restangular', 'storageService'];
-	angular.module('appModule').factory('ReportTypesRest', ReportTypesRest);
 
 })();
 (function() {
@@ -4152,7 +4152,7 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'itemSearchForm',
-					'reportForm', 'itemForm', 'auctionForm', 'commentForm'
+					'contactForm', 'itemForm', 'auctionForm', 'commentForm'
 				];
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm'];
@@ -4174,7 +4174,7 @@
 						$scope.myForm.submitBtnPhraseIndex = 3;
 						break;
 
-					case 'reportForm':
+					case 'contactForm':
 						$scope.myForm.submitBtnPhraseIndex = 4;
 						break;
 
@@ -4206,6 +4206,31 @@
 		};
 
 		return formActionBtns;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('scrollTopBtn', function() {
+
+		var scrollTopBtn = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
+			controller: function($scope) {
+
+				$scope.scroll = function() {
+					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				};
+			}
+		};
+
+		return scrollTopBtn;
 	});
 
 })();
@@ -4250,22 +4275,41 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('contactForm', function($rootScope, $http, $timeout, ContactTypesRest, myClass) {
 
-
-	appModule.directive('scrollTopBtn', function() {
-
-		var scrollTopBtn = {
+		var contactForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
+			templateUrl: 'public/directives/^/forms/contactForm/contactForm.html',
+			scope: true,
 			controller: function($scope) {
 
-				$scope.scroll = function() {
-					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				var formModel = new myClass.MyFormModel('contactForm', ['contactType', 'contactMsg'], false);
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'contactForm',
+					model: formModel,
+					submitAction: function(args) {
+
+						return ContactTypesRest.post(formModel.getValues());
+					},
+					submitSuccessCb: function(res) {
+
+						formModel.clear();
+					}
+				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return $rootScope.apiData.contactTypes; }, function(newValue) {
+						scope.contactTypes = newValue;
+					});
 				};
 			}
 		};
 
-		return scrollTopBtn;
+		return contactForm;
 	});
 
 })();
@@ -4614,50 +4658,6 @@
 		};
 
 		return registerForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('reportForm', function($rootScope, $http, $timeout, ReportTypesRest, myClass) {
-
-		var reportForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/reportForm/reportForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				var formModel = new myClass.MyFormModel('reportModel', ['reportTypeId', 'reportMessage'], false);
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'reportForm',
-					model: formModel,
-					submitAction: function(args) {
-
-						return ReportTypesRest.post(formModel.getValues());
-					},
-					submitSuccessCb: function(res) {
-
-						formModel.clear();
-					}
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return $rootScope.apiData.reportTypes; }, function(newValue) {
-						scope.reportTypes = newValue;
-					});
-				};
-			}
-		};
-
-		return reportForm;
 	});
 
 })();
@@ -5999,119 +5999,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('itemWindow', function($rootScope, $timeout, $state, myClass, Restangular, ItemsRest) {
-
-		var actionMethodName;
-
-		var itemWindow = {
-			restrict: 'E',
-			templateUrl: 'public/directives/ITEM/itemWindow/itemWindow.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.itemCategories = $rootScope.apiData.itemCategories;
-
-				$scope.myModal = new myClass.MyModal({ id: 'itemModal', title: $rootScope.hardData.phrases[62] });
-				$scope.myModel = new myClass.MyFormModel('itemModel', ['_id', 'userId', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
-				$scope.myForm = new myClass.MyForm({ ctrlId: 'itemForm', model: $scope.myModel });
-
-
-
-				$scope.addItem = function(args) {
-
-					// Setting model userId value
-					$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
-
-					$scope.myForm.submitSuccessCb = function(res) {
-						$scope.myModal.hide(function() {
-							$rootScope.$broadcast('initUserItems', { userId: $scope.myModel.getValue('userId') });
-						});
-					};
-
-					// Making http request
-					return ItemsRest.post($scope.myModel.getValues());
-				};
-
-				$scope.editItem = function(args) {
-
-					// Making copy of active item
-					var copy = Restangular.copy($rootScope.apiData.item);
-
-					// Updating model values
-					$scope.myModel.setRestObj(copy);
-
-					$scope.myForm.submitSuccessCb = function(res) {
-
-						$scope.myModal.hide(function() {
-
-							$rootScope.apiData.item = undefined;
-
-							$timeout(function() {
-
-								$rootScope.apiData.item = res.data;
-
-								if ($state.current.name == 'main.profile') {
-									$rootScope.$broadcast('initUserItems', { userId: $rootScope.apiData.item.userId });
-								}
-							}, 300);
-						});
-					};
-
-					$scope.myForm.submitErrorCb = function(res) {
-
-						$rootScope.apiData.item = copy;
-					};
-
-					// Making request
-					return copy.put();
-				};
-
-				$scope.myForm.submitAction = function(args) {
-
-					return $scope[actionMethodName](args);
-				};
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$on('displayAddItemWindow', function(e, args) {
-
-						actionMethodName = 'addItem';
-						scope.myForm.showResetBtn = false;
-
-						scope.myModel.set({});
-						scope.myModel.clearErrors();
-						scope.myModal.show();
-					});
-
-					scope.$on('displayEditItemWindow', function(e, args) {
-
-						var item;
-						if (args && args.item) { $rootScope.apiData.item = args.item; }
-
-						actionMethodName = 'editItem';
-						scope.topText = '';
-						scope.myForm.showResetBtn = true;
-
-						scope.myModel.set($rootScope.apiData.item);
-						scope.myModel.clearErrors();
-						scope.myModal.show();
-					});
-				};
-			}
-		};
-
-		return itemWindow;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('items', function($rootScope, itemsConf, itemsService) {
 
 		var items = {
@@ -6351,6 +6238,119 @@
 
 	itemsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'Restangular'];
 	angular.module('appModule').service('itemsService', itemsService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('itemWindow', function($rootScope, $timeout, $state, myClass, Restangular, ItemsRest) {
+
+		var actionMethodName;
+
+		var itemWindow = {
+			restrict: 'E',
+			templateUrl: 'public/directives/ITEM/itemWindow/itemWindow.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.itemCategories = $rootScope.apiData.itemCategories;
+
+				$scope.myModal = new myClass.MyModal({ id: 'itemModal', title: $rootScope.hardData.phrases[62] });
+				$scope.myModel = new myClass.MyFormModel('itemModel', ['_id', 'userId', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				$scope.myForm = new myClass.MyForm({ ctrlId: 'itemForm', model: $scope.myModel });
+
+
+
+				$scope.addItem = function(args) {
+
+					// Setting model userId value
+					$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+
+					$scope.myForm.submitSuccessCb = function(res) {
+						$scope.myModal.hide(function() {
+							$rootScope.$broadcast('initUserItems', { userId: $scope.myModel.getValue('userId') });
+						});
+					};
+
+					// Making http request
+					return ItemsRest.post($scope.myModel.getValues());
+				};
+
+				$scope.editItem = function(args) {
+
+					// Making copy of active item
+					var copy = Restangular.copy($rootScope.apiData.item);
+
+					// Updating model values
+					$scope.myModel.setRestObj(copy);
+
+					$scope.myForm.submitSuccessCb = function(res) {
+
+						$scope.myModal.hide(function() {
+
+							$rootScope.apiData.item = undefined;
+
+							$timeout(function() {
+
+								$rootScope.apiData.item = res.data;
+
+								if ($state.current.name == 'main.profile') {
+									$rootScope.$broadcast('initUserItems', { userId: $rootScope.apiData.item.userId });
+								}
+							}, 300);
+						});
+					};
+
+					$scope.myForm.submitErrorCb = function(res) {
+
+						$rootScope.apiData.item = copy;
+					};
+
+					// Making request
+					return copy.put();
+				};
+
+				$scope.myForm.submitAction = function(args) {
+
+					return $scope[actionMethodName](args);
+				};
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$on('displayAddItemWindow', function(e, args) {
+
+						actionMethodName = 'addItem';
+						scope.myForm.showResetBtn = false;
+
+						scope.myModel.set({});
+						scope.myModel.clearErrors();
+						scope.myModal.show();
+					});
+
+					scope.$on('displayEditItemWindow', function(e, args) {
+
+						var item;
+						if (args && args.item) { $rootScope.apiData.item = args.item; }
+
+						actionMethodName = 'editItem';
+						scope.topText = '';
+						scope.myForm.showResetBtn = true;
+
+						scope.myModel.set($rootScope.apiData.item);
+						scope.myModel.clearErrors();
+						scope.myModal.show();
+					});
+				};
+			}
+		};
+
+		return itemWindow;
+	});
 
 })();
 (function() {
@@ -6941,6 +6941,31 @@
 
 
 
+	appModule.directive('myPopOverIcon', function() {
+
+		var myPopOverIcon = {
+			restrict: 'E',
+			transclude: {
+				icon: 'span'
+			},
+			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
+			scope: {
+				hardData: '='
+			}
+		};
+
+		return myPopOverIcon;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('mySelect', function(jsonService) {
 
 		return {
@@ -7046,31 +7071,6 @@
 				}
 			}
 		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myPopOverIcon', function() {
-
-		var myPopOverIcon = {
-			restrict: 'E',
-			transclude: {
-				icon: 'span'
-			},
-			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
-			scope: {
-				hardData: '='
-			}
-		};
-
-		return myPopOverIcon;
 	});
 
 })();
@@ -7205,26 +7205,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('myTabs', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTabs/myTabs.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
@@ -7300,6 +7280,26 @@
 		};
 
 		return mySrcThumbs;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTabs', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTabs/myTabs.html',
+			scope: {
+				ins: '='
+			}
+		};
 	});
 
 })();

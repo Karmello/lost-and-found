@@ -21,7 +21,7 @@
 			auction: undefined,
 			itemCategories: undefined,
 			deactivationReasons: undefined,
-			reportTypes: undefined
+			contactTypes: undefined
 		};
 
 		$rootScope.globalFormModels = {

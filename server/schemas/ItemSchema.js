@@ -13,6 +13,10 @@ var ItemSchema = new r.mongoose.Schema({
 		type: String,
 		required: true
 	},
+	date: {
+		type: Date,
+		required: true
+	},
 	categoryId: {
 		type: String,
 		ref: 'item_category',

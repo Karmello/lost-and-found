@@ -339,10 +339,6 @@ body .form-group {
   .itemIconMenu > div.public .myPopOverIcon .glyphicon {
     color: #333333; }
 
-.itemPhotos img {
-  max-width: 200px;
-  max-height: 200px; }
-
 .items #actionBtns {
   margin-bottom: 25px; }
 
@@ -352,33 +348,9 @@ body .form-group {
 .items .isFound .myCollectionElem {
   background-color: #5cb85c; }
 
-#itemWindow .myModal .modal-content {
-  background-color: #eeeeee; }
-
-#itemWindow .formCtrls {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-pack: center;
-  justify-content: center; }
-  #itemWindow .formCtrls > div {
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    padding: 0 10px 0 10px; }
-    #itemWindow .formCtrls > div .mySelectsGroup > div {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-flow: row wrap;
-      flex-flow: row wrap;
-      -ms-flex-pack: center;
-      justify-content: center; }
-      #itemWindow .formCtrls > div .mySelectsGroup > div .mySelect {
-        min-width: 150px;
-        margin: 3px; }
-  #itemWindow .formCtrls textarea {
-    min-height: 175px !important;
-    text-align: justify; }
+.itemPhotos img {
+  max-width: 200px;
+  max-height: 200px; }
 
 .myAlert {
   display: table;
@@ -841,6 +813,34 @@ body .form-group {
     display: table; }
   #contactForm .myForm .myTextArea textarea {
     min-height: 300px !important; }
+
+#itemForm .myForm .formCtrls {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
+  #itemForm .myForm .formCtrls > div {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-pack: distribute;
+    justify-content: space-around; }
+    #itemForm .myForm .formCtrls > div .mySelectsGroup > div {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+      -ms-flex-pack: distribute;
+      justify-content: space-around; }
+  #itemForm .myForm .formCtrls textarea {
+    min-height: 175px !important;
+    text-align: justify; }
+    @media only screen and (min-width: 400px) {
+      #itemForm .myForm .formCtrls textarea {
+        min-width: 350px; } }
 
 #itemSearchForm .myForm .myBtnsGroup, #itemSearchForm .myForm .myBtnsGroupCenter, #itemSearchForm .myForm .myBtnsGroupRight {
   margin-left: 25px;

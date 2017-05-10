@@ -1,15 +1,5 @@
 <div class="items">
 	<my-collection-browser ins="collectionBrowser">
-		<extractrls ng-if="ctrlId == 'UserItems' && apiData.profileUser._isTheOneLoggedIn()">
-			<div id="actionBtns" class="myBtnsGroupCenter" ng-if="collectionBrowser.isReady()">
-				<my-btn
-					ng-if="collectionBrowser.collection.length > 0"
-					ctrl-class="'btn-danger'"
-					click-action="deleteElems"
-					hard-data="{ label: ['phrases', 14] }"
-				></my-btn>
-			</div>
-		</extractrls>
 		<elems>
 			<my-collection-elem
 				ng-repeat="item in collectionBrowser.collection"

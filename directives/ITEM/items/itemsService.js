@@ -27,7 +27,7 @@
 									break;
 
 								case 'main.item':
-									$state.go('main.profile', { id: item.userId });
+									window.history.back();
 									break;
 							}
 						});

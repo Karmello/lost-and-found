@@ -5,28 +5,7 @@
 		$stateProvider.state('main.item', {
 			url: '/item/:tab?id',
 			resolve: {
-				_apiData: function(itemCategories, $stateParams, $rootScope, $q) {
-
-					return $q(function(resolve) {
-
-						if ($rootScope.apiData.item && $rootScope.apiData.item._id != $stateParams.id) {
-							$rootScope.apiData.item = undefined;
-							$rootScope.apiData.itemUser = undefined;
-						}
-
-						resolve();
-					});
-				},
-				_ui: function(_apiData, $stateParams, $q, ui) {
-
-					return $q(function(resolve) {
-						ui.menus.top.activateSwitcher();
-						ui.frames.main.activateSwitcher('item');
-						ui.tabs.item.activateSwitcher($stateParams.tab);
-						resolve();
-					});
-				},
-				_item: function(_ui, $stateParams, $q, ItemsRest) {
+				getItem: function(itemCategories, $stateParams, $q, ItemsRest) {
 
 					return $q(function(resolve) {
 
@@ -38,7 +17,7 @@
 						});
 					});
 				},
-				_user: function(_item, $stateParams, $q, UsersRest) {
+				getUser: function(getItem, $stateParams, $q, UsersRest) {
 
 					return $q(function(resolve) {
 
@@ -51,9 +30,25 @@
 					});
 				}
 			},
-			onEnter: function(_item, _user, $rootScope) {
+			onEnter: function(getItem, getUser, $timeout, $stateParams, ui) {
 
-				if (!_item || !_user) { $rootScope.ui.modals.tryAgainLaterModal.show(); }
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
+
+				$timeout(function() {
+
+					ui.menus.top.activateSwitcher();
+
+					if (getItem && getUser) {
+						ui.frames.main.activateSwitcher('item');
+						ui.tabs.item.activateSwitcher($stateParams.tab);
+
+					} else {
+						ui.frames.main.activateSwitcher();
+						ui.modals.tryAgainLaterModal.show();
+					}
+
+				}, timeout);
 			}
 		});
 	});

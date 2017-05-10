@@ -7,8 +7,9 @@
 		type="{{ ctrlType }}"
 		placeholder="{{ placeholder || '...' }}"
 		maxlength="{{ ctrlMaxLength }}"
-		min="{{ ctrlMinValue }}"
-		max="{{ ctrlMaxValue }}"
+		min="{{ ctrlMinValue | date:'yyyy-MM-dd' }}"
+		max="{{ ctrlMaxValue | date:'yyyy-MM-dd' }}"
 		ng-model="model.value"
+		ng-required="isRequired"
 	>
 </div>

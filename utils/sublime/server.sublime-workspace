@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"cont",
+				"contactType"
+			],
+			[
 				"trun",
 				"truncatedUsername"
 			],
@@ -508,10 +512,6 @@
 				"auctionBadgeContextMenuConf\t(collectionDisplayer.js)"
 			],
 			[
-				"cont",
-				"contextMenuConf"
-			],
-			[
 				"contex",
 				"contextMenu"
 			]
@@ -519,6 +519,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+			"settings":
+			{
+				"buffer_size": 2313,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -598,10 +607,26 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/server"
+		"/D/Workspace/laf/dev/server",
+		"/D/Workspace/laf/dev/server/schemas"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/server/actions/ContactType/postContactType.js",
+		"/D/Workspace/laf/dev/server/modules/mailModule.js",
+		"/D/Workspace/laf/dev/db/init.js",
+		"/D/Workspace/laf/dev/server.js",
+		"/D/Workspace/laf/dev/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-contact.html",
+		"/D/Workspace/laf/dev/server/routes.js",
+		"/D/Workspace/laf/dev/server/schemas/ContactTypeSchema.js",
+		"/D/Workspace/laf/dev/server/models.js",
+		"/D/Workspace/laf/dev/sass/appStyles.scss",
+		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.js",
+		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.js",
+		"/D/Workspace/laf/dev/server/actions/ItemCategory/getItemCategories.js",
+		"/D/Workspace/laf/dev/server/actions/ContactType/getContactTypes.js",
 		"/D/Workspace/laf/dev/directives/ITEM/itemWindow/itemWindow.js",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
@@ -714,22 +739,7 @@
 		"/D/Workspace/laf/dev/scripts/services/aws3Service.js",
 		"/D/Workspace/laf/dev/scripts/services/utilService.js",
 		"/D/Workspace/laf/dev/db/populate/itemMocks.js",
-		"/D/Workspace/laf/dev/db/init.js",
-		"/D/Workspace/laf/dev/server.js",
-		"/D/Workspace/laf/dev/db/populate/userMocks.js",
-		"/D/Workspace/laf/dev/db/temp.js",
-		"/D/Workspace/laf/dev/db/findOneAndUpdate.js",
-		"/D/Workspace/laf/dev/db/clear.js",
-		"/D/Workspace/laf/dev/db/populate/report_types.js",
-		"/D/Workspace/laf/dev/db/populate/item_categories.js",
-		"/D/Workspace/laf/dev/db/populate/deactivation_reasons.js",
-		"/D/Workspace/laf/dev/package.json",
-		"/D/Workspace/laf/dev/.jshintrc",
-		"/D/Workspace/laf/dev/.gitignore",
-		"/D/Workspace/laf/dev/gulpfile.js",
-		"/D/Workspace/laf/dev/karma.conf.js",
-		"/D/Workspace/laf/prod/db/deactivation_reasons.js",
-		"/D/Workspace/laf/prod/db/item_categories.js"
+		"/D/Workspace/laf/dev/db/populate/userMocks.js"
 	],
 	"find":
 	{
@@ -808,6 +818,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ReportType",
+			"report_type",
+			"report",
 			"topText",
 			"truncated",
 			"infoSection",
@@ -932,10 +945,7 @@
 			"r.Promise.all",
 			"meta: { count",
 			".post",
-			"afjnshdf",
-			"my-text-area",
-			"MyFormModel",
-			".count"
+			"afjnshdf"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1087,8 +1097,52 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								273,
+								273
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "1e587dd5",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1692,7 +1746,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 291.0,
 	"status_bar_visible": true,
 	"template_settings":

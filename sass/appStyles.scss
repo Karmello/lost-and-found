@@ -455,13 +455,6 @@ $avatarSize: 240px;
 		}
 	}
 }
-.itemPhotos {
-
-	img {
-		max-width: 200px;
-		max-height: 200px;
-	}
-}
 .items {
 
 	#actionBtns { margin-bottom: 25px; }
@@ -476,41 +469,11 @@ $avatarSize: 240px;
 		}
 	}
 }
-#itemWindow {
+.itemPhotos {
 
-	.myModal {
-		.modal-content {
-			background-color: $gray-lighter;
-		}
-	}
-
-	.formCtrls {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-
-		> div {
-			flex-grow: 1;
-			padding: 0 10px 0 10px;
-
-			.mySelectsGroup {
-				> div {
-					display: flex;
-					flex-flow: row wrap;
-					justify-content: center;
-
-					.mySelect {
-						min-width: 150px;
-						margin: 3px;
-					}
-				}
-			}
-		}
-
-		textarea {
-			min-height: 175px !important;
-			text-align: justify;
-		}
+	img {
+		max-width: 200px;
+		max-height: 200px;
 	}
 }
 .myAlert {
@@ -1266,6 +1229,44 @@ $avatarSize: 240px;
 
 		.mySelect { display: table; }
 		.myTextArea { textarea { min-height: 300px !important; } }
+	}
+}
+#itemForm {
+
+	.myForm {
+
+		.formCtrls {
+
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+
+			> div {
+
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+
+				.mySelectsGroup > div {
+
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: space-around;
+
+					.mySelect {}
+				}
+			}
+
+			textarea {
+
+				min-height: 175px !important;
+				text-align: justify;
+
+				@media only screen and (min-width: 400px) {
+					min-width: 350px;
+				}
+			}
+		}
 	}
 }
 #itemSearchForm {

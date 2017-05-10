@@ -15,9 +15,6 @@
 				</action-section>
 				<body-section>
 					<div id="topSection">
-						<div id="usersSection">
-							<user-avatar user="apiData.itemUser"></user-avatar>
-						</div>
 						<div id="infoSection">
 							<div id="top">
 								<div>
@@ -41,8 +38,11 @@
 								<p ng-bind="apiData.item.description"></p>
 							</div>
 						</div>
+						<div id="usersSection">
+							<user-avatar user="apiData.itemUser"></user-avatar>
+						</div>
 					</div>
-					<br />
+					<!-- <br />
 					<my-tabs ins="ui.tabs.item"></my-tabs>
 					<div id="photosSection" ng-show="ui.tabs.item.activeSwitcherId == 'photos'">
 						<my-panel>
@@ -65,7 +65,7 @@
 								<comments ctrl-id="ItemComments"></comments>
 							</body-section>
 						</my-panel>
-					</div>
+					</div> -->
 				</body-section>
 			</my-panel>
 		</div>

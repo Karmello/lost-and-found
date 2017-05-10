@@ -32,6 +32,7 @@
 
 				Restangular.addElementTransformer('items', false, function(item) {
 					item.truncatedTitle = item.title.truncate(25);
+					item.date = new Date(item.date);
 					item.formattedDateAdded = $moment(item.dateAdded).format('DD-MM-YYYY HH:mm');
 					item.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(item.dateAdded))).humanize();
 					service.createItemFullCategoryString(item);

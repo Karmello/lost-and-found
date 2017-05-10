@@ -4,20 +4,14 @@
 		<meta name="fragment" content="!" />
 	</head>
 	<body>
-		<div id="lost-and-found-app-home" class="myPage" ng-controller="HomeController">
+		<div id="lost-and-found-app-home" class="myPage">
 			<my-panel>
 				<title-section>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
 					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
 				</title-section>
 				<body-section>
-					<div class="myBtnsGroupCenter">
-						<my-btn
-							ctrl-class="'btn-primary'"
-							show-modal-id="displayAddItemWindow"
-							hard-data="{ label: ['phrases', 16] }"
-						></my-btn>
-					</div>
+
 				</body-section>
 			</my-panel>
 		</div>

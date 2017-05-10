@@ -2,15 +2,15 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.profile', {
-			url: '/profile?id',
+		$stateProvider.state('main.editem', {
+			url: '/editem?id',
 			resolve: {
-				getUser: function(itemCategories, $stateParams, $q, UsersRest) {
+				getItem: function(itemCategories, $q, $stateParams, ItemsRest) {
 
 					return $q(function(resolve) {
 
-						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
-							resolve(true);
+						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(res.data[0]);
 
 						}, function() {
 							resolve(false);
@@ -18,17 +18,19 @@
 					});
 				}
 			},
-			onEnter: function(getUser, $rootScope, $timeout, ui) {
+			onEnter: function(getItem, $rootScope, $timeout, ui) {
 
 				var timeout = 0;
 				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
 
 				$timeout(function() {
 
+					$rootScope.$broadcast('editItem', { item: getItem });
+
 					ui.menus.top.activateSwitcher();
 
-					if (getUser) {
-						ui.frames.main.activateSwitcher('profile');
+					if (getItem) {
+						ui.frames.main.activateSwitcher('editem');
 
 					} else {
 						ui.frames.main.activateSwitcher();

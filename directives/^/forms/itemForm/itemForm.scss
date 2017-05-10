@@ -1,0 +1,38 @@
+#itemForm {
+
+	.myForm {
+
+		.formCtrls {
+
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+
+			> div {
+
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+
+				.mySelectsGroup > div {
+
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: space-around;
+
+					.mySelect {}
+				}
+			}
+
+			textarea {
+
+				min-height: 175px !important;
+				text-align: justify;
+
+				@media only screen and (min-width: 400px) {
+					min-width: 350px;
+				}
+			}
+		}
+	}
+}

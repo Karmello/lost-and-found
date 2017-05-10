@@ -8,7 +8,8 @@
 			_ctrlId: 'topNavMenu',
 			switchers: [
 				{ _id: 'home' },
-				{ _id: 'search' }
+				{ _id: 'search' },
+				{ _id: 'report' }
 			]
 		};
 

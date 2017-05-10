@@ -20,10 +20,13 @@
 					'contactForm', 'itemForm', 'auctionForm', 'commentForm'
 				];
 
-				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm'];
+				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'itemForm'];
+
+				var cancelBtnForms = ['itemForm'];
 
 				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
 				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;
+				$scope.myForm.showCancelBtn = cancelBtnForms.indexOf($scope.myForm.ctrlId) > -1;
 
 				switch ($scope.myForm.ctrlId) {
 
@@ -60,6 +63,7 @@
 				$scope.onSubmit = function() { $scope.myForm.submit(); };
 				$scope.onClear = function() { $scope.myForm.clear(); };
 				$scope.onReset = function() { $scope.myForm.reset(); };
+				$scope.onCancel = function() { $scope.myForm.onCancel(); };
 			},
 			compile: function(elem, attrs) {
 

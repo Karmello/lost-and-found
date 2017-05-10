@@ -22,6 +22,12 @@
 					icon: 'glyphicon glyphicon-search'
 				},
 				{
+					_id: 'report',
+					route: '/#/report',
+					label: hardData.phrases[141],
+					icon: 'glyphicon glyphicon-bullhorn'
+				},
+				{
 					_id: 'profile',
 					label: hardData.phrases[38],
 					icon: 'glyphicon glyphicon-user'
@@ -48,6 +54,11 @@
 					_id: 'item',
 					label: hardData.phrases[62],
 					icon: 'glyphicon glyphicon-shopping-cart'
+				},
+				{
+					_id: 'editem',
+					label: hardData.phrases[68],
+					icon: 'glyphicon glyphicon-edit'
 				},
 				{
 					_id: 'settings',

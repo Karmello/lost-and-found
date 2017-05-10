@@ -4,24 +4,14 @@
 		<meta name="fragment" content="!" />
 	</head>
 	<body>
-		<div id="lost-and-found-app-search">
+		<div id="lost-and-found-app-editem">
 			<my-panel>
 				<title-section>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
 					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
 				</title-section>
 				<body-section>
-					<item-search-form></item-search-form>
-				</body-section>
-			</my-panel>
-			<div style="height: 50px;"></div>
-			<my-panel>
-				<title-section>
-					<span class="glyphicon glyphicon-list"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }}</span>
-				</title-section>
-				<body-section>
-					<items ctrl-id="SearchItems"></items>
+					<item-form action="edit"></item-form>
 				</body-section>
 			</my-panel>
 		</div>

@@ -1,15 +1,35 @@
-<div id="reportForm">
+<div id="itemForm">
 	<my-form ins="myForm">
+		<form-action-btns my-form="myForm"></form-action-btns>
+		<br /><br />
 		<div class="formCtrls">
 			<div>
+				<my-input
+					ctrl-id="'date'"
+					ctrl-type="'date'"
+					ctrl-min-value="minDate"
+					ctrl-max-value="maxDate"
+					model="myModel.values.date"
+					hard-data="{ label: ['phrases', 142] }"
+					is-required="true"
+				></my-input>
 				<my-select
 					ctrl-id="'typeId'"
-					collection="hardData.itemTypes"
+					collection="itemTypes"
 					model="myModel.values.typeId"
 					prop-names="{ optionValue: 'value', optionLabel: 'label' }"
 					option-zero="true"
 					hard-data="{ label: ['phrases', 140], placeholder: ['phrases', 26] }"
 				></my-select>
+			</div>
+			<div>
+				<my-input
+					ctrl-id="'title'"
+					ctrl-type="'text'"
+					ctrl-max-length="50"
+					model="myModel.values.title"
+					hard-data="{ label: ['phrases', 24] }"
+				></my-input>
 			</div>
 			<div>
 				<my-selects-group collection="itemCategories">
@@ -33,15 +53,6 @@
 				</my-selects-group>
 			</div>
 			<div>
-				<my-input
-					ctrl-id="'title'"
-					ctrl-type="'text'"
-					ctrl-max-length="50"
-					model="myModel.values.title"
-					hard-data="{ label: ['phrases', 24] }"
-				></my-input>
-			</div>
-			<div>
 				<my-text-area
 					ctrl-id="'description'"
 					ctrl-max-length="1000"
@@ -50,6 +61,5 @@
 				></my-text-area>
 			</div>
 		</div>
-		<form-action-btns my-form="myForm"></form-action-btns>
 	</my-form>
 </div>

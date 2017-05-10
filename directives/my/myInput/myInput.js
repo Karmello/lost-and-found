@@ -19,7 +19,8 @@
 				ctrlMaxValue: '=',
 				model: '=',
 				hardData: '=',
-				hideErrors: '='
+				hideErrors: '=',
+				isRequired: '='
 			}
 		};
 

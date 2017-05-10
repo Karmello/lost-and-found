@@ -43,7 +43,13 @@
 					} else {
 
 						angular.forEach(that.keys, function(key) {
-							that.values[key].value = freshValues[key];
+
+							if (angular.isDefined(freshValues[key])) {
+								that.values[key].value = freshValues[key];
+
+							} else {
+								that.values[key].value = null;
+							}
 						});
 					}
 
@@ -53,7 +59,13 @@
 					if (this.allowUseDefaults && that.defaults) {
 
 						angular.forEach(that.keys, function(key) {
-							that.values[key].value = that.defaults[key];
+
+							if (angular.isDefined(that.defaults[key])) {
+								that.values[key].value = that.defaults[key];
+
+							} else {
+								that.values[key].value = null;
+							}
 						});
 					}
 				}

@@ -6,7 +6,7 @@ module.exports = {
 		// By itemId
 		if (req.query.itemId) {
 
-			r.Item.findOne({ _id: req.query.itemId}, function(err, item) {
+			r.Item.findOne({ _id: req.query.itemId }, function(err, item) {
 
 				if (!err && item) {
 					r.User.findOne({ _id: item.userId }, function(err, user) {
@@ -20,26 +20,15 @@ module.exports = {
 				} else { res.status(400).send(err); }
 			});
 
-		// By auctionId
-		} else if (req.query.auctionId) {
+		} else {
 
-			r.Auction.findOne({ _id: req.query.auctionId }, function(err, auction) {
+			r.User.findOne({ _id: req.query._id }, function(err, user) {
 
-				if (!err && auction) {
-
-					r.User.find({ _id: { $in: auction.subscribers } }, function(err, users) {
-
-						if (!err && users) {
-							res.status(200).send(users);
-
-						} else { res.status(400).send(err); }
-					});
+				if (!err && user) {
+					res.status(200).send([user]);
 
 				} else { res.status(400).send(err); }
 			});
-
-		} else {
-			return next();
 		}
 	}
 };

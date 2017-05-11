@@ -4,7 +4,7 @@
 		<meta name="fragment" content="!" />
 	</head>
 	<body>
-		<div id="lost-and-found-app-main">
+		<div id="lost-and-found-app-main" ng-controller="MainController">
 
 			<!-- File inputs -->
 			<single-file-input></single-file-input>
@@ -35,7 +35,7 @@
 			<div class="container-fluid">
 				<div id="underNavbarPanel" class="well">
 					<div>
-						<user-avatar user="apiData.loggedInUser" no-label="true"></user-avatar>
+						<user-avatar user="apiData.loggedInUser"></user-avatar>
 					</div>
 				</div>
 				<div>

@@ -151,58 +151,33 @@ body .form-group {
 #lost-and-found-app-guest #formSection .userBadge {
   margin-bottom: 50px; }
 
-#lost-and-found-app-item #topSection {
+#lost-and-found-app-item #section1 {
   display: -ms-flexbox;
-  display: flex;
-  margin: 0 auto; }
-  #lost-and-found-app-item #topSection > div {
-    -ms-flex-positive: 1;
-    flex-grow: 1; }
-  #lost-and-found-app-item #topSection #infoSection {
-    margin: 15px; }
-    #lost-and-found-app-item #topSection #infoSection > #top {
-      display: -ms-flexbox;
-      display: flex; }
-      #lost-and-found-app-item #topSection #infoSection > #top > div {
-        -ms-flex-positive: 1;
-        flex-grow: 1; }
-      #lost-and-found-app-item #topSection #infoSection > #top > div {
-        padding: 0;
-        font-weight: bold; }
-      #lost-and-found-app-item #topSection #infoSection > #top > div:first-child {
-        margin-bottom: 15px; }
-      #lost-and-found-app-item #topSection #infoSection > #top > div:last-child {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-pack: end;
-        justify-content: flex-end; }
-        #lost-and-found-app-item #topSection #infoSection > #top > div:last-child .itemIconMenu {
-          margin: 0 0 15px 15px; }
-    #lost-and-found-app-item #topSection #infoSection > #description p {
-      margin: 0 auto;
-      text-align: justify; }
-  @media only screen and (max-width: 600px) {
-    #lost-and-found-app-item #topSection {
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
-      #lost-and-found-app-item #topSection #usersSection {
-        margin-bottom: 25px; } }
-  @media only screen and (min-width: 601px) {
-    #lost-and-found-app-item #topSection #usersSection .mySrc {
-      margin-right: 10px; }
-      #lost-and-found-app-item #topSection #usersSection .mySrc img {
-        width: 150px;
-        height: 150px; } }
-
-#lost-and-found-app-item #navBtnsSection {
-  margin-top: 15px;
-  padding-bottom: 25px; }
-
-#lost-and-found-app-item #photosSection, #lost-and-found-app-item #commentsSection {
-  margin-top: 25px; }
-  #lost-and-found-app-item #photosSection .panel-default, #lost-and-found-app-item #commentsSection .panel-default {
-    border: 3px solid #fff;
-    border-top: none; }
+  display: flex; }
+  @media only screen and (max-width: 767px) {
+    #lost-and-found-app-item #section1 {
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap; } }
+  #lost-and-found-app-item #section1 > div:last-child {
+    margin: 10px; }
+  #lost-and-found-app-item #section1 > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap; }
+    #lost-and-found-app-item #section1 > div:first-child > div {
+      margin: 10px; }
+  @media only screen and (min-width: 768px) {
+    #lost-and-found-app-item #section1 > div:first-child {
+      -ms-flex-preferred-size: 35%;
+      flex-basis: 35%; }
+    #lost-and-found-app-item #section1 > div:last-child {
+      -ms-flex-preferred-size: 65%;
+      flex-basis: 65%; } }
+  #lost-and-found-app-item #section1 #descriptionSection {
+    text-align: justify; }
+  #lost-and-found-app-item #section1 span.text-info {
+    font-weight: bold; }
 
 #lost-and-found-app-main {
   min-height: 1000px;
@@ -294,6 +269,11 @@ body .form-group {
 .comments .myTextArea {
   max-width: 700px;
   margin: 0 auto; }
+
+.itemAvatar .mySrc img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover; }
 
 .itemIconMenu > div {
   display: table-cell; }
@@ -407,9 +387,6 @@ body .form-group {
         margin-bottom: 10px; }
         .myCollectionElem #bodySection #mainSection #infoSection p {
           margin: 0; }
-      @media only screen and (max-width: 599px) {
-        .myCollectionElem #bodySection #mainSection #avatarSection {
-          margin-bottom: 15px; } }
       .myCollectionElem #bodySection #mainSection #avatarSection .mySrc img {
         width: 150px;
         height: 100px;
@@ -476,11 +453,10 @@ body .form-group {
   padding: 1px; }
 
 .myLoader {
-  z-index: 1;
-  padding: 50px;
   position: relative;
   left: 0;
-  right: 0; }
+  right: 0;
+  padding: 50px; }
   .myLoader .sk-circle {
     position: relative;
     margin: 0 auto;
@@ -802,6 +778,9 @@ body .form-group {
     @media only screen and (min-width: 400px) {
       #itemForm .myForm .formCtrls textarea {
         min-width: 350px; } }
+    @media only screen and (min-width: 768px) {
+      #itemForm .myForm .formCtrls textarea {
+        min-width: 450px; } }
 
 #itemSearchForm .myForm .myBtnsGroup, #itemSearchForm .myForm .myBtnsGroupCenter, #itemSearchForm .myForm .myBtnsGroupRight {
   margin-left: 25px;

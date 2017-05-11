@@ -168,16 +168,6 @@
 
 			this.refresher = {};
 
-			if (this.collection) {
-
-				if (this.meta.count > 0) {
-					this.refresher.refresherLabel = hardData.phrases[92] + ' ' + this.meta.count;
-
-				} else {
-					this.refresher.refresherLabel = hardData.phrases[64];
-				}
-			}
-
 			if (this.meta.count > 0) {
 				this.refresher.class = 'btn-info';
 

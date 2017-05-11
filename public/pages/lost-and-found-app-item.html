@@ -8,41 +8,49 @@
 			<my-panel>
 				<title-section>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+					<span>&nbsp;&nbsp;&nbsp;{{ apiData.item.title }}</span>
 				</title-section>
 				<action-section>
-					<my-context-menu ins="itemContextMenu"></my-context-menu>
+					<my-context-menu ng-if="itemContextMenu" ins="itemContextMenu"></my-context-menu>
 				</action-section>
 				<body-section>
-					<div id="topSection">
-						<div id="infoSection">
-							<div id="top">
-								<div>
-									<div>
-										<span>{{ apiData.item.title }}</span>
-									</div>
-									<div>
-										<span>{{ apiData.item.fullCategory }}</span>
-									</div>
-									<div>
-										<p>
-											<span ng-bind="hardData.phrases[59]"></span>
-											<span>{{ apiData.item.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
-											<span style="white-space: nowrap;">({{ apiData.item.formattedDateAdded }})</span>
-										</p>
-									</div>
-								</div>
-								<div></div>
+					<div id="section1">
+						<div>
+							<div>
+								<item-avatar item="apiData.item" no-link="true"></item-avatar>
 							</div>
-							<div id="description">
-								<p ng-bind="apiData.item.description"></p>
+							<div>
+								<div>
+									<span>{{ hardData.phrases[140] }}:</span>
+									<span ng-bind="hardData.itemTypes[apiData.item.typeId == 'L' ? 0 : 1].label" class="text-info"></span>
+								</div>
+								<div>
+									<span>{{ hardData.phrases[142] }}:</span>
+									<span ng-bind="apiData.item.formattedDate" class="text-info"></span>
+								</div>
+								<div>
+									<span>{{ hardData.phrases[60] }}:</span>
+									<span ng-bind="apiData.item.fullCategory" class="text-info"></span>
+								</div>
+								<div>
+									<span>{{ hardData.phrases[59] }}:</span>
+									<span class="text-info">{{ apiData.item.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
+									<span class="text-info" style="white-space: nowrap;">({{ apiData.item.formattedDateAdded }})</span>
+								</div>
+								<div>
+									<span>{{ hardData.phrases[38] }}:</span>
+									<a ui-sref="main.profile({ id: apiData.itemUser._id })">
+										<span ng-bind="apiData.itemUser.username" class="text-info"></span>
+									</a>
+								</div>
 							</div>
 						</div>
-						<div id="usersSection">
-							<user-avatar user="apiData.itemUser"></user-avatar>
+						<div id="descriptionSection">
+							<span>{{ hardData.phrases[28] }}:</span>
+							<span ng-bind="apiData.item.description" class="text-info"></span>
 						</div>
 					</div>
-					<!-- <br />
+					<br />
 					<my-tabs ins="ui.tabs.item"></my-tabs>
 					<div id="photosSection" ng-show="ui.tabs.item.activeSwitcherId == 'photos'">
 						<my-panel>
@@ -65,7 +73,7 @@
 								<comments ctrl-id="ItemComments"></comments>
 							</body-section>
 						</my-panel>
-					</div> -->
+					</div>
 				</body-section>
 			</my-panel>
 		</div>

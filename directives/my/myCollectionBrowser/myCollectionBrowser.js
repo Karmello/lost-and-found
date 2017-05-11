@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('myCollectionBrowser', function() {
+	appModule.directive('myCollectionBrowser', function($rootScope) {
 
 		var myCollectionBrowser = {
 			restrict: 'E',
@@ -20,6 +20,10 @@
 			scope: {
 				ins: '=',
 				noScrollTopBtn: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
 			}
 		};
 

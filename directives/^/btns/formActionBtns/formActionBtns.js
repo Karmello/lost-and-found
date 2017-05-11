@@ -31,7 +31,7 @@
 				switch ($scope.myForm.ctrlId) {
 
 					case 'itemForm':
-						$scope.myForm.submitBtnPhraseIndex = 1;
+						$scope.myForm.submitBtnPhraseIndex = 4;
 						break;
 
 					case 'loginForm':

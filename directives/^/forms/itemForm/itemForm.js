@@ -21,7 +21,14 @@
 				$scope.itemCategories = $rootScope.apiData.itemCategories;
 
 				$scope.myModel = new myClass.MyFormModel('itemForm', ['userId', 'date', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
-				$scope.myModel.set({ date: new Date() });
+
+				var date = new Date();
+				date.setHours(12);
+				date.setMinutes(0);
+				date.setSeconds(0);
+				date.setMilliseconds(0);
+				$scope.myModel.set({ date: date });
+
 				$scope.myForm = new myClass.MyForm({ ctrlId: 'itemForm', model: $scope.myModel });
 
 				$scope.myForm.submitAction = function(args) {

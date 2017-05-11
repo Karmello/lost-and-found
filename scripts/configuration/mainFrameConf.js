@@ -53,7 +53,7 @@
 				{
 					_id: 'item',
 					label: hardData.phrases[62],
-					icon: 'glyphicon glyphicon-shopping-cart'
+					icon: 'glyphicon glyphicon-file'
 				},
 				{
 					_id: 'editem',

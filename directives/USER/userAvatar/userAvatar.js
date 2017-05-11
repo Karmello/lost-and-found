@@ -12,7 +12,6 @@
 			scope: {
 				user: '=',
 				editable: '=',
-				noLabel: '&',
 				noLink: '&'
 			},
 			controller: function($scope) {
@@ -32,10 +31,7 @@
 					scope.$watch(function() { return scope.user; }, function(user) {
 
 						if (user) {
-
-							if (!scope.noLabel()) { scope.src.label = scope.user.truncatedUsername; }
 							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
-
 							userAvatarService.loadPhoto(scope);
 						}
 					});

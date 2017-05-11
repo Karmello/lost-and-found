@@ -31,6 +31,7 @@
 				Restangular.addElementTransformer('items', false, function(item) {
 					item.truncatedTitle = item.title.truncate(25);
 					item.date = new Date(item.date);
+					item.formattedDate = $moment(item.date).format('DD-MM-YYYY');
 					item.formattedDateAdded = $moment(item.dateAdded).format('DD-MM-YYYY HH:mm');
 					item.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(item.dateAdded))).humanize();
 					service.createItemFullCategoryString(item);
@@ -109,10 +110,7 @@
 
 									if (res.config.params._id) {
 
-										if (!$rootScope.apiData.item) {
-											$rootScope.apiData.item = data[0];
-										}
-
+										$rootScope.apiData.item = data[0];
 										return data;
 
 									} else if (res.config.params.userId) {

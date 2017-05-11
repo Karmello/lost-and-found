@@ -8,7 +8,7 @@ module.exports = {
 
 			return r.Item.findOne({ _id: req.query._id }, function(err, item) {
 
-				if (!err && item && r.User.isCurrentRequester(req, item.userId)) {
+				if (!err && item) {
 					res.status(200).send([item]);
 
 				} else { res.status(400).send(err); }

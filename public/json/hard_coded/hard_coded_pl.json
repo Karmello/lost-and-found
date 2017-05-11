@@ -18,17 +18,17 @@
 		{ "value": "raw", "label": "Czysty" }
 	],
 	"itemTypes": [
-		{ "value": "L", "label": "Stracone" },
-		{ "value": "F", "label": "Znalezione" }
+		{ "value": "L", "label": "Utrata" },
+		{ "value": "F", "label": "Odnalezienie" }
 	],
 	"phrases": [
 		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Email", "Nazwa użytkownika", "Hasło",
-		"Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Nazwa", "Kraj", "Wybierz", "Język", "Opis", "Wiadomość",
+		"Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Wybierz", "Język", "Opis", "Wiadomość",
 		"Oryginał", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Data rejestracji", "Strona główna", "Uczestnicy", "Przeglądaj","Użytkownik", "Ustawienia",
 		"O nas", "Pomoc", "Kontakt", "Aplikacja", "Konto", "Płatności", "Uwaga !", "Logowanie", "Rejestracja", "Status",
 		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "Paypal", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Dodano",
-		"Kategoria", "Podkategoria", "Przedmiot", "Moje przedmioty", "Pusto", "Usuwanie przedmiotu", "Waluta", "Wartość początkowa", "Edytuj", "Upublicznij",
+		"Kategoria", "Podkategoria", "Przedmiot", "Moje przedmioty", "Pusto", "Usuwanie przedmiotu", "Waluta", "Wartość początkowa", "Edycja", "Upublicznij",
 		"Zdjęcia", "Subskrybenci", "Upublicznianie przedmiotu", "Wygląd", "Cześć", "Przedmioty", "Wszystkie", "Publiczne", "Prywatne", "Zobacz",
 		"Info", "Sprzedający", "Zobacz profil", "Szukaj", "Tytułu", "Wartości pocz.", "Odwróć", "Rosnąco", "Malejąco", "Strona",
 		"Według", "Przewiń do góry", "Znaleziono", "LostAndFoundApp", "Przesyłanie zdjęcia profilowego", "Usuwanie zdjęcia profilowego", "", "Przebitka", "Cena minimalna", "Przebitki",
@@ -37,7 +37,7 @@
 		"Odznacz wszystkie", "Zamknij", "Przesyłanych", "Przesłanych", "Usuwanych", "Usuniętych", "Niepowodzeń", "Motyw", "użytkownika", "Zobacz aukcję",
 		"Aukcja", "W przybliżeniu", "Moje subskrybcje", "Subskrybcje", "Zwiększ", "Zmniejsz", "Złóż ofertę", "Przebieg aukcji", "Wybierz zdjęcie", "Obróć",
 		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "Aukcje", "Przesuń w lewo", "Przesuń w prawo", "Daty dodania", "Data dodania", "temu",
-		"Typ", "Zgłoś", "Data"
+		"Typ", "Zgłoś", "Data", "Imię i nazwisko", "Rezultaty", "Nowe zgłoszenie", "Daty"
 	],
 	"sentences": [
 		"Dlaczego nas opuszczasz ?",

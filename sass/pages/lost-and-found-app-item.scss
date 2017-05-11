@@ -1,54 +1,27 @@
 #lost-and-found-app-item {
 
-	#topSection {
+	#section1 {
 
 		display: flex;
-		margin: 0 auto;
-		> div { flex-grow: 1; }
+		@media only screen and (max-width: 767px) { flex-flow: row wrap; }
 
-		#infoSection {
+		> div:last-child { margin: 10px; }
 
-			margin: 15px;
-
-			> #top {
-
-				display: flex;
-
-				> div { flex-grow: 1; }
-				> div { padding: 0; font-weight: bold; }
-				> div:first-child { margin-bottom: 15px; }
-
-				> div:last-child {
-					display: flex;
-					justify-content: flex-end;
-					.itemIconMenu { margin: 0 0 15px 15px; }
-				}
-			}
-
-			> #description {
-				p { margin: 0 auto; text-align: justify; }
-			}
+		> div:first-child {
+			display: flex;
+			flex-flow: row wrap;
+			> div { margin: 10px; }
 		}
 
-		@media only screen and (max-width: 600px) {
-			flex-wrap: wrap;
-			#usersSection { margin-bottom: 25px; }
+		@media only screen and (min-width: 768px) {
+			> div:first-child { flex-basis: 35%; }
+			> div:last-child { flex-basis: 65%; }
 		}
 
-		@media only screen and (min-width: 601px) {
-			#usersSection {
-				.mySrc { img { width: 150px; height: 150px; } margin-right: 10px; }
-			}
+		#descriptionSection {
+			text-align: justify;
 		}
-	}
 
-	#navBtnsSection {
-		margin-top: 15px;
-		padding-bottom: 25px;
-	}
-
-	#photosSection, #commentsSection {
-		margin-top: 25px;
-		.panel-default { border: 3px solid $body-bg; border-top: none; }
+		span.text-info { font-weight: bold; }
 	}
 }

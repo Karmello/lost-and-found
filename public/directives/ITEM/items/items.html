@@ -11,19 +11,20 @@
 				<title-section>
 					<a ui-sref="main.item({ tab: 'photos', id: item._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ item.truncatedTitle }}</a>
 				</title-section>
-				<avatar-section>
-					<item-avatar item="item"></item-avatar>
-				</avatar-section>
 				<info-section>
-					<p><span>{{ item.fullCategory }}</span></p>
+					<p>
+						<span>{{ hardData.itemTypes[item.typeId == 'L' ? 0 : 1].label }}</span>&nbsp;
+						<span>({{ item.formattedDate }})</span>
+					</p>
+					<p>{{ item.fullCategory }}</p>
 					<p>
 						<span ng-bind="hardData.phrases[59]"></span>
 						<span>{{ item.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
 					</p>
-					<p><span>({{ item.formattedDateAdded }})</span></p>
-					<p><span>{{ hardData.phrases[70] + ': ' + item.photos.length }}</span></p>
-					<p><span>{{ hardData.phrases[58] + ': ' + item.comments.length }}</span></p>
 				</info-section>
+				<avatar-section>
+					<item-avatar item="item"></item-avatar>
+				</avatar-section>
 			</my-collection-elem>
 		</elems>
 	</my-collection-browser>

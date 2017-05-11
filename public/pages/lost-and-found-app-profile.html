@@ -8,7 +8,7 @@
 			<my-panel>
 				<title-section>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+					<span>&nbsp;&nbsp;&nbsp;{{ apiData.profileUser.username }}</span>
 				</title-section>
 				<body-section>
 					<div id="userSection">
@@ -23,20 +23,26 @@
 							<table class="table">
 								<tr>
 									<td>
+										<span>{{ hardData.phrases[143] }}:</span>
 										<span ng-bind="apiData.profileUser.firstname" class="text-info"></span>
-										<span class="text-info">{{ apiData.profileUser.lastname }},</span>
+										<span ng-bind="apiData.profileUser.lastname" class="text-info"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>{{ hardData.phrases[25] }}:</span>
 										<span ng-bind="apiData.profileUser.country" class="text-info"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span>{{ hardData.phrases[17] }}:&nbsp;</span>
+										<span>{{ hardData.phrases[17] }}:</span>
 										<span ng-bind="apiData.profileUser.email" class="text-info"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span>{{ hardData.phrases[34] }}:&nbsp;</span>
+										<span>{{ hardData.phrases[34] }}:</span>
 										<span ng-bind="apiData.profileUser.formattedRegistrationDate" class="text-info"></span>
 									</td>
 								</tr>
@@ -49,7 +55,7 @@
 			<my-panel>
 				<title-section>
 					<span class="glyphicon glyphicon-list"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }}</span>
+					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }} ({{ profileCollectionBrowser.meta.count }})</span>
 				</title-section>
 				<body-section>
 					<items ctrl-id="UserItems"></items>

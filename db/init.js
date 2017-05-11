@@ -69,6 +69,29 @@ var item_categories = [
 				}
 			}
 		]
+	},
+	{
+		_id: 'individual',
+		label: {
+			en: 'Individual',
+			pl: 'Osobnik'
+		},
+		subcategories: [
+			{
+				_id: 'human',
+				label: {
+					en: 'Human',
+					pl: 'Człowiek'
+				}
+			},
+			{
+				_id: 'animal',
+				label: {
+					en: 'Animal',
+					pl: 'Zwierzę'
+				}
+			}
+		]
 	}
 ];
 
@@ -140,7 +163,7 @@ var contact_types = [
 
 use laf-dev
 
-db.dropDatabase();
+//db.dropDatabase();
 db.createCollection('counters');
 //db.item_categories.drop();
 db.createCollection('item_categories');

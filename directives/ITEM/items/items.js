@@ -16,6 +16,20 @@
 
 				$scope.hardData = $rootScope.hardData;
 				$scope.apiData = $rootScope.apiData;
+
+				$scope.initUserItems = function(userId) {
+
+					$scope.collectionBrowser = itemsConf.profileCollectionBrowser;
+
+					if (userId == $rootScope.apiData.loggedInUser._id) {
+						$scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
+
+					} else {
+						$scope.elemContextMenuConf = undefined;
+					}
+
+					$scope.collectionBrowser.init();
+				};
 			},
 			compile: function(elem, attrs) {
 
@@ -30,9 +44,7 @@
 
 					if (!$rootScope.$$listeners.initUserItems) {
 						$rootScope.$on('initUserItems', function(e, args) {
-							scope.collectionBrowser = itemsConf.profileCollectionBrowser;
-							scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
-							scope.collectionBrowser.init();
+							scope.initUserItems(args.userId);
 						});
 					}
 
@@ -42,13 +54,8 @@
 
 						case 'UserItems':
 
-							scope.collectionBrowser = itemsConf.profileCollectionBrowser;
-							scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
-
 							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) {
-									scope.collectionBrowser.init();
-								}
+								if (angular.isDefined(userId)) { scope.initUserItems(userId); }
 							});
 
 							break;

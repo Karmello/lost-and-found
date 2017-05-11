@@ -27,12 +27,16 @@
 			sorter: {
 				switchers: [
 					{
+						_id: 'dateAdded',
+						label: hardData.phrases[137]
+					},
+					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
+						_id: 'date',
+						label: hardData.phrases[146]
 					}
 				]
 			},
@@ -69,12 +73,16 @@
 			sorter: {
 				switchers: [
 					{
+						_id: 'dateAdded',
+						label: hardData.phrases[137]
+					},
+					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
+						_id: 'date',
+						label: hardData.phrases[146]
 					}
 				]
 			},

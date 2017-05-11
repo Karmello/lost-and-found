@@ -29,9 +29,8 @@
 				min-height: 175px !important;
 				text-align: justify;
 
-				@media only screen and (min-width: 400px) {
-					min-width: 350px;
-				}
+				@media only screen and (min-width: 400px) { min-width: 350px; }
+				@media only screen and (min-width: 768px) { min-width: 450px; }
 			}
 		}
 	}

@@ -10,7 +10,8 @@
 			restrict: 'E',
 			templateUrl: 'public/directives/ITEM/itemAvatar/itemAvatar.html',
 			scope: {
-				item: '='
+				item: '=',
+				noLink: '&'
 			},
 			controller: function($scope) {
 
@@ -23,7 +24,8 @@
 					scope.$watch(function() { return scope.item; }, function(item) {
 
 						if (item) {
-							scope.src.href = '/#/item/photos?id=' + item._id;
+
+							if (!scope.noLink()) { scope.src.href = '/#/item/photos?id=' + item._id; }
 							scope.src.load(itemAvatarService.constructPhotoUrl(scope, true));
 						}
 					});

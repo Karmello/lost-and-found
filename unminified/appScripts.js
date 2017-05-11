@@ -216,7 +216,7 @@
 				{
 					_id: 'item',
 					label: hardData.phrases[62],
-					icon: 'glyphicon glyphicon-shopping-cart'
+					icon: 'glyphicon glyphicon-file'
 				},
 				{
 					_id: 'editem',
@@ -773,6 +773,20 @@
 
 	ItemController.$inject = ['$rootScope', '$scope', 'itemsService', 'itemsConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ItemController', ItemController);
+
+})();
+(function() {
+
+	'use strict';
+
+	var MainController = function($scope, itemsConf) {
+
+		$scope.searchCollectionBrowser = itemsConf.searchCollectionBrowser;
+		$scope.profileCollectionBrowser = itemsConf.profileCollectionBrowser;
+	};
+
+	MainController.$inject = ['$scope', 'itemsConf'];
+	angular.module('appModule').controller('MainController', MainController);
 
 })();
 (function() {
@@ -1470,6 +1484,7 @@
 				Restangular.addElementTransformer('items', false, function(item) {
 					item.truncatedTitle = item.title.truncate(25);
 					item.date = new Date(item.date);
+					item.formattedDate = $moment(item.date).format('DD-MM-YYYY');
 					item.formattedDateAdded = $moment(item.dateAdded).format('DD-MM-YYYY HH:mm');
 					item.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(item.dateAdded))).humanize();
 					service.createItemFullCategoryString(item);
@@ -1548,10 +1563,7 @@
 
 									if (res.config.params._id) {
 
-										if (!$rootScope.apiData.item) {
-											$rootScope.apiData.item = data[0];
-										}
-
+										$rootScope.apiData.item = data[0];
 										return data;
 
 									} else if (res.config.params.userId) {
@@ -2628,16 +2640,6 @@
 		MyCollectionBrowser.prototype.updateRefresher = function() {
 
 			this.refresher = {};
-
-			if (this.collection) {
-
-				if (this.meta.count > 0) {
-					this.refresher.refresherLabel = hardData.phrases[92] + ' ' + this.meta.count;
-
-				} else {
-					this.refresher.refresherLabel = hardData.phrases[64];
-				}
-			}
 
 			if (this.meta.count > 0) {
 				this.refresher.class = 'btn-info';
@@ -4080,7 +4082,7 @@
 				switch ($scope.myForm.ctrlId) {
 
 					case 'itemForm':
-						$scope.myForm.submitBtnPhraseIndex = 1;
+						$scope.myForm.submitBtnPhraseIndex = 4;
 						break;
 
 					case 'loginForm':
@@ -4316,7 +4318,14 @@
 				$scope.itemCategories = $rootScope.apiData.itemCategories;
 
 				$scope.myModel = new myClass.MyFormModel('itemForm', ['userId', 'date', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
-				$scope.myModel.set({ date: new Date() });
+
+				var date = new Date();
+				date.setHours(12);
+				date.setMinutes(0);
+				date.setSeconds(0);
+				date.setMilliseconds(0);
+				$scope.myModel.set({ date: date });
+
 				$scope.myForm = new myClass.MyForm({ ctrlId: 'itemForm', model: $scope.myModel });
 
 				$scope.myForm.submitAction = function(args) {
@@ -5064,7 +5073,8 @@
 			restrict: 'E',
 			templateUrl: 'public/directives/ITEM/itemAvatar/itemAvatar.html',
 			scope: {
-				item: '='
+				item: '=',
+				noLink: '&'
 			},
 			controller: function($scope) {
 
@@ -5077,7 +5087,8 @@
 					scope.$watch(function() { return scope.item; }, function(item) {
 
 						if (item) {
-							scope.src.href = '/#/item/photos?id=' + item._id;
+
+							if (!scope.noLink()) { scope.src.href = '/#/item/photos?id=' + item._id; }
 							scope.src.load(itemAvatarService.constructPhotoUrl(scope, true));
 						}
 					});
@@ -5549,6 +5560,20 @@
 
 				$scope.hardData = $rootScope.hardData;
 				$scope.apiData = $rootScope.apiData;
+
+				$scope.initUserItems = function(userId) {
+
+					$scope.collectionBrowser = itemsConf.profileCollectionBrowser;
+
+					if (userId == $rootScope.apiData.loggedInUser._id) {
+						$scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
+
+					} else {
+						$scope.elemContextMenuConf = undefined;
+					}
+
+					$scope.collectionBrowser.init();
+				};
 			},
 			compile: function(elem, attrs) {
 
@@ -5563,9 +5588,7 @@
 
 					if (!$rootScope.$$listeners.initUserItems) {
 						$rootScope.$on('initUserItems', function(e, args) {
-							scope.collectionBrowser = itemsConf.profileCollectionBrowser;
-							scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
-							scope.collectionBrowser.init();
+							scope.initUserItems(args.userId);
 						});
 					}
 
@@ -5575,13 +5598,8 @@
 
 						case 'UserItems':
 
-							scope.collectionBrowser = itemsConf.profileCollectionBrowser;
-							scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
-
 							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) {
-									scope.collectionBrowser.init();
-								}
+								if (angular.isDefined(userId)) { scope.initUserItems(userId); }
 							});
 
 							break;
@@ -5629,12 +5647,16 @@
 			sorter: {
 				switchers: [
 					{
+						_id: 'dateAdded',
+						label: hardData.phrases[137]
+					},
+					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
+						_id: 'date',
+						label: hardData.phrases[146]
 					}
 				]
 			},
@@ -5671,12 +5693,16 @@
 			sorter: {
 				switchers: [
 					{
+						_id: 'dateAdded',
+						label: hardData.phrases[137]
+					},
+					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
+						_id: 'date',
+						label: hardData.phrases[146]
 					}
 				]
 			},
@@ -5934,7 +5960,7 @@
 
 
 
-	appModule.directive('myCollectionBrowser', function() {
+	appModule.directive('myCollectionBrowser', function($rootScope) {
 
 		var myCollectionBrowser = {
 			restrict: 'E',
@@ -5948,6 +5974,10 @@
 			scope: {
 				ins: '=',
 				noScrollTopBtn: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
 			}
 		};
 
@@ -6782,7 +6812,6 @@
 			scope: {
 				user: '=',
 				editable: '=',
-				noLabel: '&',
 				noLink: '&'
 			},
 			controller: function($scope) {
@@ -6802,10 +6831,7 @@
 					scope.$watch(function() { return scope.user; }, function(user) {
 
 						if (user) {
-
-							if (!scope.noLabel()) { scope.src.label = scope.user.truncatedUsername; }
 							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
-
 							userAvatarService.loadPhoto(scope);
 						}
 					});

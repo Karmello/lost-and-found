@@ -20,7 +20,7 @@ module.exports = function(app, cb) {
     });
 
     app.use(r.session({
-        name: 'auction_house.sid',
+        name: 'laf.sid',
         secret: process.env.AUTH_SECRET,
         store: sessionStore,
         resave: false,

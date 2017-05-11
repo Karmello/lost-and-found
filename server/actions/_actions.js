@@ -21,12 +21,6 @@ module.exports = {
 		put: require('./Item/putItem'),
 		delete: require('./Item/deleteItem'),
 	},
-	auction: {
-		post: require('./Auction/postAuction'),
-		get: require('./Auction/getAuction'),
-		put: require('./Auction/putAuction'),
-		delete: require('./Auction/deleteAuction'),
-	},
 	comment: {
 		post: require('./Comment/postComment'),
 		get: require('./Comment/getComment'),

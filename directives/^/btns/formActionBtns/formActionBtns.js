@@ -17,7 +17,7 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'itemSearchForm',
-					'contactForm', 'itemForm', 'auctionForm', 'commentForm'
+					'contactForm', 'itemForm', 'commentForm'
 				];
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'itemForm'];
@@ -31,7 +31,6 @@
 				switch ($scope.myForm.ctrlId) {
 
 					case 'itemForm':
-					case 'auctionForm':
 						$scope.myForm.submitBtnPhraseIndex = 1;
 						break;
 

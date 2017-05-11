@@ -8,10 +8,5 @@ module.exports = function(server, cb) {
 
     });
 
-    io.on('auctionUpdate', function(socket) {
-
-    	console.log('auctionUpdate');
-    });
-
     cb();
 };

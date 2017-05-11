@@ -98,13 +98,6 @@ ItemSchema.pre('validate', function(next) {
 
 ItemSchema.post('remove', function(doc) {
 
-	// Removing auctions from db
-	r.Auction.find({ itemId: doc._id }, function(err, auctions) {
-		if (!err && auctions) {
-			for (var auction of auctions) { auction.remove(); }
-		}
-	});
-
 	// Removing photos from S3
 	for (var photo of doc.photos) { doc.removePhotoFromS3(photo.filename); }
 });

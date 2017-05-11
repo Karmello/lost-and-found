@@ -100,37 +100,5 @@ module.exports = {
         }
 
         next();
-    },
-    auctionAction: function(req, res, next) {
-
-        var promise;
-
-        switch (req.method) {
-
-             case 'DELETE':
-                promise = r.Auction.findOne({ _id: req.params.id }).exec();
-                break;
-
-            case 'POST':
-                promise = new r.Promise(function(resolve) { resolve(); });
-                break;
-
-            default:
-                return next();
-        }
-
-        promise.then(function(auction) {
-
-            var itemId;
-            if (auction) { itemId = auction.itemId; } else { itemId = req.body.itemId; }
-
-            r.Item.findOne({ _id: itemId }, function(err, item) {
-
-                if (!err && item && item.userId == req.decoded._doc._id) {
-                    return next();
-
-                } else { res.status(401).send(err); }
-            });
-        });
     }
 };

@@ -2,9 +2,7 @@
 
 	'use strict';
 
-	var apiService = function(
-		$rootScope, $window, $timeout, $moment, storageService, itemsConf, auctionsConf, commentsConf, Restangular
-	) {
+	var apiService = function($rootScope, $window, $timeout, $moment, storageService, itemsConf, commentsConf, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -37,12 +35,6 @@
 					item.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(item.dateAdded))).humanize();
 					service.createItemFullCategoryString(item);
 					return item;
-				});
-
-				Restangular.addElementTransformer('auctions', false, function(auction) {
-					auction.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(auction.dateAdded))).humanize();
-					auction.formattedDateAdded = $moment(auction.dateAdded).format('DD-MM-YYYY HH:mm');
-					return auction;
 				});
 
 				Restangular.addElementTransformer('comments', false, function(comment) {
@@ -143,28 +135,6 @@
 
 						break;
 
-					case 'auctions':
-
-						switch (operation) {
-
-							case 'getList':
-
-								if (res.config.params.userId) {
-									for (i in data.collection) { data.collection[i].item = data.items[i]; }
-									auctionsConf.userAuctionsBrowser.setData(data);
-
-								} else if (res.config.params.itemId) {
-									auctionsConf.itemAuctionsBrowser.setData(data);
-
-								} else {
-									$rootScope.apiData.auction = data[0];
-								}
-
-								return data.collection;
-						}
-
-						break;
-
 					case 'comments':
 
 						switch (operation) {
@@ -198,11 +168,7 @@
 		return service;
 	};
 
-	apiService.$inject = [
-		'$rootScope', '$window', '$timeout', '$moment', 'storageService', 'itemsConf', 'auctionsConf', 'commentsConf',
-		'Restangular'
-	];
-
+	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'storageService', 'itemsConf', 'commentsConf','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();

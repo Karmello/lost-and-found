@@ -147,7 +147,7 @@ db.createCollection('item_categories');
 db.createCollection('deactivation_reasons');
 db.createCollection('contact_types');
 
-db.counters.insert({"_id": "auctionId", "seq": 0 });
+db.counters.insert({"_id": "id", "seq": 0 });
 for (var i = 0; i < item_categories.length; ++i) { db.item_categories.insert(item_categories[i]); }
 for (var i = 0; i < deactivation_reasons.length; ++i) { db.deactivation_reasons.insert(deactivation_reasons[i]); }
 for (var i = 0; i < contact_types.length; ++i) { db.contact_types.insert(contact_types[i]); }

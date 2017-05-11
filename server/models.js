@@ -6,7 +6,6 @@ module.exports = {
 	Password: require(path + 'PasswordSchema'),
 	ItemCategory: require(path + 'ItemCategorySchema'),
 	Item: require(path + 'ItemSchema'),
-	Auction: require(path + 'AuctionSchema'),
 	DeactivationReason: require(path + 'DeactivationReasonSchema'),
 	ContactType: require(path + 'ContactTypeSchema'),
 	Counter: require(path + 'CounterSchema'),

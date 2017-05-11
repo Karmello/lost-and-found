@@ -198,9 +198,9 @@ body .form-group {
   margin-top: 15px;
   padding-bottom: 25px; }
 
-#lost-and-found-app-item #auctionsSection, #lost-and-found-app-item #photosSection, #lost-and-found-app-item #commentsSection {
+#lost-and-found-app-item #photosSection, #lost-and-found-app-item #commentsSection {
   margin-top: 25px; }
-  #lost-and-found-app-item #auctionsSection .panel-default, #lost-and-found-app-item #photosSection .panel-default, #lost-and-found-app-item #commentsSection .panel-default {
+  #lost-and-found-app-item #photosSection .panel-default, #lost-and-found-app-item #commentsSection .panel-default {
     border: 3px solid #fff;
     border-top: none; }
 
@@ -291,45 +291,6 @@ body .form-group {
       margin: 2px 5px 2px 5px;
       line-height: 18px; }
 
-#auctionSubscribersWindow .mySrcThumbs div.singleSrcContainer {
-  margin: 1px; }
-  #auctionSubscribersWindow .mySrcThumbs div.singleSrcContainer .mySrc .srcLabel {
-    width: 80px; }
-
-#auctionWindow .myForm .formCtrls {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-pack: center;
-  justify-content: center; }
-  #auctionWindow .myForm .formCtrls > div {
-    padding: 0 10px 0 10px; }
-    #auctionWindow .myForm .formCtrls > div .mySelect, #auctionWindow .myForm .formCtrls > div .myInput {
-      width: 150px;
-      margin: 0 auto; }
-
-.biddingMachine {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: center; }
-  .biddingMachine > div {
-    -ms-flex-positive: 1;
-    flex-grow: 1; }
-  .biddingMachine .well {
-    min-width: 200px;
-    border: 2px solid #5bc0de;
-    border-radius: 20px; }
-    .biddingMachine .well span {
-      font-size: 32px;
-      font-weight: bold; }
-
 .comments .myTextArea {
   max-width: 700px;
   margin: 0 auto; }
@@ -339,6 +300,10 @@ body .form-group {
   .itemIconMenu > div.public .myPopOverIcon .glyphicon {
     color: #333333; }
 
+.itemPhotos img {
+  max-width: 200px;
+  max-height: 200px; }
+
 .items #actionBtns {
   margin-bottom: 25px; }
 
@@ -347,10 +312,6 @@ body .form-group {
 
 .items .isFound .myCollectionElem {
   background-color: #5cb85c; }
-
-.itemPhotos img {
-  max-width: 200px;
-  max-height: 200px; }
 
 .myAlert {
   display: table;
@@ -618,11 +579,11 @@ body .form-group {
     margin: 0 auto; }
 
 @media only screen and (min-width: 768px) {
-  .wideModal .modal-dialog, #auctionSubscribersWindow .modal-dialog {
+  .wideModal .modal-dialog {
     width: 720px; } }
 
 @media only screen and (min-width: 900px) {
-  .wideModal .modal-dialog, #auctionSubscribersWindow .modal-dialog {
+  .wideModal .modal-dialog {
     width: 850px; } }
 
 .responsiveImgAndDesc {
@@ -790,7 +751,7 @@ body .form-group {
   width: 150px;
   height: 150px; }
 
-.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, #auctionSubscribersWindow .mySrcThumbs div.singleSrcContainer .mySrc img, .comments .userAvatar > div .mySrc img {
+.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .comments .userAvatar > div .mySrc img {
   width: 60px;
   height: 60px; }
 

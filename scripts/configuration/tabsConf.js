@@ -133,17 +133,12 @@
 					onActivate: function() {}
 				},
 				{
-					_id: 'auctions',
-					getRoute: getRoute,
-					onActivate: function() {}
-				},
-				{
 					_id: 'comments',
 					getRoute: getRoute,
 					onActivate: function() {}
 				}
 			],
-			hardData: { switchers_label: ['phrases', [70, 134, 58]] }
+			hardData: { switchers_label: ['phrases', [70, 58]] }
 		};
 
 		return config;

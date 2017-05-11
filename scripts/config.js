@@ -5,7 +5,7 @@
 
 		$urlRouterProvider.otherwise('/home');
 		$locationProvider.html5Mode(false).hashPrefix('');
-		localStorageServiceProvider.setPrefix('auction_house');
+		localStorageServiceProvider.setPrefix('laf');
 
 
 

@@ -29,7 +29,6 @@ module.exports = function(app, cb) {
 
 	// Max gets
 	app.set('ITEMS_MAX_GET', 25);
-	app.set('AUCTIONS_MAX_GET', 3);
 	app.set('COMMENTS_MAX_GET', 10);
 
 	cb();

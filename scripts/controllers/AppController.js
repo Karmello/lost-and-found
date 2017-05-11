@@ -18,7 +18,6 @@
 			profileUser: undefined,
 			itemUser: undefined,
 			item: undefined,
-			auction: undefined,
 			itemCategories: undefined,
 			deactivationReasons: undefined,
 			contactTypes: undefined

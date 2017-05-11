@@ -53,10 +53,6 @@
 			deleteItemModal: new MyModal({
 				typeId: 'confirmDangerModal',
 				title: hardData.phrases[65]
-			}),
-			auctionSubscribersModal: new MyModal({
-				id: 'auctionSubscribersModal',
-				title: hardData.phrases[71]
 			})
 		};
 	};

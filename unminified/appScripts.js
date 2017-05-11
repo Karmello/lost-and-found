@@ -35,7 +35,7 @@
 
 		$urlRouterProvider.otherwise('/home');
 		$locationProvider.html5Mode(false).hashPrefix('');
-		localStorageServiceProvider.setPrefix('auction_house');
+		localStorageServiceProvider.setPrefix('laf');
 
 
 
@@ -371,10 +371,6 @@
 			deleteItemModal: new MyModal({
 				typeId: 'confirmDangerModal',
 				title: hardData.phrases[65]
-			}),
-			auctionSubscribersModal: new MyModal({
-				id: 'auctionSubscribersModal',
-				title: hardData.phrases[71]
 			})
 		};
 	};
@@ -592,17 +588,12 @@
 					onActivate: function() {}
 				},
 				{
-					_id: 'auctions',
-					getRoute: getRoute,
-					onActivate: function() {}
-				},
-				{
 					_id: 'comments',
 					getRoute: getRoute,
 					onActivate: function() {}
 				}
 			],
-			hardData: { switchers_label: ['phrases', [70, 134, 58]] }
+			hardData: { switchers_label: ['phrases', [70, 58]] }
 		};
 
 		return config;
@@ -663,7 +654,6 @@
 			profileUser: undefined,
 			itemUser: undefined,
 			item: undefined,
-			auction: undefined,
 			itemCategories: undefined,
 			deactivationReasons: undefined,
 			contactTypes: undefined
@@ -747,36 +737,6 @@
 
 	'use strict';
 
-	var AuctionController = function($rootScope, $scope, ui) {
-
-		// On subscribe click
-		$scope.onSubscribeToAnAuctionClick = function() {
-
-			$rootScope.apiData.auction._subscribe();
-		};
-
-		// On unsubscribe click
-		$scope.onUnsubscribeFromAnAuctionClick = function() {
-
-			$rootScope.apiData.auction._unsubscribe();
-		};
-
-		// On show subscribers click
-		$scope.onSeeAuctionSubscribersClick = function() {
-
-			$rootScope.$broadcast('auctionSubscribersWindowOpen');
-			ui.modals.auctionSubscribersModal.show();
-		};
-	};
-
-	AuctionController.$inject = ['$rootScope', '$scope', 'ui'];
-	angular.module('appModule').controller('AuctionController', AuctionController);
-
-})();
-(function() {
-
-	'use strict';
-
 	var GuestController = function($scope, authService) {
 
 		$scope.$watch(function() { return authService.state.loggedIn; }, function(loggedIn) {
@@ -794,34 +754,10 @@
 
 	'use strict';
 
-	var ItemController = function(
-		$rootScope, $scope, itemsService, auctionsService, itemsConf, auctionsConf, commentsConf, MySwitchable
-	) {
+	var ItemController = function($rootScope, $scope, itemsService, itemsConf, commentsConf, MySwitchable) {
 
 		$scope.itemsService = itemsService;
-		$scope.auctionsBrowser = auctionsConf.itemAuctionsBrowser;
 		$scope.commentsBrowser = commentsConf.itemCommentsBrowser;
-
-		$scope.auctionsContextMenu = new MySwitchable({
-			_id: 'auctionsContextMenu',
-			icon: 'glyphicon glyphicon-option-horizontal',
-			switchers: [
-				{
-					_id: 'add',
-					label: $rootScope.hardData.phrases[16],
-					onClick: function() {
-						$rootScope.$broadcast('displayAddAuctionWindow');
-					}
-				},
-				{
-					_id: 'delete',
-					label: $rootScope.hardData.phrases[14],
-					onClick: function() {
-						auctionsService.deleteAuctions($scope.auctionsBrowser.getSelectedCollection());
-					}
-				}
-			]
-		});
 
 		$scope.$watch(function() { return $rootScope.apiData.item; }, function(item) {
 
@@ -833,18 +769,9 @@
 				$scope.itemContextMenu = null;
 			}
 		});
-
-		$scope.scrollTo = function(target) {
-
-			$('html, body').animate({ scrollTop: $(target).offset().top - 15 }, 'fast');
-		};
 	};
 
-	ItemController.$inject = [
-		'$rootScope', '$scope', 'itemsService', 'auctionsService', 'itemsConf', 'auctionsConf', 'commentsConf',
-		'MySwitchable'
-	];
-
+	ItemController.$inject = ['$rootScope', '$scope', 'itemsService', 'itemsConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ItemController', ItemController);
 
 })();
@@ -1514,9 +1441,7 @@
 
 	'use strict';
 
-	var apiService = function(
-		$rootScope, $window, $timeout, $moment, storageService, itemsConf, auctionsConf, commentsConf, Restangular
-	) {
+	var apiService = function($rootScope, $window, $timeout, $moment, storageService, itemsConf, commentsConf, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -1549,12 +1474,6 @@
 					item.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(item.dateAdded))).humanize();
 					service.createItemFullCategoryString(item);
 					return item;
-				});
-
-				Restangular.addElementTransformer('auctions', false, function(auction) {
-					auction.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(auction.dateAdded))).humanize();
-					auction.formattedDateAdded = $moment(auction.dateAdded).format('DD-MM-YYYY HH:mm');
-					return auction;
 				});
 
 				Restangular.addElementTransformer('comments', false, function(comment) {
@@ -1655,28 +1574,6 @@
 
 						break;
 
-					case 'auctions':
-
-						switch (operation) {
-
-							case 'getList':
-
-								if (res.config.params.userId) {
-									for (i in data.collection) { data.collection[i].item = data.items[i]; }
-									auctionsConf.userAuctionsBrowser.setData(data);
-
-								} else if (res.config.params.itemId) {
-									auctionsConf.itemAuctionsBrowser.setData(data);
-
-								} else {
-									$rootScope.apiData.auction = data[0];
-								}
-
-								return data.collection;
-						}
-
-						break;
-
 					case 'comments':
 
 						switch (operation) {
@@ -1710,11 +1607,7 @@
 		return service;
 	};
 
-	apiService.$inject = [
-		'$rootScope', '$window', '$timeout', '$moment', 'storageService', 'itemsConf', 'auctionsConf', 'commentsConf',
-		'Restangular'
-	];
-
+	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'storageService', 'itemsConf', 'commentsConf','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();
@@ -4173,7 +4066,7 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'itemSearchForm',
-					'contactForm', 'itemForm', 'auctionForm', 'commentForm'
+					'contactForm', 'itemForm', 'commentForm'
 				];
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'itemForm'];
@@ -4187,7 +4080,6 @@
 				switch ($scope.myForm.ctrlId) {
 
 					case 'itemForm':
-					case 'auctionForm':
 						$scope.myForm.submitBtnPhraseIndex = 1;
 						break;
 
@@ -4793,6 +4685,66 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('confirmDangerModal', function() {
+
+		var confirmDangerModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmDangerModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmModal', function() {
+
+		var confirmModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('infoModal', function() {
+
+		var infoModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return infoModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('imgCropWindow', function($rootScope, $window, $timeout, MySrcAction, MyModal, MyLoader, NUMS) {
 
 		var imgId = '#cropImg';
@@ -4933,66 +4885,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('confirmDangerModal', function() {
-
-		var confirmDangerModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmDangerModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('infoModal', function() {
-
-		var infoModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return infoModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('auctionNumBox', function($rootScope, $sce, exchangeRateService) {
 
 		var auctionNumBox = {
@@ -5042,486 +4934,6 @@
 		};
 
 		return auctionNumBox;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('auctions', function($rootScope, auctionsConf) {
-
-		var auctions = {
-			restrict: 'E',
-			templateUrl: 'public/directives/AUCTION/auctions/auctions.html',
-			scope: {
-				ctrlId: '@'
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-
-				$scope.init = function() {
-
-					$scope.elemContextMenuConf = auctionsConf.auctionContextMenuConf;
-
-					switch ($scope.ctrlId) {
-
-						case 'UserAuctions':
-							$scope.collectionBrowser = auctionsConf.userAuctionsBrowser;
-							break;
-
-						case 'ItemAuctions':
-							$scope.collectionBrowser = auctionsConf.itemAuctionsBrowser;
-							break;
-					}
-
-					$scope.collectionBrowser.init();
-				};
-
-				if (!$scope.collectionBrowser) { $scope.init(); }
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					if (!$rootScope.$$listeners['init' + scope.ctrlId]) {
-						$rootScope.$on('init' + scope.ctrlId, function(e, args) {
-							scope.init();
-						});
-					}
-
-					scope.$on('$destroy', function() {
-						$rootScope.$$listeners['init' + scope.ctrlId] = null;
-					});
-				};
-			}
-		};
-
-		return auctions;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var auctionsConf = function($rootScope, $state, auctionsService, hardDataService, myClass, AuctionsRest) {
-
-		var hardData = hardDataService.get();
-
-		this.userAuctionsBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 3,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.phrases[76]
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
-					},
-					{
-						_id: 'currency',
-						label: hardData.phrases[102]
-					},
-					{
-						_id: 'initialValue',
-						label: hardData.phrases[85]
-					},
-					{
-						_id: 'bidIncrement',
-						label: hardData.phrases[99]
-					},
-					{
-						_id: 'minSellPrice',
-						label: hardData.phrases[100]
-					},
-					{
-						_id: 'amount',
-						label: hardData.phrases[104]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.userId = $rootScope.apiData.profileUser._id;
-				return AuctionsRest.getList(query);
-			}
-		});
-
-		this.itemAuctionsBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 3,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.phrases[76]
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
-					},
-					{
-						_id: 'currency',
-						label: hardData.phrases[102]
-					},
-					{
-						_id: 'initialValue',
-						label: hardData.phrases[85]
-					},
-					{
-						_id: 'bidIncrement',
-						label: hardData.phrases[99]
-					},
-					{
-						_id: 'minSellPrice',
-						label: hardData.phrases[100]
-					},
-					{
-						_id: 'amount',
-						label: hardData.phrases[104]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.itemId = $rootScope.apiData.item._id;
-				return AuctionsRest.getList(query);
-			}
-		});
-
-
-
-		var onSubscribeStatusChange = function(that) {
-
-			that.parent.data['_' + that._id]().then(function() {
-
-				switch ($state.current.name) {
-
-					case 'main.profile':
-						$rootScope.$broadcast('initUserAuctions');
-						break;
-
-					case 'main.item':
-						$rootScope.$broadcast('initItemAuctions');
-						break;
-				}
-			});
-		};
-
-		this.auctionContextMenuConf = {
-			icon: 'glyphicon glyphicon-option-horizontal',
-			switchers: [
-				{
-					_id: 'delete',
-					label: hardData.phrases[14],
-					onClick: function() {
-						auctionsService.deleteAuctions([this.parent.data]);
-					},
-					isHidden: function() {
-						return !this.parent.data._isOwn();
-					}
-				},
-				{
-					_id: 'subscribe',
-					label: hardData.phrases[101],
-					onClick: function() {
-						onSubscribeStatusChange(this);
-					},
-					isHidden: function() {
-						return this.parent.data._isOwn() || this.parent.data._haveSubscribed();
-					}
-				},
-				{
-					_id: 'unsubscribe',
-					label: hardData.phrases[105],
-					onClick: function() {
-						onSubscribeStatusChange(this);
-					},
-					isHidden: function() {
-						return this.parent.data._isOwn() || !this.parent.data._haveSubscribed();
-					}
-				}
-			]
-		};
-
-		return this;
-	};
-
-
-
-	auctionsConf.$inject = ['$rootScope', '$state', 'auctionsService', 'hardDataService', 'myClass', 'AuctionsRest'];
-	angular.module('appModule').service('auctionsConf', auctionsConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var AuctionsRest = function($rootScope, Restangular) {
-
-		var auctions = Restangular.service('auctions');
-
-		Restangular.extendModel('auctions', function(auction) {
-
-			auction._subscribe = function() {
-
-				var copy = Restangular.copy(auction);
-				copy.subscribers.push($rootScope.apiData.loggedInUser._id);
-				return copy.put();
-			};
-
-			auction._unsubscribe = function() {
-
-				var copy = Restangular.copy(auction);
-				copy.subscribers.splice(copy.subscribers.indexOf($rootScope.apiData.loggedInUser._id), 1);
-				return copy.put();
-			};
-
-			auction._placeBid = function() {
-
-				return auction.put(undefined, { action: 'place_bid' });
-			};
-
-			auction._isOwn = function() {
-
-				if (auction.item) {
-					return auction.item.userId == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-
-				} else {
-					return $rootScope.apiData.item.userId == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-				}
-			};
-
-			auction._haveSubscribed = function() {
-
-				var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-				return auction.subscribers.indexOf(userId) > -1;
-			};
-
-			return auction;
-		});
-
-
-
-		return auctions;
-	};
-
-	AuctionsRest.$inject = ['$rootScope', 'Restangular'];
-	angular.module('appModule').factory('AuctionsRest', AuctionsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var auctionsService = function($rootScope, $q) {
-
-		this.deleteAuctions = function(auctions) {
-
-			if (auctions && auctions.length > 0) {
-
-				var promises = [];
-
-				for (var auction of auctions) {
-					promises.push(auction.remove());
-				}
-
-				$q.all(promises).then(function(results) {
-					$rootScope.$broadcast('initItemAuctions');
-				});
-			}
-		};
-
-		this.placeBid = function() {};
-
-		return this;
-	};
-
-	auctionsService.$inject = ['$rootScope', '$q'];
-	angular.module('appModule').service('auctionsService', auctionsService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	var subscribers;
-
-	appModule.directive('auctionSubscribersWindow', function($rootScope, $state, MySrcCollection, UsersRest, URLS) {
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/AUCTION/auctionSubscribersWindow/auctionSubscribersWindow.html',
-			scope: {
-				myModal: '='
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-
-				$scope.srcCollection = new MySrcCollection({
-					constructUrl: function(i) {
-						return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + subscribers[i]._id + '/' + subscribers[i].photos[0].filename;
-					}
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					$rootScope.$on('auctionSubscribersWindowOpen', function() {
-
-						var onSingleSrcClick = function() {
-
-							var that = this;
-
-							$rootScope.ui.modals.auctionSubscribersModal.hide(function() {
-								$state.go('main.profile', { id: that._id });
-							});
-						};
-
-						UsersRest.getList({ auctionId: $rootScope.apiData.auction._id }).then(function(res) {
-
-							subscribers = res.data.plain();
-
-							scope.srcCollection.init(subscribers, function() {
-								for (var i in scope.srcCollection.collection) {
-									scope.srcCollection.collection[i].onClick = onSingleSrcClick;
-									scope.srcCollection.collection[i].label = subscribers[i].username;
-								}
-							});
-
-						}, function(res) {});
-					});
-
-					scope.onRefreshBtnClick = function() {
-						$rootScope.$broadcast('auctionSubscribersWindowOpen');
-					};
-				};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('auctionWindow', function($rootScope, ui, myClass, AuctionsRest) {
-
-		var auctionWindow = {
-			restrict: 'E',
-			templateUrl: 'public/directives/AUCTION/auctionWindow/auctionWindow.html',
-			scope: {},
-			controller: function($scope) {
-
-				$scope.currencies = $rootScope.hardData.currencies;
-
-				$scope.myModal = new myClass.MyModal({ id: 'auctionModal', title: $rootScope.hardData.phrases[120] });
-				$scope.myModel = new myClass.MyFormModel('auctionModel', ['itemId', 'currency', 'initialValue', 'bidIncrement', 'minSellPrice', 'amount'], true);
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'auctionForm',
-					model: $scope.myModel,
-					submitAction: function(args) {
-
-						$scope.myModel.setValue('itemId', $rootScope.apiData.item._id);
-						return AuctionsRest.post($scope.myModel.getValues());
-					},
-					submitSuccessCb: function(res) {
-
-						$scope.myModal.hide(function() {
-							$rootScope.$broadcast('initItemAuctions');
-						});
-					}
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					$rootScope.$on('displayAddAuctionWindow', function(e, args) {
-						scope.myModel.set({});
-						scope.myModel.clearErrors();
-						scope.myModal.show();
-					});
-				};
-			}
-		};
-
-		return auctionWindow;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('biddingMachine', function($rootScope, auctionsService) {
-
-		var socket;
-
-		var biddingMachine = {
-			restrict: 'E',
-			templateUrl: 'public/directives/AUCTION/biddingMachine/biddingMachine.html',
-			scope: {
-				item: '='
-			},
-			controller: function($scope) {
-
-				$scope.onIncreaseBtnClick = function() {
-
-					$scope.bid += $scope.item.bidIncrement;
-				};
-
-				$scope.onDecreaseBtnClick = function() {
-
-					if ($scope.bid > $scope.item.initialValue) {
-						$scope.bid -= $scope.item.bidIncrement;
-					}
-				};
-
-				$scope.onPlaceBidBtnClick = function() {
-
-
-				};
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					socket = $rootScope.socket;
-
-					scope.$watch(function() { return scope.item; }, function(item) {
-
-						if (item) {
-							scope.bid = scope.item.initialValue;
-						}
-					});
-				};
-			}
-		};
-
-		return biddingMachine;
 	});
 
 })();

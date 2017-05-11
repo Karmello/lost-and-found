@@ -219,7 +219,7 @@ $avatarSize: 240px;
 		padding-bottom: 25px;
 	}
 
-	#auctionsSection, #photosSection, #commentsSection {
+	#photosSection, #commentsSection {
 		margin-top: 25px;
 		.panel-default { border: 3px solid $body-bg; border-top: none; }
 	}
@@ -339,77 +339,6 @@ $avatarSize: 240px;
 		}
 	}
 }
-.auctions {
-
-
-}
-#auctionSubscribersWindow {
-
-	@extend .wideModal;
-
-	.mySrcThumbs {
-		div.singleSrcContainer {
-
-			margin: 1px;
-
-			.mySrc {
-
-				img {
-					@extend .tinyAvatarSize;
-				}
-
-				.srcLabel {
-					width: 80px;
-				}
-			}
-		}
-	}
-}
-#auctionWindow {
-
-	.myForm {
-
-		.formCtrls {
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: center;
-
-			> div {
-				padding: 0 10px 0 10px;
-
-				.mySelect, .myInput {
-					width: 150px;
-					margin: 0 auto;
-				}
-			}
-		}
-	}
-}
-.biddingMachine {
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-
-	text-align: center;
-
-	> div {
-		flex-grow: 1;
-	}
-
-	.well {
-
-		min-width: 200px;
-		border: 2px solid $brand-info;
-		border-radius: 20px;
-
-		span {
-			font-size: 32px;
-			font-weight: bold;
-		}
-	}
-}
 .comments {
 
 	.myTextArea {
@@ -455,6 +384,13 @@ $avatarSize: 240px;
 		}
 	}
 }
+.itemPhotos {
+
+	img {
+		max-width: 200px;
+		max-height: 200px;
+	}
+}
 .items {
 
 	#actionBtns { margin-bottom: 25px; }
@@ -467,13 +403,6 @@ $avatarSize: 240px;
 		.myCollectionElem {
 			background-color: $brand-success;
 		}
-	}
-}
-.itemPhotos {
-
-	img {
-		max-width: 200px;
-		max-height: 200px;
 	}
 }
 .myAlert {

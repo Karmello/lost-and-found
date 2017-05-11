@@ -4,7 +4,7 @@
 		<meta name="fragment" content="!" />
 	</head>
 	<body>
-		<div id="lost-and-found-app-profile">
+		<div id="lost-and-found-app-profile" ng-controller="ProfileController">
 			<my-panel>
 				<title-section>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
@@ -57,6 +57,9 @@
 					<span class="glyphicon glyphicon-list"></span>
 					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }} ({{ profileCollectionBrowser.meta.count }})</span>
 				</title-section>
+				<action-section>
+					<my-context-menu ng-if="apiData.profileUser._isTheOneLoggedIn()" ins="profileItemsContextMenu"></my-context-menu>
+				</action-section>
 				<body-section>
 					<items ctrl-id="UserItems"></items>
 				</body-section>

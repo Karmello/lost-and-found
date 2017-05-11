@@ -194,7 +194,7 @@ $avatarSize: 240px;
 			text-align: justify;
 		}
 
-		span.text-info { font-weight: bold; }
+		span.text-info, span.text-warning { font-weight: bold; }
 	}
 }
 #lost-and-found-app-main {
@@ -1060,6 +1060,10 @@ $avatarSize: 240px;
 		}
 	}
 }
+.myTextArea {
+
+
+}
 .myTabs {
 
 	.nav-tabs {}
@@ -1075,10 +1079,6 @@ $avatarSize: 240px;
 		margin-left: 10px;
 		margin-right: 10px;
 	}
-}
-.myTextArea {
-
-
 }
 .userAvatar {
 

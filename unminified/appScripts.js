@@ -165,6 +165,72 @@
 
 	'use strict';
 
+	var contextMenuConf = function($rootScope, $state, itemsConf, itemsService) {
+
+		this.itemContextMenuConf = {
+			icon: 'glyphicon glyphicon-option-horizontal',
+			switchers: [
+				{
+					_id: 'edit',
+					label: $rootScope.hardData.phrases[68],
+					onClick: function() {
+
+						$state.go('main.editem', { id: this.parent.data._id });
+					}
+				},
+				{
+					_id: 'delete',
+					label: $rootScope.hardData.phrases[14],
+					onClick: function() {
+
+						itemsService.deleteItems([this.parent.data]);
+					}
+				}
+			]
+		};
+
+		this.profileItemsContextMenu = {
+			icon: 'glyphicon glyphicon-option-horizontal',
+			switchers: [
+				{
+					_id: 'select_all',
+					label: $rootScope.hardData.phrases[107],
+					onClick: function() {
+
+						itemsConf.profileCollectionBrowser.selectAll();
+					}
+				},
+				{
+					_id: 'deselect_all',
+					label: $rootScope.hardData.phrases[110],
+					onClick: function() {
+
+						itemsConf.profileCollectionBrowser.deselectAll();
+					}
+				},
+				{
+					_id: 'delete',
+					label: $rootScope.hardData.phrases[147],
+					onClick: function() {
+
+						var selectedItems = itemsConf.profileCollectionBrowser.getSelectedCollection();
+						if (selectedItems.length > 0) { itemsService.deleteItems(selectedItems); }
+					}
+				}
+			]
+		};
+
+		return this;
+	};
+
+	contextMenuConf.$inject = ['$rootScope', '$state', 'itemsConf', 'itemsService'];
+	angular.module('appModule').service('contextMenuConf', contextMenuConf);
+
+})();
+(function() {
+
+	'use strict';
+
 	var mainFrameConf = function($rootScope, $q, hardDataService) {
 
 		var hardData = hardDataService.get();
@@ -754,24 +820,24 @@
 
 	'use strict';
 
-	var ItemController = function($rootScope, $scope, itemsService, itemsConf, commentsConf, MySwitchable) {
-
-		$scope.itemsService = itemsService;
-		$scope.commentsBrowser = commentsConf.itemCommentsBrowser;
+	var ItemController = function($rootScope, $scope, itemsService, contextMenuConf, commentsConf, MySwitchable) {
 
 		$scope.$watch(function() { return $rootScope.apiData.item; }, function(item) {
 
 			if (item && item._isOwn()) {
-				$scope.itemContextMenu = new MySwitchable(itemsConf.itemContextMenuConf);
+				$scope.itemContextMenu = new MySwitchable(contextMenuConf.itemContextMenuConf);
 				$scope.itemContextMenu.data = item;
 
 			} else {
 				$scope.itemContextMenu = null;
 			}
 		});
+
+		$scope.itemsService = itemsService;
+		$scope.commentsBrowser = commentsConf.itemCommentsBrowser;
 	};
 
-	ItemController.$inject = ['$rootScope', '$scope', 'itemsService', 'itemsConf', 'commentsConf', 'MySwitchable'];
+	ItemController.$inject = ['$rootScope', '$scope', 'itemsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ItemController', ItemController);
 
 })();
@@ -787,6 +853,19 @@
 
 	MainController.$inject = ['$scope', 'itemsConf'];
 	angular.module('appModule').controller('MainController', MainController);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ProfileController = function($rootScope, $scope, contextMenuConf, MySwitchable) {
+
+		$scope.profileItemsContextMenu = new MySwitchable(contextMenuConf.profileItemsContextMenu);
+	};
+
+	ProfileController.$inject = ['$rootScope', '$scope', 'contextMenuConf', 'MySwitchable'];
+	angular.module('appModule').controller('ProfileController', ProfileController);
 
 })();
 (function() {
@@ -2511,8 +2590,8 @@
 
 				this.orderer = new MySwitchable({
 					switchers: [
-						{ _id: 'asc', label: hardData.phrases[87] },
-						{ _id: 'desc', label: hardData.phrases[88] }
+						{ _id: 'desc', label: hardData.phrases[88] },
+						{ _id: 'asc', label: hardData.phrases[87] }
 					]
 				});
 
@@ -2721,20 +2800,24 @@
 
 		MyCollectionSelector.prototype.selectAll = function() {
 
-			for (var i in this.collection) { this.collection[i].isSelected = true; }
+			for (var i = 0; i < this.collection.length; i++) {
+				this.collection[i].isSelected = true;
+			}
 		};
 
 		MyCollectionSelector.prototype.deselectAll = function() {
 
-			for (var i in this.collection) { this.collection[i].isSelected = false; }
+			for (var i = 0; i < this.collection.length; i++) {
+				this.collection[i].isSelected = false;
+			}
 		};
 
 		MyCollectionSelector.prototype.getSelectedCollection = function() {
 
 			var selected = [];
 
-			for (var obj of this.collection) {
-				if (obj.isSelected) { selected.push(obj); }
+			for (var i = 0; i < this.collection.length; i++) {
+				if (this.collection[i].isSelected) { selected.push(this.collection[i]); }
 			}
 
 			return selected;
@@ -5548,7 +5631,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('items', function($rootScope, itemsConf, itemsService) {
+	appModule.directive('items', function($rootScope, itemsConf, contextMenuConf, itemsService) {
 
 		var items = {
 			restrict: 'E',
@@ -5566,7 +5649,7 @@
 					$scope.collectionBrowser = itemsConf.profileCollectionBrowser;
 
 					if (userId == $rootScope.apiData.loggedInUser._id) {
-						$scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
+						$scope.elemContextMenuConf = contextMenuConf.itemContextMenuConf;
 
 					} else {
 						$scope.elemContextMenuConf = undefined;
@@ -5622,7 +5705,7 @@
 
 	'use strict';
 
-	var itemsConf = function($rootScope, $state, hardDataService, myClass, itemsService, ItemsRest) {
+	var itemsConf = function($rootScope, hardDataService, myClass, ItemsRest) {
 
 		var hardData = hardDataService.get();
 
@@ -5713,34 +5796,12 @@
 			}
 		});
 
-		this.itemContextMenuConf = {
-			icon: 'glyphicon glyphicon-option-horizontal',
-			switchers: [
-				{
-					_id: 'edit',
-					label: hardData.phrases[68],
-					onClick: function() {
-
-						$state.go('main.editem', { id: this.parent.data._id });
-					}
-				},
-				{
-					_id: 'delete',
-					label: hardData.phrases[14],
-					onClick: function() {
-
-						itemsService.deleteItems([this.parent.data]);
-					}
-				}
-			]
-		};
-
 		return this;
 	};
 
 
 
-	itemsConf.$inject = ['$rootScope', '$state', 'hardDataService', 'myClass', 'itemsService', 'ItemsRest'];
+	itemsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ItemsRest'];
 	angular.module('appModule').service('itemsConf', itemsConf);
 
 })();

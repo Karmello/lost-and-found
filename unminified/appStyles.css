@@ -176,7 +176,7 @@ body .form-group {
       flex-basis: 65%; } }
   #lost-and-found-app-item #section1 #descriptionSection {
     text-align: justify; }
-  #lost-and-found-app-item #section1 span.text-info {
+  #lost-and-found-app-item #section1 span.text-info, #lost-and-found-app-item #section1 span.text-warning {
     font-weight: bold; }
 
 #lost-and-found-app-main {

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var itemsConf = function($rootScope, $state, hardDataService, myClass, itemsService, ItemsRest) {
+	var itemsConf = function($rootScope, hardDataService, myClass, ItemsRest) {
 
 		var hardData = hardDataService.get();
 
@@ -93,34 +93,12 @@
 			}
 		});
 
-		this.itemContextMenuConf = {
-			icon: 'glyphicon glyphicon-option-horizontal',
-			switchers: [
-				{
-					_id: 'edit',
-					label: hardData.phrases[68],
-					onClick: function() {
-
-						$state.go('main.editem', { id: this.parent.data._id });
-					}
-				},
-				{
-					_id: 'delete',
-					label: hardData.phrases[14],
-					onClick: function() {
-
-						itemsService.deleteItems([this.parent.data]);
-					}
-				}
-			]
-		};
-
 		return this;
 	};
 
 
 
-	itemsConf.$inject = ['$rootScope', '$state', 'hardDataService', 'myClass', 'itemsService', 'ItemsRest'];
+	itemsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ItemsRest'];
 	angular.module('appModule').service('itemsConf', itemsConf);
 
 })();

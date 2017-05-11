@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('items', function($rootScope, itemsConf, itemsService) {
+	appModule.directive('items', function($rootScope, itemsConf, contextMenuConf, itemsService) {
 
 		var items = {
 			restrict: 'E',
@@ -22,7 +22,7 @@
 					$scope.collectionBrowser = itemsConf.profileCollectionBrowser;
 
 					if (userId == $rootScope.apiData.loggedInUser._id) {
-						$scope.elemContextMenuConf = itemsConf.itemContextMenuConf;
+						$scope.elemContextMenuConf = contextMenuConf.itemContextMenuConf;
 
 					} else {
 						$scope.elemContextMenuConf = undefined;

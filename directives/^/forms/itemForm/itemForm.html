@@ -4,6 +4,14 @@
 		<br /><br />
 		<div class="formCtrls">
 			<div>
+				<my-select
+					ctrl-id="'typeId'"
+					collection="itemTypes"
+					model="myModel.values.typeId"
+					prop-names="{ optionValue: 'value', optionLabel: 'label' }"
+					option-zero="true"
+					hard-data="{ label: ['phrases', 140], placeholder: ['phrases', 26] }"
+				></my-select>
 				<my-input
 					ctrl-id="'date'"
 					ctrl-type="'date'"
@@ -13,14 +21,13 @@
 					hard-data="{ label: ['phrases', 142] }"
 					is-required="true"
 				></my-input>
-				<my-select
-					ctrl-id="'typeId'"
-					collection="itemTypes"
-					model="myModel.values.typeId"
-					prop-names="{ optionValue: 'value', optionLabel: 'label' }"
-					option-zero="true"
-					hard-data="{ label: ['phrases', 140], placeholder: ['phrases', 26] }"
-				></my-select>
+				<my-input
+					ctrl-id="'placeId'"
+					ctrl-type="'text'"
+					model="myModel.values.placeId"
+					hard-data="{ label: ['phrases', 148] }"
+					autocomplete="autocomplete"
+				></my-input>
 			</div>
 			<div>
 				<my-input

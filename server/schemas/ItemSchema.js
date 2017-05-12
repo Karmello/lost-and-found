@@ -17,6 +17,10 @@ var ItemSchema = new r.mongoose.Schema({
 		type: Date,
 		required: true
 	},
+	placeId: {
+		type: String,
+		required: true
+	},
 	categoryId: {
 		type: String,
 		ref: 'item_category',

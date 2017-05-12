@@ -820,13 +820,22 @@
 
 	'use strict';
 
-	var ItemController = function($rootScope, $scope, itemsService, contextMenuConf, commentsConf, MySwitchable) {
+	var ItemController = function($rootScope, $scope, $timeout, itemsService, googleMapService, contextMenuConf, commentsConf, MySwitchable) {
 
-		$scope.$watch(function() { return $rootScope.apiData.item; }, function(item) {
+		$scope.$watch(function() { return $rootScope.apiData.item; }, function(newItem, oldItem) {
 
-			if (item && item._isOwn()) {
-				$scope.itemContextMenu = new MySwitchable(contextMenuConf.itemContextMenuConf);
-				$scope.itemContextMenu.data = item;
+			console.log(newItem._id, oldItem._id);
+
+			if (newItem) {
+
+				if (newItem._isOwn()) {
+					$scope.itemContextMenu = new MySwitchable(contextMenuConf.itemContextMenuConf);
+					$scope.itemContextMenu.data = newItem;
+				}
+
+				var timeout = 0;
+				if ($rootScope.ui.loaders.renderer.isLoading) { timeout = 3000; }
+				$timeout(function() { googleMapService.initItemMap(newItem.placeId); }, timeout);
 
 			} else {
 				$scope.itemContextMenu = null;
@@ -837,7 +846,7 @@
 		$scope.commentsBrowser = commentsConf.itemCommentsBrowser;
 	};
 
-	ItemController.$inject = ['$rootScope', '$scope', 'itemsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ItemController.$inject = ['$rootScope', '$scope', '$timeout', 'itemsService', 'googleMapService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ItemController', ItemController);
 
 })();
@@ -1126,8 +1135,8 @@
 
 					return $q(function(resolve) {
 
-						ItemsRest.getList({ _id: $stateParams.id }).then(function() {
-							resolve(true);
+						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(res.data[0]);
 
 						}, function() {
 							resolve(false);
@@ -1157,6 +1166,7 @@
 					ui.menus.top.activateSwitcher();
 
 					if (getItem && getUser) {
+
 						ui.frames.main.activateSwitcher('item');
 						ui.tabs.item.activateSwitcher($stateParams.tab);
 
@@ -1376,9 +1386,7 @@
 					});
 				}
 			},
-			onEnter: function() {
-
-			}
+			onEnter: function() {}
 		});
 	});
 
@@ -1914,6 +1922,147 @@
 
 	fileService.$inject = ['myClass', 'jsonService'];
 	angular.module('appModule').service('fileService', fileService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var googleMapService = function($timeout) {
+
+		var service = this;
+
+		service.initItemMap = function(placeId) {
+
+			// Clearing map
+
+			if (service.itemMarker) {
+				service.itemMarker.setMap(null);
+			}
+
+			// Map initializing
+
+			if (!service.itemMap) {
+
+				service.itemMap = new google.maps.Map(document.getElementById('itemMap'));
+
+				google.maps.event.addListener(service.itemMap, 'idle', function() {
+					google.maps.event.trigger(service.itemMap, 'resize');
+				});
+			}
+
+			$timeout(function() {
+
+				// Setting up map
+
+				var geocoder = new google.maps.Geocoder();
+				var infowindow = new google.maps.InfoWindow();
+
+				geocoder.geocode({ 'placeId': placeId }, function(results, status) {
+
+					service.itemPlace = results[0];
+
+					service.itemMarker = new google.maps.Marker({
+						map: service.itemMap,
+						animation: google.maps.Animation.DROP,
+						position: service.itemPlace.geometry.location
+					});
+
+					service.itemMarker.addListener('click', function() {
+						infowindow.setContent(service.itemPlace.formatted_address);
+						infowindow.open(service.itemMap, service.itemMarker);
+					});
+
+					service.itemMap.setZoom(11);
+					service.itemMap.setCenter(service.itemPlace.geometry.location);
+				});
+
+			}, 1000);
+
+			// var card = document.getElementById('pac-card');
+			// var input = document.getElementById('pac-input');
+			// var types = document.getElementById('type-selector');
+			// var strictBounds = document.getElementById('strict-bounds-selector');
+
+			// map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+
+			// var autocomplete = new google.maps.places.Autocomplete(input);
+
+			// // Bind the map's bounds (viewport) property to the autocomplete object,
+			// // so that the autocomplete requests use the current map bounds for the
+			// // bounds option in the request.
+			// autocomplete.bindTo('bounds', map);
+
+			// var infowindow = new google.maps.InfoWindow();
+			// var infowindowContent = document.getElementById('infowindow-content');
+			// infowindow.setContent(infowindowContent);
+			// var marker = new google.maps.Marker({
+			// map: map,
+			// anchorPoint: new google.maps.Point(0, -29)
+			// });
+
+			// autocomplete.addListener('place_changed', function() {
+			// infowindow.close();
+			// marker.setVisible(false);
+			// var place = autocomplete.getPlace();
+			// if (!place.geometry) {
+			// // User entered the name of a Place that was not suggested and
+			// // pressed the Enter key, or the Place Details request failed.
+			// window.alert("No details available for input: '" + place.name + "'");
+			// return;
+			// }
+
+			// // If the place has a geometry, then present it on a map.
+			// if (place.geometry.viewport) {
+			// map.fitBounds(place.geometry.viewport);
+			// } else {
+			// map.setCenter(place.geometry.location);
+			// map.setZoom(17);  // Why 17? Because it looks good.
+			// }
+			// marker.setPosition(place.geometry.location);
+			// marker.setVisible(true);
+
+			// var address = '';
+			// if (place.address_components) {
+			// address = [
+			// (place.address_components[0] && place.address_components[0].short_name || ''),
+			// (place.address_components[1] && place.address_components[1].short_name || ''),
+			// (place.address_components[2] && place.address_components[2].short_name || '')
+			// ].join(' ');
+			// }
+
+			// infowindowContent.children['place-icon'].src = place.icon;
+			// infowindowContent.children['place-name'].textContent = place.name;
+			// infowindowContent.children['place-address'].textContent = address;
+			// infowindow.open(map, marker);
+			// });
+
+			// // Sets a listener on a radio button to change the filter type on Places
+			// // Autocomplete.
+			// function setupClickListener(id, types) {
+			// var radioButton = document.getElementById(id);
+			// radioButton.addEventListener('click', function() {
+			// autocomplete.setTypes(types);
+			// });
+			// }
+
+			// setupClickListener('changetype-all', []);
+			// setupClickListener('changetype-address', ['address']);
+			// setupClickListener('changetype-establishment', ['establishment']);
+			// setupClickListener('changetype-geocode', ['geocode']);
+
+			// document.getElementById('use-strict-bounds')
+			// .addEventListener('click', function() {
+			// console.log('Checkbox clicked! New state=' + this.checked);
+			// autocomplete.setOptions({strictBounds: this.checked});
+			// });
+		};
+
+		return service;
+	};
+
+	googleMapService.$inject = ['$timeout'];
+	angular.module('appModule').service('googleMapService', googleMapService);
 
 })();
 (function() {
@@ -4384,7 +4533,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('itemForm', function($rootScope, $state, $stateParams, myClass, ItemsRest, Restangular) {
+	appModule.directive('itemForm', function($rootScope, $state, $stateParams, $timeout, myClass, ItemsRest, Restangular) {
 
 		var itemForm = {
 			restrict: 'E',
@@ -4396,11 +4545,12 @@
 
 				$scope.minDate = new Date(2000, 0, 1);
 				$scope.maxDate = new Date();
+				$scope.autocomplete = {};
 
 				$scope.itemTypes = $rootScope.hardData.itemTypes;
 				$scope.itemCategories = $rootScope.apiData.itemCategories;
 
-				$scope.myModel = new myClass.MyFormModel('itemForm', ['userId', 'date', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				$scope.myModel = new myClass.MyFormModel('itemForm', ['userId', 'date', 'placeId', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
 
 				var date = new Date();
 				date.setHours(12);
@@ -4417,7 +4567,6 @@
 
 						case 'report':
 
-							// Setting model userId value
 							$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
 
 							if (!$scope.myModel.getValue('date')) {
@@ -4431,7 +4580,10 @@
 							};
 
 							// Making http request
-							return ItemsRest.post($scope.myModel.getValues());
+							var modelValues = $scope.myModel.getValues();
+							var place = $scope.autocomplete.ins.getPlace();
+							if (place) { modelValues.placeId = place.place_id; } else { modelValues.placeId = null; }
+							return ItemsRest.post(modelValues);
 
 						case 'edit':
 
@@ -6276,7 +6428,25 @@
 				model: '=',
 				hardData: '=',
 				hideErrors: '=',
-				isRequired: '='
+				isRequired: '=',
+				autocomplete: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (scope.autocomplete) {
+
+						var input = $(elem).find('input')[0];
+						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
+
+						scope.autocomplete.ins.addListener('place_changed', function() {
+
+							console.log('hello');
+						});
+					}
+				};
 			}
 		};
 

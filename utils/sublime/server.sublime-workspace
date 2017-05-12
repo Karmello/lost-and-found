@@ -520,11 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+			"file": "/D/Workspace/laf/dev/server/actions/Item/getItem.js",
 			"settings":
 			{
-				"buffer_size": 2313,
-				"encoding": "UTF-8",
+				"buffer_size": 1507,
 				"line_ending": "Windows"
 			}
 		}
@@ -608,31 +607,51 @@
 	"expanded_folders":
 	[
 		"/D/Workspace/laf/dev/server",
-		"/D/Workspace/laf/dev/server/schemas"
+		"/D/Workspace/laf/dev/server/actions",
+		"/D/Workspace/laf/dev/server/actions/Item"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/server/actions/Item/getItem.js",
+		"/D/Workspace/laf/dev/server/actions/ItemCategory/getItemCategories.js",
+		"/D/Workspace/laf/dev/db/temp.js",
+		"/D/Workspace/laf/dev/db/init.js",
+		"/D/Workspace/laf/dev/db/clear.js",
+		"/D/Workspace/laf/dev/server/setups/setupSession.js",
+		"/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+		"/D/Workspace/laf/dev/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/server/routes.js",
+		"/D/Workspace/laf/dev/server/models.js",
+		"/D/Workspace/laf/dev/server/validators/auctionValidators.js",
+		"/D/Workspace/laf/dev/server/_requires.js",
+		"/D/Workspace/laf/dev/server/validators/_validators.js",
+		"/D/Workspace/laf/dev/server/setups/setupSockets.js",
+		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/server/setups/setupDb.js",
+		"/D/Workspace/laf/dev/server/controllers/AuctionController.js",
+		"/D/Workspace/laf/dev/server/schemas/AuctionSchema.js",
+		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
+		"/D/Workspace/laf/dev/server/setups/_setups.js",
+		"/D/Workspace/laf/dev/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/server.js",
+		"/D/Workspace/laf/dev/server/actions/User/getUser.js",
+		"/D/Workspace/laf/dev/server/actions/Item/postItem.js",
+		"/D/Workspace/laf/dev/server/actions/Item/putItem.js",
+		"/D/Workspace/laf/dev/server/controllers/ItemController.js",
 		"/D/Workspace/laf/dev/server/actions/ContactType/postContactType.js",
 		"/D/Workspace/laf/dev/server/modules/mailModule.js",
-		"/D/Workspace/laf/dev/db/init.js",
-		"/D/Workspace/laf/dev/server.js",
-		"/D/Workspace/laf/dev/server/actions/_actions.js",
 		"/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-contact.html",
-		"/D/Workspace/laf/dev/server/routes.js",
 		"/D/Workspace/laf/dev/server/schemas/ContactTypeSchema.js",
-		"/D/Workspace/laf/dev/server/models.js",
 		"/D/Workspace/laf/dev/sass/appStyles.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.js",
 		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.js",
-		"/D/Workspace/laf/dev/server/actions/ItemCategory/getItemCategories.js",
 		"/D/Workspace/laf/dev/server/actions/ContactType/getContactTypes.js",
 		"/D/Workspace/laf/dev/directives/ITEM/itemWindow/itemWindow.js",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
 		"/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.html",
-		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
 		"/D/Workspace/laf/dev/scripts/constants.js",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.js",
 		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html",
@@ -720,30 +739,11 @@
 		"/D/Workspace/laf/dev/directives/^/forms/regionalForm/regionalForm.html",
 		"/D/Workspace/laf/dev/directives/^/forms/appearanceForm/appearanceForm.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-user.html",
-		"/D/Workspace/laf/dev/scripts/routes/main.user.js",
-		"/D/Workspace/laf/dev/directives/^/windows/imgCropWindow/imgCropWindow.html",
-		"/D/Workspace/laf/dev/directives/^/windows/imgCropWindow/imgCropWindow.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/itemIconMenu/itemIconMenu.scss",
-		"/D/Workspace/laf/dev/directives/my/myListGroup/myListGroup.scss",
-		"/D/Workspace/laf/dev/directives/my/myTabs/myTabs.scss",
-		"/D/Workspace/laf/dev/scripts/config.js",
-		"/D/Workspace/laf/dev/scripts/appModule.js",
-		"/D/Workspace/laf/dev/scripts/routes/guest.js",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-user.scss",
-		"/D/Workspace/laf/dev/.env",
-		"/D/Workspace/laf/dev/aws3/CreateThumbnail.js",
-		"/D/Workspace/laf/dev/tests/server/.env",
-		"/D/Workspace/laf/prod/.env",
-		"/D/Workspace/laf/dev/scripts/filters.js",
-		"/D/Workspace/laf/dev/scripts/services/storageService.js",
-		"/D/Workspace/laf/dev/scripts/services/aws3Service.js",
-		"/D/Workspace/laf/dev/scripts/services/utilService.js",
-		"/D/Workspace/laf/dev/db/populate/itemMocks.js",
-		"/D/Workspace/laf/dev/db/populate/userMocks.js"
+		"/D/Workspace/laf/dev/scripts/routes/main.user.js"
 	],
 	"find":
 	{
-		"height": 24.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -818,6 +818,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"auction",
+			"auctionAction",
+			"auction",
 			"ReportType",
 			"report_type",
 			"report",
@@ -942,10 +945,7 @@
 			"Rest.delete",
 			"Rest.remove",
 			"tinyAvatarSize",
-			"r.Promise.all",
-			"meta: { count",
-			".post",
-			"afjnshdf"
+			"r.Promise.all"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1102,19 +1102,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+					"file": "/D/Workspace/laf/dev/server/actions/Item/getItem.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2313,
+						"buffer_size": 1507,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								273,
-								273
+								1346,
+								1346
 							]
 						],
 						"settings":
@@ -1131,7 +1131,7 @@
 								}
 							],
 							"bs_sintax": "javascript",
-							"buffer_scroll_name": "1e587dd5",
+							"buffer_scroll_name": "9419946a",
 							"spell_check": false,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
@@ -1746,7 +1746,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 291.0,
 	"status_bar_visible": true,
 	"template_settings":

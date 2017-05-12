@@ -4,16 +4,68 @@
 		"selected_items":
 		[
 			[
+				"profil",
+				"profileCollectionBrowser"
+			],
+			[
+				"items",
+				"itemsConf"
+			],
+			[
+				"con",
+				"contextMenuConf"
+			],
+			[
+				"conte",
+				"contextMenuConf\t(contextMenuConf.js)"
+			],
+			[
+				"$ro",
+				"$rootScope\t(ItemController.js)"
+			],
+			[
+				"itemCon",
+				"itemContextMenuConf\t(ItemController.js)"
+			],
+			[
+				"angu",
+				"angularService\tangularService"
+			],
+			[
+				"ng-c",
+				"ng-controller\tAngularJS"
+			],
+			[
+				"$roo",
+				"$rootScope"
+			],
+			[
+				"jus",
+				"justify-content"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"get",
+				"getItem"
+			],
+			[
+				"item",
+				"itemCategories\t(itemForm.js)"
+			],
+			[
+				"report",
+				"reportItem"
+			],
+			[
 				"edi",
 				"editItem"
 			],
 			[
 				"repo",
 				"reportItem"
-			],
-			[
-				"$ro",
-				"$rootScope"
 			],
 			[
 				"edit",
@@ -28,10 +80,6 @@
 				"action"
 			],
 			[
-				"get",
-				"getValue"
-			],
-			[
 				"set",
 				"setValue"
 			],
@@ -44,16 +92,8 @@
 				"contactTypes"
 			],
 			[
-				"con",
-				"contactTypes"
-			],
-			[
 				"trun",
 				"truncatedUsername"
-			],
-			[
-				"jus",
-				"justify-content"
 			],
 			[
 				"panel",
@@ -154,10 +194,6 @@
 			[
 				"res",
 				"resolve"
-			],
-			[
-				"angu",
-				"angularDirective\tangularDirective"
 			],
 			[
 				"comm",
@@ -278,10 +314,6 @@
 			[
 				"count",
 				"countQuery"
-			],
-			[
-				"item",
-				"item_photos"
 			],
 			[
 				"action",
@@ -424,10 +456,6 @@
 				"credentials"
 			],
 			[
-				"conte",
-				"contentType"
-			],
-			[
 				"aws",
 				"awsKey"
 			],
@@ -486,66 +514,11 @@
 			[
 				"back",
 				"background-color"
-			],
-			[
-				"bac",
-				"background"
-			],
-			[
-				"valid",
-				"validateUserId\t(authModule.js)"
-			],
-			[
-				"index",
-				"indexOf\t(deleteItemPhotos.js)"
-			],
-			[
-				"$st",
-				"$stateParams\t(collectionDisplayerService.js)"
-			],
-			[
-				"User",
-				"UserAuctions\t(auctions.js)"
-			],
-			[
-				"colle",
-				"collectionBrowser\t(auctions.html)"
-			],
-			[
-				"collectionB",
-				"collectionBrowser\t(auctions.html)"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
-			"settings":
-			{
-				"buffer_size": 2260,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/scripts/routes/main.editem.js",
-			"settings":
-			{
-				"buffer_size": 924,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.js",
-			"settings":
-			{
-				"buffer_size": 2494,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -625,73 +598,117 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/public/pages"
+		"/D/Workspace/laf/dev/directives/^/forms",
+		"/D/Workspace/laf/dev/scripts/configuration"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/scripts/run.js",
-		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
-		"/D/Workspace/laf/dev/scripts/services/apiService.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.item.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.profile.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.js",
-		"/D/Workspace/laf/dev/directives/^/forms/itemSearchForm/itemSearchForm.js",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.html",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.js",
-		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-editem.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyFormModel.js",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.scss",
-		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctions.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
+		"/D/Workspace/laf/dev/scripts/configuration/contextMenuConf.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item.html",
-		"/D/Workspace/laf/dev/scripts/routes/main.editem.js",
-		"/D/Workspace/laf/dev/scripts/configuration/mainFrameConf.js",
-		"/D/Workspace/laf/dev/scripts/controllers/AuctionController.js",
-		"/D/Workspace/laf/dev/scripts/controllers/GuestController.js",
-		"/D/Workspace/laf/dev/scripts/controllers/ItemController.js",
-		"/D/Workspace/laf/dev/scripts/controllers/SettingsController.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
-		"/D/Workspace/laf/dev/scripts/controllers/SearchController.js",
-		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
 		"/D/Workspace/laf/dev/scripts/controllers/ProfileController.js",
+		"/D/Workspace/laf/dev/scripts/services/apiService.js",
+		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-item.scss",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionSelector.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/items.js",
+		"/D/Workspace/laf/dev/scripts/controllers/ItemController.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/ItemsRest.js",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
+		"/D/Workspace/laf/dev/directives/ITEM/itemPhotos/itemPhotosConf.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-editem.html",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
+		"/D/Workspace/laf/dev/directives/ITEM/items/items.html",
+		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.js",
+		"/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.js",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.html",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.scss",
+		"/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.scss",
+		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
+		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
+		"/D/Workspace/laf/dev/directives/ITEM/items/items.scss",
+		"/D/Workspace/laf/dev/directives/USER/userBadge/userBadge.scss",
+		"/D/Workspace/laf/dev/sass/appStyles.scss",
+		"/D/Workspace/laf/dev/sass/_myClasses.scss",
+		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.scss",
+		"/D/Workspace/laf/dev/sass/_index.scss",
+		"/D/Workspace/laf/dev/public/directives/USER/userAvatar/userAvatar.html",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarConf.js",
+		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html",
+		"/D/Workspace/laf/dev/scripts/routes/main.editem.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.profile.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.search.js",
+		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.item.js",
+		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.html",
+		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.scss",
+		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.scss",
 		"/D/Workspace/laf/dev/scripts/controllers/MainController.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-guest.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-help.html",
+		"/D/Workspace/laf/dev/scripts/controllers/SearchController.js",
+		"/D/Workspace/laf/dev/scripts/controllers/SettingsController.js",
+		"/D/Workspace/laf/dev/scripts/services/ui.js",
+		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
+		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.js",
+		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.js",
+		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
+		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.js",
+		"/D/Workspace/laf/dev/public/directives/^/forms/reportForm/reportForm.html",
+		"/D/Workspace/laf/dev/scripts/configuration/mainFrameConf.js",
+		"/D/Workspace/laf/dev/directives/my/myBtn/myBtn.html",
+		"/D/Workspace/laf/dev/db/init.js",
+		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-profile.scss",
+		"/D/Workspace/laf/dev/scripts/controllers/AuctionController.js",
+		"/D/Workspace/laf/dev/scripts/configuration/modalsConf.js",
+		"/D/Workspace/laf/dev/scripts/config.js",
+		"/D/Workspace/laf/dev/directives/AUCTION/auctions/AuctionsRest.js",
+		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctionsService.js",
+		"/D/Workspace/laf/dev/directives/AUCTION/auctionSubscribersWindow/auctionSubscribersWindow.js",
+		"/D/Workspace/laf/dev/directives/AUCTION/biddingMachine/biddingMachine.js",
+		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctionsConf.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyForm.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/itemsService.js",
+		"/D/Workspace/laf/dev/server/actions/Item/postItem.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyFormModel.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
+		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.html",
+		"/D/Workspace/laf/dev/directives/my/myForm/myForm.js",
+		"/D/Workspace/laf/dev/scripts/run.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.js",
+		"/D/Workspace/laf/dev/directives/^/forms/itemSearchForm/itemSearchForm.js",
+		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
+		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctions.js",
+		"/D/Workspace/laf/dev/scripts/controllers/GuestController.js",
+		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-home.html",
 		"/D/Workspace/laf/dev/scripts/controllers/HomeController.js",
 		"/D/Workspace/laf/dev/scripts/controllers/ContactController.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-contact.html",
 		"/D/Workspace/laf/dev/scripts/controllers/BrowseController.js",
 		"/D/Workspace/laf/dev/scripts/controllers/EditemController.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-help.html",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
-		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
 		"/D/Workspace/laf/dev/scripts/routes/main.contact.js",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/ItemsRest.js",
 		"/D/Workspace/laf/dev/directives/my/myInput/myInput.js",
 		"/D/Workspace/laf/dev/directives/my/myInput/myInput.html",
-		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.js",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.html",
 		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.html",
 		"/D/Workspace/laf/dev/directives/my/myForm/myForm.scss",
 		"/D/Workspace/laf/dev/directives/my/myInput/myInput.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/loginForm/loginForm.js",
 		"/D/Workspace/laf/dev/directives/^/forms/appearanceForm/appearanceForm.js",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
 		"/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
-		"/D/Workspace/laf/dev/sass/appStyles.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/itemSearchForm/itemSearchForm.scss",
-		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.html",
 		"/D/Workspace/laf/dev/directives/ITEM/itemWindow/itemWindow.html",
 		"/D/Workspace/laf/dev/directives/ITEM/itemWindow/itemWindow.js",
 		"/D/Workspace/laf/dev/directives/ITEM/itemWindow/itemWindow.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/appearanceForm/appearanceForm.html",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm",
 		"/D/Workspace/laf/dev/directives/^/forms/itemSearchForm/itemSearchForm.html",
-		"/D/Workspace/laf/dev/scripts/routes/main.search.js",
 		"/D/Workspace/laf/dev/scripts/configuration/topNavMenuConf.js",
 		"/D/Workspace/laf/dev/scripts/configuration/mainFrameNavConf.js",
 		"/D/Workspace/laf/dev/scripts/routes/main.about.js",
@@ -702,61 +719,18 @@
 		"/D/Workspace/laf/dev/scripts/factories/rest/ContactTypesRest.js",
 		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.scss",
 		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-contact.scss",
-		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.html",
 		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
 		"/D/Workspace/laf/dev/scripts/constants.js",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.js",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.html",
 		"/D/Workspace/laf/dev/node_modules/font-awesome/scss/_variables.scss",
 		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.scss",
 		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.html",
-		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
 		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.scss",
 		"/D/Workspace/laf/dev/directives/ITEM/itemPhotos/itemPhotos.scss",
 		"/D/Workspace/laf/dev/directives/my/myElemSelector/myElemSelector.html",
 		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.js",
-		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.js",
-		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.scss",
-		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-profile.scss",
-		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.scss",
-		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctions.html",
-		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.html",
-		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.html",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.js",
-		"/D/Workspace/laf/dev/scripts/factories/rest/UsersRest.js",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarConf.js",
-		"/D/Workspace/laf/dev/directives/AUCTION/auctionNumBox/auctionNumBox.js",
-		"/D/Workspace/laf/dev/directives/USER/userBadge/userBadge.html",
-		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.html",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.scss",
-		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarService.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/itemsService.js",
-		"/D/Workspace/laf/dev/directives/COMMENT/comments/commentsConf.js",
-		"/D/Workspace/laf/dev/scripts/services/authService.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.auction.js",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-main.scss",
-		"/D/Workspace/laf/dev/node_modules/bootstrap/less/variables.less",
-		"/D/Workspace/laf/dev/sass/_index.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-guest.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-item.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-report.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-search.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-settings.scss",
-		"/D/Workspace/laf/dev/sass/layouts/main-with-aside-1.scss",
-		"/D/Workspace/laf/dev/directives/my/myPage/myPage.js",
-		"/D/Workspace/laf/dev/directives/my/myPage/myPage.scss",
-		"/D/Workspace/laf/dev/directives/my/myPage/myPage.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-guest.html",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-auction.scss",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-auction.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-about.html"
+		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.js"
 	],
 	"find":
 	{
@@ -835,6 +809,56 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"setData",
+			"res",
+			"selectAll",
+			"MyCollectionSelector",
+			"itemContextMenuConf",
+			"no-label",
+			"Date",
+			"item-avatar",
+			"smallAvatarSize",
+			"defaultAvatarSize",
+			"extend",
+			"item-avatar",
+			"ui-sref",
+			"ui-href",
+			"main.profile",
+			"user-avatar",
+			"initUserItems",
+			"itemUser",
+			"phrases[24]",
+			"Title",
+			"updateRefresher",
+			"przedmiot",
+			"przez",
+			".userAvatar",
+			"media",
+			"navBtnsSection",
+			"topSection",
+			"Edit",
+			"country",
+			"auction",
+			"AuctionController",
+			"auctionSubscribersModal",
+			"auction",
+			"auctionsService",
+			"auctionsRest",
+			"auctionsConf",
+			"scrollTo",
+			"auctionsConf",
+			"<auctions",
+			"auction",
+			"$rootScope.ui.modals.tryAgainLaterModal.show();",
+			"hideForm",
+			"$rootScope.ui.modals.tryAgainLaterModal.show();",
+			"initUserItems",
+			"window.history.back();",
+			"_id",
+			"tryAga",
+			"deleteElems",
+			"main.item",
+			"Cancel",
 			"reportItem",
 			"!$rootScope",
 			"ItemsRest.getList",
@@ -912,57 +936,7 @@
 			"/user",
 			"/user/",
 			"main.profile",
-			"<item-icon",
-			"isPublic",
-			"<item-icon",
-			"isPublic",
-			"hardData.languages",
-			"optionValue",
-			"Type",
-			"main.user",
-			"/user/",
-			"tabs.user",
-			"userTabsConf",
-			"subscriptions",
-			"UserAuctions",
-			"addItem",
-			"<my-btn",
-			"background",
-			"background-color",
-			"$body-bg",
-			"auction-house",
-			"auction",
-			"auction.house",
-			"auction",
-			"auction.house",
-			"URLS",
-			"auction-house",
-			"Auction House",
-			"AuctionHouse",
-			"<auctions",
-			"scope.$state",
-			"$scope.$state",
-			"<items",
-			"$state",
-			"$state =",
-			"initSearchItems",
-			"$state.reload",
-			"item/photos",
-			"activeSwitcherId",
-			"$stateParams",
-			"initUserItems",
-			"initUserAuctions",
-			"collectionChanger",
-			"/#/user?id=",
-			"/#/item/",
-			"/#/user/",
-			"initItemAuctions",
-			"scrollTo",
-			"getRoute",
-			"ui",
-			"<bottom-info-section>",
-			"<auctions",
-			"auctions"
+			"<item-icon"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -970,6 +944,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"defaultUserAvatarSize",
 			"contactType",
 			"profileCollectionBrowser",
 			"lost-and-found-app",
@@ -1096,8 +1071,7 @@
 			"initial",
 			"showModal",
 			"imgCrop",
-			"confirm",
-			"info"
+			"confirm"
 		],
 		"reverse": false,
 		"show_context": false,
@@ -1108,137 +1082,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2260,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1886,
-								1886
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "443dbb50",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 9.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/scripts/routes/main.editem.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 924,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								521,
-								521
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "da96d8f7",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2494,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2402,
-								2402
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "dd92b184",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 577.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1303,20 +1148,260 @@
 		"selected_items":
 		[
 			[
-				"run",
-				"dev\\scripts\\run.js"
+				"item.scss",
+				"sass\\pages\\lost-and-found-app-item.scss"
 			],
 			[
-				"appc",
-				"controllers\\AppController.js"
+				"item.html",
+				"pages\\lost-and-found-app-item.html"
+			],
+			[
+				"mycol",
+				"factories\\class\\MyCollectionSelector.js"
+			],
+			[
+				"mycollections",
+				"factories\\class\\MyCollectionSelector.js"
 			],
 			[
 				"apis",
 				"services\\apiService.js"
 			],
 			[
+				"itemsc",
+				"directives\\ITEM\\items\\itemsConf.js"
+			],
+			[
+				"mycoll",
+				"factories\\class\\MyCollectionBrowser.js"
+			],
+			[
+				"items.js",
+				"directives\\ITEM\\items\\items.js"
+			],
+			[
+				"itemc",
+				"controllers\\ItemController.js"
+			],
+			[
+				"itemsr",
+				"directives\\ITEM\\items\\ItemsRest.js"
+			],
+			[
+				"hardd",
+				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
+			],
+			[
+				"itemphotosc",
+				"directives\\ITEM\\itemPhotos\\itemPhotosConf.js"
+			],
+			[
+				"profile.htm",
+				"pages\\lost-and-found-app-profile.html"
+			],
+			[
+				"profile.html",
+				"pages\\lost-and-found-app-profile.html"
+			],
+			[
+				"editem",
+				"pages\\lost-and-found-app-editem.html"
+			],
+			[
+				"item.h",
+				"pages\\lost-and-found-app-item.html"
+			],
+			[
+				"usera",
+				"directives\\USER\\userAvatar\\userAvatar.js"
+			],
+			[
+				"items.htm",
+				"directives\\ITEM\\items\\items.html"
+			],
+			[
+				"itemf",
+				"directives\\^\\forms\\itemForm\\itemForm.js"
+			],
+			[
+				"hard",
+				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
+			],
+			[
+				"itema",
+				"directives\\ITEM\\itemAvatar\\itemAvatar.js"
+			],
+			[
+				"mycolle",
+				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
+			],
+			[
+				"items.scs",
+				"directives\\ITEM\\items\\items.scss"
+			],
+			[
+				"userava",
+				"dev\\directives\\USER\\userAvatar\\userAvatar.scss"
+			],
+			[
+				"item.scs",
+				"directives\\ITEM\\items\\items.scss"
+			],
+			[
+				"useravatarc",
+				"directives\\USER\\userAvatar\\userAvatarConf.js"
+			],
+			[
+				"main.profi",
+				"routes\\main.profile.js"
+			],
+			[
+				"main.sea",
+				"routes\\main.search.js"
+			],
+			[
+				"appc",
+				"controllers\\AppController.js"
+			],
+			[
 				"main.item",
 				"routes\\main.item.js"
+			],
+			[
+				"mycon",
+				"directives\\my\\myContextMenu\\myContextMenu.html"
+			],
+			[
+				"item.htm",
+				"pages\\lost-and-found-app-item.html"
+			],
+			[
+				"mylo",
+				"directives\\my\\myLoader\\myLoader.scss"
+			],
+			[
+				"mainc",
+				"controllers\\MainController.js"
+			],
+			[
+				"myloa",
+				"directives\\my\\myLoader\\myLoader.scss"
+			],
+			[
+				"itemform.scs",
+				"directives\\^\\forms\\itemForm\\itemForm.scss"
+			],
+			[
+				"ui",
+				"services\\ui.js"
+			],
+			[
+				"search.html",
+				"pages\\lost-and-found-app-search.html"
+			],
+			[
+				"mysrc",
+				"directives\\my\\mySrc\\mySrc.js"
+			],
+			[
+				"editem.htm",
+				"pages\\lost-and-found-app-editem.html"
+			],
+			[
+				"reportf",
+				"dev\\public\\directives\\^\\forms\\reportForm\\reportForm.html"
+			],
+			[
+				"forma",
+				"directives\\^\\btns\\formActionBtns\\formActionBtns.js"
+			],
+			[
+				"mainf",
+				"configuration\\mainFrameConf.js"
+			],
+			[
+				"report.htm",
+				"pages\\lost-and-found-app-report.html"
+			],
+			[
+				"mycollee",
+				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
+			],
+			[
+				"items.scss",
+				"directives\\ITEM\\items\\items.scss"
+			],
+			[
+				"items.hm",
+				"directives\\ITEM\\items\\items.html"
+			],
+			[
+				"items.h",
+				"directives\\ITEM\\items\\items.html"
+			],
+			[
+				"mybtn",
+				"directives\\my\\myBtn\\myBtn.html"
+			],
+			[
+				"init",
+				"dev\\db\\init.js"
+			],
+			[
+				"profile.scs",
+				"sass\\pages\\lost-and-found-app-profile.scss"
+			],
+			[
+				"profilehm",
+				"pages\\lost-and-found-app-profile.html"
+			],
+			[
+				"ui.js",
+				"services\\ui.js"
+			],
+			[
+				"main.ed",
+				"routes\\main.editem.js"
+			],
+			[
+				"main.html",
+				"pages\\lost-and-found-app-main.html"
+			],
+			[
+				"items.",
+				"directives\\ITEM\\items\\items.js"
+			],
+			[
+				"main.proi",
+				"routes\\main.profile.js"
+			],
+			[
+				"itemss",
+				"directives\\ITEM\\items\\itemsService.js"
+			],
+			[
+				"posti",
+				"dev\\server\\actions\\Item\\postItem.js"
+			],
+			[
+				"myform",
+				"factories\\class\\MyForm.js"
+			],
+			[
+				"myformm",
+				"factories\\class\\MyFormModel.js"
+			],
+			[
+				"main.report",
+				"routes\\main.report.js"
+			],
+			[
+				"form",
+				"directives\\^\\btns\\formActionBtns\\formActionBtns.html"
+			],
+			[
+				"run",
+				"dev\\scripts\\run.js"
 			],
 			[
 				"main.pro",
@@ -1335,44 +1420,12 @@
 				"directives\\COMMENT\\comments\\comments.js"
 			],
 			[
-				"items.js",
-				"directives\\ITEM\\items\\items.js"
-			],
-			[
 				"searchfo",
 				"directives\\^\\forms\\itemSearchForm\\itemSearchForm.js"
 			],
 			[
-				"itemf",
-				"directives\\^\\forms\\itemForm\\itemForm.scss"
-			],
-			[
-				"myformm",
-				"factories\\class\\MyFormModel.js"
-			],
-			[
-				"itemsc",
-				"directives\\ITEM\\items\\itemsConf.js"
-			],
-			[
 				"report",
 				"pages\\lost-and-found-app-report.html"
-			],
-			[
-				"item.html",
-				"pages\\lost-and-found-app-item.html"
-			],
-			[
-				"hardd",
-				"dev\\public\\json\\hard_coded\\hard_coded_en.json"
-			],
-			[
-				"item.htm",
-				"pages\\lost-and-found-app-item.html"
-			],
-			[
-				"itemsr",
-				"directives\\ITEM\\items\\ItemsRest.js"
 			],
 			[
 				"homec",
@@ -1383,24 +1436,12 @@
 				"pages\\lost-and-found-app-home.html"
 			],
 			[
-				"usera",
-				"directives\\USER\\userAvatar\\userAvatar.html"
-			],
-			[
-				"mysrc",
-				"directives\\my\\mySrc\\mySrc.html"
-			],
-			[
 				"formbtns",
 				"directives\\^\\btns\\formActionBtns\\formActionBtns.js"
 			],
 			[
 				"myin",
 				"directives\\my\\myInput\\myInput.html"
-			],
-			[
-				"myform",
-				"directives\\my\\myForm\\myForm.scss"
 			],
 			[
 				"myformd",
@@ -1423,20 +1464,12 @@
 				"directives\\my\\myInput\\myInput.html"
 			],
 			[
-				"hard",
-				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
-			],
-			[
 				"itemschema",
 				"dev\\server\\schemas\\ItemSchema.js"
 			],
 			[
 				"myinp",
 				"directives\\my\\myInput\\myInput.html"
-			],
-			[
-				"report.htm",
-				"pages\\lost-and-found-app-report.html"
 			],
 			[
 				"contactf",
@@ -1459,10 +1492,6 @@
 				"dev\\directives\\my\\myDropDown\\myDropDown.html"
 			],
 			[
-				"mycolle",
-				"directives\\my\\myCollectionBrowser\\myCollectionBrowser.html"
-			],
-			[
 				"items.html",
 				"directives\\ITEM\\items\\items.html"
 			],
@@ -1471,16 +1500,8 @@
 				"dev\\node_modules\\font-awesome\\scss\\_variables.scss"
 			],
 			[
-				"items.scs",
-				"directives\\ITEM\\items\\items.scss"
-			],
-			[
 				"mypanel",
 				"directives\\my\\myPanel\\myPanel.scss"
-			],
-			[
-				"mycoll",
-				"directives\\my\\myCollectionElem\\myCollectionElem.html"
 			],
 			[
 				"mysrcthum",
@@ -1503,20 +1524,12 @@
 				"directives\\my\\myContextMenu\\myContextMenu.js"
 			],
 			[
-				"mycon",
-				"directives\\my\\myContextMenu\\myContextMenu.scss"
-			],
-			[
 				"profile.scss",
 				"sass\\pages\\lost-and-found-app-profile.scss"
 			],
 			[
 				"myload",
 				"directives\\my\\myLoader\\myLoader.scss"
-			],
-			[
-				"mycol",
-				"directives\\my\\myCollectionElem\\myCollectionElem.html"
 			],
 			[
 				"myco",
@@ -1539,24 +1552,12 @@
 				"pages\\lost-and-found-app-profile.html"
 			],
 			[
-				"mylo",
-				"directives\\my\\myLoader\\myLoader.html"
-			],
-			[
 				"main.pr",
 				"routes\\main.profile.js"
 			],
 			[
 				"auctions.js",
 				"directives\\AUCTION\\auctions\\auctions.js"
-			],
-			[
-				"main.sea",
-				"routes\\main.search.js"
-			],
-			[
-				"main.html",
-				"pages\\lost-and-found-app-main.html"
 			],
 			[
 				"profilec",
@@ -1571,20 +1572,12 @@
 				"routes\\main.profile.js"
 			],
 			[
-				"main.profi",
-				"routes\\main.profile.js"
-			],
-			[
 				"main.scss",
 				"sass\\pages\\lost-and-found-app-main.scss"
 			],
 			[
 				"variables",
 				"dev\\node_modules\\bootstrap\\less\\variables.less"
-			],
-			[
-				"ui",
-				"services\\ui.js"
 			],
 			[
 				"main.htm",
@@ -1599,10 +1592,6 @@
 				"server\\setups\\setupConstants.js"
 			],
 			[
-				"ui.js",
-				"services\\ui.js"
-			],
-			[
 				"userc",
 				"controllers\\UserController.js"
 			],
@@ -1611,20 +1600,12 @@
 				"directives\\my\\myPage\\myPage.scss"
 			],
 			[
-				"itemc",
-				"controllers\\ItemController.js"
-			],
-			[
 				"myta",
 				"directives\\my\\myTabs\\myTabs.html"
 			],
 			[
 				"_variables",
 				"auction-house\\dev\\node_modules\\bootstrap\\less\\variables.less"
-			],
-			[
-				"item.scss",
-				"sass\\pages\\auction-house-item.scss"
 			],
 			[
 				"myel",
@@ -1677,142 +1658,6 @@
 			[
 				"settings.htm",
 				"pages\\auction-house-settings.html"
-			],
-			[
-				"search.sc",
-				"sass\\pages\\auction-house-search.scss"
-			],
-			[
-				"home.scs",
-				"sass\\pages\\auction-house-item.scss"
-			],
-			[
-				"settings.sc",
-				"sass\\pages\\auction-house-settings.scss"
-			],
-			[
-				"mybtn",
-				"directives\\my\\myBtn\\myBtn.scss"
-			],
-			[
-				"items.scss",
-				"directives\\ITEM\\items\\items.scss"
-			],
-			[
-				"auctionsc",
-				"directives\\AUCTION\\auctions\\auctionsConf.js"
-			],
-			[
-				"auctios.htm",
-				"directives\\AUCTION\\auctions\\auctions.html"
-			],
-			[
-				"comment",
-				"directives\\COMMENT\\comments\\comments.js"
-			],
-			[
-				"comments.htm",
-				"directives\\COMMENT\\comments\\comments.html"
-			],
-			[
-				"index.hm",
-				"auction-house\\dev\\public\\index.html"
-			],
-			[
-				"comme",
-				"directives\\COMMENT\\comments\\comments.scss"
-			],
-			[
-				"mycole",
-				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
-			],
-			[
-				"items.htm",
-				"directives\\ITEM\\items\\items.html"
-			],
-			[
-				"comm",
-				"directives\\COMMENT\\comments\\comments.scss"
-			],
-			[
-				"itemi",
-				"directives\\ITEM\\itemIconMenu\\itemIconMenu.html"
-			],
-			[
-				"items.",
-				"directives\\ITEM\\items\\items.html"
-			],
-			[
-				"item.s",
-				"sass\\pages\\auction-house-item.scss"
-			],
-			[
-				"com",
-				"directives\\COMMENT\\comments\\comments.html"
-			],
-			[
-				"itemw",
-				"directives\\ITEM\\itemWindow\\itemWindow.scss"
-			],
-			[
-				"myslid",
-				"directives\\my\\mySrcSlides\\mySrcSlides.scss"
-			],
-			[
-				"commentsc",
-				"directives\\COMMENT\\comments\\commentsConf.js"
-			],
-			[
-				"myli",
-				"directives\\my\\myListGroup\\myListGroup.scss"
-			],
-			[
-				"mylist",
-				"directives\\my\\myListGroup\\myListGroup.html"
-			],
-			[
-				"settings.s",
-				"sass\\pages\\auction-house-settings.scss"
-			],
-			[
-				"mytab",
-				"directives\\my\\myTabs\\myTabs.html"
-			],
-			[
-				"mymodal",
-				"directives\\my\\myModal\\myModal.scss"
-			],
-			[
-				"mymoda",
-				"directives\\my\\myModal\\myModal.html"
-			],
-			[
-				"mysrct",
-				"directives\\my\\mySrcThumbs\\mySrcThumbs.scss"
-			],
-			[
-				"item.scs",
-				"sass\\pages\\auction-house-item.scss"
-			],
-			[
-				"item.sc",
-				"sass\\pages\\auction-house-item.scss"
-			],
-			[
-				"_myc",
-				"sass\\_myClasses.scss"
-			],
-			[
-				"settings",
-				"pages\\auction-house-settings.html"
-			],
-			[
-				"main.scs",
-				"sass\\pages\\auction-house-main.scss"
-			],
-			[
-				"mytabs",
-				"directives\\my\\myTabs\\myTabs.scss"
 			]
 		],
 		"width": 0.0

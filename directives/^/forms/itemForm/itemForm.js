@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('itemForm', function($rootScope, $state, $stateParams, myClass, ItemsRest, Restangular) {
+	appModule.directive('itemForm', function($rootScope, $state, $stateParams, $timeout, myClass, ItemsRest, Restangular) {
 
 		var itemForm = {
 			restrict: 'E',
@@ -16,11 +16,12 @@
 
 				$scope.minDate = new Date(2000, 0, 1);
 				$scope.maxDate = new Date();
+				$scope.autocomplete = {};
 
 				$scope.itemTypes = $rootScope.hardData.itemTypes;
 				$scope.itemCategories = $rootScope.apiData.itemCategories;
 
-				$scope.myModel = new myClass.MyFormModel('itemForm', ['userId', 'date', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				$scope.myModel = new myClass.MyFormModel('itemForm', ['userId', 'date', 'placeId', 'typeId', 'categoryId', 'subcategoryId', 'title', 'description'], true);
 
 				var date = new Date();
 				date.setHours(12);
@@ -37,7 +38,6 @@
 
 						case 'report':
 
-							// Setting model userId value
 							$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
 
 							if (!$scope.myModel.getValue('date')) {
@@ -51,7 +51,10 @@
 							};
 
 							// Making http request
-							return ItemsRest.post($scope.myModel.getValues());
+							var modelValues = $scope.myModel.getValues();
+							var place = $scope.autocomplete.ins.getPlace();
+							if (place) { modelValues.placeId = place.place_id; } else { modelValues.placeId = null; }
+							return ItemsRest.post(modelValues);
 
 						case 'edit':
 

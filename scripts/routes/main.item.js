@@ -9,8 +9,8 @@
 
 					return $q(function(resolve) {
 
-						ItemsRest.getList({ _id: $stateParams.id }).then(function() {
-							resolve(true);
+						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(res.data[0]);
 
 						}, function() {
 							resolve(false);
@@ -40,6 +40,7 @@
 					ui.menus.top.activateSwitcher();
 
 					if (getItem && getUser) {
+
 						ui.frames.main.activateSwitcher('item');
 						ui.tabs.item.activateSwitcher($stateParams.tab);
 

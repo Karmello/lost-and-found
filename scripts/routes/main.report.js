@@ -15,9 +15,7 @@
 					});
 				}
 			},
-			onEnter: function() {
-
-			}
+			onEnter: function() {}
 		});
 	});
 

@@ -9,7 +9,7 @@
 				ng-class="item.typeId == 'F' ? 'isFound' : ''"
 			>
 				<title-section>
-					<a ui-sref="main.item({ tab: 'photos', id: item._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ item.truncatedTitle }}</a>
+					<a ui-sref="main.item({ id: item._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ item.truncatedTitle }}</a>
 				</title-section>
 				<info-section>
 					<p>

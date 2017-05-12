@@ -1,0 +1,22 @@
+<div id="photosSection" ng-show="ui.tabs.item.activeSwitcherId == 'photos'">
+	<my-panel>
+		<title-section>
+			<span class="glyphicon glyphicon-picture"></span>
+			<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[70] }} ({{ apiData.item.photos.length }})</span>
+		</title-section>
+		<body-section>
+			<item-photos item="apiData.item" editable="apiData.itemUser._isTheOneLoggedIn()"></item-photos>
+		</body-section>
+	</my-panel>
+</div>
+<div id="commentsSection" ng-show="ui.tabs.item.activeSwitcherId == 'comments'">
+	<my-panel>
+		<title-section>
+			<span class="glyphicon glyphicon-comment"></span>
+			<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[58] }} ({{ commentsBrowser.meta.count }})</span>
+		</title-section>
+		<body-section>
+			<comments ctrl-id="ItemComments"></comments>
+		</body-section>
+	</my-panel>
+</div>

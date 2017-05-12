@@ -50,6 +50,9 @@
 						newScrollY = $state.current.scrollY;
 						break;
 
+					case 'main.item.tab':
+						return;
+
 					default:
 						newScrollY = 0;
 						break;

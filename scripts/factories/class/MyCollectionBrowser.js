@@ -8,7 +8,7 @@
 
 		var MyCollectionBrowser = function(config) {
 
-			Object.assign(MyCollectionBrowser.prototype, MyCollectionSelector.prototype);
+			Object.assign(MyCollectionBrowser.prototype, $.extend(true, {}, MyCollectionSelector.prototype));
 
 			// Assigning config
 			Object.assign(this, config);

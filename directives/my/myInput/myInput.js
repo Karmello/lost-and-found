@@ -33,10 +33,7 @@
 						var input = $(elem).find('input')[0];
 						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
 
-						scope.autocomplete.ins.addListener('place_changed', function() {
-
-							console.log('hello');
-						});
+						scope.autocomplete.ins.addListener('place_changed', function() {});
 					}
 				};
 			}

@@ -3,7 +3,12 @@
 	angular.module('appModule').config(function($stateProvider) {
 
 		$stateProvider.state('main.item', {
-			url: '/item/:tab?id',
+			url: '/item?id',
+			views: {
+				tab: {
+					templateUrl: 'public/pages/lost-and-found-app-item-tab.html'
+				}
+			},
 			resolve: {
 				getItem: function(itemCategories, $stateParams, $q, ItemsRest) {
 
@@ -30,7 +35,7 @@
 					});
 				}
 			},
-			onEnter: function(getItem, getUser, $timeout, $stateParams, ui) {
+			onEnter: function(getItem, getUser, $timeout, googleMapService, ui) {
 
 				var timeout = 0;
 				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
@@ -40,9 +45,8 @@
 					ui.menus.top.activateSwitcher();
 
 					if (getItem && getUser) {
-
 						ui.frames.main.activateSwitcher('item');
-						ui.tabs.item.activateSwitcher($stateParams.tab);
+						googleMapService.initItemMap(getItem.placeId);
 
 					} else {
 						ui.frames.main.activateSwitcher();

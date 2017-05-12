@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('itemForm', function($rootScope, $state, $stateParams, $timeout, myClass, ItemsRest, Restangular) {
+	appModule.directive('itemForm', function($rootScope, $state, $stateParams, $timeout, googleMapService, myClass, ItemsRest, Restangular) {
 
 		var itemForm = {
 			restrict: 'E',
@@ -45,9 +45,9 @@
 							}
 
 							$scope.myForm.submitSuccessCb = function(res) {
-
+								googleMapService.itemPlace = null;
 								$scope.myForm.reset();
-								$state.go('main.item', { tab: 'photos', id: res.data._id });
+								$state.go('main.item', { id: res.data._id });
 							};
 
 							// Making http request
@@ -65,13 +65,12 @@
 							$scope.myModel.setRestObj(copy);
 
 							$scope.myForm.submitSuccessCb = function(res) {
-
+								googleMapService.itemPlace = null;
 								$rootScope.apiData.item = res.data;
-								$state.go('main.item', { tab: 'photos', id: res.data._id });
+								$state.go('main.item', { id: res.data._id });
 							};
 
 							$scope.myForm.submitErrorCb = function(res) {
-
 								$rootScope.apiData.item = copy;
 							};
 
@@ -81,7 +80,6 @@
 				};
 
 				$scope.myForm.onCancel = function() {
-
 					window.history.back();
 				};
 			},

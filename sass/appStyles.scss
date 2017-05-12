@@ -200,7 +200,9 @@ $avatarSize: 240px;
 	}
 
 	#section2 {
-
+		.myGoogleMap {
+			@media only screen and (max-width: 767px) { margin: 0 auto; }
+		}
 	}
 
 	#section3 {
@@ -244,8 +246,7 @@ $avatarSize: 240px;
 
 	.myGoogleMap {
 		border: 1px solid;
-		margin: 0 auto;
-		max-width: 600px;
+		max-width: 300px;
 		min-height: 300px;
 		height: 300px;
 	}
@@ -350,7 +351,7 @@ $avatarSize: 240px;
 .itemAvatar {
 
 	.mySrc {
-		img { width: 150px; height: 100px; object-fit: cover; }
+		img { width: 200px; object-fit: cover; }
 	}
 }
 .itemIconMenu {
@@ -979,6 +980,7 @@ $avatarSize: 240px;
 	}
 
 	.isSelected {
+		background-color: black;
 		img { opacity: 0.3; }
 	}
 
@@ -1157,33 +1159,35 @@ $avatarSize: 240px;
 
 		.formCtrls {
 
-			// display: flex;
-			// flex-flow: row wrap;
-			// justify-content: space-around;
+			> div:first-child {
 
-			> div {
+				display: flex;
+				justify-content: space-around;
 
-				// display: flex;
-				// flex-flow: row wrap;
-				// justify-content: space-around;
+				@media only screen and (max-width: 600px) {
+					flex-flow: row wrap;
+				}
 
-				.mySelectsGroup > div {
+				> div {
 
-					// display: flex;
-					// flex-flow: row wrap;
-					// justify-content: space-around;
+					margin: 5px;
+					flex-basis: 100%;
 
-					.mySelect {}
+					.mySelectsGroup > div {
+						.mySelect {}
+					}
 				}
 			}
 
-			textarea {
+			> div:last-child {
 
-				min-height: 175px !important;
-				text-align: justify;
+				margin: 5px;
 
-				@media only screen and (min-width: 400px) { min-width: 350px; }
-				@media only screen and (min-width: 768px) { min-width: 450px; }
+				textarea {
+					max-width: 600px;
+					min-height: 175px !important;
+					text-align: justify;
+				}
 			}
 		}
 	}

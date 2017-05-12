@@ -148,6 +148,9 @@
 						newScrollY = $state.current.scrollY;
 						break;
 
+					case 'main.item.tab':
+						return;
+
 					default:
 						newScrollY = 0;
 						break;
@@ -820,22 +823,13 @@
 
 	'use strict';
 
-	var ItemController = function($rootScope, $scope, $timeout, itemsService, googleMapService, contextMenuConf, commentsConf, MySwitchable) {
+	var ItemController = function($rootScope, $scope, $timeout, itemsService, contextMenuConf, commentsConf, MySwitchable) {
 
-		$scope.$watch(function() { return $rootScope.apiData.item; }, function(newItem, oldItem) {
+		$scope.$watch('apiData.item', function(item) {
 
-			console.log(newItem._id, oldItem._id);
-
-			if (newItem) {
-
-				if (newItem._isOwn()) {
-					$scope.itemContextMenu = new MySwitchable(contextMenuConf.itemContextMenuConf);
-					$scope.itemContextMenu.data = newItem;
-				}
-
-				var timeout = 0;
-				if ($rootScope.ui.loaders.renderer.isLoading) { timeout = 3000; }
-				$timeout(function() { googleMapService.initItemMap(newItem.placeId); }, timeout);
+			if (item && item._isOwn()) {
+				$scope.itemContextMenu = new MySwitchable(contextMenuConf.itemContextMenuConf);
+				$scope.itemContextMenu.data = item;
 
 			} else {
 				$scope.itemContextMenu = null;
@@ -846,7 +840,7 @@
 		$scope.commentsBrowser = commentsConf.itemCommentsBrowser;
 	};
 
-	ItemController.$inject = ['$rootScope', '$scope', '$timeout', 'itemsService', 'googleMapService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ItemController.$inject = ['$rootScope', '$scope', '$timeout', 'itemsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ItemController', ItemController);
 
 })();
@@ -890,652 +884,6 @@
 
 	SettingsController.$inject = ['$scope', 'ui'];
 	angular.module('appModule').controller('SettingsController', SettingsController);
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('guest.1', {
-			url: '/guest/:tab?action',
-			resolve: {
-				tab: function(countries, $q, $state, $stateParams, ui) {
-
-					return $q(function(resolve, reject) {
-
-						var availableParams = ui.tabs.guest.switcherIds;
-
-						// Valid tab
-						if (availableParams.indexOf($stateParams.tab) > -1) {
-							resolve();
-
-						// Invalid tab
-						} else {
-
-							$state.go('guest.1', { tab: 'login' }, { location: 'replace' });
-						}
-	    			});
-				},
-				authentication: function(tab, $q, $state, $stateParams, authService) {
-
-					return $q(function(resolve) {
-
-						authService.authenticate(function(success) {
-
-							if (success && $stateParams.tab != 'status') {
-								$state.go('guest.1', { tab: 'status' }, { location: 'replace' });
-
-							} else {
-								resolve();
-							}
-						});
-					});
-				}
-			},
-			onEnter: function($state, $stateParams, $timeout, ui) {
-
-				ui.tabs.guest.activateSwitcher($stateParams.tab);
-				ui.frames.main.activateSwitcher();
-
-				$timeout(function() {
-
-					if ($state.params.action == 'deactivation') {
-
-						$timeout(function() {
-							ui.modals.deactivationDoneModal.show();
-						}, 500);
-					}
-
-				}, 2500);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('guest', {
-			abstract: true,
-			views: {
-				view1: { templateUrl: 'public/pages/lost-and-found-app-guest.html' }
-			},
-			resolve: {
-				captchaApi: function($q, ui, utilService) {
-
-					return $q(function(resolve, reject) {
-
-						try {
-							if (grecaptcha) { resolve(); }
-
-						} catch (ex) {
-							window.captchaApiLoaded = function() { resolve(); };
-							utilService.loadScript('https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit');
-						}
-					});
-				},
-				countries: function(captchaApi, $q, $rootScope, ui, fileService) {
-
-					return $q(function(resolve, reject) {
-
-						if (fileService.countries.data) {
-							resolve();
-
-						} else {
-
-							fileService.countries.readFile(function(success) {
-
-								if (success) {
-									fileService.countries.alterData(function() {
-										resolve();
-									});
-
-								} else {
-
-									ui.loaders.renderer.stop(function() {
-										$rootScope.ui.modals.tryToRefreshModal.show();
-									});
-								}
-							});
-						}
-					});
-				}
-			},
-			onEnter: function($rootScope, $state, $timeout, ui) {
-
-				$timeout(function() {
-
-					if ($state.params.tab == 'login' && $state.params.action == 'pass_reset') {
-
-						$timeout(function() {
-							$rootScope.ui.modals.passResetDoneModal.show();
-						}, 500);
-					}
-
-				}, 2500);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.about', {
-			url: '/about',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('about');
-				ui.menus.top.activateSwitcher('about');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.contact', {
-			url: '/contact',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('contact');
-				ui.menus.top.activateSwitcher('contact');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.editem', {
-			url: '/editem?id',
-			resolve: {
-				getItem: function(itemCategories, $q, $stateParams, ItemsRest) {
-
-					return $q(function(resolve) {
-
-						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
-							resolve(res.data[0]);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				}
-			},
-			onEnter: function(getItem, $rootScope, $timeout, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					$rootScope.$broadcast('editItem', { item: getItem });
-
-					ui.menus.top.activateSwitcher();
-
-					if (getItem) {
-						ui.frames.main.activateSwitcher('editem');
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.help', {
-			url: '/help',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('help');
-				ui.menus.top.activateSwitcher('help');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.home', {
-			url: '/home',
-			onEnter: function(ui) {
-
-				ui.menus.top.activateSwitcher('home');
-				ui.frames.main.activateSwitcher('home');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.item', {
-			url: '/item/:tab?id',
-			resolve: {
-				getItem: function(itemCategories, $stateParams, $q, ItemsRest) {
-
-					return $q(function(resolve) {
-
-						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
-							resolve(res.data[0]);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				},
-				getUser: function(getItem, $stateParams, $q, UsersRest) {
-
-					return $q(function(resolve) {
-
-						UsersRest.getList({ itemId: $stateParams.id }).then(function() {
-							resolve(true);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				}
-			},
-			onEnter: function(getItem, getUser, $timeout, $stateParams, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					ui.menus.top.activateSwitcher();
-
-					if (getItem && getUser) {
-
-						ui.frames.main.activateSwitcher('item');
-						ui.tabs.item.activateSwitcher($stateParams.tab);
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main', {
-			abstract: true,
-			views: {
-				view1: { templateUrl: 'public/pages/lost-and-found-app-main.html' }
-			},
-			resolve: {
-				authentication: function($timeout, $state, $q, authService, ui) {
-
-					return $q(function(resolve, reject) {
-
-						authService.authenticate(function(success, res) {
-
-							if (success) {
-								resolve();
-
-							} else {
-								$timeout(function() { $state.go('guest.1', { tab: 'login' }, { location: 'replace' }); });
-							}
-						});
-					});
-				},
-				openExchangeRates: function(authentication, $rootScope, $q, ui, exchangeRateService) {
-
-					return $q(function(resolve, reject) {
-
-						var promises = [];
-
-						angular.forEach(exchangeRateService.config.availableRates, function(rate, rateKey) {
-
-							var promise = $q(function(resolve, reject) {
-
-								$.getJSON(exchangeRateService.config.api + rateKey + '&callback=?').then(function(data) {
-									exchangeRateService.data[rateKey] = data;
-									resolve(true);
-
-								}, function() {
-									resolve(false);
-								});
-							});
-
-							promises.push(promise);
-						});
-
-						$q.all(promises).then(function(results) {
-
-							if (results.indexOf(false) == -1) {
-								resolve();
-
-							} else {
-
-								ui.loaders.renderer.stop(function() {
-									$rootScope.ui.modals.tryToRefreshModal.show();
-								});
-							}
-						});
-					});
-				},
-				countries: function(openExchangeRates, $rootScope, $q, ui, fileService) {
-
-					return $q(function(resolve, reject) {
-
-						if (fileService.countries.data) {
-							resolve();
-
-						} else {
-
-							fileService.countries.readFile(function(success) {
-
-								if (success) {
-									fileService.countries.alterData(function() {
-										resolve();
-									});
-
-								} else {
-
-									ui.loaders.renderer.stop(function() {
-										$rootScope.ui.modals.tryToRefreshModal.show();
-									});
-								}
-							});
-						}
-					});
-				},
-				deactivationReasons: function(countries, $rootScope, $q, $filter, DeactivationReasonsRest) {
-					return $q(function(resolve) {
-
-						DeactivationReasonsRest.getList().then(function(res) {
-							$rootScope.apiData.deactivationReasons = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.deactivationReasons = undefined;
-							resolve(false);
-						});
-					});
-				},
-				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
-					return $q(function(resolve) {
-
-						ContactTypesRest.getList().then(function(res) {
-							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.contactTypes = undefined;
-							resolve(false);
-						});
-					});
-				},
-				itemCategories: function(contactTypes, $q, $rootScope, ItemCategoriesRest, ui) {
-
-					return $q(function(resolve, reject) {
-
-						ItemCategoriesRest.getList().then(function(res) {
-
-							$rootScope.apiData.itemCategories = res.data.plain();
-							resolve();
-
-						}, function() {
-
-							ui.loaders.renderer.stop(function() {
-								$rootScope.ui.modals.tryToRefreshModal.show();
-							});
-						});
-					});
-				}
-			},
-			onEnter: function($timeout, ui) {
-
-				// Resetting settingsListGroup
-				ui.listGroups.settings.getFirstSwitcher().activate();
-
-				// Resetting settingsListGroup tabs
-				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-					ui.tabs[switcher._id].getFirstSwitcher().activate();
-				});
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.profile', {
-			url: '/profile?id',
-			resolve: {
-				getUser: function(itemCategories, $stateParams, $q, UsersRest) {
-
-					return $q(function(resolve) {
-
-						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
-							resolve(true);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				}
-			},
-			onEnter: function(getUser, $rootScope, $timeout, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					ui.menus.top.activateSwitcher();
-
-					if (getUser) {
-						ui.frames.main.activateSwitcher('profile');
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.report', {
-			url: '/report',
-			resolve: {
-				_ui: function(itemCategories, $q, ui)	 {
-
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher('report');
-						ui.frames.main.activateSwitcher('report');
-						resolve();
-					});
-				}
-			},
-			onEnter: function() {}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.search', {
-			url: '/search',
-			resolve: {
-				_ui: function(itemCategories, $q, ui) {
-
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher('search');
-						ui.frames.main.activateSwitcher('search');
-
-						resolve();
-					});
-				}
-			},
-			onEnter: function($rootScope) {
-
-
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.settings1', {
-			url: '/settings',
-			resolve: {
-				redirection: function($q, $timeout, $state, ui) {
-
-					return $q(function() {
-
-						// Setting catId and subcatId and going to main.setting3 state
-
-						var catId = ui.listGroups.settings.activeSwitcherId;
-
-						$timeout(function() {
-							$state.go('main.settings3', {
-								catId: catId,
-								subcatId: ui.tabs[catId].activeSwitcherId
-							}, { location: 'replace' });
-						});
-					});
-				}
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.settings2', {
-			url: '/settings/:catId',
-			resolve: {
-				catId: function($timeout, $q, $state, $stateParams, ui) {
-
-					return $q(function(resolve, reject) {
-
-						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
-
-						settingsSwitcher.validateCatId($stateParams, ui).then(function(validCatId) {
-
-							if (validCatId) {
-								resolve();
-
-							} else {
-
-								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
-								});
-							}
-						});
-					});
-				},
-				redirection: function(catId, $timeout, $state, $stateParams, ui) {
-
-					// Setting subcatId and going to main.setting3 state
-
-					$timeout(function() {
-						$state.go('main.settings3', {
-							catId: $stateParams.catId,
-							subcatId: ui.tabs[$stateParams.catId].activeSwitcherId
-						}, { location: 'replace' });
-					});
-				}
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.settings3', {
-			url: '/settings/:catId/:subcatId',
-			resolve: {
-				params: function($timeout, $q, $state, $stateParams, ui) {
-
-					return $q(function(resolve, reject) {
-
-						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
-
-						$q.all([
-							settingsSwitcher.validateCatId($stateParams, ui),
-							settingsSwitcher.validateSubcatId($stateParams, ui)
-
-						]).then(function(results) {
-
-							if (!results[0]) {
-
-								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
-								});
-
-							} else if (!results[1]) {
-
-								$timeout(function() {
-									$state.go('main.settings2', { catId: $stateParams.catId }, { location: 'replace' });
-								});
-
-							} else { resolve(); }
-						});
-					});
-				}
-			},
-			onEnter: function($stateParams, ui) {
-
-				ui.menus.top.activateSwitcher('settings');
-
-				ui.listGroups.settings.activateSwitcher($stateParams.catId);
-				ui.dropdowns.settingsCategories.activateSwitcher($stateParams.catId);
-				ui.tabs[$stateParams.catId].activateSwitcher($stateParams.subcatId);
-
-				ui.frames.main.activateSwitcher('settings');
-			}
-		});
-	});
 
 })();
 (function() {
@@ -1934,128 +1282,44 @@
 
 		service.initItemMap = function(placeId) {
 
-			// Clearing map
+			if (!service.itemPlace || service.itemPlace.place_id != placeId) {
 
-			if (service.itemMarker) {
-				service.itemMarker.setMap(null);
-			}
+				var map = new google.maps.Map(document.getElementById('itemMap'));
 
-			// Map initializing
-
-			if (!service.itemMap) {
-
-				service.itemMap = new google.maps.Map(document.getElementById('itemMap'));
-
-				google.maps.event.addListener(service.itemMap, 'idle', function() {
-					google.maps.event.trigger(service.itemMap, 'resize');
-				});
-			}
-
-			$timeout(function() {
-
-				// Setting up map
-
-				var geocoder = new google.maps.Geocoder();
-				var infowindow = new google.maps.InfoWindow();
-
-				geocoder.geocode({ 'placeId': placeId }, function(results, status) {
-
-					service.itemPlace = results[0];
-
-					service.itemMarker = new google.maps.Marker({
-						map: service.itemMap,
-						animation: google.maps.Animation.DROP,
-						position: service.itemPlace.geometry.location
-					});
-
-					service.itemMarker.addListener('click', function() {
-						infowindow.setContent(service.itemPlace.formatted_address);
-						infowindow.open(service.itemMap, service.itemMarker);
-					});
-
-					service.itemMap.setZoom(11);
-					service.itemMap.setCenter(service.itemPlace.geometry.location);
+				google.maps.event.addListener(map, 'idle', function() {
+					google.maps.event.trigger(map, 'resize');
 				});
 
-			}, 1000);
+				$timeout(function() {
 
-			// var card = document.getElementById('pac-card');
-			// var input = document.getElementById('pac-input');
-			// var types = document.getElementById('type-selector');
-			// var strictBounds = document.getElementById('strict-bounds-selector');
+					var geocoder = new google.maps.Geocoder();
+					var infowindow = new google.maps.InfoWindow();
 
-			// map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+					geocoder.geocode({ 'placeId': placeId }, function(results, status) {
 
-			// var autocomplete = new google.maps.places.Autocomplete(input);
+						service.itemPlace = results[0];
 
-			// // Bind the map's bounds (viewport) property to the autocomplete object,
-			// // so that the autocomplete requests use the current map bounds for the
-			// // bounds option in the request.
-			// autocomplete.bindTo('bounds', map);
+						map.setCenter(service.itemPlace.geometry.location);
+						map.setZoom(13);
 
-			// var infowindow = new google.maps.InfoWindow();
-			// var infowindowContent = document.getElementById('infowindow-content');
-			// infowindow.setContent(infowindowContent);
-			// var marker = new google.maps.Marker({
-			// map: map,
-			// anchorPoint: new google.maps.Point(0, -29)
-			// });
+						var marker = new google.maps.Marker({
+							map: map,
+							position: service.itemPlace.geometry.location
+						});
 
-			// autocomplete.addListener('place_changed', function() {
-			// infowindow.close();
-			// marker.setVisible(false);
-			// var place = autocomplete.getPlace();
-			// if (!place.geometry) {
-			// // User entered the name of a Place that was not suggested and
-			// // pressed the Enter key, or the Place Details request failed.
-			// window.alert("No details available for input: '" + place.name + "'");
-			// return;
-			// }
+						marker.addListener('click', function() {
+							infowindow.setContent(service.itemPlace.formatted_address);
+							infowindow.open(map, marker);
+						});
 
-			// // If the place has a geometry, then present it on a map.
-			// if (place.geometry.viewport) {
-			// map.fitBounds(place.geometry.viewport);
-			// } else {
-			// map.setCenter(place.geometry.location);
-			// map.setZoom(17);  // Why 17? Because it looks good.
-			// }
-			// marker.setPosition(place.geometry.location);
-			// marker.setVisible(true);
+						$timeout(function() {
+							infowindow.setContent(service.itemPlace.formatted_address);
+							infowindow.open(map, marker);
+						}, 1000);
+					});
 
-			// var address = '';
-			// if (place.address_components) {
-			// address = [
-			// (place.address_components[0] && place.address_components[0].short_name || ''),
-			// (place.address_components[1] && place.address_components[1].short_name || ''),
-			// (place.address_components[2] && place.address_components[2].short_name || '')
-			// ].join(' ');
-			// }
-
-			// infowindowContent.children['place-icon'].src = place.icon;
-			// infowindowContent.children['place-name'].textContent = place.name;
-			// infowindowContent.children['place-address'].textContent = address;
-			// infowindow.open(map, marker);
-			// });
-
-			// // Sets a listener on a radio button to change the filter type on Places
-			// // Autocomplete.
-			// function setupClickListener(id, types) {
-			// var radioButton = document.getElementById(id);
-			// radioButton.addEventListener('click', function() {
-			// autocomplete.setTypes(types);
-			// });
-			// }
-
-			// setupClickListener('changetype-all', []);
-			// setupClickListener('changetype-address', ['address']);
-			// setupClickListener('changetype-establishment', ['establishment']);
-			// setupClickListener('changetype-geocode', ['geocode']);
-
-			// document.getElementById('use-strict-bounds')
-			// .addEventListener('click', function() {
-			// console.log('Checkbox clicked! New state=' + this.checked);
-			// autocomplete.setOptions({strictBounds: this.checked});
-			// });
+				}, 1000);
+			}
 		};
 
 		return service;
@@ -2065,6 +1329,92 @@
 	angular.module('appModule').service('googleMapService', googleMapService);
 
 })();
+
+
+
+
+
+
+
+
+
+// var card = document.getElementById('pac-card');
+// var input = document.getElementById('pac-input');
+// var types = document.getElementById('type-selector');
+// var strictBounds = document.getElementById('strict-bounds-selector');
+
+// map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+
+// var autocomplete = new google.maps.places.Autocomplete(input);
+
+// // Bind the map's bounds (viewport) property to the autocomplete object,
+// // so that the autocomplete requests use the current map bounds for the
+// // bounds option in the request.
+// autocomplete.bindTo('bounds', map);
+
+// var infowindow = new google.maps.InfoWindow();
+// var infowindowContent = document.getElementById('infowindow-content');
+// infowindow.setContent(infowindowContent);
+// var marker = new google.maps.Marker({
+// map: map,
+// anchorPoint: new google.maps.Point(0, -29)
+// });
+
+// autocomplete.addListener('place_changed', function() {
+// infowindow.close();
+// marker.setVisible(false);
+// var place = autocomplete.getPlace();
+// if (!place.geometry) {
+// // User entered the name of a Place that was not suggested and
+// // pressed the Enter key, or the Place Details request failed.
+// window.alert("No details available for input: '" + place.name + "'");
+// return;
+// }
+
+// // If the place has a geometry, then present it on a map.
+// if (place.geometry.viewport) {
+// map.fitBounds(place.geometry.viewport);
+// } else {
+// map.setCenter(place.geometry.location);
+// map.setZoom(17);  // Why 17? Because it looks good.
+// }
+// marker.setPosition(place.geometry.location);
+// marker.setVisible(true);
+
+// var address = '';
+// if (place.address_components) {
+// address = [
+// (place.address_components[0] && place.address_components[0].short_name || ''),
+// (place.address_components[1] && place.address_components[1].short_name || ''),
+// (place.address_components[2] && place.address_components[2].short_name || '')
+// ].join(' ');
+// }
+
+// infowindowContent.children['place-icon'].src = place.icon;
+// infowindowContent.children['place-name'].textContent = place.name;
+// infowindowContent.children['place-address'].textContent = address;
+// infowindow.open(map, marker);
+// });
+
+// // Sets a listener on a radio button to change the filter type on Places
+// // Autocomplete.
+// function setupClickListener(id, types) {
+// var radioButton = document.getElementById(id);
+// radioButton.addEventListener('click', function() {
+// autocomplete.setTypes(types);
+// });
+// }
+
+// setupClickListener('changetype-all', []);
+// setupClickListener('changetype-address', ['address']);
+// setupClickListener('changetype-establishment', ['establishment']);
+// setupClickListener('changetype-geocode', ['geocode']);
+
+// document.getElementById('use-strict-bounds')
+// .addEventListener('click', function() {
+// console.log('Checkbox clicked! New state=' + this.checked);
+// autocomplete.setOptions({strictBounds: this.checked});
+// });
 (function() {
 
 	'use strict';
@@ -2668,6 +2018,670 @@
 })();
 (function() {
 
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('guest.1', {
+			url: '/guest/:tab?action',
+			resolve: {
+				tab: function(countries, $q, $state, $stateParams, ui) {
+
+					return $q(function(resolve, reject) {
+
+						var availableParams = ui.tabs.guest.switcherIds;
+
+						// Valid tab
+						if (availableParams.indexOf($stateParams.tab) > -1) {
+							resolve();
+
+						// Invalid tab
+						} else {
+
+							$state.go('guest.1', { tab: 'login' }, { location: 'replace' });
+						}
+	    			});
+				},
+				authentication: function(tab, $q, $state, $stateParams, authService) {
+
+					return $q(function(resolve) {
+
+						authService.authenticate(function(success) {
+
+							if (success && $stateParams.tab != 'status') {
+								$state.go('guest.1', { tab: 'status' }, { location: 'replace' });
+
+							} else {
+								resolve();
+							}
+						});
+					});
+				}
+			},
+			onEnter: function($state, $stateParams, $timeout, ui) {
+
+				ui.tabs.guest.activateSwitcher($stateParams.tab);
+				ui.frames.main.activateSwitcher();
+
+				$timeout(function() {
+
+					if ($state.params.action == 'deactivation') {
+
+						$timeout(function() {
+							ui.modals.deactivationDoneModal.show();
+						}, 500);
+					}
+
+				}, 2500);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('guest', {
+			abstract: true,
+			views: {
+				view1: { templateUrl: 'public/pages/lost-and-found-app-guest.html' }
+			},
+			resolve: {
+				captchaApi: function($q, ui, utilService) {
+
+					return $q(function(resolve, reject) {
+
+						try {
+							if (grecaptcha) { resolve(); }
+
+						} catch (ex) {
+							window.captchaApiLoaded = function() { resolve(); };
+							utilService.loadScript('https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit');
+						}
+					});
+				},
+				countries: function(captchaApi, $q, $rootScope, ui, fileService) {
+
+					return $q(function(resolve, reject) {
+
+						if (fileService.countries.data) {
+							resolve();
+
+						} else {
+
+							fileService.countries.readFile(function(success) {
+
+								if (success) {
+									fileService.countries.alterData(function() {
+										resolve();
+									});
+
+								} else {
+
+									ui.loaders.renderer.stop(function() {
+										$rootScope.ui.modals.tryToRefreshModal.show();
+									});
+								}
+							});
+						}
+					});
+				}
+			},
+			onEnter: function($rootScope, $state, $timeout, ui) {
+
+				$timeout(function() {
+
+					if ($state.params.tab == 'login' && $state.params.action == 'pass_reset') {
+
+						$timeout(function() {
+							$rootScope.ui.modals.passResetDoneModal.show();
+						}, 500);
+					}
+
+				}, 2500);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.about', {
+			url: '/about',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('about');
+				ui.menus.top.activateSwitcher('about');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.contact', {
+			url: '/contact',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('contact');
+				ui.menus.top.activateSwitcher('contact');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.editem', {
+			url: '/editem?id',
+			resolve: {
+				getItem: function(itemCategories, $q, $stateParams, ItemsRest) {
+
+					return $q(function(resolve) {
+
+						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(res.data[0]);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				}
+			},
+			onEnter: function(getItem, $rootScope, $timeout, ui) {
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
+
+				$timeout(function() {
+
+					$rootScope.$broadcast('editItem', { item: getItem });
+
+					ui.menus.top.activateSwitcher();
+
+					if (getItem) {
+						ui.frames.main.activateSwitcher('editem');
+
+					} else {
+						ui.frames.main.activateSwitcher();
+						ui.modals.tryAgainLaterModal.show();
+					}
+
+				}, timeout);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.help', {
+			url: '/help',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('help');
+				ui.menus.top.activateSwitcher('help');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.home', {
+			url: '/home',
+			onEnter: function(ui) {
+
+				ui.menus.top.activateSwitcher('home');
+				ui.frames.main.activateSwitcher('home');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.item', {
+			url: '/item?id',
+			views: {
+				tab: {
+					templateUrl: 'public/pages/lost-and-found-app-item-tab.html'
+				}
+			},
+			resolve: {
+				getItem: function(itemCategories, $stateParams, $q, ItemsRest) {
+
+					return $q(function(resolve) {
+
+						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(res.data[0]);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				},
+				getUser: function(getItem, $stateParams, $q, UsersRest) {
+
+					return $q(function(resolve) {
+
+						UsersRest.getList({ itemId: $stateParams.id }).then(function() {
+							resolve(true);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				}
+			},
+			onEnter: function(getItem, getUser, $timeout, googleMapService, ui) {
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
+
+				$timeout(function() {
+
+					ui.menus.top.activateSwitcher();
+
+					if (getItem && getUser) {
+						ui.frames.main.activateSwitcher('item');
+						googleMapService.initItemMap(getItem.placeId);
+
+					} else {
+						ui.frames.main.activateSwitcher();
+						ui.modals.tryAgainLaterModal.show();
+					}
+
+				}, timeout);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.item.tab', {
+			url: '/:tab',
+			onEnter: function($stateParams, ui) {
+
+				ui.tabs.item.activateSwitcher($stateParams.tab);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main', {
+			abstract: true,
+			views: {
+				view1: { templateUrl: 'public/pages/lost-and-found-app-main.html' }
+			},
+			resolve: {
+				authentication: function($timeout, $state, $q, authService, ui) {
+
+					return $q(function(resolve, reject) {
+
+						authService.authenticate(function(success, res) {
+
+							if (success) {
+								resolve();
+
+							} else {
+								$timeout(function() { $state.go('guest.1', { tab: 'login' }, { location: 'replace' }); });
+							}
+						});
+					});
+				},
+				openExchangeRates: function(authentication, $rootScope, $q, ui, exchangeRateService) {
+
+					return $q(function(resolve, reject) {
+
+						var promises = [];
+
+						angular.forEach(exchangeRateService.config.availableRates, function(rate, rateKey) {
+
+							var promise = $q(function(resolve, reject) {
+
+								$.getJSON(exchangeRateService.config.api + rateKey + '&callback=?').then(function(data) {
+									exchangeRateService.data[rateKey] = data;
+									resolve(true);
+
+								}, function() {
+									resolve(false);
+								});
+							});
+
+							promises.push(promise);
+						});
+
+						$q.all(promises).then(function(results) {
+
+							if (results.indexOf(false) == -1) {
+								resolve();
+
+							} else {
+
+								ui.loaders.renderer.stop(function() {
+									$rootScope.ui.modals.tryToRefreshModal.show();
+								});
+							}
+						});
+					});
+				},
+				countries: function(openExchangeRates, $rootScope, $q, ui, fileService) {
+
+					return $q(function(resolve, reject) {
+
+						if (fileService.countries.data) {
+							resolve();
+
+						} else {
+
+							fileService.countries.readFile(function(success) {
+
+								if (success) {
+									fileService.countries.alterData(function() {
+										resolve();
+									});
+
+								} else {
+
+									ui.loaders.renderer.stop(function() {
+										$rootScope.ui.modals.tryToRefreshModal.show();
+									});
+								}
+							});
+						}
+					});
+				},
+				deactivationReasons: function(countries, $rootScope, $q, $filter, DeactivationReasonsRest) {
+					return $q(function(resolve) {
+
+						DeactivationReasonsRest.getList().then(function(res) {
+							$rootScope.apiData.deactivationReasons = $filter('orderBy')(res.data.plain(), 'index');
+							resolve(true);
+
+						}, function() {
+							$rootScope.apiData.deactivationReasons = undefined;
+							resolve(false);
+						});
+					});
+				},
+				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
+					return $q(function(resolve) {
+
+						ContactTypesRest.getList().then(function(res) {
+							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
+							resolve(true);
+
+						}, function() {
+							$rootScope.apiData.contactTypes = undefined;
+							resolve(false);
+						});
+					});
+				},
+				itemCategories: function(contactTypes, $q, $rootScope, ItemCategoriesRest, ui) {
+
+					return $q(function(resolve, reject) {
+
+						ItemCategoriesRest.getList().then(function(res) {
+
+							$rootScope.apiData.itemCategories = res.data.plain();
+							resolve();
+
+						}, function() {
+
+							ui.loaders.renderer.stop(function() {
+								$rootScope.ui.modals.tryToRefreshModal.show();
+							});
+						});
+					});
+				}
+			},
+			onEnter: function($timeout, ui) {
+
+				// Resetting settingsListGroup
+				ui.listGroups.settings.getFirstSwitcher().activate();
+
+				// Resetting settingsListGroup tabs
+				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+					ui.tabs[switcher._id].getFirstSwitcher().activate();
+				});
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.profile', {
+			url: '/profile?id',
+			resolve: {
+				getUser: function(itemCategories, $stateParams, $q, UsersRest) {
+
+					return $q(function(resolve) {
+
+						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(true);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				}
+			},
+			onEnter: function(getUser, $rootScope, $timeout, ui) {
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
+
+				$timeout(function() {
+
+					ui.menus.top.activateSwitcher();
+
+					if (getUser) {
+						ui.frames.main.activateSwitcher('profile');
+
+					} else {
+						ui.frames.main.activateSwitcher();
+						ui.modals.tryAgainLaterModal.show();
+					}
+
+				}, timeout);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.report', {
+			url: '/report',
+			resolve: {
+				_ui: function(itemCategories, $q, ui)	 {
+
+					return $q(function(resolve) {
+
+						ui.menus.top.activateSwitcher('report');
+						ui.frames.main.activateSwitcher('report');
+						resolve();
+					});
+				}
+			},
+			onEnter: function() {}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.search', {
+			url: '/search',
+			resolve: {
+				_ui: function(itemCategories, $q, ui) {
+
+					return $q(function(resolve) {
+
+						ui.menus.top.activateSwitcher('search');
+						ui.frames.main.activateSwitcher('search');
+
+						resolve();
+					});
+				}
+			},
+			onEnter: function($rootScope) {
+
+
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.settings1', {
+			url: '/settings',
+			resolve: {
+				redirection: function($q, $timeout, $state, ui) {
+
+					return $q(function() {
+
+						// Setting catId and subcatId and going to main.setting3 state
+
+						var catId = ui.listGroups.settings.activeSwitcherId;
+
+						$timeout(function() {
+							$state.go('main.settings3', {
+								catId: catId,
+								subcatId: ui.tabs[catId].activeSwitcherId
+							}, { location: 'replace' });
+						});
+					});
+				}
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.settings2', {
+			url: '/settings/:catId',
+			resolve: {
+				catId: function($timeout, $q, $state, $stateParams, ui) {
+
+					return $q(function(resolve, reject) {
+
+						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
+
+						settingsSwitcher.validateCatId($stateParams, ui).then(function(validCatId) {
+
+							if (validCatId) {
+								resolve();
+
+							} else {
+
+								$timeout(function() {
+									$state.go('main.settings1', {}, { location: 'replace' });
+								});
+							}
+						});
+					});
+				},
+				redirection: function(catId, $timeout, $state, $stateParams, ui) {
+
+					// Setting subcatId and going to main.setting3 state
+
+					$timeout(function() {
+						$state.go('main.settings3', {
+							catId: $stateParams.catId,
+							subcatId: ui.tabs[$stateParams.catId].activeSwitcherId
+						}, { location: 'replace' });
+					});
+				}
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.settings3', {
+			url: '/settings/:catId/:subcatId',
+			resolve: {
+				params: function($timeout, $q, $state, $stateParams, ui) {
+
+					return $q(function(resolve, reject) {
+
+						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
+
+						$q.all([
+							settingsSwitcher.validateCatId($stateParams, ui),
+							settingsSwitcher.validateSubcatId($stateParams, ui)
+
+						]).then(function(results) {
+
+							if (!results[0]) {
+
+								$timeout(function() {
+									$state.go('main.settings1', {}, { location: 'replace' });
+								});
+
+							} else if (!results[1]) {
+
+								$timeout(function() {
+									$state.go('main.settings2', { catId: $stateParams.catId }, { location: 'replace' });
+								});
+
+							} else { resolve(); }
+						});
+					});
+				}
+			},
+			onEnter: function($stateParams, ui) {
+
+				ui.menus.top.activateSwitcher('settings');
+
+				ui.listGroups.settings.activateSwitcher($stateParams.catId);
+				ui.dropdowns.settingsCategories.activateSwitcher($stateParams.catId);
+				ui.tabs[$stateParams.catId].activateSwitcher($stateParams.subcatId);
+
+				ui.frames.main.activateSwitcher('settings');
+			}
+		});
+	});
+
+})();
+(function() {
+
 	'use strict';
 
 	var myClass = function(
@@ -2709,7 +2723,7 @@
 
 		var MyCollectionBrowser = function(config) {
 
-			Object.assign(MyCollectionBrowser.prototype, MyCollectionSelector.prototype);
+			Object.assign(MyCollectionBrowser.prototype, $.extend(true, {}, MyCollectionSelector.prototype));
 
 			// Assigning config
 			Object.assign(this, config);
@@ -4533,7 +4547,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('itemForm', function($rootScope, $state, $stateParams, $timeout, myClass, ItemsRest, Restangular) {
+	appModule.directive('itemForm', function($rootScope, $state, $stateParams, $timeout, googleMapService, myClass, ItemsRest, Restangular) {
 
 		var itemForm = {
 			restrict: 'E',
@@ -4574,9 +4588,9 @@
 							}
 
 							$scope.myForm.submitSuccessCb = function(res) {
-
+								googleMapService.itemPlace = null;
 								$scope.myForm.reset();
-								$state.go('main.item', { tab: 'photos', id: res.data._id });
+								$state.go('main.item', { id: res.data._id });
 							};
 
 							// Making http request
@@ -4594,13 +4608,12 @@
 							$scope.myModel.setRestObj(copy);
 
 							$scope.myForm.submitSuccessCb = function(res) {
-
+								googleMapService.itemPlace = null;
 								$rootScope.apiData.item = res.data;
-								$state.go('main.item', { tab: 'photos', id: res.data._id });
+								$state.go('main.item', { id: res.data._id });
 							};
 
 							$scope.myForm.submitErrorCb = function(res) {
-
 								$rootScope.apiData.item = copy;
 							};
 
@@ -4610,7 +4623,6 @@
 				};
 
 				$scope.myForm.onCancel = function() {
-
 					window.history.back();
 				};
 			},
@@ -6037,6 +6049,300 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
+
+		var userAvatar = {
+			restrict: 'E',
+			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
+			scope: {
+				user: '=',
+				editable: '=',
+				noLink: '&'
+			},
+			controller: function($scope) {
+
+				$scope.src = new MySrc({
+					defaultUrl: userAvatarConf.defaultUrl,
+					uploadRequest: userAvatarService.uploadRequest,
+					removeRequest: userAvatarService.removeRequest
+				});
+
+				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.user; }, function(user) {
+
+						if (user) {
+							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
+							userAvatarService.loadPhoto(scope);
+						}
+					});
+				};
+			}
+		};
+
+		return userAvatar;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var userAvatarConf = function($rootScope, userAvatarService, utilService) {
+
+		var conf = {
+			defaultUrl: 'public/imgs/avatar.png',
+			getSrcContextMenuConf: function(scope) {
+
+				return {
+					icon: 'glyphicon glyphicon-option-horizontal',
+					switchers: [
+						{
+							_id: 'update',
+							label: $rootScope.hardData.phrases[5],
+							onClick: function() {
+
+								$rootScope.$broadcast('displayImgCropWindow', {
+									acceptCb: function(dataURI) {
+
+										scope.src.update({ file: utilService.dataURItoBlob(dataURI) }, true).then(function(success) {
+											if (success) { userAvatarService.loadPhoto(scope, true); }
+										});
+									}
+								});
+							}
+						},
+						{
+							_id: 'delete',
+							label: $rootScope.hardData.phrases[14],
+							onClick: function() {
+
+								scope.src.remove(undefined, true);
+							},
+							isHidden: function() { return scope.src.isDefaultUrlLoaded(); }
+						},
+						{
+							_id: 'refresh',
+							label: $rootScope.hardData.phrases[106],
+							onClick: function() {
+
+								userAvatarService.loadPhoto(scope, true);
+							}
+						}
+					]
+				};
+			}
+		};
+
+		return conf;
+	};
+
+	userAvatarConf.$inject = ['$rootScope', 'userAvatarService', 'utilService'];
+	angular.module('appModule').service('userAvatarConf', userAvatarConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var userAvatarService = function($rootScope, $q, aws3Service, MySrcAction, Restangular, URLS) {
+
+		var service = {
+			loadPhoto: function(scope, force) {
+
+				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
+
+					if (!success) {
+						scope.src.load(service.constructPhotoUrl(scope, false), force);
+					}
+				});
+			},
+			constructPhotoUrl: function(scope, useThumb) {
+
+				if (scope.user.photos.length === 0) { return scope.src.defaultUrl; }
+
+				if (!useThumb) {
+					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.user._id + '/' + scope.user.photos[0].filename;
+
+				} else {
+					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.user._id + '/' + scope.user.photos[0].filename;
+				}
+			},
+			uploadRequest: function(args) {
+
+				var src = this;
+
+				return $q(function(resolve) {
+
+					aws3Service.getCredentials('user_avatar', { fileTypes: [args.file.type] }).then(function(res1) {
+
+						var formData = MySrcAction.createFormDataObject(res1.data[0].awsFormData, args.file);
+
+						aws3Service.makeRequest(res1.data[0].awsUrl, formData).success(function(res2) {
+
+							$rootScope.apiData.profileUser.photos[0] = {
+								filename: res1.data[0].awsFilename,
+								size: args.file.size
+							};
+
+							$rootScope.apiData.profileUser.put().then(function(res3) {
+
+								$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
+
+								resolve({
+									success: true,
+									url: service.constructPhotoUrl({
+										src: src,
+										user: $rootScope.apiData.profileUser
+									}, true)
+								});
+
+							}, function(res3) {
+								resolve({ success: false });
+							});
+
+						}).error(function(res2) {
+							resolve({ success: false });
+						});
+
+					}, function(res1) {
+						resolve({ success: false });
+					});
+				});
+			},
+			removeRequest: function() {
+
+				return $q(function(resolve) {
+
+					$rootScope.apiData.profileUser.photos = [];
+
+					$rootScope.apiData.profileUser.put().then(function() {
+
+						$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
+						resolve(true);
+
+					}, function() {
+						resolve(false);
+					});
+				});
+			}
+		};
+
+		return service;
+	};
+
+	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
+	angular.module('appModule').service('userAvatarService', userAvatarService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('userBadge', function($rootScope, $state, authService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.authState = authService.state;
+				$scope.label1 = $rootScope.hardData.phrases[32];
+
+				$scope.onLogoutClick = function() {
+					$rootScope.logout();
+				};
+
+				$scope.onContinueClick = function() {
+					$state.go('main.home');
+				};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('singleFileInput', function() {
+
+		var singleFileInput = {
+			restrict: 'E',
+			template: '<input id="singleFileInput" name="file" type="file" />',
+			scope: true,
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var singleFileInput = $(elem).find('#singleFileInput').get()[0];
+					var onChangeCb;
+
+					scope.$on('displaySingleFileInput', function(e, args) {
+						onChangeCb = args.cb;
+						$(singleFileInput).val(undefined);
+						$(singleFileInput).click();
+					});
+
+					$(singleFileInput).on('change', function(e) {
+						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
+					});
+				};
+			}
+		};
+
+		return singleFileInput;
+	});
+
+	appModule.directive('multipleFilesInput', function() {
+
+		var multipleFilesInput = {
+			restrict: 'E',
+			template: '<input id="multipleFilesInput" name="file" type="file" multiple />',
+			scope: true,
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var multipleFilesInput = $(elem).find('#multipleFilesInput').get()[0];
+					var onChangeCb;
+
+					scope.$on('displayMultipleFilesInput', function(e, args) {
+						onChangeCb = args.cb;
+						$(multipleFilesInput).val(undefined);
+						$(multipleFilesInput).click();
+					});
+
+					$(multipleFilesInput).on('change', function(e) {
+						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
+					});
+				};
+			}
+		};
+
+		return multipleFilesInput;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 
 
 	appModule.directive('myAlert', function() {
@@ -6441,10 +6747,7 @@
 						var input = $(elem).find('input')[0];
 						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
 
-						scope.autocomplete.ins.addListener('place_changed', function() {
-
-							console.log('hello');
-						});
+						scope.autocomplete.ins.addListener('place_changed', function() {});
 					}
 				};
 			}
@@ -7026,300 +7329,6 @@
 		};
 
 		return myTextArea;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
-
-		var userAvatar = {
-			restrict: 'E',
-			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
-			scope: {
-				user: '=',
-				editable: '=',
-				noLink: '&'
-			},
-			controller: function($scope) {
-
-				$scope.src = new MySrc({
-					defaultUrl: userAvatarConf.defaultUrl,
-					uploadRequest: userAvatarService.uploadRequest,
-					removeRequest: userAvatarService.removeRequest
-				});
-
-				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return scope.user; }, function(user) {
-
-						if (user) {
-							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
-							userAvatarService.loadPhoto(scope);
-						}
-					});
-				};
-			}
-		};
-
-		return userAvatar;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var userAvatarConf = function($rootScope, userAvatarService, utilService) {
-
-		var conf = {
-			defaultUrl: 'public/imgs/avatar.png',
-			getSrcContextMenuConf: function(scope) {
-
-				return {
-					icon: 'glyphicon glyphicon-option-horizontal',
-					switchers: [
-						{
-							_id: 'update',
-							label: $rootScope.hardData.phrases[5],
-							onClick: function() {
-
-								$rootScope.$broadcast('displayImgCropWindow', {
-									acceptCb: function(dataURI) {
-
-										scope.src.update({ file: utilService.dataURItoBlob(dataURI) }, true).then(function(success) {
-											if (success) { userAvatarService.loadPhoto(scope, true); }
-										});
-									}
-								});
-							}
-						},
-						{
-							_id: 'delete',
-							label: $rootScope.hardData.phrases[14],
-							onClick: function() {
-
-								scope.src.remove(undefined, true);
-							},
-							isHidden: function() { return scope.src.isDefaultUrlLoaded(); }
-						},
-						{
-							_id: 'refresh',
-							label: $rootScope.hardData.phrases[106],
-							onClick: function() {
-
-								userAvatarService.loadPhoto(scope, true);
-							}
-						}
-					]
-				};
-			}
-		};
-
-		return conf;
-	};
-
-	userAvatarConf.$inject = ['$rootScope', 'userAvatarService', 'utilService'];
-	angular.module('appModule').service('userAvatarConf', userAvatarConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var userAvatarService = function($rootScope, $q, aws3Service, MySrcAction, Restangular, URLS) {
-
-		var service = {
-			loadPhoto: function(scope, force) {
-
-				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
-
-					if (!success) {
-						scope.src.load(service.constructPhotoUrl(scope, false), force);
-					}
-				});
-			},
-			constructPhotoUrl: function(scope, useThumb) {
-
-				if (scope.user.photos.length === 0) { return scope.src.defaultUrl; }
-
-				if (!useThumb) {
-					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.user._id + '/' + scope.user.photos[0].filename;
-
-				} else {
-					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.user._id + '/' + scope.user.photos[0].filename;
-				}
-			},
-			uploadRequest: function(args) {
-
-				var src = this;
-
-				return $q(function(resolve) {
-
-					aws3Service.getCredentials('user_avatar', { fileTypes: [args.file.type] }).then(function(res1) {
-
-						var formData = MySrcAction.createFormDataObject(res1.data[0].awsFormData, args.file);
-
-						aws3Service.makeRequest(res1.data[0].awsUrl, formData).success(function(res2) {
-
-							$rootScope.apiData.profileUser.photos[0] = {
-								filename: res1.data[0].awsFilename,
-								size: args.file.size
-							};
-
-							$rootScope.apiData.profileUser.put().then(function(res3) {
-
-								$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
-
-								resolve({
-									success: true,
-									url: service.constructPhotoUrl({
-										src: src,
-										user: $rootScope.apiData.profileUser
-									}, true)
-								});
-
-							}, function(res3) {
-								resolve({ success: false });
-							});
-
-						}).error(function(res2) {
-							resolve({ success: false });
-						});
-
-					}, function(res1) {
-						resolve({ success: false });
-					});
-				});
-			},
-			removeRequest: function() {
-
-				return $q(function(resolve) {
-
-					$rootScope.apiData.profileUser.photos = [];
-
-					$rootScope.apiData.profileUser.put().then(function() {
-
-						$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
-						resolve(true);
-
-					}, function() {
-						resolve(false);
-					});
-				});
-			}
-		};
-
-		return service;
-	};
-
-	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
-	angular.module('appModule').service('userAvatarService', userAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('userBadge', function($rootScope, $state, authService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.phrases[32];
-
-				$scope.onLogoutClick = function() {
-					$rootScope.logout();
-				};
-
-				$scope.onContinueClick = function() {
-					$state.go('main.home');
-				};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('singleFileInput', function() {
-
-		var singleFileInput = {
-			restrict: 'E',
-			template: '<input id="singleFileInput" name="file" type="file" />',
-			scope: true,
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var singleFileInput = $(elem).find('#singleFileInput').get()[0];
-					var onChangeCb;
-
-					scope.$on('displaySingleFileInput', function(e, args) {
-						onChangeCb = args.cb;
-						$(singleFileInput).val(undefined);
-						$(singleFileInput).click();
-					});
-
-					$(singleFileInput).on('change', function(e) {
-						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
-					});
-				};
-			}
-		};
-
-		return singleFileInput;
-	});
-
-	appModule.directive('multipleFilesInput', function() {
-
-		var multipleFilesInput = {
-			restrict: 'E',
-			template: '<input id="multipleFilesInput" name="file" type="file" multiple />',
-			scope: true,
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var multipleFilesInput = $(elem).find('#multipleFilesInput').get()[0];
-					var onChangeCb;
-
-					scope.$on('displayMultipleFilesInput', function(e, args) {
-						onChangeCb = args.cb;
-						$(multipleFilesInput).val(undefined);
-						$(multipleFilesInput).click();
-					});
-
-					$(multipleFilesInput).on('change', function(e) {
-						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
-					});
-				};
-			}
-		};
-
-		return multipleFilesInput;
 	});
 
 })();

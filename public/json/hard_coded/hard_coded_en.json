@@ -17,9 +17,9 @@
 		{ "value": "cosmo", "label": "Cosmo" },
 		{ "value": "raw", "label": "Raw" }
 	],
-	"itemTypes": [
-		{ "value": "L", "label": "Loss" },
-		{ "value": "F", "label": "Finding" }
+	"reportGroups": [
+		{ "value": "L", "label": "Lost" },
+		{ "value": "F", "label": "Found" }
 	],
 	"phrases": [
 		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
@@ -27,7 +27,7 @@
 		"Current password", "New password", "First name", "Last name", "Title", "Country", "Choose", "Language", "Description", "Message",
 		"Original", "Cropped", "Logged out", "Logged in as", "Registration date", "Home", "Participants", "Browse", "User", "Settings",
 		"About", "Help", "Contact", "Application", "Account", "Payment", "Danger zone", "Login", "Register", "Status",
-		"Regional", "Personal details", "Password", "Profile picture", "Paypal", "Delete account", "Deactivating", "Error", "Comments", "Added",
+		"Regional", "Personal details", "Password", "Profile picture", "Paypal", "Delete account", "Deactivating", "Error", "Comments", "Submitted",
 		"Category", "Subcategory", "Item", "My items", "Nothing to show", "Deleting the item", "Currency", "Initial value", "Edit", "Go public",
 		"Photos", "Subscribers", "Going public", "Appearance", "Hello", "Items", "All", "Public", "Private", "View",
 		"Info", "Seller", "View profile", "Search", "Title", "Initial value", "Reverse", "Ascending", "Descending", "Page",
@@ -37,7 +37,8 @@
 		"Deselect all", "Close", "Uploading", "Uploaded", "Deleting", "Deleted", "Failed", "Theme", "of user", "View an auction",
 		"Auction", "Approximately", "My subscriptions", "Subscriptions", "Increase", "Decrease", "Place bid", "The course of the auction", "Choose an image", "Rotate",
 		"Zoom in", "Zoom out", "Crop mode", "Move mode", "Auctions", "Move left", "Move right", "Date added", "Date added", "ago",
-		"Type", "Report", "Date", "Full name", "Results", "New report", "Date", "Delete selected", "Location"
+		"Group", "Report", "Date", "Full name", "Results", "New report", "Date", "Delete selected", "Location", "Editing report",
+		"ID", "on", "By"
 	],
 	"sentences": [
 		"Why leaving us ?",

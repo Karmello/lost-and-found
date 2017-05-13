@@ -62,7 +62,7 @@ module.exports = {
 			]
 		}
 	},
-	Item: {
+	Report: {
 		categoryId: {
 			inputCases: [
 				ic.value.undefined,
@@ -84,8 +84,8 @@ module.exports = {
 				ic.value.undefined,
 				ic.string.empty,
 				ic.string.withSpacesOnly,
-				ic.Item.title.tooShort,
-				ic.Item.title.tooLong
+				ic.Report.title.tooShort,
+				ic.Report.title.tooLong
 			]
 		},
 		description: {
@@ -93,8 +93,8 @@ module.exports = {
 				ic.value.undefined,
 				ic.string.empty,
 				ic.string.withSpacesOnly,
-				ic.Item.description.tooShort,
-				ic.Item.description.tooLong
+				ic.Report.description.tooShort,
+				ic.Report.description.tooLong
 			]
 		},
 		currency: {

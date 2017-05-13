@@ -1,0 +1,31 @@
+<div id="reportSearchForm">
+	<my-form ins="myForm" submit-action="searchReports">
+		<my-input
+			ctrl-id="'title'"
+			ctrl-type="'text'"
+			ctrl-max-length="50"
+			model="myForm.model.values.title"
+			hard-data="{ label: ['phrases', 24] }"
+		></my-input>
+		<my-selects-group collection="reportCategories">
+			<my-select
+				ctrl-id="'categoryId'"
+				collection=""
+				model="myForm.model.values.categoryId"
+				prop-names="{ optionValue: '_id', optionLabel: 'label' }"
+				option-zero="true"
+				hard-data="{ label: ['phrases', 60], placeholder: ['phrases', 26] }"
+			></my-select>
+			<my-select
+				ctrl-id="'subcategoryId'"
+				collection=""
+				nested-collection-field-name="'subcategories'"
+				model="myForm.model.values.subcategoryId"
+				prop-names="{ optionValue: '_id', optionLabel: 'label' }"
+				option-zero="true"
+				hard-data="{ label: ['phrases', 61], placeholder: ['phrases', 26] }"
+			></my-select>
+		</my-selects-group>
+		<form-action-btns my-form="myForm"></form-action-btns>
+	</my-form>
+</div>

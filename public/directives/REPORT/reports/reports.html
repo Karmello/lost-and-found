@@ -1,0 +1,32 @@
+<div class="reports">
+	<my-collection-browser ins="collectionBrowser">
+		<elems>
+			<my-collection-elem
+				ng-repeat="report in collectionBrowser.collection"
+				data="report"
+				context-menu-conf="elemContextMenuConf"
+				is-selectable="ctrlId == 'UserReports' && apiData.profileUser._isTheOneLoggedIn()"
+				ng-class="report.group == 'F' ? 'isFound' : ''"
+			>
+				<title-section>
+					<a ui-sref="main.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.truncatedTitle }}</a>
+				</title-section>
+				<info-section>
+					<p>{{ report.fullCategory }}</p>
+					<p>
+						<span>{{ hardData.reportGroups[report.group == 'L' ? 0 : 1].label }}</span>
+						<span ng-bind="hardData.phrases[151]"></span>
+						<span>{{ report.formattedDate }}</span>
+					</p>
+					<p>
+						<span ng-bind="hardData.phrases[59]"></span>
+						<span>{{ report.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
+					</p>
+				</info-section>
+				<avatar-section>
+					<report-avatar report="report"></report-avatar>
+				</avatar-section>
+			</my-collection-elem>
+		</elems>
+	</my-collection-browser>
+</div>

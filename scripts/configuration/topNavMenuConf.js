@@ -9,7 +9,7 @@
 			switchers: [
 				{ _id: 'home' },
 				{ _id: 'search' },
-				{ _id: 'report' }
+				{ _id: 'newreport' }
 			]
 		};
 

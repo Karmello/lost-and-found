@@ -73,8 +73,8 @@ var mongoose = require('mongoose');
                 country: 'United States'
             }
     	},
-        items: {
-            undefinedItem: {
+        reports: {
+            undefinedReport: {
                 categoryId: undefined,
                 subcategoryId: undefined,
                 title: undefined,
@@ -85,7 +85,7 @@ var mongoose = require('mongoose');
                 minSellPrice: undefined,
                 amount: undefined
             },
-            emptyItem: {
+            emptyReport: {
                 categoryId: '',
                 subcategoryId: '',
                 title: '',
@@ -96,7 +96,7 @@ var mongoose = require('mongoose');
                 minSellPrice: '',
                 amount: ''
             },
-            spaceItem: {
+            spaceReport: {
                 categoryId: '     ',
                 subcategoryId: '     ',
                 title: '     ',
@@ -107,7 +107,7 @@ var mongoose = require('mongoose');
                 minSellPrice: '     ',
                 amount: '     '
             },
-            item1: {
+            report1: {
                 categoryId: 'electronics',
                 subcategoryId: 'smartphones',
                 title: 'Sony Xperia S smartphoneeeeeeeeee',

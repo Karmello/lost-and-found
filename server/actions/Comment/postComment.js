@@ -7,18 +7,18 @@ module.exports = {
 
 		new r.Promise(function(resolve, reject) {
 
-			if (!req.query.itemId) { reject(); }
+			if (!req.query.reportId) { reject(); }
 
 			new r.Comment(req.body).save(function(err, comment) {
 
 				if (!err) {
 
-					r.Item.findOne({ _id: req.query.itemId }, function(err, item) {
+					r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
 						if (!err) {
 
-							item.comments.push(comment._id);
-							item.save();
+							report.comments.push(comment._id);
+							report.save();
 							resolve();
 
 						} else { reject(err); }

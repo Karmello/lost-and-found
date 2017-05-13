@@ -7,19 +7,19 @@ module.exports = {
 
 		new r.Promise(function(resolve, reject) {
 
-			if (!req.query.itemId) { reject(); }
+			if (!req.query.reportId) { reject(); }
 
 			r.Comment.remove({ _id: req.params.id }, function(err) {
 
 				if (!err) {
 
-					r.Item.findOne({ _id: req.query.itemId }, function(err, item) {
+					r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
-						if (!err && item) {
+						if (!err && report) {
 
-							item.comments.splice(item.comments.indexOf(req.params.id), 1);
+							report.comments.splice(report.comments.indexOf(req.params.id), 1);
 
-							item.save(function(err) {
+							report.save(function(err) {
 								if (!err) { resolve(); } else { reject(err); }
 							});
 

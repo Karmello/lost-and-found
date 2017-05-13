@@ -16,9 +16,9 @@
 		$rootScope.apiData = {
 			loggedInUser: undefined,
 			profileUser: undefined,
-			itemUser: undefined,
-			item: undefined,
-			itemCategories: undefined,
+			reportUser: undefined,
+			report: undefined,
+			reportCategories: undefined,
 			deactivationReasons: undefined,
 			contactTypes: undefined
 		};
@@ -49,8 +49,8 @@
 				['deactivationReasonId'],
 				false
 			),
-			itemSearchModel: new myClass.MyFormModel(
-				'itemSearchModel',
+			reportSearchModel: new myClass.MyFormModel(
+				'reportSearchModel',
 				['title', 'categoryId', 'subcategoryId'],
 				true
 			)

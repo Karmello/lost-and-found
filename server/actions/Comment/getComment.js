@@ -7,11 +7,11 @@ module.exports = {
 
 		new r.Promise(function(resolve, reject) {
 
-			r.Item.findOne({ _id: req.query.itemId }, function(err, item) {
+			r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
-				if (!err && item) {
+				if (!err && report) {
 
-					r.Comment.find({ _id: { '$in': item.comments } })
+					r.Comment.find({ _id: { '$in': report.comments } })
 					.skip(Number(action.req.query.skip))
 					.limit(global.app.get('COMMENTS_MAX_GET'))
 					.sort('-dateAdded')
@@ -25,7 +25,7 @@ module.exports = {
 							r.Promise.all(userPromises).then(function(users) {
 
 								resolve({
-									meta: { count: item.comments.length },
+									meta: { count: report.comments.length },
 									collection: comments,
 									users: users
 								});

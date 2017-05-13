@@ -2,7 +2,7 @@
 
 var r = require('./../../_requires');
 
-describe('addingItemSpec\n', function() {
+describe('addingReportSpec\n', function() {
 
 	var that;
 
@@ -34,14 +34,14 @@ describe('addingItemSpec\n', function() {
 		});
 	});
 
-	describe('adding item properly', function() {
+	describe('adding report properly', function() {
 
 		it('should return status 201', function(done) {
 
-			Object.assign(that.req.body, r.helpers.items.item1);
+			Object.assign(that.req.body, r.helpers.reports.report1);
 			that.req.decoded._doc._id = that.userId;
 
-			r.actions.addItem(that.req, that.res, function() {
+			r.actions.addReport(that.req, that.res, function() {
 
 				that.res.should.have.property('code', 201);
 				done();

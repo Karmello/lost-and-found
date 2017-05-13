@@ -144,10 +144,10 @@ UserSchema.post('remove', function(doc) {
 		if (!err && appConfig) { appConfig.remove(); }
 	});
 
-	// Removing items from db
-	r.Item.find({ userId: doc._id }, function(err, items) {
-		if (!err && items) {
-			items.forEach(function(item) { item.remove(); });
+	// Removing reports from db
+	r.Report.find({ userId: doc._id }, function(err, reports) {
+		if (!err && reports) {
+			reports.forEach(function(report) { report.remove(); });
 		}
 	});
 

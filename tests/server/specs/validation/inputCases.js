@@ -107,27 +107,27 @@ module.exports = {
 			}
 		}
 	},
-	Item: {
+	Report: {
 		title: {
 			tooShort: {
-				value: helpers.createString(global.app.get('ITEM_TITLE_MIN_LENGTH') - 1),
+				value: helpers.createString(global.app.get('REPORT_TITLE_MIN_LENGTH') - 1),
 				description: 'is too short',
 				error: 'wrong_length'
 			},
 			tooLong: {
-				value: helpers.createString(global.app.get('ITEM_TITLE_MAX_LENGTH') + 1),
+				value: helpers.createString(global.app.get('REPORT_TITLE_MAX_LENGTH') + 1),
 				description: 'is too long',
 				error: 'wrong_length'
 			}
 		},
 		description: {
 			tooShort: {
-				value: helpers.createString(global.app.get('ITEM_DESCRIPTION_MIN_LENGTH') - 1),
+				value: helpers.createString(global.app.get('REPORT_DESCRIPTION_MIN_LENGTH') - 1),
 				description: 'is too short',
 				error: 'wrong_length'
 			},
 			tooLong: {
-				value: helpers.createString(global.app.get('ITEM_DESCRIPTION_MAX_LENGTH') + 1),
+				value: helpers.createString(global.app.get('REPORT_DESCRIPTION_MAX_LENGTH') + 1),
 				description: 'is too long',
 				error: 'wrong_length'
 			}

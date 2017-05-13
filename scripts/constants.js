@@ -8,7 +8,7 @@
 	};
 
 	var nums = {
-		itemMaxPhotos: 15,
+		reportMaxPhotos: 15,
 		photoMaxSize: 1048576
 	};
 

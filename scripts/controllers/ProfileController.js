@@ -4,7 +4,7 @@
 
 	var ProfileController = function($rootScope, $scope, contextMenuConf, MySwitchable) {
 
-		$scope.profileItemsContextMenu = new MySwitchable(contextMenuConf.profileItemsContextMenu);
+		$scope.profileReportsContextMenu = new MySwitchable(contextMenuConf.profileReportsContextMenu);
 	};
 
 	ProfileController.$inject = ['$rootScope', '$scope', 'contextMenuConf', 'MySwitchable'];

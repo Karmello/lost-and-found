@@ -3,13 +3,13 @@ var r = require(global.paths._requires);
 module.exports = {
 	before: function(req, res, next) {
 
-		// By itemId
-		if (req.query.itemId) {
+		// By reportId
+		if (req.query.reportId) {
 
-			r.Item.findOne({ _id: req.query.itemId }, function(err, item) {
+			r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
-				if (!err && item) {
-					r.User.findOne({ _id: item.userId }, function(err, user) {
+				if (!err && report) {
+					r.User.findOne({ _id: report.userId }, function(err, user) {
 
 						if (!err && user) {
 							res.status(200).send([user]);

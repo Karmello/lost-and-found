@@ -34,7 +34,7 @@
 				switch (toState.name) {
 
 					case 'main.profile':
-					case 'main.item':
+					case 'main.report':
 
 						if (toState.id == toParams.id) {
 							newScrollY = $state.current.scrollY;
@@ -50,7 +50,7 @@
 						newScrollY = $state.current.scrollY;
 						break;
 
-					case 'main.item.tab':
+					case 'main.report.tab':
 						return;
 
 					default:

@@ -1,0 +1,40 @@
+#lost-and-found-app-report {
+
+	#section1, #section2, #section3 {
+		margin-bottom: 50px;
+		.text-info, .text-warning { font-weight: bold; }
+	}
+
+	#section1 {
+
+		display: flex;
+		@media only screen and (max-width: 767px) { flex-flow: row wrap; }
+
+		> div:last-child { margin: 10px; }
+
+		> div:first-child {
+			display: flex;
+			flex-flow: row wrap;
+			> div { margin: 10px; }
+		}
+
+		@media only screen and (min-width: 768px) {
+			> div:first-child { flex-basis: 35%; }
+			> div:last-child { flex-basis: 65%; }
+		}
+
+		#itemSection {
+			text-align: justify;
+		}
+	}
+
+	#section2 {
+		.myGoogleMap {
+			@media only screen and (max-width: 767px) { margin: 0 auto; }
+		}
+	}
+
+	#section3 {
+
+	}
+}

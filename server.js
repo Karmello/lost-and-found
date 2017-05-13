@@ -64,8 +64,8 @@ r.setups.setupConstants(app, function() {
 				r.AppConfig = r.mongoose.model('app_config');
 				r.User = r.mongoose.model('user');
 				r.Password = r.mongoose.model('password');
-				r.ItemCategory = r.mongoose.model('item_category');
-				r.Item = r.mongoose.model('item');
+				r.ReportCategory = r.mongoose.model('report_category');
+				r.Report = r.mongoose.model('report');
 				r.DeactivationReason = r.mongoose.model('deactivation_reason');
 				r.ContactType = r.mongoose.model('contact_type');
 				r.Counter = r.mongoose.model('counter');

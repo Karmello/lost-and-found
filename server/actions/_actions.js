@@ -12,14 +12,14 @@ module.exports = {
 		recover: require('./Password/recoverPassword'),
 		reset: require('./Password/resetPassword')
 	},
-	item_category: {
-		get: require('./ItemCategory/getItemCategories')
+	report_category: {
+		get: require('./ReportCategory/getReportCategories')
 	},
-	item: {
-		post: require('./Item/postItem'),
-		get: require('./Item/getItem'),
-		put: require('./Item/putItem'),
-		delete: require('./Item/deleteItem'),
+	report: {
+		post: require('./Report/postReport'),
+		get: require('./Report/getReport'),
+		put: require('./Report/putReport'),
+		delete: require('./Report/deleteReport'),
 	},
 	comment: {
 		post: require('./Comment/postComment'),

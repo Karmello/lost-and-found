@@ -4,8 +4,6 @@
 
 	var uiSetupService = function() {
 
-		var itemsPageCreated = false;
-
 		var actions = {
 			bindGetRouteMethod: function(uiCtrls) {
 

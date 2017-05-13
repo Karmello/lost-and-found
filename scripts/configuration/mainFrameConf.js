@@ -22,8 +22,8 @@
 					icon: 'glyphicon glyphicon-search'
 				},
 				{
-					_id: 'report',
-					route: '/#/report',
+					_id: 'newreport',
+					route: '/#/newreport',
 					label: hardData.phrases[141],
 					icon: 'glyphicon glyphicon-bullhorn'
 				},
@@ -51,14 +51,9 @@
 					icon: 'glyphicon glyphicon-envelope'
 				},
 				{
-					_id: 'item',
+					_id: 'report',
 					label: hardData.phrases[62],
 					icon: 'glyphicon glyphicon-file'
-				},
-				{
-					_id: 'editem',
-					label: hardData.phrases[68],
-					icon: 'glyphicon glyphicon-edit'
 				},
 				{
 					_id: 'settings',

@@ -151,41 +151,6 @@ body .form-group {
 #lost-and-found-app-guest #formSection .userBadge {
   margin-bottom: 50px; }
 
-#lost-and-found-app-item #section1, #lost-and-found-app-item #section2, #lost-and-found-app-item #section3 {
-  margin-bottom: 50px; }
-
-#lost-and-found-app-item #section1 {
-  display: -ms-flexbox;
-  display: flex; }
-  @media only screen and (max-width: 767px) {
-    #lost-and-found-app-item #section1 {
-      -ms-flex-flow: row wrap;
-      flex-flow: row wrap; } }
-  #lost-and-found-app-item #section1 > div:last-child {
-    margin: 10px; }
-  #lost-and-found-app-item #section1 > div:first-child {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap; }
-    #lost-and-found-app-item #section1 > div:first-child > div {
-      margin: 10px; }
-  @media only screen and (min-width: 768px) {
-    #lost-and-found-app-item #section1 > div:first-child {
-      -ms-flex-preferred-size: 35%;
-      flex-basis: 35%; }
-    #lost-and-found-app-item #section1 > div:last-child {
-      -ms-flex-preferred-size: 65%;
-      flex-basis: 65%; } }
-  #lost-and-found-app-item #section1 #descriptionSection {
-    text-align: justify; }
-  #lost-and-found-app-item #section1 span.text-info, #lost-and-found-app-item #section1 span.text-warning {
-    font-weight: bold; }
-
-@media only screen and (max-width: 767px) {
-  #lost-and-found-app-item #section2 .myGoogleMap {
-    margin: 0 auto; } }
-
 #lost-and-found-app-main {
   min-height: 1000px;
   padding-bottom: 50px; }
@@ -229,6 +194,41 @@ body .form-group {
       white-space: nowrap; }
     #lost-and-found-app-profile #userSection table td span.text-info {
       font-weight: bold; }
+
+#lost-and-found-app-report #section1, #lost-and-found-app-report #section2, #lost-and-found-app-report #section3 {
+  margin-bottom: 50px; }
+  #lost-and-found-app-report #section1 .text-info, #lost-and-found-app-report #section1 .text-warning, #lost-and-found-app-report #section2 .text-info, #lost-and-found-app-report #section2 .text-warning, #lost-and-found-app-report #section3 .text-info, #lost-and-found-app-report #section3 .text-warning {
+    font-weight: bold; }
+
+#lost-and-found-app-report #section1 {
+  display: -ms-flexbox;
+  display: flex; }
+  @media only screen and (max-width: 767px) {
+    #lost-and-found-app-report #section1 {
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap; } }
+  #lost-and-found-app-report #section1 > div:last-child {
+    margin: 10px; }
+  #lost-and-found-app-report #section1 > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap; }
+    #lost-and-found-app-report #section1 > div:first-child > div {
+      margin: 10px; }
+  @media only screen and (min-width: 768px) {
+    #lost-and-found-app-report #section1 > div:first-child {
+      -ms-flex-preferred-size: 35%;
+      flex-basis: 35%; }
+    #lost-and-found-app-report #section1 > div:last-child {
+      -ms-flex-preferred-size: 65%;
+      flex-basis: 65%; } }
+  #lost-and-found-app-report #section1 #itemSection {
+    text-align: justify; }
+
+@media only screen and (max-width: 767px) {
+  #lost-and-found-app-report #section2 .myGoogleMap {
+    margin: 0 auto; } }
 
 @media only screen and (min-width: 700px) {
   #lost-and-found-app-settings #dropdownSection {
@@ -704,26 +704,21 @@ body .form-group {
   margin-left: 10px;
   margin-right: 10px; }
 
-.itemAvatar .mySrc img {
+.reportAvatar .mySrc img {
   width: 200px;
   object-fit: cover; }
 
-.itemIconMenu > div {
-  display: table-cell; }
-  .itemIconMenu > div.public .myPopOverIcon .glyphicon {
-    color: #333333; }
-
-.itemPhotos img {
+.reportPhotos img {
   max-width: 200px;
   max-height: 200px; }
 
-.items #actionBtns {
+.reports #actionBtns {
   margin-bottom: 25px; }
 
-.items .myCollectionElem {
+.reports .myCollectionElem {
   background-color: #d9534f; }
 
-.items .isFound .myCollectionElem {
+.reports .isFound .myCollectionElem {
   background-color: #5cb85c; }
 
 .userAvatar {
@@ -764,52 +759,52 @@ body .form-group {
   #contactForm .myForm .myTextArea textarea {
     min-height: 300px !important; }
 
-#itemForm .myForm .formCtrls > div:first-child {
+#reportForm .myForm .formCtrls > div:first-child {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
   justify-content: space-around; }
   @media only screen and (max-width: 600px) {
-    #itemForm .myForm .formCtrls > div:first-child {
+    #reportForm .myForm .formCtrls > div:first-child {
       -ms-flex-flow: row wrap;
       flex-flow: row wrap; } }
-  #itemForm .myForm .formCtrls > div:first-child > div {
+  #reportForm .myForm .formCtrls > div:first-child > div {
     margin: 5px;
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%; }
 
-#itemForm .myForm .formCtrls > div:last-child {
+#reportForm .myForm .formCtrls > div:last-child {
   margin: 5px; }
-  #itemForm .myForm .formCtrls > div:last-child textarea {
+  #reportForm .myForm .formCtrls > div:last-child textarea {
     max-width: 600px;
     min-height: 175px !important;
     text-align: justify; }
 
-#itemForm #map {
+#reportForm #map {
   height: 300px;
   border: 1px solid; }
 
-#itemSearchForm .myForm .myBtnsGroup, #itemSearchForm .myForm .myBtnsGroupCenter, #itemSearchForm .myForm .myBtnsGroupRight {
+#reportSearchForm .myForm .myBtnsGroup, #reportSearchForm .myForm .myBtnsGroupCenter, #reportSearchForm .myForm .myBtnsGroupRight {
   margin-left: 25px;
   margin-right: 25px; }
 
-#itemSearchForm .myForm > div {
+#reportSearchForm .myForm > div {
   display: table;
   margin: 0 auto; }
 
 @media only screen and (min-width: 450px) {
-  #itemSearchForm .myForm > div, #itemSearchForm .myForm .mySelectsGroup > div {
+  #reportSearchForm .myForm > div, #reportSearchForm .myForm .mySelectsGroup > div {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
     justify-content: center;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap; }
-  #itemSearchForm .myForm select {
+  #reportSearchForm .myForm select {
     min-width: 125px; } }
 
 @media only screen and (min-width: 992px) {
-  #itemSearchForm .myForm {
+  #reportSearchForm .myForm {
     margin: 0 25px 0 25px; } }
 
 #imgCropWindow img {

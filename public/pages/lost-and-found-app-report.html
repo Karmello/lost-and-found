@@ -4,16 +4,79 @@
 		<meta name="fragment" content="!" />
 	</head>
 	<body>
-		<div id="lost-and-found-app-report">
-			<my-panel>
-				<title-section>
-					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[145] }}</span>
-				</title-section>
-				<body-section>
-					<item-form action="report"></item-form>
-				</body-section>
-			</my-panel>
+		<div id="lost-and-found-app-report" ng-controller="ReportController">
+			<div ng-show="params.edit !== '1'">
+				<my-panel>
+					<title-section>
+						<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>&nbsp;&nbsp;&nbsp;
+						<span ng-bind="apiData.report.title" class="text-info"></span>
+					</title-section>
+					<action-section>
+						<my-context-menu ng-if="reportContextMenu" ins="reportContextMenu"></my-context-menu>
+					</action-section>
+					<body-section>
+						<div id="section1">
+							<div>
+								<div>
+									<report-avatar report="apiData.report" no-link="true"></report-avatar>
+								</div>
+								<div id="reportSection">
+									<div>
+										<span class="text-info">{{ hardData.phrases[150] }}:</span>
+										<span ng-bind="apiData.report._id"></span>
+									</div>
+									<div>
+										<span class="text-info">{{ hardData.phrases[59] }}:</span>
+										<span>{{ apiData.report.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
+										<span style="white-space: nowrap;">({{ apiData.report.formattedDateAdded }})</span>
+									</div>
+									<div>
+										<span class="text-info">{{ hardData.phrases[152] }}:</span>
+										<a ui-sref="main.profile({ id: apiData.reportUser._id })">
+											<span ng-bind="apiData.reportUser.username" class="text-warning"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div id="itemSection">
+								<div>
+									<span class="text-info">{{ hardData.phrases[60] }}:</span>
+									<span ng-bind="apiData.report.fullCategory"></span>
+								</div>
+								<div>
+									<span class="text-info">{{ hardData.reportGroups[apiData.report.group == 'L' ? 0 : 1].label }} {{ hardData.phrases[151] }}:</span>
+									<span>{{ apiData.report.formattedDate }}</span>
+								</div>
+								<br>
+								<div>
+									<span class="text-info">{{ hardData.phrases[28] }}:</span><br>
+									<span ng-bind="apiData.report.description"></span>
+								</div>
+							</div>
+						</div>
+						<div id="section2">
+							<p class="text-info">{{ hardData.phrases[148] }}:</p>
+							<div id="reportMap" class="myGoogleMap"></div>
+						</div>
+						<div id="section3">
+							<my-tabs ins="ui.tabs.report"></my-tabs>
+							<div ui-view="tab"></div>
+						</div>
+					</body-section>
+				</my-panel>
+			</div>
+			<div ng-show="params.edit === '1'">
+				<my-panel>
+					<title-section>
+						<span class="glyphicon glyphicon-edit"></span>
+						<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[149] }}</span>
+						<span class="text-info">{{ apiData.report._id }}</span>
+					</title-section>
+					<body-section>
+						<report-form action="edit"></report-form>
+					</body-section>
+				</my-panel>
+			</div>
 		</div>
 	</body>
 </html>

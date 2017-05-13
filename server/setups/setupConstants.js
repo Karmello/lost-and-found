@@ -17,18 +17,18 @@ module.exports = function(app, cb) {
 	app.set('USER_FIRSTNAME_MAX_LENGTH', 20);
 	app.set('USER_LASTNAME_MAX_LENGTH', 20);
 
-	// Item model
-	app.set('ITEM_TITLE_MIN_LENGTH', 10);
-	app.set('ITEM_TITLE_MAX_LENGTH', 50);
-	app.set('ITEM_DESCRIPTION_MIN_LENGTH', 200);
-	app.set('ITEM_DESCRIPTION_MAX_LENGTH', 1000);
+	// Report model
+	app.set('REPORT_TITLE_MIN_LENGTH', 10);
+	app.set('REPORT_TITLE_MAX_LENGTH', 50);
+	app.set('REPORT_DESCRIPTION_MIN_LENGTH', 200);
+	app.set('REPORT_DESCRIPTION_MAX_LENGTH', 1000);
 
-	// Item photos
-	app.set('ITEM_MAX_PHOTOS', 15);
+	// Report photos
+	app.set('REPORT_MAX_PHOTOS', 15);
 	app.set('PHOTO_MAX_SIZE', 1048576);
 
 	// Max gets
-	app.set('ITEMS_MAX_GET', 25);
+	app.set('REPORTS_MAX_GET', 25);
 	app.set('COMMENTS_MAX_GET', 10);
 
 	cb();

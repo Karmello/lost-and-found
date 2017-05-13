@@ -52,7 +52,7 @@ describe('deactivationSpec\n', function() {
 
 	describe('legal deactivation', function() {
 
-		it('should delete user, appConfig and all user\'s items', function(done) {
+		it('should delete user, appConfig and all user\'s reports', function(done) {
 
 			that.req.decoded._doc._id = that.userId;
 			that.req.params.id = that.userId;
@@ -62,12 +62,12 @@ describe('deactivationSpec\n', function() {
 				that.res.should.have.property('code', 200);
 
 				r.User.findOne({ _id: that.userId }, function(err, user) {
-					r.Item.find({ userId: that.userId }, function(err, items) {
+					r.Report.find({ userId: that.userId }, function(err, reports) {
 						r.AppConfig.findOne({ userId: that.userId }, function(err, appConfig) {
 
 							r.expect(user).to.be.null;
 							r.expect(appConfig).to.be.null;
-							r.expect(items).to.have.lengthOf(0);
+							r.expect(reports).to.have.lengthOf(0);
 							done();
 						});
 					});

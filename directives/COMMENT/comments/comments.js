@@ -24,18 +24,18 @@
 
 						var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
 						$scope.myForm.model.setValue('userId', userId);
-						return CommentsRest.post($scope.myForm.model.getValues(), { itemId: $rootScope.apiData.item._id });
+						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
 					},
 					submitSuccessCb: function(res) {
 
 						$scope.myForm.model.clear();
-						$rootScope.$broadcast('initItemComments');
+						$rootScope.$broadcast('initReportComments');
 					}
 				});
 
 				$scope.init = function() {
 
-					$scope.collectionBrowser = commentsConf.itemCommentsBrowser;
+					$scope.collectionBrowser = commentsConf.reportCommentsBrowser;
 					$scope.commentContextMenuConf = commentsConf.commentContextMenuConf;
 
 					$scope.collectionBrowser.init();

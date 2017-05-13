@@ -50,7 +50,7 @@
 				title: hardData.phrases[56],
 				message: hardData.sentences[15]
 			}),
-			deleteItemModal: new MyModal({
+			deleteReportModal: new MyModal({
 				typeId: 'confirmDangerModal',
 				title: hardData.phrases[65]
 			})

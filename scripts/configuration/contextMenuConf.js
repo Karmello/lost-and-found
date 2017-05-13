@@ -2,9 +2,9 @@
 
 	'use strict';
 
-	var contextMenuConf = function($rootScope, $state, itemsConf, itemsService) {
+	var contextMenuConf = function($rootScope, $state, reportsConf, reportsService) {
 
-		this.itemContextMenuConf = {
+		this.reportContextMenuConf = {
 			icon: 'glyphicon glyphicon-option-horizontal',
 			switchers: [
 				{
@@ -12,7 +12,7 @@
 					label: $rootScope.hardData.phrases[68],
 					onClick: function() {
 
-						$state.go('main.editem', { id: this.parent.data._id });
+						$state.go('main.report', { id: this.parent.data._id, edit: '1' });
 					}
 				},
 				{
@@ -20,13 +20,13 @@
 					label: $rootScope.hardData.phrases[14],
 					onClick: function() {
 
-						itemsService.deleteItems([this.parent.data]);
+						reportsService.deleteReports([this.parent.data]);
 					}
 				}
 			]
 		};
 
-		this.profileItemsContextMenu = {
+		this.profileReportsContextMenu = {
 			icon: 'glyphicon glyphicon-option-horizontal',
 			switchers: [
 				{
@@ -34,7 +34,7 @@
 					label: $rootScope.hardData.phrases[107],
 					onClick: function() {
 
-						itemsConf.profileCollectionBrowser.selectAll();
+						reportsConf.profileCollectionBrowser.selectAll();
 					}
 				},
 				{
@@ -42,7 +42,7 @@
 					label: $rootScope.hardData.phrases[110],
 					onClick: function() {
 
-						itemsConf.profileCollectionBrowser.deselectAll();
+						reportsConf.profileCollectionBrowser.deselectAll();
 					}
 				},
 				{
@@ -50,8 +50,8 @@
 					label: $rootScope.hardData.phrases[147],
 					onClick: function() {
 
-						var selectedItems = itemsConf.profileCollectionBrowser.getSelectedCollection();
-						if (selectedItems.length > 0) { itemsService.deleteItems(selectedItems); }
+						var selectedReports = reportsConf.profileCollectionBrowser.getSelectedCollection();
+						if (selectedReports.length > 0) { reportsService.deleteReports(selectedReports); }
 					}
 				}
 			]
@@ -60,7 +60,7 @@
 		return this;
 	};
 
-	contextMenuConf.$inject = ['$rootScope', '$state', 'itemsConf', 'itemsService'];
+	contextMenuConf.$inject = ['$rootScope', '$state', 'reportsConf', 'reportsService'];
 	angular.module('appModule').service('contextMenuConf', contextMenuConf);
 
 })();

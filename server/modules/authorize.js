@@ -77,7 +77,7 @@ module.exports = {
 
         next();
     },
-    itemAction: function(req, res, next) {
+    reportAction: function(req, res, next) {
 
         switch (req.method) {
 
@@ -85,7 +85,7 @@ module.exports = {
             case 'PUT':
 
                 if (req.body.userId != req.decoded._doc._id) {
-                    return res.status(401).send('ITEM_' + req.method + '_NOT_ALLOWED');
+                    return res.status(401).send('REPORT_' + req.method + '_NOT_ALLOWED');
                 }
 
                 break;
@@ -93,7 +93,7 @@ module.exports = {
             case 'DELETE':
 
                 if (req.query.userId != req.decoded._doc._id) {
-                    return res.status(401).send('ITEM_' + req.method + '_NOT_ALLOWED');
+                    return res.status(401).send('REPORT_' + req.method + '_NOT_ALLOWED');
                 }
 
                 break;

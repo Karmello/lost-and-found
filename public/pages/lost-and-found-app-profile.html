@@ -8,7 +8,7 @@
 			<my-panel>
 				<title-section>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ apiData.profileUser.username }}</span>
+					<span class="text-info">&nbsp;&nbsp;&nbsp;{{ apiData.profileUser.username }}</span>
 				</title-section>
 				<body-section>
 					<div id="userSection">
@@ -23,27 +23,27 @@
 							<table class="table">
 								<tr>
 									<td>
-										<span>{{ hardData.phrases[143] }}:</span>
-										<span ng-bind="apiData.profileUser.firstname" class="text-info"></span>
-										<span ng-bind="apiData.profileUser.lastname" class="text-info"></span>
+										<span class="text-info">{{ hardData.phrases[143] }}:</span>
+										<span ng-bind="apiData.profileUser.firstname"></span>
+										<span ng-bind="apiData.profileUser.lastname"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span>{{ hardData.phrases[25] }}:</span>
-										<span ng-bind="apiData.profileUser.country" class="text-info"></span>
+										<span class="text-info">{{ hardData.phrases[25] }}:</span>
+										<span ng-bind="apiData.profileUser.country"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span>{{ hardData.phrases[17] }}:</span>
-										<span ng-bind="apiData.profileUser.email" class="text-info"></span>
+										<span class="text-info">{{ hardData.phrases[17] }}:</span>
+										<span ng-bind="apiData.profileUser.email"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span>{{ hardData.phrases[34] }}:</span>
-										<span ng-bind="apiData.profileUser.formattedRegistrationDate" class="text-info"></span>
+										<span class="text-info">{{ hardData.phrases[34] }}:</span>
+										<span ng-bind="apiData.profileUser.formattedRegistrationDate"></span>
 									</td>
 								</tr>
 							</table>
@@ -58,10 +58,10 @@
 					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }} ({{ profileCollectionBrowser.meta.count }})</span>
 				</title-section>
 				<action-section>
-					<my-context-menu ng-if="apiData.profileUser._isTheOneLoggedIn()" ins="profileItemsContextMenu"></my-context-menu>
+					<my-context-menu ng-if="apiData.profileUser._isTheOneLoggedIn()" ins="profileReportsContextMenu"></my-context-menu>
 				</action-section>
 				<body-section>
-					<items ctrl-id="UserItems"></items>
+					<reports ctrl-id="UserReports"></reports>
 				</body-section>
 			</my-panel>
 		</div>

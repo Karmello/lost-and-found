@@ -6,11 +6,11 @@
 
 		var service = this;
 
-		service.initItemMap = function(placeId) {
+		service.initReportMap = function(placeId) {
 
-			if (!service.itemPlace || service.itemPlace.place_id != placeId) {
+			if (!service.reportPlace || service.reportPlace.place_id != placeId) {
 
-				var map = new google.maps.Map(document.getElementById('itemMap'));
+				var map = new google.maps.Map(document.getElementById('reportMap'));
 
 				google.maps.event.addListener(map, 'idle', function() {
 					google.maps.event.trigger(map, 'resize');
@@ -23,23 +23,23 @@
 
 					geocoder.geocode({ 'placeId': placeId }, function(results, status) {
 
-						service.itemPlace = results[0];
+						service.reportPlace = results[0];
 
-						map.setCenter(service.itemPlace.geometry.location);
+						map.setCenter(service.reportPlace.geometry.location);
 						map.setZoom(13);
 
 						var marker = new google.maps.Marker({
 							map: map,
-							position: service.itemPlace.geometry.location
+							position: service.reportPlace.geometry.location
 						});
 
 						marker.addListener('click', function() {
-							infowindow.setContent(service.itemPlace.formatted_address);
+							infowindow.setContent(service.reportPlace.formatted_address);
 							infowindow.open(map, marker);
 						});
 
 						$timeout(function() {
-							infowindow.setContent(service.itemPlace.formatted_address);
+							infowindow.setContent(service.reportPlace.formatted_address);
 							infowindow.open(map, marker);
 						}, 1000);
 					});

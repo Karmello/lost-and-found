@@ -5,7 +5,7 @@
 		$stateProvider.state('main.profile', {
 			url: '/profile?id',
 			resolve: {
-				getUser: function(itemCategories, $stateParams, $q, UsersRest) {
+				getUser: function(reportCategories, $stateParams, $q, UsersRest) {
 
 					return $q(function(resolve) {
 

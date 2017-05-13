@@ -111,13 +111,13 @@
 						});
 					});
 				},
-				itemCategories: function(contactTypes, $q, $rootScope, ItemCategoriesRest, ui) {
+				reportCategories: function(contactTypes, $q, $rootScope, ReportCategoriesRest, ui) {
 
 					return $q(function(resolve, reject) {
 
-						ItemCategoriesRest.getList().then(function(res) {
+						ReportCategoriesRest.getList().then(function(res) {
 
-							$rootScope.apiData.itemCategories = res.data.plain();
+							$rootScope.apiData.reportCategories = res.data.plain();
 							resolve();
 
 						}, function() {

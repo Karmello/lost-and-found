@@ -3,7 +3,7 @@
 	'use strict';
 
 	var ui = function(
-		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, itemTabsConf,
+		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, reportTabsConf,
 		mainFrameNavConf, modalsConf, myClass, uiSetupService
 	) {
 
@@ -36,7 +36,7 @@
 				account: new myClass.MySwitchable(settingsTabsConf.account),
 				payment: new myClass.MySwitchable(settingsTabsConf.payment),
 				danger: new myClass.MySwitchable(settingsTabsConf.danger),
-				item: new myClass.MySwitchable(itemTabsConf)
+				report: new myClass.MySwitchable(reportTabsConf)
 			},
 			dropdowns: {
 				mainFrameNav: new myClass.MySwitchable(mainFrameNavConf),
@@ -55,7 +55,7 @@
 	};
 
 	ui.$inject = [
-		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'itemTabsConf',
+		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'reportTabsConf',
 		'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
 	];
 

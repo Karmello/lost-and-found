@@ -4,7 +4,7 @@ var r = require('./../../_requires');
 var modelSetups = require(__dirname + '/modelSetups');
 
 //delete modelSetups.User;
-//delete modelSetups.Item;
+//delete modelSetups.Report;
 
 describe('modelValidationSpec\n', function() {
 

@@ -5,7 +5,7 @@
 		$stateProvider.state('main.search', {
 			url: '/search',
 			resolve: {
-				_ui: function(itemCategories, $q, ui) {
+				_ui: function(reportCategories, $q, ui) {
 
 					return $q(function(resolve) {
 

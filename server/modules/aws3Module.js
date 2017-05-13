@@ -95,12 +95,12 @@ module.exports = {
             if (action.req.headers.subject == 'user_avatar') {
                 resolve();
 
-            } else if (action.req.headers.subject == 'item_photos') {
+            } else if (action.req.headers.subject == 'report_photos') {
 
-                // Getting item from db
-                r.Item.findOne({ _id: action.req.body.itemId }, function(err, item) {
+                // Getting report from db
+                r.Report.findOne({ _id: action.req.body.reportId }, function(err, report) {
 
-                    if (!err && item && item.photos.length < global.app.get('ITEM_MAX_PHOTOS')) {
+                    if (!err && report && report.photos.length < global.app.get('REPORT_MAX_PHOTOS')) {
                         resolve();
 
                     } else {
@@ -124,8 +124,8 @@ module.exports = {
                 if (action.req.headers.subject == 'user_avatar') {
                     awsKey = action.req.decoded._doc._id + '/avatar_' + dates[i] + '.' + extensions[i];
 
-                } else if (action.req.headers.subject == 'item_photos') {
-                    awsKey = action.req.decoded._doc._id + '/items/' + action.req.body.itemId + '/item_photo_' + dates[i] + '.' + extensions[i];
+                } else if (action.req.headers.subject == 'report_photos') {
+                    awsKey = action.req.decoded._doc._id + '/reports/' + action.req.body.reportId + '/report_photo_' + dates[i] + '.' + extensions[i];
                 }
 
                 promises.push(r.modules.aws3Module.getUploadParams(awsKey, action.req.body.fileTypes[i]));
@@ -142,8 +142,8 @@ module.exports = {
                         if (action.req.headers.subject == 'user_avatar') {
                             paramsArr[i].awsFilename = 'avatar_' + dates[i] + '.' + extensions[i];
 
-                        } else if (action.req.headers.subject == 'item_photos') {
-                            paramsArr[i].awsFilename = 'item_photo_' + dates[i] + '.' + extensions[i];
+                        } else if (action.req.headers.subject == 'report_photos') {
+                            paramsArr[i].awsFilename = 'report_photo_' + dates[i] + '.' + extensions[i];
                         }
                     }
                 }

@@ -21,20 +21,20 @@
 					label: hardData.phrases[14],
 					onClick: function() {
 
-						this.parent.data.remove({ itemId: $rootScope.apiData.item._id }).then(function() {
-							$rootScope.$broadcast('initItemComments');
+						this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {
+							$rootScope.$broadcast('initReportComments');
 						});
 					}
 				}
 			]
 		};
 
-		this.itemCommentsBrowser = new myClass.MyCollectionBrowser({
+		this.reportCommentsBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 10,
 			fetchData: function(query) {
 
-				if ($rootScope.apiData.item) {
-					query.itemId = $rootScope.apiData.item._id;
+				if ($rootScope.apiData.report) {
+					query.reportId = $rootScope.apiData.report._id;
 					return CommentsRest.getList(query);
 				}
 			}

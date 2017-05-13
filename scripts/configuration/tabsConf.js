@@ -115,17 +115,17 @@
 		return tabs;
 	};
 
-	var itemTabsConf = function($rootScope) {
+	var reportTabsConf = function($rootScope) {
 
 		var getRoute = function() {
 
-			if ($rootScope.apiData.item) {
-				return '/#/item/' + this._id + '?id=' + $rootScope.apiData.item._id;
+			if ($rootScope.apiData.report) {
+				return '/#/report/' + this._id + '?id=' + $rootScope.apiData.report._id;
 			}
 		};
 
 		var config = {
-			_ctrlId: 'itemTabs',
+			_ctrlId: 'reportTabs',
 			switchers: [
 				{
 					_id: 'photos',
@@ -148,10 +148,10 @@
 
 	guestTabsConf.$inject = ['$rootScope'];
 	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
-	itemTabsConf.$inject = ['$rootScope'];
+	reportTabsConf.$inject = ['$rootScope'];
 
 	angular.module('appModule').service('guestTabsConf', guestTabsConf);
 	angular.module('appModule').service('settingsTabsConf', settingsTabsConf);
-	angular.module('appModule').service('itemTabsConf', itemTabsConf);
+	angular.module('appModule').service('reportTabsConf', reportTabsConf);
 
 })();

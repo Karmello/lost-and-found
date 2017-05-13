@@ -170,45 +170,6 @@ $avatarSize: 240px;
 		.userBadge { margin-bottom: 50px; }
 	}
 }
-#lost-and-found-app-item {
-
-	#section1, #section2, #section3 { margin-bottom: 50px; }
-
-	#section1 {
-
-		display: flex;
-		@media only screen and (max-width: 767px) { flex-flow: row wrap; }
-
-		> div:last-child { margin: 10px; }
-
-		> div:first-child {
-			display: flex;
-			flex-flow: row wrap;
-			> div { margin: 10px; }
-		}
-
-		@media only screen and (min-width: 768px) {
-			> div:first-child { flex-basis: 35%; }
-			> div:last-child { flex-basis: 65%; }
-		}
-
-		#descriptionSection {
-			text-align: justify;
-		}
-
-		span.text-info, span.text-warning { font-weight: bold; }
-	}
-
-	#section2 {
-		.myGoogleMap {
-			@media only screen and (max-width: 767px) { margin: 0 auto; }
-		}
-	}
-
-	#section3 {
-
-	}
-}
 #lost-and-found-app-main {
 
 	min-height: 1000px;
@@ -276,6 +237,46 @@ $avatarSize: 240px;
 		.userAvatar {
 			.mySrc { img { @extend .smallAvatarSize; } }
 		}
+	}
+}
+#lost-and-found-app-report {
+
+	#section1, #section2, #section3 {
+		margin-bottom: 50px;
+		.text-info, .text-warning { font-weight: bold; }
+	}
+
+	#section1 {
+
+		display: flex;
+		@media only screen and (max-width: 767px) { flex-flow: row wrap; }
+
+		> div:last-child { margin: 10px; }
+
+		> div:first-child {
+			display: flex;
+			flex-flow: row wrap;
+			> div { margin: 10px; }
+		}
+
+		@media only screen and (min-width: 768px) {
+			> div:first-child { flex-basis: 35%; }
+			> div:last-child { flex-basis: 65%; }
+		}
+
+		#itemSection {
+			text-align: justify;
+		}
+	}
+
+	#section2 {
+		.myGoogleMap {
+			@media only screen and (max-width: 767px) { margin: 0 auto; }
+		}
+	}
+
+	#section3 {
+
 	}
 }
 #lost-and-found-app-search {
@@ -1048,45 +1049,20 @@ $avatarSize: 240px;
 
 
 }
-.itemAvatar {
+.reportAvatar {
 
 	.mySrc {
 		img { width: 200px; object-fit: cover; }
 	}
 }
-.itemIconMenu {
-
-	> div {
-		display: table-cell;
-
-		&.public {
-			.myPopOverIcon {
-				//background-color: $brand-info;
-				.glyphicon { color: $gray-dark; }
-			}
-		}
-
-		&.private {
-			//.myPopOverIcon { background-color: $brand-danger; }
-		}
-
-		&.own {
-			//.myPopOverIcon { background-color: $brand-success; }
-		}
-
-		&.subscribed {
-			//.myPopOverIcon { background-color: $brand-primary; }
-		}
-	}
-}
-.itemPhotos {
+.reportPhotos {
 
 	img {
 		max-width: 200px;
 		max-height: 200px;
 	}
 }
-.items {
+.reports {
 
 	#actionBtns { margin-bottom: 25px; }
 
@@ -1153,7 +1129,7 @@ $avatarSize: 240px;
 		.myTextArea { textarea { min-height: 300px !important; } }
 	}
 }
-#itemForm {
+#reportForm {
 
 	.myForm {
 
@@ -1197,7 +1173,7 @@ $avatarSize: 240px;
 		border: 1px solid;
 	}
 }
-#itemSearchForm {
+#reportSearchForm {
 
 	.myForm {
 

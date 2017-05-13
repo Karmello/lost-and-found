@@ -2,11 +2,11 @@ use laf-dev
 
 // db.users.find({
 // 	_id: {
-// 		$in: db.items.find({
+// 		$in: db.reports.find({
 // 			_id: {
-// 				$in: db.auctions.find({}, { _id: 0, itemId: 1 }).map(function(auction) { return auction.itemId; })
+// 				$in: db.auctions.find({}, { _id: 0, reportId: 1 }).map(function(auction) { return auction.reportId; })
 // 			}
-// 		}, { _id: 0, userId: 1 }).map(function(item) { return item.userId; })
+// 		}, { _id: 0, userId: 1 }).map(function(report) { return report.userId; })
 // 	}
 // }, { _id: 0, username: 1 }).map(function(user) { return user.username; });
 

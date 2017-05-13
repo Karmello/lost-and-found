@@ -1,0 +1,14 @@
+.reports {
+
+	#actionBtns { margin-bottom: 25px; }
+
+	.myCollectionElem {
+		background-color: $brand-danger;
+	}
+
+	.isFound {
+		.myCollectionElem {
+			background-color: $brand-success;
+		}
+	}
+}

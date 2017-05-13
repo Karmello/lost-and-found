@@ -130,26 +130,33 @@ var contact_types = [
 	{
 		index: 0,
 		label: {
+			en: 'Question',
+			pl: 'Pytanie'
+		}
+	},
+	{
+		index: 1,
+		label: {
 			en: 'An opinion',
 			pl: 'Opinia'
 		}
 	},
 	{
-		index: 1,
+		index: 2,
 		label: {
 			en: 'Improvement suggestion',
 			pl: 'Propozycja ulepszenia'
 		}
 	},
 	{
-		index: 2,
+		index: 3,
 		label: {
 			en: 'Bug',
 			pl: 'Błąd'
 		}
 	},
 	{
-		index: 3,
+		index: 4,
 		label: {
 			en: 'Other',
 			pl: 'Inny'
@@ -163,51 +170,51 @@ var contact_types = [
 
 use laf-dev
 
-db.dropDatabase();
-db.createCollection('counters');
-//db.report_categories.drop();
-db.createCollection('report_categories');
-db.createCollection('deactivation_reasons');
+//db.dropDatabase();
+//db.createCollection('counters');
+//db.createCollection('report_categories');
+//db.createCollection('deactivation_reasons');
+db.contact_types.drop();
 db.createCollection('contact_types');
 
-db.counters.insert({"_id": "id", "seq": 0 });
-for (var i = 0; i < report_categories.length; ++i) { db.report_categories.insert(report_categories[i]); }
-for (var i = 0; i < deactivation_reasons.length; ++i) { db.deactivation_reasons.insert(deactivation_reasons[i]); }
+//db.counters.insert({"_id": "id", "seq": 0 });
+//for (var i = 0; i < report_categories.length; ++i) { db.report_categories.insert(report_categories[i]); }
+//for (var i = 0; i < deactivation_reasons.length; ++i) { db.deactivation_reasons.insert(deactivation_reasons[i]); }
 for (var i = 0; i < contact_types.length; ++i) { db.contact_types.insert(contact_types[i]); }
 
 
 
 // Users
 
-use admin
-db.dropUser('Karmello');
+// use admin
+// db.dropUser('Karmello');
 
-db.createUser(
-  {
-    user: "Karmello",
-    pwd: "wantpeanutbutter",
-    roles: [{ role: "root", db: "admin" }]
-  }
-);
+// db.createUser(
+//   {
+//     user: "Karmello",
+//     pwd: "wantpeanutbutter",
+//     roles: [{ role: "root", db: "admin" }]
+//   }
+// );
 
-use laf-dev
-db.dropUser('Karmello');
+// use laf-dev
+// db.dropUser('Karmello');
 
-db.createUser(
-  {
-    user: "Karmello",
-    pwd: "wantpeanutbutter",
-    roles: [{ role: "readWrite", db: "laf-dev" }]
-  }
-);
+// db.createUser(
+//   {
+//     user: "Karmello",
+//     pwd: "wantpeanutbutter",
+//     roles: [{ role: "readWrite", db: "laf-dev" }]
+//   }
+// );
 
-use laf-test
-db.dropUser('Karmello');
+// use laf-test
+// db.dropUser('Karmello');
 
-db.createUser(
-  {
-    user: "Karmello",
-    pwd: "wantpeanutbutter",
-    roles: [{ role: "readWrite", db: "laf-test" }]
-  }
-);
+// db.createUser(
+//   {
+//     user: "Karmello",
+//     pwd: "wantpeanutbutter",
+//     roles: [{ role: "readWrite", db: "laf-test" }]
+//   }
+// );

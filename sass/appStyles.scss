@@ -243,9 +243,6 @@ $avatarSize: 240px;
 
 	#section1, #section2, #section3 {
 		.text-info, .text-warning { font-weight: bold; }
-	}
-
-	#section1, #section2 {
 		margin-bottom: 50px;
 	}
 
@@ -310,6 +307,10 @@ $avatarSize: 240px;
 	}
 
 	#section3 {
+
+	}
+
+	#section4 {
 
 	}
 }
@@ -593,13 +594,13 @@ $avatarSize: 240px;
 	margin-left: 3px;
 	font-size: 20px;
 }
-.myLabel {
-
-	padding: 1px;
-}
 .myInput {
 
 
+}
+.myLabel {
+
+	padding: 1px;
 }
 @import '_vars';
 
@@ -1083,17 +1084,17 @@ $avatarSize: 240px;
 
 
 }
+.reportAvatar {
+
+	.mySrc {
+		img { width: 200px; object-fit: cover; }
+	}
+}
 .reportPhotos {
 
 	img {
 		max-width: 200px;
 		max-height: 200px;
-	}
-}
-.reportAvatar {
-
-	.mySrc {
-		img { width: 200px; object-fit: cover; }
 	}
 }
 .reports {
@@ -1207,8 +1208,11 @@ $avatarSize: 240px;
 
 			> div, .mySelectsGroup > div {
 				display: flex;
-				justify-content: center;
 				flex-flow: row wrap;
+
+				> * {
+					flex-grow: 1;
+				}
 			}
 
 			select { min-width: 125px; }

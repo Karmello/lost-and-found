@@ -16,8 +16,11 @@
 
 			> div, .mySelectsGroup > div {
 				display: flex;
-				justify-content: center;
 				flex-flow: row wrap;
+
+				> * {
+					flex-grow: 1;
+				}
 			}
 
 			select { min-width: 125px; }

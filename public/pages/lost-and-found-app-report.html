@@ -71,7 +71,14 @@
 								</div>
 							</div>
 						</div>
-						<div id="section3">
+						<div id="section3" class="myBtnsGroupCenter">
+							<my-btn
+								ng-if="apiData.report.group == 'L' && apiData.report.userId != apiData.loggedInUser._id"
+								ctrl-class="'btn-primary'"
+								hard-data="{ label: ['phrases', 159] }"
+							></my-btn>
+						</div>
+						<div id="section4">
 							<my-tabs ins="ui.tabs.report"></my-tabs>
 							<div ui-view="tab"></div>
 						</div>

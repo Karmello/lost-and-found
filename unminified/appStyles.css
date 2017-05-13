@@ -195,11 +195,10 @@ body .form-group {
     #lost-and-found-app-profile #userSection table td span.text-info {
       font-weight: bold; }
 
-#lost-and-found-app-report #section1 .text-info, #lost-and-found-app-report #section1 .text-warning, #lost-and-found-app-report #section2 .text-info, #lost-and-found-app-report #section2 .text-warning, #lost-and-found-app-report #section3 .text-info, #lost-and-found-app-report #section3 .text-warning {
-  font-weight: bold; }
-
-#lost-and-found-app-report #section1, #lost-and-found-app-report #section2 {
+#lost-and-found-app-report #section1, #lost-and-found-app-report #section2, #lost-and-found-app-report #section3 {
   margin-bottom: 50px; }
+  #lost-and-found-app-report #section1 .text-info, #lost-and-found-app-report #section1 .text-warning, #lost-and-found-app-report #section2 .text-info, #lost-and-found-app-report #section2 .text-warning, #lost-and-found-app-report #section3 .text-info, #lost-and-found-app-report #section3 .text-warning {
+    font-weight: bold; }
 
 #lost-and-found-app-report #section1 {
   display: -ms-flexbox;
@@ -734,13 +733,13 @@ body .form-group {
   margin-left: 10px;
   margin-right: 10px; }
 
-.reportPhotos img {
-  max-width: 200px;
-  max-height: 200px; }
-
 .reportAvatar .mySrc img {
   width: 200px;
   object-fit: cover; }
+
+.reportPhotos img {
+  max-width: 200px;
+  max-height: 200px; }
 
 .reports #actionBtns {
   margin-bottom: 25px; }
@@ -821,10 +820,11 @@ body .form-group {
   #reportSearchForm .myForm > div, #reportSearchForm .myForm .mySelectsGroup > div {
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: center;
-    justify-content: center;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap; }
+    #reportSearchForm .myForm > div > *, #reportSearchForm .myForm .mySelectsGroup > div > * {
+      -ms-flex-positive: 1;
+      flex-grow: 1; }
   #reportSearchForm .myForm select {
     min-width: 125px; } }
 

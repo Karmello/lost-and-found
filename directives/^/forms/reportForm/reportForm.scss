@@ -4,41 +4,23 @@
 
 		.formCtrls {
 
-			> div:first-child {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
 
-				display: flex;
-				justify-content: space-around;
-
-				@media only screen and (max-width: 600px) {
-					flex-flow: row wrap;
-				}
-
-				> div {
-
-					margin: 5px;
-					flex-basis: 100%;
-
-					.mySelectsGroup > div {
-						.mySelect {}
-					}
+			> div {
+				margin: 5px;
+				flex-basis: 100%;
+				@media only screen and (min-width: 700px) {
+					flex-basis: 48%;
 				}
 			}
 
-			> div:last-child {
-
-				margin: 5px;
-
-				textarea {
-					max-width: 600px;
-					min-height: 175px !important;
-					text-align: justify;
-				}
+			textarea {
+				max-width: 450px;
+				min-height: 150px !important;
+				text-align: justify;
 			}
 		}
-	}
-
-	#map {
-		height: 300px;
-		border: 1px solid;
 	}
 }

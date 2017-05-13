@@ -195,40 +195,70 @@ body .form-group {
     #lost-and-found-app-profile #userSection table td span.text-info {
       font-weight: bold; }
 
-#lost-and-found-app-report #section1, #lost-and-found-app-report #section2, #lost-and-found-app-report #section3 {
+#lost-and-found-app-report #section1 .text-info, #lost-and-found-app-report #section1 .text-warning, #lost-and-found-app-report #section2 .text-info, #lost-and-found-app-report #section2 .text-warning, #lost-and-found-app-report #section3 .text-info, #lost-and-found-app-report #section3 .text-warning {
+  font-weight: bold; }
+
+#lost-and-found-app-report #section1, #lost-and-found-app-report #section2 {
   margin-bottom: 50px; }
-  #lost-and-found-app-report #section1 .text-info, #lost-and-found-app-report #section1 .text-warning, #lost-and-found-app-report #section2 .text-info, #lost-and-found-app-report #section2 .text-warning, #lost-and-found-app-report #section3 .text-info, #lost-and-found-app-report #section3 .text-warning {
-    font-weight: bold; }
 
 #lost-and-found-app-report #section1 {
   display: -ms-flexbox;
-  display: flex; }
-  @media only screen and (max-width: 767px) {
-    #lost-and-found-app-report #section1 {
-      -ms-flex-flow: row wrap;
-      flex-flow: row wrap; } }
-  #lost-and-found-app-report #section1 > div:last-child {
-    margin: 10px; }
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: start;
+  align-items: flex-start; }
+  #lost-and-found-app-report #section1 > div {
+    -ms-flex-positive: 1;
+    flex-grow: 1; }
   #lost-and-found-app-report #section1 > div:first-child {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
-    flex-flow: row wrap; }
+    flex-flow: row wrap;
+    -ms-flex-pack: center;
+    justify-content: center; }
     #lost-and-found-app-report #section1 > div:first-child > div {
       margin: 10px; }
+  #lost-and-found-app-report #section1 > div:last-child > div {
+    margin: 10px; }
   @media only screen and (min-width: 768px) {
     #lost-and-found-app-report #section1 > div:first-child {
-      -ms-flex-preferred-size: 35%;
-      flex-basis: 35%; }
+      -ms-flex-preferred-size: 30%;
+      flex-basis: 30%; }
     #lost-and-found-app-report #section1 > div:last-child {
-      -ms-flex-preferred-size: 65%;
-      flex-basis: 65%; } }
-  #lost-and-found-app-report #section1 #itemSection {
-    text-align: justify; }
+      -ms-flex-preferred-size: 70%;
+      flex-basis: 70%; } }
 
-@media only screen and (max-width: 767px) {
-  #lost-and-found-app-report #section2 .myGoogleMap {
-    margin: 0 auto; } }
+#lost-and-found-app-report #section2 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: start;
+  align-items: flex-start; }
+  #lost-and-found-app-report #section2 > div {
+    -ms-flex-positive: 1;
+    flex-grow: 1; }
+    #lost-and-found-app-report #section2 > div > div {
+      margin: 10px; }
+  @media only screen and (min-width: 768px) {
+    #lost-and-found-app-report #section2 > div:first-child {
+      -ms-flex-preferred-size: 60%;
+      flex-basis: 60%; }
+    #lost-and-found-app-report #section2 > div:last-child {
+      -ms-flex-preferred-size: 40%;
+      flex-basis: 40%; } }
+  #lost-and-found-app-report #section2 #mapContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center; }
+    #lost-and-found-app-report #section2 #mapContainer > div {
+      width: 200px; }
+      @media only screen and (min-width: 400px) {
+        #lost-and-found-app-report #section2 #mapContainer > div {
+          width: 300px; } }
 
 @media only screen and (min-width: 700px) {
   #lost-and-found-app-settings #dropdownSection {
@@ -704,13 +734,13 @@ body .form-group {
   margin-left: 10px;
   margin-right: 10px; }
 
-.reportAvatar .mySrc img {
-  width: 200px;
-  object-fit: cover; }
-
 .reportPhotos img {
   max-width: 200px;
   max-height: 200px; }
+
+.reportAvatar .mySrc img {
+  width: 200px;
+  object-fit: cover; }
 
 .reports #actionBtns {
   margin-bottom: 25px; }
@@ -759,30 +789,25 @@ body .form-group {
   #contactForm .myForm .myTextArea textarea {
     min-height: 300px !important; }
 
-#reportForm .myForm .formCtrls > div:first-child {
+#reportForm .myForm .formCtrls {
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   -ms-flex-pack: distribute;
   justify-content: space-around; }
-  @media only screen and (max-width: 600px) {
-    #reportForm .myForm .formCtrls > div:first-child {
-      -ms-flex-flow: row wrap;
-      flex-flow: row wrap; } }
-  #reportForm .myForm .formCtrls > div:first-child > div {
+  #reportForm .myForm .formCtrls > div {
     margin: 5px;
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%; }
-
-#reportForm .myForm .formCtrls > div:last-child {
-  margin: 5px; }
-  #reportForm .myForm .formCtrls > div:last-child textarea {
-    max-width: 600px;
-    min-height: 175px !important;
+    @media only screen and (min-width: 700px) {
+      #reportForm .myForm .formCtrls > div {
+        -ms-flex-preferred-size: 48%;
+        flex-basis: 48%; } }
+  #reportForm .myForm .formCtrls textarea {
+    max-width: 450px;
+    min-height: 150px !important;
     text-align: justify; }
-
-#reportForm #map {
-  height: 300px;
-  border: 1px solid; }
 
 #reportSearchForm .myForm .myBtnsGroup, #reportSearchForm .myForm .myBtnsGroupCenter, #reportSearchForm .myForm .myBtnsGroupRight {
   margin-left: 25px;

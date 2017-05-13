@@ -4,20 +4,19 @@ var reportVal = r.validators.reportValidators;
 
 
 var ReportSchema = new r.mongoose.Schema({
-	userId: {
-		type: r.mongoose.Schema.Types.ObjectId,
-		ref: 'user',
-		required: true
-	},
-	group: {
-		type: String,
-		required: true
-	},
 	date: {
 		type: Date,
 		required: true
 	},
 	placeId: {
+		type: String,
+		required: true
+	},
+	details: {
+		type: String,
+		required: true
+	},
+	group: {
 		type: String,
 		required: true
 	},
@@ -41,6 +40,11 @@ var ReportSchema = new r.mongoose.Schema({
 	description: {
 		type: String,
 		validate: [reportVal.description.length],
+		required: true
+	},
+	userId: {
+		type: r.mongoose.Schema.Types.ObjectId,
+		ref: 'user',
 		required: true
 	},
 	dateAdded: {

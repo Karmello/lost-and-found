@@ -20,7 +20,7 @@
 								<div>
 									<report-avatar report="apiData.report" no-link="true"></report-avatar>
 								</div>
-								<div id="reportSection">
+								<div>
 									<div>
 										<span class="text-info">{{ hardData.phrases[150] }}:</span>
 										<span ng-bind="apiData.report._id"></span>
@@ -38,25 +38,34 @@
 									</div>
 								</div>
 							</div>
-							<div id="itemSection">
+							<div>
 								<div>
 									<span class="text-info">{{ hardData.phrases[60] }}:</span>
 									<span ng-bind="apiData.report.fullCategory"></span>
 								</div>
-								<div>
-									<span class="text-info">{{ hardData.reportGroups[apiData.report.group == 'L' ? 0 : 1].label }} {{ hardData.phrases[151] }}:</span>
-									<span>{{ apiData.report.formattedDate }}</span>
-								</div>
-								<br>
-								<div>
+								<div style="text-align: justify;">
 									<span class="text-info">{{ hardData.phrases[28] }}:</span><br>
 									<span ng-bind="apiData.report.description"></span>
 								</div>
 							</div>
 						</div>
 						<div id="section2">
-							<p class="text-info">{{ hardData.phrases[148] }}:</p>
-							<div id="reportMap" class="myGoogleMap"></div>
+							<div>
+								<div>
+									<span class="text-info">{{ hardData.reportGroups[apiData.report.group == 'L' ? 0 : 1].label }} {{ hardData.phrases[151] }}:</span>
+									<span>{{ apiData.report.formattedDate }}</span>
+								</div>
+								<div style="text-align: justify;">
+									<span class="text-info">{{ hardData.phrases[153] }}:</span><br>
+									<span ng-bind="apiData.report.details"></span>
+								</div>
+							</div>
+							<div id="mapContainer">
+								<div>
+									<span class="text-info">{{ hardData.phrases[148] }}:</span>
+									<div id="reportMap" class="myGoogleMap"></div>
+								</div>
+							</div>
 						</div>
 						<div id="section3">
 							<my-tabs ins="ui.tabs.report"></my-tabs>

@@ -520,27 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/server/actions/Item/getItem.js",
+			"file": "/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 			"settings":
 			{
-				"buffer_size": 1507,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/actions/Item/postItem.js",
-			"settings":
-			{
-				"buffer_size": 284,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
-			"settings":
-			{
-				"buffer_size": 2178,
+				"buffer_size": 2258,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -624,45 +607,92 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/server",
-		"/D/Workspace/laf/dev/server/actions",
-		"/D/Workspace/laf/dev/server/actions/AppConfig",
-		"/D/Workspace/laf/dev/server/actions/Item"
+		"/D/Workspace/laf/dev/server"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/server/actions/Item/getItem.js",
-		"/D/Workspace/laf/dev/server/actions/ItemCategory/getItemCategories.js",
-		"/D/Workspace/laf/dev/db/temp.js",
-		"/D/Workspace/laf/dev/db/init.js",
-		"/D/Workspace/laf/dev/db/clear.js",
-		"/D/Workspace/laf/dev/server/setups/setupSession.js",
-		"/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
-		"/D/Workspace/laf/dev/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
+		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/recoverForm/recoverForm.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
+		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.js",
 		"/D/Workspace/laf/dev/server/routes.js",
 		"/D/Workspace/laf/dev/server/models.js",
-		"/D/Workspace/laf/dev/server/validators/auctionValidators.js",
 		"/D/Workspace/laf/dev/server/_requires.js",
 		"/D/Workspace/laf/dev/server/validators/_validators.js",
+		"/D/Workspace/laf/dev/server/schemas/ReportPhotoSchema.js",
+		"/D/Workspace/laf/dev/server/schemas/ItemCategorySchema.js",
+		"/D/Workspace/laf/dev/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/server/actions/ItemCategory/getItemCategories.js",
+		"/D/Workspace/laf/dev/tests/server/specs/Item/addingItemSpec.js",
+		"/D/Workspace/laf/dev/sass/appStyles.scss",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.js",
+		"/D/Workspace/laf/dev/scripts/constants.js",
+		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
+		"/D/Workspace/laf/dev/server/actions/Report/deleteReport.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.report.tab.js",
+		"/D/Workspace/laf/dev/scripts/services/ui.js",
+		"/D/Workspace/laf/dev/server/actions/Comment/getComment.js",
+		"/D/Workspace/laf/dev/server/modules/aws3Module.js",
+		"/D/Workspace/laf/dev/server/actions/User/getUser.js",
+		"/D/Workspace/laf/dev/server/schemas/UserSchema.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report-tab.html",
+		"/D/Workspace/laf/dev/server/actions/Comment/deleteComment.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosService.js",
+		"/D/Workspace/laf/dev/db/temp.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
+		"/D/Workspace/laf/dev/server/actions/Report/putReport.js",
+		"/D/Workspace/laf/dev/server/actions/Report/getReport.js",
+		"/D/Workspace/laf/dev/server/actions/Comment/postComment.js",
+		"/D/Workspace/laf/dev/scripts/services/apiService.js",
+		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
+		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/ReportsRest.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatar.js",
+		"/D/Workspace/laf/dev/tests/server/helpers.js",
+		"/D/Workspace/laf/dev/scripts/services/uiSetupService.js",
+		"/D/Workspace/laf/dev/db/findOneAndUpdate.js",
+		"/D/Workspace/laf/dev/db/clear.js",
+		"/D/Workspace/laf/dev/tests/server/specs/User/deactivationSpec.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.scss",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatarService.js",
+		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosConf.js",
+		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
+		"/D/Workspace/laf/dev/directives/COMMENT/comments/commentsConf.js",
+		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
+		"/D/Workspace/laf/dev/server/controllers/ItemController.js",
+		"/D/Workspace/laf/dev/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/server/controllers/ReportCategoryController.js",
+		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
+		"/D/Workspace/laf/dev/tests/server/specs/validation/inputCases.js",
+		"/D/Workspace/laf/dev/tests/server/specs/validation/modelSetups.js",
+		"/D/Workspace/laf/dev/tests/server/specs/validation/modelValidationSpec.js",
+		"/D/Workspace/laf/dev/server/controllers/ItemCategoryController.js",
+		"/D/Workspace/laf/dev/server/actions/Item/getItem.js",
+		"/D/Workspace/laf/dev/server/actions/Item/postItem.js",
+		"/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+		"/D/Workspace/laf/dev/db/init.js",
+		"/D/Workspace/laf/dev/server/setups/setupSession.js",
+		"/D/Workspace/laf/dev/server/validators/auctionValidators.js",
 		"/D/Workspace/laf/dev/server/setups/setupSockets.js",
 		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
 		"/D/Workspace/laf/dev/server/setups/setupDb.js",
 		"/D/Workspace/laf/dev/server/controllers/AuctionController.js",
 		"/D/Workspace/laf/dev/server/schemas/AuctionSchema.js",
-		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
 		"/D/Workspace/laf/dev/server/setups/_setups.js",
-		"/D/Workspace/laf/dev/server/actions/_actions.js",
 		"/D/Workspace/laf/dev/server.js",
-		"/D/Workspace/laf/dev/server/actions/User/getUser.js",
-		"/D/Workspace/laf/dev/server/actions/Item/postItem.js",
 		"/D/Workspace/laf/dev/server/actions/Item/putItem.js",
-		"/D/Workspace/laf/dev/server/controllers/ItemController.js",
 		"/D/Workspace/laf/dev/server/actions/ContactType/postContactType.js",
 		"/D/Workspace/laf/dev/server/modules/mailModule.js",
 		"/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-contact.html",
 		"/D/Workspace/laf/dev/server/schemas/ContactTypeSchema.js",
-		"/D/Workspace/laf/dev/sass/appStyles.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.js",
 		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.js",
 		"/D/Workspace/laf/dev/server/actions/ContactType/getContactTypes.js",
@@ -671,13 +701,11 @@
 		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
 		"/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.html",
-		"/D/Workspace/laf/dev/scripts/constants.js",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.js",
 		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html",
 		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
 		"/D/Workspace/laf/dev/directives/ITEM/items/items.scss",
 		"/D/Workspace/laf/dev/directives/ITEM/items/items.html",
-		"/D/Workspace/laf/dev/scripts/services/apiService.js",
 		"/D/Workspace/laf/dev/node_modules/font-awesome/scss/_variables.scss",
 		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.scss",
 		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.html",
@@ -701,7 +729,6 @@
 		"/D/Workspace/laf/dev/scripts/factories/rest/UsersRest.js",
 		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarConf.js",
 		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.html",
-		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
 		"/D/Workspace/laf/dev/directives/AUCTION/auctionNumBox/auctionNumBox.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item.html",
@@ -710,55 +737,8 @@
 		"/D/Workspace/laf/dev/scripts/routes/main.profile.js",
 		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.html",
 		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.scss",
-		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
 		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarService.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
-		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctions.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.search.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/itemsService.js",
-		"/D/Workspace/laf/dev/directives/COMMENT/comments/commentsConf.js",
-		"/D/Workspace/laf/dev/scripts/controllers/ProfileController.js",
-		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
-		"/D/Workspace/laf/dev/scripts/services/authService.js",
-		"/D/Workspace/laf/dev/scripts/configuration/mainFrameConf.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.auction.js",
-		"/D/Workspace/laf/dev/scripts/configuration/topNavMenuConf.js",
-		"/D/Workspace/laf/dev/scripts/configuration/mainFrameNavConf.js",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-main.scss",
-		"/D/Workspace/laf/dev/node_modules/bootstrap/less/variables.less",
-		"/D/Workspace/laf/dev/sass/_index.scss",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-home.html",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-guest.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-item.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-report.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-search.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-settings.scss",
-		"/D/Workspace/laf/dev/sass/layouts/main-with-aside-1.scss",
-		"/D/Workspace/laf/dev/directives/my/myPage/myPage.js",
-		"/D/Workspace/laf/dev/directives/my/myPage/myPage.scss",
-		"/D/Workspace/laf/dev/directives/my/myPage/myPage.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-guest.html",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-auction.scss",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-auction.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-help.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-about.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-settings.html",
-		"/D/Workspace/laf/dev/directives/AUCTION/auctionSubscribersWindow/auctionSubscribersWindow.js",
-		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctionsConf.js",
-		"/D/Workspace/laf/dev/scripts/run.js",
-		"/D/Workspace/laf/dev/scripts/services/ui.js",
-		"/D/Workspace/laf/dev/directives/^/forms/itemSearchForm/itemSearchForm.scss",
-		"/D/Workspace/laf/dev/public/index.html",
-		"/D/Workspace/laf/dev/scripts/routes/main.js",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
-		"/D/Workspace/laf/dev/directives/ITEM/itemWindow/itemWindow.html",
-		"/D/Workspace/laf/dev/directives/ITEM/itemIconMenu/itemIconMenu.html",
-		"/D/Workspace/laf/dev/directives/^/forms/regionalForm/regionalForm.js",
-		"/D/Workspace/laf/dev/directives/^/forms/regionalForm/regionalForm.html",
-		"/D/Workspace/laf/dev/directives/^/forms/appearanceForm/appearanceForm.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-user.html",
-		"/D/Workspace/laf/dev/scripts/routes/main.user.js"
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html"
 	],
 	"find":
 	{
@@ -837,6 +817,66 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"name",
+			"title",
+			"typeId",
+			"item",
+			"itemIconMenu",
+			"item",
+			"itemMaxPhotos",
+			"item",
+			"ITEM",
+			"Item",
+			"item",
+			"emptyItem",
+			"item",
+			"itemsPageCreated",
+			"item",
+			"undefinedItem",
+			"item",
+			"items",
+			"item",
+			"itemphoto",
+			"itemPhotoSlidesWindow",
+			"item",
+			"item._id",
+			"item",
+			"/items/",
+			"item",
+			"item_subcategory",
+			"item",
+			"itemVal",
+			"item",
+			"scope.item",
+			"item",
+			"args.item",
+			"item",
+			"itemValidators",
+			"item",
+			"item_photo",
+			"item",
+			"itemId",
+			"item",
+			"apiData.item",
+			"item",
+			"r.actions.item",
+			"item",
+			"itemAction",
+			"item",
+			"createItemFullCategoryString",
+			"fullcategory",
+			"item",
+			"addItem",
+			"getItem",
+			"Item",
+			"item",
+			"ItemCategory",
+			"ItemController",
+			"item",
+			"itemId",
+			"item",
+			"item_category",
+			"item",
 			"auction",
 			"auctionAction",
 			"auction",
@@ -904,67 +944,7 @@
 			"<my-btn",
 			"background",
 			"background-color",
-			"$body-bg",
-			"auction-house",
-			"auction",
-			"auction.house",
-			"auction",
-			"auction.house",
-			"URLS",
-			"auction-house",
-			"Auction House",
-			"AuctionHouse",
-			"<auctions",
-			"scope.$state",
-			"$scope.$state",
-			"<items",
-			"$state",
-			"$state =",
-			"initSearchItems",
-			"$state.reload",
-			"item/photos",
-			"activeSwitcherId",
-			"$stateParams",
-			"initUserItems",
-			"initUserAuctions",
-			"collectionChanger",
-			"/#/user?id=",
-			"/#/item/",
-			"/#/user/",
-			"initItemAuctions",
-			"scrollTo",
-			"getRoute",
-			"ui",
-			"<bottom-info-section>",
-			"<auctions",
-			"auctions",
-			"<auctions></",
-			"<auctions><",
-			"myBtnsGroupCenter",
-			"explicit-label",
-			"show-modal-id",
-			"click-context",
-			"click-args",
-			"click-action",
-			"ctrl-class",
-			"explicit-label",
-			"<my-btn",
-			"sessionConst.lang",
-			"added",
-			"browse",
-			"min-height: 2000px;",
-			"912px",
-			"930px",
-			"901px",
-			"922px",
-			"@media",
-			"90",
-			"setAsLoggedIn",
-			"ObjectId",
-			"Rest.delete",
-			"Rest.remove",
-			"tinyAvatarSize",
-			"r.Promise.all"
+			"$body-bg"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -972,6 +952,25 @@
 		"regex": false,
 		"replace_history":
 		[
+			"reportMaxPhotos",
+			"reportPhotoSlidesWindow",
+			"report._id",
+			"/reports/",
+			"reportVal",
+			"scope.report",
+			"args.report",
+			"reportValidators",
+			"report_photo",
+			"reportId",
+			"apiData.report",
+			"r.actions.report",
+			"reportAction",
+			"createReportFullCategoryString",
+			"getReport",
+			"Report",
+			"ReportCategory",
+			"ReportController",
+			"report_category",
 			"profileCollectionBrowser",
 			"lost-and-found-app",
 			"bindValErrMsgs",
@@ -1080,26 +1079,7 @@
 			"onSeeAuctionSubscribersClick",
 			"my-form-error-icon",
 			"auctionSubscribersDisplayer",
-			"auctionSubscribersModal",
-			"onSubscribeClick",
-			"myCropperImg",
-			"$rootScope.ui.modalTypes.imgCropModal",
-			"$rootScope.ui.modals.userAvatarCropModal",
-			"bid",
-			"onDecreaseBtnClick",
-			"onIncreaseBtnClick",
-			"onClick",
-			"myItemsHref",
-			"subscriptionsBrowser",
-			"auto top-center",
-			"popover-placement=\"'top center'\"",
-			"final",
-			"initial",
-			"showModal",
-			"imgCrop",
-			"confirm",
-			"info",
-			"routeUi"
+			"auctionSubscribersModal"
 		],
 		"reverse": false,
 		"show_context": false,
@@ -1116,24 +1096,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/server/actions/Item/getItem.js",
+					"file": "/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1507,
+						"buffer_size": 2258,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1346,
-								1346
+								482,
+								482
 							]
 						],
 						"settings":
@@ -1147,105 +1127,16 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
 								}
 							],
 							"bs_sintax": "javascript",
-							"buffer_scroll_name": "9419946a",
+							"buffer_scroll_name": "6bca7016",
 							"spell_check": false,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/server/actions/Item/postItem.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 284,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								184,
-								184
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "0eadcd17",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2178,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								357,
-								357
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "1e587dd5",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 233.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1314,6 +1205,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"reportval",
+				"validators\\reportValidators.js"
+			],
+			[
+				"reportv",
+				"validators\\reportValidators.js"
+			],
+			[
+				"reports",
+				"schemas\\ReportSchema.js"
+			],
 			[
 				"items",
 				"schemas\\ItemSchema.js"
@@ -1813,18 +1716,6 @@
 			[
 				"mysw",
 				"factories\\class\\MySwitchable.js"
-			],
-			[
-				"myswit",
-				"factories\\class\\MySwitchable.js"
-			],
-			[
-				"getau",
-				"server\\actions\\Auction\\getAuction.js"
-			],
-			[
-				"getitem",
-				"server\\actions\\Item\\getItem.js"
 			]
 		],
 		"width": 0.0
@@ -1854,7 +1745,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 291.0,
 	"status_bar_visible": true,
 	"template_settings":

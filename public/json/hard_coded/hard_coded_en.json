@@ -38,7 +38,7 @@
 		"Auction", "Approximately", "My subscriptions", "Subscriptions", "Increase", "Decrease", "Place bid", "The course of the auction", "Choose an image", "Rotate",
 		"Zoom in", "Zoom out", "Crop mode", "Move mode", "Auctions", "Move left", "Move right", "Date added", "Date added", "ago",
 		"Group", "Report", "Date", "Full name", "Results", "New report", "Date", "Delete selected", "Location", "Editing report",
-		"ID", "on", "By"
+		"ID", "on", "By", "Details", "Event", "Subject", "Name"
 	],
 	"sentences": [
 		"Why leaving us ?",

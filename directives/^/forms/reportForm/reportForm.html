@@ -2,71 +2,95 @@
 	<my-form ins="myForm">
 		<form-action-btns my-form="myForm"></form-action-btns>
 		<br /><br />
-		<div class="formCtrls">
-			<div>
-				<div>
-					<my-select
-						ctrl-id="'group'"
-						collection="reportGroups"
-						model="myModel.values.group"
-						prop-names="{ optionValue: 'value', optionLabel: 'label' }"
-						option-zero="true"
-						hard-data="{ label: ['phrases', 140], placeholder: ['phrases', 26] }"
-					></my-select>
-					<my-input
-						ctrl-id="'date'"
-						ctrl-type="'date'"
-						ctrl-min-value="minDate"
-						ctrl-max-value="maxDate"
-						model="myModel.values.date"
-						hard-data="{ label: ['phrases', 142] }"
-						is-required="true"
-					></my-input>
-					<my-input
-						ctrl-id="'placeId'"
-						ctrl-type="'text'"
-						model="myModel.values.placeId"
-						hard-data="{ label: ['phrases', 148] }"
-						autocomplete="autocomplete"
-					></my-input>
-				</div>
-				<div>
-					<my-selects-group collection="reportCategories">
+		<my-panel>
+			<title-section>
+				<span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;
+				<span ng-bind="hardData.phrases[155]"></span>
+			</title-section>
+			<body-section>
+				<div class="formCtrls">
+					<div>
 						<my-select
-							ctrl-id="'categoryId'"
-							collection=""
-							model="myModel.values.categoryId"
-							prop-names="{ optionValue: '_id', optionLabel: 'label' }"
+							ctrl-id="'group'"
+							collection="reportGroups"
+							model="myModel.values.group"
+							prop-names="{ optionValue: 'value', optionLabel: 'label' }"
 							option-zero="true"
-							hard-data="{ label: ['phrases', 60], placeholder: ['phrases', 26] }"
+							hard-data="{ label: ['phrases', 140], placeholder: ['phrases', 26] }"
 						></my-select>
-						<my-select
-							ctrl-id="'subcategoryId'"
-							collection=""
-							nested-collection-field-name="'subcategories'"
-							model="myModel.values.subcategoryId"
-							prop-names="{ optionValue: '_id', optionLabel: 'label' }"
-							option-zero="true"
-							hard-data="{ label: ['phrases', 61], placeholder: ['phrases', 26] }"
-						></my-select>
-					</my-selects-group>
-					<my-input
-						ctrl-id="'title'"
-						ctrl-type="'text'"
-						ctrl-max-length="50"
-						model="myModel.values.title"
-						hard-data="{ label: ['phrases', 24] }"
-					></my-input>
+						<my-selects-group collection="reportCategories">
+							<my-select
+								ctrl-id="'categoryId'"
+								collection=""
+								model="myModel.values.categoryId"
+								prop-names="{ optionValue: '_id', optionLabel: 'label' }"
+								option-zero="true"
+								hard-data="{ label: ['phrases', 60], placeholder: ['phrases', 26] }"
+							></my-select>
+							<my-select
+								ctrl-id="'subcategoryId'"
+								collection=""
+								nested-collection-field-name="'subcategories'"
+								model="myModel.values.subcategoryId"
+								prop-names="{ optionValue: '_id', optionLabel: 'label' }"
+								option-zero="true"
+								hard-data="{ label: ['phrases', 61], placeholder: ['phrases', 26] }"
+							></my-select>
+						</my-selects-group>
+					</div>
+					<div>
+						<my-input
+							ctrl-id="'title'"
+							ctrl-type="'text'"
+							ctrl-max-length="50"
+							model="myModel.values.title"
+							hard-data="{ label: ['phrases', 156] }"
+						></my-input>
+						<my-text-area
+							ctrl-id="'description'"
+							ctrl-max-length="1000"
+							model="myModel.values.description"
+							hard-data="{ label: ['phrases', 28] }"
+						></my-text-area>
+					</div>
 				</div>
-			</div>
-			<div>
-				<my-text-area
-					ctrl-id="'description'"
-					ctrl-max-length="1000"
-					model="myModel.values.description"
-					hard-data="{ label: ['phrases', 28] }"
-				></my-text-area>
-			</div>
-		</div>
+			</body-section>
+		</my-panel>
+		<my-panel>
+			<title-section>
+				<span class="glyphicon glyphicon-flash"></span>&nbsp;&nbsp;&nbsp;
+				<span ng-bind="hardData.phrases[154]"></span>
+			</title-section>
+			<body-section>
+				<div class="formCtrls">
+					<div>
+						<my-input
+							ctrl-id="'date'"
+							ctrl-type="'date'"
+							ctrl-min-value="minDate"
+							ctrl-max-value="maxDate"
+							model="myModel.values.date"
+							hard-data="{ label: ['phrases', 142] }"
+							is-required="true"
+						></my-input>
+						<my-input
+							ctrl-id="'placeId'"
+							ctrl-type="'text'"
+							model="myModel.values.placeId"
+							hard-data="{ label: ['phrases', 148] }"
+							autocomplete="autocomplete"
+						></my-input>
+					</div>
+					<div>
+						<my-text-area
+							ctrl-id="'details'"
+							ctrl-max-length="1000"
+							model="myModel.values.details"
+							hard-data="{ label: ['phrases', 153] }"
+						></my-text-area>
+					</div>
+				</div>
+			</body-section>
+		</my-panel>
 	</my-form>
 </div>

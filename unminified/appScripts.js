@@ -4397,50 +4397,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('contactForm', function($rootScope, $http, $timeout, ContactTypesRest, myClass) {
-
-		var contactForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/contactForm/contactForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				var formModel = new myClass.MyFormModel('contactForm', ['contactType', 'contactMsg'], false);
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'contactForm',
-					model: formModel,
-					submitAction: function(args) {
-
-						return ContactTypesRest.post(formModel.getValues());
-					},
-					submitSuccessCb: function(res) {
-
-						formModel.clear();
-					}
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return $rootScope.apiData.contactTypes; }, function(newValue) {
-						scope.contactTypes = newValue;
-					});
-				};
-			}
-		};
-
-		return contactForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 
 
 	appModule.directive('deactivationForm', function($rootScope, $timeout, $filter, ui, DeactivationReasonsRest, myClass) {
@@ -4495,6 +4451,50 @@
 		};
 
 		return deactivationForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('contactForm', function($rootScope, $http, $timeout, ContactTypesRest, myClass) {
+
+		var contactForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/contactForm/contactForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				var formModel = new myClass.MyFormModel('contactForm', ['contactType', 'contactMsg'], false);
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'contactForm',
+					model: formModel,
+					submitAction: function(args) {
+
+						return ContactTypesRest.post(formModel.getValues());
+					},
+					submitSuccessCb: function(res) {
+
+						formModel.clear();
+					}
+				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return $rootScope.apiData.contactTypes; }, function(newValue) {
+						scope.contactTypes = newValue;
+					});
+				};
+			}
+		};
+
+		return contactForm;
 	});
 
 })();
@@ -4765,6 +4765,9 @@
 			},
 			controller: function($scope) {
 
+				$scope.ui = $rootScope.ui;
+				$scope.hardData = $rootScope.hardData;
+
 				$scope.minDate = new Date(2000, 0, 1);
 				$scope.maxDate = new Date();
 				$scope.autocomplete = {};
@@ -4772,7 +4775,7 @@
 				$scope.reportGroups = $rootScope.hardData.reportGroups;
 				$scope.reportCategories = $rootScope.apiData.reportCategories;
 
-				$scope.myModel = new myClass.MyFormModel('reportForm', ['userId', 'date', 'placeId', 'group', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				$scope.myModel = new myClass.MyFormModel('reportForm', ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'description'], true);
 
 				var date = new Date();
 				date.setHours(12);
@@ -4818,7 +4821,7 @@
 							$scope.myForm.submitSuccessCb = function(res) {
 								googleMapService.reportPlace = null;
 								$rootScope.apiData.report = res.data;
-								$state.go('main.report', { id: res.data._id });
+								$state.go('main.report', { id: res.data._id, edit: undefined });
 							};
 
 							$scope.myForm.submitErrorCb = function(res) {
@@ -5482,29 +5485,6 @@
 
 
 
-	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
-
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
-
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
-
-		return myDirective;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('myContextMenu', function() {
 
 		var myContextMenu = {
@@ -5527,6 +5507,29 @@
 		};
 
 		return myContextMenu;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
 	});
 
 })();

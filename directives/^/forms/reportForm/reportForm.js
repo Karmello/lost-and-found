@@ -14,6 +14,9 @@
 			},
 			controller: function($scope) {
 
+				$scope.ui = $rootScope.ui;
+				$scope.hardData = $rootScope.hardData;
+
 				$scope.minDate = new Date(2000, 0, 1);
 				$scope.maxDate = new Date();
 				$scope.autocomplete = {};
@@ -21,7 +24,7 @@
 				$scope.reportGroups = $rootScope.hardData.reportGroups;
 				$scope.reportCategories = $rootScope.apiData.reportCategories;
 
-				$scope.myModel = new myClass.MyFormModel('reportForm', ['userId', 'date', 'placeId', 'group', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				$scope.myModel = new myClass.MyFormModel('reportForm', ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'description'], true);
 
 				var date = new Date();
 				date.setHours(12);
@@ -67,7 +70,7 @@
 							$scope.myForm.submitSuccessCb = function(res) {
 								googleMapService.reportPlace = null;
 								$rootScope.apiData.report = res.data;
-								$state.go('main.report', { id: res.data._id });
+								$state.go('main.report', { id: res.data._id, edit: undefined });
 							};
 
 							$scope.myForm.submitErrorCb = function(res) {

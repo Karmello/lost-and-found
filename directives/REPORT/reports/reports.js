@@ -35,24 +35,19 @@
 
 				return function(scope, elem, attrs) {
 
-					if (!$rootScope.$$listeners.initSearchReports) {
-						$rootScope.$on('initSearchReports', function(e, args) {
-							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
-							scope.collectionBrowser.init();
-						});
-					}
-
-					if (!$rootScope.$$listeners.initUserReports) {
-						$rootScope.$on('initUserReports', function(e, args) {
-							scope.initUserReports(args.userId);
-						});
-					}
-
-
-
 					switch (scope.ctrlId) {
 
 						case 'UserReports':
+
+							if (!$rootScope.$$listeners.initUserReports) {
+								$rootScope.$on('initUserReports', function(e, args) {
+									scope.initUserReports(args.userId);
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initUserReports = null;
+							});
 
 							scope.$watch('apiData.profileUser._id', function(userId) {
 								if (angular.isDefined(userId)) { scope.initUserReports(userId); }
@@ -61,6 +56,17 @@
 							break;
 
 						case 'SearchReports':
+
+							if (!$rootScope.$$listeners.initSearchReports) {
+								$rootScope.$on('initSearchReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initSearchReports = null;
+							});
 
 							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
 							scope.collectionBrowser.init();

@@ -523,7 +523,7 @@
 			"file": "/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 			"settings":
 			{
-				"buffer_size": 2258,
+				"buffer_size": 2290,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -1105,15 +1105,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2258,
+						"buffer_size": 2290,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								482,
-								482
+								133,
+								133
 							]
 						],
 						"settings":
@@ -1122,6 +1122,10 @@
 							[
 								{
 									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
 									"selector": "text.html"
 								},
 								{
@@ -1136,7 +1140,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 233.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1745,7 +1749,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 291.0,
 	"status_bar_visible": true,
 	"template_settings":

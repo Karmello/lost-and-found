@@ -98,10 +98,18 @@
 						case 'edit':
 
 							if (!$rootScope.$$listeners.editReport) {
+
 								$rootScope.$on('editReport', function(e, args) {
-									if (args.report) { scope.myModel.set(args.report); }
+
+									if (args.report) {
+										scope.myModel.setWithRestObj(args.report);
+									}
 								});
 							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.editReport = null;
+							});
 
 							break;
 					}

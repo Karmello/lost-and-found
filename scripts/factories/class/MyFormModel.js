@@ -74,6 +74,27 @@
 
 				this.values[key].value = value;
 			},
+			setWithRestObj: function(restObj) {
+
+				var that = this;
+				var freshValues = {};
+
+				angular.forEach(that.keys, function(key) {
+					freshValues[key] = restObj[key];
+				});
+
+				that.set(freshValues);
+			},
+			setRestObj: function(restObj, cb) {
+
+				var that = this;
+
+				angular.forEach(that.keys, function(key) {
+					restObj[key] = that.values[key].value;
+				});
+
+				if (cb) { cb(); }
+			},
 			clear: function() {
 
 				var that = this;
@@ -162,16 +183,6 @@
 				});
 
 				if (callback) { callback(); }
-			},
-			setRestObj: function(restObj, cb) {
-
-				var that = this;
-
-				angular.forEach(that.keys, function(key) {
-					restObj[key] = that.values[key].value;
-				});
-
-				if (cb) { cb(); }
 			}
 		};
 

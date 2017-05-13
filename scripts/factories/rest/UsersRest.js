@@ -10,7 +10,9 @@
 
 			user._isTheOneLoggedIn = function() {
 
-				return user._id == $rootScope.apiData.loggedInUser._id;
+				if ($rootScope.apiData.loggedInUser) {
+					return user._id == $rootScope.apiData.loggedInUser._id;
+				}
 			};
 
 			return user;

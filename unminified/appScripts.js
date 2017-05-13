@@ -3168,6 +3168,27 @@
 
 				this.values[key].value = value;
 			},
+			setWithRestObj: function(restObj) {
+
+				var that = this;
+				var freshValues = {};
+
+				angular.forEach(that.keys, function(key) {
+					freshValues[key] = restObj[key];
+				});
+
+				that.set(freshValues);
+			},
+			setRestObj: function(restObj, cb) {
+
+				var that = this;
+
+				angular.forEach(that.keys, function(key) {
+					restObj[key] = that.values[key].value;
+				});
+
+				if (cb) { cb(); }
+			},
 			clear: function() {
 
 				var that = this;
@@ -3256,16 +3277,6 @@
 				});
 
 				if (callback) { callback(); }
-			},
-			setRestObj: function(restObj, cb) {
-
-				var that = this;
-
-				angular.forEach(that.keys, function(key) {
-					restObj[key] = that.values[key].value;
-				});
-
-				if (cb) { cb(); }
 			}
 		};
 
@@ -4239,7 +4250,9 @@
 
 			user._isTheOneLoggedIn = function() {
 
-				return user._id == $rootScope.apiData.loggedInUser._id;
+				if ($rootScope.apiData.loggedInUser) {
+					return user._id == $rootScope.apiData.loggedInUser._id;
+				}
 			};
 
 			return user;
@@ -4849,10 +4862,18 @@
 						case 'edit':
 
 							if (!$rootScope.$$listeners.editReport) {
+
 								$rootScope.$on('editReport', function(e, args) {
-									if (args.report) { scope.myModel.set(args.report); }
+
+									if (args.report) {
+										scope.myModel.setWithRestObj(args.report);
+									}
 								});
 							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.editReport = null;
+							});
 
 							break;
 					}
@@ -4915,6 +4936,26 @@
 		};
 
 		return confirmDangerModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmModal', function() {
+
+		var confirmModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmModal;
 	});
 
 })();
@@ -5075,26 +5116,6 @@
 		};
 
 		return imgCropWindow;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
 	});
 
 })();
@@ -6098,51 +6119,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('mySrcSlides', function(MySwitchable) {
-
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
-
-						if (collection) {
-
-							var switchers = [];
-
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
-
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
-
-		return mySrcSlides;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
@@ -6218,6 +6194,51 @@
 		};
 
 		return mySrcThumbs;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrcSlides', function(MySwitchable) {
+
+		var mySrcSlides = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
+			scope: {
+				mySrcCollection: '=',
+				srcType: '@'
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+
+						if (collection) {
+
+							var switchers = [];
+
+							for (var i in collection) {
+								switchers.push({ _id: collection[i].index, index: collection[i].index });
+							}
+
+							scope.mySwitchable = new MySwitchable({ switchers: switchers });
+							scope.mySrcCollection.switchable = scope.mySwitchable;
+						}
+					});
+				};
+			}
+		};
+
+		return mySrcSlides;
 	});
 
 })();
@@ -6759,24 +6780,19 @@
 
 				return function(scope, elem, attrs) {
 
-					if (!$rootScope.$$listeners.initSearchReports) {
-						$rootScope.$on('initSearchReports', function(e, args) {
-							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
-							scope.collectionBrowser.init();
-						});
-					}
-
-					if (!$rootScope.$$listeners.initUserReports) {
-						$rootScope.$on('initUserReports', function(e, args) {
-							scope.initUserReports(args.userId);
-						});
-					}
-
-
-
 					switch (scope.ctrlId) {
 
 						case 'UserReports':
+
+							if (!$rootScope.$$listeners.initUserReports) {
+								$rootScope.$on('initUserReports', function(e, args) {
+									scope.initUserReports(args.userId);
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initUserReports = null;
+							});
 
 							scope.$watch('apiData.profileUser._id', function(userId) {
 								if (angular.isDefined(userId)) { scope.initUserReports(userId); }
@@ -6785,6 +6801,17 @@
 							break;
 
 						case 'SearchReports':
+
+							if (!$rootScope.$$listeners.initSearchReports) {
+								$rootScope.$on('initSearchReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initSearchReports = null;
+							});
 
 							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
 							scope.collectionBrowser.init();

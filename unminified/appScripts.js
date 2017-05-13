@@ -4397,6 +4397,50 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('contactForm', function($rootScope, $http, $timeout, ContactTypesRest, myClass) {
+
+		var contactForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/contactForm/contactForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				var formModel = new myClass.MyFormModel('contactForm', ['contactType', 'contactMsg'], false);
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'contactForm',
+					model: formModel,
+					submitAction: function(args) {
+
+						return ContactTypesRest.post(formModel.getValues());
+					},
+					submitSuccessCb: function(res) {
+
+						formModel.clear();
+					}
+				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return $rootScope.apiData.contactTypes; }, function(newValue) {
+						scope.contactTypes = newValue;
+					});
+				};
+			}
+		};
+
+		return contactForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 
 
 	appModule.directive('deactivationForm', function($rootScope, $timeout, $filter, ui, DeactivationReasonsRest, myClass) {
@@ -4451,50 +4495,6 @@
 		};
 
 		return deactivationForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('contactForm', function($rootScope, $http, $timeout, ContactTypesRest, myClass) {
-
-		var contactForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/contactForm/contactForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				var formModel = new myClass.MyFormModel('contactForm', ['contactType', 'contactMsg'], false);
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'contactForm',
-					model: formModel,
-					submitAction: function(args) {
-
-						return ContactTypesRest.post(formModel.getValues());
-					},
-					submitSuccessCb: function(res) {
-
-						formModel.clear();
-					}
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return $rootScope.apiData.contactTypes; }, function(newValue) {
-						scope.contactTypes = newValue;
-					});
-				};
-			}
-		};
-
-		return contactForm;
 	});
 
 })();
@@ -4775,7 +4775,10 @@
 				$scope.reportGroups = $rootScope.hardData.reportGroups;
 				$scope.reportCategories = $rootScope.apiData.reportCategories;
 
-				$scope.myModel = new myClass.MyFormModel('reportForm', ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				var modelFields = ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId',
+									'title', 'serialNo', 'description'];
+
+				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true);
 
 				var date = new Date();
 				date.setHours(12);
@@ -4912,26 +4915,6 @@
 		};
 
 		return confirmDangerModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
 	});
 
 })();
@@ -5092,6 +5075,26 @@
 		};
 
 		return imgCropWindow;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmModal', function() {
+
+		var confirmModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmModal;
 	});
 
 })();

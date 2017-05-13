@@ -37,6 +37,9 @@ var ReportSchema = new r.mongoose.Schema({
 		validate: [reportVal.title.length],
 		required: true
 	},
+	serialNo: {
+		type: String
+	},
 	description: {
 		type: String,
 		validate: [reportVal.description.length],

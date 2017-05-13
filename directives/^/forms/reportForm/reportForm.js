@@ -24,7 +24,10 @@
 				$scope.reportGroups = $rootScope.hardData.reportGroups;
 				$scope.reportCategories = $rootScope.apiData.reportCategories;
 
-				$scope.myModel = new myClass.MyFormModel('reportForm', ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'description'], true);
+				var modelFields = ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId',
+									'title', 'serialNo', 'description'];
+
+				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true);
 
 				var date = new Date();
 				date.setHours(12);

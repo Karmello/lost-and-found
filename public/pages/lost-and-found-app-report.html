@@ -26,6 +26,10 @@
 										<span ng-bind="apiData.report._id"></span>
 									</div>
 									<div>
+										<span class="text-info">{{ hardData.phrases[60] }}:</span>
+										<span ng-bind="apiData.report.fullCategory"></span>
+									</div>
+									<div>
 										<span class="text-info">{{ hardData.phrases[59] }}:</span>
 										<span>{{ apiData.report.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
 										<span style="white-space: nowrap;">({{ apiData.report.formattedDateAdded }})</span>
@@ -39,13 +43,13 @@
 								</div>
 							</div>
 							<div>
-								<div>
-									<span class="text-info">{{ hardData.phrases[60] }}:</span>
-									<span ng-bind="apiData.report.fullCategory"></span>
-								</div>
 								<div style="text-align: justify;">
 									<span class="text-info">{{ hardData.phrases[28] }}:</span><br>
 									<span ng-bind="apiData.report.description"></span>
+								</div>
+								<div>
+									<span class="text-info">{{ hardData.phrases[157] }}:</span>
+									<span ng-bind="apiData.report.serialNo"></span>
 								</div>
 							</div>
 						</div>

@@ -4,6 +4,66 @@
 		"selected_items":
 		[
 			[
+				"itemM",
+				"itemMarker"
+			],
+			[
+				"goo",
+				"googleMapService\t(googleMapService.js)"
+			],
+			[
+				"item",
+				"itemPlace\t(?)"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"pro",
+				"prototype\t{}"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"$sta",
+				"$stateParams\t(main.item.js)"
+			],
+			[
+				"new",
+				"newItem"
+			],
+			[
+				"model",
+				"modelValues"
+			],
+			[
+				"google",
+				"googlePlaceAutocomplete"
+			],
+			[
+				"angu",
+				"angularDirective\tangularDirective"
+			],
+			[
+				"gool",
+				"googlePlaceAutocomplete\t(itemForm.js)"
+			],
+			[
+				"sec",
+				"section2\t(lost-and-found-app-item.html)"
+			],
+			[
+				"se",
+				"section1\t(lost-and-found-app-item.html)"
+			],
+			[
 				"profil",
 				"profileCollectionBrowser"
 			],
@@ -28,10 +88,6 @@
 				"itemContextMenuConf\t(ItemController.js)"
 			],
 			[
-				"angu",
-				"angularService\tangularService"
-			],
-			[
 				"ng-c",
 				"ng-controller\tAngularJS"
 			],
@@ -50,10 +106,6 @@
 			[
 				"get",
 				"getItem"
-			],
-			[
-				"item",
-				"itemCategories\t(itemForm.js)"
 			],
 			[
 				"report",
@@ -138,10 +190,6 @@
 			[
 				"cre",
 				"createCollection"
-			],
-			[
-				"$sta",
-				"$stateParams"
 			],
 			[
 				"num",
@@ -244,10 +292,6 @@
 				"submitSuccessCb\t(appearanceForm.js)"
 			],
 			[
-				"proto",
-				"prototypes\t(?)"
-			],
-			[
 				"hard",
 				"hardData\t(?)"
 			],
@@ -266,10 +310,6 @@
 			[
 				"err",
 				"errKind"
-			],
-			[
-				"pro",
-				"property"
 			],
 			[
 				"not_",
@@ -474,51 +514,28 @@
 			[
 				"usera",
 				"userAvatarConf"
-			],
-			[
-				"userAA",
-				"userAvatarService\t(userAvatar.js)"
-			],
-			[
-				"fun",
-				"function"
-			],
-			[
-				"upd",
-				"updateSingle"
-			],
-			[
-				"swit",
-				"switcherId"
-			],
-			[
-				"itemC",
-				"itemContextMenuConf\t(itemsConf.js)"
-			],
-			[
-				"subs",
-				"subscribeToAnAuction\t(AuctionController.js)"
-			],
-			[
-				"dele",
-				"deleteAuctions\t(auctionsService.js)"
-			],
-			[
-				"auctions",
-				"auctionsService\t(auctionsService.js)"
-			],
-			[
-				"Au",
-				"AuctionsRest"
-			],
-			[
-				"back",
-				"background-color"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"contents": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Place Autocomplete</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <style>\n      /* Always set the map height explicitly to define the size of the div\n       * element that contains the map. */\n      #map {\n        height: 100%;\n      }\n      /* Optional: Makes the sample page fill the window. */\n      html, body {\n        height: 100%;\n        margin: 0;\n        padding: 0;\n      }\n      #description {\n        font-family: Roboto;\n        font-size: 15px;\n        font-weight: 300;\n      }\n\n      #infowindow-content .title {\n        font-weight: bold;\n      }\n\n      #infowindow-content {\n        display: none;\n      }\n\n      #map #infowindow-content {\n        display: inline;\n      }\n\n      .pac-card {\n        margin: 10px 10px 0 0;\n        border-radius: 2px 0 0 2px;\n        box-sizing: border-box;\n        -moz-box-sizing: border-box;\n        outline: none;\n        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n        background-color: #fff;\n        font-family: Roboto;\n      }\n\n      #pac-container {\n        padding-bottom: 12px;\n        margin-right: 12px;\n      }\n\n      .pac-controls {\n        display: inline-block;\n        padding: 5px 11px;\n      }\n\n      .pac-controls label {\n        font-family: Roboto;\n        font-size: 13px;\n        font-weight: 300;\n      }\n\n      #pac-input {\n        background-color: #fff;\n        font-family: Roboto;\n        font-size: 15px;\n        font-weight: 300;\n        margin-left: 12px;\n        padding: 0 11px 0 13px;\n        text-overflow: ellipsis;\n        width: 400px;\n      }\n\n      #pac-input:focus {\n        border-color: #4d90fe;\n      }\n\n      #title {\n        color: #fff;\n        background-color: #4d90fe;\n        font-size: 25px;\n        font-weight: 500;\n        padding: 6px 12px;\n      }\n    </style>\n  </head>\n  <body>\n    <div class=\"pac-card\" id=\"pac-card\">\n      <div>\n        <div id=\"title\">\n          Autocomplete search\n        </div>\n        <div id=\"type-selector\" class=\"pac-controls\">\n          <input type=\"radio\" name=\"type\" id=\"changetype-all\" checked=\"checked\">\n          <label for=\"changetype-all\">All</label>\n\n          <input type=\"radio\" name=\"type\" id=\"changetype-establishment\">\n          <label for=\"changetype-establishment\">Establishments</label>\n\n          <input type=\"radio\" name=\"type\" id=\"changetype-address\">\n          <label for=\"changetype-address\">Addresses</label>\n\n          <input type=\"radio\" name=\"type\" id=\"changetype-geocode\">\n          <label for=\"changetype-geocode\">Geocodes</label>\n        </div>\n        <div id=\"strict-bounds-selector\" class=\"pac-controls\">\n          <input type=\"checkbox\" id=\"use-strict-bounds\" value=\"\">\n          <label for=\"use-strict-bounds\">Strict Bounds</label>\n        </div>\n      </div>\n      <div id=\"pac-container\">\n        <input id=\"pac-input\" type=\"text\"\n            placeholder=\"Enter a location\">\n      </div>\n    </div>\n    <div id=\"map\"></div>\n    <div id=\"infowindow-content\">\n      <img src=\"\" width=\"16\" height=\"16\" id=\"place-icon\">\n      <span id=\"place-name\"  class=\"title\"></span><br>\n      <span id=\"place-address\"></span>\n    </div>\n\n    <script>\n      // This example requires the Places library. Include the libraries=places\n      // parameter when you first load the API. For example:\n      // <script src=\"https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places\">\n\n      function initMap() {\n        var map = new google.maps.Map(document.getElementById('map'), {\n          center: {lat: -33.8688, lng: 151.2195},\n          zoom: 13\n        });\n        var card = document.getElementById('pac-card');\n        var input = document.getElementById('pac-input');\n        var types = document.getElementById('type-selector');\n        var strictBounds = document.getElementById('strict-bounds-selector');\n\n        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);\n\n        var autocomplete = new google.maps.places.Autocomplete(input);\n\n        // Bind the map's bounds (viewport) property to the autocomplete object,\n        // so that the autocomplete requests use the current map bounds for the\n        // bounds option in the request.\n        autocomplete.bindTo('bounds', map);\n\n        var infowindow = new google.maps.InfoWindow();\n        var infowindowContent = document.getElementById('infowindow-content');\n        infowindow.setContent(infowindowContent);\n        var marker = new google.maps.Marker({\n          map: map,\n          anchorPoint: new google.maps.Point(0, -29)\n        });\n\n        autocomplete.addListener('place_changed', function() {\n          infowindow.close();\n          marker.setVisible(false);\n          var place = autocomplete.getPlace();\n          if (!place.geometry) {\n            // User entered the name of a Place that was not suggested and\n            // pressed the Enter key, or the Place Details request failed.\n            window.alert(\"No details available for input: '\" + place.name + \"'\");\n            return;\n          }\n\n          // If the place has a geometry, then present it on a map.\n          if (place.geometry.viewport) {\n            map.fitBounds(place.geometry.viewport);\n          } else {\n            map.setCenter(place.geometry.location);\n            map.setZoom(17);  // Why 17? Because it looks good.\n          }\n          marker.setPosition(place.geometry.location);\n          marker.setVisible(true);\n\n          var address = '';\n          if (place.address_components) {\n            address = [\n              (place.address_components[0] && place.address_components[0].short_name || ''),\n              (place.address_components[1] && place.address_components[1].short_name || ''),\n              (place.address_components[2] && place.address_components[2].short_name || '')\n            ].join(' ');\n          }\n\n          infowindowContent.children['place-icon'].src = place.icon;\n          infowindowContent.children['place-name'].textContent = place.name;\n          infowindowContent.children['place-address'].textContent = address;\n          infowindow.open(map, marker);\n        });\n\n        // Sets a listener on a radio button to change the filter type on Places\n        // Autocomplete.\n        function setupClickListener(id, types) {\n          var radioButton = document.getElementById(id);\n          radioButton.addEventListener('click', function() {\n            autocomplete.setTypes(types);\n          });\n        }\n\n        setupClickListener('changetype-all', []);\n        setupClickListener('changetype-address', ['address']);\n        setupClickListener('changetype-establishment', ['establishment']);\n        setupClickListener('changetype-geocode', ['geocode']);\n\n        document.getElementById('use-strict-bounds')\n            .addEventListener('click', function() {\n              console.log('Checkbox clicked! New state=' + this.checked);\n              autocomplete.setOptions({strictBounds: this.checked});\n            });\n      }\n    </script>\n    <script src=\"https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap\"\n        async defer></script>\n  </body>\n</html>",
+			"settings":
+			{
+				"buffer_size": 7198,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.scss",
+			"settings":
+			{
+				"buffer_size": 72,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -598,64 +615,86 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/directives/^/forms",
-		"/D/Workspace/laf/dev/scripts/configuration"
+		"/D/Workspace/laf/dev/directives",
+		"/D/Workspace/laf/dev/directives/ITEM",
+		"/D/Workspace/laf/dev/directives/ITEM/items",
+		"/D/Workspace/laf/dev/scripts/configuration",
+		"/D/Workspace/laf/dev/scripts/routes",
+		"/D/Workspace/laf/dev/public/pages"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/scripts/configuration/contextMenuConf.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
-		"/D/Workspace/laf/dev/scripts/controllers/ProfileController.js",
-		"/D/Workspace/laf/dev/scripts/services/apiService.js",
 		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-item.scss",
+		"/D/Workspace/laf/dev/scripts/routes/main.item.js",
+		"/D/Workspace/laf/dev/scripts/controllers/ItemController.js",
+		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.scss",
+		"/D/Workspace/laf/dev/scripts/services/googleMapService.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.editem.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/itemsService.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/items.js",
+		"/D/Workspace/laf/dev/scripts/services/apiService.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
+		"/D/Workspace/laf/dev/scripts/configuration/contextMenuConf.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionSelector.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.js",
-		"/D/Workspace/laf/dev/scripts/controllers/ItemController.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/ItemsRest.js",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
-		"/D/Workspace/laf/dev/directives/ITEM/itemPhotos/itemPhotosConf.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-editem.html",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
+		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
+		"/D/Workspace/laf/dev/scripts/factories/class/MySwitchable.js",
+		"/D/Workspace/laf/dev/scripts/controllers/MainController.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
 		"/D/Workspace/laf/dev/directives/ITEM/items/items.html",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.js",
+		"/D/Workspace/laf/dev/directives/my/myInput/myInput.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item.html",
+		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-main.scss",
+		"/D/Workspace/laf/dev/directives/ITEM/items/items.scss",
+		"/D/Workspace/laf/dev/scripts/routes/main.item.tab.js",
+		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.scss",
+		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item-tab.html",
+		"/D/Workspace/laf/dev/scripts/run.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.search.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item-tabs.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
+		"/D/Workspace/laf/dev/public/index.html",
+		"/D/Workspace/laf/dev/directives/my/myInput/myInput.html",
+		"/D/Workspace/laf/dev/scripts/routes/guest.js",
+		"/D/Workspace/laf/dev/directives/my/myForm/myForm.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-editem.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
+		"/D/Workspace/laf/dev/sass/_index.scss",
+		"/D/Workspace/laf/dev/sass/_myClasses.scss",
+		"/D/Workspace/laf/dev/unminified/appScripts.js",
+		"/D/Workspace/laf/dev/.env",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
+		"/D/Workspace/laf/dev/scripts/controllers/ProfileController.js",
+		"/D/Workspace/laf/dev/directives/ITEM/items/ItemsRest.js",
+		"/D/Workspace/laf/dev/directives/ITEM/itemPhotos/itemPhotosConf.js",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.js",
 		"/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.js",
 		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.html",
 		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.scss",
 		"/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.scss",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.scss",
 		"/D/Workspace/laf/dev/directives/USER/userBadge/userBadge.scss",
 		"/D/Workspace/laf/dev/sass/appStyles.scss",
-		"/D/Workspace/laf/dev/sass/_myClasses.scss",
 		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.scss",
-		"/D/Workspace/laf/dev/sass/_index.scss",
 		"/D/Workspace/laf/dev/public/directives/USER/userAvatar/userAvatar.html",
 		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarConf.js",
 		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html",
-		"/D/Workspace/laf/dev/scripts/routes/main.editem.js",
 		"/D/Workspace/laf/dev/scripts/routes/main.profile.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.search.js",
 		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.item.js",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
 		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.html",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.scss",
 		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.scss",
-		"/D/Workspace/laf/dev/scripts/controllers/MainController.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-guest.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-help.html",
 		"/D/Workspace/laf/dev/scripts/controllers/SearchController.js",
 		"/D/Workspace/laf/dev/scripts/controllers/SettingsController.js",
 		"/D/Workspace/laf/dev/scripts/services/ui.js",
-		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.js",
 		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.js",
 		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
@@ -674,14 +713,10 @@
 		"/D/Workspace/laf/dev/directives/AUCTION/biddingMachine/biddingMachine.js",
 		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctionsConf.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyForm.js",
-		"/D/Workspace/laf/dev/directives/ITEM/items/itemsService.js",
 		"/D/Workspace/laf/dev/server/actions/Item/postItem.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyFormModel.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
 		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.html",
 		"/D/Workspace/laf/dev/directives/my/myForm/myForm.js",
-		"/D/Workspace/laf/dev/scripts/run.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.js",
 		"/D/Workspace/laf/dev/directives/^/forms/itemSearchForm/itemSearchForm.js",
 		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
 		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctions.js",
@@ -694,8 +729,6 @@
 		"/D/Workspace/laf/dev/scripts/controllers/BrowseController.js",
 		"/D/Workspace/laf/dev/scripts/controllers/EditemController.js",
 		"/D/Workspace/laf/dev/scripts/routes/main.contact.js",
-		"/D/Workspace/laf/dev/directives/my/myInput/myInput.js",
-		"/D/Workspace/laf/dev/directives/my/myInput/myInput.html",
 		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.html",
 		"/D/Workspace/laf/dev/directives/my/myForm/myForm.scss",
 		"/D/Workspace/laf/dev/directives/my/myInput/myInput.scss",
@@ -718,19 +751,7 @@
 		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.js",
 		"/D/Workspace/laf/dev/scripts/factories/rest/ContactTypesRest.js",
 		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-contact.scss",
-		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.html",
-		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
-		"/D/Workspace/laf/dev/scripts/constants.js",
-		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.js",
-		"/D/Workspace/laf/dev/node_modules/font-awesome/scss/_variables.scss",
-		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.scss",
-		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.html",
-		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/itemPhotos/itemPhotos.scss",
-		"/D/Workspace/laf/dev/directives/my/myElemSelector/myElemSelector.html",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.js",
-		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.js"
+		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-contact.scss"
 	],
 	"find":
 	{
@@ -809,6 +830,27 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"flushItemMap",
+			"@media",
+			"$.extend",
+			"initUserItems",
+			"console.log",
+			"isSelected",
+			"$stateParams.tab",
+			"main.item",
+			"view1",
+			"tab:",
+			"tab::",
+			"main.item",
+			"item",
+			"googleMapService",
+			"location",
+			"$(elem)",
+			"initMap",
+			"map",
+			"refresh",
+			"resize",
+			"YOUR_API_KEY",
 			"setData",
 			"res",
 			"selectAll",
@@ -915,28 +957,7 @@
 			"'user'",
 			"anotherUsersCollectionBrowser",
 			"ownCollectionBrowser",
-			"<items",
-			"profileUser",
-			"profileUser =",
-			"UserItems",
-			"'auction'",
-			"UserItems",
-			"media",
-			"email",
-			"myBtns",
-			"myBtnsGroupCentered",
-			"main-with-aside-1",
-			"my-page",
-			".user",
-			"main.user",
-			"getSwitcher",
-			"Item",
-			"user.html",
-			"#/user",
-			"/user",
-			"/user/",
-			"main.profile",
-			"<item-icon"
+			"<items"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1082,8 +1103,82 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7198,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5065,
+								5065
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "plain text",
+							"default_dir": "D:\\Workspace\\laf\\dev",
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1152.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 72,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								67,
+								67
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "sass",
+							"buffer_scroll_name": "93ad6f25",
+							"spell_check": false,
+							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1148,48 +1243,204 @@
 		"selected_items":
 		[
 			[
-				"item.scss",
-				"sass\\pages\\lost-and-found-app-item.scss"
+				"itema",
+				"directives\\ITEM\\itemAvatar\\itemAvatar.scss"
 			],
 			[
-				"item.html",
-				"pages\\lost-and-found-app-item.html"
+				"item.scs",
+				"dev\\sass\\pages\\lost-and-found-app-item.scss"
 			],
 			[
-				"mycol",
-				"factories\\class\\MyCollectionSelector.js"
+				"main.item",
+				"routes\\main.item.js"
 			],
 			[
-				"mycollections",
-				"factories\\class\\MyCollectionSelector.js"
+				"itemf",
+				"directives\\^\\forms\\itemForm\\itemForm.js"
 			],
 			[
-				"apis",
-				"services\\apiService.js"
-			],
-			[
-				"itemsc",
-				"directives\\ITEM\\items\\itemsConf.js"
-			],
-			[
-				"mycoll",
-				"factories\\class\\MyCollectionBrowser.js"
-			],
-			[
-				"items.js",
-				"directives\\ITEM\\items\\items.js"
+				"edite",
+				"routes\\main.editem.js"
 			],
 			[
 				"itemc",
 				"controllers\\ItemController.js"
 			],
 			[
-				"itemsr",
-				"directives\\ITEM\\items\\ItemsRest.js"
+				"google",
+				"services\\googleMapService.js"
+			],
+			[
+				"mycoll",
+				"directives\\my\\myCollectionBrowser\\myCollectionBrowser.html"
+			],
+			[
+				"mycollections",
+				"factories\\class\\MyCollectionSelector.js"
+			],
+			[
+				"mainc",
+				"controllers\\MainController.js"
+			],
+			[
+				"search.html",
+				"pages\\lost-and-found-app-search.html"
+			],
+			[
+				"apis",
+				"services\\apiService.js"
+			],
+			[
+				"items.h",
+				"directives\\ITEM\\items\\items.html"
+			],
+			[
+				"itemss",
+				"directives\\ITEM\\items\\itemsService.js"
+			],
+			[
+				"main.scss",
+				"sass\\pages\\lost-and-found-app-main.scss"
+			],
+			[
+				"item.htm",
+				"pages\\lost-and-found-app-item.html"
+			],
+			[
+				"run",
+				"dev\\scripts\\run.js"
+			],
+			[
+				"main.js",
+				"routes\\main.js"
+			],
+			[
+				"main.s",
+				"routes\\main.search.js"
+			],
+			[
+				"items.scs",
+				"directives\\ITEM\\items\\items.scss"
+			],
+			[
+				"items.htm",
+				"directives\\ITEM\\items\\items.html"
+			],
+			[
+				"main.sea",
+				"routes\\main.search.js"
+			],
+			[
+				"items.js",
+				"directives\\ITEM\\items\\items.js"
+			],
+			[
+				"search.htm",
+				"pages\\lost-and-found-app-search.html"
+			],
+			[
+				"items.scss",
+				"directives\\ITEM\\items\\items.scss"
+			],
+			[
+				"main.htm",
+				"pages\\lost-and-found-app-main.html"
+			],
+			[
+				"inde",
+				"dev\\public\\index.html"
+			],
+			[
+				"item.html",
+				"pages\\lost-and-found-app-item.html"
+			],
+			[
+				"main.",
+				"routes\\main.js"
+			],
+			[
+				"myi",
+				"directives\\my\\myInput\\myInput.html"
+			],
+			[
+				"myin",
+				"directives\\my\\myInput\\myInput.js"
+			],
+			[
+				"myinput",
+				"directives\\my\\myInput\\myInput.js"
+			],
+			[
+				"myform",
+				"directives\\my\\myForm\\myForm.html"
+			],
+			[
+				"editem.htm",
+				"pages\\lost-and-found-app-editem.html"
+			],
+			[
+				"main.edite",
+				"routes\\main.editem.js"
+			],
+			[
+				"report.ht",
+				"pages\\lost-and-found-app-report.html"
+			],
+			[
+				"main.report",
+				"routes\\main.report.js"
 			],
 			[
 				"hardd",
 				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
+			],
+			[
+				"itemform",
+				"directives\\^\\forms\\itemForm\\itemForm.html"
+			],
+			[
+				"main.edit",
+				"routes\\main.editem.js"
+			],
+			[
+				"main.repor",
+				"routes\\main.report.js"
+			],
+			[
+				"report.htm",
+				"pages\\lost-and-found-app-report.html"
+			],
+			[
+				"item.scss",
+				"sass\\pages\\lost-and-found-app-item.scss"
+			],
+			[
+				"apps",
+				"dev\\unminified\\appScripts.js"
+			],
+			[
+				"report.html",
+				"pages\\lost-and-found-app-report.html"
+			],
+			[
+				"index.htm",
+				"dev\\public\\index.html"
+			],
+			[
+				".env",
+				"dev\\.env"
+			],
+			[
+				"mycol",
+				"factories\\class\\MyCollectionSelector.js"
+			],
+			[
+				"itemsc",
+				"directives\\ITEM\\items\\itemsConf.js"
+			],
+			[
+				"itemsr",
+				"directives\\ITEM\\items\\ItemsRest.js"
 			],
 			[
 				"itemphotosc",
@@ -1216,36 +1467,16 @@
 				"directives\\USER\\userAvatar\\userAvatar.js"
 			],
 			[
-				"items.htm",
-				"directives\\ITEM\\items\\items.html"
-			],
-			[
-				"itemf",
-				"directives\\^\\forms\\itemForm\\itemForm.js"
-			],
-			[
 				"hard",
 				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
-			],
-			[
-				"itema",
-				"directives\\ITEM\\itemAvatar\\itemAvatar.js"
 			],
 			[
 				"mycolle",
 				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
 			],
 			[
-				"items.scs",
-				"directives\\ITEM\\items\\items.scss"
-			],
-			[
 				"userava",
 				"dev\\directives\\USER\\userAvatar\\userAvatar.scss"
-			],
-			[
-				"item.scs",
-				"directives\\ITEM\\items\\items.scss"
 			],
 			[
 				"useravatarc",
@@ -1256,32 +1487,16 @@
 				"routes\\main.profile.js"
 			],
 			[
-				"main.sea",
-				"routes\\main.search.js"
-			],
-			[
 				"appc",
 				"controllers\\AppController.js"
-			],
-			[
-				"main.item",
-				"routes\\main.item.js"
 			],
 			[
 				"mycon",
 				"directives\\my\\myContextMenu\\myContextMenu.html"
 			],
 			[
-				"item.htm",
-				"pages\\lost-and-found-app-item.html"
-			],
-			[
 				"mylo",
 				"directives\\my\\myLoader\\myLoader.scss"
-			],
-			[
-				"mainc",
-				"controllers\\MainController.js"
 			],
 			[
 				"myloa",
@@ -1296,16 +1511,8 @@
 				"services\\ui.js"
 			],
 			[
-				"search.html",
-				"pages\\lost-and-found-app-search.html"
-			],
-			[
 				"mysrc",
 				"directives\\my\\mySrc\\mySrc.js"
-			],
-			[
-				"editem.htm",
-				"pages\\lost-and-found-app-editem.html"
 			],
 			[
 				"reportf",
@@ -1320,23 +1527,11 @@
 				"configuration\\mainFrameConf.js"
 			],
 			[
-				"report.htm",
-				"pages\\lost-and-found-app-report.html"
-			],
-			[
 				"mycollee",
 				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
 			],
 			[
-				"items.scss",
-				"directives\\ITEM\\items\\items.scss"
-			],
-			[
 				"items.hm",
-				"directives\\ITEM\\items\\items.html"
-			],
-			[
-				"items.h",
 				"directives\\ITEM\\items\\items.html"
 			],
 			[
@@ -1376,40 +1571,20 @@
 				"routes\\main.profile.js"
 			],
 			[
-				"itemss",
-				"directives\\ITEM\\items\\itemsService.js"
-			],
-			[
 				"posti",
 				"dev\\server\\actions\\Item\\postItem.js"
-			],
-			[
-				"myform",
-				"factories\\class\\MyForm.js"
 			],
 			[
 				"myformm",
 				"factories\\class\\MyFormModel.js"
 			],
 			[
-				"main.report",
-				"routes\\main.report.js"
-			],
-			[
 				"form",
 				"directives\\^\\btns\\formActionBtns\\formActionBtns.html"
 			],
 			[
-				"run",
-				"dev\\scripts\\run.js"
-			],
-			[
 				"main.pro",
 				"routes\\main.profile.js"
-			],
-			[
-				"main.js",
-				"routes\\main.js"
 			],
 			[
 				"main.edi",
@@ -1440,10 +1615,6 @@
 				"directives\\^\\btns\\formActionBtns\\formActionBtns.js"
 			],
 			[
-				"myin",
-				"directives\\my\\myInput\\myInput.html"
-			],
-			[
 				"myformd",
 				"factories\\class\\MyFormModel.js"
 			],
@@ -1458,10 +1629,6 @@
 			[
 				"appear",
 				"directives\\^\\forms\\appearanceForm\\appearanceForm.js"
-			],
-			[
-				"myi",
-				"directives\\my\\myInput\\myInput.html"
 			],
 			[
 				"itemschema",
@@ -1572,16 +1739,8 @@
 				"routes\\main.profile.js"
 			],
 			[
-				"main.scss",
-				"sass\\pages\\lost-and-found-app-main.scss"
-			],
-			[
 				"variables",
 				"dev\\node_modules\\bootstrap\\less\\variables.less"
-			],
-			[
-				"main.htm",
-				"pages\\lost-and-found-app-main.html"
 			],
 			[
 				"index",
@@ -1594,70 +1753,6 @@
 			[
 				"userc",
 				"controllers\\UserController.js"
-			],
-			[
-				"mypage",
-				"directives\\my\\myPage\\myPage.scss"
-			],
-			[
-				"myta",
-				"directives\\my\\myTabs\\myTabs.html"
-			],
-			[
-				"_variables",
-				"auction-house\\dev\\node_modules\\bootstrap\\less\\variables.less"
-			],
-			[
-				"myel",
-				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
-			],
-			[
-				"mypan",
-				"directives\\my\\myPanel\\myPanel.scss"
-			],
-			[
-				"mypane",
-				"directives\\my\\myPanel\\myPanel.html"
-			],
-			[
-				"user.scs",
-				"sass\\pages\\auction-house-user.scss"
-			],
-			[
-				"mypa",
-				"directives\\my\\myPage\\myPage.js"
-			],
-			[
-				"mypag",
-				"directives\\my\\myPage\\myPage.html"
-			],
-			[
-				"auction.htm",
-				"pages\\auction-house-auction.html"
-			],
-			[
-				"user.htm",
-				"pages\\auction-house-user.html"
-			],
-			[
-				"report.ht",
-				"pages\\auction-house-report.html"
-			],
-			[
-				"search.scs",
-				"sass\\pages\\auction-house-search.scss"
-			],
-			[
-				"search.thm",
-				"pages\\auction-house-search.html"
-			],
-			[
-				"mypanel.scs",
-				"directives\\my\\myPanel\\myPanel.scss"
-			],
-			[
-				"settings.htm",
-				"pages\\auction-house-settings.html"
 			]
 		],
 		"width": 0.0

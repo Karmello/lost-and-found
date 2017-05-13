@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"re",
+				"required"
+			],
+			[
 				"cont",
 				"contactType"
 			],
@@ -106,10 +110,6 @@
 			[
 				"ju",
 				"justify-content"
-			],
-			[
-				"re",
-				"reject"
 			],
 			[
 				"comme",
@@ -526,6 +526,24 @@
 				"buffer_size": 1507,
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/server/actions/Item/postItem.js",
+			"settings":
+			{
+				"buffer_size": 284,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+			"settings":
+			{
+				"buffer_size": 2178,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -608,6 +626,7 @@
 	[
 		"/D/Workspace/laf/dev/server",
 		"/D/Workspace/laf/dev/server/actions",
+		"/D/Workspace/laf/dev/server/actions/AppConfig",
 		"/D/Workspace/laf/dev/server/actions/Item"
 	],
 	"file_history":
@@ -1097,7 +1116,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1128,10 +1147,99 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
 								}
 							],
 							"bs_sintax": "javascript",
 							"buffer_scroll_name": "9419946a",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/server/actions/Item/postItem.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 284,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								184,
+								184
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "0eadcd17",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2178,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								357,
+								357
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "1e587dd5",
 							"spell_check": false,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
@@ -1206,6 +1314,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"items",
+				"schemas\\ItemSchema.js"
+			],
 			[
 				"setupc",
 				"dev\\server\\setups\\setupConstants.js"
@@ -1285,10 +1397,6 @@
 			[
 				"profile.scss",
 				"sass\\pages\\lost-and-found-app-profile.scss"
-			],
-			[
-				"items",
-				"directives\\ITEM\\items\\items.js"
 			],
 			[
 				"myload",
@@ -1746,7 +1854,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 291.0,
 	"status_bar_visible": true,
 	"template_settings":

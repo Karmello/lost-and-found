@@ -282,28 +282,6 @@ body .form-group {
   max-width: 700px;
   margin: 0 auto; }
 
-.itemAvatar .mySrc img {
-  width: 200px;
-  object-fit: cover; }
-
-.itemIconMenu > div {
-  display: table-cell; }
-  .itemIconMenu > div.public .myPopOverIcon .glyphicon {
-    color: #333333; }
-
-.itemPhotos img {
-  max-width: 200px;
-  max-height: 200px; }
-
-.items #actionBtns {
-  margin-bottom: 25px; }
-
-.items .myCollectionElem {
-  background-color: #d9534f; }
-
-.items .isFound .myCollectionElem {
-  background-color: #5cb85c; }
-
 .myAlert {
   display: table;
   margin: 0 auto;
@@ -725,6 +703,28 @@ body .form-group {
 .myTabs h5 {
   margin-left: 10px;
   margin-right: 10px; }
+
+.itemAvatar .mySrc img {
+  width: 200px;
+  object-fit: cover; }
+
+.itemIconMenu > div {
+  display: table-cell; }
+  .itemIconMenu > div.public .myPopOverIcon .glyphicon {
+    color: #333333; }
+
+.itemPhotos img {
+  max-width: 200px;
+  max-height: 200px; }
+
+.items #actionBtns {
+  margin-bottom: 25px; }
+
+.items .myCollectionElem {
+  background-color: #d9534f; }
+
+.items .isFound .myCollectionElem {
+  background-color: #5cb85c; }
 
 .userAvatar {
   display: table;

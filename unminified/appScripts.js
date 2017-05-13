@@ -888,6 +888,670 @@
 })();
 (function() {
 
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('guest.1', {
+			url: '/guest/:tab?action',
+			resolve: {
+				tab: function(countries, $q, $state, $stateParams, ui) {
+
+					return $q(function(resolve, reject) {
+
+						var availableParams = ui.tabs.guest.switcherIds;
+
+						// Valid tab
+						if (availableParams.indexOf($stateParams.tab) > -1) {
+							resolve();
+
+						// Invalid tab
+						} else {
+
+							$state.go('guest.1', { tab: 'login' }, { location: 'replace' });
+						}
+	    			});
+				},
+				authentication: function(tab, $q, $state, $stateParams, authService) {
+
+					return $q(function(resolve) {
+
+						authService.authenticate(function(success) {
+
+							if (success && $stateParams.tab != 'status') {
+								$state.go('guest.1', { tab: 'status' }, { location: 'replace' });
+
+							} else {
+								resolve();
+							}
+						});
+					});
+				}
+			},
+			onEnter: function($state, $stateParams, $timeout, ui) {
+
+				ui.tabs.guest.activateSwitcher($stateParams.tab);
+				ui.frames.main.activateSwitcher();
+
+				$timeout(function() {
+
+					if ($state.params.action == 'deactivation') {
+
+						$timeout(function() {
+							ui.modals.deactivationDoneModal.show();
+						}, 500);
+					}
+
+				}, 2500);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('guest', {
+			abstract: true,
+			views: {
+				view1: { templateUrl: 'public/pages/lost-and-found-app-guest.html' }
+			},
+			resolve: {
+				captchaApi: function($q, ui, utilService) {
+
+					return $q(function(resolve, reject) {
+
+						try {
+							if (grecaptcha) { resolve(); }
+
+						} catch (ex) {
+							window.captchaApiLoaded = function() { resolve(); };
+							utilService.loadScript('https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit');
+						}
+					});
+				},
+				countries: function(captchaApi, $q, $rootScope, ui, fileService) {
+
+					return $q(function(resolve, reject) {
+
+						if (fileService.countries.data) {
+							resolve();
+
+						} else {
+
+							fileService.countries.readFile(function(success) {
+
+								if (success) {
+									fileService.countries.alterData(function() {
+										resolve();
+									});
+
+								} else {
+
+									ui.loaders.renderer.stop(function() {
+										$rootScope.ui.modals.tryToRefreshModal.show();
+									});
+								}
+							});
+						}
+					});
+				}
+			},
+			onEnter: function($rootScope, $state, $timeout, ui) {
+
+				$timeout(function() {
+
+					if ($state.params.tab == 'login' && $state.params.action == 'pass_reset') {
+
+						$timeout(function() {
+							$rootScope.ui.modals.passResetDoneModal.show();
+						}, 500);
+					}
+
+				}, 2500);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.about', {
+			url: '/about',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('about');
+				ui.menus.top.activateSwitcher('about');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.contact', {
+			url: '/contact',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('contact');
+				ui.menus.top.activateSwitcher('contact');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.editem', {
+			url: '/editem?id',
+			resolve: {
+				getItem: function(itemCategories, $q, $stateParams, ItemsRest) {
+
+					return $q(function(resolve) {
+
+						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(res.data[0]);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				}
+			},
+			onEnter: function(getItem, $rootScope, $timeout, ui) {
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
+
+				$timeout(function() {
+
+					$rootScope.$broadcast('editItem', { item: getItem });
+
+					ui.menus.top.activateSwitcher();
+
+					if (getItem) {
+						ui.frames.main.activateSwitcher('editem');
+
+					} else {
+						ui.frames.main.activateSwitcher();
+						ui.modals.tryAgainLaterModal.show();
+					}
+
+				}, timeout);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.help', {
+			url: '/help',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('help');
+				ui.menus.top.activateSwitcher('help');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.home', {
+			url: '/home',
+			onEnter: function(ui) {
+
+				ui.menus.top.activateSwitcher('home');
+				ui.frames.main.activateSwitcher('home');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.item', {
+			url: '/item?id',
+			views: {
+				tab: {
+					templateUrl: 'public/pages/lost-and-found-app-item-tab.html'
+				}
+			},
+			resolve: {
+				getItem: function(itemCategories, $stateParams, $q, ItemsRest) {
+
+					return $q(function(resolve) {
+
+						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(res.data[0]);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				},
+				getUser: function(getItem, $stateParams, $q, UsersRest) {
+
+					return $q(function(resolve) {
+
+						UsersRest.getList({ itemId: $stateParams.id }).then(function() {
+							resolve(true);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				}
+			},
+			onEnter: function(getItem, getUser, $timeout, googleMapService, ui) {
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
+
+				$timeout(function() {
+
+					ui.menus.top.activateSwitcher();
+
+					if (getItem && getUser) {
+						ui.frames.main.activateSwitcher('item');
+						googleMapService.initItemMap(getItem.placeId);
+
+					} else {
+						ui.frames.main.activateSwitcher();
+						ui.modals.tryAgainLaterModal.show();
+					}
+
+				}, timeout);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.item.tab', {
+			url: '/:tab',
+			onEnter: function($stateParams, ui) {
+
+				ui.tabs.item.activateSwitcher($stateParams.tab);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main', {
+			abstract: true,
+			views: {
+				view1: { templateUrl: 'public/pages/lost-and-found-app-main.html' }
+			},
+			resolve: {
+				authentication: function($timeout, $state, $q, authService, ui) {
+
+					return $q(function(resolve, reject) {
+
+						authService.authenticate(function(success, res) {
+
+							if (success) {
+								resolve();
+
+							} else {
+								$timeout(function() { $state.go('guest.1', { tab: 'login' }, { location: 'replace' }); });
+							}
+						});
+					});
+				},
+				openExchangeRates: function(authentication, $rootScope, $q, ui, exchangeRateService) {
+
+					return $q(function(resolve, reject) {
+
+						var promises = [];
+
+						angular.forEach(exchangeRateService.config.availableRates, function(rate, rateKey) {
+
+							var promise = $q(function(resolve, reject) {
+
+								$.getJSON(exchangeRateService.config.api + rateKey + '&callback=?').then(function(data) {
+									exchangeRateService.data[rateKey] = data;
+									resolve(true);
+
+								}, function() {
+									resolve(false);
+								});
+							});
+
+							promises.push(promise);
+						});
+
+						$q.all(promises).then(function(results) {
+
+							if (results.indexOf(false) == -1) {
+								resolve();
+
+							} else {
+
+								ui.loaders.renderer.stop(function() {
+									$rootScope.ui.modals.tryToRefreshModal.show();
+								});
+							}
+						});
+					});
+				},
+				countries: function(openExchangeRates, $rootScope, $q, ui, fileService) {
+
+					return $q(function(resolve, reject) {
+
+						if (fileService.countries.data) {
+							resolve();
+
+						} else {
+
+							fileService.countries.readFile(function(success) {
+
+								if (success) {
+									fileService.countries.alterData(function() {
+										resolve();
+									});
+
+								} else {
+
+									ui.loaders.renderer.stop(function() {
+										$rootScope.ui.modals.tryToRefreshModal.show();
+									});
+								}
+							});
+						}
+					});
+				},
+				deactivationReasons: function(countries, $rootScope, $q, $filter, DeactivationReasonsRest) {
+					return $q(function(resolve) {
+
+						DeactivationReasonsRest.getList().then(function(res) {
+							$rootScope.apiData.deactivationReasons = $filter('orderBy')(res.data.plain(), 'index');
+							resolve(true);
+
+						}, function() {
+							$rootScope.apiData.deactivationReasons = undefined;
+							resolve(false);
+						});
+					});
+				},
+				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
+					return $q(function(resolve) {
+
+						ContactTypesRest.getList().then(function(res) {
+							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
+							resolve(true);
+
+						}, function() {
+							$rootScope.apiData.contactTypes = undefined;
+							resolve(false);
+						});
+					});
+				},
+				itemCategories: function(contactTypes, $q, $rootScope, ItemCategoriesRest, ui) {
+
+					return $q(function(resolve, reject) {
+
+						ItemCategoriesRest.getList().then(function(res) {
+
+							$rootScope.apiData.itemCategories = res.data.plain();
+							resolve();
+
+						}, function() {
+
+							ui.loaders.renderer.stop(function() {
+								$rootScope.ui.modals.tryToRefreshModal.show();
+							});
+						});
+					});
+				}
+			},
+			onEnter: function($timeout, ui) {
+
+				// Resetting settingsListGroup
+				ui.listGroups.settings.getFirstSwitcher().activate();
+
+				// Resetting settingsListGroup tabs
+				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+					ui.tabs[switcher._id].getFirstSwitcher().activate();
+				});
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.profile', {
+			url: '/profile?id',
+			resolve: {
+				getUser: function(itemCategories, $stateParams, $q, UsersRest) {
+
+					return $q(function(resolve) {
+
+						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
+							resolve(true);
+
+						}, function() {
+							resolve(false);
+						});
+					});
+				}
+			},
+			onEnter: function(getUser, $rootScope, $timeout, ui) {
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
+
+				$timeout(function() {
+
+					ui.menus.top.activateSwitcher();
+
+					if (getUser) {
+						ui.frames.main.activateSwitcher('profile');
+
+					} else {
+						ui.frames.main.activateSwitcher();
+						ui.modals.tryAgainLaterModal.show();
+					}
+
+				}, timeout);
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.report', {
+			url: '/report',
+			resolve: {
+				_ui: function(itemCategories, $q, ui)	 {
+
+					return $q(function(resolve) {
+
+						ui.menus.top.activateSwitcher('report');
+						ui.frames.main.activateSwitcher('report');
+						resolve();
+					});
+				}
+			},
+			onEnter: function() {}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.search', {
+			url: '/search',
+			resolve: {
+				_ui: function(itemCategories, $q, ui) {
+
+					return $q(function(resolve) {
+
+						ui.menus.top.activateSwitcher('search');
+						ui.frames.main.activateSwitcher('search');
+
+						resolve();
+					});
+				}
+			},
+			onEnter: function($rootScope) {
+
+
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.settings1', {
+			url: '/settings',
+			resolve: {
+				redirection: function($q, $timeout, $state, ui) {
+
+					return $q(function() {
+
+						// Setting catId and subcatId and going to main.setting3 state
+
+						var catId = ui.listGroups.settings.activeSwitcherId;
+
+						$timeout(function() {
+							$state.go('main.settings3', {
+								catId: catId,
+								subcatId: ui.tabs[catId].activeSwitcherId
+							}, { location: 'replace' });
+						});
+					});
+				}
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.settings2', {
+			url: '/settings/:catId',
+			resolve: {
+				catId: function($timeout, $q, $state, $stateParams, ui) {
+
+					return $q(function(resolve, reject) {
+
+						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
+
+						settingsSwitcher.validateCatId($stateParams, ui).then(function(validCatId) {
+
+							if (validCatId) {
+								resolve();
+
+							} else {
+
+								$timeout(function() {
+									$state.go('main.settings1', {}, { location: 'replace' });
+								});
+							}
+						});
+					});
+				},
+				redirection: function(catId, $timeout, $state, $stateParams, ui) {
+
+					// Setting subcatId and going to main.setting3 state
+
+					$timeout(function() {
+						$state.go('main.settings3', {
+							catId: $stateParams.catId,
+							subcatId: ui.tabs[$stateParams.catId].activeSwitcherId
+						}, { location: 'replace' });
+					});
+				}
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('main.settings3', {
+			url: '/settings/:catId/:subcatId',
+			resolve: {
+				params: function($timeout, $q, $state, $stateParams, ui) {
+
+					return $q(function(resolve, reject) {
+
+						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
+
+						$q.all([
+							settingsSwitcher.validateCatId($stateParams, ui),
+							settingsSwitcher.validateSubcatId($stateParams, ui)
+
+						]).then(function(results) {
+
+							if (!results[0]) {
+
+								$timeout(function() {
+									$state.go('main.settings1', {}, { location: 'replace' });
+								});
+
+							} else if (!results[1]) {
+
+								$timeout(function() {
+									$state.go('main.settings2', { catId: $stateParams.catId }, { location: 'replace' });
+								});
+
+							} else { resolve(); }
+						});
+					});
+				}
+			},
+			onEnter: function($stateParams, ui) {
+
+				ui.menus.top.activateSwitcher('settings');
+
+				ui.listGroups.settings.activateSwitcher($stateParams.catId);
+				ui.dropdowns.settingsCategories.activateSwitcher($stateParams.catId);
+				ui.tabs[$stateParams.catId].activateSwitcher($stateParams.subcatId);
+
+				ui.frames.main.activateSwitcher('settings');
+			}
+		});
+	});
+
+})();
+(function() {
+
 	'use strict';
 
 	var apiService = function($rootScope, $window, $timeout, $moment, storageService, itemsConf, commentsConf, Restangular) {
@@ -2014,670 +2678,6 @@
 
 	utilService.$inject = [];
 	angular.module('appModule').service('utilService', utilService);
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('guest.1', {
-			url: '/guest/:tab?action',
-			resolve: {
-				tab: function(countries, $q, $state, $stateParams, ui) {
-
-					return $q(function(resolve, reject) {
-
-						var availableParams = ui.tabs.guest.switcherIds;
-
-						// Valid tab
-						if (availableParams.indexOf($stateParams.tab) > -1) {
-							resolve();
-
-						// Invalid tab
-						} else {
-
-							$state.go('guest.1', { tab: 'login' }, { location: 'replace' });
-						}
-	    			});
-				},
-				authentication: function(tab, $q, $state, $stateParams, authService) {
-
-					return $q(function(resolve) {
-
-						authService.authenticate(function(success) {
-
-							if (success && $stateParams.tab != 'status') {
-								$state.go('guest.1', { tab: 'status' }, { location: 'replace' });
-
-							} else {
-								resolve();
-							}
-						});
-					});
-				}
-			},
-			onEnter: function($state, $stateParams, $timeout, ui) {
-
-				ui.tabs.guest.activateSwitcher($stateParams.tab);
-				ui.frames.main.activateSwitcher();
-
-				$timeout(function() {
-
-					if ($state.params.action == 'deactivation') {
-
-						$timeout(function() {
-							ui.modals.deactivationDoneModal.show();
-						}, 500);
-					}
-
-				}, 2500);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('guest', {
-			abstract: true,
-			views: {
-				view1: { templateUrl: 'public/pages/lost-and-found-app-guest.html' }
-			},
-			resolve: {
-				captchaApi: function($q, ui, utilService) {
-
-					return $q(function(resolve, reject) {
-
-						try {
-							if (grecaptcha) { resolve(); }
-
-						} catch (ex) {
-							window.captchaApiLoaded = function() { resolve(); };
-							utilService.loadScript('https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit');
-						}
-					});
-				},
-				countries: function(captchaApi, $q, $rootScope, ui, fileService) {
-
-					return $q(function(resolve, reject) {
-
-						if (fileService.countries.data) {
-							resolve();
-
-						} else {
-
-							fileService.countries.readFile(function(success) {
-
-								if (success) {
-									fileService.countries.alterData(function() {
-										resolve();
-									});
-
-								} else {
-
-									ui.loaders.renderer.stop(function() {
-										$rootScope.ui.modals.tryToRefreshModal.show();
-									});
-								}
-							});
-						}
-					});
-				}
-			},
-			onEnter: function($rootScope, $state, $timeout, ui) {
-
-				$timeout(function() {
-
-					if ($state.params.tab == 'login' && $state.params.action == 'pass_reset') {
-
-						$timeout(function() {
-							$rootScope.ui.modals.passResetDoneModal.show();
-						}, 500);
-					}
-
-				}, 2500);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.about', {
-			url: '/about',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('about');
-				ui.menus.top.activateSwitcher('about');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.contact', {
-			url: '/contact',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('contact');
-				ui.menus.top.activateSwitcher('contact');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.editem', {
-			url: '/editem?id',
-			resolve: {
-				getItem: function(itemCategories, $q, $stateParams, ItemsRest) {
-
-					return $q(function(resolve) {
-
-						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
-							resolve(res.data[0]);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				}
-			},
-			onEnter: function(getItem, $rootScope, $timeout, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					$rootScope.$broadcast('editItem', { item: getItem });
-
-					ui.menus.top.activateSwitcher();
-
-					if (getItem) {
-						ui.frames.main.activateSwitcher('editem');
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.help', {
-			url: '/help',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('help');
-				ui.menus.top.activateSwitcher('help');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.home', {
-			url: '/home',
-			onEnter: function(ui) {
-
-				ui.menus.top.activateSwitcher('home');
-				ui.frames.main.activateSwitcher('home');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.item', {
-			url: '/item?id',
-			views: {
-				tab: {
-					templateUrl: 'public/pages/lost-and-found-app-item-tab.html'
-				}
-			},
-			resolve: {
-				getItem: function(itemCategories, $stateParams, $q, ItemsRest) {
-
-					return $q(function(resolve) {
-
-						ItemsRest.getList({ _id: $stateParams.id }).then(function(res) {
-							resolve(res.data[0]);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				},
-				getUser: function(getItem, $stateParams, $q, UsersRest) {
-
-					return $q(function(resolve) {
-
-						UsersRest.getList({ itemId: $stateParams.id }).then(function() {
-							resolve(true);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				}
-			},
-			onEnter: function(getItem, getUser, $timeout, googleMapService, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					ui.menus.top.activateSwitcher();
-
-					if (getItem && getUser) {
-						ui.frames.main.activateSwitcher('item');
-						googleMapService.initItemMap(getItem.placeId);
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.item.tab', {
-			url: '/:tab',
-			onEnter: function($stateParams, ui) {
-
-				ui.tabs.item.activateSwitcher($stateParams.tab);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main', {
-			abstract: true,
-			views: {
-				view1: { templateUrl: 'public/pages/lost-and-found-app-main.html' }
-			},
-			resolve: {
-				authentication: function($timeout, $state, $q, authService, ui) {
-
-					return $q(function(resolve, reject) {
-
-						authService.authenticate(function(success, res) {
-
-							if (success) {
-								resolve();
-
-							} else {
-								$timeout(function() { $state.go('guest.1', { tab: 'login' }, { location: 'replace' }); });
-							}
-						});
-					});
-				},
-				openExchangeRates: function(authentication, $rootScope, $q, ui, exchangeRateService) {
-
-					return $q(function(resolve, reject) {
-
-						var promises = [];
-
-						angular.forEach(exchangeRateService.config.availableRates, function(rate, rateKey) {
-
-							var promise = $q(function(resolve, reject) {
-
-								$.getJSON(exchangeRateService.config.api + rateKey + '&callback=?').then(function(data) {
-									exchangeRateService.data[rateKey] = data;
-									resolve(true);
-
-								}, function() {
-									resolve(false);
-								});
-							});
-
-							promises.push(promise);
-						});
-
-						$q.all(promises).then(function(results) {
-
-							if (results.indexOf(false) == -1) {
-								resolve();
-
-							} else {
-
-								ui.loaders.renderer.stop(function() {
-									$rootScope.ui.modals.tryToRefreshModal.show();
-								});
-							}
-						});
-					});
-				},
-				countries: function(openExchangeRates, $rootScope, $q, ui, fileService) {
-
-					return $q(function(resolve, reject) {
-
-						if (fileService.countries.data) {
-							resolve();
-
-						} else {
-
-							fileService.countries.readFile(function(success) {
-
-								if (success) {
-									fileService.countries.alterData(function() {
-										resolve();
-									});
-
-								} else {
-
-									ui.loaders.renderer.stop(function() {
-										$rootScope.ui.modals.tryToRefreshModal.show();
-									});
-								}
-							});
-						}
-					});
-				},
-				deactivationReasons: function(countries, $rootScope, $q, $filter, DeactivationReasonsRest) {
-					return $q(function(resolve) {
-
-						DeactivationReasonsRest.getList().then(function(res) {
-							$rootScope.apiData.deactivationReasons = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.deactivationReasons = undefined;
-							resolve(false);
-						});
-					});
-				},
-				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
-					return $q(function(resolve) {
-
-						ContactTypesRest.getList().then(function(res) {
-							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.contactTypes = undefined;
-							resolve(false);
-						});
-					});
-				},
-				itemCategories: function(contactTypes, $q, $rootScope, ItemCategoriesRest, ui) {
-
-					return $q(function(resolve, reject) {
-
-						ItemCategoriesRest.getList().then(function(res) {
-
-							$rootScope.apiData.itemCategories = res.data.plain();
-							resolve();
-
-						}, function() {
-
-							ui.loaders.renderer.stop(function() {
-								$rootScope.ui.modals.tryToRefreshModal.show();
-							});
-						});
-					});
-				}
-			},
-			onEnter: function($timeout, ui) {
-
-				// Resetting settingsListGroup
-				ui.listGroups.settings.getFirstSwitcher().activate();
-
-				// Resetting settingsListGroup tabs
-				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-					ui.tabs[switcher._id].getFirstSwitcher().activate();
-				});
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.profile', {
-			url: '/profile?id',
-			resolve: {
-				getUser: function(itemCategories, $stateParams, $q, UsersRest) {
-
-					return $q(function(resolve) {
-
-						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
-							resolve(true);
-
-						}, function() {
-							resolve(false);
-						});
-					});
-				}
-			},
-			onEnter: function(getUser, $rootScope, $timeout, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					ui.menus.top.activateSwitcher();
-
-					if (getUser) {
-						ui.frames.main.activateSwitcher('profile');
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.report', {
-			url: '/report',
-			resolve: {
-				_ui: function(itemCategories, $q, ui)	 {
-
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher('report');
-						ui.frames.main.activateSwitcher('report');
-						resolve();
-					});
-				}
-			},
-			onEnter: function() {}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.search', {
-			url: '/search',
-			resolve: {
-				_ui: function(itemCategories, $q, ui) {
-
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher('search');
-						ui.frames.main.activateSwitcher('search');
-
-						resolve();
-					});
-				}
-			},
-			onEnter: function($rootScope) {
-
-
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.settings1', {
-			url: '/settings',
-			resolve: {
-				redirection: function($q, $timeout, $state, ui) {
-
-					return $q(function() {
-
-						// Setting catId and subcatId and going to main.setting3 state
-
-						var catId = ui.listGroups.settings.activeSwitcherId;
-
-						$timeout(function() {
-							$state.go('main.settings3', {
-								catId: catId,
-								subcatId: ui.tabs[catId].activeSwitcherId
-							}, { location: 'replace' });
-						});
-					});
-				}
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.settings2', {
-			url: '/settings/:catId',
-			resolve: {
-				catId: function($timeout, $q, $state, $stateParams, ui) {
-
-					return $q(function(resolve, reject) {
-
-						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
-
-						settingsSwitcher.validateCatId($stateParams, ui).then(function(validCatId) {
-
-							if (validCatId) {
-								resolve();
-
-							} else {
-
-								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
-								});
-							}
-						});
-					});
-				},
-				redirection: function(catId, $timeout, $state, $stateParams, ui) {
-
-					// Setting subcatId and going to main.setting3 state
-
-					$timeout(function() {
-						$state.go('main.settings3', {
-							catId: $stateParams.catId,
-							subcatId: ui.tabs[$stateParams.catId].activeSwitcherId
-						}, { location: 'replace' });
-					});
-				}
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.settings3', {
-			url: '/settings/:catId/:subcatId',
-			resolve: {
-				params: function($timeout, $q, $state, $stateParams, ui) {
-
-					return $q(function(resolve, reject) {
-
-						var settingsSwitcher = ui.frames.main.getSwitcher('_id', 'settings');
-
-						$q.all([
-							settingsSwitcher.validateCatId($stateParams, ui),
-							settingsSwitcher.validateSubcatId($stateParams, ui)
-
-						]).then(function(results) {
-
-							if (!results[0]) {
-
-								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
-								});
-
-							} else if (!results[1]) {
-
-								$timeout(function() {
-									$state.go('main.settings2', { catId: $stateParams.catId }, { location: 'replace' });
-								});
-
-							} else { resolve(); }
-						});
-					});
-				}
-			},
-			onEnter: function($stateParams, ui) {
-
-				ui.menus.top.activateSwitcher('settings');
-
-				ui.listGroups.settings.activateSwitcher($stateParams.catId);
-				ui.dropdowns.settingsCategories.activateSwitcher($stateParams.catId);
-				ui.tabs[$stateParams.catId].activateSwitcher($stateParams.subcatId);
-
-				ui.frames.main.activateSwitcher('settings');
-			}
-		});
-	});
 
 })();
 (function() {
@@ -4658,40 +4658,6 @@
 
 
 
-	appModule.directive('itemSearchForm', function($rootScope, myClass) {
-
-		var itemSearchForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/itemSearchForm/itemSearchForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.itemCategories = $rootScope.apiData.itemCategories;
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'itemSearchForm',
-					noLoader: true,
-					model: $rootScope.globalFormModels.itemSearchModel,
-					submitAction: function(args) {
-
-						$rootScope.$broadcast('initSearchItems');
-					}
-				});
-			}
-		};
-
-		return itemSearchForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('loginForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
 
 		var loginForm = {
@@ -4731,6 +4697,40 @@
 		};
 
 		return loginForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('itemSearchForm', function($rootScope, myClass) {
+
+		var itemSearchForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/itemSearchForm/itemSearchForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.itemCategories = $rootScope.apiData.itemCategories;
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'itemSearchForm',
+					noLoader: true,
+					model: $rootScope.globalFormModels.itemSearchModel,
+					submitAction: function(args) {
+
+						$rootScope.$broadcast('initSearchItems');
+					}
+				});
+			}
+		};
+
+		return itemSearchForm;
 	});
 
 })();
@@ -5306,6 +5306,1001 @@
 
 	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
 	angular.module('appModule').service('commentsConf', commentsConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myAlert', function() {
+
+		var myAlert = {
+			restrict: 'E',
+			template: '<div class="myAlert alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
+			scope: {
+				ctrlClass: "=",
+				hardData: '='
+			}
+		};
+
+		return myAlert;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myBtn', function($rootScope) {
+
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'public/directives/my/myBtn/myBtn.html',
+			scope: {
+				ctrlClass: '=',
+				clickAction: '=',
+				clickArgs: '=',
+				clickContext: '=',
+				showModalId: '@',
+				explicitLabel: '=',
+				hardData: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (scope.showModalId) {
+
+						scope.onClick = function() {
+							$rootScope.$broadcast(scope.showModalId);
+						};
+
+					} else if (typeof scope.clickAction == 'function') {
+
+						scope.onClick = function() {
+
+							if (scope.clickContext) {
+								scope.clickAction.call(scope.clickContext, scope.clickArgs);
+
+							} else {
+								scope.clickAction(scope.clickArgs);
+							}
+						};
+					}
+				};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myCaptcha', function($timeout, grecaptchaService) {
+
+		var myCaptcha = {
+			restrict: 'E',
+			template: '<div id="{{ ctrlId }}" ng-show="visible" style="margin-bottom: 20px;" my-directive></div>',
+			scope: {
+				ctrlId: '=',
+				actionName: '='
+			},
+			controller: function($scope, $timeout) {
+
+				$timeout(function() {
+
+					// Loading captcha
+					$scope.grecaptchaId = grecaptchaService.load($scope.ctrlId, $scope.actionName, function() {
+
+						// When captcha resolved callback
+						$timeout(function() { $scope.visible = false; }, 1000);
+					});
+				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					// Getting parent form scope
+					var form = $(elem).parents('.myForm:first');
+					var formScope = $(form).scope();
+
+					scope.$watch('visible', function(newValue) {
+						if (newValue === true) { grecaptchaService.reset(scope.grecaptchaId); }
+					});
+
+
+
+					$timeout(function() {
+
+						// Setting initial captcha visibility
+						grecaptchaService.shouldBeVisible(scope.ctrlId, function(visible) {
+							formScope.captcha = scope;
+							scope.visible = visible;
+						});
+					});
+				};
+			}
+		};
+
+		return myCaptcha;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myCollectionBrowser', function($rootScope) {
+
+		var myCollectionBrowser = {
+			restrict: 'E',
+			transclude: {
+				frontctrls: '?frontctrls',
+				endctrls: '?endctrls',
+				extractrls: '?extractrls',
+				elems: '?elems',
+			},
+			templateUrl: 'public/directives/my/myCollectionBrowser/myCollectionBrowser.html',
+			scope: {
+				ins: '=',
+				noScrollTopBtn: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+			}
+		};
+
+		return myCollectionBrowser;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myCollectionElem', function($rootScope, MySwitchable) {
+
+		var myCollectionElem = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myCollectionElem/myCollectionElem.html',
+			transclude: {
+				titleSection: '?titleSection',
+				avatarSection: '?avatarSection',
+				infoSection: '?infoSection'
+			},
+			scope: {
+				data: '=',
+				contextMenuConf: '=',
+				isSelectable: '='
+			},
+			controller: function($scope) {
+
+				if ($scope.contextMenuConf) {
+
+					// Creating context menu
+					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
+					$scope.contextMenu.data = $scope.data;
+				}
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return myCollectionElem;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myContextMenu', function() {
+
+		var myContextMenu = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myContextMenu/myContextMenu.html',
+			scope: {
+				ins: '='
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+
+				};
+			}
+		};
+
+		return myContextMenu;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDropDown', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myDropDown/myDropDown.html',
+			scope: {
+				ins: '=',
+				openDirection: '=',
+				ctrlClass: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myElemSelector', function() {
+
+		var myElemSelector = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myElemSelector/myElemSelector.html',
+			scope: {
+				isSelected: '='
+			},
+			controller: function() {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var button = $(elem).find('button').get()[0];
+
+					$(button).on('click', function() {
+
+						scope.isSelected = !scope.isSelected;
+						scope.$apply();
+					});
+				};
+			}
+		};
+
+		return myElemSelector;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myForm', function(MyLoader) {
+
+		return {
+			restrict: 'E',
+			transclude: true,
+			templateUrl: 'public/directives/my/myForm/myForm.html',
+			scope: {
+				ins: '=',
+				hardData: '='
+			},
+			controller: function($scope) {
+
+				$scope.ins.scope = $scope;
+
+				$scope.loader = new MyLoader();
+				$scope.ins.model.clear();
+				$scope.ins.model.set();
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myFormErrorIcon', function() {
+
+		var myFormErrorIcon = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myFormErrorIcon/myFormErrorIcon.html',
+			scope: {
+				args: '='
+			}
+		};
+
+		return myFormErrorIcon;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myInput', function() {
+
+		var myInput = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myInput/myInput.html',
+			scope: {
+				ctrlId: '=',
+				ctrlType: '=',
+				ctrlMaxLength: '=',
+				ctrlMinValue: '=',
+				ctrlMaxValue: '=',
+				model: '=',
+				hardData: '=',
+				hideErrors: '=',
+				isRequired: '=',
+				autocomplete: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (scope.autocomplete) {
+
+						var input = $(elem).find('input')[0];
+						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
+
+						scope.autocomplete.ins.addListener('place_changed', function() {});
+					}
+				};
+			}
+		};
+
+		return myInput;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myLabel', function() {
+
+		var myLabel = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myLabel/myLabel.html',
+			scope: {
+				text: '=',
+				cssClass: '='
+			}
+		};
+
+		return myLabel;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myListGroup', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
+			scope: {
+				ins: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myLoader', function($timeout) {
+
+		var myLoader = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myLoader/myLoader.html',
+			scope: {
+				fixedCentered: '=',
+				absCentered: '='
+			}
+		};
+
+		return myLoader;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myModal', function($rootScope, $timeout) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myModal/myModal.html',
+			transclude: {
+				header: '?myModalHeader',
+				body: '?myModalBody',
+				footer: '?myModalFooter'
+			},
+			scope: {
+				ins: '=',
+				slideInFromLeft: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					// onShow
+					$('.modal').on('show.bs.modal', function() {
+
+						$rootScope.isAnyModalOpen = true;
+					});
+
+					// onHide
+					$('.modal').on('hide.bs.modal', function() {
+
+						$rootScope.isAnyModalOpen = false;
+
+						if (scope.ins.hideCb) {
+							$timeout(function() { scope.ins.hideCb(); }, 500);
+						}
+					});
+				};
+			}
+		};
+	});
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myNavDropDown', function() {
+
+		var myNavDropDown = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myNavDropDown/myNavDropDown.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return myNavDropDown;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myNavMenu', function() {
+
+		var myNavMenu = {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'public/directives/my/myNavMenu/myNavMenu.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return myNavMenu;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myPanel', function(ui) {
+
+		var myPanel = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myPanel/myPanel.html',
+			transclude: {
+				titleSection: '?titleSection',
+				actionSection: '?actionSection',
+				bodySection: '?bodySection'
+			}
+		};
+
+		return myPanel;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myPopOverIcon', function() {
+
+		var myPopOverIcon = {
+			restrict: 'E',
+			transclude: {
+				icon: 'span'
+			},
+			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
+			scope: {
+				hardData: '='
+			}
+		};
+
+		return myPopOverIcon;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('mySelect', function(jsonService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySelect/mySelect.html',
+			scope: {
+				ctrlId: '=',
+				model: '=',
+				collection: '=',
+				nestedCollectionFieldName: '=',
+				propNames: '=',
+				optionZero: '=',
+				hardData: '=',
+				hideErrors: '='
+			},
+			link: function(scope, elem, attrs) {
+
+				var parentGroup = $(elem).parents('my-selects-group').get();
+
+				// If select is nested in mySelectGroup
+				if (parentGroup.length > 0) {
+
+					// Getting select index in parent group
+					var myIndex = $($(elem).parent()[0].children).index(elem);
+
+
+
+					/* Setting for all selects */
+
+					// Defining onSelect event handler
+					scope.onSelect = function() {
+
+						var allSelectsCount = $(elem).parent()[0].children.length;
+
+						// For all selects below this one
+						for (var i = myIndex + 1; i < allSelectsCount; i++) {
+
+							// Getting select scope
+							var select_scope = $($($(elem).parent()[0].children[i]).find('select')[0]).scope();
+
+							// Resetting scope variables
+							select_scope.model.value = '';
+							select_scope.collection = undefined;
+						}
+					};
+
+
+
+					/* If I am not top select */
+
+					if (myIndex > 0) {
+
+						// Getting scope of the first select above
+						var select_scope = $($($(elem).parent()[0].children[myIndex - 1]).find('select')[0]).scope();
+
+						// Watching for its model changes
+						scope.$watch(function() { return select_scope.model.value; }, function(newValue) {
+
+							if (newValue) {
+
+								// Getting collection of the first select above
+								var collection = select_scope.collection;
+
+								// Setting proper collection for myself
+								jsonService.find.objectByProperty(collection, select_scope.propNames.optionValue, newValue, function(obj) {
+									if (obj) { scope.collection = obj[scope.nestedCollectionFieldName]; }
+								});
+
+							} else {
+
+								// Resetting own scope collection
+								scope.collection = undefined;
+							}
+						});
+					}
+
+
+
+					/* Setting for select with particular index */
+
+					switch (myIndex) {
+
+						case 0:
+
+							// Watching parent group collection for changes
+							scope.$watch('$parent.$parent.collection', function(newValue) {
+								if (newValue) {
+									scope.collection = newValue;
+								}
+							});
+
+							// Watching for model changes
+							scope.$watch('model.value', function(newValue) {
+
+								// Selecting option 1 as default, later setting model overrides this
+								if (!scope.optionZero && !newValue) {
+									scope.model.value = scope.collection[0][scope.propNames.optionValue];
+								}
+							});
+
+							break;
+					}
+				}
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('mySelectsGroup', function(hardDataService) {
+
+		var mySelectsGroup = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
+			transclude: true,
+			scope: {
+				collection: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return mySelectsGroup;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrc', function($timeout, MySwitchable) {
+
+		var mySrc = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrc/mySrc.html',
+			scope: {
+				ins: '=',
+				type: '@',
+				isSelectable: '&',
+				contextMenuConf: '=',
+				hrefTarget: '@'
+			},
+			controller: function($scope) {
+
+				if ($scope.isSelectable() || $scope.contextMenuConf) {
+					$scope.onMouseEnter = function() { $scope.srcCtrlsVisible = true; };
+					$scope.onMouseLeave = function() { $scope.srcCtrlsVisible = false; };
+				}
+
+				if ($scope.isSelectable()) { $scope.ins.isSelected = false; }
+
+				if ($scope.contextMenuConf) {
+					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
+					$scope.contextMenu.data = $scope.ins;
+				}
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var srcCtrl = $(elem).find(scope.type).get()[0];
+
+					$(srcCtrl).bind('load', function() {
+						scope.$apply();
+		            	scope.ins.deferred.resolve(true);
+		            });
+
+		            $(srcCtrl).bind('error', function() {
+		            	scope.$apply();
+		                scope.ins.deferred.resolve(false);
+		            });
+				};
+			}
+		};
+
+		return mySrc;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrcSlides', function(MySwitchable) {
+
+		var mySrcSlides = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
+			scope: {
+				mySrcCollection: '=',
+				srcType: '@'
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+
+						if (collection) {
+
+							var switchers = [];
+
+							for (var i in collection) {
+								switchers.push({ _id: collection[i].index, index: collection[i].index });
+							}
+
+							scope.mySwitchable = new MySwitchable({ switchers: switchers });
+							scope.mySrcCollection.switchable = scope.mySwitchable;
+						}
+					});
+				};
+			}
+		};
+
+		return mySrcSlides;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
+
+		var mySrcThumbs = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcThumbs/mySrcThumbs.html',
+			scope: {
+				srcThumbsCollection: '=',
+				srcSlidesCollection: '=',
+				mainContextMenuConf: '=',
+				srcContextMenuConf: '=',
+				browsingWindowId: '@',
+				srcType: '@',
+				isSrcSelectable: '&',
+			},
+			controller: function($scope) {
+
+				// Creating modal instance for slides
+				$scope.srcSlidesModal = new MyModal({ id: $scope.browsingWindowId });
+
+				// Initializing main context menu
+				if ($scope.mainContextMenuConf) {
+					$scope.mainContextMenu = new MySwitchable($scope.mainContextMenuConf);
+				}
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					// When collection browsing window available
+					if (scope.browsingWindowId) {
+
+						// Watching thumbs collection srcs
+						scope.$watchCollection('srcThumbsCollection.collection', function(collection) {
+
+							if (collection) {
+
+								var onClick = function() {
+
+									if (scope.srcSlidesCollection.switchable) {
+
+										// Changing active slides switchable
+										scope.srcSlidesCollection.switchable.switchers[this.index].activate();
+
+										// Displaying modal
+										scope.srcSlidesModal.show();
+									}
+								};
+
+								// Binding click event to each src
+								for (var i in collection) {
+									collection[i].onClick = onClick;
+								}
+							}
+						});
+
+						// Watching slides srcs switchable
+						scope.$watch('srcSlidesCollection.switchable', function(switchable) {
+
+							if (switchable) {
+
+								var onActivate = function() {
+									scope.srcSlidesModal.title = scope.srcSlidesCollection.collection[this.index].filename;
+								};
+
+								for (var i in switchable.switchers) {
+									switchable.switchers[i].onActivate = onActivate;
+								}
+							}
+						});
+					}
+				};
+			}
+		};
+
+		return mySrcThumbs;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTabs', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTabs/myTabs.html',
+			scope: {
+				ins: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTextArea', function() {
+
+		var myTextArea = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
+			scope: {
+				ctrlId: '=',
+				ctrlMaxLength: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return myTextArea;
+	});
 
 })();
 (function() {
@@ -6334,1001 +7329,6 @@
 		};
 
 		return multipleFilesInput;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myAlert', function() {
-
-		var myAlert = {
-			restrict: 'E',
-			template: '<div class="myAlert alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
-			scope: {
-				ctrlClass: "=",
-				hardData: '='
-			}
-		};
-
-		return myAlert;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myBtn', function($rootScope) {
-
-		return {
-			restrict: 'E',
-			replace: true,
-			templateUrl: 'public/directives/my/myBtn/myBtn.html',
-			scope: {
-				ctrlClass: '=',
-				clickAction: '=',
-				clickArgs: '=',
-				clickContext: '=',
-				showModalId: '@',
-				explicitLabel: '=',
-				hardData: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					if (scope.showModalId) {
-
-						scope.onClick = function() {
-							$rootScope.$broadcast(scope.showModalId);
-						};
-
-					} else if (typeof scope.clickAction == 'function') {
-
-						scope.onClick = function() {
-
-							if (scope.clickContext) {
-								scope.clickAction.call(scope.clickContext, scope.clickArgs);
-
-							} else {
-								scope.clickAction(scope.clickArgs);
-							}
-						};
-					}
-				};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myCaptcha', function($timeout, grecaptchaService) {
-
-		var myCaptcha = {
-			restrict: 'E',
-			template: '<div id="{{ ctrlId }}" ng-show="visible" style="margin-bottom: 20px;" my-directive></div>',
-			scope: {
-				ctrlId: '=',
-				actionName: '='
-			},
-			controller: function($scope, $timeout) {
-
-				$timeout(function() {
-
-					// Loading captcha
-					$scope.grecaptchaId = grecaptchaService.load($scope.ctrlId, $scope.actionName, function() {
-
-						// When captcha resolved callback
-						$timeout(function() { $scope.visible = false; }, 1000);
-					});
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					// Getting parent form scope
-					var form = $(elem).parents('.myForm:first');
-					var formScope = $(form).scope();
-
-					scope.$watch('visible', function(newValue) {
-						if (newValue === true) { grecaptchaService.reset(scope.grecaptchaId); }
-					});
-
-
-
-					$timeout(function() {
-
-						// Setting initial captcha visibility
-						grecaptchaService.shouldBeVisible(scope.ctrlId, function(visible) {
-							formScope.captcha = scope;
-							scope.visible = visible;
-						});
-					});
-				};
-			}
-		};
-
-		return myCaptcha;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myCollectionBrowser', function($rootScope) {
-
-		var myCollectionBrowser = {
-			restrict: 'E',
-			transclude: {
-				frontctrls: '?frontctrls',
-				endctrls: '?endctrls',
-				extractrls: '?extractrls',
-				elems: '?elems',
-			},
-			templateUrl: 'public/directives/my/myCollectionBrowser/myCollectionBrowser.html',
-			scope: {
-				ins: '=',
-				noScrollTopBtn: '='
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-			}
-		};
-
-		return myCollectionBrowser;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myCollectionElem', function($rootScope, MySwitchable) {
-
-		var myCollectionElem = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myCollectionElem/myCollectionElem.html',
-			transclude: {
-				titleSection: '?titleSection',
-				avatarSection: '?avatarSection',
-				infoSection: '?infoSection'
-			},
-			scope: {
-				data: '=',
-				contextMenuConf: '=',
-				isSelectable: '='
-			},
-			controller: function($scope) {
-
-				if ($scope.contextMenuConf) {
-
-					// Creating context menu
-					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
-					$scope.contextMenu.data = $scope.data;
-				}
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-				};
-			}
-		};
-
-		return myCollectionElem;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myContextMenu', function() {
-
-		var myContextMenu = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myContextMenu/myContextMenu.html',
-			scope: {
-				ins: '='
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-
-				};
-			}
-		};
-
-		return myContextMenu;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
-
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
-
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
-
-		return myDirective;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myDropDown', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myDropDown/myDropDown.html',
-			scope: {
-				ins: '=',
-				openDirection: '=',
-				ctrlClass: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myElemSelector', function() {
-
-		var myElemSelector = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myElemSelector/myElemSelector.html',
-			scope: {
-				isSelected: '='
-			},
-			controller: function() {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var button = $(elem).find('button').get()[0];
-
-					$(button).on('click', function() {
-
-						scope.isSelected = !scope.isSelected;
-						scope.$apply();
-					});
-				};
-			}
-		};
-
-		return myElemSelector;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myForm', function(MyLoader) {
-
-		return {
-			restrict: 'E',
-			transclude: true,
-			templateUrl: 'public/directives/my/myForm/myForm.html',
-			scope: {
-				ins: '=',
-				hardData: '='
-			},
-			controller: function($scope) {
-
-				$scope.ins.scope = $scope;
-
-				$scope.loader = new MyLoader();
-				$scope.ins.model.clear();
-				$scope.ins.model.set();
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myFormErrorIcon', function() {
-
-		var myFormErrorIcon = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myFormErrorIcon/myFormErrorIcon.html',
-			scope: {
-				args: '='
-			}
-		};
-
-		return myFormErrorIcon;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myInput', function() {
-
-		var myInput = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myInput/myInput.html',
-			scope: {
-				ctrlId: '=',
-				ctrlType: '=',
-				ctrlMaxLength: '=',
-				ctrlMinValue: '=',
-				ctrlMaxValue: '=',
-				model: '=',
-				hardData: '=',
-				hideErrors: '=',
-				isRequired: '=',
-				autocomplete: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					if (scope.autocomplete) {
-
-						var input = $(elem).find('input')[0];
-						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
-
-						scope.autocomplete.ins.addListener('place_changed', function() {});
-					}
-				};
-			}
-		};
-
-		return myInput;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myLabel', function() {
-
-		var myLabel = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myLabel/myLabel.html',
-			scope: {
-				text: '=',
-				cssClass: '='
-			}
-		};
-
-		return myLabel;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myListGroup', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myLoader', function($timeout) {
-
-		var myLoader = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myLoader/myLoader.html',
-			scope: {
-				fixedCentered: '=',
-				absCentered: '='
-			}
-		};
-
-		return myLoader;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myModal', function($rootScope, $timeout) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myModal/myModal.html',
-			transclude: {
-				header: '?myModalHeader',
-				body: '?myModalBody',
-				footer: '?myModalFooter'
-			},
-			scope: {
-				ins: '=',
-				slideInFromLeft: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					// onShow
-					$('.modal').on('show.bs.modal', function() {
-
-						$rootScope.isAnyModalOpen = true;
-					});
-
-					// onHide
-					$('.modal').on('hide.bs.modal', function() {
-
-						$rootScope.isAnyModalOpen = false;
-
-						if (scope.ins.hideCb) {
-							$timeout(function() { scope.ins.hideCb(); }, 500);
-						}
-					});
-				};
-			}
-		};
-	});
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myNavDropDown', function() {
-
-		var myNavDropDown = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myNavDropDown/myNavDropDown.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return myNavDropDown;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myNavMenu', function() {
-
-		var myNavMenu = {
-			restrict: 'E',
-			replace: true,
-			templateUrl: 'public/directives/my/myNavMenu/myNavMenu.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return myNavMenu;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myPanel', function(ui) {
-
-		var myPanel = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myPanel/myPanel.html',
-			transclude: {
-				titleSection: '?titleSection',
-				actionSection: '?actionSection',
-				bodySection: '?bodySection'
-			}
-		};
-
-		return myPanel;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myPopOverIcon', function() {
-
-		var myPopOverIcon = {
-			restrict: 'E',
-			transclude: {
-				icon: 'span'
-			},
-			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
-			scope: {
-				hardData: '='
-			}
-		};
-
-		return myPopOverIcon;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('mySelect', function(jsonService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySelect/mySelect.html',
-			scope: {
-				ctrlId: '=',
-				model: '=',
-				collection: '=',
-				nestedCollectionFieldName: '=',
-				propNames: '=',
-				optionZero: '=',
-				hardData: '=',
-				hideErrors: '='
-			},
-			link: function(scope, elem, attrs) {
-
-				var parentGroup = $(elem).parents('my-selects-group').get();
-
-				// If select is nested in mySelectGroup
-				if (parentGroup.length > 0) {
-
-					// Getting select index in parent group
-					var myIndex = $($(elem).parent()[0].children).index(elem);
-
-
-
-					/* Setting for all selects */
-
-					// Defining onSelect event handler
-					scope.onSelect = function() {
-
-						var allSelectsCount = $(elem).parent()[0].children.length;
-
-						// For all selects below this one
-						for (var i = myIndex + 1; i < allSelectsCount; i++) {
-
-							// Getting select scope
-							var select_scope = $($($(elem).parent()[0].children[i]).find('select')[0]).scope();
-
-							// Resetting scope variables
-							select_scope.model.value = '';
-							select_scope.collection = undefined;
-						}
-					};
-
-
-
-					/* If I am not top select */
-
-					if (myIndex > 0) {
-
-						// Getting scope of the first select above
-						var select_scope = $($($(elem).parent()[0].children[myIndex - 1]).find('select')[0]).scope();
-
-						// Watching for its model changes
-						scope.$watch(function() { return select_scope.model.value; }, function(newValue) {
-
-							if (newValue) {
-
-								// Getting collection of the first select above
-								var collection = select_scope.collection;
-
-								// Setting proper collection for myself
-								jsonService.find.objectByProperty(collection, select_scope.propNames.optionValue, newValue, function(obj) {
-									if (obj) { scope.collection = obj[scope.nestedCollectionFieldName]; }
-								});
-
-							} else {
-
-								// Resetting own scope collection
-								scope.collection = undefined;
-							}
-						});
-					}
-
-
-
-					/* Setting for select with particular index */
-
-					switch (myIndex) {
-
-						case 0:
-
-							// Watching parent group collection for changes
-							scope.$watch('$parent.$parent.collection', function(newValue) {
-								if (newValue) {
-									scope.collection = newValue;
-								}
-							});
-
-							// Watching for model changes
-							scope.$watch('model.value', function(newValue) {
-
-								// Selecting option 1 as default, later setting model overrides this
-								if (!scope.optionZero && !newValue) {
-									scope.model.value = scope.collection[0][scope.propNames.optionValue];
-								}
-							});
-
-							break;
-					}
-				}
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('mySelectsGroup', function(hardDataService) {
-
-		var mySelectsGroup = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
-			transclude: true,
-			scope: {
-				collection: '=',
-				model: '=',
-				hardData: '='
-			}
-		};
-
-		return mySelectsGroup;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrc', function($timeout, MySwitchable) {
-
-		var mySrc = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrc/mySrc.html',
-			scope: {
-				ins: '=',
-				type: '@',
-				isSelectable: '&',
-				contextMenuConf: '=',
-				hrefTarget: '@'
-			},
-			controller: function($scope) {
-
-				if ($scope.isSelectable() || $scope.contextMenuConf) {
-					$scope.onMouseEnter = function() { $scope.srcCtrlsVisible = true; };
-					$scope.onMouseLeave = function() { $scope.srcCtrlsVisible = false; };
-				}
-
-				if ($scope.isSelectable()) { $scope.ins.isSelected = false; }
-
-				if ($scope.contextMenuConf) {
-					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
-					$scope.contextMenu.data = $scope.ins;
-				}
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var srcCtrl = $(elem).find(scope.type).get()[0];
-
-					$(srcCtrl).bind('load', function() {
-						scope.$apply();
-		            	scope.ins.deferred.resolve(true);
-		            });
-
-		            $(srcCtrl).bind('error', function() {
-		            	scope.$apply();
-		                scope.ins.deferred.resolve(false);
-		            });
-				};
-			}
-		};
-
-		return mySrc;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrcSlides', function(MySwitchable) {
-
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
-
-						if (collection) {
-
-							var switchers = [];
-
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
-
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
-
-		return mySrcSlides;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
-
-		var mySrcThumbs = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcThumbs/mySrcThumbs.html',
-			scope: {
-				srcThumbsCollection: '=',
-				srcSlidesCollection: '=',
-				mainContextMenuConf: '=',
-				srcContextMenuConf: '=',
-				browsingWindowId: '@',
-				srcType: '@',
-				isSrcSelectable: '&',
-			},
-			controller: function($scope) {
-
-				// Creating modal instance for slides
-				$scope.srcSlidesModal = new MyModal({ id: $scope.browsingWindowId });
-
-				// Initializing main context menu
-				if ($scope.mainContextMenuConf) {
-					$scope.mainContextMenu = new MySwitchable($scope.mainContextMenuConf);
-				}
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					// When collection browsing window available
-					if (scope.browsingWindowId) {
-
-						// Watching thumbs collection srcs
-						scope.$watchCollection('srcThumbsCollection.collection', function(collection) {
-
-							if (collection) {
-
-								var onClick = function() {
-
-									if (scope.srcSlidesCollection.switchable) {
-
-										// Changing active slides switchable
-										scope.srcSlidesCollection.switchable.switchers[this.index].activate();
-
-										// Displaying modal
-										scope.srcSlidesModal.show();
-									}
-								};
-
-								// Binding click event to each src
-								for (var i in collection) {
-									collection[i].onClick = onClick;
-								}
-							}
-						});
-
-						// Watching slides srcs switchable
-						scope.$watch('srcSlidesCollection.switchable', function(switchable) {
-
-							if (switchable) {
-
-								var onActivate = function() {
-									scope.srcSlidesModal.title = scope.srcSlidesCollection.collection[this.index].filename;
-								};
-
-								for (var i in switchable.switchers) {
-									switchable.switchers[i].onActivate = onActivate;
-								}
-							}
-						});
-					}
-				};
-			}
-		};
-
-		return mySrcThumbs;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myTabs', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTabs/myTabs.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myTextArea', function() {
-
-		var myTextArea = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
-			scope: {
-				ctrlId: '=',
-				ctrlMaxLength: '=',
-				model: '=',
-				hardData: '='
-			}
-		};
-
-		return myTextArea;
 	});
 
 })();

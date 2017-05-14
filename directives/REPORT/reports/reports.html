@@ -11,7 +11,7 @@
 				<title-section>
 					<a ui-sref="main.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.truncatedTitle }}</a>
 				</title-section>
-				<info-section>
+				<info-section ng-if="!noInfo">
 					<p>{{ report.fullCategory }}</p>
 					<p>
 						<span>{{ hardData.reportGroups[report.group == 'L' ? 0 : 1].label }}</span>
@@ -23,7 +23,7 @@
 						<span>{{ report.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
 					</p>
 				</info-section>
-				<avatar-section>
+				<avatar-section ng-if="!noAvatar">
 					<report-avatar report="report"></report-avatar>
 				</avatar-section>
 			</my-collection-elem>

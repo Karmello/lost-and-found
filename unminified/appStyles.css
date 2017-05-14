@@ -151,6 +151,17 @@ body .form-group {
 #lost-and-found-app-guest #formSection .userBadge {
   margin-bottom: 50px; }
 
+#lost-and-found-app-home table td {
+  padding: 0; }
+  #lost-and-found-app-home table td span {
+    white-space: nowrap; }
+  #lost-and-found-app-home table td span.text-info {
+    font-weight: bold; }
+
+#lost-and-found-app-home .myCollectionBrowser .ctrls {
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+
 #lost-and-found-app-main {
   min-height: 1000px;
   padding-bottom: 50px; }
@@ -350,15 +361,6 @@ body .form-group {
     padding: 0 15px 15px 15px; }
     .myCollectionBrowser .ctrls > div.refresher .glyphicon-refresh {
       top: 2px; }
-  .myCollectionBrowser .collection > div > * {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -ms-flex-pack: center;
-    justify-content: center; }
-    .myCollectionBrowser .collection > div > * .myCollectionElem {
-      margin: 5px; }
 
 .myCollectionElem {
   margin: 10px auto;
@@ -391,12 +393,10 @@ body .form-group {
       display: flex;
       -ms-flex-pack: center;
       justify-content: center;
+      -ms-flex-align: center;
+      align-items: center;
       -ms-flex-flow: row wrap;
       flex-flow: row wrap; }
-      @media only screen and (min-width: 768px) {
-        .myCollectionElem #bodySection #mainSection {
-          -ms-flex-flow: column wrap;
-          flex-flow: column wrap; } }
       .myCollectionElem #bodySection #mainSection > div {
         margin: 5px 10px 5px 10px; }
       .myCollectionElem #bodySection #mainSection #infoSection {
@@ -744,6 +744,24 @@ body .form-group {
 .reports #actionBtns {
   margin-bottom: 25px; }
 
+.reports .myCollectionBrowser .collection > div > * {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: end;
+  align-items: flex-end; }
+  .reports .myCollectionBrowser .collection > div > * > * {
+    -ms-flex-preferred-size: 33.3%;
+    flex-basis: 33.3%;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 400px; }
+  .reports .myCollectionBrowser .collection > div > * .myCollectionElem {
+    margin: 5px; }
+
 .reports .myCollectionElem {
   background-color: #d9534f; }
 
@@ -788,26 +806,6 @@ body .form-group {
   #contactForm .myForm .myTextArea textarea {
     min-height: 300px !important; }
 
-#reportForm .myForm .formCtrls {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-pack: distribute;
-  justify-content: space-around; }
-  #reportForm .myForm .formCtrls > div {
-    margin: 5px;
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%; }
-    @media only screen and (min-width: 700px) {
-      #reportForm .myForm .formCtrls > div {
-        -ms-flex-preferred-size: 48%;
-        flex-basis: 48%; } }
-  #reportForm .myForm .formCtrls textarea {
-    max-width: 450px;
-    min-height: 150px !important;
-    text-align: justify; }
-
 #reportSearchForm .myForm .myBtnsGroup, #reportSearchForm .myForm .myBtnsGroupCenter, #reportSearchForm .myForm .myBtnsGroupRight {
   margin-left: 25px;
   margin-right: 25px; }
@@ -831,6 +829,26 @@ body .form-group {
 @media only screen and (min-width: 992px) {
   #reportSearchForm .myForm {
     margin: 0 25px 0 25px; } }
+
+#reportForm .myForm .formCtrls {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
+  #reportForm .myForm .formCtrls > div {
+    margin: 5px;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%; }
+    @media only screen and (min-width: 700px) {
+      #reportForm .myForm .formCtrls > div {
+        -ms-flex-preferred-size: 48%;
+        flex-basis: 48%; } }
+  #reportForm .myForm .formCtrls textarea {
+    max-width: 450px;
+    min-height: 150px !important;
+    text-align: justify; }
 
 #imgCropWindow img {
   max-width: 100%; }

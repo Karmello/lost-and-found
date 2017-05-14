@@ -1,0 +1,55 @@
+var r = require(global.paths._requires);
+
+module.exports = function(req, res, next) {
+
+	var action = new r.prototypes.Action(arguments);
+	var data = {};
+
+	new r.Promise(function(resolve) {
+
+		// Getting users count
+		r.User.count({}, function(err, count) {
+
+			if (!err) {
+
+				data.usersCount = count;
+
+				// Getting reports count
+				r.Report.count({}, function(err, count) {
+
+					if (!err) {
+
+						data.reportsCount = count;
+
+						// Getting lost reports count
+						r.Report.count({ group: 'L' }, function(err, count) {
+
+							if (!err) {
+
+								data.lostReportsCount = count;
+
+								// Getting found reports count
+								r.Report.count({ group: 'F' }, function(err, count) {
+
+									if (!err) {
+
+										data.foundReportsCount = count;
+										resolve();
+
+									} else { resolve(err); }
+								});
+
+							} else { resolve(err); }
+						});
+
+					} else { resolve(err); }
+				});
+
+			} else { resolve(err); }
+		});
+
+	}).then(function(err) {
+
+		if (!err) { action.end(200, data); } else { action.end(500, err); }
+	});
+};

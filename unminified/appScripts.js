@@ -720,7 +720,8 @@
 			report: undefined,
 			reportCategories: undefined,
 			deactivationReasons: undefined,
-			contactTypes: undefined
+			contactTypes: undefined,
+			stats: undefined
 		};
 
 		$rootScope.globalFormModels = {
@@ -1061,6 +1062,14 @@
 
 		$stateProvider.state('main.home', {
 			url: '/home',
+			resolve: {
+				getStats: function($http, $rootScope) {
+
+					return $http.get('/stats').then(function(res) {
+						$rootScope.apiData.stats = res.data;
+					});
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.menus.top.activateSwitcher('home');
@@ -1527,12 +1536,12 @@
 
 					if (user.username) {
 						user.truncatedUsername = user.username.truncate(15);
-						user.formattedRegistrationDate = $moment(user.registration_date).format('DD-MM-YYYY HH:mm');
+						user.userSince = $moment.duration($moment(new Date()).diff($moment(user.registration_date))).humanize();
 						user.countryFirstLetter = user.country[0];
 
 					} else if (user.user) {
 						user.user.truncatedUsername = user.user.username.truncate(15);
-						user.user.formattedRegistrationDate = $moment(user.user.registration_date).format('DD-MM-YYYY HH:mm');
+						user.user.userSince = $moment.duration($moment(new Date()).diff($moment(user.user.registration_date))).humanize();
 						user.user.countryFirstLetter = user.user.country[0];
 					}
 
@@ -1620,12 +1629,15 @@
 								if (res.config.params) {
 
 									if (res.config.params._id) {
+										$rootScope.apiData.report = data.report;
+										$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
+										return [data.report];
 
-										$rootScope.apiData.report = data[0];
-										return data;
+									} else if (res.config.params['ids[]']) {
+										reportsConf.recentlyViewedCollectionBrowser.setData(data);
+										return data.collection;
 
 									} else if (res.config.params.userId) {
-
 										reportsConf.profileCollectionBrowser.setData(data);
 										return data.collection;
 
@@ -2736,6 +2748,8 @@
 
 						// Initializing pager ctrl
 
+						that.refresher = {};
+
 						if (that.meta.count > 0) {
 
 							var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
@@ -2773,7 +2787,6 @@
 						}
 
 						// Finishing
-						that.updateRefresher();
 						that.loader.stop(function() { if (cb) { cb(true); } });
 
 					}, function(res) {
@@ -2834,18 +2847,6 @@
 			}
 
 			return query;
-		};
-
-		MyCollectionBrowser.prototype.updateRefresher = function() {
-
-			this.refresher = {};
-
-			if (this.meta.count > 0) {
-				this.refresher.class = 'btn-info';
-
-			} else {
-				this.refresher.class = 'btn-warning';
-			}
 		};
 
 		MyCollectionBrowser.prototype.getElemNumber = function(index) {
@@ -6119,6 +6120,51 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('mySrcSlides', function(MySwitchable) {
+
+		var mySrcSlides = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
+			scope: {
+				mySrcCollection: '=',
+				srcType: '@'
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+
+						if (collection) {
+
+							var switchers = [];
+
+							for (var i in collection) {
+								switchers.push({ _id: collection[i].index, index: collection[i].index });
+							}
+
+							scope.mySwitchable = new MySwitchable({ switchers: switchers });
+							scope.mySrcCollection.switchable = scope.mySwitchable;
+						}
+					});
+				};
+			}
+		};
+
+		return mySrcSlides;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
@@ -6194,51 +6240,6 @@
 		};
 
 		return mySrcThumbs;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrcSlides', function(MySwitchable) {
-
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
-
-						if (collection) {
-
-							var switchers = [];
-
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
-
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
-
-		return mySrcSlides;
 	});
 
 })();
@@ -6749,13 +6750,15 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf, reportsService) {
+	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf) {
 
 		var reports = {
 			restrict: 'E',
 			templateUrl: 'public/directives/REPORT/reports/reports.html',
 			scope: {
-				ctrlId: '@'
+				ctrlId: '@',
+				noAvatar: '=',
+				noInfo: '='
 			},
 			controller: function($scope) {
 
@@ -6816,6 +6819,13 @@
 							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
 							scope.collectionBrowser.init();
 							break;
+
+						case 'RecentlyViewedReports':
+
+							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+							scope.collectionBrowser.init();
+
+							break;
 					}
 				};
 			}
@@ -6832,6 +6842,15 @@
 	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
 
 		var hardData = hardDataService.get();
+
+		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query['ids[]'] = $rootScope.apiData.loggedInUser.reportsRecentlyViewed;
+				return ReportsRest.getList(query);
+			}
+		});
 
 		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 25,

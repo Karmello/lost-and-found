@@ -64,6 +64,8 @@
 
 						// Initializing pager ctrl
 
+						that.refresher = {};
+
 						if (that.meta.count > 0) {
 
 							var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
@@ -101,7 +103,6 @@
 						}
 
 						// Finishing
-						that.updateRefresher();
 						that.loader.stop(function() { if (cb) { cb(true); } });
 
 					}, function(res) {
@@ -162,18 +163,6 @@
 			}
 
 			return query;
-		};
-
-		MyCollectionBrowser.prototype.updateRefresher = function() {
-
-			this.refresher = {};
-
-			if (this.meta.count > 0) {
-				this.refresher.class = 'btn-info';
-
-			} else {
-				this.refresher.class = 'btn-warning';
-			}
 		};
 
 		MyCollectionBrowser.prototype.getElemNumber = function(index) {

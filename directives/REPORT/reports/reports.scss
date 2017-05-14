@@ -2,6 +2,30 @@
 
 	#actionBtns { margin-bottom: 25px; }
 
+	.myCollectionBrowser {
+		.collection {
+
+			> div {
+				> * {
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: center;
+					align-items: flex-end;
+
+					> * {
+						flex-basis: 33.3%;
+						flex-grow: 1;
+						max-width: 400px;
+					}
+
+					.myCollectionElem {
+						margin: 5px;
+					}
+				}
+			}
+		}
+	}
+
 	.myCollectionElem {
 		background-color: $brand-danger;
 	}

@@ -16,6 +16,7 @@ module.exports = function(app, cb) {
 	app.set('USER_PASSWORD_MAX_LENGTH', 25);
 	app.set('USER_FIRSTNAME_MAX_LENGTH', 20);
 	app.set('USER_LASTNAME_MAX_LENGTH', 20);
+	app.set('USER_RECENTLY_VIEWED_REPORTS_MAX_LENGTH', 5);
 
 	// Report model
 	app.set('REPORT_TITLE_MIN_LENGTH', 10);

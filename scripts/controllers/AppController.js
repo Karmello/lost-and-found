@@ -20,7 +20,8 @@
 			report: undefined,
 			reportCategories: undefined,
 			deactivationReasons: undefined,
-			contactTypes: undefined
+			contactTypes: undefined,
+			stats: undefined
 		};
 
 		$rootScope.globalFormModels = {

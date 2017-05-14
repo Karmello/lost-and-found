@@ -19,14 +19,17 @@ module.exports = function(app, dirname, cb) {
         res.send(req.session);
     });
 
-    // AWS3 upload credentials
-    app.post('/get_aws3_upload_credentials', [r.modules.authorize.userToken, r.modules.aws3Module.get_upload_credentials]);
+    // Get stats route
+    app.get('/stats', r.actions.other.getStats);
 
     // Password recovering
     app.post('/recover', r.actions.password.recover);
 
     // Pasword resetting
     app.get('/reset_password', [r.modules.authorize.userToken, r.actions.password.reset]);
+
+    // AWS3 upload credentials
+    app.post('/get_aws3_upload_credentials', [r.modules.authorize.userToken, r.modules.aws3Module.get_upload_credentials]);
 
     // Static files
     if (process.env.NODE_ENV !== 'production') {

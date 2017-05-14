@@ -49,7 +49,8 @@ var UserSchema = new r.mongoose.Schema({
 			type: Number,
 			required: true
 		}
-	}]
+	}],
+	reportsRecentlyViewed: [{ type: r.mongoose.Schema.Types.ObjectId, ref: 'user' }]
 }, { versionKey: false });
 
 

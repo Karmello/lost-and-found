@@ -25,7 +25,7 @@
 		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Email", "Nazwa użytkownika", "Hasło",
 		"Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Wybierz", "Język", "Opis", "Wiadomość",
-		"Oryginał", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Data rejestracji", "Strona główna", "Uczestnicy", "Przeglądaj","Użytkownik", "Ustawienia",
+		"Oryginał", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Zarejestrowany przez", "Strona główna", "Uczestnicy", "Przeglądaj","Użytkownik", "Ustawienia",
 		"O nas", "Pomoc", "Kontakt", "Aplikacja", "Konto", "Płatności", "Uwaga !", "Logowanie", "Rejestracja", "Status",
 		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "Paypal", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Zgłoszono",
 		"Kategoria", "Podkategoria", "Przedmiot", "Moje przedmioty", "Pusto", "Usuwanie przedmiotu", "Waluta", "Wartość początkowa", "Edycja", "Upublicznij",
@@ -38,7 +38,8 @@
 		"Aukcja", "W przybliżeniu", "Moje subskrybcje", "Subskrybcje", "Zwiększ", "Zmniejsz", "Złóż ofertę", "Przebieg aukcji", "Wybierz zdjęcie", "Obróć",
 		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "Aukcje", "Przesuń w lewo", "Przesuń w prawo", "Daty dodania", "Data dodania", "temu",
 		"Grupa", "Zgłoś", "Data", "Imię i nazwisko", "Rezultaty", "Nowe zgłoszenie", "Daty", "Usuń zaznaczone", "Lokalizacja", "Edycja zgłoszenia",
-		"ID", "dnia", "Przez", "Szczegóły", "Zdarzenie", "Przedmiot", "Nazwa", "Numer seryjny", "Temat", "Znalazłem to !"
+		"ID", "dnia", "Przez", "Szczegóły", "Zdarzenie", "Przedmiot", "Nazwa", "Numer seryjny", "Temat", "Znalazłem to !",
+		"Ostatnio oglądane"
 	],
 	"sentences": [
 		"Dlaczego nas opuszczasz ?",

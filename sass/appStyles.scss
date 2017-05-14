@@ -170,6 +170,24 @@ $avatarSize: 240px;
 		.userBadge { margin-bottom: 50px; }
 	}
 }
+#lost-and-found-app-home {
+
+	table {
+
+		td {
+			padding: 0;
+			span { white-space: nowrap; }
+			span.text-info { font-weight: bold; }
+		}
+	}
+
+	.myCollectionBrowser {
+
+		.ctrls {
+			justify-content: flex-end;
+		}
+	}
+}
 #lost-and-found-app-main {
 
 	min-height: 1000px;
@@ -439,17 +457,7 @@ $avatarSize: 240px;
 
 	.collection {
 
-		> div {
-			> * {
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: center;
 
-				.myCollectionElem {
-					margin: 5px;
-				}
-			}
-		}
 	}
 }
 .myCollectionElem {
@@ -481,13 +489,12 @@ $avatarSize: 240px;
 
 			display: flex;
 			justify-content: center;
+			align-items: center;
 			flex-flow: row wrap;
 
-			@media only screen and (min-width: 768px) {
-				flex-flow: column wrap;
+			> div {
+				margin: 5px 10px 5px 10px;
 			}
-
-			> div { margin: 5px 10px 5px 10px; }
 
 			#infoSection {
 				text-align: center;
@@ -1101,6 +1108,30 @@ $avatarSize: 240px;
 
 	#actionBtns { margin-bottom: 25px; }
 
+	.myCollectionBrowser {
+		.collection {
+
+			> div {
+				> * {
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: center;
+					align-items: flex-end;
+
+					> * {
+						flex-basis: 33.3%;
+						flex-grow: 1;
+						max-width: 400px;
+					}
+
+					.myCollectionElem {
+						margin: 5px;
+					}
+				}
+			}
+		}
+	}
+
 	.myCollectionElem {
 		background-color: $brand-danger;
 	}
@@ -1164,32 +1195,6 @@ $avatarSize: 240px;
 		.myTextArea { textarea { min-height: 300px !important; } }
 	}
 }
-#reportForm {
-
-	.myForm {
-
-		.formCtrls {
-
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-around;
-
-			> div {
-				margin: 5px;
-				flex-basis: 100%;
-				@media only screen and (min-width: 700px) {
-					flex-basis: 48%;
-				}
-			}
-
-			textarea {
-				max-width: 450px;
-				min-height: 150px !important;
-				text-align: justify;
-			}
-		}
-	}
-}
 #reportSearchForm {
 
 	.myForm {
@@ -1220,6 +1225,32 @@ $avatarSize: 240px;
 
 		@media only screen and (min-width: 992px) {
 			margin: 0 25px 0 25px;
+		}
+	}
+}
+#reportForm {
+
+	.myForm {
+
+		.formCtrls {
+
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+
+			> div {
+				margin: 5px;
+				flex-basis: 100%;
+				@media only screen and (min-width: 700px) {
+					flex-basis: 48%;
+				}
+			}
+
+			textarea {
+				max-width: 450px;
+				min-height: 150px !important;
+				text-align: justify;
+			}
 		}
 	}
 }

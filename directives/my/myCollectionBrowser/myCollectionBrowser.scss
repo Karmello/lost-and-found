@@ -24,16 +24,6 @@
 
 	.collection {
 
-		> div {
-			> * {
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: center;
 
-				.myCollectionElem {
-					margin: 5px;
-				}
-			}
-		}
 	}
 }

@@ -519,15 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
-			"settings":
-			{
-				"buffer_size": 2290,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -611,6 +602,7 @@
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.html",
 		"/D/Workspace/laf/dev/directives/^/forms/recoverForm/recoverForm.js",
@@ -661,7 +653,6 @@
 		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.html",
 		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatarService.js",
-		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosConf.js",
 		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
 		"/D/Workspace/laf/dev/directives/COMMENT/comments/commentsConf.js",
@@ -1096,56 +1087,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2290,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								133,
-								133
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "6bca7016",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],

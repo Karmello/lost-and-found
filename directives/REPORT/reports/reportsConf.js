@@ -6,6 +6,15 @@
 
 		var hardData = hardDataService.get();
 
+		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query['ids[]'] = $rootScope.apiData.loggedInUser.reportsRecentlyViewed;
+				return ReportsRest.getList(query);
+			}
+		});
+
 		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 25,
 			filterer: {

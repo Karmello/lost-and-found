@@ -4,13 +4,15 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf, reportsService) {
+	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf) {
 
 		var reports = {
 			restrict: 'E',
 			templateUrl: 'public/directives/REPORT/reports/reports.html',
 			scope: {
-				ctrlId: '@'
+				ctrlId: '@',
+				noAvatar: '=',
+				noInfo: '='
 			},
 			controller: function($scope) {
 
@@ -70,6 +72,13 @@
 
 							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
 							scope.collectionBrowser.init();
+							break;
+
+						case 'RecentlyViewedReports':
+
+							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+							scope.collectionBrowser.init();
+
 							break;
 					}
 				};

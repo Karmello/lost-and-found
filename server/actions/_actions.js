@@ -17,7 +17,10 @@ module.exports = {
 	},
 	report: {
 		post: require('./Report/postReport'),
-		get: require('./Report/getReport'),
+		getById: require('./Report/getReportById'),
+		getByUserId: require('./Report/getReportByUserId'),
+		getBySearchQuery: require('./Report/getReportBySearchQuery'),
+		getByIds: require('./Report/getReportByIds'),
 		put: require('./Report/putReport'),
 		delete: require('./Report/deleteReport'),
 	},
@@ -32,5 +35,8 @@ module.exports = {
 	contact_type: {
 		post: require('./ContactType/postContactType'),
 		get: require('./ContactType/getContactTypes')
+	},
+	other: {
+		getStats: require('./Other/getStats')
 	}
 };

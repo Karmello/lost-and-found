@@ -16,12 +16,12 @@
 
 					if (user.username) {
 						user.truncatedUsername = user.username.truncate(15);
-						user.formattedRegistrationDate = $moment(user.registration_date).format('DD-MM-YYYY HH:mm');
+						user.userSince = $moment.duration($moment(new Date()).diff($moment(user.registration_date))).humanize();
 						user.countryFirstLetter = user.country[0];
 
 					} else if (user.user) {
 						user.user.truncatedUsername = user.user.username.truncate(15);
-						user.user.formattedRegistrationDate = $moment(user.user.registration_date).format('DD-MM-YYYY HH:mm');
+						user.user.userSince = $moment.duration($moment(new Date()).diff($moment(user.user.registration_date))).humanize();
 						user.user.countryFirstLetter = user.user.country[0];
 					}
 
@@ -109,12 +109,15 @@
 								if (res.config.params) {
 
 									if (res.config.params._id) {
+										$rootScope.apiData.report = data.report;
+										$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
+										return [data.report];
 
-										$rootScope.apiData.report = data[0];
-										return data;
+									} else if (res.config.params['ids[]']) {
+										reportsConf.recentlyViewedCollectionBrowser.setData(data);
+										return data.collection;
 
 									} else if (res.config.params.userId) {
-
 										reportsConf.profileCollectionBrowser.setData(data);
 										return data.collection;
 

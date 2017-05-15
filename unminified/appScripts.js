@@ -738,6 +738,10 @@
 			stats: undefined
 		};
 
+		$rootScope.localData = {
+			countries: { data: undefined }
+		};
+
 		$rootScope.globalFormModels = {
 			userModel: new myClass.MyFormModel(
 				'userModel',
@@ -921,28 +925,50 @@
 		$stateProvider.state('app', {
 			abstract: true,
 			resolve: {
-				captchaApi: function($q, ui, utilService) {
+				localData: function($q, $http, $rootScope, jsonService) {
 
-					return $q(function(resolve, reject) {
+					return $q(function(resolve) {
 
-						try {
-							if (grecaptcha) { resolve(); }
+						$http.get('public/json/countries.json').success(function(res) {
 
-						} catch (ex) {
-							window.captchaApiLoaded = function() { resolve(); };
-							utilService.loadScript('https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit');
-						}
+							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
+								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
+
+									$rootScope.localData.countries.data = grouped;
+									resolve(true);
+								});
+							});
+
+						}).error(function() { resolve(false); });
 					});
 				},
-				openExchangeRates: function($rootScope, $q, ui, exchangeRateService) {
+				googleRecaptcha: function($q, $timeout) {
 
-					return $q(function(resolve, reject) {
+					return $q(function(resolve) {
+
+						var url = 'https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit';
+						var success = false;
+
+						window.captchaApiLoaded = function() { resolve(success = true); };
+
+						var script = document.createElement('script');
+						script.type = 'application/javascript';
+						script.async = true;
+						script.src = url;
+						document.body.appendChild(script);
+
+						$timeout(function() { if (!success) { resolve(false); } }, 20000);
+					});
+				},
+				openExchangeRates: function($q, exchangeRateService) {
+
+					return $q(function(resolve) {
 
 						var promises = [];
 
 						angular.forEach(exchangeRateService.config.availableRates, function(rate, rateKey) {
 
-							var promise = $q(function(resolve, reject) {
+							var promise = $q(function(resolve) {
 
 								$.getJSON(exchangeRateService.config.api + rateKey + '&callback=?').then(function(data) {
 									exchangeRateService.data[rateKey] = data;
@@ -957,98 +983,46 @@
 						});
 
 						$q.all(promises).then(function(results) {
-
-							if (results.indexOf(false) == -1) {
-								resolve();
-
-							} else {
-
-								ui.loaders.renderer.stop(function() {
-									$rootScope.ui.modals.tryToRefreshModal.show();
-								});
-							}
+							resolve(results.indexOf(false) == -1);
 						});
 					});
 				},
-				countries: function($q, $rootScope, ui, fileService) {
+				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest, ReportCategoriesRest) {
 
-					return $q(function(resolve, reject) {
+					return $q(function(resolve) {
 
-						if (fileService.countries.data) {
-							resolve();
+						var promises = [];
+
+						promises.push(DeactivationReasonsRest.getList());
+						promises.push(ContactTypesRest.getList());
+						promises.push(ReportCategoriesRest.getList());
+						promises.push($http.get('/stats'));
+
+						$q.all(promises).then(function(results) {
+
+							if (_.every(results, ['statusText', 'OK'])) {
+
+								$rootScope.apiData.deactivationReasons = $filter('orderBy')(results[0].data.plain(), 'index');
+								$rootScope.apiData.contactTypes = $filter('orderBy')(results[1].data.plain(), 'index');
+								$rootScope.apiData.reportCategories = results[2].data.plain();
+								$rootScope.apiData.stats = results[3].data;
+
+								resolve(true);
+
+							} else { resolve(false); }
+						});
+					});
+				},
+				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, apiData) {
+
+					return $q(function(resolve) {
+
+						if (googleRecaptcha && openExchangeRates && localData && apiData) {
+							resolve(true);
 
 						} else {
-
-							fileService.countries.readFile(function(success) {
-
-								if (success) {
-									fileService.countries.alterData(function() {
-										resolve();
-									});
-
-								} else {
-
-									ui.loaders.renderer.stop(function() {
-										$rootScope.ui.modals.tryToRefreshModal.show();
-									});
-								}
-							});
+							ui.modals.tryAgainLaterModal.show();
 						}
-					});
-				},
-				deactivationReasons: function($rootScope, $q, $filter, DeactivationReasonsRest) {
-
-					return $q(function(resolve) {
-
-						DeactivationReasonsRest.getList().then(function(res) {
-							$rootScope.apiData.deactivationReasons = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.deactivationReasons = undefined;
-							resolve(false);
-						});
-					});
-				},
-				contactTypes: function($rootScope, $q, $filter, ui, ContactTypesRest) {
-
-					return $q(function(resolve) {
-
-						ContactTypesRest.getList().then(function(res) {
-							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.contactTypes = undefined;
-							resolve(false);
-						});
-					});
-				},
-				reportCategories: function($q, $rootScope, ReportCategoriesRest, ui) {
-
-					return $q(function(resolve, reject) {
-
-						if (!$rootScope.apiData.reportCategories) {
-
-							ReportCategoriesRest.getList().then(function(res) {
-
-								$rootScope.apiData.reportCategories = res.data.plain();
-								resolve();
-
-							}, function() {
-
-								ui.loaders.renderer.stop(function() {
-									$rootScope.ui.modals.tryToRefreshModal.show();
-								});
-							});
-
-						} else { resolve(); }
-					});
-				},
-				getStats: function($http, $rootScope) {
-
-					return $http.get('/stats').then(function(res) {
-						$rootScope.apiData.stats = res.data;
 					});
 				},
 				authentication: function(authService) {
@@ -1059,7 +1033,6 @@
 			onEnter: function(authentication, $location, $timeout, $state) {
 
 				if (!authentication && $location.$$url.split('/') != 'start') {
-
 					$timeout(function() {
 						$state.go('app.start', { tab: 'login' }, { location: 'replace' });
 					});
@@ -1124,7 +1097,7 @@
 		$stateProvider.state('app.newreport', {
 			url: '/newreport',
 			resolve: {
-				_ui: function(reportCategories, $q, ui)	 {
+				_ui: function($q, ui)	 {
 
 					return $q(function(resolve) {
 
@@ -1148,7 +1121,7 @@
 		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
-				getUser: function(reportCategories, $stateParams, $q, UsersRest) {
+				getUser: function($stateParams, $q, UsersRest) {
 
 					return $q(function(resolve) {
 
@@ -1197,7 +1170,7 @@
 				}
 			},
 			resolve: {
-				getReport: function(reportCategories, $stateParams, $q, ReportsRest) {
+				getReport: function($stateParams, $q, ReportsRest) {
 
 					return $q(function(resolve) {
 
@@ -1275,7 +1248,7 @@
 		$stateProvider.state('app.search', {
 			url: '/search',
 			resolve: {
-				_ui: function(reportCategories, $q, ui) {
+				_ui: function($q, ui) {
 
 					return $q(function(resolve) {
 
@@ -1859,34 +1832,6 @@
 
 	exchangeRateService.$inject = [];
 	angular.module('appModule').service('exchangeRateService', exchangeRateService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var fileService = function(myClass, jsonService) {
-
-		var countries = new myClass.MyFile('public/json/countries.json', function(cb) {
-
-			jsonService.sort.objectsByProperty(countries.data, 'name', true, function(sorted) {
-				jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
-
-					countries.data = grouped;
-					cb();
-				});
-			});
-		});
-
-		return {
-			countries: countries
-		};
-	};
-
-
-
-	fileService.$inject = ['myClass', 'jsonService'];
-	angular.module('appModule').service('fileService', fileService);
 
 })();
 (function() {
@@ -2585,15 +2530,6 @@
 
 	var utilService = function() {
 
-		var loadScript = function(url) {
-
-			var script = document.createElement('script');
-			script.type = 'application/javascript';
-			script.async = true;
-			script.src = url;
-			document.body.appendChild(script);
-		};
-
 		var dataURItoBlob = function(dataURI) {
 
 			// convert base64/URLEncoded data component to raw binary data held in a string
@@ -2621,7 +2557,6 @@
 
 
 		return {
-			loadScript: loadScript,
 			dataURItoBlob: dataURItoBlob
 		};
 	};
@@ -2637,7 +2572,7 @@
 	'use strict';
 
 	var myClass = function(
-		MySwitchable, MySwitcher, MyLoader, MyModal, MyFile, MySrc, MyStorageItem, MyFormModel, MyCollectionBrowser,
+		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyFormModel, MyCollectionBrowser,
 		MySrcCollection, MyForm, MySrcAction
 	) {
 
@@ -2646,7 +2581,6 @@
 			MySwitcher: MySwitcher,
 			MyLoader: MyLoader,
 			MyModal: MyModal,
-			MyFile: MyFile,
 			MySrc: MySrc,
 			MyStorageItem: MyStorageItem,
 			MyFormModel: MyFormModel,
@@ -2658,7 +2592,7 @@
 	};
 
 	myClass.$inject = [
-		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MyFile', 'MySrc', 'MyStorageItem', 'MyFormModel',
+		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyFormModel',
 		'MyCollectionBrowser', 'MySrcCollection', 'MyForm', 'MySrcAction'
 	];
 
@@ -2932,45 +2866,6 @@
 
 	MyCollectionSelector.$inject = [];
 	angular.module('appModule').factory('MyCollectionSelector', MyCollectionSelector);
-
-})();
-(function() {
-
-	'use strict';
-
-	var MyFile = function($http) {
-
-		var MyFile = function(url, alterData) {
-
-			this.url = url;
-			this.alterData = alterData;
-
-			this.data = undefined;
-		};
-
-		MyFile.prototype.readFile = function(cb) {
-
-			var that = this;
-
-			$http.get(that.url).success(function(res) {
-
-				that.data = res;
-				if (cb) { cb(true); }
-
-			}).error(function() {
-
-				that.data = undefined;
-				if (cb) { cb(false); }
-			});
-		};
-
-		return MyFile;
-	};
-
-
-
-	MyFile.$inject = ['$http'];
-	angular.module('appModule').factory('MyFile', MyFile);
 
 })();
 (function() {
@@ -4359,6 +4254,66 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('confirmDangerModal', function() {
+
+		var confirmDangerModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmDangerModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmModal', function() {
+
+		var confirmModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('infoModal', function() {
+
+		var infoModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return infoModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('appearanceForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
 
 		var appearanceForm = {
@@ -4593,7 +4548,7 @@
 
 
 
-	appModule.directive('personalDetailsForm', function($rootScope, fileService, MyForm, Restangular) {
+	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular) {
 
 		var personalDetailsForm = {
 			restrict: 'E',
@@ -4601,7 +4556,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				$scope.countries = fileService.countries;
+				$scope.countries = $rootScope.localData.countries;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'personalDetailsForm',
@@ -4696,53 +4651,6 @@
 		};
 
 		return regionalForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, fileService, MyForm, UsersRest) {
-
-		var registerForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/registerForm/registerForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.countries = fileService.countries;
-
-				var formModel = $rootScope.globalFormModels.userModel;
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'registerForm',
-					model: formModel,
-					submitAction: function(args) {
-
-						return UsersRest.post(formModel.getValues(), undefined, { captcha_response: args.captchaResponse });
-					},
-					submitSuccessCb: function(res) {
-
-						authService.setAsLoggedIn(function() {
-							$timeout(function() {
-								$state.go('app.start', { tab: 'status' });
-							});
-						});
-					},
-					submitErrorCb: function(res) {
-
-						authService.setAsLoggedOut();
-					}
-				});
-			}
-		};
-
-		return registerForm;
 	});
 
 })();
@@ -4877,6 +4785,53 @@
 
 
 
+	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
+
+		var registerForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/registerForm/registerForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.countries = $rootScope.localData.countries;
+
+				var formModel = $rootScope.globalFormModels.userModel;
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'registerForm',
+					model: formModel,
+					submitAction: function(args) {
+
+						return UsersRest.post(formModel.getValues(), undefined, { captcha_response: args.captchaResponse });
+					},
+					submitSuccessCb: function(res) {
+
+						authService.setAsLoggedIn(function() {
+							$timeout(function() {
+								$state.go('app.start', { tab: 'status' });
+							});
+						});
+					},
+					submitErrorCb: function(res) {
+
+						authService.setAsLoggedOut();
+					}
+				});
+			}
+		};
+
+		return registerForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('reportSearchForm', function($rootScope, myClass) {
 
 		var reportSearchForm = {
@@ -4900,66 +4855,6 @@
 		};
 
 		return reportSearchForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmDangerModal', function() {
-
-		var confirmDangerModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmDangerModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('infoModal', function() {
-
-		var infoModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return infoModal;
 	});
 
 })();

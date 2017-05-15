@@ -4,15 +4,6 @@
 
 	var utilService = function() {
 
-		var loadScript = function(url) {
-
-			var script = document.createElement('script');
-			script.type = 'application/javascript';
-			script.async = true;
-			script.src = url;
-			document.body.appendChild(script);
-		};
-
 		var dataURItoBlob = function(dataURI) {
 
 			// convert base64/URLEncoded data component to raw binary data held in a string
@@ -40,7 +31,6 @@
 
 
 		return {
-			loadScript: loadScript,
 			dataURItoBlob: dataURItoBlob
 		};
 	};

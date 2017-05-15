@@ -10,7 +10,7 @@
 				}
 			},
 			resolve: {
-				getReport: function(reportCategories, $stateParams, $q, ReportsRest) {
+				getReport: function($stateParams, $q, ReportsRest) {
 
 					return $q(function(resolve) {
 

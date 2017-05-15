@@ -3,7 +3,7 @@
 	'use strict';
 
 	var myClass = function(
-		MySwitchable, MySwitcher, MyLoader, MyModal, MyFile, MySrc, MyStorageItem, MyFormModel, MyCollectionBrowser,
+		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyFormModel, MyCollectionBrowser,
 		MySrcCollection, MyForm, MySrcAction
 	) {
 
@@ -12,7 +12,6 @@
 			MySwitcher: MySwitcher,
 			MyLoader: MyLoader,
 			MyModal: MyModal,
-			MyFile: MyFile,
 			MySrc: MySrc,
 			MyStorageItem: MyStorageItem,
 			MyFormModel: MyFormModel,
@@ -24,7 +23,7 @@
 	};
 
 	myClass.$inject = [
-		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MyFile', 'MySrc', 'MyStorageItem', 'MyFormModel',
+		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyFormModel',
 		'MyCollectionBrowser', 'MySrcCollection', 'MyForm', 'MySrcAction'
 	];
 

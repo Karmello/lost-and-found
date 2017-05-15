@@ -288,6 +288,10 @@ body .form-group {
     #lost-and-found-app-start #infoSection > div {
       text-align: left; } }
 
+#lost-and-found-app-start #infoSection .myCollectionBrowser .ctrls {
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+
 #lost-and-found-app-start #formSection .myTabs {
   max-width: 450px; }
 

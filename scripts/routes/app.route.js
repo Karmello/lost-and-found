@@ -5,28 +5,50 @@
 		$stateProvider.state('app', {
 			abstract: true,
 			resolve: {
-				captchaApi: function($q, ui, utilService) {
+				localData: function($q, $http, $rootScope, jsonService) {
 
-					return $q(function(resolve, reject) {
+					return $q(function(resolve) {
 
-						try {
-							if (grecaptcha) { resolve(); }
+						$http.get('public/json/countries.json').success(function(res) {
 
-						} catch (ex) {
-							window.captchaApiLoaded = function() { resolve(); };
-							utilService.loadScript('https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit');
-						}
+							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
+								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
+
+									$rootScope.localData.countries.data = grouped;
+									resolve(true);
+								});
+							});
+
+						}).error(function() { resolve(false); });
 					});
 				},
-				openExchangeRates: function($rootScope, $q, ui, exchangeRateService) {
+				googleRecaptcha: function($q, $timeout) {
 
-					return $q(function(resolve, reject) {
+					return $q(function(resolve) {
+
+						var url = 'https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit';
+						var success = false;
+
+						window.captchaApiLoaded = function() { resolve(success = true); };
+
+						var script = document.createElement('script');
+						script.type = 'application/javascript';
+						script.async = true;
+						script.src = url;
+						document.body.appendChild(script);
+
+						$timeout(function() { if (!success) { resolve(false); } }, 20000);
+					});
+				},
+				openExchangeRates: function($q, exchangeRateService) {
+
+					return $q(function(resolve) {
 
 						var promises = [];
 
 						angular.forEach(exchangeRateService.config.availableRates, function(rate, rateKey) {
 
-							var promise = $q(function(resolve, reject) {
+							var promise = $q(function(resolve) {
 
 								$.getJSON(exchangeRateService.config.api + rateKey + '&callback=?').then(function(data) {
 									exchangeRateService.data[rateKey] = data;
@@ -41,98 +63,46 @@
 						});
 
 						$q.all(promises).then(function(results) {
-
-							if (results.indexOf(false) == -1) {
-								resolve();
-
-							} else {
-
-								ui.loaders.renderer.stop(function() {
-									$rootScope.ui.modals.tryToRefreshModal.show();
-								});
-							}
+							resolve(results.indexOf(false) == -1);
 						});
 					});
 				},
-				countries: function($q, $rootScope, ui, fileService) {
+				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest, ReportCategoriesRest) {
 
-					return $q(function(resolve, reject) {
+					return $q(function(resolve) {
 
-						if (fileService.countries.data) {
-							resolve();
+						var promises = [];
+
+						promises.push(DeactivationReasonsRest.getList());
+						promises.push(ContactTypesRest.getList());
+						promises.push(ReportCategoriesRest.getList());
+						promises.push($http.get('/stats'));
+
+						$q.all(promises).then(function(results) {
+
+							if (_.every(results, ['statusText', 'OK'])) {
+
+								$rootScope.apiData.deactivationReasons = $filter('orderBy')(results[0].data.plain(), 'index');
+								$rootScope.apiData.contactTypes = $filter('orderBy')(results[1].data.plain(), 'index');
+								$rootScope.apiData.reportCategories = results[2].data.plain();
+								$rootScope.apiData.stats = results[3].data;
+
+								resolve(true);
+
+							} else { resolve(false); }
+						});
+					});
+				},
+				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, apiData) {
+
+					return $q(function(resolve) {
+
+						if (googleRecaptcha && openExchangeRates && localData && apiData) {
+							resolve(true);
 
 						} else {
-
-							fileService.countries.readFile(function(success) {
-
-								if (success) {
-									fileService.countries.alterData(function() {
-										resolve();
-									});
-
-								} else {
-
-									ui.loaders.renderer.stop(function() {
-										$rootScope.ui.modals.tryToRefreshModal.show();
-									});
-								}
-							});
+							ui.modals.tryAgainLaterModal.show();
 						}
-					});
-				},
-				deactivationReasons: function($rootScope, $q, $filter, DeactivationReasonsRest) {
-
-					return $q(function(resolve) {
-
-						DeactivationReasonsRest.getList().then(function(res) {
-							$rootScope.apiData.deactivationReasons = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.deactivationReasons = undefined;
-							resolve(false);
-						});
-					});
-				},
-				contactTypes: function($rootScope, $q, $filter, ui, ContactTypesRest) {
-
-					return $q(function(resolve) {
-
-						ContactTypesRest.getList().then(function(res) {
-							$rootScope.apiData.contactTypes = $filter('orderBy')(res.data.plain(), 'index');
-							resolve(true);
-
-						}, function() {
-							$rootScope.apiData.contactTypes = undefined;
-							resolve(false);
-						});
-					});
-				},
-				reportCategories: function($q, $rootScope, ReportCategoriesRest, ui) {
-
-					return $q(function(resolve, reject) {
-
-						if (!$rootScope.apiData.reportCategories) {
-
-							ReportCategoriesRest.getList().then(function(res) {
-
-								$rootScope.apiData.reportCategories = res.data.plain();
-								resolve();
-
-							}, function() {
-
-								ui.loaders.renderer.stop(function() {
-									$rootScope.ui.modals.tryToRefreshModal.show();
-								});
-							});
-
-						} else { resolve(); }
-					});
-				},
-				getStats: function($http, $rootScope) {
-
-					return $http.get('/stats').then(function(res) {
-						$rootScope.apiData.stats = res.data;
 					});
 				},
 				authentication: function(authService) {
@@ -143,7 +113,6 @@
 			onEnter: function(authentication, $location, $timeout, $state) {
 
 				if (!authentication && $location.$$url.split('/') != 'start') {
-
 					$timeout(function() {
 						$state.go('app.start', { tab: 'login' }, { location: 'replace' });
 					});

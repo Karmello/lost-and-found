@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('personalDetailsForm', function($rootScope, fileService, MyForm, Restangular) {
+	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular) {
 
 		var personalDetailsForm = {
 			restrict: 'E',
@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				$scope.countries = fileService.countries;
+				$scope.countries = $rootScope.localData.countries;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'personalDetailsForm',

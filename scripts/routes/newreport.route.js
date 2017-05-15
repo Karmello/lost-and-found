@@ -5,7 +5,7 @@
 		$stateProvider.state('app.newreport', {
 			url: '/newreport',
 			resolve: {
-				_ui: function(reportCategories, $q, ui)	 {
+				_ui: function($q, ui)	 {
 
 					return $q(function(resolve) {
 

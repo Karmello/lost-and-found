@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, fileService, MyForm, UsersRest) {
+	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
 
 		var registerForm = {
 			restrict: 'E',
@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				$scope.countries = fileService.countries;
+				$scope.countries = $rootScope.localData.countries;
 
 				var formModel = $rootScope.globalFormModels.userModel;
 

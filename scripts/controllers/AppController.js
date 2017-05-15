@@ -24,6 +24,10 @@
 			stats: undefined
 		};
 
+		$rootScope.localData = {
+			countries: { data: undefined }
+		};
+
 		$rootScope.globalFormModels = {
 			userModel: new myClass.MyFormModel(
 				'userModel',

@@ -2,6 +2,19 @@
 
 	'use strict';
 
+	var appFrameConf = function() {
+
+		var config = {
+			_ctrlId: 'appFrame',
+			switchers: [
+				{ _id: 'start' },
+				{ _id: 'main' }
+			]
+		};
+
+		return config;
+	};
+
 	var mainFrameConf = function($rootScope, $q, hardDataService) {
 
 		var hardData = hardDataService.get();
@@ -105,9 +118,10 @@
 		return config;
 	};
 
-
-
+	appFrameConf.$inject = [];
 	mainFrameConf.$inject = ['$rootScope', '$q', 'hardDataService'];
+
+	angular.module('appModule').service('appFrameConf', appFrameConf);
 	angular.module('appModule').service('mainFrameConf', mainFrameConf);
 
 })();

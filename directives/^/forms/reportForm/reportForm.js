@@ -53,7 +53,7 @@
 							$scope.myForm.submitSuccessCb = function(res) {
 								googleMapService.reportPlace = null;
 								$scope.myForm.reset();
-								$state.go('main.report', { id: res.data._id });
+								$state.go('app.report', { id: res.data._id });
 							};
 
 							// Making http request
@@ -73,7 +73,7 @@
 							$scope.myForm.submitSuccessCb = function(res) {
 								googleMapService.reportPlace = null;
 								$rootScope.apiData.report = res.data;
-								$state.go('main.report', { id: res.data._id, edit: undefined });
+								$state.go('app.report', { id: res.data._id, edit: undefined });
 							};
 
 							$scope.myForm.submitErrorCb = function(res) {

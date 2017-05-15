@@ -29,7 +29,7 @@
 
 						authService.setAsLoggedIn(function() {
 							$timeout(function() {
-								$state.go('guest.1', { tab: 'status' });
+								$state.go('app.start', { tab: 'status' });
 							});
 						});
 					},

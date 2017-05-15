@@ -3,8 +3,8 @@
 	'use strict';
 
 	var ui = function(
-		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, reportTabsConf,
-		mainFrameNavConf, modalsConf, myClass, uiSetupService
+		appFrameConf, mainFrameConf, topNavMenuConf, settingsListGroupConf, startTabsConf, settingsTabsConf,
+		reportTabsConf, mainFrameNavConf, modalsConf, myClass, uiSetupService
 	) {
 
 		angular.forEach(mainFrameConf.switchers, function(source) {
@@ -22,6 +22,7 @@
 
 		var ctrls = {
 			frames: {
+				app: new myClass.MySwitchable(appFrameConf),
 				main: new myClass.MySwitchable(mainFrameConf)
 			},
 			menus: {
@@ -31,7 +32,7 @@
 				settings: new myClass.MySwitchable(settingsListGroupConf)
 			},
 			tabs: {
-				guest: new myClass.MySwitchable(guestTabsConf),
+				start: new myClass.MySwitchable(startTabsConf),
 				application: new myClass.MySwitchable(settingsTabsConf.application),
 				account: new myClass.MySwitchable(settingsTabsConf.account),
 				payment: new myClass.MySwitchable(settingsTabsConf.payment),
@@ -55,8 +56,8 @@
 	};
 
 	ui.$inject = [
-		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'reportTabsConf',
-		'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
+		'appFrameConf', 'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'startTabsConf', 'settingsTabsConf',
+		'reportTabsConf', 'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
 	];
 
 	angular.module('appModule').service('ui', ui);

@@ -2,7 +2,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.settings1', {
+		$stateProvider.state('app.settings1', {
 			url: '/settings',
 			resolve: {
 				redirection: function($q, $timeout, $state, ui) {
@@ -14,7 +14,7 @@
 						var catId = ui.listGroups.settings.activeSwitcherId;
 
 						$timeout(function() {
-							$state.go('main.settings3', {
+							$state.go('app.settings3', {
 								catId: catId,
 								subcatId: ui.tabs[catId].activeSwitcherId
 							}, { location: 'replace' });

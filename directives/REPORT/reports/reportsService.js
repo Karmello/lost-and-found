@@ -22,11 +22,11 @@
 
 							switch ($state.current.name) {
 
-								case 'main.profile':
+								case 'app.profile':
 									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
 									break;
 
-								case 'main.report':
+								case 'app.report':
 									window.history.back();
 									break;
 							}

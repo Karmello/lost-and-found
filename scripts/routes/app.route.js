@@ -2,28 +2,23 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main', {
+		$stateProvider.state('app', {
 			abstract: true,
-			views: {
-				view1: { templateUrl: 'public/pages/lost-and-found-app-main.html' }
-			},
 			resolve: {
-				authentication: function($timeout, $state, $q, authService, ui) {
+				captchaApi: function($q, ui, utilService) {
 
 					return $q(function(resolve, reject) {
 
-						authService.authenticate(function(success, res) {
+						try {
+							if (grecaptcha) { resolve(); }
 
-							if (success) {
-								resolve();
-
-							} else {
-								$timeout(function() { $state.go('guest.1', { tab: 'login' }, { location: 'replace' }); });
-							}
-						});
+						} catch (ex) {
+							window.captchaApiLoaded = function() { resolve(); };
+							utilService.loadScript('https://www.google.com/recaptcha/api.js?onload=captchaApiLoaded&render=explicit');
+						}
 					});
 				},
-				openExchangeRates: function(authentication, $rootScope, $q, ui, exchangeRateService) {
+				openExchangeRates: function($rootScope, $q, ui, exchangeRateService) {
 
 					return $q(function(resolve, reject) {
 
@@ -59,7 +54,7 @@
 						});
 					});
 				},
-				countries: function(openExchangeRates, $rootScope, $q, ui, fileService) {
+				countries: function($q, $rootScope, ui, fileService) {
 
 					return $q(function(resolve, reject) {
 
@@ -85,7 +80,8 @@
 						}
 					});
 				},
-				deactivationReasons: function(countries, $rootScope, $q, $filter, DeactivationReasonsRest) {
+				deactivationReasons: function($rootScope, $q, $filter, DeactivationReasonsRest) {
+
 					return $q(function(resolve) {
 
 						DeactivationReasonsRest.getList().then(function(res) {
@@ -98,7 +94,8 @@
 						});
 					});
 				},
-				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
+				contactTypes: function($rootScope, $q, $filter, ui, ContactTypesRest) {
+
 					return $q(function(resolve) {
 
 						ContactTypesRest.getList().then(function(res) {
@@ -111,7 +108,7 @@
 						});
 					});
 				},
-				reportCategories: function(contactTypes, $q, $rootScope, ReportCategoriesRest, ui) {
+				reportCategories: function($q, $rootScope, ReportCategoriesRest, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -119,29 +116,38 @@
 
 							ReportCategoriesRest.getList().then(function(res) {
 
-							$rootScope.apiData.reportCategories = res.data.plain();
-							resolve();
+								$rootScope.apiData.reportCategories = res.data.plain();
+								resolve();
 
-						}, function() {
+							}, function() {
 
-							ui.loaders.renderer.stop(function() {
-								$rootScope.ui.modals.tryToRefreshModal.show();
+								ui.loaders.renderer.stop(function() {
+									$rootScope.ui.modals.tryToRefreshModal.show();
+								});
 							});
-						});
 
 						} else { resolve(); }
 					});
+				},
+				getStats: function($http, $rootScope) {
+
+					return $http.get('/stats').then(function(res) {
+						$rootScope.apiData.stats = res.data;
+					});
+				},
+				authentication: function(authService) {
+
+					return authService.authenticate();
 				}
 			},
-			onEnter: function($timeout, ui) {
+			onEnter: function(authentication, $location, $timeout, $state) {
 
-				// Resetting settingsListGroup
-				ui.listGroups.settings.getFirstSwitcher().activate();
+				if (!authentication && $location.$$url.split('/') != 'start') {
 
-				// Resetting settingsListGroup tabs
-				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-					ui.tabs[switcher._id].getFirstSwitcher().activate();
-				});
+					$timeout(function() {
+						$state.go('app.start', { tab: 'login' }, { location: 'replace' });
+					});
+				}
 			}
 		});
 	});

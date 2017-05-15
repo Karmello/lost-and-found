@@ -9,7 +9,7 @@
 				ng-class="report.group == 'F' ? 'isFound' : ''"
 			>
 				<title-section>
-					<a ui-sref="main.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.truncatedTitle }}</a>
+					<a ui-sref="app.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.truncatedTitle }}</a>
 				</title-section>
 				<info-section ng-if="!noInfo">
 					<p>{{ report.fullCategory }}</p>

@@ -22,7 +22,7 @@
 				};
 
 				$scope.onContinueClick = function() {
-					$state.go('main.home');
+					$state.go('app.home');
 				};
 			}
 		};

@@ -133,24 +133,6 @@ body .form-group {
     -ms-flex-preferred-size: 650px;
     flex-basis: 650px; }
 
-#lost-and-found-app-guest #infoSection > div {
-  text-align: center; }
-  @media only screen and (min-width: 768px) {
-    #lost-and-found-app-guest #infoSection > div {
-      text-align: left; } }
-
-#lost-and-found-app-guest #formSection .myTabs {
-  max-width: 450px; }
-
-#lost-and-found-app-guest #formSection .myForm {
-  max-width: 300px; }
-
-#lost-and-found-app-guest #formSection .myTabs, #lost-and-found-app-guest #formSection .myForm {
-  margin: 50px auto; }
-
-#lost-and-found-app-guest #formSection .userBadge {
-  margin-bottom: 50px; }
-
 #lost-and-found-app-home table td {
   padding: 0; }
   #lost-and-found-app-home table td span {
@@ -299,6 +281,24 @@ body .form-group {
 
 #lost-and-found-app-settings .myForm, #lost-and-found-app-settings .mySrc {
   margin: 0 auto; }
+
+#lost-and-found-app-start #infoSection > div {
+  text-align: center; }
+  @media only screen and (min-width: 768px) {
+    #lost-and-found-app-start #infoSection > div {
+      text-align: left; } }
+
+#lost-and-found-app-start #formSection .myTabs {
+  max-width: 450px; }
+
+#lost-and-found-app-start #formSection .myForm {
+  max-width: 300px; }
+
+#lost-and-found-app-start #formSection .myTabs, #lost-and-found-app-start #formSection .myForm {
+  margin: 50px auto; }
+
+#lost-and-found-app-start #formSection .userBadge {
+  margin-bottom: 50px; }
 
 #auctionNumBox {
   display: -ms-flexbox;

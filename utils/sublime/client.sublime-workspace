@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"coun",
+				"countries"
+			],
+			[
+				"rece",
+				"recentlyReportedCollectionBrowser\t(reports.js)"
+			],
+			[
+				"recently",
+				"recentlyReportedCollectionBrowser\t(reportsConf.js)"
+			],
+			[
+				"Użytko",
+				"użytkowników"
+			],
+			[
 				"reports",
 				"reportsRecentlyViewed"
 			],
@@ -498,60 +514,50 @@
 			[
 				"_id",
 				"_isTheOneLoggedIn\t(UsersRest.js)"
-			],
-			[
-				"file",
-				"fileType\t(UsersRest.js)"
-			],
-			[
-				"userA",
-				"userAvatarCredentials\t(setupRoutes.js)"
-			],
-			[
-				"itemP",
-				"itemPhotosConf\t(itemPhotosConf.js)"
-			],
-			[
-				"getS",
-				"getSrcContextMenuConf\t(itemPhotosConf.js)"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/public/pages/lost-and-found-app-home.html",
+			"file": "/D/Workspace/laf/dev/public/index.html",
 			"settings":
 			{
-				"buffer_size": 1498,
+				"buffer_size": 2599,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/scripts/routes/guest.js",
+			"settings":
+			{
+				"buffer_size": 2043,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
+			"file": "/D/Workspace/laf/dev/scripts/routes/guest.tab.js",
 			"settings":
 			{
-				"buffer_size": 2054,
+				"buffer_size": 1296,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/scripts/routes/main.js",
+			"settings":
+			{
+				"buffer_size": 3743,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
+			"file": "/D/Workspace/laf/dev/scripts/routes/main.home.js",
 			"settings":
 			{
-				"buffer_size": 2165,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
-			"settings":
-			{
-				"buffer_size": 1158,
-				"encoding": "UTF-8",
+				"buffer_size": 448,
 				"line_ending": "Windows"
 			}
 		}
@@ -634,46 +640,65 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/directives",
-		"/D/Workspace/laf/dev/directives/REPORT",
-		"/D/Workspace/laf/dev/directives/REPORT/reports"
+		"/D/Workspace/laf/dev/scripts/routes"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/scripts/routes/app.js",
+		"/D/Workspace/laf/dev/scripts/routes/guest.1.js",
+		"/D/Workspace/laf/dev/directives/^/forms/loginForm/loginForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/registerForm/registerForm.js",
+		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
+		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
+		"/D/Workspace/laf/dev/directives/USER/userBadge/userBadge.js",
+		"/D/Workspace/laf/dev/scripts/configuration/contextMenuConf.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.about.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.contact.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.help.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.home.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.newreport.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.profile.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.report.tab.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.search.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.settings1.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.settings2.js",
+		"/D/Workspace/laf/dev/scripts/routes/main.settings3.js",
+		"/D/Workspace/laf/dev/scripts/run.js",
+		"/D/Workspace/laf/dev/scripts/services/apiService.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-guest.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-home.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsConf.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
+		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
+		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
 		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.scss",
 		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-home.scss",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatar.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
-		"/D/Workspace/laf/dev/scripts/services/apiService.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsConf.js",
 		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
 		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.js",
 		"/D/Workspace/laf/dev/scripts/services/authService.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.home.js",
 		"/D/Workspace/laf/dev/scripts/routes/main.js",
 		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-contact.scss",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
 		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-profile.scss",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
 		"/D/Workspace/laf/dev/scripts/controllers/HomeController.js",
-		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-newreport.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report-tab.html",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.html",
-		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyFormModel.js",
 		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
-		"/D/Workspace/laf/dev/scripts/configuration/contextMenuConf.js",
 		"/D/Workspace/laf/dev/scripts/services/storageService.js",
 		"/D/Workspace/laf/dev/scripts/factories/rest/UsersRest.js",
 		"/D/Workspace/laf/dev/scripts/configuration/mainFrameNavConf.js",
@@ -683,7 +708,6 @@
 		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.html",
 		"/D/Workspace/laf/dev/db/init.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
 		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-main.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.scss",
 		"/D/Workspace/laf/dev/sass/_myClasses.scss",
@@ -706,7 +730,6 @@
 		"/D/Workspace/laf/dev/scripts/factories/rest/ReportCategoriesRest.js",
 		"/D/Workspace/laf/dev/server/routes.js",
 		"/D/Workspace/laf/dev/db/clear.js",
-		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/scripts/services/googleMapService.js",
 		"/D/Workspace/laf/dev/server/actions/_actions.js",
 		"/D/Workspace/laf/dev/server/actions/ItemCategory/getItemCategories.js",
@@ -715,9 +738,6 @@
 		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
 		"/D/Workspace/laf/dev/scripts/services/ui.js",
 		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.html",
-		"/D/Workspace/laf/dev/scripts/routes/main.newreport.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.profile.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.search.js",
 		"/D/Workspace/laf/dev/scripts/configuration/modalsConf.js",
 		"/D/Workspace/laf/dev/server/modules/authorize.js",
 		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
@@ -739,7 +759,6 @@
 		"/D/Workspace/laf/dev/directives/REPORT/itemIconMenu/itemIconMenu.js",
 		"/D/Workspace/laf/dev/directives/AUCTION/auctionNumBox/auctionNumBox.js",
 		"/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatarService.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.report.tab.js",
 		"/D/Workspace/laf/dev/scripts/configuration/mainFrameConf.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-editem.html",
 		"/D/Workspace/laf/dev/scripts/controllers/ItemController.js",
@@ -751,23 +770,8 @@
 		"/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.js",
 		"/D/Workspace/laf/dev/directives/ITEM/items/items.html",
 		"/D/Workspace/laf/dev/directives/ITEM/items/itemsService.js",
-		"/D/Workspace/laf/dev/scripts/run.js",
 		"/D/Workspace/laf/dev/scripts/routes/main.item.tab.js",
-		"/D/Workspace/laf/dev/scripts/routes/main.item.js",
-		"/D/Workspace/laf/dev/directives/ITEM/itemAvatar/itemAvatar.scss",
-		"/D/Workspace/laf/dev/utils/conemu/projectTask.txt",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-item.scss",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.html",
-		"/D/Workspace/laf/dev/directives/^/forms/itemForm/itemForm.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionSelector.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/MySwitchable.js",
-		"/D/Workspace/laf/dev/directives/my/myInput/myInput.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item.html",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.scss",
-		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.scss",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item-tab.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-item-tabs.html"
+		"/D/Workspace/laf/dev/scripts/routes/main.item.js"
 	],
 	"find":
 	{
@@ -846,6 +850,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"guest.1",
+			"'main.",
+			"'main",
+			"guest",
+			"guest.1",
+			"'app.guest.1'",
+			"'guest.1'",
+			"'guest'",
+			"guest.1",
+			"RecentlyAddedReports",
+			"Zgłoszenia",
+			"Użytkowników",
 			"updateRefresher",
 			"reportsService",
 			"max-width",
@@ -961,19 +977,7 @@
 			"main.editem",
 			"/item/",
 			"main.item",
-			"'item'",
-			"\"item\"",
-			"main.item",
-			"lost-and-found-app-report",
-			"lost-and-found-app-newreport",
-			"\"report\"",
-			"'report'",
-			"flushItemMap",
-			"@media",
-			"$.extend",
-			"initUserItems",
-			"console.log",
-			"isSelected"
+			"'item'"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -981,6 +985,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"guest.tab",
+			"'app.main.",
+			"app.guest.1",
+			"'guest.1'",
+			"'app.guest.1'",
+			"NewReports",
 			"reportGroups",
 			"ReportSchema",
 			"r.Report",
@@ -1102,13 +1112,7 @@
 			"tryAgainLaterModal",
 			"dismissCb",
 			"acceptCb",
-			"confirmDangerModal",
-			"confirmModal",
-			"infoModal",
-			"MyFilesManager",
-			"myFilesManager",
-			"globalFormModels",
-			"topText"
+			"confirmDangerModal"
 		],
 		"reverse": false,
 		"show_context": false,
@@ -1119,24 +1123,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/public/pages/lost-and-found-app-home.html",
+					"file": "/D/Workspace/laf/dev/public/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1498,
+						"buffer_size": 2599,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1133,
-								1133
+								200,
+								200
 							]
 						],
 						"settings":
@@ -1154,79 +1158,91 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
 								}
 							],
 							"bs_sintax": "html",
-							"buffer_scroll_name": "db173056",
+							"buffer_scroll_name": "0c9f9741",
 							"spell_check": false,
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 137.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/scripts/routes/guest.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2043,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								149,
+								149
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "9e784734",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2054,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1982,
-								1982
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "html",
-							"buffer_scroll_name": "cee2bbbc",
-							"spell_check": false,
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 673.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
 					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
+					"file": "/D/Workspace/laf/dev/scripts/routes/guest.tab.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2165,
+						"buffer_size": 1296,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								327,
-								327
+								401,
+								401
 							]
 						],
 						"settings":
@@ -1243,8 +1259,7 @@
 								}
 							],
 							"bs_sintax": "javascript",
-							"buffer_scroll_name": "cffc464c",
-							"spell_check": false,
+							"buffer_scroll_name": "4b3282f9",
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
@@ -1252,24 +1267,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
+					"file": "/D/Workspace/laf/dev/scripts/routes/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1158,
+						"buffer_size": 3743,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								70,
-								70
+								1484,
+								1484
 							]
 						],
 						"settings":
@@ -1283,12 +1298,20 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
 								}
 							],
-							"bs_sintax": "html",
-							"buffer_scroll_name": "b235dbac",
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "297fae5e",
 							"spell_check": false,
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1296,6 +1319,53 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/Workspace/laf/dev/scripts/routes/main.home.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 448,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								191,
+								191
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "7e2c84a2",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -1362,20 +1432,72 @@
 		"selected_items":
 		[
 			[
-				"mycoll",
-				"factories\\class\\MyCollectionBrowser.js"
+				"index",
+				"dev\\public\\index.html"
+			],
+			[
+				"appc",
+				"controllers\\AppController.js"
+			],
+			[
+				"main.js",
+				"routes\\main.js"
+			],
+			[
+				"home.htm",
+				"pages\\lost-and-found-app-home.html"
+			],
+			[
+				"main.report",
+				"routes\\main.report.js"
 			],
 			[
 				"mycolle",
-				"directives\\my\\myCollectionBrowser\\myCollectionBrowser.html"
+				"factories\\class\\MyCollectionBrowser.js"
 			],
 			[
-				"mycol",
-				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
+				"main.report.",
+				"routes\\main.report.js"
+			],
+			[
+				"apis",
+				"services\\apiService.js"
+			],
+			[
+				"reportco",
+				"dev\\server\\controllers\\ReportController.js"
+			],
+			[
+				"reportc",
+				"controllers\\ReportController.js"
+			],
+			[
+				"reports.js",
+				"directives\\REPORT\\reports\\reports.js"
+			],
+			[
+				"report.html",
+				"pages\\lost-and-found-app-report.html"
 			],
 			[
 				"profile.htm",
 				"pages\\lost-and-found-app-profile.html"
+			],
+			[
+				"hardd",
+				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
+			],
+			[
+				"hard",
+				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
+			],
+			[
+				"mycoll",
+				"factories\\class\\MyCollectionBrowser.js"
+			],
+			[
+				"mycol",
+				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
 			],
 			[
 				"reports.scs",
@@ -1394,10 +1516,6 @@
 				"directives\\REPORT\\reports\\reports.html"
 			],
 			[
-				"reports.js",
-				"directives\\REPORT\\reports\\reports.js"
-			],
-			[
 				"mycollec",
 				"directives\\my\\myCollectionElem\\myCollectionElem.html"
 			],
@@ -1414,32 +1532,12 @@
 				"services\\authService.js"
 			],
 			[
-				"apis",
-				"services\\apiService.js"
-			],
-			[
 				"profile.scs",
 				"sass\\pages\\lost-and-found-app-profile.scss"
 			],
 			[
-				"appc",
-				"controllers\\AppController.js"
-			],
-			[
-				"main.report",
-				"routes\\main.report.js"
-			],
-			[
 				"report.ht",
 				"pages\\lost-and-found-app-report.html"
-			],
-			[
-				"hard",
-				"dev\\public\\json\\hard_coded\\hard_coded_pl.json"
-			],
-			[
-				"hardd",
-				"dev\\public\\json\\hard_coded\\hard_coded_en.json"
 			],
 			[
 				"search.html",
@@ -1448,10 +1546,6 @@
 			[
 				"newreport",
 				"pages\\lost-and-found-app-newreport.html"
-			],
-			[
-				"report.html",
-				"pages\\lost-and-found-app-report.html"
 			],
 			[
 				"report-t",
@@ -1608,10 +1702,6 @@
 			[
 				"run",
 				"dev\\scripts\\run.js"
-			],
-			[
-				"main.js",
-				"routes\\main.js"
 			],
 			[
 				"main.s",
@@ -1852,26 +1942,6 @@
 			[
 				"loginf",
 				"directives\\^\\forms\\loginForm\\loginForm.js"
-			],
-			[
-				"appear",
-				"directives\\^\\forms\\appearanceForm\\appearanceForm.js"
-			],
-			[
-				"itemschema",
-				"dev\\server\\schemas\\ItemSchema.js"
-			],
-			[
-				"myinp",
-				"directives\\my\\myInput\\myInput.html"
-			],
-			[
-				"setupc",
-				"dev\\server\\setups\\setupConstants.js"
-			],
-			[
-				"const",
-				"dev\\scripts\\constants.js"
 			]
 		],
 		"width": 0.0
@@ -1901,7 +1971,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 291.0,
 	"status_bar_visible": true,
 	"template_settings":

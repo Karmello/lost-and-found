@@ -131,8 +131,8 @@
 
 				switch (toState.name) {
 
-					case 'main.profile':
-					case 'main.report':
+					case 'app.profile':
+					case 'app.report':
 
 						if (toState.id == toParams.id) {
 							newScrollY = $state.current.scrollY;
@@ -144,11 +144,11 @@
 						toState.id = toParams.id;
 						break;
 
-					case 'main.search':
+					case 'app.search':
 						newScrollY = $state.current.scrollY;
 						break;
 
-					case 'main.report.tab':
+					case 'app.report.tab':
 						return;
 
 					default:
@@ -178,7 +178,7 @@
 					label: $rootScope.hardData.phrases[68],
 					onClick: function() {
 
-						$state.go('main.report', { id: this.parent.data._id, edit: '1' });
+						$state.go('app.report', { id: this.parent.data._id, edit: '1' });
 					}
 				},
 				{
@@ -233,6 +233,19 @@
 (function() {
 
 	'use strict';
+
+	var appFrameConf = function() {
+
+		var config = {
+			_ctrlId: 'appFrame',
+			switchers: [
+				{ _id: 'start' },
+				{ _id: 'main' }
+			]
+		};
+
+		return config;
+	};
 
 	var mainFrameConf = function($rootScope, $q, hardDataService) {
 
@@ -337,9 +350,10 @@
 		return config;
 	};
 
-
-
+	appFrameConf.$inject = [];
 	mainFrameConf.$inject = ['$rootScope', '$q', 'hardDataService'];
+
+	angular.module('appModule').service('appFrameConf', appFrameConf);
 	angular.module('appModule').service('mainFrameConf', mainFrameConf);
 
 })();
@@ -363,7 +377,7 @@
 				{ _id: 'separator' },
 				{
 					_id: 'logout',
-					route: '/#/guest/login',
+					route: '/#/start/login',
 					label: hardData.phrases[12],
 					icon: 'glyphicon glyphicon-off',
 					onClick: function() { $rootScope.logout(); }
@@ -521,29 +535,29 @@
 
 	'use strict';
 
-	var guestTabsConf = function($rootScope) {
+	var startTabsConf = function($rootScope) {
 
 		var config = {
-			_ctrlId: 'guestTabs',
+			_ctrlId: 'startTabs',
 			switchers: [
 				{
 					_id: 'login',
-					route: '/#/guest/login',
+					route: '/#/start/login',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'register',
-					route: '/#/guest/register',
+					route: '/#/start/register',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'recover',
-					route: '/#/guest/recover',
+					route: '/#/start/recover',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'status',
-					route: '/#/guest/status',
+					route: '/#/start/status',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				}
 			],
@@ -665,11 +679,11 @@
 
 
 
-	guestTabsConf.$inject = ['$rootScope'];
+	startTabsConf.$inject = ['$rootScope'];
 	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
 	reportTabsConf.$inject = ['$rootScope'];
 
-	angular.module('appModule').service('guestTabsConf', guestTabsConf);
+	angular.module('appModule').service('startTabsConf', startTabsConf);
 	angular.module('appModule').service('settingsTabsConf', settingsTabsConf);
 	angular.module('appModule').service('reportTabsConf', reportTabsConf);
 
@@ -770,7 +784,7 @@
 			authService.setAsLoggedOut(function() {
 				var params = { tab: 'login' };
 				if (extraParams) { Object.assign(params, extraParams); }
-				$state.go('guest.1', params);
+				$state.go('app.start', params);
 				if (cb) { cb(); }
 			});
 		};
@@ -796,23 +810,6 @@
 	];
 
 	angular.module('appModule').controller('AppController', AppController);
-
-})();
-(function() {
-
-	'use strict';
-
-	var GuestController = function($scope, authService) {
-
-		$scope.$watch(function() { return authService.state.loggedIn; }, function(loggedIn) {
-
-			for (var i = 0; i < 3; i++) { $scope.ui.tabs.guest.switchers[i].isVisible = !loggedIn; }
-			$scope.ui.tabs.guest.switchers[3].isVisible = loggedIn;
-		});
-	};
-
-	GuestController.$inject = ['$scope', 'authService'];
-	angular.module('appModule').controller('GuestController', GuestController);
 
 })();
 (function() {
@@ -886,59 +883,32 @@
 })();
 (function() {
 
+	'use strict';
+
+	var StartController = function($scope, authService) {
+
+		$scope.$watch(function() { return authService.state.loggedIn; }, function(loggedIn) {
+
+			for (var i = 0; i < 3; i++) { $scope.ui.tabs.start.switchers[i].isVisible = !loggedIn; }
+			$scope.ui.tabs.start.switchers[3].isVisible = loggedIn;
+		});
+	};
+
+	StartController.$inject = ['$scope', 'authService'];
+	angular.module('appModule').controller('StartController', StartController);
+
+})();
+(function() {
+
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('guest.1', {
-			url: '/guest/:tab?action',
-			resolve: {
-				tab: function(countries, $q, $state, $stateParams, ui) {
+		$stateProvider.state('app.about', {
+			url: '/about',
+			onEnter: function(ui) {
 
-					return $q(function(resolve, reject) {
-
-						var availableParams = ui.tabs.guest.switcherIds;
-
-						// Valid tab
-						if (availableParams.indexOf($stateParams.tab) > -1) {
-							resolve();
-
-						// Invalid tab
-						} else {
-
-							$state.go('guest.1', { tab: 'login' }, { location: 'replace' });
-						}
-	    			});
-				},
-				authentication: function(tab, $q, $state, $stateParams, authService) {
-
-					return $q(function(resolve) {
-
-						authService.authenticate(function(success) {
-
-							if (success && $stateParams.tab != 'status') {
-								$state.go('guest.1', { tab: 'status' }, { location: 'replace' });
-
-							} else {
-								resolve();
-							}
-						});
-					});
-				}
-			},
-			onEnter: function($state, $stateParams, $timeout, ui) {
-
-				ui.tabs.guest.activateSwitcher($stateParams.tab);
-				ui.frames.main.activateSwitcher();
-
-				$timeout(function() {
-
-					if ($state.params.action == 'deactivation') {
-
-						$timeout(function() {
-							ui.modals.deactivationDoneModal.show();
-						}, 500);
-					}
-
-				}, 2500);
+				ui.frames.main.activateSwitcher('about');
+				ui.menus.top.activateSwitcher('about');
+				ui.frames.app.activateSwitcher('main');
 			}
 		});
 	});
@@ -948,11 +918,8 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('guest', {
+		$stateProvider.state('app', {
 			abstract: true,
-			views: {
-				view1: { templateUrl: 'public/pages/lost-and-found-app-guest.html' }
-			},
 			resolve: {
 				captchaApi: function($q, ui, utilService) {
 
@@ -967,165 +934,7 @@
 						}
 					});
 				},
-				countries: function(captchaApi, $q, $rootScope, ui, fileService) {
-
-					return $q(function(resolve, reject) {
-
-						if (fileService.countries.data) {
-							resolve();
-
-						} else {
-
-							fileService.countries.readFile(function(success) {
-
-								if (success) {
-									fileService.countries.alterData(function() {
-										resolve();
-									});
-
-								} else {
-
-									ui.loaders.renderer.stop(function() {
-										$rootScope.ui.modals.tryToRefreshModal.show();
-									});
-								}
-							});
-						}
-					});
-				},
-				reportCategories: function(countries, $q, $rootScope, ReportCategoriesRest, ui) {
-
-					return $q(function(resolve, reject) {
-
-						if (!$rootScope.apiData.reportCategories) {
-
-							ReportCategoriesRest.getList().then(function(res) {
-
-								$rootScope.apiData.reportCategories = res.data.plain();
-								resolve();
-
-							}, function() {
-
-								ui.loaders.renderer.stop(function() {
-									$rootScope.ui.modals.tryToRefreshModal.show();
-								});
-							});
-
-						} else { resolve(); }
-					});
-				}
-			},
-			onEnter: function($rootScope, $state, $timeout, ui) {
-
-				$timeout(function() {
-
-					if ($state.params.tab == 'login' && $state.params.action == 'pass_reset') {
-
-						$timeout(function() {
-							$rootScope.ui.modals.passResetDoneModal.show();
-						}, 500);
-					}
-
-				}, 2500);
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.about', {
-			url: '/about',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('about');
-				ui.menus.top.activateSwitcher('about');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.contact', {
-			url: '/contact',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('contact');
-				ui.menus.top.activateSwitcher('contact');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.help', {
-			url: '/help',
-			onEnter: function(ui) {
-
-				ui.frames.main.activateSwitcher('help');
-				ui.menus.top.activateSwitcher('help');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main.home', {
-			url: '/home',
-			resolve: {
-				getStats: function($http, $rootScope) {
-
-					return $http.get('/stats').then(function(res) {
-						$rootScope.apiData.stats = res.data;
-					});
-				}
-			},
-			onEnter: function(ui) {
-
-				ui.menus.top.activateSwitcher('home');
-				ui.frames.main.activateSwitcher('home');
-			}
-		});
-	});
-
-})();
-(function() {
-
-	angular.module('appModule').config(function($stateProvider) {
-
-		$stateProvider.state('main', {
-			abstract: true,
-			views: {
-				view1: { templateUrl: 'public/pages/lost-and-found-app-main.html' }
-			},
-			resolve: {
-				authentication: function($timeout, $state, $q, authService, ui) {
-
-					return $q(function(resolve, reject) {
-
-						authService.authenticate(function(success, res) {
-
-							if (success) {
-								resolve();
-
-							} else {
-								$timeout(function() { $state.go('guest.1', { tab: 'login' }, { location: 'replace' }); });
-							}
-						});
-					});
-				},
-				openExchangeRates: function(authentication, $rootScope, $q, ui, exchangeRateService) {
+				openExchangeRates: function($rootScope, $q, ui, exchangeRateService) {
 
 					return $q(function(resolve, reject) {
 
@@ -1161,7 +970,7 @@
 						});
 					});
 				},
-				countries: function(openExchangeRates, $rootScope, $q, ui, fileService) {
+				countries: function($q, $rootScope, ui, fileService) {
 
 					return $q(function(resolve, reject) {
 
@@ -1187,7 +996,8 @@
 						}
 					});
 				},
-				deactivationReasons: function(countries, $rootScope, $q, $filter, DeactivationReasonsRest) {
+				deactivationReasons: function($rootScope, $q, $filter, DeactivationReasonsRest) {
+
 					return $q(function(resolve) {
 
 						DeactivationReasonsRest.getList().then(function(res) {
@@ -1200,7 +1010,8 @@
 						});
 					});
 				},
-				contactTypes: function(deactivationReasons, $rootScope, $q, $filter, ui, ContactTypesRest) {
+				contactTypes: function($rootScope, $q, $filter, ui, ContactTypesRest) {
+
 					return $q(function(resolve) {
 
 						ContactTypesRest.getList().then(function(res) {
@@ -1213,7 +1024,7 @@
 						});
 					});
 				},
-				reportCategories: function(contactTypes, $q, $rootScope, ReportCategoriesRest, ui) {
+				reportCategories: function($q, $rootScope, ReportCategoriesRest, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -1221,29 +1032,38 @@
 
 							ReportCategoriesRest.getList().then(function(res) {
 
-							$rootScope.apiData.reportCategories = res.data.plain();
-							resolve();
+								$rootScope.apiData.reportCategories = res.data.plain();
+								resolve();
 
-						}, function() {
+							}, function() {
 
-							ui.loaders.renderer.stop(function() {
-								$rootScope.ui.modals.tryToRefreshModal.show();
+								ui.loaders.renderer.stop(function() {
+									$rootScope.ui.modals.tryToRefreshModal.show();
+								});
 							});
-						});
 
 						} else { resolve(); }
 					});
+				},
+				getStats: function($http, $rootScope) {
+
+					return $http.get('/stats').then(function(res) {
+						$rootScope.apiData.stats = res.data;
+					});
+				},
+				authentication: function(authService) {
+
+					return authService.authenticate();
 				}
 			},
-			onEnter: function($timeout, ui) {
+			onEnter: function(authentication, $location, $timeout, $state) {
 
-				// Resetting settingsListGroup
-				ui.listGroups.settings.getFirstSwitcher().activate();
+				if (!authentication && $location.$$url.split('/') != 'start') {
 
-				// Resetting settingsListGroup tabs
-				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-					ui.tabs[switcher._id].getFirstSwitcher().activate();
-				});
+					$timeout(function() {
+						$state.go('app.start', { tab: 'login' }, { location: 'replace' });
+					});
+				}
 			}
 		});
 	});
@@ -1253,7 +1073,55 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.newreport', {
+		$stateProvider.state('app.contact', {
+			url: '/contact',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('contact');
+				ui.menus.top.activateSwitcher('contact');
+				ui.frames.app.activateSwitcher('main');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('app.help', {
+			url: '/help',
+			onEnter: function(ui) {
+
+				ui.frames.main.activateSwitcher('help');
+				ui.menus.top.activateSwitcher('help');
+				ui.frames.app.activateSwitcher('main');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('app.home', {
+			url: '/home',
+			onEnter: function(ui) {
+
+				ui.menus.top.activateSwitcher('home');
+				ui.frames.main.activateSwitcher('home');
+				ui.frames.app.activateSwitcher('main');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('app.newreport', {
 			url: '/newreport',
 			resolve: {
 				_ui: function(reportCategories, $q, ui)	 {
@@ -1262,6 +1130,8 @@
 
 						ui.menus.top.activateSwitcher('newreport');
 						ui.frames.main.activateSwitcher('newreport');
+						ui.frames.app.activateSwitcher('main');
+
 						resolve();
 					});
 				}
@@ -1275,7 +1145,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.profile', {
+		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
 				getUser: function(reportCategories, $stateParams, $q, UsersRest) {
@@ -1302,6 +1172,7 @@
 
 					if (getUser) {
 						ui.frames.main.activateSwitcher('profile');
+						ui.frames.app.activateSwitcher('main');
 
 					} else {
 						ui.frames.main.activateSwitcher();
@@ -1318,7 +1189,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.report', {
+		$stateProvider.state('app.report', {
 			url: '/report?id&edit',
 			views: {
 				tab: {
@@ -1363,6 +1234,7 @@
 					if (getReport && getUser) {
 
 						ui.frames.main.activateSwitcher('report');
+						ui.frames.app.activateSwitcher('main');
 
 						if ($stateParams.edit === '1') {
 							$rootScope.$broadcast('editReport', { report: getReport });
@@ -1386,7 +1258,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.report.tab', {
+		$stateProvider.state('app.report.tab', {
 			url: '/:tab',
 			onEnter: function($stateParams, ui) {
 
@@ -1400,7 +1272,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.search', {
+		$stateProvider.state('app.search', {
 			url: '/search',
 			resolve: {
 				_ui: function(reportCategories, $q, ui) {
@@ -1409,6 +1281,7 @@
 
 						ui.menus.top.activateSwitcher('search');
 						ui.frames.main.activateSwitcher('search');
+						ui.frames.app.activateSwitcher('main');
 
 						resolve();
 					});
@@ -1426,7 +1299,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.settings1', {
+		$stateProvider.state('app.settings1', {
 			url: '/settings',
 			resolve: {
 				redirection: function($q, $timeout, $state, ui) {
@@ -1438,7 +1311,7 @@
 						var catId = ui.listGroups.settings.activeSwitcherId;
 
 						$timeout(function() {
-							$state.go('main.settings3', {
+							$state.go('app.settings3', {
 								catId: catId,
 								subcatId: ui.tabs[catId].activeSwitcherId
 							}, { location: 'replace' });
@@ -1454,7 +1327,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.settings2', {
+		$stateProvider.state('app.settings2', {
 			url: '/settings/:catId',
 			resolve: {
 				catId: function($timeout, $q, $state, $stateParams, ui) {
@@ -1471,7 +1344,7 @@
 							} else {
 
 								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
+									$state.go('app.settings1', {}, { location: 'replace' });
 								});
 							}
 						});
@@ -1482,7 +1355,7 @@
 					// Setting subcatId and going to main.setting3 state
 
 					$timeout(function() {
-						$state.go('main.settings3', {
+						$state.go('app.settings3', {
 							catId: $stateParams.catId,
 							subcatId: ui.tabs[$stateParams.catId].activeSwitcherId
 						}, { location: 'replace' });
@@ -1497,7 +1370,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.settings3', {
+		$stateProvider.state('app.settings3', {
 			url: '/settings/:catId/:subcatId',
 			resolve: {
 				params: function($timeout, $q, $state, $stateParams, ui) {
@@ -1515,13 +1388,13 @@
 							if (!results[0]) {
 
 								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
+									$state.go('app.settings1', {}, { location: 'replace' });
 								});
 
 							} else if (!results[1]) {
 
 								$timeout(function() {
-									$state.go('main.settings2', { catId: $stateParams.catId }, { location: 'replace' });
+									$state.go('app.settings2', { catId: $stateParams.catId }, { location: 'replace' });
 								});
 
 							} else { resolve(); }
@@ -1538,6 +1411,81 @@
 				ui.tabs[$stateParams.catId].activateSwitcher($stateParams.subcatId);
 
 				ui.frames.main.activateSwitcher('settings');
+				ui.frames.app.activateSwitcher('main');
+			}
+		});
+	});
+
+})();
+(function() {
+
+	angular.module('appModule').config(function($stateProvider) {
+
+		$stateProvider.state('app.start', {
+			url: '/start/:tab?action',
+			resolve: {
+				_tab: function(authentication, $q, $state, $stateParams, $timeout, ui, authService) {
+
+					return $q(function(resolve) {
+
+						// Valid tab
+						if (ui.tabs.start.switcherIds.indexOf($stateParams.tab) > -1) {
+
+							if (authService.state.authenticated && $stateParams.tab != 'status') {
+								$timeout(function() {
+									$state.go('app.start', { tab: 'status' }, { location: 'replace' });
+								});
+
+							} else { resolve(); }
+
+						// Invalid tab
+						} else {
+
+							$timeout(function() {
+								$state.go('app.start', { tab: 'login' }, { location: 'replace' });
+							});
+						}
+	    			});
+				},
+				_ui: function(_tab, ui, $q, $stateParams) {
+
+					return $q(function(resolve) {
+
+						ui.listGroups.settings.getFirstSwitcher().activate();
+
+						angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+							ui.tabs[switcher._id].getFirstSwitcher().activate();
+						});
+
+						ui.tabs.start.activateSwitcher($stateParams.tab);
+						ui.frames.main.activateSwitcher();
+						ui.frames.app.activateSwitcher('start');
+
+						resolve();
+					});
+				}
+			},
+			onEnter: function($rootScope, $state, $timeout, ui) {
+
+				$timeout(function() {
+
+					switch ($state.params.action) {
+
+						case 'deactivation':
+
+							$timeout(function() { ui.modals.deactivationDoneModal.show(); }, 500);
+							break;
+
+						case 'pass_reset':
+
+							if ($state.params.tab == 'login') {
+								$timeout(function() { $rootScope.ui.modals.passResetDoneModal.show(); }, 500);
+							}
+
+							break;
+					}
+
+				}, 2500);
 			}
 		});
 	});
@@ -1728,52 +1676,55 @@
 
 	'use strict';
 
-	var authService = function($rootScope, $window, storageService, sessionConst, UsersRest) {
+	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest) {
 
 		var service = {
 			state: {
 				authenticated: false,
 				loggedIn: false
 			},
-			authenticate: function(cb) {
+			authenticate: function() {
 
-				// Token not authenticated yet
-				if (!service.state.authenticated) {
+				return $q(function(resolve) {
 
-					var authToken = storageService.authToken.getValue();
+					// Token not authenticated yet
+					if (!service.state.authenticated) {
 
-					// Auth token found
-					if (authToken) {
+						var authToken = storageService.authToken.getValue();
 
-						UsersRest.post({ authToken: authToken }).then(function(res) {
+						// Auth token found
+						if (authToken) {
 
-							// Successful authentication
-							service.setAsLoggedIn(function() {
-								cb(true, res);
+							UsersRest.post({ authToken: authToken }).then(function(res) {
+
+								// Successful authentication
+								service.setAsLoggedIn(function() {
+									resolve(true);
+								});
+
+							}, function(res) {
+
+								// Could not authenticate
+								service.setAsLoggedOut(function() {
+									resolve(false);
+								});
 							});
 
-						}, function(res) {
+						// No auth token
+						} else {
 
-							// Could not authenticate
 							service.setAsLoggedOut(function() {
-								cb(false, res);
+								resolve(false);
 							});
-						});
+						}
 
-					// No auth token
+					// Already authenticated
 					} else {
 
-						service.setAsLoggedOut(function() {
-							cb(false);
-						});
+						service.state.loggedIn = true;
+						resolve(true);
 					}
-
-				// Already authenticated
-				} else {
-
-					service.state.loggedIn = true;
-					cb(true);
-				}
+				});
 			},
 			setAsLoggedIn: function(cb) {
 
@@ -1814,7 +1765,7 @@
 		return service;
 	};
 
-	authService.$inject = ['$rootScope', '$window', 'storageService', 'sessionConst', 'UsersRest'];
+	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest'];
 	angular.module('appModule').service('authService', authService);
 
 })();
@@ -2496,8 +2447,8 @@
 	'use strict';
 
 	var ui = function(
-		mainFrameConf, topNavMenuConf, settingsListGroupConf, guestTabsConf, settingsTabsConf, reportTabsConf,
-		mainFrameNavConf, modalsConf, myClass, uiSetupService
+		appFrameConf, mainFrameConf, topNavMenuConf, settingsListGroupConf, startTabsConf, settingsTabsConf,
+		reportTabsConf, mainFrameNavConf, modalsConf, myClass, uiSetupService
 	) {
 
 		angular.forEach(mainFrameConf.switchers, function(source) {
@@ -2515,6 +2466,7 @@
 
 		var ctrls = {
 			frames: {
+				app: new myClass.MySwitchable(appFrameConf),
 				main: new myClass.MySwitchable(mainFrameConf)
 			},
 			menus: {
@@ -2524,7 +2476,7 @@
 				settings: new myClass.MySwitchable(settingsListGroupConf)
 			},
 			tabs: {
-				guest: new myClass.MySwitchable(guestTabsConf),
+				start: new myClass.MySwitchable(startTabsConf),
 				application: new myClass.MySwitchable(settingsTabsConf.application),
 				account: new myClass.MySwitchable(settingsTabsConf.account),
 				payment: new myClass.MySwitchable(settingsTabsConf.payment),
@@ -2548,8 +2500,8 @@
 	};
 
 	ui.$inject = [
-		'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'guestTabsConf', 'settingsTabsConf', 'reportTabsConf',
-		'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
+		'appFrameConf', 'mainFrameConf', 'topNavMenuConf', 'settingsListGroupConf', 'startTabsConf', 'settingsTabsConf',
+		'reportTabsConf', 'mainFrameNavConf', 'modalsConf', 'myClass', 'uiSetupService'
 	];
 
 	angular.module('appModule').service('ui', ui);
@@ -4577,7 +4529,7 @@
 
 						authService.setAsLoggedIn(function() {
 							$timeout(function() {
-								$state.go('guest.1', { tab: 'status' });
+								$state.go('app.start', { tab: 'status' });
 							});
 						});
 					},
@@ -4778,7 +4730,7 @@
 
 						authService.setAsLoggedIn(function() {
 							$timeout(function() {
-								$state.go('guest.1', { tab: 'status' });
+								$state.go('app.start', { tab: 'status' });
 							});
 						});
 					},
@@ -4849,7 +4801,7 @@
 							$scope.myForm.submitSuccessCb = function(res) {
 								googleMapService.reportPlace = null;
 								$scope.myForm.reset();
-								$state.go('main.report', { id: res.data._id });
+								$state.go('app.report', { id: res.data._id });
 							};
 
 							// Making http request
@@ -4869,7 +4821,7 @@
 							$scope.myForm.submitSuccessCb = function(res) {
 								googleMapService.reportPlace = null;
 								$rootScope.apiData.report = res.data;
-								$state.go('main.report', { id: res.data._id, edit: undefined });
+								$state.go('app.report', { id: res.data._id, edit: undefined });
 							};
 
 							$scope.myForm.submitErrorCb = function(res) {
@@ -7043,11 +6995,11 @@
 
 							switch ($state.current.name) {
 
-								case 'main.profile':
+								case 'app.profile':
 									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
 									break;
 
-								case 'main.report':
+								case 'app.report':
 									window.history.back();
 									break;
 							}
@@ -7286,7 +7238,7 @@
 				};
 
 				$scope.onContinueClick = function() {
-					$state.go('main.home');
+					$state.go('app.home');
 				};
 			}
 		};

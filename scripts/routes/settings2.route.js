@@ -2,7 +2,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.settings2', {
+		$stateProvider.state('app.settings2', {
 			url: '/settings/:catId',
 			resolve: {
 				catId: function($timeout, $q, $state, $stateParams, ui) {
@@ -19,7 +19,7 @@
 							} else {
 
 								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
+									$state.go('app.settings1', {}, { location: 'replace' });
 								});
 							}
 						});
@@ -30,7 +30,7 @@
 					// Setting subcatId and going to main.setting3 state
 
 					$timeout(function() {
-						$state.go('main.settings3', {
+						$state.go('app.settings3', {
 							catId: $stateParams.catId,
 							subcatId: ui.tabs[$stateParams.catId].activeSwitcherId
 						}, { location: 'replace' });

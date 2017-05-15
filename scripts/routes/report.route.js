@@ -2,7 +2,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.report', {
+		$stateProvider.state('app.report', {
 			url: '/report?id&edit',
 			views: {
 				tab: {
@@ -47,6 +47,7 @@
 					if (getReport && getUser) {
 
 						ui.frames.main.activateSwitcher('report');
+						ui.frames.app.activateSwitcher('main');
 
 						if ($stateParams.edit === '1') {
 							$rootScope.$broadcast('editReport', { report: getReport });

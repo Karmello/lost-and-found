@@ -2,7 +2,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.profile', {
+		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
 				getUser: function(reportCategories, $stateParams, $q, UsersRest) {
@@ -29,6 +29,7 @@
 
 					if (getUser) {
 						ui.frames.main.activateSwitcher('profile');
+						ui.frames.app.activateSwitcher('main');
 
 					} else {
 						ui.frames.main.activateSwitcher();

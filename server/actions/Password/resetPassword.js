@@ -22,7 +22,7 @@ module.exports = function(req, res, next) {
                     user.save(function(err) {
 
                         if (!err) {
-                            res.redirect('/#/guest/login?action=pass_reset');
+                            res.redirect('/#/start/login?action=pass_reset');
 
                         } else { res.redirect('/'); }
                     });

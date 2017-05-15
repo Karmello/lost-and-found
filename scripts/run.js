@@ -33,8 +33,8 @@
 
 				switch (toState.name) {
 
-					case 'main.profile':
-					case 'main.report':
+					case 'app.profile':
+					case 'app.report':
 
 						if (toState.id == toParams.id) {
 							newScrollY = $state.current.scrollY;
@@ -46,11 +46,11 @@
 						toState.id = toParams.id;
 						break;
 
-					case 'main.search':
+					case 'app.search':
 						newScrollY = $state.current.scrollY;
 						break;
 
-					case 'main.report.tab':
+					case 'app.report.tab':
 						return;
 
 					default:

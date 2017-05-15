@@ -70,7 +70,7 @@
 			authService.setAsLoggedOut(function() {
 				var params = { tab: 'login' };
 				if (extraParams) { Object.assign(params, extraParams); }
-				$state.go('guest.1', params);
+				$state.go('app.start', params);
 				if (cb) { cb(); }
 			});
 		};

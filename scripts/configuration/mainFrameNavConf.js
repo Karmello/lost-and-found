@@ -18,7 +18,7 @@
 				{ _id: 'separator' },
 				{
 					_id: 'logout',
-					route: '/#/guest/login',
+					route: '/#/start/login',
 					label: hardData.phrases[12],
 					icon: 'glyphicon glyphicon-off',
 					onClick: function() { $rootScope.logout(); }

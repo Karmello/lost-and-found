@@ -21,11 +21,14 @@
 
 	<body>
 
-		<div
-			ui-view="view1"
-			autoscroll="true"
-			ng-class="{ transparent: ui.loaders.renderer.isLoading }"
-		></div>
+		<div ng-class="{ transparent: ui.loaders.renderer.isLoading }">
+			<ng-include
+				ng-repeat="page in ui.frames.app.switchers"
+				src="'public/pages/lost-and-found-app-' + page._id + '.html'"
+				ng-show="page._id == ui.frames.app.activeSwitcherId"
+			></ng-include>
+		</div>
+
 		<div ng-show="ui.loaders.renderer.isLoading">
 			<my-loader fixed-centered="true"></my-loader>
 		</div>

@@ -2,52 +2,55 @@
 
 	'use strict';
 
-	var authService = function($rootScope, $window, storageService, sessionConst, UsersRest) {
+	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest) {
 
 		var service = {
 			state: {
 				authenticated: false,
 				loggedIn: false
 			},
-			authenticate: function(cb) {
+			authenticate: function() {
 
-				// Token not authenticated yet
-				if (!service.state.authenticated) {
+				return $q(function(resolve) {
 
-					var authToken = storageService.authToken.getValue();
+					// Token not authenticated yet
+					if (!service.state.authenticated) {
 
-					// Auth token found
-					if (authToken) {
+						var authToken = storageService.authToken.getValue();
 
-						UsersRest.post({ authToken: authToken }).then(function(res) {
+						// Auth token found
+						if (authToken) {
 
-							// Successful authentication
-							service.setAsLoggedIn(function() {
-								cb(true, res);
+							UsersRest.post({ authToken: authToken }).then(function(res) {
+
+								// Successful authentication
+								service.setAsLoggedIn(function() {
+									resolve(true);
+								});
+
+							}, function(res) {
+
+								// Could not authenticate
+								service.setAsLoggedOut(function() {
+									resolve(false);
+								});
 							});
 
-						}, function(res) {
+						// No auth token
+						} else {
 
-							// Could not authenticate
 							service.setAsLoggedOut(function() {
-								cb(false, res);
+								resolve(false);
 							});
-						});
+						}
 
-					// No auth token
+					// Already authenticated
 					} else {
 
-						service.setAsLoggedOut(function() {
-							cb(false);
-						});
+						service.state.loggedIn = true;
+						resolve(true);
 					}
-
-				// Already authenticated
-				} else {
-
-					service.state.loggedIn = true;
-					cb(true);
-				}
+				});
 			},
 			setAsLoggedIn: function(cb) {
 
@@ -88,7 +91,7 @@
 		return service;
 	};
 
-	authService.$inject = ['$rootScope', '$window', 'storageService', 'sessionConst', 'UsersRest'];
+	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest'];
 	angular.module('appModule').service('authService', authService);
 
 })();

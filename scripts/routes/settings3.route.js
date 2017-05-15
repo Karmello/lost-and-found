@@ -2,7 +2,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.settings3', {
+		$stateProvider.state('app.settings3', {
 			url: '/settings/:catId/:subcatId',
 			resolve: {
 				params: function($timeout, $q, $state, $stateParams, ui) {
@@ -20,13 +20,13 @@
 							if (!results[0]) {
 
 								$timeout(function() {
-									$state.go('main.settings1', {}, { location: 'replace' });
+									$state.go('app.settings1', {}, { location: 'replace' });
 								});
 
 							} else if (!results[1]) {
 
 								$timeout(function() {
-									$state.go('main.settings2', { catId: $stateParams.catId }, { location: 'replace' });
+									$state.go('app.settings2', { catId: $stateParams.catId }, { location: 'replace' });
 								});
 
 							} else { resolve(); }
@@ -43,6 +43,7 @@
 				ui.tabs[$stateParams.catId].activateSwitcher($stateParams.subcatId);
 
 				ui.frames.main.activateSwitcher('settings');
+				ui.frames.app.activateSwitcher('main');
 			}
 		});
 	});

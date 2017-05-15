@@ -2,29 +2,29 @@
 
 	'use strict';
 
-	var guestTabsConf = function($rootScope) {
+	var startTabsConf = function($rootScope) {
 
 		var config = {
-			_ctrlId: 'guestTabs',
+			_ctrlId: 'startTabs',
 			switchers: [
 				{
 					_id: 'login',
-					route: '/#/guest/login',
+					route: '/#/start/login',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'register',
-					route: '/#/guest/register',
+					route: '/#/start/register',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'recover',
-					route: '/#/guest/recover',
+					route: '/#/start/recover',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'status',
-					route: '/#/guest/status',
+					route: '/#/start/status',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				}
 			],
@@ -146,11 +146,11 @@
 
 
 
-	guestTabsConf.$inject = ['$rootScope'];
+	startTabsConf.$inject = ['$rootScope'];
 	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
 	reportTabsConf.$inject = ['$rootScope'];
 
-	angular.module('appModule').service('guestTabsConf', guestTabsConf);
+	angular.module('appModule').service('startTabsConf', startTabsConf);
 	angular.module('appModule').service('settingsTabsConf', settingsTabsConf);
 	angular.module('appModule').service('reportTabsConf', reportTabsConf);
 

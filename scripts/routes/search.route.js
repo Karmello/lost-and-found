@@ -2,7 +2,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('main.search', {
+		$stateProvider.state('app.search', {
 			url: '/search',
 			resolve: {
 				_ui: function(reportCategories, $q, ui) {
@@ -11,6 +11,7 @@
 
 						ui.menus.top.activateSwitcher('search');
 						ui.frames.main.activateSwitcher('search');
+						ui.frames.app.activateSwitcher('main');
 
 						resolve();
 					});

@@ -152,24 +152,6 @@ $avatarSize: 240px;
 
 
 }
-#lost-and-found-app-guest {
-
-	#infoSection {
-
-		> div {
-			text-align: center;
-			@media only screen and (min-width: 768px) { text-align: left; }
-		}
-	}
-
-	#formSection {
-
-		.myTabs { max-width: 450px; }
-		.myForm { max-width: 300px; }
-		.myTabs, .myForm { margin: 50px auto; }
-		.userBadge { margin-bottom: 50px; }
-	}
-}
 #lost-and-found-app-home {
 
 	table {
@@ -363,6 +345,24 @@ $avatarSize: 240px;
 	.myTabs { margin-bottom: 50px; }
 	.myForm { max-width: 300px; }
 	.myForm, .mySrc { margin: 0 auto; }
+}
+#lost-and-found-app-start {
+
+	#infoSection {
+
+		> div {
+			text-align: center;
+			@media only screen and (min-width: 768px) { text-align: left; }
+		}
+	}
+
+	#formSection {
+
+		.myTabs { max-width: 450px; }
+		.myForm { max-width: 300px; }
+		.myTabs, .myForm { margin: 50px auto; }
+		.userBadge { margin-bottom: 50px; }
+	}
 }
 #auctionNumBox {
 

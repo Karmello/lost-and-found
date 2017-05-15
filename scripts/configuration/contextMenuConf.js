@@ -12,7 +12,7 @@
 					label: $rootScope.hardData.phrases[68],
 					onClick: function() {
 
-						$state.go('main.report', { id: this.parent.data._id, edit: '1' });
+						$state.go('app.report', { id: this.parent.data._id, edit: '1' });
 					}
 				},
 				{

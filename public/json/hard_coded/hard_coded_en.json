@@ -1,5 +1,8 @@
 {
 	"_id": "en",
+	"app": {
+		"name": "LostAndFoundApp"
+	},
 	"languages": [
 		{ "value": "en", "label": "English" },
 		{ "value": "pl", "label": "Polish" }
@@ -25,26 +28,26 @@
 		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
 		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Email", "Username", "Password",
 		"Current password", "New password", "First name", "Last name", "Title", "Country", "Choose", "Language", "Description", "Message",
-		"Original", "Cropped", "Logged out", "Logged in as", "Registered for", "Home", "Participants", "Browse", "User", "Settings",
-		"About", "Help", "Contact", "Application", "Account", "Payment", "Danger zone", "Login", "Register", "Status",
-		"Regional", "Personal details", "Password", "Profile picture", "Paypal", "Delete account", "Deactivating", "Error", "Comments", "Submitted",
-		"Category", "Subcategory", "Item", "My items", "Nothing to show", "Deleting the item", "Currency", "Initial value", "Edit", "Go public",
-		"Photos", "Subscribers", "Going public", "Appearance", "Hello", "Reports", "All", "Public", "Private", "View",
-		"Info", "Seller", "View profile", "Search", "Title", "Initial value", "Reverse", "Ascending", "Descending", "Page",
-		"By", "Scroll to top", "Found", "LostAndFoundApp", "Uploading profile picture", "Removing profile picture", "", "Bid increment", "Min. price", "Bid increment",
+		"", "Cropped", "Logged out", "Logged in as", "Registered for", "Home", "", "Browse", "User", "Settings",
+		"About", "Help", "Contact", "Application", "Account", "", "Danger zone", "Login", "Register", "Status",
+		"Regional", "Personal details", "Password", "Profile picture", "", "Delete account", "Deactivating", "Error", "Comments", "Submitted",
+		"Category", "Subcategory", "", "", "Nothing to show", "Deleting the report", "Currency", "", "Edit", "",
+		"Photos", "", "", "Appearance", "Hello", "Reports", "All", "", "", "View",
+		"Info", "", "", "Search", "Title", "", "", "Ascending", "Descending", "",
+		"By", "Scroll to top", "Found", "LostAndFoundApp", "Uploading profile picture", "Removing profile picture", "", "", "", "",
 
-		"Min. price", "Subscribe", "Currency", "Amount", "Amount", "Unsubscribe", "Refresh", "Select all", "Set as avatar", "Deleting",
-		"Deselect all", "Close", "Uploading", "Uploaded", "Deleting", "Deleted", "Failed", "Theme", "of user", "View an auction",
-		"Auction", "Approximately", "My subscriptions", "Subscriptions", "Increase", "Decrease", "Place bid", "The course of the auction", "Choose an image", "Rotate",
-		"Zoom in", "Zoom out", "Crop mode", "Move mode", "Auctions", "Move left", "Move right", "Date added", "Date added", "ago",
+		"", "", "Currency", "", "", "", "Refresh", "Select all", "Set as avatar", "Deleting",
+		"Deselect all", "Close", "Uploading", "Uploaded", "Deleting", "Deleted", "Failed", "Theme", "of user", "",
+		"", "Approximately", "", "", "", "", "", "", "Choose an image", "Rotate",
+		"Zoom in", "Zoom out", "Crop mode", "Move mode", "", "Move left", "Move right", "", "", "ago",
 		"Group", "Report", "Date", "Full name", "Results", "New report", "Date", "Delete selected", "Location", "Editing report",
 		"ID", "on", "By", "Details", "Event", "Subject", "Name", "Serial number", "Subject", "I found it !",
-		"Recently viewed", "Users", "Reports", "Reported as lost", "Reported as found", "Recently reported"
+		"Recently viewed", "Users", "Reports", "Reported as lost", "Reported as found", "Recently reported", "No access", "Statistics"
 	],
 	"sentences": [
 		"Why leaving us ?",
+		"You need to log in in order to gain access to this page.",
 		"",
-		"You have subscribed to an aunction of this item.",
 		"welcomes You !",
 		"Log in to your account and take advantage of our services.",
 		"Register if you're not yet part of our community.",
@@ -55,7 +58,7 @@
 
 		"Change your current password.",
 		"Upload new or remove existing profile picture.",
-		"Paypal account settings.",
+		"",
 		"This action will completely delete your account and all the files and other information associated with it. You won't be able to restore it anytime later.",
 		"You are going to remove your account totally and loose all the data ! Are you sure you really wanna do that ?",
 		"This is your last chance ! If you continue your account will be gone !",
@@ -73,12 +76,12 @@
 		"You are trying to upload too large file. Max size is ",
 		"",
 		"You have just deactivated your account !",
-		"Your item has become public and is visible to all users from now on. You can find it in the \"Search\" section.",
+		"",
 
 		"You have already reached maximum number of uploaded files allowed.",
 		"You are trying to upload too many files.",
 		"You cannot upload file with the same name again.",
-		"You'll be able to adjust these settings before going public.",
+		"",
 		"Something went wrong :( Try to refresh the page.",
 		"You need to select some files.",
 		"",
@@ -94,24 +97,24 @@
 		"",
 		"",
 		"",
-		"You'll lose all the data associated with this item (photos, subscribers). Are you sure you want to delete it ?",
-		"Public item needs to have at least 1 photo.",
+		"You'll lose all the data associated with this report. Are you sure you want to delete it ?",
+		"",
 
-		"The item hasn't been made public yet.",
-		"This item is public.",
-		"Are you ready to make your item public ?",
+		"",
+		"",
+		"",
 		"",
 		"Adjust appearance.",
 		"Below is verification link for resetting password. It will be active for the next 24 hours.",
 		"You can change it again anytime under password tab in account settings.",
-		"Enjoy using Auction House application !",
+		"Enjoy using LostAndFoundApp application !",
 		"Your new password have been emailed to you. Check spam folder in case you don't receive it in your inbox.",
-		"Auction House - password reset link",
+		"LostAndFoundApp - password reset link",
 
-		"Auction House - new password",
+		"LostAndFoundApp - new password",
 		"This is your new password",
 		"If it's not you who have made the request just ignore this email.",
-		"This item has been added by you."
+		""
 	],
 	"validation": [
 		"is required",

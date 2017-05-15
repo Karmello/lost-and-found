@@ -49,19 +49,19 @@
 							</table>
 						</div>
 					</div>
-				</body-section>
-			</my-panel>
-			<div style="height: 50px;"></div>
-			<my-panel>
-				<title-section>
-					<span class="glyphicon glyphicon-list"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }} ({{ profileCollectionBrowser.meta.count }})</span>
-				</title-section>
-				<action-section>
-					<my-context-menu ng-if="apiData.profileUser._isTheOneLoggedIn()" ins="profileReportsContextMenu"></my-context-menu>
-				</action-section>
-				<body-section>
-					<reports ctrl-id="UserReports"></reports>
+					<div style="height: 50px;"></div>
+					<my-panel>
+						<title-section>
+							<span class="glyphicon glyphicon-list"></span>
+							<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }} ({{ profileCollectionBrowser.meta.count }})</span>
+						</title-section>
+						<action-section>
+							<my-context-menu ng-if="apiData.profileUser._isTheOneLoggedIn()" ins="profileReportsContextMenu"></my-context-menu>
+						</action-section>
+						<body-section>
+							<reports ctrl-id="UserReports"></reports>
+						</body-section>
+					</my-panel>
 				</body-section>
 			</my-panel>
 		</div>

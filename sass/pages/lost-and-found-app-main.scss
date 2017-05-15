@@ -10,18 +10,19 @@
 	#underNavbarPanel {
 
 		display: flex;
+		align-items: center;
 		padding: 0;
 		margin: 0 0 50px 0;
 
 		> div {
-			.userAvatar {
 
+			margin: 5px;
+
+			.userAvatar {
 				display: flex;
 				align-items: center;
-				margin: 5px 0 5px 0;
 
 				> div {
-					padding: 0 5px 0 5px;
 					.mySrc {
 						img { @extend .tinyAvatarSize; }
 						.srcLabel {

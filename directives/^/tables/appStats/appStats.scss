@@ -1,0 +1,15 @@
+.appStats {
+
+	#bodySection {
+
+		table {
+			tr {
+				td {
+					padding: 0;
+					span { white-space: nowrap; }
+					span.text-info { font-weight: bold; }
+				}
+			}
+		}
+	}
+}

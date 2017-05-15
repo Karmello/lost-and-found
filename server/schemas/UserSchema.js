@@ -50,7 +50,11 @@ var UserSchema = new r.mongoose.Schema({
 			required: true
 		}
 	}],
-	reportsRecentlyViewed: [{ type: r.mongoose.Schema.Types.ObjectId, ref: 'user' }]
+	reportsRecentlyViewed: [{ type: r.mongoose.Schema.Types.ObjectId, ref: 'user' }],
+	isPaid: {
+		type: Boolean,
+		default: false
+	}
 }, { versionKey: false });
 
 

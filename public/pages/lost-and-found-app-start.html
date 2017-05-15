@@ -5,19 +5,30 @@
 	</head>
 	<body>
 		<div id="lost-and-found-app-start" class="container" ng-controller="StartController">
-			<div class="row">
-				<div id="infoSection" class="col-md-6">
-					<div class="page-header jumbotron">
-						<h2>{{ hardData.phrases[93] }}<br /><small>{{ hardData.sentences[3] }}</small></h2>
-					</div>
-					<reports ctrl-id="NewReports"></reports>
+			<div id="section1">
+				<div class="page-header jumbotron">
+					<h2>{{ hardData.app.name }}<br /><small>{{ hardData.sentences[3] }}</small></h2>
 				</div>
-				<div id="formSection" class="col-md-6">
+			</div>
+			<div id="section2">
+				<div>
 					<my-tabs ins="ui.tabs.start"></my-tabs>
 					<login-form ng-show="ui.tabs.start.activeSwitcherId == 'login'"></login-form>
 					<register-form ng-show="ui.tabs.start.activeSwitcherId == 'register'"></register-form>
 					<recover-form ng-show="ui.tabs.start.activeSwitcherId == 'recover'"></recover-form>
 					<user-badge ng-if="ui.tabs.start.activeSwitcherId == 'status'"></user-badge>
+				</div>
+				<div>
+					<app-stats></app-stats>
+					<my-panel>
+						<title-section>
+							<span class="glyphicon glyphicon-time"></span>
+							<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[165] }}</span>
+						</title-section>
+						<body-section>
+							<reports ctrl-id="NewReports"></reports>
+						</body-section>
+					</my-panel>
 				</div>
 			</div>
 		</div>

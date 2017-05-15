@@ -274,7 +274,6 @@
 				},
 				{
 					_id: 'profile',
-					label: hardData.phrases[38],
 					icon: 'glyphicon glyphicon-user'
 				},
 				{
@@ -297,7 +296,6 @@
 				},
 				{
 					_id: 'report',
-					label: hardData.phrases[62],
 					icon: 'glyphicon glyphicon-file'
 				},
 				{
@@ -412,6 +410,11 @@
 			confirmDangerModal: new MyModal({
 				id: 'confirmDangerModal'
 			}),
+			accountRequiredModal: new MyModal({
+				typeId: 'infoModal',
+				title: hardData.phrases[166],
+				message: hardData.sentences[1]
+			}),
 			tryAgainLaterModal: new MyModal({
 				typeId: 'infoModal',
 				title: hardData.phrases[57],
@@ -448,7 +451,7 @@
 			}),
 			deleteReportModal: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[65]
+				title: hardData.phrases[14]
 			})
 		};
 	};
@@ -925,23 +928,6 @@
 		$stateProvider.state('app', {
 			abstract: true,
 			resolve: {
-				localData: function($q, $http, $rootScope, jsonService) {
-
-					return $q(function(resolve) {
-
-						$http.get('public/json/countries.json').success(function(res) {
-
-							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
-								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
-
-									$rootScope.localData.countries.data = grouped;
-									resolve(true);
-								});
-							});
-
-						}).error(function() { resolve(false); });
-					});
-				},
 				googleRecaptcha: function($q, $timeout) {
 
 					return $q(function(resolve) {
@@ -987,6 +973,23 @@
 						});
 					});
 				},
+				localData: function($q, $http, $rootScope, jsonService) {
+
+					return $q(function(resolve) {
+
+						$http.get('public/json/countries.json').success(function(res) {
+
+							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
+								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
+
+									$rootScope.localData.countries.data = grouped;
+									resolve(true);
+								});
+							});
+
+						}).error(function() { resolve(false); });
+					});
+				},
 				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest, ReportCategoriesRest) {
 
 					return $q(function(resolve) {
@@ -1015,17 +1018,18 @@
 				},
 				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, apiData) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
 						if (googleRecaptcha && openExchangeRates && localData && apiData) {
 							resolve(true);
 
 						} else {
+							reject();
 							ui.modals.tryAgainLaterModal.show();
 						}
 					});
 				},
-				authentication: function(authService) {
+				authentication: function(allResources, authService) {
 
 					return authService.authenticate();
 				}
@@ -1170,59 +1174,54 @@
 				}
 			},
 			resolve: {
-				getReport: function($stateParams, $q, ReportsRest) {
+				apiData: function(authentication, $q, $rootScope, $stateParams, UsersRest, ReportsRest, authService, ui) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
-						ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }).then(function(res) {
-							resolve(res.data[0]);
+						if (authService.state.authenticated) {
 
-						}, function() {
-							resolve(false);
-						});
+							var promises = [];
+
+							promises.push(UsersRest.getList({ reportId: $stateParams.id }));
+							promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }));
+
+							$q.all(promises).then(function(results) {
+								resolve(true);
+
+							}, function() {
+								reject();
+							});
+
+						} else {
+
+							reject();
+							ui.modals.accountRequiredModal.show();
+						}
 					});
 				},
-				getUser: function(getReport, $stateParams, $q, UsersRest) {
+				_ui: function(apiData, $q, $rootScope, $stateParams, googleMapService, ui) {
 
 					return $q(function(resolve) {
 
-						UsersRest.getList({ reportId: $stateParams.id }).then(function() {
-							resolve(true);
+						if (apiData) {
 
-						}, function() {
-							resolve(false);
-						});
+							if ($stateParams.edit === '1') {
+								$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
+
+							} else {
+								googleMapService.initReportMap($rootScope.apiData.report.placeId);
+							}
+
+							ui.menus.top.activateSwitcher();
+							ui.frames.main.activateSwitcher('report');
+							ui.frames.app.activateSwitcher('main');
+
+							resolve();
+						}
 					});
 				}
 			},
-			onEnter: function(getReport, getUser, $rootScope, $stateParams, $timeout, googleMapService, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					ui.menus.top.activateSwitcher();
-
-					if (getReport && getUser) {
-
-						ui.frames.main.activateSwitcher('report');
-						ui.frames.app.activateSwitcher('main');
-
-						if ($stateParams.edit === '1') {
-							$rootScope.$broadcast('editReport', { report: getReport });
-
-						} else {
-							googleMapService.initReportMap(getReport.placeId);
-						}
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
+			onEnter: function() {}
 		});
 	});
 
@@ -4254,66 +4253,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('confirmDangerModal', function() {
-
-		var confirmDangerModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmDangerModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('infoModal', function() {
-
-		var infoModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return infoModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('appearanceForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
 
 		var appearanceForm = {
@@ -4660,6 +4599,53 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
+
+		var registerForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/registerForm/registerForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.countries = $rootScope.localData.countries;
+
+				var formModel = $rootScope.globalFormModels.userModel;
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'registerForm',
+					model: formModel,
+					submitAction: function(args) {
+
+						return UsersRest.post(formModel.getValues(), undefined, { captcha_response: args.captchaResponse });
+					},
+					submitSuccessCb: function(res) {
+
+						authService.setAsLoggedIn(function() {
+							$timeout(function() {
+								$state.go('app.start', { tab: 'status' });
+							});
+						});
+					},
+					submitErrorCb: function(res) {
+
+						authService.setAsLoggedOut();
+					}
+				});
+			}
+		};
+
+		return registerForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('reportForm', function($rootScope, $state, $stateParams, $timeout, googleMapService, myClass, ReportsRest, Restangular) {
 
 		var reportForm = {
@@ -4785,53 +4771,6 @@
 
 
 
-	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
-
-		var registerForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/registerForm/registerForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.countries = $rootScope.localData.countries;
-
-				var formModel = $rootScope.globalFormModels.userModel;
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'registerForm',
-					model: formModel,
-					submitAction: function(args) {
-
-						return UsersRest.post(formModel.getValues(), undefined, { captcha_response: args.captchaResponse });
-					},
-					submitSuccessCb: function(res) {
-
-						authService.setAsLoggedIn(function() {
-							$timeout(function() {
-								$state.go('app.start', { tab: 'status' });
-							});
-						});
-					},
-					submitErrorCb: function(res) {
-
-						authService.setAsLoggedOut();
-					}
-				});
-			}
-		};
-
-		return registerForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('reportSearchForm', function($rootScope, myClass) {
 
 		var reportSearchForm = {
@@ -4855,6 +4794,95 @@
 		};
 
 		return reportSearchForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmDangerModal', function() {
+
+		var confirmDangerModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmDangerModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmModal', function() {
+
+		var confirmModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('infoModal', function() {
+
+		var infoModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return infoModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('appStats', function($rootScope) {
+
+		var appStats = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/tables/appStats/appStats.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return appStats;
 	});
 
 })();
@@ -6043,6 +6071,26 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('myTabs', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTabs/myTabs.html',
+			scope: {
+				ins: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
@@ -6118,26 +6166,6 @@
 		};
 
 		return mySrcThumbs;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myTabs', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTabs/myTabs.html',
-			scope: {
-				ins: '='
-			}
-		};
 	});
 
 })();

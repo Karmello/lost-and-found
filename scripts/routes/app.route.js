@@ -5,23 +5,6 @@
 		$stateProvider.state('app', {
 			abstract: true,
 			resolve: {
-				localData: function($q, $http, $rootScope, jsonService) {
-
-					return $q(function(resolve) {
-
-						$http.get('public/json/countries.json').success(function(res) {
-
-							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
-								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
-
-									$rootScope.localData.countries.data = grouped;
-									resolve(true);
-								});
-							});
-
-						}).error(function() { resolve(false); });
-					});
-				},
 				googleRecaptcha: function($q, $timeout) {
 
 					return $q(function(resolve) {
@@ -67,6 +50,23 @@
 						});
 					});
 				},
+				localData: function($q, $http, $rootScope, jsonService) {
+
+					return $q(function(resolve) {
+
+						$http.get('public/json/countries.json').success(function(res) {
+
+							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
+								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
+
+									$rootScope.localData.countries.data = grouped;
+									resolve(true);
+								});
+							});
+
+						}).error(function() { resolve(false); });
+					});
+				},
 				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest, ReportCategoriesRest) {
 
 					return $q(function(resolve) {
@@ -95,17 +95,18 @@
 				},
 				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, apiData) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
 						if (googleRecaptcha && openExchangeRates && localData && apiData) {
 							resolve(true);
 
 						} else {
+							reject();
 							ui.modals.tryAgainLaterModal.show();
 						}
 					});
 				},
-				authentication: function(authService) {
+				authentication: function(allResources, authService) {
 
 					return authService.authenticate();
 				}

@@ -42,7 +42,6 @@
 				},
 				{
 					_id: 'profile',
-					label: hardData.phrases[38],
 					icon: 'glyphicon glyphicon-user'
 				},
 				{
@@ -65,7 +64,6 @@
 				},
 				{
 					_id: 'report',
-					label: hardData.phrases[62],
 					icon: 'glyphicon glyphicon-file'
 				},
 				{

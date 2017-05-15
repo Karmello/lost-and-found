@@ -1,5 +1,8 @@
 {
 	"_id": "pl",
+	"app": {
+		"name": "LostAndFoundApp"
+	},
 	"languages": [
 		{ "value": "en", "label": "Angielski" },
 		{ "value": "pl", "label": "Polski" }
@@ -25,26 +28,26 @@
 		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Email", "Nazwa użytkownika", "Hasło",
 		"Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Wybierz", "Język", "Opis", "Wiadomość",
-		"Oryginał", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Zarejestrowany przez", "Strona główna", "Uczestnicy", "Przeglądaj","Użytkownik", "Ustawienia",
-		"O nas", "Pomoc", "Kontakt", "Aplikacja", "Konto", "Płatności", "Uwaga !", "Logowanie", "Rejestracja", "Status",
-		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "Paypal", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Zgłoszono",
-		"Kategoria", "Podkategoria", "Przedmiot", "Moje przedmioty", "Pusto", "Usuwanie przedmiotu", "Waluta", "Wartość początkowa", "Edycja", "Upublicznij",
-		"Zdjęcia", "Subskrybenci", "Upublicznianie przedmiotu", "Wygląd", "Cześć", "Zgłoszenia", "Wszystkie", "Publiczne", "Prywatne", "Zobacz",
-		"Info", "Sprzedający", "Zobacz profil", "Szukaj", "Tytułu", "Wartości pocz.", "Odwróć", "Rosnąco", "Malejąco", "Strona",
-		"Według", "Przewiń do góry", "Znaleziono", "LostAndFoundApp", "Przesyłanie zdjęcia profilowego", "Usuwanie zdjęcia profilowego", "", "Przebitka", "Cena minimalna", "Przebitki",
+		"", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Zarejestrowany przez", "Strona główna", "", "Przeglądaj","Użytkownik", "Ustawienia",
+		"O nas", "Pomoc", "Kontakt", "Aplikacja", "Konto", "", "Uwaga !", "Logowanie", "Rejestracja", "Status",
+		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Zgłoszono",
+		"Kategoria", "Podkategoria", "", "", "Pusto", "Usuwanie zgłoszenia", "Waluta", "", "Edycja", "",
+		"Zdjęcia", "", "", "Wygląd", "Cześć", "Zgłoszenia", "Wszystkie", "", "", "Zobacz",
+		"Info", "", "", "Szukaj", "Tytułu", "", "", "Rosnąco", "Malejąco", "",
+		"Według", "Przewiń do góry", "Znaleziono", "LostAndFoundApp", "Przesyłanie zdjęcia profilowego", "Usuwanie zdjęcia profilowego", "", "", "", "",
 
-		"Ceny minimalnej", "Subskrybuj", "Waluty", "Ilość", "Ilości", "Usuń subskrybcję", "Odśwież", "Zaznacz wszystkie", "Ustaw jako avatar", "Usuwanie",
-		"Odznacz wszystkie", "Zamknij", "Przesyłanych", "Przesłanych", "Usuwanych", "Usuniętych", "Niepowodzeń", "Motyw", "użytkownika", "Zobacz aukcję",
-		"Aukcja", "W przybliżeniu", "Moje subskrybcje", "Subskrybcje", "Zwiększ", "Zmniejsz", "Złóż ofertę", "Przebieg aukcji", "Wybierz zdjęcie", "Obróć",
-		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "Aukcje", "Przesuń w lewo", "Przesuń w prawo", "Daty dodania", "Data dodania", "temu",
+		"", "", "Waluty", "", "", "", "Odśwież", "Zaznacz wszystkie", "Ustaw jako avatar", "Usuwanie",
+		"Odznacz wszystkie", "Zamknij", "Przesyłanych", "Przesłanych", "Usuwanych", "Usuniętych", "Niepowodzeń", "Motyw", "użytkownika", "",
+		"", "W przybliżeniu", "", "", "", "", "", "", "Wybierz zdjęcie", "Obróć",
+		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "", "Przesuń w lewo", "Przesuń w prawo", "", "", "temu",
 		"Grupa", "Zgłoś", "Data", "Imię i nazwisko", "Rezultaty", "Nowe zgłoszenie", "Daty", "Usuń zaznaczone", "Lokalizacja", "Edycja zgłoszenia",
 		"ID", "dnia", "Przez", "Szczegóły", "Zdarzenie", "Przedmiot", "Nazwa", "Numer seryjny", "Temat", "Znalazłem to !",
-		"Ostatnio oglądane", "Użytkowników", "Zgłoszeń", "Utraconych", "Odnalezionych", "Ostatnio zgłoszone"
+		"Ostatnio oglądane", "Użytkowników", "Zgłoszeń", "Utraconych", "Odnalezionych", "Ostatnio zgłoszone", "Brak dostępu", "Statystyka"
 	],
 	"sentences": [
 		"Dlaczego nas opuszczasz ?",
+		"Musisz się zalogować, aby uzyskać dostęp do tej strony.",
 		"",
-		"Subskrybowałeś do aukcji tego produktu.",
 		"wita Cię gorąco !",
 		"Zaloguj się i korzystaj z serwisu.",
 		"Zarejestruj się jeśli jeszcze tego nie zrobiłeś.",
@@ -55,7 +58,7 @@
 
 		"Zmień swoje aktualne hasło.",
 		"Zmień lub usuń zdjęcie profilowe.",
-		"Ustawienia konta w Paypal.",
+		"",
 		"Tutaj możesz usunąć swoje konto. Pamiętaj, że nie będziesz w stanie odzyskać utraconych plików i ustawień !",
 		"Twoje konto, wszystkie pliki i ustawienia zostaną usunięte ! Czy napewno chcesz kontynuować ?",
 		"To twoja ostatnia szansa odwrotu ! Jeśli kontynuujesz twoje konto zostanie deaktywowane !",
@@ -73,12 +76,12 @@
 		"Próbujesz wrzucić zbyt duży plik. Maksymalny rozmiar to ",
 		"",
 		"Właśnie deaktywowałeś swoje konto !",
-		"Twój przedmiot zmienił status na publiczny i jest widoczny dla wszystkich użytkowników. Możesz go znaleźć w sekcji \"Szukaj\".",
+		"",
 
 		"Wrzuciłeś już maksymalną liczbę plików.",
 		"Próbujesz wrzucić zbyt dużo plików.",
 		"Nie możesz mieć dwóch plików z tą samą nazwą.",
-		"Będziesz mógł jeszcze zmienić te ustawienia zanim upublicznisz przedmiot.",
+		"",
 		"Wystąpił błąd. Spróbuj odświeżyć stronę.",
 		"Musisz zaznaczyć jakieś pliki.",
 		"",
@@ -94,24 +97,24 @@
 		"",
 		"",
 		"",
-		"Stracisz wszystkie dane związane z tym przedmiotem (zdjęcia, subskrybentów). Czy napewno chcesz to zrobić ?",
-		"Publiczny przedmiot musi mieć conajmniej 1 zdjęcie.",
+		"Stracisz wszystkie dane związane z tym zgłoszeniem. Czy napewno chcesz to zrobić ?",
+		"",
 
-		"Przedmiot nie został jeszcze upubliczniony",
-		"Przedmiot widoczny publicznie",
-		"Czy chcesz upublicznić swój przedmiot własnie teraz ?",
+		"",
+		"",
+		"",
 		"",
 		"Dostosuj wygląd.",
 		"Klikając w link poniżej potwierdzisz zmianę hasła. Będzie on aktywny przez najbliższe 24 godziny.",
 		"Możesz zmienić je w każdej chwili pod zakładką \"Hasło\" w ustawieniach konta.",
-		"Miłego korzystania z aplikacji Auction House !",
+		"Miłego korzystania z aplikacji LostAndFoundApp !",
 		"Email z nowym hasłem został wysłany na podany przez ciebie adres. W razie problemów z jego znalezieniem sprawdź folder spam",
-		"Auction House - link do zresetowania hasła",
+		"LostAndFoundApp - link do zresetowania hasła",
 
-		"Auction House - nowe hasło",
+		"LostAndFoundApp - nowe hasło",
 		"Oto twoje nowe hasło",
 		"Zignoruj tego maila jeśli nie wysyłałeś prośby o reset.",
-		"Przedmiot dodany przez ciebie."
+		""
 	],
 	"validation": [
 		"jest polem wymaganym",

@@ -1,10 +1,33 @@
 #lost-and-found-app-start {
 
-	#infoSection {
+	#section1 {
 
-		> div {
+		.page-header {
 			text-align: center;
 			@media only screen and (min-width: 768px) { text-align: left; }
+		}
+	}
+
+	#section2 {
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+
+		> div {
+			flex-grow: 1;
+			flex-basis: 100%;
+			margin: 15px;
+		}
+
+		@media only screen and (min-width: 992px) {
+
+			direction: rtl;
+
+			> div {
+				direction: ltr;
+				flex-basis: 45%;
+			}
 		}
 
 		.myCollectionBrowser {
@@ -12,9 +35,6 @@
 				justify-content: flex-end;
 			}
 		}
-	}
-
-	#formSection {
 
 		.myTabs { max-width: 450px; }
 		.myForm { max-width: 300px; }

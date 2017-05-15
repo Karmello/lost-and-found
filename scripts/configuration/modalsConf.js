@@ -16,6 +16,11 @@
 			confirmDangerModal: new MyModal({
 				id: 'confirmDangerModal'
 			}),
+			accountRequiredModal: new MyModal({
+				typeId: 'infoModal',
+				title: hardData.phrases[166],
+				message: hardData.sentences[1]
+			}),
 			tryAgainLaterModal: new MyModal({
 				typeId: 'infoModal',
 				title: hardData.phrases[57],
@@ -52,7 +57,7 @@
 			}),
 			deleteReportModal: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[65]
+				title: hardData.phrases[14]
 			})
 		};
 	};

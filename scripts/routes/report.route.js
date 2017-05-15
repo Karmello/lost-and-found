@@ -10,59 +10,54 @@
 				}
 			},
 			resolve: {
-				getReport: function($stateParams, $q, ReportsRest) {
+				apiData: function(authentication, $q, $rootScope, $stateParams, UsersRest, ReportsRest, authService, ui) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
-						ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }).then(function(res) {
-							resolve(res.data[0]);
+						if (authService.state.authenticated) {
 
-						}, function() {
-							resolve(false);
-						});
+							var promises = [];
+
+							promises.push(UsersRest.getList({ reportId: $stateParams.id }));
+							promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }));
+
+							$q.all(promises).then(function(results) {
+								resolve(true);
+
+							}, function() {
+								reject();
+							});
+
+						} else {
+
+							reject();
+							ui.modals.accountRequiredModal.show();
+						}
 					});
 				},
-				getUser: function(getReport, $stateParams, $q, UsersRest) {
+				_ui: function(apiData, $q, $rootScope, $stateParams, googleMapService, ui) {
 
 					return $q(function(resolve) {
 
-						UsersRest.getList({ reportId: $stateParams.id }).then(function() {
-							resolve(true);
+						if (apiData) {
 
-						}, function() {
-							resolve(false);
-						});
+							if ($stateParams.edit === '1') {
+								$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
+
+							} else {
+								googleMapService.initReportMap($rootScope.apiData.report.placeId);
+							}
+
+							ui.menus.top.activateSwitcher();
+							ui.frames.main.activateSwitcher('report');
+							ui.frames.app.activateSwitcher('main');
+
+							resolve();
+						}
 					});
 				}
 			},
-			onEnter: function(getReport, getUser, $rootScope, $stateParams, $timeout, googleMapService, ui) {
-
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					ui.menus.top.activateSwitcher();
-
-					if (getReport && getUser) {
-
-						ui.frames.main.activateSwitcher('report');
-						ui.frames.app.activateSwitcher('main');
-
-						if ($stateParams.edit === '1') {
-							$rootScope.$broadcast('editReport', { report: getReport });
-
-						} else {
-							googleMapService.initReportMap(getReport.placeId);
-						}
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
-			}
+			onEnter: function() {}
 		});
 	});
 

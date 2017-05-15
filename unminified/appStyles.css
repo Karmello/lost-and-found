@@ -101,45 +101,6 @@ body .form-group {
 .absCentered {
   position: absolute !important; }
 
-.main-with-aside-1 {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: column wrap;
-  flex-flow: column wrap;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 25px; }
-  @media only screen and (min-width: 992px) {
-    .main-with-aside-1 {
-      -ms-flex-flow: row nowrap;
-      flex-flow: row nowrap; } }
-  .main-with-aside-1 > div:first-child {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -ms-flex-preferred-size: 30%;
-    flex-basis: 30%;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-    margin-bottom: 25px; }
-    .main-with-aside-1 > div:first-child > div {
-      -ms-flex-positive: 1;
-      flex-grow: 1;
-      padding: 0 15px 0 15px; }
-  .main-with-aside-1 > div:last-child {
-    -ms-flex-preferred-size: 650px;
-    flex-basis: 650px; }
-
-#lost-and-found-app-home table td {
-  padding: 0; }
-  #lost-and-found-app-home table td span {
-    white-space: nowrap; }
-  #lost-and-found-app-home table td span.text-info {
-    font-weight: bold; }
-
 #lost-and-found-app-home .myCollectionBrowser .ctrls {
   -ms-flex-pack: end;
   justify-content: flex-end; }
@@ -152,16 +113,17 @@ body .form-group {
   #lost-and-found-app-main #underNavbarPanel {
     display: -ms-flexbox;
     display: flex;
+    -ms-flex-align: center;
+    align-items: center;
     padding: 0;
     margin: 0 0 50px 0; }
-    #lost-and-found-app-main #underNavbarPanel > div .userAvatar {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-align: center;
-      align-items: center;
-      margin: 5px 0 5px 0; }
-      #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div {
-        padding: 0 5px 0 5px; }
+    #lost-and-found-app-main #underNavbarPanel > div {
+      margin: 5px; }
+      #lost-and-found-app-main #underNavbarPanel > div .userAvatar {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center; }
         #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc .srcLabel {
           width: 60px; }
   #lost-and-found-app-main .myGoogleMap {
@@ -282,27 +244,75 @@ body .form-group {
 #lost-and-found-app-settings .myForm, #lost-and-found-app-settings .mySrc {
   margin: 0 auto; }
 
-#lost-and-found-app-start #infoSection > div {
+#lost-and-found-app-start #section1 .page-header {
   text-align: center; }
   @media only screen and (min-width: 768px) {
-    #lost-and-found-app-start #infoSection > div {
+    #lost-and-found-app-start #section1 .page-header {
       text-align: left; } }
 
-#lost-and-found-app-start #infoSection .myCollectionBrowser .ctrls {
-  -ms-flex-pack: end;
-  justify-content: flex-end; }
+#lost-and-found-app-start #section2 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  #lost-and-found-app-start #section2 > div {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    margin: 15px; }
+  @media only screen and (min-width: 992px) {
+    #lost-and-found-app-start #section2 {
+      direction: rtl; }
+      #lost-and-found-app-start #section2 > div {
+        direction: ltr;
+        -ms-flex-preferred-size: 45%;
+        flex-basis: 45%; } }
+  #lost-and-found-app-start #section2 .myCollectionBrowser .ctrls {
+    -ms-flex-pack: end;
+    justify-content: flex-end; }
+  #lost-and-found-app-start #section2 .myTabs {
+    max-width: 450px; }
+  #lost-and-found-app-start #section2 .myForm {
+    max-width: 300px; }
+  #lost-and-found-app-start #section2 .myTabs, #lost-and-found-app-start #section2 .myForm {
+    margin: 50px auto; }
+  #lost-and-found-app-start #section2 .userBadge {
+    margin-bottom: 50px; }
 
-#lost-and-found-app-start #formSection .myTabs {
-  max-width: 450px; }
-
-#lost-and-found-app-start #formSection .myForm {
-  max-width: 300px; }
-
-#lost-and-found-app-start #formSection .myTabs, #lost-and-found-app-start #formSection .myForm {
-  margin: 50px auto; }
-
-#lost-and-found-app-start #formSection .userBadge {
-  margin-bottom: 50px; }
+.main-with-aside-1 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px; }
+  @media only screen and (min-width: 992px) {
+    .main-with-aside-1 {
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap; } }
+  .main-with-aside-1 > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-preferred-size: 30%;
+    flex-basis: 30%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    margin-bottom: 25px; }
+    .main-with-aside-1 > div:first-child > div {
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      padding: 0 15px 0 15px; }
+  .main-with-aside-1 > div:last-child {
+    -ms-flex-preferred-size: 650px;
+    flex-basis: 650px; }
 
 #auctionNumBox {
   display: -ms-flexbox;
@@ -601,6 +611,28 @@ body .form-group {
     .responsiveImgAndDesc > div {
       display: block; } }
 
+.myPopOverIcon {
+  display: table;
+  border-radius: 3px; }
+  .myPopOverIcon > div {
+    display: table-cell;
+    vertical-align: middle; }
+    .myPopOverIcon > div > span {
+      display: table;
+      margin: 0 auto;
+      text-align: center; }
+      .myPopOverIcon > div > span.glyphicon {
+        display: table;
+        width: 28px;
+        height: 28px;
+        position: relative;
+        padding-top: 7px;
+        padding-left: 1px;
+        font-size: 15px;
+        color: #eeeeee; }
+  .myPopOverIcon .glyphicon-play {
+    top: 0 !important; }
+
 .myPanel .panel-heading {
   display: -ms-flexbox;
   display: flex;
@@ -629,28 +661,6 @@ body .form-group {
 .myPanel .panel-body {
   position: relative;
   margin: 0 auto; }
-
-.myPopOverIcon {
-  display: table;
-  border-radius: 3px; }
-  .myPopOverIcon > div {
-    display: table-cell;
-    vertical-align: middle; }
-    .myPopOverIcon > div > span {
-      display: table;
-      margin: 0 auto;
-      text-align: center; }
-      .myPopOverIcon > div > span.glyphicon {
-        display: table;
-        width: 28px;
-        height: 28px;
-        position: relative;
-        padding-top: 7px;
-        padding-left: 1px;
-        font-size: 15px;
-        color: #eeeeee; }
-  .myPopOverIcon .glyphicon-play {
-    top: 0 !important; }
 
 .mySrc {
   position: relative;
@@ -853,6 +863,13 @@ body .form-group {
 @media only screen and (min-width: 992px) {
   #reportSearchForm .myForm {
     margin: 0 25px 0 25px; } }
+
+.appStats #bodySection table tr td {
+  padding: 0; }
+  .appStats #bodySection table tr td span {
+    white-space: nowrap; }
+  .appStats #bodySection table tr td span.text-info {
+    font-weight: bold; }
 
 #imgCropWindow img {
   max-width: 100%; }

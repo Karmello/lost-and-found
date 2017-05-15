@@ -1195,6 +1195,32 @@ $avatarSize: 240px;
 		.myTextArea { textarea { min-height: 300px !important; } }
 	}
 }
+#reportForm {
+
+	.myForm {
+
+		.formCtrls {
+
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+
+			> div {
+				margin: 5px;
+				flex-basis: 100%;
+				@media only screen and (min-width: 700px) {
+					flex-basis: 48%;
+				}
+			}
+
+			textarea {
+				max-width: 450px;
+				min-height: 150px !important;
+				text-align: justify;
+			}
+		}
+	}
+}
 #reportSearchForm {
 
 	.myForm {
@@ -1225,32 +1251,6 @@ $avatarSize: 240px;
 
 		@media only screen and (min-width: 992px) {
 			margin: 0 25px 0 25px;
-		}
-	}
-}
-#reportForm {
-
-	.myForm {
-
-		.formCtrls {
-
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-around;
-
-			> div {
-				margin: 5px;
-				flex-basis: 100%;
-				@media only screen and (min-width: 700px) {
-					flex-basis: 48%;
-				}
-			}
-
-			textarea {
-				max-width: 450px;
-				min-height: 150px !important;
-				text-align: justify;
-			}
 		}
 	}
 }

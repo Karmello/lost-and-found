@@ -14,7 +14,7 @@
 
 					return $q(function(resolve) {
 
-						ReportsRest.getList({ _id: $stateParams.id }).then(function(res) {
+						ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }).then(function(res) {
 							resolve(res.data[0]);
 
 						}, function() {

@@ -78,7 +78,12 @@
 
 							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
 							scope.collectionBrowser.init();
+							break;
 
+						case 'RecentlyAddedReports':
+
+							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
+							scope.collectionBrowser.init();
 							break;
 					}
 				};

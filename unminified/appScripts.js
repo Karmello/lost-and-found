@@ -1305,7 +1305,7 @@
 
 					return $q(function(resolve) {
 
-						ReportsRest.getList({ _id: $stateParams.id }).then(function(res) {
+						ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }).then(function(res) {
 							resolve(res.data[0]);
 
 						}, function() {
@@ -1628,22 +1628,28 @@
 
 								if (res.config.params) {
 
-									if (res.config.params._id) {
-										$rootScope.apiData.report = data.report;
-										$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
-										return [data.report];
+									switch (res.config.params.subject) {
 
-									} else if (res.config.params['ids[]']) {
-										reportsConf.recentlyViewedCollectionBrowser.setData(data);
-										return data.collection;
+										case 'report':
+											$rootScope.apiData.report = data.report;
+											$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
+											return [data.report];
 
-									} else if (res.config.params.userId) {
-										reportsConf.profileCollectionBrowser.setData(data);
-										return data.collection;
+										case 'recently_viewed_reports':
+											reportsConf.recentlyViewedCollectionBrowser.setData(data);
+											return data.collection;
 
-									} else {
-										reportsConf.searchCollectionBrowser.setData(data);
-										return data.collection;
+										case 'user_reports':
+											reportsConf.profileCollectionBrowser.setData(data);
+											return data.collection;
+
+										case 'reports':
+											reportsConf.searchCollectionBrowser.setData(data);
+											return data.collection;
+
+										case 'new_reports':
+											reportsConf.recentlyReportedCollectionBrowser.setData(data);
+											return data.collection;
 									}
 								}
 
@@ -2722,8 +2728,8 @@
 
 				this.orderer = new MySwitchable({
 					switchers: [
-						{ _id: 'desc', label: hardData.phrases[88] },
-						{ _id: 'asc', label: hardData.phrases[87] }
+						{ _id: 'asc', label: hardData.phrases[87] },
+						{ _id: 'desc', label: hardData.phrases[88] }
 					]
 				});
 
@@ -6824,7 +6830,12 @@
 
 							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
 							scope.collectionBrowser.init();
+							break;
 
+						case 'RecentlyAddedReports':
+
+							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
+							scope.collectionBrowser.init();
 							break;
 					}
 				};
@@ -6842,15 +6853,6 @@
 	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
 
 		var hardData = hardDataService.get();
-
-		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			fetchData: function(query) {
-
-				query['ids[]'] = $rootScope.apiData.loggedInUser.reportsRecentlyViewed;
-				return ReportsRest.getList(query);
-			}
-		});
 
 		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 25,
@@ -6873,10 +6875,6 @@
 			sorter: {
 				switchers: [
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
-					},
-					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
@@ -6890,6 +6888,7 @@
 
 				var model = $rootScope.globalFormModels.reportSearchModel.getValues();
 
+				query.subject = 'reports';
 				query.title = model.title;
 				query.categoryId = model.categoryId;
 				query.subcategoryId = model.subcategoryId;
@@ -6919,10 +6918,6 @@
 			sorter: {
 				switchers: [
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
-					},
-					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
@@ -6934,7 +6929,31 @@
 			},
 			fetchData: function(query) {
 
+				query.subject = 'user_reports';
 				query.userId = $rootScope.apiData.profileUser._id;
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query.subject = 'new_reports';
+				query.sort='-dateAdded';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query.subject = 'recently_viewed_reports';
+				query.limit = 5;
+
 				return ReportsRest.getList(query);
 			}
 		});

@@ -2,17 +2,17 @@ var r = require(global.paths._requires);
 
 module.exports = function(req, res, next) {
 
-	var getPromise = function(i) {
+	var getPromise = function(user, i) {
 
 		return new r.Promise(function(resolve) {
 
-			r.Report.findOne({ _id: req.query.ids[i] }, function(err, report) {
+			r.Report.findOne({ _id: user.reportsRecentlyViewed[i] }, function(err, report) {
 
 				if (!err && report) {
 					reports.push(report);
 
 				} else {
-					req.query.ids.splice(i, 1);
+					user.reportsRecentlyViewed.splice(i, 1);
 				}
 
 				resolve();
@@ -27,41 +27,31 @@ module.exports = function(req, res, next) {
 
 	new r.Promise(function(resolve, reject) {
 
-		if (req.query.ids) {
+		r.User.findOne({ _id: req.decoded._doc._id }, function(err, user) {
 
-			var promises = [];
-			var initialIdsCount = req.query.ids.length;
+			if (!err && user) {
 
-			for (var i = req.query.ids.length - 1; i >= 0 ; i--) {
-				promises.push(getPromise(i));
-			}
+				var promises = [];
+				var initialIdsCount = user.reportsRecentlyViewed.length;
 
-			r.Promise.all(promises).then(function() {
-
-				if (req.query.ids.length < initialIdsCount) {
-
-					r.User.findOne({ _id: req.decoded._doc._id }, function(err, user) {
-
-						if (!err && user) {
-							user.reportsRecentlyViewed = req.query.ids;
-							user.save({ validateBeforeSave: false });
-						}
-					});
+				for (var i = initialIdsCount - 1; i >= 0 ; i--) {
+					promises.push(getPromise(user, i));
 				}
 
-				resolve({
-					meta: { count: reports.length },
-					collection: reports
+				r.Promise.all(promises).then(function() {
+
+					if (user.reportsRecentlyViewed.length < initialIdsCount) {
+						user.save({ validateBeforeSave: false });
+					}
+
+					resolve({
+						meta: { count: reports.length },
+						collection: reports
+					});
 				});
-			});
 
-		} else {
-
-			resolve({
-				meta: { count: 0 },
-				collection: []
-			});
-		}
+			} else { reject(err); }
+		});
 
 	}).then(function(data) {
 

@@ -9,17 +9,21 @@ module.exports = function(app, route) {
 
 	rest.before('get', [authorize.userToken, authorize.reportAction, function(req, res, next) {
 
-		if (req.query._id) {
-			r.actions.report.getById(req, res, next);
+		switch (req.query.subject) {
 
-		} else if (req.query.userId) {
-			r.actions.report.getByUserId(req, res, next);
+			case 'report':
+				r.actions.report.getById(req, res, next);
+				break;
 
-		} else if (req.query.filter) {
-			r.actions.report.getBySearchQuery(req, res, next);
+			case 'reports':
+			case 'new_reports':
+			case 'user_reports':
+				r.actions.report.getByQuery(req, res, next);
+				break;
 
-		} else {
-			r.actions.report.getByIds(req, res, next);
+			case 'recently_viewed_reports':
+				r.actions.report.getByIds(req, res, next);
+				break;
 		}
 	}]);
 

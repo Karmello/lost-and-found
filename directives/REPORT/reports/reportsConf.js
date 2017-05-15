@@ -6,15 +6,6 @@
 
 		var hardData = hardDataService.get();
 
-		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			fetchData: function(query) {
-
-				query['ids[]'] = $rootScope.apiData.loggedInUser.reportsRecentlyViewed;
-				return ReportsRest.getList(query);
-			}
-		});
-
 		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 25,
 			filterer: {
@@ -36,10 +27,6 @@
 			sorter: {
 				switchers: [
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
-					},
-					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
@@ -53,6 +40,7 @@
 
 				var model = $rootScope.globalFormModels.reportSearchModel.getValues();
 
+				query.subject = 'reports';
 				query.title = model.title;
 				query.categoryId = model.categoryId;
 				query.subcategoryId = model.subcategoryId;
@@ -82,10 +70,6 @@
 			sorter: {
 				switchers: [
 					{
-						_id: 'dateAdded',
-						label: hardData.phrases[137]
-					},
-					{
 						_id: 'title',
 						label: hardData.phrases[84]
 					},
@@ -97,7 +81,31 @@
 			},
 			fetchData: function(query) {
 
+				query.subject = 'user_reports';
 				query.userId = $rootScope.apiData.profileUser._id;
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query.subject = 'new_reports';
+				query.sort='-dateAdded';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query.subject = 'recently_viewed_reports';
+				query.limit = 5;
+
 				return ReportsRest.getList(query);
 			}
 		});

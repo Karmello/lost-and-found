@@ -806,6 +806,26 @@ body .form-group {
   #contactForm .myForm .myTextArea textarea {
     min-height: 300px !important; }
 
+#reportForm .myForm .formCtrls {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
+  #reportForm .myForm .formCtrls > div {
+    margin: 5px;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%; }
+    @media only screen and (min-width: 700px) {
+      #reportForm .myForm .formCtrls > div {
+        -ms-flex-preferred-size: 48%;
+        flex-basis: 48%; } }
+  #reportForm .myForm .formCtrls textarea {
+    max-width: 450px;
+    min-height: 150px !important;
+    text-align: justify; }
+
 #reportSearchForm .myForm .myBtnsGroup, #reportSearchForm .myForm .myBtnsGroupCenter, #reportSearchForm .myForm .myBtnsGroupRight {
   margin-left: 25px;
   margin-right: 25px; }
@@ -829,26 +849,6 @@ body .form-group {
 @media only screen and (min-width: 992px) {
   #reportSearchForm .myForm {
     margin: 0 25px 0 25px; } }
-
-#reportForm .myForm .formCtrls {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-pack: distribute;
-  justify-content: space-around; }
-  #reportForm .myForm .formCtrls > div {
-    margin: 5px;
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%; }
-    @media only screen and (min-width: 700px) {
-      #reportForm .myForm .formCtrls > div {
-        -ms-flex-preferred-size: 48%;
-        flex-basis: 48%; } }
-  #reportForm .myForm .formCtrls textarea {
-    max-width: 450px;
-    min-height: 150px !important;
-    text-align: justify; }
 
 #imgCropWindow img {
   max-width: 100%; }

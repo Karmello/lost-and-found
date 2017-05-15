@@ -18,9 +18,8 @@ module.exports = {
 	report: {
 		post: require('./Report/postReport'),
 		getById: require('./Report/getReportById'),
-		getByUserId: require('./Report/getReportByUserId'),
-		getBySearchQuery: require('./Report/getReportBySearchQuery'),
 		getByIds: require('./Report/getReportByIds'),
+		getByQuery: require('./Report/getReportBySearchQuery'),
 		put: require('./Report/putReport'),
 		delete: require('./Report/deleteReport'),
 	},

@@ -29,7 +29,7 @@
 		"O nas", "Pomoc", "Kontakt", "Aplikacja", "Konto", "Płatności", "Uwaga !", "Logowanie", "Rejestracja", "Status",
 		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "Paypal", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Zgłoszono",
 		"Kategoria", "Podkategoria", "Przedmiot", "Moje przedmioty", "Pusto", "Usuwanie przedmiotu", "Waluta", "Wartość początkowa", "Edycja", "Upublicznij",
-		"Zdjęcia", "Subskrybenci", "Upublicznianie przedmiotu", "Wygląd", "Cześć", "Przedmioty", "Wszystkie", "Publiczne", "Prywatne", "Zobacz",
+		"Zdjęcia", "Subskrybenci", "Upublicznianie przedmiotu", "Wygląd", "Cześć", "Zgłoszenia", "Wszystkie", "Publiczne", "Prywatne", "Zobacz",
 		"Info", "Sprzedający", "Zobacz profil", "Szukaj", "Tytułu", "Wartości pocz.", "Odwróć", "Rosnąco", "Malejąco", "Strona",
 		"Według", "Przewiń do góry", "Znaleziono", "LostAndFoundApp", "Przesyłanie zdjęcia profilowego", "Usuwanie zdjęcia profilowego", "", "Przebitka", "Cena minimalna", "Przebitki",
 
@@ -39,7 +39,7 @@
 		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "Aukcje", "Przesuń w lewo", "Przesuń w prawo", "Daty dodania", "Data dodania", "temu",
 		"Grupa", "Zgłoś", "Data", "Imię i nazwisko", "Rezultaty", "Nowe zgłoszenie", "Daty", "Usuń zaznaczone", "Lokalizacja", "Edycja zgłoszenia",
 		"ID", "dnia", "Przez", "Szczegóły", "Zdarzenie", "Przedmiot", "Nazwa", "Numer seryjny", "Temat", "Znalazłem to !",
-		"Ostatnio oglądane"
+		"Ostatnio oglądane", "Użytkowników", "Zgłoszeń", "Utraconych", "Odnalezionych", "Ostatnio zgłoszone"
 	],
 	"sentences": [
 		"Dlaczego nas opuszczasz ?",

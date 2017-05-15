@@ -108,22 +108,28 @@
 
 								if (res.config.params) {
 
-									if (res.config.params._id) {
-										$rootScope.apiData.report = data.report;
-										$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
-										return [data.report];
+									switch (res.config.params.subject) {
 
-									} else if (res.config.params['ids[]']) {
-										reportsConf.recentlyViewedCollectionBrowser.setData(data);
-										return data.collection;
+										case 'report':
+											$rootScope.apiData.report = data.report;
+											$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
+											return [data.report];
 
-									} else if (res.config.params.userId) {
-										reportsConf.profileCollectionBrowser.setData(data);
-										return data.collection;
+										case 'recently_viewed_reports':
+											reportsConf.recentlyViewedCollectionBrowser.setData(data);
+											return data.collection;
 
-									} else {
-										reportsConf.searchCollectionBrowser.setData(data);
-										return data.collection;
+										case 'user_reports':
+											reportsConf.profileCollectionBrowser.setData(data);
+											return data.collection;
+
+										case 'reports':
+											reportsConf.searchCollectionBrowser.setData(data);
+											return data.collection;
+
+										case 'new_reports':
+											reportsConf.recentlyReportedCollectionBrowser.setData(data);
+											return data.collection;
 									}
 								}
 

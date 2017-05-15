@@ -38,8 +38,8 @@
 
 				this.orderer = new MySwitchable({
 					switchers: [
-						{ _id: 'desc', label: hardData.phrases[88] },
-						{ _id: 'asc', label: hardData.phrases[87] }
+						{ _id: 'asc', label: hardData.phrases[87] },
+						{ _id: 'desc', label: hardData.phrases[88] }
 					]
 				});
 

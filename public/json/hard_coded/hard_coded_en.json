@@ -29,7 +29,7 @@
 		"About", "Help", "Contact", "Application", "Account", "Payment", "Danger zone", "Login", "Register", "Status",
 		"Regional", "Personal details", "Password", "Profile picture", "Paypal", "Delete account", "Deactivating", "Error", "Comments", "Submitted",
 		"Category", "Subcategory", "Item", "My items", "Nothing to show", "Deleting the item", "Currency", "Initial value", "Edit", "Go public",
-		"Photos", "Subscribers", "Going public", "Appearance", "Hello", "Items", "All", "Public", "Private", "View",
+		"Photos", "Subscribers", "Going public", "Appearance", "Hello", "Reports", "All", "Public", "Private", "View",
 		"Info", "Seller", "View profile", "Search", "Title", "Initial value", "Reverse", "Ascending", "Descending", "Page",
 		"By", "Scroll to top", "Found", "LostAndFoundApp", "Uploading profile picture", "Removing profile picture", "", "Bid increment", "Min. price", "Bid increment",
 
@@ -39,7 +39,7 @@
 		"Zoom in", "Zoom out", "Crop mode", "Move mode", "Auctions", "Move left", "Move right", "Date added", "Date added", "ago",
 		"Group", "Report", "Date", "Full name", "Results", "New report", "Date", "Delete selected", "Location", "Editing report",
 		"ID", "on", "By", "Details", "Event", "Subject", "Name", "Serial number", "Subject", "I found it !",
-		"Recently viewed", "Users", "Reports", "Reported as lost", "Reported as found"
+		"Recently viewed", "Users", "Reports", "Reported as lost", "Reported as found", "Recently reported"
 	],
 	"sentences": [
 		"Why leaving us ?",

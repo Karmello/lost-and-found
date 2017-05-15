@@ -7,12 +7,14 @@ module.exports = function(app, route) {
 
 	rest.before('post', [authorize.userToken, authorize.reportAction, r.actions.report.post.before]);
 
-	rest.before('get', [authorize.userToken, authorize.reportAction, function(req, res, next) {
+	rest.before('get', [authorize.reportAction, function(req, res, next) {
 
 		switch (req.query.subject) {
 
 			case 'report':
-				r.actions.report.getById(req, res, next);
+				authorize.userToken(req, res, function() {
+					r.actions.report.getById(req, res, next);
+				});
 				break;
 
 			case 'reports':
@@ -22,7 +24,9 @@ module.exports = function(app, route) {
 				break;
 
 			case 'recently_viewed_reports':
-				r.actions.report.getByIds(req, res, next);
+				authorize.userToken(req, res, function() {
+					r.actions.report.getByIds(req, res, next);
+				});
 				break;
 		}
 	}]);

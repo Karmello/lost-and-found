@@ -80,7 +80,7 @@
 							scope.collectionBrowser.init();
 							break;
 
-						case 'RecentlyAddedReports':
+						case 'NewReports':
 
 							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
 							scope.collectionBrowser.init();

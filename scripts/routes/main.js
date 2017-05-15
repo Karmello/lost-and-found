@@ -115,7 +115,9 @@
 
 					return $q(function(resolve, reject) {
 
-						ReportCategoriesRest.getList().then(function(res) {
+						if (!$rootScope.apiData.reportCategories) {
+
+							ReportCategoriesRest.getList().then(function(res) {
 
 							$rootScope.apiData.reportCategories = res.data.plain();
 							resolve();
@@ -126,6 +128,8 @@
 								$rootScope.ui.modals.tryToRefreshModal.show();
 							});
 						});
+
+						} else { resolve(); }
 					});
 				}
 			},

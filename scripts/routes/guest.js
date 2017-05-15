@@ -46,6 +46,27 @@
 							});
 						}
 					});
+				},
+				reportCategories: function(countries, $q, $rootScope, ReportCategoriesRest, ui) {
+
+					return $q(function(resolve, reject) {
+
+						if (!$rootScope.apiData.reportCategories) {
+
+							ReportCategoriesRest.getList().then(function(res) {
+
+								$rootScope.apiData.reportCategories = res.data.plain();
+								resolve();
+
+							}, function() {
+
+								ui.loaders.renderer.stop(function() {
+									$rootScope.ui.modals.tryToRefreshModal.show();
+								});
+							});
+
+						} else { resolve(); }
+					});
 				}
 			},
 			onEnter: function($rootScope, $state, $timeout, ui) {

@@ -992,6 +992,27 @@
 							});
 						}
 					});
+				},
+				reportCategories: function(countries, $q, $rootScope, ReportCategoriesRest, ui) {
+
+					return $q(function(resolve, reject) {
+
+						if (!$rootScope.apiData.reportCategories) {
+
+							ReportCategoriesRest.getList().then(function(res) {
+
+								$rootScope.apiData.reportCategories = res.data.plain();
+								resolve();
+
+							}, function() {
+
+								ui.loaders.renderer.stop(function() {
+									$rootScope.ui.modals.tryToRefreshModal.show();
+								});
+							});
+
+						} else { resolve(); }
+					});
 				}
 			},
 			onEnter: function($rootScope, $state, $timeout, ui) {
@@ -1196,7 +1217,9 @@
 
 					return $q(function(resolve, reject) {
 
-						ReportCategoriesRest.getList().then(function(res) {
+						if (!$rootScope.apiData.reportCategories) {
+
+							ReportCategoriesRest.getList().then(function(res) {
 
 							$rootScope.apiData.reportCategories = res.data.plain();
 							resolve();
@@ -1207,6 +1230,8 @@
 								$rootScope.ui.modals.tryToRefreshModal.show();
 							});
 						});
+
+						} else { resolve(); }
 					});
 				}
 			},
@@ -6832,7 +6857,7 @@
 							scope.collectionBrowser.init();
 							break;
 
-						case 'RecentlyAddedReports':
+						case 'NewReports':
 
 							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
 							scope.collectionBrowser.init();

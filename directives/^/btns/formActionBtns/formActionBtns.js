@@ -53,7 +53,7 @@
 						break;
 
 					case 'reportSearchForm':
-						$scope.myForm.submitBtnPhraseIndex = 83;
+						$scope.myForm.submitBtnPhraseIndex = 17;
 						break;
 				}
 

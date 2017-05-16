@@ -175,7 +175,7 @@
 			switchers: [
 				{
 					_id: 'edit',
-					label: $rootScope.hardData.phrases[68],
+					label: $rootScope.hardData.imperatives[33],
 					onClick: function() {
 
 						$state.go('app.report', { id: this.parent.data._id, edit: '1' });
@@ -183,7 +183,7 @@
 				},
 				{
 					_id: 'delete',
-					label: $rootScope.hardData.phrases[14],
+					label: $rootScope.hardData.imperatives[14],
 					onClick: function() {
 
 						reportsService.deleteReports([this.parent.data]);
@@ -197,7 +197,7 @@
 			switchers: [
 				{
 					_id: 'select_all',
-					label: $rootScope.hardData.phrases[107],
+					label: $rootScope.hardData.imperatives[30],
 					onClick: function() {
 
 						reportsConf.profileCollectionBrowser.selectAll();
@@ -205,7 +205,7 @@
 				},
 				{
 					_id: 'deselect_all',
-					label: $rootScope.hardData.phrases[110],
+					label: $rootScope.hardData.imperatives[29],
 					onClick: function() {
 
 						reportsConf.profileCollectionBrowser.deselectAll();
@@ -213,7 +213,7 @@
 				},
 				{
 					_id: 'delete',
-					label: $rootScope.hardData.phrases[147],
+					label: $rootScope.hardData.imperatives[31],
 					onClick: function() {
 
 						var selectedReports = reportsConf.profileCollectionBrowser.getSelectedCollection();
@@ -257,19 +257,19 @@
 				{
 					_id: 'home',
 					route: '/#/home',
-					label: hardData.phrases[35],
+					label: hardData.sections[0],
 					icon: 'glyphicon glyphicon-home'
 				},
 				{
 					_id: 'search',
 					route: '/#/search',
-					label: hardData.phrases[83],
+					label: hardData.imperatives[17],
 					icon: 'glyphicon glyphicon-search'
 				},
 				{
 					_id: 'newreport',
 					route: '/#/newreport',
-					label: hardData.phrases[141],
+					label: hardData.imperatives[32],
 					icon: 'glyphicon glyphicon-bullhorn'
 				},
 				{
@@ -279,19 +279,19 @@
 				{
 					_id: 'about',
 					route: '/#/about',
-					label: hardData.phrases[40],
+					label: hardData.sections[2],
 					icon: 'glyphicon glyphicon-info-sign'
 				},
 				{
 					_id: 'help',
 					route: '/#/help',
-					label: hardData.phrases[41],
+					label: hardData.sections[3],
 					icon: 'glyphicon glyphicon-question-sign'
 				},
 				{
 					_id: 'contact',
 					route: '/#/contact',
-					label: hardData.phrases[42],
+					label: hardData.sections[4],
 					icon: 'glyphicon glyphicon-envelope'
 				},
 				{
@@ -300,7 +300,7 @@
 				},
 				{
 					_id: 'settings',
-					label: hardData.phrases[39],
+					label: hardData.sections[1],
 					icon: 'glyphicon glyphicon-cog',
 					getRoute: function(uiCtrls) {
 
@@ -376,7 +376,7 @@
 				{
 					_id: 'logout',
 					route: '/#/start/login',
-					label: hardData.phrases[12],
+					label: hardData.imperatives[12],
 					icon: 'glyphicon glyphicon-off',
 					onClick: function() { $rootScope.logout(); }
 				}
@@ -412,46 +412,46 @@
 			}),
 			accountRequiredModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[166],
-				message: hardData.sentences[1]
+				title: hardData.status[5],
+				message: hardData.rejections[0]
 			}),
 			tryAgainLaterModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[57],
-				message: hardData.sentences[20]
+				title: hardData.status[6],
+				message: hardData.rejections[1]
 			}),
 			tryToRefreshModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[57],
-				message: hardData.sentences[34]
+				title: hardData.status[6],
+				message: hardData.rejections[7]
 			}),
 			passResetDoneModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[96],
-				message: hardData.sentences[58]
+				title: hardData.labels[4],
+				message: hardData.information[2]
 			}),
 			deactivationDoneModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[59],
-				message: hardData.sentences[28]
+				title: hardData.count[7],
+				message: hardData.information[6]
 			}),
 			confirmProceedModal: new MyModal({
 				typeId: 'confirmModal',
-				message: hardData.sentences[18]
+				message: hardData.warnings[0]
 			}),
 			confirmDeactivationModal1: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[56],
-				message: hardData.sentences[14]
+				title: hardData.labels[24],
+				message: hardData.warnings[1]
 			}),
 			confirmDeactivationModal2: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[56],
-				message: hardData.sentences[15]
+				title: hardData.labels[24],
+				message: hardData.warnings[3]
 			}),
 			deleteReportModal: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[14]
+				title: hardData.labels[28]
 			})
 		};
 	};
@@ -498,26 +498,22 @@
 			switchers: [
 				{
 					_id: 'application',
-					label: hardData.phrases[43],
+					label: hardData.sections[7],
 					onActivate: function() {
 						$rootScope.globalFormModels.appConfigModel.set();
 					}
 				},
 				{
 					_id: 'account',
-					label: hardData.phrases[44],
+					label: hardData.sections[8],
 					onActivate: function() {
 						$rootScope.globalFormModels.personalDetailsModel.set();
 						$rootScope.globalFormModels.passwordModel.clear();
 					}
 				},
-				// {
-				// 	_id: 'payment',
-				// 	label: hardData.phrases[45],
-				// },
 				{
 					_id: 'danger',
-					label: hardData.phrases[46],
+					label: hardData.sections[24],
 					onActivate: function() {
 						$rootScope.globalFormModels.deactivationModel.clear();
 					}
@@ -538,33 +534,42 @@
 
 	'use strict';
 
-	var startTabsConf = function($rootScope) {
+	var startTabsConf = function($rootScope, hardDataService) {
+
+		var hardData = hardDataService.get();
 
 		var config = {
 			_ctrlId: 'startTabs',
 			switchers: [
 				{
 					_id: 'login',
+					label: hardData.sections[17],
+					info: hardData.description[0],
 					route: '/#/start/login',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'register',
+					label: hardData.sections[18],
+					info: hardData.description[1],
 					route: '/#/start/register',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'recover',
+					label: hardData.labels[4],
+					info: hardData.description[2],
 					route: '/#/start/recover',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'status',
+					label: hardData.sections[23],
+					info: hardData.information[8],
 					route: '/#/start/status',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				}
-			],
-			hardData: { switchers_label: ['phrases', [47, 48, 21, 49]], switchers_info: ['sentences', [4, 5, 6, 7]] }
+			]
 		};
 
 		return config;
@@ -581,8 +586,8 @@
 					{
 						_id: 'appearance',
 						route: '/#/settings/application/appearance',
-						label: hardData.phrases[73],
-						info: hardData.sentences[54],
+						label: hardData.sections[10],
+						info: hardData.imperatives[34],
 						onActivate: function() {
 							$rootScope.globalFormModels.appConfigModel.set();
 						}
@@ -590,8 +595,8 @@
 					{
 						_id: 'regional',
 						route: '/#/settings/application/regional',
-						label: hardData.phrases[50],
-						info: hardData.sentences[8],
+						label: hardData.sections[9],
+						info: hardData.description[5],
 						onActivate: function() {
 							$rootScope.globalFormModels.appConfigModel.set();
 						}
@@ -604,8 +609,8 @@
 					{
 						_id: 'personal-details',
 						route: '/#/settings/account/personal-details',
-						label: hardData.phrases[51],
-						info: hardData.sentences[9],
+						label: hardData.sections[12],
+						info: hardData.description[3],
 						onActivate: function() {
 							$rootScope.globalFormModels.personalDetailsModel.set();
 						}
@@ -613,22 +618,11 @@
 					{
 						_id: 'password',
 						route: '/#/settings/account/password',
-						label: hardData.phrases[52],
-						info: hardData.sentences[10],
+						label: hardData.labels[2],
+						info: hardData.description[4],
 						onActivate: function() {
 							$rootScope.globalFormModels.passwordModel.clear();
 						}
-					}
-				]
-			},
-			payment: {
-				_ctrlId: 'paymentTabs',
-				switchers: [
-					{
-						_id: 'paypal',
-						route: '/#/settings/payment/paypal',
-						label: hardData.phrases[54],
-						info: hardData.sentences[12]
 					}
 				]
 			},
@@ -638,8 +632,8 @@
 					{
 						_id: 'deactivate',
 						route: '/#/settings/danger/deactivate',
-						label: hardData.phrases[55],
-						info: hardData.sentences[13],
+						label: hardData.imperatives[26],
+						info: hardData.warnings[4],
 						onActivate: function() {
 							$rootScope.globalFormModels.deactivationModel.clear();
 						}
@@ -674,7 +668,7 @@
 					onActivate: function() {}
 				}
 			],
-			hardData: { switchers_label: ['phrases', [70, 58]] }
+			hardData: { switchers_label: ['sections', [5, 6]] }
 		};
 
 		return config;
@@ -682,7 +676,7 @@
 
 
 
-	startTabsConf.$inject = ['$rootScope'];
+	startTabsConf.$inject = ['$rootScope', 'hardDataService'];
 	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
 	reportTabsConf.$inject = ['$rootScope'];
 
@@ -1100,20 +1094,12 @@
 
 		$stateProvider.state('app.newreport', {
 			url: '/newreport',
-			resolve: {
-				_ui: function($q, ui)	 {
+			onEnter: function(ui) {
 
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher('newreport');
-						ui.frames.main.activateSwitcher('newreport');
-						ui.frames.app.activateSwitcher('main');
-
-						resolve();
-					});
-				}
-			},
-			onEnter: function() {}
+				ui.menus.top.activateSwitcher('newreport');
+				ui.frames.main.activateSwitcher('newreport');
+				ui.frames.app.activateSwitcher('main');
+			}
 		});
 	});
 
@@ -1125,7 +1111,7 @@
 		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
-				getUser: function($stateParams, $q, UsersRest) {
+				getUser: function(authentication, $stateParams, $q, UsersRest) {
 
 					return $q(function(resolve) {
 
@@ -1174,7 +1160,7 @@
 				}
 			},
 			resolve: {
-				apiData: function(authentication, $q, $rootScope, $stateParams, UsersRest, ReportsRest, authService, ui) {
+				apiData: function(authentication, $q, $rootScope, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -1186,7 +1172,7 @@
 							promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }));
 
 							$q.all(promises).then(function(results) {
-								resolve(true);
+								$timeout(function() { resolve(true); });
 
 							}, function() {
 								reject();
@@ -1198,30 +1184,24 @@
 							ui.modals.accountRequiredModal.show();
 						}
 					});
-				},
-				_ui: function(apiData, $q, $rootScope, $stateParams, googleMapService, ui) {
-
-					return $q(function(resolve) {
-
-						if (apiData) {
-
-							if ($stateParams.edit === '1') {
-								$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
-
-							} else {
-								googleMapService.initReportMap($rootScope.apiData.report.placeId);
-							}
-
-							ui.menus.top.activateSwitcher();
-							ui.frames.main.activateSwitcher('report');
-							ui.frames.app.activateSwitcher('main');
-
-							resolve();
-						}
-					});
 				}
 			},
-			onEnter: function() {}
+			onEnter: function(apiData, $rootScope, $stateParams, googleMapService, ui) {
+
+				if (apiData) {
+
+					if ($stateParams.edit === '1') {
+						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
+
+					} else {
+						googleMapService.initReportMap($rootScope.apiData.report.placeId);
+					}
+
+					ui.menus.top.activateSwitcher();
+					ui.frames.main.activateSwitcher('report');
+					ui.frames.app.activateSwitcher('main');
+				}
+			}
 		});
 	});
 
@@ -1246,22 +1226,11 @@
 
 		$stateProvider.state('app.search', {
 			url: '/search',
-			resolve: {
-				_ui: function($q, ui) {
+			onEnter: function(ui) {
 
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher('search');
-						ui.frames.main.activateSwitcher('search');
-						ui.frames.app.activateSwitcher('main');
-
-						resolve();
-					});
-				}
-			},
-			onEnter: function($rootScope) {
-
-
+				ui.menus.top.activateSwitcher('search');
+				ui.frames.main.activateSwitcher('search');
+				ui.frames.app.activateSwitcher('main');
 			}
 		});
 	});
@@ -1418,26 +1387,21 @@
 							});
 						}
 	    			});
-				},
-				_ui: function(_tab, ui, $q, $stateParams) {
-
-					return $q(function(resolve) {
-
-						ui.listGroups.settings.getFirstSwitcher().activate();
-
-						angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-							ui.tabs[switcher._id].getFirstSwitcher().activate();
-						});
-
-						ui.tabs.start.activateSwitcher($stateParams.tab);
-						ui.frames.main.activateSwitcher();
-						ui.frames.app.activateSwitcher('start');
-
-						resolve();
-					});
 				}
 			},
-			onEnter: function($rootScope, $state, $timeout, ui) {
+			onEnter: function($rootScope, $state, $stateParams, $timeout, ui) {
+
+				ui.listGroups.settings.getFirstSwitcher().activate();
+
+				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+					ui.tabs[switcher._id].getFirstSwitcher().activate();
+				});
+
+				ui.tabs.start.activateSwitcher($stateParams.tab);
+				ui.frames.main.activateSwitcher();
+				ui.frames.app.activateSwitcher('start');
+
+
 
 				$timeout(function() {
 
@@ -2632,14 +2596,13 @@
 
 				this.sorter = new MySwitchable(this.sorter);
 				this.sorter._id = 'sorter';
-				this.sorter.togglerLabel = hardData.phrases[90];
 
 				for (var i in this.sorter.switchers) { this.sorter.switchers[i].onClick = this.onClick; }
 
 				this.orderer = new MySwitchable({
 					switchers: [
-						{ _id: 'asc', label: hardData.phrases[87] },
-						{ _id: 'desc', label: hardData.phrases[88] }
+						{ _id: 'asc', label: hardData.status[3] },
+						{ _id: 'desc', label: hardData.status[4] }
 					]
 				});
 
@@ -2682,7 +2645,6 @@
 							}
 
 							that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
-							that.pager.togglerLabel = hardData.phrases[89];
 
 							if (currentPage) {
 								that.pager.activateSwitcher(currentPage);
@@ -3556,32 +3518,32 @@
 			switch (msgId) {
 
 				case 'confirmDeletion':
-					settings = { title: $rootScope.hardData.phrases[109], acceptCb: acceptCb };
+					settings = { title: $rootScope.hardData.labels[28], acceptCb: acceptCb };
 					$rootScope.ui.modals.confirmProceedModal.show(settings);
 					break;
 
 				case 'MAX_FILES_UPLOADED':
-					settings = { title: username, message: $rootScope.hardData.sentences[30] };
+					settings = { title: username, message: $rootScope.hardData.rejections[4] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'UPLOADING_TOO_MANY_FILES':
-					settings = { title: username, message: $rootScope.hardData.sentences[31] };
+					settings = { title: username, message: $rootScope.hardData.rejections[5] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'filenameAlreadyExists':
-					settings = { title: username, message: $rootScope.hardData.sentences[32] };
+					settings = { title: username, message: $rootScope.hardData.rejections[6] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'WRONG_FILE_TYPE':
-					settings = { title: username, message: $rootScope.hardData.sentences[25] };
+					settings = { title: username, message: $rootScope.hardData.rejections[2] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'FILE_TOO_LARGE':
-					settings = { title: username, message: $rootScope.hardData.sentences[26] + this.maxFileSize / 1024 / 1024 + ' Mb.' };
+					settings = { title: username, message: $rootScope.hardData.rejections[3] + this.maxFileSize / 1024 / 1024 + ' Mb.' };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 			}
@@ -3756,7 +3718,7 @@
 				// Showing info modal
 				$rootScope.ui.modals.infoModal.show({
 					title: $rootScope.apiData.loggedInUser.username,
-					message: $rootScope.hardData.sentences[35],
+					message: $rootScope.hardData.rejections[8],
 					hideCb: function() { cb(false); }
 				});
 
@@ -3764,7 +3726,7 @@
 
 				// Showing confirmation modal
 				$rootScope.ui.modals.confirmProceedModal.show({
-					title: $rootScope.hardData.phrases[109],
+					title: $rootScope.hardData.labels[28],
 					acceptCb: function() {
 
 						that.loader.start(false, function() {
@@ -4198,7 +4160,7 @@
 						break;
 
 					case 'reportSearchForm':
-						$scope.myForm.submitBtnPhraseIndex = 83;
+						$scope.myForm.submitBtnPhraseIndex = 17;
 						break;
 				}
 
@@ -4916,7 +4878,7 @@
 					maxFileSize: NUMS.photoMaxSize
 				});
 
-				$scope.modalWindow = new MyModal({ id: 'imgCropModal', title: $rootScope.hardData.phrases[53] });
+				$scope.modalWindow = new MyModal({ id: 'imgCropModal', title: $rootScope.hardData.sections[19] });
 				$scope.loader = new MyLoader();
 				$scope.selectedFile = undefined;
 				$scope.mode = 'crop';
@@ -5163,14 +5125,14 @@
 			switchers: [
 				{
 					_id: 'edit',
-					label: hardData.phrases[68],
+					label: hardData.imperatives[33],
 					onClick: function() {
 
 					}
 				},
 				{
 					_id: 'delete',
-					label: hardData.phrases[14],
+					label: hardData.imperatives[14],
 					onClick: function() {
 
 						this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {
@@ -6071,26 +6033,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('myTabs', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTabs/myTabs.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
@@ -6166,6 +6108,26 @@
 		};
 
 		return mySrcThumbs;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTabs', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTabs/myTabs.html',
+			scope: {
+				ins: '='
+			}
+		};
 	});
 
 })();
@@ -6383,7 +6345,7 @@
 					switchers: [
 						{
 							_id: 'update',
-							label: $rootScope.hardData.phrases[16],
+							label: $rootScope.hardData.imperatives[16],
 							onClick: function() {
 
 								if (scope.srcAction.getFilesCount() < scope.srcAction.maxFiles) {
@@ -6400,7 +6362,7 @@
 						},
 						{
 							_id: 'delete',
-							label: $rootScope.hardData.phrases[14],
+							label: $rootScope.hardData.imperatives[14],
 							onClick: function() {
 								reportPhotosService.delete('multiple', scope);
 							},
@@ -6408,7 +6370,7 @@
 						},
 						{
 							_id: 'refresh',
-							label: $rootScope.hardData.phrases[106],
+							label: $rootScope.hardData.imperatives[19],
 							onClick: function() {
 								scope.srcThumbsCollection.init(scope.report.photos);
 							},
@@ -6416,7 +6378,7 @@
 						},
 						{
 							_id: 'select_all',
-							label: $rootScope.hardData.phrases[107],
+							label: $rootScope.hardData.imperatives[30],
 							onClick: function() {
 								scope.srcThumbsCollection.selectAll();
 							},
@@ -6424,7 +6386,7 @@
 						},
 						{
 							_id: 'deselect_all',
-							label: $rootScope.hardData.phrases[110],
+							label: $rootScope.hardData.imperatives[29],
 							onClick: function() {
 								scope.srcThumbsCollection.deselectAll();
 							},
@@ -6446,7 +6408,7 @@
 					switchers: [
 						{
 							_id: 'updateSingle',
-							label: $rootScope.hardData.phrases[5],
+							label: $rootScope.hardData.imperatives[5],
 							onClick: function() {
 
 								var that = this;
@@ -6460,21 +6422,21 @@
 						},
 						{
 							_id: 'delete',
-							label: $rootScope.hardData.phrases[14],
+							label: $rootScope.hardData.imperatives[14],
 							onClick: function() {
 								reportPhotosService.delete('single', scope, this.parent.data);
 							}
 						},
 						{
 							_id: 'refresh',
-							label: $rootScope.hardData.phrases[106],
+							label: $rootScope.hardData.imperatives[19],
 							onClick: function() {
 								this.parent.data.load(undefined, true);
 							}
 						},
 						{
 							_id: 'moveLeft',
-							label: $rootScope.hardData.phrases[135],
+							label: $rootScope.hardData.imperatives[20],
 							onClick: function() {
 								move(this);
 							},
@@ -6486,7 +6448,7 @@
 						},
 						{
 							_id: 'moveRight',
-							label: $rootScope.hardData.phrases[136],
+							label: $rootScope.hardData.imperatives[21],
 							onClick: function() {
 								move(this);
 							},
@@ -6498,7 +6460,7 @@
 						},
 						{
 							_id: 'set_as_avatar',
-							label: $rootScope.hardData.phrases[108],
+							label: $rootScope.hardData.imperatives[28],
 							onClick: function() {
 
 								scope.report.avatarFileName = this.parent.data.filename;
@@ -6760,7 +6722,7 @@
 				switchers: [
 					{
 						_id: 'all',
-						label: hardData.phrases[76]
+						label: hardData.status[1]
 					},
 					{
 						_id: 'L',
@@ -6776,11 +6738,11 @@
 				switchers: [
 					{
 						_id: 'title',
-						label: hardData.phrases[84]
+						label: hardData.status[7]
 					},
 					{
 						_id: 'date',
-						label: hardData.phrases[146]
+						label: hardData.status[8]
 					}
 				]
 			},
@@ -6803,7 +6765,7 @@
 				switchers: [
 					{
 						_id: 'all',
-						label: hardData.phrases[76]
+						label: hardData.status[1]
 					},
 					{
 						_id: 'L',
@@ -6819,11 +6781,11 @@
 				switchers: [
 					{
 						_id: 'title',
-						label: hardData.phrases[84]
+						label: hardData.status[7]
 					},
 					{
 						_id: 'date',
-						label: hardData.phrases[146]
+						label: hardData.status[8]
 					}
 				]
 			},
@@ -6908,7 +6870,7 @@
 
 				// Showing confirm modal
 				$rootScope.ui.modals.deleteReportModal.show({
-					message: (function() { return $rootScope.hardData.sentences[48]; })(),
+					message: (function() { return $rootScope.hardData.warnings[2]; })(),
 					acceptCb: function() {
 
 						var promises = [];
@@ -7001,7 +6963,7 @@
 					switchers: [
 						{
 							_id: 'update',
-							label: $rootScope.hardData.phrases[5],
+							label: $rootScope.hardData.imperatives[5],
 							onClick: function() {
 
 								$rootScope.$broadcast('displayImgCropWindow', {
@@ -7016,7 +6978,7 @@
 						},
 						{
 							_id: 'delete',
-							label: $rootScope.hardData.phrases[14],
+							label: $rootScope.hardData.imperatives[14],
 							onClick: function() {
 
 								scope.src.remove(undefined, true);
@@ -7025,7 +6987,7 @@
 						},
 						{
 							_id: 'refresh',
-							label: $rootScope.hardData.phrases[106],
+							label: $rootScope.hardData.imperatives[19],
 							onClick: function() {
 
 								userAvatarService.loadPhoto(scope, true);
@@ -7154,7 +7116,7 @@
 			controller: function($scope) {
 
 				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.phrases[32];
+				$scope.label1 = $rootScope.hardData.status[0];
 
 				$scope.onLogoutClick = function() {
 					$rootScope.logout();

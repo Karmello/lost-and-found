@@ -12,7 +12,7 @@
 
 				// Showing confirm modal
 				$rootScope.ui.modals.deleteReportModal.show({
-					message: (function() { return $rootScope.hardData.sentences[48]; })(),
+					message: (function() { return $rootScope.hardData.warnings[2]; })(),
 					acceptCb: function() {
 
 						var promises = [];

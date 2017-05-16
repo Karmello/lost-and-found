@@ -4,22 +4,11 @@
 
 		$stateProvider.state('app.search', {
 			url: '/search',
-			resolve: {
-				_ui: function($q, ui) {
+			onEnter: function(ui) {
 
-					return $q(function(resolve) {
-
-						ui.menus.top.activateSwitcher('search');
-						ui.frames.main.activateSwitcher('search');
-						ui.frames.app.activateSwitcher('main');
-
-						resolve();
-					});
-				}
-			},
-			onEnter: function($rootScope) {
-
-
+				ui.menus.top.activateSwitcher('search');
+				ui.frames.main.activateSwitcher('search');
+				ui.frames.app.activateSwitcher('main');
 			}
 		});
 	});

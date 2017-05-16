@@ -19,7 +19,7 @@
 				{
 					_id: 'logout',
 					route: '/#/start/login',
-					label: hardData.phrases[12],
+					label: hardData.imperatives[12],
 					icon: 'glyphicon glyphicon-off',
 					onClick: function() { $rootScope.logout(); }
 				}

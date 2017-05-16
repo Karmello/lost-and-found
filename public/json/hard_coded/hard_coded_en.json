@@ -1,7 +1,12 @@
 {
 	"_id": "en",
 	"app": {
-		"name": "LostAndFoundApp"
+		"name": "LostAndFoundApp",
+		"description": "welcomes You !"
+	},
+	"accountTypes": {
+		"basic": "Basic",
+		"full": "Full"
 	},
 	"languages": [
 		{ "value": "en", "label": "English" },
@@ -12,6 +17,10 @@
 		{ "value": "EUR", "label": "Euro" },
 		{ "value": "GBP", "label": "Pound" }
 	],
+	"reportGroups": [
+		{ "value": "L", "label": "Lost" },
+		{ "value": "F", "label": "Found" }
+	],
 	"themes": [
 		{ "value": "standard", "label": "Standard" },
 		{ "value": "darkly", "label": "Dark" },
@@ -20,101 +29,74 @@
 		{ "value": "cosmo", "label": "Cosmo" },
 		{ "value": "raw", "label": "Raw" }
 	],
-	"reportGroups": [
-		{ "value": "L", "label": "Lost" },
-		{ "value": "F", "label": "Found" }
+	"sections": [
+		"Home", "Settings", "About", "Help", "Contact", "Photos", "Comments", "Application", "Account", "Regional",
+		"Appearance", "Reports", "Personal details", "Results", "Statistics", "Event", "Subject", "Login", "Register", "Profile picture",
+		"New report", "Recently viewed", "Recently reported", "Status", "Danger zone"
 	],
-	"phrases": [
-		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
-		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Email", "Username", "Password",
-		"Current password", "New password", "First name", "Last name", "Title", "Country", "Choose", "Language", "Description", "Message",
-		"", "Cropped", "Logged out", "Logged in as", "Registered for", "Home", "", "Browse", "User", "Settings",
-		"About", "Help", "Contact", "Application", "Account", "", "Danger zone", "Login", "Register", "Status",
-		"Regional", "Personal details", "Password", "Profile picture", "", "Delete account", "Deactivating", "Error", "Comments", "Submitted",
-		"Category", "Subcategory", "", "", "Nothing to show", "Deleting the report", "Currency", "", "Edit", "",
-		"Photos", "", "", "Appearance", "Hello", "Reports", "All", "", "", "View",
-		"Info", "", "", "Search", "Title", "", "", "Ascending", "Descending", "",
-		"By", "Scroll to top", "Found", "LostAndFoundApp", "Uploading profile picture", "Removing profile picture", "", "", "", "",
-
-		"", "", "Currency", "", "", "", "Refresh", "Select all", "Set as avatar", "Deleting",
-		"Deselect all", "Close", "Uploading", "Uploaded", "Deleting", "Deleted", "Failed", "Theme", "of user", "",
-		"", "Approximately", "", "", "", "", "", "", "Choose an image", "Rotate",
-		"Zoom in", "Zoom out", "Crop mode", "Move mode", "", "Move left", "Move right", "", "", "ago",
-		"Group", "Report", "Date", "Full name", "Results", "New report", "Date", "Delete selected", "Location", "Editing report",
-		"ID", "on", "By", "Details", "Event", "Subject", "Name", "Serial number", "Subject", "I found it !",
-		"Recently viewed", "Users", "Reports", "Reported as lost", "Reported as found", "Recently reported", "No access", "Statistics"
+	"labels": [
+		"Email", "Username", "Password", "Current password", "New password", "First name", "Last name", "Title", "Country", "Language",
+		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Group", "Location", "ID", "Details",
+		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "Account type"
 	],
-	"sentences": [
-		"Why leaving us ?",
-		"You need to log in in order to gain access to this page.",
-		"",
-		"welcomes You !",
+	"description": [
 		"Log in to your account and take advantage of our services.",
 		"Register if you're not yet part of our community.",
 		"Couldn't log in ? Request new password.",
-		"Currently logged in as",
-		"Application regional settings.",
 		"Change your personal details.",
-
 		"Change your current password.",
-		"Upload new or remove existing profile picture.",
-		"",
-		"This action will completely delete your account and all the files and other information associated with it. You won't be able to restore it anytime later.",
-		"You are going to remove your account totally and loose all the data ! Are you sure you really wanna do that ?",
-		"This is your last chance ! If you continue your account will be gone !",
-		"",
-		"",
+		"Application regional settings."
+	],
+	"imperatives": [
+		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
+		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Search", "Choose", "Refresh",
+		"Move left", "Move right", "Rotate", "Zoom in", "Zoom out", "Scroll to top", "Delete account", "Choose an image", "Set as avatar", "Deselect all",
+		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account"
+	],
+	"declaratives": [
+		"I found it !"
+	],
+	"status": [
+		"Logged out", "All", "Nothing to show", "Ascending", "Descending", "No access", "Error", "By title", "By date"
+	],
+	"count": [
+		"on", "Registered for", "Users", "Reports", "Reported as lost", "Reported as found", "By", "Submitted", "ago", "Approximately"
+	],
+	"warnings": [
 		"Sure you want to continue ?",
-		"Are you sure you want to remove your profile picture ?",
-
+		"You are going to remove your account totally and loose all the data ! Are you sure you really wanna do that ?",
+		"You'll lose all the data associated with this report. Are you sure you want to delete it ?",
+		"This is your last chance ! If you continue your account will be gone !",
+		"This action will completely delete your account and all the files and other information associated with it. You won't be able to restore it anytime later."
+	],
+	"information": [
+		"Below is verification link for resetting password. It will be active for the next 24 hours.",
+		"You can change it again anytime under password tab in account settings.",
+		"Your new password have been emailed to you. Check spam folder in case you don't receive it in your inbox.",
+		"This is your new password",
+		"LostAndFoundApp - password reset link",
+		"LostAndFoundApp - new password",
+		"You have just deactivated your account !",
+		"If it's not you who have made the request just ignore this email.",
+		"Currently logged in as"
+	],
+	"rejections": [
+		"You need to log in in order to gain access to this page.",
 		"Something went wrong :( Try again later.",
-		"File is too large !",
-		"",
-		"",
-		"",
 		"You are trying to upload file with the wrong type.",
 		"You are trying to upload too large file. Max size is ",
-		"",
-		"You have just deactivated your account !",
-		"",
-
 		"You have already reached maximum number of uploaded files allowed.",
 		"You are trying to upload too many files.",
 		"You cannot upload file with the same name again.",
-		"",
 		"Something went wrong :( Try to refresh the page.",
-		"You need to select some files.",
-		"",
-		"",
-		"",
-		"",
-
-		"",
-		"",
-		"",
-		"",
-		"",
-		"",
-		"",
-		"",
-		"You'll lose all the data associated with this report. Are you sure you want to delete it ?",
-		"",
-
-		"",
-		"",
-		"",
-		"",
-		"Adjust appearance.",
-		"Below is verification link for resetting password. It will be active for the next 24 hours.",
-		"You can change it again anytime under password tab in account settings.",
-		"Enjoy using LostAndFoundApp application !",
-		"Your new password have been emailed to you. Check spam folder in case you don't receive it in your inbox.",
-		"LostAndFoundApp - password reset link",
-
-		"LostAndFoundApp - new password",
-		"This is your new password",
-		"If it's not you who have made the request just ignore this email.",
-		""
+		"You need to select some files."
+	],
+	"questions": [
+		"Why leaving us ?"
+	],
+	"other": [
+		"Hello",
+		"Enjoy using LostAndFoundApp application !"
 	],
 	"validation": [
 		"is required",

@@ -28,7 +28,7 @@
 					maxFileSize: NUMS.photoMaxSize
 				});
 
-				$scope.modalWindow = new MyModal({ id: 'imgCropModal', title: $rootScope.hardData.phrases[53] });
+				$scope.modalWindow = new MyModal({ id: 'imgCropModal', title: $rootScope.hardData.sections[19] });
 				$scope.loader = new MyLoader();
 				$scope.selectedFile = undefined;
 				$scope.mode = 'crop';

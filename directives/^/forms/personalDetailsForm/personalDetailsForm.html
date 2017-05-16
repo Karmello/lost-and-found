@@ -4,26 +4,26 @@
 		ctrl-type="'text'"
 		ctrl-max-length="254"
 		model="myForm.model.values.email"
-		hard-data="{ label: ['phrases', 17] }"
+		hard-data="{ label: ['labels', 0] }"
 	></my-input>
 	<my-input
 		ctrl-id="'firstname'"
 		ctrl-type="'text'"
 		ctrl-max-length="20"
 		model="myForm.model.values.firstname"
-		hard-data="{ label: ['phrases', 22] }"
+		hard-data="{ label: ['labels', 5] }"
 	></my-input>
 	<my-input
 		ctrl-id="'lastname'"
 		ctrl-type="'text'"
 		ctrl-max-length="20"
 		model="myForm.model.values.lastname"
-		hard-data="{ label: ['phrases', 23] }"
+		hard-data="{ label: ['labels', 6] }"
 	></my-input>
 	<my-selects-group
 		collection="countries.data"
 		model="myForm.model.values.country"
-		hard-data="{ label: ['phrases', 25] }"
+		hard-data="{ label: ['labels', 8] }"
 	>
 		<my-select
 			ctrl-id="'countryFirstLetter'"
@@ -38,7 +38,7 @@
 			model="myForm.model.values.country"
 			option-zero="true"
 			prop-names="{ optionValue: 'name', optionLabel: 'name' }"
-			hard-data="{ placeholder: ['phrases', 26] }"
+			hard-data="{ placeholder: ['imperatives', 18] }"
 			hide-errors="true"
 		></my-select>
 	</my-selects-group>

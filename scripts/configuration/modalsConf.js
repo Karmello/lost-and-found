@@ -18,46 +18,46 @@
 			}),
 			accountRequiredModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[166],
-				message: hardData.sentences[1]
+				title: hardData.status[5],
+				message: hardData.rejections[0]
 			}),
 			tryAgainLaterModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[57],
-				message: hardData.sentences[20]
+				title: hardData.status[6],
+				message: hardData.rejections[1]
 			}),
 			tryToRefreshModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[57],
-				message: hardData.sentences[34]
+				title: hardData.status[6],
+				message: hardData.rejections[7]
 			}),
 			passResetDoneModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[96],
-				message: hardData.sentences[58]
+				title: hardData.labels[4],
+				message: hardData.information[2]
 			}),
 			deactivationDoneModal: new MyModal({
 				typeId: 'infoModal',
-				title: hardData.phrases[59],
-				message: hardData.sentences[28]
+				title: hardData.count[7],
+				message: hardData.information[6]
 			}),
 			confirmProceedModal: new MyModal({
 				typeId: 'confirmModal',
-				message: hardData.sentences[18]
+				message: hardData.warnings[0]
 			}),
 			confirmDeactivationModal1: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[56],
-				message: hardData.sentences[14]
+				title: hardData.labels[24],
+				message: hardData.warnings[1]
 			}),
 			confirmDeactivationModal2: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[56],
-				message: hardData.sentences[15]
+				title: hardData.labels[24],
+				message: hardData.warnings[3]
 			}),
 			deleteReportModal: new MyModal({
 				typeId: 'confirmDangerModal',
-				title: hardData.phrases[14]
+				title: hardData.labels[28]
 			})
 		};
 	};

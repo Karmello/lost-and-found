@@ -37,8 +37,10 @@
 					<div>
 						<user-avatar user="apiData.loggedInUser"></user-avatar>
 					</div>
-					<div>
-						sodihfl alsfdlk askfdb akdsfb
+					<div ng-if="apiData.loggedInUser.account == 'basic'">
+						<a href="">
+							<span ng-bind="hardData.imperatives[35]" class="text-warning" style="font-weight: bold;"></span>
+						</a>
 					</div>
 				</div>
 				<div>

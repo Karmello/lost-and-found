@@ -5,7 +5,7 @@
 		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
-				getUser: function($stateParams, $q, UsersRest) {
+				getUser: function(authentication, $stateParams, $q, UsersRest) {
 
 					return $q(function(resolve) {
 

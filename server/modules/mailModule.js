@@ -14,26 +14,26 @@ module.exports = {
 
 			case 'new_pass_link':
 
-				mail.subject = hardData.sentences[59];
+				mail.subject = hardData.information[4];
 				mail.html = '\
-					<h2 style="font-weight: normal">' + hardData.phrases[74] + ' ' + data.username + ' !</h2><br/>\
-					<h4 style="font-weight: normal">' + hardData.sentences[55] + '</h4>\
+					<h2 style="font-weight: normal">' + hardData.other[0] + ' ' + data.username + ' !</h2><br/>\
+					<h4 style="font-weight: normal">' + hardData.information[0] + '</h4>\
 					<h4 style="font-weight: normal">' + data.link + '</h4><br />\
-					<h4 style="font-weight: normal">' + hardData.sentences[62] + '</h4>\
-					<h4 style="font-weight: normal">' + hardData.sentences[57] + '</h4>\
+					<h4 style="font-weight: normal">' + hardData.information[7] + '</h4>\
+					<h4 style="font-weight: normal">' + hardData.other[1] + '</h4>\
 				';
 
 				return mail;
 
 			case 'new_pass':
 
-				mail.subject = hardData.sentences[60];
+				mail.subject = hardData.information[5];
 				mail.html = '\
-					<h2 style="font-weight: normal">' + hardData.phrases[74] + ' ' + data.username + ' !</h2><br/>\
-					<h4 style="font-weight: normal">' + hardData.sentences[61] + ':</h4>\
+					<h2 style="font-weight: normal">' + hardData.other[0] + ' ' + data.username + ' !</h2><br/>\
+					<h4 style="font-weight: normal">' + hardData.information[3] + ':</h4>\
 					<h4 style="font-weight: normal">' + data.password + '</h4><br />\
-					<h4 style="font-weight: normal">' + hardData.sentences[56] + '</h4>\
-					<h4 style="font-weight: normal">' + hardData.sentences[57] + '</h4>\
+					<h4 style="font-weight: normal">' + hardData.information[1] + '</h4>\
+					<h4 style="font-weight: normal">' + hardData.other[1] + '</h4>\
 				';
 
 				return mail;

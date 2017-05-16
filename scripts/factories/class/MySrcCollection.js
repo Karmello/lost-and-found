@@ -151,7 +151,7 @@
 				// Showing info modal
 				$rootScope.ui.modals.infoModal.show({
 					title: $rootScope.apiData.loggedInUser.username,
-					message: $rootScope.hardData.sentences[35],
+					message: $rootScope.hardData.rejections[8],
 					hideCb: function() { cb(false); }
 				});
 
@@ -159,7 +159,7 @@
 
 				// Showing confirmation modal
 				$rootScope.ui.modals.confirmProceedModal.show({
-					title: $rootScope.hardData.phrases[109],
+					title: $rootScope.hardData.labels[28],
 					acceptCb: function() {
 
 						that.loader.start(false, function() {

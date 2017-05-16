@@ -15,12 +15,12 @@
 					<p>{{ report.fullCategory }}</p>
 					<p>
 						<span>{{ hardData.reportGroups[report.group == 'L' ? 0 : 1].label }}</span>
-						<span ng-bind="hardData.phrases[151]"></span>
+						<span ng-bind="hardData.count[0]"></span>
 						<span>{{ report.formattedDate }}</span>
 					</p>
 					<p>
-						<span ng-bind="hardData.phrases[59]"></span>
-						<span>{{ report.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
+						<span ng-bind="hardData.count[7]"></span>
+						<span>{{ report.pastSinceAdded + ' ' + hardData.count[8] }}</span>
 					</p>
 				</info-section>
 				<avatar-section ng-if="!noAvatar">

@@ -11,14 +11,14 @@
 			switchers: [
 				{
 					_id: 'edit',
-					label: hardData.phrases[68],
+					label: hardData.imperatives[33],
 					onClick: function() {
 
 					}
 				},
 				{
 					_id: 'delete',
-					label: hardData.phrases[14],
+					label: hardData.imperatives[14],
 					onClick: function() {
 
 						this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {

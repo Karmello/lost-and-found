@@ -15,7 +15,7 @@
 			controller: function($scope) {
 
 				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.phrases[32];
+				$scope.label1 = $rootScope.hardData.status[0];
 
 				$scope.onLogoutClick = function() {
 					$rootScope.logout();

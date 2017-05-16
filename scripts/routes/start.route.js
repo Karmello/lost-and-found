@@ -27,26 +27,21 @@
 							});
 						}
 	    			});
-				},
-				_ui: function(_tab, ui, $q, $stateParams) {
-
-					return $q(function(resolve) {
-
-						ui.listGroups.settings.getFirstSwitcher().activate();
-
-						angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-							ui.tabs[switcher._id].getFirstSwitcher().activate();
-						});
-
-						ui.tabs.start.activateSwitcher($stateParams.tab);
-						ui.frames.main.activateSwitcher();
-						ui.frames.app.activateSwitcher('start');
-
-						resolve();
-					});
 				}
 			},
-			onEnter: function($rootScope, $state, $timeout, ui) {
+			onEnter: function($rootScope, $state, $stateParams, $timeout, ui) {
+
+				ui.listGroups.settings.getFirstSwitcher().activate();
+
+				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+					ui.tabs[switcher._id].getFirstSwitcher().activate();
+				});
+
+				ui.tabs.start.activateSwitcher($stateParams.tab);
+				ui.frames.main.activateSwitcher();
+				ui.frames.app.activateSwitcher('start');
+
+
 
 				$timeout(function() {
 

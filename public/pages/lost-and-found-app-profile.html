@@ -23,27 +23,33 @@
 							<table class="table">
 								<tr>
 									<td>
-										<span class="text-info">{{ hardData.phrases[143] }}:</span>
+										<span class="text-info">{{ hardData.labels[23] }}:</span>
 										<span ng-bind="apiData.profileUser.firstname"></span>
 										<span ng-bind="apiData.profileUser.lastname"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span class="text-info">{{ hardData.phrases[25] }}:</span>
+										<span class="text-info">{{ hardData.labels[8] }}:</span>
 										<span ng-bind="apiData.profileUser.country"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span class="text-info">{{ hardData.phrases[17] }}:</span>
+										<span class="text-info">{{ hardData.labels[0] }}:</span>
 										<span ng-bind="apiData.profileUser.email"></span>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<span class="text-info">{{ hardData.phrases[34] }}:</span>
+										<span class="text-info">{{ hardData.count[1] }}:</span>
 										<span ng-bind="apiData.profileUser.userSince"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="text-info">{{ hardData.labels[29] }}:</span>
+										<span ng-bind="hardData.accountTypes[apiData.profileUser.account]"></span>
 									</td>
 								</tr>
 							</table>
@@ -53,7 +59,7 @@
 					<my-panel>
 						<title-section>
 							<span class="glyphicon glyphicon-list"></span>
-							<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[75] }} ({{ profileCollectionBrowser.meta.count }})</span>
+							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[11] }} ({{ profileCollectionBrowser.meta.count }})</span>
 						</title-section>
 						<action-section>
 							<my-context-menu ng-if="apiData.profileUser._isTheOneLoggedIn()" ins="profileReportsContextMenu"></my-context-menu>

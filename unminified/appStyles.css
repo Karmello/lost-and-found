@@ -101,6 +101,38 @@ body .form-group {
 .absCentered {
   position: absolute !important; }
 
+.main-with-aside-1 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px; }
+  @media only screen and (min-width: 992px) {
+    .main-with-aside-1 {
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap; } }
+  .main-with-aside-1 > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-preferred-size: 30%;
+    flex-basis: 30%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    margin-bottom: 25px; }
+    .main-with-aside-1 > div:first-child > div {
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      padding: 0 15px 0 15px; }
+  .main-with-aside-1 > div:last-child {
+    -ms-flex-preferred-size: 650px;
+    flex-basis: 650px; }
+
 #lost-and-found-app-home .myCollectionBrowser .ctrls {
   -ms-flex-pack: end;
   justify-content: flex-end; }
@@ -281,38 +313,6 @@ body .form-group {
     margin: 50px auto; }
   #lost-and-found-app-start #section2 .userBadge {
     margin-bottom: 50px; }
-
-.main-with-aside-1 {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: column wrap;
-  flex-flow: column wrap;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 25px; }
-  @media only screen and (min-width: 992px) {
-    .main-with-aside-1 {
-      -ms-flex-flow: row nowrap;
-      flex-flow: row nowrap; } }
-  .main-with-aside-1 > div:first-child {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -ms-flex-preferred-size: 30%;
-    flex-basis: 30%;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-    margin-bottom: 25px; }
-    .main-with-aside-1 > div:first-child > div {
-      -ms-flex-positive: 1;
-      flex-grow: 1;
-      padding: 0 15px 0 15px; }
-  .main-with-aside-1 > div:last-child {
-    -ms-flex-preferred-size: 650px;
-    flex-basis: 650px; }
 
 #auctionNumBox {
   display: -ms-flexbox;
@@ -611,28 +611,6 @@ body .form-group {
     .responsiveImgAndDesc > div {
       display: block; } }
 
-.myPopOverIcon {
-  display: table;
-  border-radius: 3px; }
-  .myPopOverIcon > div {
-    display: table-cell;
-    vertical-align: middle; }
-    .myPopOverIcon > div > span {
-      display: table;
-      margin: 0 auto;
-      text-align: center; }
-      .myPopOverIcon > div > span.glyphicon {
-        display: table;
-        width: 28px;
-        height: 28px;
-        position: relative;
-        padding-top: 7px;
-        padding-left: 1px;
-        font-size: 15px;
-        color: #eeeeee; }
-  .myPopOverIcon .glyphicon-play {
-    top: 0 !important; }
-
 .myPanel .panel-heading {
   display: -ms-flexbox;
   display: flex;
@@ -661,6 +639,28 @@ body .form-group {
 .myPanel .panel-body {
   position: relative;
   margin: 0 auto; }
+
+.myPopOverIcon {
+  display: table;
+  border-radius: 3px; }
+  .myPopOverIcon > div {
+    display: table-cell;
+    vertical-align: middle; }
+    .myPopOverIcon > div > span {
+      display: table;
+      margin: 0 auto;
+      text-align: center; }
+      .myPopOverIcon > div > span.glyphicon {
+        display: table;
+        width: 28px;
+        height: 28px;
+        position: relative;
+        padding-top: 7px;
+        padding-left: 1px;
+        font-size: 15px;
+        color: #eeeeee; }
+  .myPopOverIcon .glyphicon-play {
+    top: 0 !important; }
 
 .mySrc {
   position: relative;

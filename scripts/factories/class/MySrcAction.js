@@ -121,32 +121,32 @@
 			switch (msgId) {
 
 				case 'confirmDeletion':
-					settings = { title: $rootScope.hardData.phrases[109], acceptCb: acceptCb };
+					settings = { title: $rootScope.hardData.labels[28], acceptCb: acceptCb };
 					$rootScope.ui.modals.confirmProceedModal.show(settings);
 					break;
 
 				case 'MAX_FILES_UPLOADED':
-					settings = { title: username, message: $rootScope.hardData.sentences[30] };
+					settings = { title: username, message: $rootScope.hardData.rejections[4] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'UPLOADING_TOO_MANY_FILES':
-					settings = { title: username, message: $rootScope.hardData.sentences[31] };
+					settings = { title: username, message: $rootScope.hardData.rejections[5] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'filenameAlreadyExists':
-					settings = { title: username, message: $rootScope.hardData.sentences[32] };
+					settings = { title: username, message: $rootScope.hardData.rejections[6] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'WRONG_FILE_TYPE':
-					settings = { title: username, message: $rootScope.hardData.sentences[25] };
+					settings = { title: username, message: $rootScope.hardData.rejections[2] };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 
 				case 'FILE_TOO_LARGE':
-					settings = { title: username, message: $rootScope.hardData.sentences[26] + this.maxFileSize / 1024 / 1024 + ' Mb.' };
+					settings = { title: username, message: $rootScope.hardData.rejections[3] + this.maxFileSize / 1024 / 1024 + ' Mb.' };
 					$rootScope.ui.modals.infoModal.show(settings);
 					break;
 			}

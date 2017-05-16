@@ -9,7 +9,7 @@
 			switchers: [
 				{
 					_id: 'edit',
-					label: $rootScope.hardData.phrases[68],
+					label: $rootScope.hardData.imperatives[33],
 					onClick: function() {
 
 						$state.go('app.report', { id: this.parent.data._id, edit: '1' });
@@ -17,7 +17,7 @@
 				},
 				{
 					_id: 'delete',
-					label: $rootScope.hardData.phrases[14],
+					label: $rootScope.hardData.imperatives[14],
 					onClick: function() {
 
 						reportsService.deleteReports([this.parent.data]);
@@ -31,7 +31,7 @@
 			switchers: [
 				{
 					_id: 'select_all',
-					label: $rootScope.hardData.phrases[107],
+					label: $rootScope.hardData.imperatives[30],
 					onClick: function() {
 
 						reportsConf.profileCollectionBrowser.selectAll();
@@ -39,7 +39,7 @@
 				},
 				{
 					_id: 'deselect_all',
-					label: $rootScope.hardData.phrases[110],
+					label: $rootScope.hardData.imperatives[29],
 					onClick: function() {
 
 						reportsConf.profileCollectionBrowser.deselectAll();
@@ -47,7 +47,7 @@
 				},
 				{
 					_id: 'delete',
-					label: $rootScope.hardData.phrases[147],
+					label: $rootScope.hardData.imperatives[31],
 					onClick: function() {
 
 						var selectedReports = reportsConf.profileCollectionBrowser.getSelectedCollection();

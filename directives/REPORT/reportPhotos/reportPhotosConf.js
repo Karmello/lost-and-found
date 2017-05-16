@@ -19,7 +19,7 @@
 					switchers: [
 						{
 							_id: 'update',
-							label: $rootScope.hardData.phrases[16],
+							label: $rootScope.hardData.imperatives[16],
 							onClick: function() {
 
 								if (scope.srcAction.getFilesCount() < scope.srcAction.maxFiles) {
@@ -36,7 +36,7 @@
 						},
 						{
 							_id: 'delete',
-							label: $rootScope.hardData.phrases[14],
+							label: $rootScope.hardData.imperatives[14],
 							onClick: function() {
 								reportPhotosService.delete('multiple', scope);
 							},
@@ -44,7 +44,7 @@
 						},
 						{
 							_id: 'refresh',
-							label: $rootScope.hardData.phrases[106],
+							label: $rootScope.hardData.imperatives[19],
 							onClick: function() {
 								scope.srcThumbsCollection.init(scope.report.photos);
 							},
@@ -52,7 +52,7 @@
 						},
 						{
 							_id: 'select_all',
-							label: $rootScope.hardData.phrases[107],
+							label: $rootScope.hardData.imperatives[30],
 							onClick: function() {
 								scope.srcThumbsCollection.selectAll();
 							},
@@ -60,7 +60,7 @@
 						},
 						{
 							_id: 'deselect_all',
-							label: $rootScope.hardData.phrases[110],
+							label: $rootScope.hardData.imperatives[29],
 							onClick: function() {
 								scope.srcThumbsCollection.deselectAll();
 							},
@@ -82,7 +82,7 @@
 					switchers: [
 						{
 							_id: 'updateSingle',
-							label: $rootScope.hardData.phrases[5],
+							label: $rootScope.hardData.imperatives[5],
 							onClick: function() {
 
 								var that = this;
@@ -96,21 +96,21 @@
 						},
 						{
 							_id: 'delete',
-							label: $rootScope.hardData.phrases[14],
+							label: $rootScope.hardData.imperatives[14],
 							onClick: function() {
 								reportPhotosService.delete('single', scope, this.parent.data);
 							}
 						},
 						{
 							_id: 'refresh',
-							label: $rootScope.hardData.phrases[106],
+							label: $rootScope.hardData.imperatives[19],
 							onClick: function() {
 								this.parent.data.load(undefined, true);
 							}
 						},
 						{
 							_id: 'moveLeft',
-							label: $rootScope.hardData.phrases[135],
+							label: $rootScope.hardData.imperatives[20],
 							onClick: function() {
 								move(this);
 							},
@@ -122,7 +122,7 @@
 						},
 						{
 							_id: 'moveRight',
-							label: $rootScope.hardData.phrases[136],
+							label: $rootScope.hardData.imperatives[21],
 							onClick: function() {
 								move(this);
 							},
@@ -134,7 +134,7 @@
 						},
 						{
 							_id: 'set_as_avatar',
-							label: $rootScope.hardData.phrases[108],
+							label: $rootScope.hardData.imperatives[28],
 							onClick: function() {
 
 								scope.report.avatarFileName = this.parent.data.filename;

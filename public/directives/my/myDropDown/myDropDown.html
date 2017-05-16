@@ -7,9 +7,7 @@
 		aria-haspopup="true"
 		aria-expanded="true"
 	>
-		<span ng-bind="ins.togglerLabel"></span>
-		<span ng-if="ins.togglerLabel">{{ ins.getActiveSwitcher().label.charAt(0).toLowerCase() + ins.getActiveSwitcher().label.slice(1); }}</span>
-		<span ng-if="!ins.togglerLabel" ng-bind="ins.getActiveSwitcher().label"></span>
+		<span ng-bind="ins.getActiveSwitcher().label"></span>
 	</button>
 	<ul class="dropdown-menu">
 		<li

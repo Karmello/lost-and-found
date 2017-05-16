@@ -32,14 +32,13 @@
 
 				this.sorter = new MySwitchable(this.sorter);
 				this.sorter._id = 'sorter';
-				this.sorter.togglerLabel = hardData.phrases[90];
 
 				for (var i in this.sorter.switchers) { this.sorter.switchers[i].onClick = this.onClick; }
 
 				this.orderer = new MySwitchable({
 					switchers: [
-						{ _id: 'asc', label: hardData.phrases[87] },
-						{ _id: 'desc', label: hardData.phrases[88] }
+						{ _id: 'asc', label: hardData.status[3] },
+						{ _id: 'desc', label: hardData.status[4] }
 					]
 				});
 
@@ -82,7 +81,6 @@
 							}
 
 							that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
-							that.pager.togglerLabel = hardData.phrases[89];
 
 							if (currentPage) {
 								that.pager.activateSwitcher(currentPage);

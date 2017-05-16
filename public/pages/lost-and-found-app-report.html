@@ -19,20 +19,20 @@
 							<div>
 								<div>
 									<div>
-										<span class="text-info">{{ hardData.phrases[150] }}:</span>
+										<span class="text-info">{{ hardData.labels[18] }}:</span>
 										<span ng-bind="apiData.report._id"></span>
 									</div>
 									<div>
-										<span class="text-info">{{ hardData.phrases[60] }}:</span>
+										<span class="text-info">{{ hardData.labels[12] }}:</span>
 										<span ng-bind="apiData.report.fullCategory"></span>
 									</div>
 									<div>
-										<span class="text-info">{{ hardData.phrases[59] }}:</span>
-										<span>{{ apiData.report.pastSinceAdded + ' ' + hardData.phrases[139] }}</span>
+										<span class="text-info">{{ hardData.count[7] }}:</span>
+										<span>{{ apiData.report.pastSinceAdded + ' ' + hardData.count[8] }}</span>
 										<span style="white-space: nowrap;">({{ apiData.report.formattedDateAdded }})</span>
 									</div>
 									<div>
-										<span class="text-info">{{ hardData.phrases[152] }}:</span>
+										<span class="text-info">{{ hardData.count[6] }}:</span>
 										<a ui-sref="app.profile({ id: apiData.reportUser._id })">
 											<span ng-bind="apiData.reportUser.username" class="text-warning"></span>
 										</a>
@@ -44,11 +44,11 @@
 							</div>
 							<div>
 								<div style="text-align: justify;">
-									<span class="text-info">{{ hardData.phrases[28] }}:</span><br>
+									<span class="text-info">{{ hardData.labels[10] }}:</span><br>
 									<span ng-bind="apiData.report.description"></span>
 								</div>
 								<div>
-									<span class="text-info">{{ hardData.phrases[157] }}:</span>
+									<span class="text-info">{{ hardData.labels[20] }}:</span>
 									<span ng-bind="apiData.report.serialNo"></span>
 								</div>
 							</div>
@@ -56,17 +56,17 @@
 						<div id="section2">
 							<div>
 								<div>
-									<span class="text-info">{{ hardData.reportGroups[apiData.report.group == 'L' ? 0 : 1].label }} {{ hardData.phrases[151] }}:</span>
+									<span class="text-info">{{ hardData.reportGroups[apiData.report.group == 'L' ? 0 : 1].label }} {{ hardData.count[0] }}:</span>
 									<span>{{ apiData.report.formattedDate }}</span>
 								</div>
 								<div style="text-align: justify;">
-									<span class="text-info">{{ hardData.phrases[153] }}:</span><br>
+									<span class="text-info">{{ hardData.labels[19] }}:</span><br>
 									<span ng-bind="apiData.report.details"></span>
 								</div>
 							</div>
 							<div id="mapContainer">
 								<div>
-									<span class="text-info">{{ hardData.phrases[148] }}:</span>
+									<span class="text-info">{{ hardData.labels[17] }}:</span>
 									<div id="reportMap" class="myGoogleMap"></div>
 								</div>
 							</div>
@@ -75,7 +75,7 @@
 							<my-btn
 								ng-if="apiData.report.group == 'L' && apiData.report.userId != apiData.loggedInUser._id"
 								ctrl-class="'btn-primary'"
-								hard-data="{ label: ['phrases', 159] }"
+								hard-data="{ label: ['declaratives', 0] }"
 							></my-btn>
 						</div>
 						<div id="section4">
@@ -89,7 +89,7 @@
 				<my-panel>
 					<title-section>
 						<span class="glyphicon glyphicon-edit"></span>
-						<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[149] }}</span>
+						<span>&nbsp;&nbsp;&nbsp;{{ hardData.labels[27] }}</span>
 						<span class="text-info">{{ apiData.report._id }}</span>
 					</title-section>
 					<body-section>

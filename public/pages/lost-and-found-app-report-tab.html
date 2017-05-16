@@ -2,7 +2,7 @@
 	<my-panel>
 		<title-section>
 			<span class="glyphicon glyphicon-picture"></span>
-			<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[70] }} ({{ apiData.report.photos.length }})</span>
+			<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[5] }} ({{ apiData.report.photos.length }})</span>
 		</title-section>
 		<body-section>
 			<report-photos report="apiData.report" editable="apiData.reportUser._isTheOneLoggedIn()"></report-photos>
@@ -13,7 +13,7 @@
 	<my-panel>
 		<title-section>
 			<span class="glyphicon glyphicon-comment"></span>
-			<span>&nbsp;&nbsp;&nbsp;{{ hardData.phrases[58] }} ({{ commentsBrowser.meta.count }})</span>
+			<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[6] }} ({{ commentsBrowser.meta.count }})</span>
 		</title-section>
 		<body-section>
 			<comments ctrl-id="ReportComments"></comments>

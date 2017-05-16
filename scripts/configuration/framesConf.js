@@ -25,19 +25,19 @@
 				{
 					_id: 'home',
 					route: '/#/home',
-					label: hardData.phrases[35],
+					label: hardData.sections[0],
 					icon: 'glyphicon glyphicon-home'
 				},
 				{
 					_id: 'search',
 					route: '/#/search',
-					label: hardData.phrases[83],
+					label: hardData.imperatives[17],
 					icon: 'glyphicon glyphicon-search'
 				},
 				{
 					_id: 'newreport',
 					route: '/#/newreport',
-					label: hardData.phrases[141],
+					label: hardData.imperatives[32],
 					icon: 'glyphicon glyphicon-bullhorn'
 				},
 				{
@@ -47,19 +47,19 @@
 				{
 					_id: 'about',
 					route: '/#/about',
-					label: hardData.phrases[40],
+					label: hardData.sections[2],
 					icon: 'glyphicon glyphicon-info-sign'
 				},
 				{
 					_id: 'help',
 					route: '/#/help',
-					label: hardData.phrases[41],
+					label: hardData.sections[3],
 					icon: 'glyphicon glyphicon-question-sign'
 				},
 				{
 					_id: 'contact',
 					route: '/#/contact',
-					label: hardData.phrases[42],
+					label: hardData.sections[4],
 					icon: 'glyphicon glyphicon-envelope'
 				},
 				{
@@ -68,7 +68,7 @@
 				},
 				{
 					_id: 'settings',
-					label: hardData.phrases[39],
+					label: hardData.sections[1],
 					icon: 'glyphicon glyphicon-cog',
 					getRoute: function(uiCtrls) {
 

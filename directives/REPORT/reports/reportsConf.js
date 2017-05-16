@@ -12,7 +12,7 @@
 				switchers: [
 					{
 						_id: 'all',
-						label: hardData.phrases[76]
+						label: hardData.status[1]
 					},
 					{
 						_id: 'L',
@@ -28,11 +28,11 @@
 				switchers: [
 					{
 						_id: 'title',
-						label: hardData.phrases[84]
+						label: hardData.status[7]
 					},
 					{
 						_id: 'date',
-						label: hardData.phrases[146]
+						label: hardData.status[8]
 					}
 				]
 			},
@@ -55,7 +55,7 @@
 				switchers: [
 					{
 						_id: 'all',
-						label: hardData.phrases[76]
+						label: hardData.status[1]
 					},
 					{
 						_id: 'L',
@@ -71,11 +71,11 @@
 				switchers: [
 					{
 						_id: 'title',
-						label: hardData.phrases[84]
+						label: hardData.status[7]
 					},
 					{
 						_id: 'date',
-						label: hardData.phrases[146]
+						label: hardData.status[8]
 					}
 				]
 			},

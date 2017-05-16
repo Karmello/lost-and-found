@@ -2,33 +2,42 @@
 
 	'use strict';
 
-	var startTabsConf = function($rootScope) {
+	var startTabsConf = function($rootScope, hardDataService) {
+
+		var hardData = hardDataService.get();
 
 		var config = {
 			_ctrlId: 'startTabs',
 			switchers: [
 				{
 					_id: 'login',
+					label: hardData.sections[17],
+					info: hardData.description[0],
 					route: '/#/start/login',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'register',
+					label: hardData.sections[18],
+					info: hardData.description[1],
 					route: '/#/start/register',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'recover',
+					label: hardData.labels[4],
+					info: hardData.description[2],
 					route: '/#/start/recover',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				},
 				{
 					_id: 'status',
+					label: hardData.sections[23],
+					info: hardData.information[8],
 					route: '/#/start/status',
 					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
 				}
-			],
-			hardData: { switchers_label: ['phrases', [47, 48, 21, 49]], switchers_info: ['sentences', [4, 5, 6, 7]] }
+			]
 		};
 
 		return config;
@@ -45,8 +54,8 @@
 					{
 						_id: 'appearance',
 						route: '/#/settings/application/appearance',
-						label: hardData.phrases[73],
-						info: hardData.sentences[54],
+						label: hardData.sections[10],
+						info: hardData.imperatives[34],
 						onActivate: function() {
 							$rootScope.globalFormModels.appConfigModel.set();
 						}
@@ -54,8 +63,8 @@
 					{
 						_id: 'regional',
 						route: '/#/settings/application/regional',
-						label: hardData.phrases[50],
-						info: hardData.sentences[8],
+						label: hardData.sections[9],
+						info: hardData.description[5],
 						onActivate: function() {
 							$rootScope.globalFormModels.appConfigModel.set();
 						}
@@ -68,8 +77,8 @@
 					{
 						_id: 'personal-details',
 						route: '/#/settings/account/personal-details',
-						label: hardData.phrases[51],
-						info: hardData.sentences[9],
+						label: hardData.sections[12],
+						info: hardData.description[3],
 						onActivate: function() {
 							$rootScope.globalFormModels.personalDetailsModel.set();
 						}
@@ -77,22 +86,11 @@
 					{
 						_id: 'password',
 						route: '/#/settings/account/password',
-						label: hardData.phrases[52],
-						info: hardData.sentences[10],
+						label: hardData.labels[2],
+						info: hardData.description[4],
 						onActivate: function() {
 							$rootScope.globalFormModels.passwordModel.clear();
 						}
-					}
-				]
-			},
-			payment: {
-				_ctrlId: 'paymentTabs',
-				switchers: [
-					{
-						_id: 'paypal',
-						route: '/#/settings/payment/paypal',
-						label: hardData.phrases[54],
-						info: hardData.sentences[12]
 					}
 				]
 			},
@@ -102,8 +100,8 @@
 					{
 						_id: 'deactivate',
 						route: '/#/settings/danger/deactivate',
-						label: hardData.phrases[55],
-						info: hardData.sentences[13],
+						label: hardData.imperatives[26],
+						info: hardData.warnings[4],
 						onActivate: function() {
 							$rootScope.globalFormModels.deactivationModel.clear();
 						}
@@ -138,7 +136,7 @@
 					onActivate: function() {}
 				}
 			],
-			hardData: { switchers_label: ['phrases', [70, 58]] }
+			hardData: { switchers_label: ['sections', [5, 6]] }
 		};
 
 		return config;
@@ -146,7 +144,7 @@
 
 
 
-	startTabsConf.$inject = ['$rootScope'];
+	startTabsConf.$inject = ['$rootScope', 'hardDataService'];
 	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
 	reportTabsConf.$inject = ['$rootScope'];
 

@@ -1,5 +1,7 @@
 use laf-dev
 
+
+
 // db.users.find({
 // 	_id: {
 // 		$in: db.reports.find({
@@ -16,8 +18,18 @@ use laf-dev
 // 	}
 // }).map(function(appConfig) { return appConfig._id; });
 
-db.app_configs.remove({
-	userId: {
-		$nin: db.users.find({}).map(function(user) { return user._id; })
+
+
+// db.app_configs.remove({
+// 	userId: {
+// 		$nin: db.users.find({}).map(function(user) { return user._id; })
+// 	}
+// });
+
+
+
+db.users.update({}, {
+	$set: {
+		account: 'basic'
 	}
-});
+}, { multi: true });

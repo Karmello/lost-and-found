@@ -13,7 +13,7 @@
 					switchers: [
 						{
 							_id: 'update',
-							label: $rootScope.hardData.phrases[5],
+							label: $rootScope.hardData.imperatives[5],
 							onClick: function() {
 
 								$rootScope.$broadcast('displayImgCropWindow', {
@@ -28,7 +28,7 @@
 						},
 						{
 							_id: 'delete',
-							label: $rootScope.hardData.phrases[14],
+							label: $rootScope.hardData.imperatives[14],
 							onClick: function() {
 
 								scope.src.remove(undefined, true);
@@ -37,7 +37,7 @@
 						},
 						{
 							_id: 'refresh',
-							label: $rootScope.hardData.phrases[106],
+							label: $rootScope.hardData.imperatives[19],
 							onClick: function() {
 
 								userAvatarService.loadPhoto(scope, true);

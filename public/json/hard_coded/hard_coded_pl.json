@@ -1,7 +1,12 @@
 {
 	"_id": "pl",
 	"app": {
-		"name": "LostAndFoundApp"
+		"name": "LostAndFoundApp",
+		"description": "wita Cię gorąco !"
+	},
+	"accountTypes": {
+		"basic": "Podstawowe",
+		"full": "Pełne"
 	},
 	"languages": [
 		{ "value": "en", "label": "Angielski" },
@@ -12,6 +17,10 @@
 		{ "value": "EUR", "label": "Euro" },
 		{ "value": "GBP", "label": "Funt" }
 	],
+	"reportGroups": [
+		{ "value": "L", "label": "Utracone" },
+		{ "value": "F", "label": "Odnalezione" }
+	],
 	"themes": [
 		{ "value": "standard", "label": "Standardowy" },
 		{ "value": "darkly", "label": "Ciemny" },
@@ -20,101 +29,74 @@
 		{ "value": "cosmo", "label": "Cosmo" },
 		{ "value": "raw", "label": "Czysty" }
 	],
-	"reportGroups": [
-		{ "value": "L", "label": "Utracone" },
-		{ "value": "F", "label": "Odnalezione" }
+	"sections": [
+		"Strona główna", "Ustawienia", "O nas", "Pomoc", "Kontakt", "Zdjęcia", "Komentarze", "Aplikacja", "Konto", "Regionalne",
+		"Wygląd", "Zgłoszenia", "Dane personalne", "Rezultaty", "Statystyki", "Zdarzenie", "Przedmiot", "Logowanie", "Rejestracja", "Zdjęcie profilowe",
+		"Nowe zgłoszenie", "Ostatnio oglądane", "Ostatnio zgłoszone", "Status", "Uwaga !"
 	],
-	"phrases": [
-		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
-		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Email", "Nazwa użytkownika", "Hasło",
-		"Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Wybierz", "Język", "Opis", "Wiadomość",
-		"", "Po przesłaniu", "Wylogowany", "Zalogowany jako", "Zarejestrowany przez", "Strona główna", "", "Przeglądaj","Użytkownik", "Ustawienia",
-		"O nas", "Pomoc", "Kontakt", "Aplikacja", "Konto", "", "Uwaga !", "Logowanie", "Rejestracja", "Status",
-		"Regionalne", "Dane personalne", "Hasło", "Zdjęcie profilowe", "", "Usuń konto", "Deaktywacja", "Błąd", "Komentarze", "Zgłoszono",
-		"Kategoria", "Podkategoria", "", "", "Pusto", "Usuwanie zgłoszenia", "Waluta", "", "Edycja", "",
-		"Zdjęcia", "", "", "Wygląd", "Cześć", "Zgłoszenia", "Wszystkie", "", "", "Zobacz",
-		"Info", "", "", "Szukaj", "Tytułu", "", "", "Rosnąco", "Malejąco", "",
-		"Według", "Przewiń do góry", "Znaleziono", "LostAndFoundApp", "Przesyłanie zdjęcia profilowego", "Usuwanie zdjęcia profilowego", "", "", "", "",
-
-		"", "", "Waluty", "", "", "", "Odśwież", "Zaznacz wszystkie", "Ustaw jako avatar", "Usuwanie",
-		"Odznacz wszystkie", "Zamknij", "Przesyłanych", "Przesłanych", "Usuwanych", "Usuniętych", "Niepowodzeń", "Motyw", "użytkownika", "",
-		"", "W przybliżeniu", "", "", "", "", "", "", "Wybierz zdjęcie", "Obróć",
-		"Zbliż", "Oddal", "Przycinanie", "Przesuwanie", "", "Przesuń w lewo", "Przesuń w prawo", "", "", "temu",
-		"Grupa", "Zgłoś", "Data", "Imię i nazwisko", "Rezultaty", "Nowe zgłoszenie", "Daty", "Usuń zaznaczone", "Lokalizacja", "Edycja zgłoszenia",
-		"ID", "dnia", "Przez", "Szczegóły", "Zdarzenie", "Przedmiot", "Nazwa", "Numer seryjny", "Temat", "Znalazłem to !",
-		"Ostatnio oglądane", "Użytkowników", "Zgłoszeń", "Utraconych", "Odnalezionych", "Ostatnio zgłoszone", "Brak dostępu", "Statystyka"
+	"labels": [
+		"Email", "Nazwa użytkownika", "Hasło", "Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Język",
+		"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Grupa", "Lokalizacja", "ID", "Szczegóły",
+		"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie"
 	],
-	"sentences": [
-		"Dlaczego nas opuszczasz ?",
-		"Musisz się zalogować, aby uzyskać dostęp do tej strony.",
-		"",
-		"wita Cię gorąco !",
+	"description": [
 		"Zaloguj się i korzystaj z serwisu.",
 		"Zarejestruj się jeśli jeszcze tego nie zrobiłeś.",
 		"Problem z zalogowaniem ? Poproś o nowe hasło.",
-		"Korzystasz z aplikacji jako",
-		"Regionalne ustawienia aplikacji.",
 		"Zaaktualizuj swoje dane personalne.",
-
 		"Zmień swoje aktualne hasło.",
-		"Zmień lub usuń zdjęcie profilowe.",
-		"",
-		"Tutaj możesz usunąć swoje konto. Pamiętaj, że nie będziesz w stanie odzyskać utraconych plików i ustawień !",
-		"Twoje konto, wszystkie pliki i ustawienia zostaną usunięte ! Czy napewno chcesz kontynuować ?",
-		"To twoja ostatnia szansa odwrotu ! Jeśli kontynuujesz twoje konto zostanie deaktywowane !",
-		"",
-		"",
+		"Regionalne ustawienia aplikacji."
+	],
+	"imperatives": [
+		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
+		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Szukaj", "Wybierz", "Odśwież",
+		"Przesuń w lewo", "Przesuń w prawo", "Obróć", "Zbliż", "Oddal", "Przewiń do góry", "Usuń konto", "Wybierz zdjęcie", "Ustaw jako avatar", "Odznacz wszystkie",
+		"Zaznacz wszystkie", "Usuń zaznaczone", "Zgłoś", "Edytuj", "Dostosuj wygląd.", "Wykup pełne konto"
+	],
+	"declaratives": [
+		"Znalazłem to !"
+	],
+	"status": [
+		"Wylogowany", "Wszystkie", "Pusto", "Rosnąco", "Malejąco", "Brak dostępu", "Błąd", "Według tytułu", "Według daty"
+	],
+	"count": [
+		"dnia", "Zarejestrowany przez", "Użytkowników", "Zgłoszeń", "Utraconych", "Odnalezionych", "Przez", "Zgłoszono", "temu", "W przybliżeniu"
+	],
+	"warnings": [
 		"Czy napewno chcesz kontynuować ?",
-		"Czy napewno chcesz usunąć zdjęcie ?",
-
+		"Twoje konto, wszystkie pliki i ustawienia zostaną usunięte ! Czy napewno chcesz kontynuować ?",
+		"Stracisz wszystkie dane związane z tym zgłoszeniem. Czy napewno chcesz to zrobić ?",
+		"To twoja ostatnia szansa odwrotu ! Jeśli kontynuujesz twoje konto zostanie deaktywowane !",
+		"Tutaj możesz usunąć swoje konto. Pamiętaj, że nie będziesz w stanie odzyskać utraconych plików i ustawień !"
+	],
+	"information": [
+		"Klikając w link poniżej potwierdzisz zmianę hasła. Będzie on aktywny przez najbliższe 24 godziny.",
+		"Możesz zmienić je w każdej chwili pod zakładką \"Hasło\" w ustawieniach konta.",
+		"Email z nowym hasłem został wysłany na podany przez ciebie adres. W razie problemów z jego znalezieniem sprawdź folder spam.",
+		"Oto twoje nowe hasło",
+		"LostAndFoundApp - link do zresetowania hasła",
+		"LostAndFoundApp - nowe hasło",
+		"Właśnie deaktywowałeś swoje konto !",
+		"Zignoruj tego maila jeśli nie wysyłałeś prośby o reset.",
+		"Korzystasz z aplikacji jako"
+	],
+	"rejections": [
+		"Musisz się zalogować, aby uzyskać dostęp do tej strony.",
 		"Nie udało się wykonać żądania. Spróbuj ponownie za kilka minut.",
-		"Plik jest zbyt duży !",
-		"",
-		"",
-		"",
 		"Próbujesz wrzucić plik w złym formacie.",
 		"Próbujesz wrzucić zbyt duży plik. Maksymalny rozmiar to ",
-		"",
-		"Właśnie deaktywowałeś swoje konto !",
-		"",
-
 		"Wrzuciłeś już maksymalną liczbę plików.",
 		"Próbujesz wrzucić zbyt dużo plików.",
 		"Nie możesz mieć dwóch plików z tą samą nazwą.",
-		"",
 		"Wystąpił błąd. Spróbuj odświeżyć stronę.",
-		"Musisz zaznaczyć jakieś pliki.",
-		"",
-		"",
-		"",
-		"",
-
-		"",
-		"",
-		"",
-		"",
-		"",
-		"",
-		"",
-		"",
-		"Stracisz wszystkie dane związane z tym zgłoszeniem. Czy napewno chcesz to zrobić ?",
-		"",
-
-		"",
-		"",
-		"",
-		"",
-		"Dostosuj wygląd.",
-		"Klikając w link poniżej potwierdzisz zmianę hasła. Będzie on aktywny przez najbliższe 24 godziny.",
-		"Możesz zmienić je w każdej chwili pod zakładką \"Hasło\" w ustawieniach konta.",
-		"Miłego korzystania z aplikacji LostAndFoundApp !",
-		"Email z nowym hasłem został wysłany na podany przez ciebie adres. W razie problemów z jego znalezieniem sprawdź folder spam",
-		"LostAndFoundApp - link do zresetowania hasła",
-
-		"LostAndFoundApp - nowe hasło",
-		"Oto twoje nowe hasło",
-		"Zignoruj tego maila jeśli nie wysyłałeś prośby o reset.",
-		""
+		"Musisz zaznaczyć jakieś pliki."
+	],
+	"questions": [
+		"Dlaczego nas opuszczasz ?"
+	],
+	"other": [
+		"Cześć",
+		"Miłego korzystania z aplikacji LostAndFoundApp !"
 	],
 	"validation": [
 		"jest polem wymaganym",

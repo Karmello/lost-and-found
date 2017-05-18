@@ -2,18 +2,27 @@ module.exports = {
 	app_config: {
 		put: require('./AppConfig/putAppConfig'),
 	},
-	user: {
-		post: require('./User/postUser'),
-		get: require('./User/getUser'),
-		put: require('./User/putUser'),
-		delete: require('./User/deleteUser')
+	comment: {
+		post: require('./Comment/postComment'),
+		get: require('./Comment/getComment'),
+		delete: require('./Comment/deleteComment')
+	},
+	contact_type: {
+		post: require('./ContactType/postContactType'),
+		get: require('./ContactType/getContactTypes')
+	},
+	deactivation_reason: {
+		get: require('./DeactivationReason/getDeactivationReasons')
+	},
+	other: {
+		getStats: require('./Other/getStats')
 	},
 	password: {
 		recover: require('./Password/recoverPassword'),
 		reset: require('./Password/resetPassword')
 	},
-	report_category: {
-		get: require('./ReportCategory/getReportCategories')
+	payment: {
+		post: require('./Payment/postPayment')
 	},
 	report: {
 		post: require('./Report/postReport'),
@@ -23,19 +32,13 @@ module.exports = {
 		put: require('./Report/putReport'),
 		delete: require('./Report/deleteReport'),
 	},
-	comment: {
-		post: require('./Comment/postComment'),
-		get: require('./Comment/getComment'),
-		delete: require('./Comment/deleteComment')
+	report_category: {
+		get: require('./ReportCategory/getReportCategories')
 	},
-	deactivation_reason: {
-		get: require('./DeactivationReason/getDeactivationReasons')
-	},
-	contact_type: {
-		post: require('./ContactType/postContactType'),
-		get: require('./ContactType/getContactTypes')
-	},
-	other: {
-		getStats: require('./Other/getStats')
+	user: {
+		post: require('./User/postUser'),
+		get: require('./User/getUser'),
+		put: require('./User/putUser'),
+		delete: require('./User/deleteUser')
 	}
 };

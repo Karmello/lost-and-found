@@ -17,10 +17,10 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'reportSearchForm',
-					'contactForm', 'reportForm', 'commentForm'
+					'contactForm', 'reportForm', 'commentForm', 'upgradeForm'
 				];
 
-				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'reportForm'];
+				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'reportForm', 'upgradeForm'];
 
 				var cancelBtnForms = ['reportForm'];
 
@@ -54,6 +54,10 @@
 
 					case 'reportSearchForm':
 						$scope.myForm.submitBtnPhraseIndex = 17;
+						break;
+
+					case 'upgradeForm':
+						$scope.myForm.submitBtnPhraseIndex = 36;
 						break;
 				}
 

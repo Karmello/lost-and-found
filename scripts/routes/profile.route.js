@@ -5,38 +5,32 @@
 		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
-				getUser: function(authentication, $stateParams, $q, UsersRest) {
+				getUser: function(authentication, $state, $stateParams, $q, UsersRest, ui) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
 						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
 							resolve(true);
 
 						}, function() {
-							resolve(false);
+
+							reject();
+
+							if (!ui.loaders.renderer.isLoading) {
+								ui.modals.tryAgainLaterModal.show();
+
+							} else {
+								$state.go('app.start', { tab: 'status' }, { location: 'replace' });
+							}
 						});
 					});
 				}
 			},
-			onEnter: function(getUser, $rootScope, $timeout, ui) {
+			onEnter: function(ui) {
 
-				var timeout = 0;
-				if (ui.loaders.renderer.isLoading) { timeout = 3000; }
-
-				$timeout(function() {
-
-					ui.menus.top.activateSwitcher();
-
-					if (getUser) {
-						ui.frames.main.activateSwitcher('profile');
-						ui.frames.app.activateSwitcher('main');
-
-					} else {
-						ui.frames.main.activateSwitcher();
-						ui.modals.tryAgainLaterModal.show();
-					}
-
-				}, timeout);
+				ui.menus.top.activateSwitcher();
+				ui.frames.main.activateSwitcher('profile');
+				ui.frames.app.activateSwitcher('main');
 			}
 		});
 	});

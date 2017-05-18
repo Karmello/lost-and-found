@@ -45,6 +45,11 @@
 					icon: 'glyphicon glyphicon-user'
 				},
 				{
+					_id: 'upgrade',
+					icon: 'glyphicon glyphicon-star',
+					label: hardData.sections[25]
+				},
+				{
 					_id: 'about',
 					route: '/#/about',
 					label: hardData.sections[2],

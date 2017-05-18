@@ -100,5 +100,20 @@ module.exports = {
         }
 
         next();
+    },
+    paymentAction: function(req, res, next) {
+
+        switch (req.method) {
+
+            case 'GET':
+
+                if (req.query.userId != req.decoded._doc._id) {
+                    return res.status(401).send('PAYMENT_' + req.method + '_NOT_ALLOWED');
+                }
+
+                break;
+        }
+
+        next();
     }
 };

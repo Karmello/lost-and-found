@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"cre",
+				"creditCardExpireYear"
+			],
+			[
+				"credi",
+				"creditCardType"
+			],
+			[
+				"pay",
+				"paypal"
+			],
+			[
+				"new",
+				"newPayment"
+			],
+			[
+				"re",
+				"required"
+			],
+			[
+				"pa",
+				"payVal\t{}"
+			],
+			[
+				"cred",
+				"creditCardType"
+			],
+			[
+				"payme",
+				"paymentValidators"
+			],
+			[
+				"Pay",
+				"Payment\t(server.js)"
+			],
+			[
+				"req",
+				"require"
+			],
+			[
 				"Bo",
 				"Boolean"
 			],
@@ -46,10 +86,6 @@
 			[
 				"report",
 				"reportsRecentlyViewed"
-			],
-			[
-				"re",
-				"resolve\t(UserSchema.js)"
 			],
 			[
 				"user",
@@ -106,10 +142,6 @@
 			[
 				"har",
 				"hardData"
-			],
-			[
-				"cre",
-				"createCollection"
 			],
 			[
 				"$sta",
@@ -344,10 +376,6 @@
 				"arg2"
 			],
 			[
-				"req",
-				"require"
-			],
-			[
 				"nod",
 				"nodeModule\tnodeModule"
 			],
@@ -486,98 +514,43 @@
 			[
 				"back",
 				"background-color"
-			],
-			[
-				"bac",
-				"background"
-			],
-			[
-				"valid",
-				"validateUserId\t(authModule.js)"
-			],
-			[
-				"index",
-				"indexOf\t(deleteItemPhotos.js)"
-			],
-			[
-				"$st",
-				"$stateParams\t(collectionDisplayerService.js)"
-			],
-			[
-				"User",
-				"UserAuctions\t(auctions.js)"
-			],
-			[
-				"colle",
-				"collectionBrowser\t(auctions.html)"
-			],
-			[
-				"collectionB",
-				"collectionBrowser\t(auctions.html)"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/server/controllers/ReportController.js",
+			"file": "/D/Workspace/laf/dev/server/schemas/PaymentSchema.js",
 			"settings":
 			{
-				"buffer_size": 1171,
+				"buffer_size": 1061,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/server/actions/Report/getReportById.js",
+			"file": "/D/Workspace/laf/dev/server/validators/paymentValidators.js",
 			"settings":
 			{
-				"buffer_size": 1065,
+				"buffer_size": 2406,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/server/actions/Report/getReportByIds.js",
+			"file": "/D/Workspace/laf/dev/server/controllers/PaymentController.js",
 			"settings":
 			{
-				"buffer_size": 1210,
+				"buffer_size": 359,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/server/controllers/ReportCategoryController.js",
+			"file": "/D/Workspace/laf/dev/server/actions/Payment/postPayment.js",
 			"settings":
 			{
-				"buffer_size": 310,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/controllers/DeactivationReasonController.js",
-			"settings":
-			{
-				"buffer_size": 322,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
-			"settings":
-			{
-				"buffer_size": 402,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/schemas/UserSchema.js",
-			"settings":
-			{
-				"buffer_size": 3640,
+				"buffer_size": 1710,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -662,31 +635,49 @@
 	"expanded_folders":
 	[
 		"/D/Workspace/laf/dev/server",
-		"/D/Workspace/laf/dev/server/actions",
-		"/D/Workspace/laf/dev/server/actions/DeactivationReason",
-		"/D/Workspace/laf/dev/server/actions/ReportCategory",
-		"/D/Workspace/laf/dev/server/controllers"
+		"/D/Workspace/laf/dev/server/validators"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/server/actions/ReportCategory/getReportCategories.js",
-		"/D/Workspace/laf/dev/server/modules/authorize.js",
-		"/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
-		"/D/Workspace/laf/dev/server/actions/_actions.js",
-		"/D/Workspace/laf/dev/server/actions/Report/getReportByUserId.js",
+		"/D/Workspace/laf/dev/server/validators/userValidators.js",
 		"/D/Workspace/laf/dev/server/schemas/UserSchema.js",
-		"/D/Workspace/laf/dev/server/actions/Report/getReportByIds.js",
+		"/D/Workspace/laf/dev/server/validators/globalValidators.js",
+		"/D/Workspace/laf/dev/server/prototypes/Action.js",
+		"/D/Workspace/laf/dev/server.js",
+		"/D/Workspace/laf/dev/server/actions/User/postUser.js",
+		"/D/Workspace/laf/dev/server/routes.js",
+		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/server/setups/_setups.js",
+		"/D/Workspace/laf/dev/server/schemas/AppConfigSchema.js",
+		"/D/Workspace/laf/dev/server/controllers/ReportCategoryController.js",
+		"/D/Workspace/laf/dev/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/server/controllers/UserController.js",
+		"/D/Workspace/laf/dev/server/modules/_modules.js",
+		"/D/Workspace/laf/dev/server/controllers/PaymentController.js",
+		"/D/Workspace/laf/dev/server/models.js",
+		"/D/Workspace/laf/dev/server/schemas/PaymentSchema.js",
+		"/D/Workspace/laf/dev/server/validators/_validators.js",
+		"/D/Workspace/laf/dev/server/_requires.js",
+		"/D/Workspace/laf/dev/server/validators/passwordValidators.js",
+		"/D/Workspace/laf/dev/server/actions/User/getUser.js",
+		"/D/Workspace/laf/dev/server/validators/paymentValidators.js",
+		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
+		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReportById.js",
+		"/D/Workspace/laf/dev/server/actions/Report/getReportByIds.js",
+		"/D/Workspace/laf/dev/server/controllers/DeactivationReasonController.js",
+		"/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
+		"/D/Workspace/laf/dev/server/actions/ReportCategory/getReportCategories.js",
+		"/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
+		"/D/Workspace/laf/dev/server/actions/Report/getReportByUserId.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReport.js",
 		"/D/Workspace/laf/dev/server/actions/Comment/getComment.js",
 		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
-		"/D/Workspace/laf/dev/server/schemas/AppConfigSchema.js",
 		"/D/Workspace/laf/dev/server/actions/Comment/deleteComment.js",
 		"/D/Workspace/laf/dev/server/actions/User/putUser.js",
-		"/D/Workspace/laf/dev/server/actions/User/getUser.js",
 		"/D/Workspace/laf/dev/server/actions/User/deleteUser.js",
-		"/D/Workspace/laf/dev/server/actions/User/postUser.js",
 		"/D/Workspace/laf/dev/server/actions/AppConfig/putAppConfig.js",
 		"/D/Workspace/laf/dev/server/actions/Comment/postComment.js",
 		"/D/Workspace/laf/dev/server/actions/Password/resetPassword.js",
@@ -695,21 +686,13 @@
 		"/D/Workspace/laf/dev/server/actions/Report/putReport.js",
 		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
 		"/D/Workspace/laf/dev/server/actions/Other/getStats.js",
-		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/server/schemas/CommentSchema.js",
-		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
-		"/D/Workspace/laf/dev/server/prototypes/Action.js",
 		"/D/Workspace/laf/dev/scripts/services/aws3Service.js",
 		"/D/Workspace/laf/dev/server/actions/Other",
-		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.html",
 		"/D/Workspace/laf/dev/directives/^/forms/recoverForm/recoverForm.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.js",
-		"/D/Workspace/laf/dev/server/routes.js",
-		"/D/Workspace/laf/dev/server/models.js",
-		"/D/Workspace/laf/dev/server/_requires.js",
-		"/D/Workspace/laf/dev/server/validators/_validators.js",
 		"/D/Workspace/laf/dev/server/schemas/ReportPhotoSchema.js",
 		"/D/Workspace/laf/dev/server/schemas/ItemCategorySchema.js",
 		"/D/Workspace/laf/dev/server/actions/ItemCategory/getItemCategories.js",
@@ -745,7 +728,6 @@
 		"/D/Workspace/laf/dev/directives/COMMENT/comments/commentsConf.js",
 		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
 		"/D/Workspace/laf/dev/server/controllers/ItemController.js",
-		"/D/Workspace/laf/dev/server/controllers/ReportCategoryController.js",
 		"/D/Workspace/laf/dev/tests/server/specs/validation/inputCases.js",
 		"/D/Workspace/laf/dev/tests/server/specs/validation/modelSetups.js",
 		"/D/Workspace/laf/dev/tests/server/specs/validation/modelValidationSpec.js",
@@ -760,12 +742,9 @@
 		"/D/Workspace/laf/dev/server/setups/setupDb.js",
 		"/D/Workspace/laf/dev/server/controllers/AuctionController.js",
 		"/D/Workspace/laf/dev/server/schemas/AuctionSchema.js",
-		"/D/Workspace/laf/dev/server/setups/_setups.js",
-		"/D/Workspace/laf/dev/server.js",
 		"/D/Workspace/laf/dev/server/actions/Item/putItem.js",
 		"/D/Workspace/laf/dev/server/actions/ContactType/postContactType.js",
 		"/D/Workspace/laf/dev/server/modules/mailModule.js",
-		"/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-contact.html",
 		"/D/Workspace/laf/dev/server/schemas/ContactTypeSchema.js",
 		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.js",
@@ -787,16 +766,7 @@
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
 		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.scss",
 		"/D/Workspace/laf/dev/directives/ITEM/itemPhotos/itemPhotos.scss",
-		"/D/Workspace/laf/dev/directives/my/myElemSelector/myElemSelector.html",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.js",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.js",
-		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.js",
-		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.scss",
-		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-profile.scss",
-		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.scss",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
-		"/D/Workspace/laf/dev/directives/AUCTION/auctions/auctions.html"
+		"/D/Workspace/laf/dev/directives/my/myElemSelector/myElemSelector.html"
 	],
 	"find":
 	{
@@ -875,6 +845,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"regex",
+			"hardData.en",
+			"req.session.language",
+			"r.hardData[req.session.language",
+			"= hardDataService",
+			"hardData",
 			"getBySearchQuery",
 			"r.Promise",
 			"r.Promose",
@@ -996,13 +972,7 @@
 			"user.html",
 			"#/user",
 			"/user",
-			"/user/",
-			"main.profile",
-			"<item-icon",
-			"isPublic",
-			"<item-icon",
-			"isPublic",
-			"hardData.languages"
+			"/user/"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1154,24 +1124,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/server/controllers/ReportController.js",
+					"file": "/D/Workspace/laf/dev/server/schemas/PaymentSchema.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1171,
+						"buffer_size": 1061,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								538,
-								538
+								960,
+								960
 							]
 						],
 						"settings":
@@ -1185,9 +1155,44 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
-								},
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "c2f8257f",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/server/validators/paymentValidators.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2406,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								718,
+								718
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
 								{
-									"characters": ".#",
+									"characters": "<",
 									"selector": "text.html"
 								},
 								{
@@ -1196,10 +1201,53 @@
 								}
 							],
 							"bs_sintax": "javascript",
-							"buffer_scroll_name": "f7680326",
+							"buffer_scroll_name": "2a0a6844",
 							"spell_check": false,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 48.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/Workspace/laf/dev/server/controllers/PaymentController.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								194,
+								194
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "154500e9",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1209,20 +1257,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/server/actions/Report/getReportById.js",
+					"buffer": 3,
+					"file": "/D/Workspace/laf/dev/server/actions/Payment/postPayment.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1065,
+						"buffer_size": 1710,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								729,
-								729
+								615,
+								615
 							]
 						],
 						"settings":
@@ -1236,19 +1284,11 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
 								}
 							],
 							"bs_sintax": "javascript",
-							"buffer_scroll_name": "813e270c",
-							"spell_check": false,
+							"buffer_scroll_name": "d7b18dfc",
+							"open_with_edit": true,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
@@ -1257,246 +1297,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/server/actions/Report/getReportByIds.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1210,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								702,
-								702
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "3d6eb479",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 265.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/D/Workspace/laf/dev/server/controllers/ReportCategoryController.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 310,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								231,
-								231
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "f821b25a",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/D/Workspace/laf/dev/server/controllers/DeactivationReasonController.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 322,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								243,
-								243
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "fb041815",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 402,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								402,
-								402
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "325367fe",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/D/Workspace/laf/dev/server/schemas/UserSchema.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3640,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1368,
-								1368
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "36ea6bc9",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 401.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1563,8 +1363,48 @@
 		"selected_items":
 		[
 			[
+				"userv",
+				"validators\\userValidators.js"
+			],
+			[
+				"user",
+				"schemas\\UserSchema.js"
+			],
+			[
+				"postus",
+				"actions\\User\\postUser.js"
+			],
+			[
+				"paymetns",
+				"schemas\\PaymentSchema.js"
+			],
+			[
+				"apis",
+				"schemas\\AppConfigSchema.js"
+			],
+			[
+				"autho",
+				"modules\\authorize.js"
+			],
+			[
+				"routes",
+				"setups\\setupRoutes.js"
+			],
+			[
+				"reportv",
+				"validators\\reportValidators.js"
+			],
+			[
+				"report",
+				"schemas\\ReportSchema.js"
+			],
+			[
 				"users",
 				"schemas\\UserSchema.js"
+			],
+			[
+				"reports",
+				"schemas\\ReportSchema.js"
 			],
 			[
 				"authr",
@@ -1579,20 +1419,8 @@
 				"setups\\setupConstants.js"
 			],
 			[
-				"apis",
-				"schemas\\AppConfigSchema.js"
-			],
-			[
 				"reportval",
 				"validators\\reportValidators.js"
-			],
-			[
-				"reportv",
-				"validators\\reportValidators.js"
-			],
-			[
-				"reports",
-				"schemas\\ReportSchema.js"
 			],
 			[
 				"items",
@@ -2045,34 +1873,6 @@
 			[
 				"gu",
 				"routes\\guest.1.js"
-			],
-			[
-				"loginf",
-				"directives\\^\\forms\\loginForm\\loginForm.js"
-			],
-			[
-				"guest",
-				"routes\\guest.1.js"
-			],
-			[
-				"regis",
-				"directives\\^\\forms\\registerForm\\registerForm.js"
-			],
-			[
-				"auth",
-				"services\\authService.js"
-			],
-			[
-				"deleteu",
-				"server\\actions\\User\\deleteUser.js"
-			],
-			[
-				"comments.js",
-				"directives\\COMMENT\\comments\\comments.js"
-			],
-			[
-				"comments",
-				"directives\\COMMENT\\comments\\comments.html"
 			]
 		],
 		"width": 0.0

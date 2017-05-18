@@ -21,6 +21,7 @@
 				hardData: '=',
 				hideErrors: '=',
 				isRequired: '=',
+				isDisabled: '=',
 				autocomplete: '='
 			},
 			controller: function($scope) {},

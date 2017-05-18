@@ -1,0 +1,102 @@
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('upgradeForm', function($rootScope, $window, exchangeRateService, PaymentsRest, myClass) {
+
+		var DEFAULT_CURRENCY = 'USD';
+		var DEFAULT_AMOUNT = '5.00';
+		var CURRENT_YEAR = new Date().getFullYear();
+
+		var upgradeForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/upgradeForm/upgradeForm.html',
+			scope: {},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.currentYear = CURRENT_YEAR;
+
+				var fields = [
+					'paymentMethod',
+					'creditCardType',
+					'creditCardNumber',
+					'creditCardExpireMonth',
+					'creditCardExpireYear',
+					'cvv2',
+					'firstname',
+					'lastname',
+					'amount',
+					'currency'
+				];
+
+				$scope.myModel = new myClass.MyFormModel('upgradePaymentModel', fields, true);
+
+				$scope.myModel.set({
+					paymentMethod: 'credit_card',
+					currency: DEFAULT_CURRENCY,
+					amount: DEFAULT_AMOUNT,
+					creditCardExpireMonth: 1,
+					creditCardExpireYear: CURRENT_YEAR
+				});
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'upgradeForm',
+					redirectOnSuccess: true,
+					model: $scope.myModel,
+					submitAction: function(args) {
+
+						if ($scope.myModel.getValue('paymentMethod') == 'credit_card') {
+							return PaymentsRest.post($scope.myModel.getValues());
+
+						} else {
+
+							var body = {
+								paymentMethod: $scope.myModel.getValue('paymentMethod'),
+								amount: $scope.myModel.getValue('amount'),
+								currency: $scope.myModel.getValue('currency')
+							};
+
+							return PaymentsRest.post(body);
+						}
+					},
+					submitSuccessCb: function(res) {
+
+						$window.open(res.data.redirectUrl, '_self');
+					},
+					submitErrorCb: function(res) {
+
+
+					}
+				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var amounts = {};
+					amounts[DEFAULT_CURRENCY] = DEFAULT_AMOUNT;
+
+					angular.forEach(scope.hardData.payment.currencies, function(obj) {
+						if (obj.value != DEFAULT_CURRENCY) {
+							var amount = exchangeRateService.methods.convert(DEFAULT_AMOUNT, DEFAULT_CURRENCY, obj.value);
+							amounts[obj.value] = accounting.unformat(amount);
+						}
+					});
+
+					scope.$watch('myModel.values.currency.value', function(newCurrency, oldCurrency) {
+
+						if (newCurrency != oldCurrency) {
+							scope.myModel.setValue('amount', amounts[newCurrency]);
+						}
+					});
+				};
+			}
+		};
+
+		return upgradeForm;
+	});
+
+})();

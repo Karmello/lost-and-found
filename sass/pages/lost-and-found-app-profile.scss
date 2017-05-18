@@ -11,15 +11,6 @@
 
 		> div { padding: 10px 10px 0 10px; }
 
-		table {
-
-			td {
-				padding: 0;
-				span { white-space: nowrap; }
-				span.text-info { font-weight: bold; }
-			}
-		}
-
 		.userAvatar {
 			.mySrc { img { @extend .smallAvatarSize; } }
 		}

@@ -12,11 +12,24 @@
 		{ "value": "en", "label": "Angielski" },
 		{ "value": "pl", "label": "Polski" }
 	],
-	"currencies": [
-		{ "value": "USD", "label": "Dolar" },
-		{ "value": "EUR", "label": "Euro" },
-		{ "value": "GBP", "label": "Funt" }
-	],
+	"payment": {
+		"methods": [
+			{ "value": "credit_card", "label": "Karta kredytowa" },
+			{ "value": "paypal", "label": "Paypal" }
+		],
+		"creditCardTypes": [
+			{ "value": "visa", "label": "Visa" },
+			{ "value": "master_card", "label": "Mastercard" },
+			{ "value": "amex", "label": "Amex" },
+			{ "value": "discover", "label": "Discover" },
+			{ "value": "maestro", "label": "Maestro" }
+		],
+		"currencies": [
+			{ "value": "USD", "label": "Dolar" },
+			{ "value": "EUR", "label": "Euro" },
+			{ "value": "GBP", "label": "Funt" }
+		]
+	},
 	"reportGroups": [
 		{ "value": "L", "label": "Utracone" },
 		{ "value": "F", "label": "Odnalezione" }
@@ -32,12 +45,14 @@
 	"sections": [
 		"Strona główna", "Ustawienia", "O nas", "Pomoc", "Kontakt", "Zdjęcia", "Komentarze", "Aplikacja", "Konto", "Regionalne",
 		"Wygląd", "Zgłoszenia", "Dane personalne", "Rezultaty", "Statystyki", "Zdarzenie", "Przedmiot", "Logowanie", "Rejestracja", "Zdjęcie profilowe",
-		"Nowe zgłoszenie", "Ostatnio oglądane", "Ostatnio zgłoszone", "Status", "Uwaga !"
+		"Nowe zgłoszenie", "Ostatnio oglądane", "Ostatnio zgłoszone", "Status", "Uwaga !", "Konto bez limitu"
 	],
 	"labels": [
 		"Email", "Nazwa użytkownika", "Hasło", "Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Język",
 		"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Grupa", "Lokalizacja", "ID", "Szczegóły",
-		"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie"
+		"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie", "",
+		"Metoda", "Rodzaj", "Numer", "Ważna do (miesiąc)", "Ważna do (rok)", "Waluta", "Kwota", "Płatność", "Cvv2", "Data i czas",
+		"ID transakcji"
 	],
 	"description": [
 		"Zaloguj się i korzystaj z serwisu.",
@@ -51,7 +66,7 @@
 		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Szukaj", "Wybierz", "Odśwież",
 		"Przesuń w lewo", "Przesuń w prawo", "Obróć", "Zbliż", "Oddal", "Przewiń do góry", "Usuń konto", "Wybierz zdjęcie", "Ustaw jako avatar", "Odznacz wszystkie",
-		"Zaznacz wszystkie", "Usuń zaznaczone", "Zgłoś", "Edytuj", "Dostosuj wygląd.", "Wykup pełne konto"
+		"Zaznacz wszystkie", "Usuń zaznaczone", "Zgłoś", "Edytuj", "Dostosuj wygląd.", "Przejdź na konto bez limitu", "Zapłać"
 	],
 	"declaratives": [
 		"Znalazłem to !"

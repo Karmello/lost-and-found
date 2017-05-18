@@ -12,11 +12,24 @@
 		{ "value": "en", "label": "English" },
 		{ "value": "pl", "label": "Polish" }
 	],
-	"currencies": [
-		{ "value": "USD", "label": "Dollar" },
-		{ "value": "EUR", "label": "Euro" },
-		{ "value": "GBP", "label": "Pound" }
-	],
+	"payment": {
+		"methods": [
+			{ "value": "credit_card", "label": "Credit card" },
+			{ "value": "paypal", "label": "Paypal" }
+		],
+		"creditCardTypes": [
+			{ "value": "visa", "label": "Visa" },
+			{ "value": "master_card", "label": "Mastercard" },
+			{ "value": "amex", "label": "Amex" },
+			{ "value": "discover", "label": "Discover" },
+			{ "value": "maestro", "label": "Maestro" }
+		],
+		"currencies": [
+			{ "value": "USD", "label": "Dollar" },
+			{ "value": "EUR", "label": "Euro" },
+			{ "value": "GBP", "label": "Pound" }
+		]
+	},
 	"reportGroups": [
 		{ "value": "L", "label": "Lost" },
 		{ "value": "F", "label": "Found" }
@@ -32,12 +45,14 @@
 	"sections": [
 		"Home", "Settings", "About", "Help", "Contact", "Photos", "Comments", "Application", "Account", "Regional",
 		"Appearance", "Reports", "Personal details", "Results", "Statistics", "Event", "Subject", "Login", "Register", "Profile picture",
-		"New report", "Recently viewed", "Recently reported", "Status", "Danger zone"
+		"New report", "Recently viewed", "Recently reported", "Status", "Danger zone", "Full account"
 	],
 	"labels": [
 		"Email", "Username", "Password", "Current password", "New password", "First name", "Last name", "Title", "Country", "Language",
 		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Group", "Location", "ID", "Details",
-		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "Account type"
+		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
+		"Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
+		"Transaction ID"
 	],
 	"description": [
 		"Log in to your account and take advantage of our services.",
@@ -51,7 +66,7 @@
 		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
 		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Search", "Choose", "Refresh",
 		"Move left", "Move right", "Rotate", "Zoom in", "Zoom out", "Scroll to top", "Delete account", "Choose an image", "Set as avatar", "Deselect all",
-		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account"
+		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay"
 	],
 	"declaratives": [
 		"I found it !"

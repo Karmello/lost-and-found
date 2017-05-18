@@ -4,5 +4,6 @@ module.exports = {
 	captchaModule: require('./captchaModule'),
 	mailModule: require('./mailModule'),
 	modelDataModule: require('./modelDataModule'),
+	paypalModule: require('./paypalModule'),
 	utilModule: require('./utilModule')
 };

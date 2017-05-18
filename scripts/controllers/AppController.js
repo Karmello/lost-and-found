@@ -21,7 +21,8 @@
 			reportCategories: undefined,
 			deactivationReasons: undefined,
 			contactTypes: undefined,
-			stats: undefined
+			stats: undefined,
+			payment: undefined
 		};
 
 		$rootScope.localData = {

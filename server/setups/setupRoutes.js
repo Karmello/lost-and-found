@@ -19,6 +19,11 @@ module.exports = function(app, dirname, cb) {
         res.send(req.session);
     });
 
+    // Paypal
+    app.get('/paypal/execute', r.modules.paypalModule.execute);
+
+    app.get('/paypal/cancel', function(req, res) { res.redirect('http://' + req.headers.host + '/#/upgrade'); });
+
     // Get stats route
     app.get('/stats', r.actions.other.getStats);
 

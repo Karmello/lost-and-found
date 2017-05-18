@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="fragment" content="!" />
+	</head>
+	<body>
+		<div id="lost-and-found-app-upgrade">
+			<my-panel>
+				<title-section>
+					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+				</title-section>
+				<body-section>
+					<div ng-if="apiData.loggedInUser.account == 'basic'">
+						<upgrade-form></upgrade-form>
+					</div>
+					<div ng-if="apiData.loggedInUser.account == 'full'" id="whenPaidSection">
+						<br>
+						<div>
+							<my-panel>
+								<title-section>
+									<span>&nbsp;&nbsp;&nbsp;{{ hardData.labels[37] }}</span>
+								</title-section>
+								<body-section>
+									<table class="table">
+										<tr>
+											<td>
+												<span class="text-info">{{ hardData.labels[40] }}:</span>
+												<span>{{ apiData.payment.paymentId }}</span>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span class="text-info">{{ hardData.labels[39] }}:</span>
+												<span>{{ apiData.payment.formattedDate }}</span>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span class="text-info">{{ hardData.labels[30] }}:</span>
+												<span ng-bind="hardData.payment.methods[apiData.payment.paymentMethod == 'credit_card' ? 0 : 1].label"></span>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<span class="text-info">{{ hardData.labels[36] }}:</span>
+												<span class="text-warning" style="font-weight: bold;">{{ apiData.payment.amount }} {{ apiData.payment.currency }}</span>
+											</td>
+										</tr>
+									</table>
+								</body-section>
+							</my-panel>
+						</div>
+						<div>
+							<a href="http://www.paypal.com/" target="new">
+								<img src="public/imgs/paypal.png">
+							</a>
+						</div>
+					</div>
+				</body-section>
+			</my-panel>
+		</div>
+	</body>
+</html>

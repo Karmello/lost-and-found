@@ -55,30 +55,33 @@ r.actions = require(global.paths.actions);
 
 r.setups.setupConstants(app, function() {
 	r.setups.setupSession(app, function() {
+		r.setups.setupPaypal(function() {
 
-		r.validators = require(global.paths.validators);
+			r.validators = require(global.paths.validators);
 
-		r.setups.setupRoutes(app, __dirname, function() {
-			r.setups.setupDb(function() {
+			r.setups.setupRoutes(app, __dirname, function() {
+				r.setups.setupDb(function() {
 
-				r.AppConfig = r.mongoose.model('app_config');
-				r.User = r.mongoose.model('user');
-				r.Password = r.mongoose.model('password');
-				r.ReportCategory = r.mongoose.model('report_category');
-				r.Report = r.mongoose.model('report');
-				r.DeactivationReason = r.mongoose.model('deactivation_reason');
-				r.ContactType = r.mongoose.model('contact_type');
-				r.Counter = r.mongoose.model('counter');
-				r.Comment = r.mongoose.model('comment');
+					r.AppConfig = r.mongoose.model('app_config');
+					r.Comment = r.mongoose.model('comment');
+					r.ContactType = r.mongoose.model('contact_type');
+					r.Counter = r.mongoose.model('counter');
+					r.DeactivationReason = r.mongoose.model('deactivation_reason');
+					r.Password = r.mongoose.model('password');
+					r.Payment = r.mongoose.model('payment');
+					r.Report = r.mongoose.model('report');
+					r.ReportCategory = r.mongoose.model('report_category');
+					r.User = r.mongoose.model('user');
 
-				var server = r.http.createServer(app);
+					var server = r.http.createServer(app);
 
-				r.setups.setupSockets(server, function() {
-					server.listen(process.env.PORT, function () {
+					r.setups.setupSockets(server, function() {
+						server.listen(process.env.PORT, function () {
 
-				    	var log = 'App server listening on port ' + process.env.PORT;
-				        r.modules.utilModule.printFormattedLog(log);
-				    });
+					    	var log = 'App server listening on port ' + process.env.PORT;
+					        r.modules.utilModule.printFormattedLog(log);
+					    });
+					});
 				});
 			});
 		});

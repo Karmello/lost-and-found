@@ -46,10 +46,16 @@
 										<span ng-bind="apiData.profileUser.userSince"></span>
 									</td>
 								</tr>
-								<tr>
+								<tr ng-if="apiData.loggedInUser._isTheOneLoggedIn()">
 									<td>
-										<span class="text-info">{{ hardData.labels[29] }}:</span>
-										<span ng-bind="hardData.accountTypes[apiData.profileUser.account]"></span>
+										<span class="text-info">{{ hardData.sections[8] }}:</span>
+										<a ui-sref="app.upgrade({ id: apiData.loggedInUser._id })">
+											<span
+												class="text-warning"
+												style="font-weight: bold;"
+												ng-bind="hardData.accountTypes[apiData.profileUser.account]"
+											></span>
+										</a>
 									</td>
 								</tr>
 							</table>

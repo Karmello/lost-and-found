@@ -66,6 +66,7 @@
     "multer-s3": "^2.3.2",
     "node-restful": "^0.2.5",
     "nodemailer": "^2.4.2",
+    "paypal-rest-sdk": "^1.7.1",
     "promise": "^7.1.1",
     "restangular": "^1.5.2",
     "rimraf": "^2.5.4",

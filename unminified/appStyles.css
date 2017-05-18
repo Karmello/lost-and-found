@@ -1,5 +1,6 @@
 body a, body a:link, body a:visited, body a:hover, body a:active {
-  cursor: pointer !important; }
+  cursor: pointer !important;
+  text-decoration: none !important; }
 
 body .navbar-fixed-top {
   position: relative;
@@ -44,6 +45,13 @@ body textarea.form-control {
 
 body .form-group {
   margin: 5px; }
+
+body table tr td {
+  padding: 0 !important; }
+  body table tr td span {
+    white-space: nowrap !important; }
+  body table tr td span.text-info {
+    font-weight: bold !important; }
 
 .defaultOverflow {
   overflow-y: scroll;
@@ -175,12 +183,6 @@ body .form-group {
       justify-content: center; } }
   #lost-and-found-app-profile #userSection > div {
     padding: 10px 10px 0 10px; }
-  #lost-and-found-app-profile #userSection table td {
-    padding: 0; }
-    #lost-and-found-app-profile #userSection table td span {
-      white-space: nowrap; }
-    #lost-and-found-app-profile #userSection table td span.text-info {
-      font-weight: bold; }
 
 #lost-and-found-app-report #section1, #lost-and-found-app-report #section2, #lost-and-found-app-report #section3 {
   margin-bottom: 50px; }
@@ -313,6 +315,16 @@ body .form-group {
     margin: 50px auto; }
   #lost-and-found-app-start #section2 .userBadge {
     margin-bottom: 50px; }
+
+#lost-and-found-app-upgrade #whenPaidSection {
+  max-width: 400px;
+  margin: 0 auto; }
+  #lost-and-found-app-upgrade #whenPaidSection > div:last-child {
+    text-align: center; }
+    #lost-and-found-app-upgrade #whenPaidSection > div:last-child img {
+      width: 100px; }
+  #lost-and-found-app-upgrade #whenPaidSection .myPanel .panel-heading {
+    background-color: transparent; }
 
 #auctionNumBox {
   display: -ms-flexbox;
@@ -864,12 +876,20 @@ body .form-group {
   #reportSearchForm .myForm {
     margin: 0 25px 0 25px; } }
 
-.appStats #bodySection table tr td {
-  padding: 0; }
-  .appStats #bodySection table tr td span {
-    white-space: nowrap; }
-  .appStats #bodySection table tr td span.text-info {
-    font-weight: bold; }
+.upgradeForm .myForm > div #formSection {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .upgradeForm .myForm > div #formSection > div {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 300px;
+    margin: 5px; }
+    .upgradeForm .myForm > div #formSection > div .myPanel .panel-heading {
+      background-color: transparent; }
 
 #imgCropWindow img {
   max-width: 100%; }

@@ -10,6 +10,7 @@
 			this.model = config.model;
 			this.reload = config.reload;
 			this.noLoader = config.noLoader;
+			this.redirectOnSuccess = config.redirectOnSuccess;
 
 			this.submitAction = config.submitAction;
 			this.submitSuccessCb = config.submitSuccessCb;
@@ -38,11 +39,13 @@
 
 							promise.then(function(res) {
 
-								that.model.clearErrors(function() {
-									$timeout(function() {
-										that.scope.loader.stop();
+								if (!that.redirectOnSuccess) {
+									that.model.clearErrors(function() {
+										$timeout(function() {
+											that.scope.loader.stop();
+										});
 									});
-								});
+								}
 
 								if (that.submitSuccessCb) { that.submitSuccessCb(res); }
 

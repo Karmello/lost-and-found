@@ -1,6 +1,7 @@
 module.exports = {
 	globalValidators: require('./globalValidators'),
-	userValidators: require('./userValidators'),
+	passwordValidators: require('./passwordValidators'),
+	paymentValidators: require('./paymentValidators'),
 	reportValidators: require('./reportValidators'),
-	passwordValidators: require('./passwordValidators')
+	userValidators: require('./userValidators')
 };

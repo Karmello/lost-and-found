@@ -1,0 +1,21 @@
+#lost-and-found-app-upgrade {
+
+	#whenPaidSection {
+
+		max-width: 400px;
+		margin: 0 auto;
+
+		> div:last-child {
+
+			text-align: center;
+
+			img {
+				width: 100px;
+			}
+		}
+
+		.myPanel {
+			.panel-heading { background-color: transparent; }
+		}
+	}
+}

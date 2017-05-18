@@ -16,7 +16,8 @@ var _requires = {
 	bcrypt: require('bcrypt-nodejs'),
 	crypto: require('crypto'),
 	aws: require('aws-sdk'),
-	io: require('socket.io')
+	io: require('socket.io'),
+	paypal: require('paypal-rest-sdk')
 };
 
 _requires.MongoStore = require('connect-mongo')(_requires.session);

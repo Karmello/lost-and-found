@@ -13,17 +13,17 @@
 		{ "value": "pl", "label": "Polski" }
 	],
 	"payment": {
-		"methods": [
-			{ "value": "credit_card", "label": "Karta kredytowa" },
-			{ "value": "paypal", "label": "Paypal" }
-		],
-		"creditCardTypes": [
-			{ "value": "visa", "label": "Visa" },
-			{ "value": "master_card", "label": "Mastercard" },
-			{ "value": "amex", "label": "Amex" },
-			{ "value": "discover", "label": "Discover" },
-			{ "value": "maestro", "label": "Maestro" }
-		],
+		"methods": {
+			"credit_card": "Karta kredytowa",
+			"paypal": "Paypal"
+		},
+		"creditCardTypes": {
+			"visa": "Visa",
+			"master_card": "Mastercard",
+			"amex": "Amex",
+			"discover": "Discover",
+			"maestro": "Maestro"
+		},
 		"currencies": [
 			{ "value": "USD", "label": "Dolar" },
 			{ "value": "EUR", "label": "Euro" },
@@ -52,7 +52,7 @@
 		"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Grupa", "Lokalizacja", "ID", "Szczegóły",
 		"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie", "",
 		"Metoda", "Rodzaj", "Numer", "Ważna do (miesiąc)", "Ważna do (rok)", "Waluta", "Kwota", "Płatność", "Cvv2", "Data i czas",
-		"ID transakcji"
+		"ID transakcji", "Data ważności"
 	],
 	"description": [
 		"Zaloguj się i korzystaj z serwisu.",

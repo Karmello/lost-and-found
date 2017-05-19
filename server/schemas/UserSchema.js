@@ -51,9 +51,8 @@ var UserSchema = new r.mongoose.Schema({
 		}
 	}],
 	reportsRecentlyViewed: [{ type: r.mongoose.Schema.Types.ObjectId, ref: 'user' }],
-	account: {
-		type: String,
-		default: 'basic'
+	paymentId: {
+		type: String
 	}
 }, { versionKey: false });
 

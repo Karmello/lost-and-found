@@ -1,56 +1,5 @@
 var r = require(global.paths._requires);
 
-var getPaymentConfig = function(action, newPayment) {
-
-	var config = {
-		'intent': 'sale',
-		'payer': {
-			'payment_method': newPayment.paymentMethod
-		},
-		'transactions': [
-			{
-				'amount': {
-					'total': newPayment.amount,
-					'currency': newPayment.currency
-				},
-				'description': action.req.decoded._doc._id
-			}
-		]
-	};
-
-	switch (newPayment.paymentMethod) {
-
-		case 'credit_card':
-
-			config.payer.funding_instruments = [
-				{
-					'credit_card': {
-						'type': newPayment.creditCardType,
-						'number': newPayment.creditCardNumber,
-						'first_name': newPayment.firstname,
-						'last_name': newPayment.lastname,
-						'expire_month': newPayment.creditCardExpireMonth,
-						'expire_year': newPayment.creditCardExpireYear,
-						'cvv2': newPayment.cvv2
-					}
-				}
-			];
-
-			break;
-
-		case 'paypal':
-
-			config.redirect_urls = {
-				'return_url': 'http://' + action.req.headers.host + '/paypal/execute',
-				'cancel_url': 'http://' + action.req.headers.host + '/paypal/cancel'
-			};
-
-			break;
-	}
-
-	return config;
-};
-
 module.exports = {
 	before: function(req, res, next) {
 
@@ -61,34 +10,47 @@ module.exports = {
 			action.req.body.userId = action.req.decoded._doc._id;
 			var newPayment = new r.Payment(action.req.body);
 
+			// Validating form data
+
 			newPayment.validate(function(err) {
 
-				if (err && newPayment.paymentMethod == 'paypal') {
-					delete err.errors.creditCardType;
-					delete err.errors.creditCardNumber;
-					delete err.errors.firstname;
-					delete err.errors.lastname;
-					delete err.errors.creditCardExpireMonth;
-					delete err.errors.creditCardExpireYear;
-					delete err.errors.cvv2;
-					if (Object.keys(err.errors).length === 0) { err = null; }
-				}
-
+				// Form data valid
 				if (!err) {
 
-					r.paypal.payment.create(getPaymentConfig(action, newPayment), function(err, payment) {
+					// Getting payment config
+					var paymentConfig = r.modules.paypalModule.createPaymentConfig(action, newPayment);
+
+					// Creating paypal payment object
+					r.paypal.payment.create(paymentConfig, function(err, payment) {
 
 						if (!err) {
 
-							if (payment.payer.payment_method === 'paypal') {
+							req.session.paymentId = payment.id;
 
-								req.session.paymentId = payment.id;
+							// Distinguishing between payment methods
+							switch (payment.payer.payment_method) {
 
-								for (var i = 0; i < payment.links.length; i++) {
-									if (payment.links[i].method === 'REDIRECT') {
-										return resolve(payment.links[i].href);
+								case 'credit_card':
+
+									r.modules.paypalModule.makeCreditCardPayment(payment).then(function() {
+										r.modules.paypalModule.finalizePayment(req).then(function() {
+											resolve();
+
+										}, function(err) { reject(err); });
+
+									}, function(err) { reject(err); });
+
+									break;
+
+								case 'paypal':
+
+									for (var i = 0; i < payment.links.length; i++) {
+										if (payment.links[i].method === 'REDIRECT') {
+											return resolve({ url: payment.links[i].href });
+										}
 									}
-								}
+
+									break;
 							}
 
 						} else { reject(err); }
@@ -97,9 +59,9 @@ module.exports = {
 				} else { reject(err); }
 			});
 
-		}).then(function(url) {
+		}).then(function(data) {
 
-			action.end(200, { redirectUrl: url });
+			action.end(200, data);
 
 		}, function(err) {
 

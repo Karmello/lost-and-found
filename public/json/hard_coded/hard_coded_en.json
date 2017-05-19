@@ -13,17 +13,17 @@
 		{ "value": "pl", "label": "Polish" }
 	],
 	"payment": {
-		"methods": [
-			{ "value": "credit_card", "label": "Credit card" },
-			{ "value": "paypal", "label": "Paypal" }
-		],
-		"creditCardTypes": [
-			{ "value": "visa", "label": "Visa" },
-			{ "value": "master_card", "label": "Mastercard" },
-			{ "value": "amex", "label": "Amex" },
-			{ "value": "discover", "label": "Discover" },
-			{ "value": "maestro", "label": "Maestro" }
-		],
+		"methods": {
+			"credit_card": "Credit card",
+			"paypal": "Paypal"
+		},
+		"creditCardTypes": {
+			"visa": "Visa",
+			"master_card": "Mastercard",
+			"amex": "Amex",
+			"discover": "Discover",
+			"maestro": "Maestro"
+		},
 		"currencies": [
 			{ "value": "USD", "label": "Dollar" },
 			{ "value": "EUR", "label": "Euro" },
@@ -52,7 +52,7 @@
 		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Group", "Location", "ID", "Details",
 		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
 		"Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
-		"Transaction ID"
+		"Transaction ID", "Expiration date"
 	],
 	"description": [
 		"Log in to your account and take advantage of our services.",

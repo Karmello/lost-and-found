@@ -42,11 +42,6 @@
 					comment.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(comment.dateAdded))).humanize();
 					return comment;
 				});
-
-				Restangular.addElementTransformer('payments', false, function(payment) {
-					payment.formattedDate = $moment(payment.date).format('DD-MM-YYYY, HH:mm');
-					return payment;
-				});
 			},
 			interceptResponse: function(data, operation, what, url, res, deferred) {
 

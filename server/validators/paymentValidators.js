@@ -39,8 +39,10 @@ module.exports = {
             msgIndex: 2,
             validator: function (creditCardType) {
 
-                for (var i = 0; i < r.hardData.en.payment.creditCardTypes.length; i++) {
-                    if (r.hardData.en.payment.creditCardTypes[i].value == creditCardType) {
+                var creditCardTypes = Object.keys(r.hardData.en.payment.creditCardTypes);
+
+                for (var i = 0; i < creditCardTypes.length; i++) {
+                    if (creditCardTypes[i] == creditCardType) {
                         return true;
                     }
                 }

@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('upgradeForm', function($rootScope, $window, exchangeRateService, PaymentsRest, myClass) {
+	appModule.directive('upgradeForm', function($rootScope, $http, $window, exchangeRateService, PaymentsRest, myClass) {
 
 		var DEFAULT_CURRENCY = 'USD';
 		var DEFAULT_AMOUNT = '5.00';
@@ -64,11 +64,20 @@
 					},
 					submitSuccessCb: function(res) {
 
-						$window.open(res.data.redirectUrl, '_self');
+						switch ($scope.myModel.getValue('paymentMethod')) {
+
+							case 'credit_card':
+								$window.location.reload();
+								break;
+
+							case 'paypal':
+								$window.open(res.data.url, '_self');
+								break;
+						}
 					},
 					submitErrorCb: function(res) {
 
-
+						console.log(res);
 					}
 				});
 			},

@@ -73,10 +73,6 @@ var PaymentSchema = new r.mongoose.Schema({
 		type: r.mongoose.Schema.Types.ObjectId,
 		ref: 'user',
 		required: true
-	},
-	date: {
-		type: Date,
-		default: Date.now
 	}
 }, { versionKey: false });
 

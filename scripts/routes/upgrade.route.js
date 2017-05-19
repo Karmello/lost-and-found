@@ -21,23 +21,35 @@
 						} else { resolve(); }
 					});
 				},
-				getPayment: function(id, $q, $state, $stateParams, PaymentsRest, ui) {
+				getPayment: function(id, $q, $http, $rootScope, $moment, storageService) {
 
 					return $q(function(resolve, reject) {
 
-						PaymentsRest.getList({ userId: $stateParams.id }).then(function(res) {
-							resolve(true);
+						var token = storageService.authToken.getValue();
 
-						}, function(res) {
+						$http.get('/paypal/payment', { headers: { 'x-access-token': token } }).success(function(res) {
 
+							console.log(res);
+
+							$rootScope.apiData.payment = {
+								paymentId: res.id,
+								date: $moment(res.create_time).format('DD-MM-YYYY, HH:mm'),
+								paymentMethod: res.payer.payment_method,
+								amount: res.transactions[0].amount.total,
+								currency: res.transactions[0].amount.currency,
+								creditCardType: res.payer.funding_instruments[0].credit_card.type,
+								creditCardNumber: res.payer.funding_instruments[0].credit_card.number,
+								firstname: res.payer.funding_instruments[0].credit_card.first_name,
+								lastname: res.payer.funding_instruments[0].credit_card.last_name,
+								creditCardExpireMonth: res.payer.funding_instruments[0].credit_card.expire_month,
+								creditCardExpireYear: res.payer.funding_instruments[0].credit_card.expire_year
+							};
+
+							resolve();
+
+						}).error(function(res) {
+							console.log(res);
 							reject();
-
-							if (!ui.loaders.renderer.isLoading) {
-								ui.modals.tryAgainLaterModal.show();
-
-							} else {
-								$state.go('app.start', { tab: 'status' }, { location: 'replace' });
-							}
 						});
 					});
 				}

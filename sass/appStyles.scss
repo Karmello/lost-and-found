@@ -389,20 +389,26 @@ $avatarSize: 240px;
 
 	#whenPaidSection {
 
-		max-width: 400px;
 		margin: 0 auto;
-
-		> div:last-child {
-
-			text-align: center;
-
-			img {
-				width: 100px;
-			}
-		}
 
 		.myPanel {
 			.panel-heading { background-color: transparent; }
+		}
+
+		> div:first-child {
+			display: flex;
+			flex-flow: row wrap;
+
+			> div {
+				flex-basis: 48%;
+				margin: 5px;
+			}
+		}
+
+		> div:last-child {
+			text-align: center;
+			margin-top: 15px;
+			img { width: 100px; }
 		}
 	}
 }

@@ -137,7 +137,7 @@ var contact_types = [
 	{
 		index: 1,
 		label: {
-			en: 'An opinion',
+			en: 'Opinion',
 			pl: 'Opinia'
 		}
 	},
@@ -157,6 +157,13 @@ var contact_types = [
 	},
 	{
 		index: 4,
+		label: {
+			en: 'Cooperation offer',
+			pl: 'Propozycja współpracy'
+		}
+	},
+	{
+		index: 5,
 		label: {
 			en: 'Other',
 			pl: 'Inny'

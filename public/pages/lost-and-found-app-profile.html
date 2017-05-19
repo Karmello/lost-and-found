@@ -53,7 +53,7 @@
 											<span
 												class="text-warning"
 												style="font-weight: bold;"
-												ng-bind="hardData.accountTypes[apiData.profileUser.account]"
+												ng-bind="hardData.accountTypes[apiData.profileUser.paymentId ? 'full' : 'basic']"
 											></span>
 										</a>
 									</td>

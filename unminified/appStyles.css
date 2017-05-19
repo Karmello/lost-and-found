@@ -317,14 +317,23 @@ body table tr td {
     margin-bottom: 50px; }
 
 #lost-and-found-app-upgrade #whenPaidSection {
-  max-width: 400px;
   margin: 0 auto; }
-  #lost-and-found-app-upgrade #whenPaidSection > div:last-child {
-    text-align: center; }
-    #lost-and-found-app-upgrade #whenPaidSection > div:last-child img {
-      width: 100px; }
   #lost-and-found-app-upgrade #whenPaidSection .myPanel .panel-heading {
     background-color: transparent; }
+  #lost-and-found-app-upgrade #whenPaidSection > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap; }
+    #lost-and-found-app-upgrade #whenPaidSection > div:first-child > div {
+      -ms-flex-preferred-size: 48%;
+      flex-basis: 48%;
+      margin: 5px; }
+  #lost-and-found-app-upgrade #whenPaidSection > div:last-child {
+    text-align: center;
+    margin-top: 15px; }
+    #lost-and-found-app-upgrade #whenPaidSection > div:last-child img {
+      width: 100px; }
 
 #auctionNumBox {
   display: -ms-flexbox;

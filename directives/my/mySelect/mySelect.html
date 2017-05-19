@@ -10,9 +10,16 @@
 	>
 		<option ng-if="optionZero" value="" selected>{{ placeholder + ' ...' || '...' }}</option>
 		<option
+			ng-if="propNames"
 			ng-repeat="elem in collection"
 			ng-bind="elem[propNames.optionLabel]"
 			value="{{ elem[propNames.optionValue] }}"
+		></option>
+		<option
+			ng-if="!propNames"
+			ng-repeat="(key, value) in collection"
+			ng-bind="value"
+			value="{{ key }}"
 		></option>
 	</select>
 </div>

@@ -10,7 +10,10 @@
 				}
 			},
 			resolve: {
-				apiData: function(authentication, $q, $rootScope, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				},
+				apiData: function(isAuthenticated, $q, $rootScope, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
 
 					return $q(function(resolve, reject) {
 

@@ -4,6 +4,11 @@
 
 		$stateProvider.state('app.home', {
 			url: '/home',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.menus.top.activateSwitcher('home');

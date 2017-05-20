@@ -4,6 +4,11 @@
 
 		$stateProvider.state('app.about', {
 			url: '/about',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.frames.main.activateSwitcher('about');

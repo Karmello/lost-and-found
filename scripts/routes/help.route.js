@@ -4,6 +4,11 @@
 
 		$stateProvider.state('app.help', {
 			url: '/help',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.frames.main.activateSwitcher('help');

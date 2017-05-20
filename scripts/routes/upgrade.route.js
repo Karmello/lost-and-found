@@ -5,7 +5,10 @@
 		$stateProvider.state('app.upgrade', {
 			url: '/upgrade?id',
 			resolve: {
-				id: function(authentication, $q, $rootScope, $state, $stateParams, authService) {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				},
+				id: function(isAuthenticated, $q, $rootScope, $state, $stateParams, authService) {
 
 					return $q(function(resolve) {
 
@@ -29,8 +32,6 @@
 
 						$http.get('/paypal/payment', { headers: { 'x-access-token': token } }).success(function(res) {
 
-							console.log(res);
-
 							$rootScope.apiData.payment = {
 								paymentId: res.id,
 								date: $moment(res.create_time).format('DD-MM-YYYY, HH:mm'),
@@ -48,7 +49,6 @@
 							resolve();
 
 						}).error(function(res) {
-							console.log(res);
 							reject();
 						});
 					});

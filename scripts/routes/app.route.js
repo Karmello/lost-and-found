@@ -110,14 +110,6 @@
 
 					return authService.authenticate();
 				}
-			},
-			onEnter: function(authentication, $location, $timeout, $state) {
-
-				if (!authentication && $location.$$url.split('/') != 'start') {
-					$timeout(function() {
-						$state.go('app.start', { tab: 'login' }, { location: 'replace' });
-					});
-				}
 			}
 		});
 	});

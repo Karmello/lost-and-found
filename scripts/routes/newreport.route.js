@@ -4,6 +4,11 @@
 
 		$stateProvider.state('app.newreport', {
 			url: '/newreport',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.menus.top.activateSwitcher('newreport');

@@ -5,7 +5,7 @@
 		$stateProvider.state('app.settings3', {
 			url: '/settings/:catId/:subcatId',
 			resolve: {
-				params: function($timeout, $q, $state, $stateParams, ui) {
+				params: function(authentication, $timeout, $q, $state, $stateParams, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -32,6 +32,9 @@
 							} else { resolve(); }
 						});
 					});
+				},
+				isAuthenticated: function(params, resolveService) {
+					return resolveService.isAuthenticated();
 				}
 			},
 			onEnter: function($stateParams, ui) {

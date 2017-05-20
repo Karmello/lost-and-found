@@ -5,7 +5,10 @@
 		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
-				getUser: function(authentication, $state, $stateParams, $q, UsersRest, ui) {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				},
+				getUser: function(isAuthenticated, $state, $stateParams, $q, UsersRest, ui) {
 
 					return $q(function(resolve, reject) {
 

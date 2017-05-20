@@ -911,6 +911,11 @@
 
 		$stateProvider.state('app.about', {
 			url: '/about',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.frames.main.activateSwitcher('about');
@@ -1033,14 +1038,6 @@
 
 					return authService.authenticate();
 				}
-			},
-			onEnter: function(authentication, $location, $timeout, $state) {
-
-				if (!authentication && $location.$$url.split('/') != 'start') {
-					$timeout(function() {
-						$state.go('app.start', { tab: 'login' }, { location: 'replace' });
-					});
-				}
 			}
 		});
 	});
@@ -1052,6 +1049,11 @@
 
 		$stateProvider.state('app.contact', {
 			url: '/contact',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.frames.main.activateSwitcher('contact');
@@ -1068,6 +1070,11 @@
 
 		$stateProvider.state('app.help', {
 			url: '/help',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.frames.main.activateSwitcher('help');
@@ -1084,6 +1091,11 @@
 
 		$stateProvider.state('app.home', {
 			url: '/home',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.menus.top.activateSwitcher('home');
@@ -1100,6 +1112,11 @@
 
 		$stateProvider.state('app.newreport', {
 			url: '/newreport',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.menus.top.activateSwitcher('newreport');
@@ -1117,7 +1134,10 @@
 		$stateProvider.state('app.profile', {
 			url: '/profile?id',
 			resolve: {
-				getUser: function(authentication, $state, $stateParams, $q, UsersRest, ui) {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				},
+				getUser: function(isAuthenticated, $state, $stateParams, $q, UsersRest, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -1160,7 +1180,10 @@
 				}
 			},
 			resolve: {
-				apiData: function(authentication, $q, $rootScope, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				},
+				apiData: function(isAuthenticated, $q, $rootScope, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -1226,6 +1249,11 @@
 
 		$stateProvider.state('app.search', {
 			url: '/search',
+			resolve: {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				}
+			},
 			onEnter: function(ui) {
 
 				ui.menus.top.activateSwitcher('search');
@@ -1314,7 +1342,7 @@
 		$stateProvider.state('app.settings3', {
 			url: '/settings/:catId/:subcatId',
 			resolve: {
-				params: function($timeout, $q, $state, $stateParams, ui) {
+				params: function(authentication, $timeout, $q, $state, $stateParams, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -1341,6 +1369,9 @@
 							} else { resolve(); }
 						});
 					});
+				},
+				isAuthenticated: function(params, resolveService) {
+					return resolveService.isAuthenticated();
 				}
 			},
 			onEnter: function($stateParams, ui) {
@@ -1365,63 +1396,65 @@
 		$stateProvider.state('app.start', {
 			url: '/start/:tab?action',
 			resolve: {
-				_tab: function(authentication, $q, $state, $stateParams, $timeout, ui, authService) {
+				tab: function(authentication, $q, $state, $stateParams, $timeout, authService, ui) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
 						// Valid tab
 						if (ui.tabs.start.switcherIds.indexOf($stateParams.tab) > -1) {
 
 							if (authService.state.authenticated && $stateParams.tab != 'status') {
-								$timeout(function() {
-									$state.go('app.start', { tab: 'status' }, { location: 'replace' });
-								});
+								reject('status');
 
-							} else { resolve(); }
+							} else if (!authService.state.authenticated && $stateParams.tab == 'status') {
+								reject('login');
+
+							} else {
+								resolve();
+							}
 
 						// Invalid tab
-						} else {
+						} else { reject('login'); }
 
-							$timeout(function() {
-								$state.go('app.start', { tab: 'login' }, { location: 'replace' });
-							});
-						}
+	    			}).then(function() {
+
+	    				// Resolve
+
+	    				ui.tabs.start.activateSwitcher($stateParams.tab);
+						ui.frames.main.activateSwitcher();
+						ui.frames.app.activateSwitcher('start');
+	    				ui.listGroups.settings.getFirstSwitcher().activate();
+
+						angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+							ui.tabs[switcher._id].getFirstSwitcher().activate();
+						});
+
+	    			}, function(redirectTab) {
+
+	    				// Reject
+	    				$timeout(function() {
+							$state.go('app.start', { tab: redirectTab }, { location: 'replace' });
+						});
 	    			});
 				}
 			},
-			onEnter: function($rootScope, $state, $stateParams, $timeout, ui) {
+			onEnter: function($rootScope, $stateParams, $timeout, ui) {
 
-				ui.listGroups.settings.getFirstSwitcher().activate();
+				switch ($stateParams.action) {
 
-				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-					ui.tabs[switcher._id].getFirstSwitcher().activate();
-				});
+					case 'deactivation':
 
-				ui.tabs.start.activateSwitcher($stateParams.tab);
-				ui.frames.main.activateSwitcher();
-				ui.frames.app.activateSwitcher('start');
+						$timeout(function() { ui.modals.deactivationDoneModal.show(); }, 5000);
+						break;
 
+					case 'pass_reset':
 
+						if ($stateParams.tab == 'login') {
+							$timeout(function() { $rootScope.ui.modals.passResetDoneModal.show(); }, 5000);
+						}
 
-				$timeout(function() {
-
-					switch ($state.params.action) {
-
-						case 'deactivation':
-
-							$timeout(function() { ui.modals.deactivationDoneModal.show(); }, 500);
-							break;
-
-						case 'pass_reset':
-
-							if ($state.params.tab == 'login') {
-								$timeout(function() { $rootScope.ui.modals.passResetDoneModal.show(); }, 500);
-							}
-
-							break;
-					}
-
-				}, 2500);
+						break;
+				}
 			}
 		});
 	});
@@ -1434,7 +1467,10 @@
 		$stateProvider.state('app.upgrade', {
 			url: '/upgrade?id',
 			resolve: {
-				id: function(authentication, $q, $rootScope, $state, $stateParams, authService) {
+				isAuthenticated: function(authentication, resolveService) {
+					return resolveService.isAuthenticated();
+				},
+				id: function(isAuthenticated, $q, $rootScope, $state, $stateParams, authService) {
 
 					return $q(function(resolve) {
 
@@ -1458,8 +1494,6 @@
 
 						$http.get('/paypal/payment', { headers: { 'x-access-token': token } }).success(function(res) {
 
-							console.log(res);
-
 							$rootScope.apiData.payment = {
 								paymentId: res.id,
 								date: $moment(res.create_time).format('DD-MM-YYYY, HH:mm'),
@@ -1477,7 +1511,6 @@
 							resolve();
 
 						}).error(function(res) {
-							console.log(res);
 							reject();
 						});
 					});
@@ -2384,6 +2417,33 @@
 
 	'use strict';
 
+	var resolveService = function($q, $state, authService) {
+
+		return {
+			isAuthenticated: function() {
+
+				return $q(function(resolve, reject) {
+
+					if (authService.state.authenticated) {
+						resolve();
+
+					} else {
+						reject();
+						$state.go('app.start', { tab: 'status' }, { location: 'replace' });
+					}
+				});
+			}
+		};
+	};
+
+	resolveService.$inject = ['$q', '$state', 'authService'];
+	angular.module('appModule').service('resolveService', resolveService);
+
+})();
+(function() {
+
+	'use strict';
+
 	var sessionService = function($http) {
 
 		var session = {
@@ -2604,107 +2664,6 @@
 
 	utilService.$inject = [];
 	angular.module('appModule').service('utilService', utilService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var AppConfigsRest = function(Restangular) {
-		return Restangular.service('app_configs');
-	};
-
-	AppConfigsRest.$inject = ['Restangular'];
-	angular.module('appModule').factory('AppConfigsRest', AppConfigsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var CommentsRest = function(Restangular) {
-		return Restangular.service('comments');
-	};
-
-	CommentsRest.$inject = ['Restangular'];
-	angular.module('appModule').factory('CommentsRest', CommentsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ContactTypesRest = function(Restangular, storageService) {
-
-		var contactTypes = Restangular.service('contact_types');
-		return contactTypes;
-	};
-
-	ContactTypesRest.$inject = ['Restangular', 'storageService'];
-	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var DeactivationReasonsRest = function(Restangular) {
-		return Restangular.service('deactivation_reasons');
-	};
-
-	DeactivationReasonsRest.$inject = ['Restangular'];
-	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var PaymentsRest = function(Restangular) {
-		return Restangular.service('payments');
-	};
-
-	PaymentsRest.$inject = ['Restangular'];
-	angular.module('appModule').factory('PaymentsRest', PaymentsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ReportCategoriesRest = function(Restangular) {
-		return Restangular.service('report_categories');
-	};
-
-	ReportCategoriesRest.$inject = ['Restangular'];
-	angular.module('appModule').factory('ReportCategoriesRest', ReportCategoriesRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var UsersRest = function($rootScope, Restangular) {
-
-		var users = Restangular.service('users');
-
-		Restangular.extendModel('users', function(user) {
-
-			user._isTheOneLoggedIn = function() {
-
-				if ($rootScope.apiData.loggedInUser) {
-					return user._id == $rootScope.apiData.loggedInUser._id;
-				}
-			};
-
-			return user;
-		});
-
-		return users;
-	};
-
-	UsersRest.$inject = ['$rootScope', 'Restangular'];
-	angular.module('appModule').factory('UsersRest', UsersRest);
 
 })();
 (function() {
@@ -4200,6 +4159,107 @@
 
 	'use strict';
 
+	var AppConfigsRest = function(Restangular) {
+		return Restangular.service('app_configs');
+	};
+
+	AppConfigsRest.$inject = ['Restangular'];
+	angular.module('appModule').factory('AppConfigsRest', AppConfigsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var CommentsRest = function(Restangular) {
+		return Restangular.service('comments');
+	};
+
+	CommentsRest.$inject = ['Restangular'];
+	angular.module('appModule').factory('CommentsRest', CommentsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ContactTypesRest = function(Restangular, storageService) {
+
+		var contactTypes = Restangular.service('contact_types');
+		return contactTypes;
+	};
+
+	ContactTypesRest.$inject = ['Restangular', 'storageService'];
+	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var DeactivationReasonsRest = function(Restangular) {
+		return Restangular.service('deactivation_reasons');
+	};
+
+	DeactivationReasonsRest.$inject = ['Restangular'];
+	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var PaymentsRest = function(Restangular) {
+		return Restangular.service('payments');
+	};
+
+	PaymentsRest.$inject = ['Restangular'];
+	angular.module('appModule').factory('PaymentsRest', PaymentsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ReportCategoriesRest = function(Restangular) {
+		return Restangular.service('report_categories');
+	};
+
+	ReportCategoriesRest.$inject = ['Restangular'];
+	angular.module('appModule').factory('ReportCategoriesRest', ReportCategoriesRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var UsersRest = function($rootScope, Restangular) {
+
+		var users = Restangular.service('users');
+
+		Restangular.extendModel('users', function(user) {
+
+			user._isTheOneLoggedIn = function() {
+
+				if ($rootScope.apiData.loggedInUser) {
+					return user._id == $rootScope.apiData.loggedInUser._id;
+				}
+			};
+
+			return user;
+		});
+
+		return users;
+	};
+
+	UsersRest.$inject = ['$rootScope', 'Restangular'];
+	angular.module('appModule').factory('UsersRest', UsersRest);
+
+})();
+(function() {
+
+	'use strict';
+
 	var appModule = angular.module('appModule');
 
 	appModule.directive('formActionBtns', function() {
@@ -5373,6 +5433,753 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('reportAvatar', function(reportAvatarService, reportAvatarConf, MySrc) {
+
+		var reportAvatar = {
+			restrict: 'E',
+			templateUrl: 'public/directives/REPORT/reportAvatar/reportAvatar.html',
+			scope: {
+				report: '=',
+				noLink: '&'
+			},
+			controller: function($scope) {
+
+				$scope.src = new MySrc({ defaultUrl: reportAvatarConf.defaultUrl });
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.report; }, function(report) {
+
+						if (report) {
+
+							if (!scope.noLink()) { scope.src.href = '/#/report/photos?id=' + report._id; }
+							scope.src.load(reportAvatarService.constructPhotoUrl(scope, true));
+						}
+					});
+				};
+			}
+		};
+
+		return reportAvatar;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportAvatarConf = function() {
+
+		var conf = {
+			defaultUrl: 'public/imgs/item.png'
+		};
+
+		return conf;
+	};
+
+
+
+	reportAvatarConf.$inject = [];
+	angular.module('appModule').service('reportAvatarConf', reportAvatarConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportAvatarService = function(URLS) {
+
+		var service = {
+			constructPhotoUrl: function(scope, useThumb) {
+
+				if (!scope.report.avatarFileName) { return scope.src.defaultUrl; }
+
+				if (!useThumb) {
+					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
+
+				} else {
+					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
+				}
+			}
+		};
+
+		return service;
+	};
+
+	reportAvatarService.$inject = ['URLS'];
+	angular.module('appModule').service('reportAvatarService', reportAvatarService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('reportPhotos', function($rootScope, reportPhotosService, reportPhotosConf, MySrcCollection, MySrcAction, NUMS) {
+
+		var reportPhotos = {
+			restrict: 'E',
+			templateUrl: 'public/directives/REPORT/reportPhotos/reportPhotos.html',
+			scope: {
+				report: '=',
+				editable: '&'
+			},
+			controller: function($scope) {
+
+				$scope.srcAction = new MySrcAction({
+					acceptedFiles: 'image/png,image/jpg,image/jpeg',
+					maxFiles: NUMS.reportMaxPhotos,
+					maxFileSize: NUMS.photoMaxSize,
+					getFilesCount: function() {
+						return $rootScope.apiData.report.photos.length;
+					}
+				});
+
+				// Initializing context menus
+				$scope.mainContextMenuConf = reportPhotosConf.getMainContextMenuConf($scope);
+				$scope.srcContextMenuConf = reportPhotosConf.getSrcContextMenuConf($scope);
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					// Watching current report
+					scope.$watch(function() { return scope.report; }, function(report) {
+
+						if (report) {
+
+							// Instantiating
+
+							scope.srcThumbsCollection = new MySrcCollection({
+								defaultUrl: reportPhotosConf.defaultUrl,
+								constructUrl: function(i) {
+									return reportPhotosService.constructPhotoUrl(scope.report.userId, scope.report._id, scope.report.photos[i].filename, true);
+								},
+								uploadRequest: reportPhotosService.uploadRequest,
+								remove: function(indexes) {
+
+									for (var i = indexes.length - 1; i >= 0; i--) {
+										scope.report.photos.splice(indexes[i], 1);
+									}
+
+									return scope.report.put();
+								}
+							});
+
+							scope.srcSlidesCollection = new MySrcCollection({
+								defaultUrl: reportPhotosConf.defaultUrl,
+								constructUrl: function(i) {
+									return reportPhotosService.constructPhotoUrl(scope.report.userId, scope.report._id, scope.report.photos[i].filename, false);
+								}
+							});
+
+							// Initializing
+
+							scope.srcThumbsCollection.init(scope.report.photos);
+
+							scope.srcSlidesCollection.init(scope.report.photos, function() {
+								for (var i in scope.srcSlidesCollection.collection) {
+									scope.srcSlidesCollection.collection[i].href = scope.srcSlidesCollection.collection[i].url;
+								}
+							});
+						}
+					});
+				};
+			}
+		};
+
+		return reportPhotos;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportPhotosConf = function($rootScope, reportPhotosService) {
+
+		var conf = {
+			defaultUrl: 'public/imgs/item.png',
+			getMainContextMenuConf: function(scope) {
+
+				var isHidden = function() {
+					if (scope.srcThumbsCollection) {
+						return scope.srcThumbsCollection.collection.length === 0;
+					}
+				};
+
+				return {
+					icon: 'glyphicon glyphicon-option-horizontal',
+					switchers: [
+						{
+							_id: 'update',
+							label: $rootScope.hardData.imperatives[16],
+							onClick: function() {
+
+								if (scope.srcAction.getFilesCount() < scope.srcAction.maxFiles) {
+									$rootScope.$broadcast('displayMultipleFilesInput', {
+										cb: function(files) {
+											reportPhotosService.update('addToSet', scope, files);
+										}
+									});
+
+								} else {
+									scope.srcAction.displayModalMessage('MAX_FILES_UPLOADED');
+								}
+							}
+						},
+						{
+							_id: 'delete',
+							label: $rootScope.hardData.imperatives[14],
+							onClick: function() {
+								reportPhotosService.delete('multiple', scope);
+							},
+							isHidden: isHidden
+						},
+						{
+							_id: 'refresh',
+							label: $rootScope.hardData.imperatives[19],
+							onClick: function() {
+								scope.srcThumbsCollection.init(scope.report.photos);
+							},
+							isHidden: isHidden
+						},
+						{
+							_id: 'select_all',
+							label: $rootScope.hardData.imperatives[30],
+							onClick: function() {
+								scope.srcThumbsCollection.selectAll();
+							},
+							isHidden: isHidden
+						},
+						{
+							_id: 'deselect_all',
+							label: $rootScope.hardData.imperatives[29],
+							onClick: function() {
+								scope.srcThumbsCollection.deselectAll();
+							},
+							isHidden: isHidden
+						}
+					]
+				};
+			},
+			getSrcContextMenuConf: function(scope) {
+
+				var move = function(that) {
+					scope.srcThumbsCollection.moveSingle(that._id, that.parent.data, function() {
+						reportPhotosService.afterUpdateSync(scope);
+					});
+				};
+
+				return {
+					icon: 'glyphicon glyphicon-option-horizontal',
+					switchers: [
+						{
+							_id: 'updateSingle',
+							label: $rootScope.hardData.imperatives[5],
+							onClick: function() {
+
+								var that = this;
+
+								$rootScope.$broadcast('displaySingleFileInput', {
+									cb: function(files) {
+										reportPhotosService.update('updateSingle', scope, files, that.parent.data);
+									}
+								});
+							}
+						},
+						{
+							_id: 'delete',
+							label: $rootScope.hardData.imperatives[14],
+							onClick: function() {
+								reportPhotosService.delete('single', scope, this.parent.data);
+							}
+						},
+						{
+							_id: 'refresh',
+							label: $rootScope.hardData.imperatives[19],
+							onClick: function() {
+								this.parent.data.load(undefined, true);
+							}
+						},
+						{
+							_id: 'moveLeft',
+							label: $rootScope.hardData.imperatives[20],
+							onClick: function() {
+								move(this);
+							},
+							isHidden: function() {
+								if (scope.srcThumbsCollection) {
+									return scope.srcThumbsCollection.collection.length < 2;
+								}
+							}
+						},
+						{
+							_id: 'moveRight',
+							label: $rootScope.hardData.imperatives[21],
+							onClick: function() {
+								move(this);
+							},
+							isHidden: function() {
+								if (scope.srcThumbsCollection) {
+									return scope.srcThumbsCollection.collection.length < 2;
+								}
+							}
+						},
+						{
+							_id: 'set_as_avatar',
+							label: $rootScope.hardData.imperatives[28],
+							onClick: function() {
+
+								scope.report.avatarFileName = this.parent.data.filename;
+								reportPhotosService.afterUpdateSync(scope);
+							}
+						}
+					]
+				};
+			}
+		};
+
+		return conf;
+	};
+
+	reportPhotosConf.$inject = ['$rootScope', 'reportPhotosService'];
+	angular.module('appModule').service('reportPhotosConf', reportPhotosConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportPhotosService = function($rootScope, $q, aws3Service, MySrcAction, ReportsRest, Restangular, URLS) {
+
+		var self = {
+			constructPhotoUrl: function(userId, reportId, filename, useThumb) {
+
+				if (!useThumb) {
+					return URLS.AWS3_UPLOADS_BUCKET_URL + userId + '/reports/' + reportId + '/' + filename;
+
+				} else {
+					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + userId + '/reports/' + reportId + '/' + filename;
+				}
+			},
+			uploadRequest: function(args, i) {
+
+				var src = this;
+
+				return $q(function(resolve) {
+
+					var credentials = args.credentials[i];
+					var inputData = args.inputData[i];
+
+					// Creating form data
+					var formData = MySrcAction.createFormDataObject(credentials.awsFormData, inputData);
+
+					// Uploading to s3
+					aws3Service.makeRequest(credentials.awsUrl, formData).success(function(res) {
+
+						// When whole upload ended successfully
+
+						src.filename = credentials.awsFilename;
+						src.size = inputData.size;
+
+						var report = $rootScope.apiData.report;
+
+						resolve({
+							success: true,
+							url: self.constructPhotoUrl(report.userId, report._id, src.filename, true)
+						});
+
+					}).error(function(res) {
+						resolve({ success: false });
+					});
+				});
+			},
+			update: function(actionId, scope, inputData, src) {
+
+				// Validating input after choose
+				scope.srcAction.validate(actionId, inputData).then(function(res) {
+
+					// When action valid
+					if (res.success) {
+
+						// Preparing fileTypes array
+						var fileTypes = [];
+
+						for (var i in inputData) {
+							if (inputData[i] instanceof File) { fileTypes.push(inputData[i].type); }
+						}
+
+						// Asking server for upload credentials for all files
+						aws3Service.getCredentials('report_photos', { reportId: $rootScope.apiData.report._id, 'fileTypes': fileTypes }).then(function(res) {
+
+							var args = {
+								inputData: inputData,
+								credentials: res.data,
+								src: src
+							};
+
+							scope.srcThumbsCollection[actionId](args, function(result) {
+								self.afterUpdateSync(scope);
+							});
+						});
+
+					// When action invalid
+					} else { scope.srcAction.displayModalMessage(res.msgId); }
+				});
+			},
+			delete: function(flag, scope, src, cb) {
+
+				var collection;
+
+				switch (flag) {
+
+					case 'single':
+						collection = [src];
+						break;
+
+					case 'multiple':
+						collection = scope.srcThumbsCollection.getSelectedCollection();
+						break;
+				}
+
+				scope.srcThumbsCollection.removeFromSet({ collection: collection }, function(success, results) {
+
+					if (success) {
+						ReportsRest.getList({ _id: $rootScope.apiData.report._id });
+					}
+				});
+			},
+			afterUpdateSync: function(scope, cb) {
+
+				var copy = Restangular.copy($rootScope.apiData.report);
+
+				copy.photos = [];
+
+				for (var i in scope.srcThumbsCollection.collection) {
+					copy.photos[i] = {
+						filename: scope.srcThumbsCollection.collection[i].filename,
+						size: scope.srcThumbsCollection.collection[i].size
+					};
+				}
+
+				copy.put().then(function(res) {
+					$rootScope.apiData.report = res.data;
+					if (cb) { cb(true); }
+
+				}, function(res) {
+					if (cb) { cb(false); }
+				});
+			}
+		};
+
+		return self;
+	};
+
+	reportPhotosService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'ReportsRest', 'Restangular', 'URLS'];
+	angular.module('appModule').service('reportPhotosService', reportPhotosService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf) {
+
+		var reports = {
+			restrict: 'E',
+			templateUrl: 'public/directives/REPORT/reports/reports.html',
+			scope: {
+				ctrlId: '@',
+				noAvatar: '=',
+				noInfo: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+
+				$scope.initUserReports = function(userId) {
+
+					$scope.collectionBrowser = reportsConf.profileCollectionBrowser;
+
+					if (userId == $rootScope.apiData.loggedInUser._id) {
+						$scope.elemContextMenuConf = contextMenuConf.reportContextMenuConf;
+
+					} else {
+						$scope.elemContextMenuConf = undefined;
+					}
+
+					$scope.collectionBrowser.init();
+				};
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					switch (scope.ctrlId) {
+
+						case 'UserReports':
+
+							if (!$rootScope.$$listeners.initUserReports) {
+								$rootScope.$on('initUserReports', function(e, args) {
+									scope.initUserReports(args.userId);
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initUserReports = null;
+							});
+
+							scope.$watch('apiData.profileUser._id', function(userId) {
+								if (angular.isDefined(userId)) { scope.initUserReports(userId); }
+							});
+
+							break;
+
+						case 'SearchReports':
+
+							if (!$rootScope.$$listeners.initSearchReports) {
+								$rootScope.$on('initSearchReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initSearchReports = null;
+							});
+
+							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+							scope.collectionBrowser.init();
+							break;
+
+						case 'RecentlyViewedReports':
+
+							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+							scope.collectionBrowser.init();
+							break;
+
+						case 'NewReports':
+
+							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
+							scope.collectionBrowser.init();
+							break;
+					}
+				};
+			}
+		};
+
+		return reports;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
+
+		var hardData = hardDataService.get();
+
+		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 25,
+			filterer: {
+				switchers: [
+					{
+						_id: 'all',
+						label: hardData.status[1]
+					},
+					{
+						_id: 'L',
+						label: hardData.reportGroups[0].label
+					},
+					{
+						_id: 'F',
+						label: hardData.reportGroups[1].label
+					}
+				]
+			},
+			sorter: {
+				switchers: [
+					{
+						_id: 'title',
+						label: hardData.status[7]
+					},
+					{
+						_id: 'date',
+						label: hardData.status[8]
+					}
+				]
+			},
+			fetchData: function(query) {
+
+				var model = $rootScope.globalFormModels.reportSearchModel.getValues();
+
+				query.subject = 'reports';
+				query.title = model.title;
+				query.categoryId = model.categoryId;
+				query.subcategoryId = model.subcategoryId;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.profileCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 25,
+			filterer: {
+				switchers: [
+					{
+						_id: 'all',
+						label: hardData.status[1]
+					},
+					{
+						_id: 'L',
+						label: hardData.reportGroups[0].label
+					},
+					{
+						_id: 'F',
+						label: hardData.reportGroups[1].label
+					}
+				]
+			},
+			sorter: {
+				switchers: [
+					{
+						_id: 'title',
+						label: hardData.status[7]
+					},
+					{
+						_id: 'date',
+						label: hardData.status[8]
+					}
+				]
+			},
+			fetchData: function(query) {
+
+				query.subject = 'user_reports';
+				query.userId = $rootScope.apiData.profileUser._id;
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query.subject = 'new_reports';
+				query.sort='-dateAdded';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			fetchData: function(query) {
+
+				query.subject = 'recently_viewed_reports';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		return this;
+	};
+
+
+
+	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
+	angular.module('appModule').service('reportsConf', reportsConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ReportsRest = function($rootScope, $stateParams, Restangular, storageService) {
+
+		var reports = Restangular.service('reports');
+
+		Restangular.extendModel('reports', function(report) {
+
+			report._isOwn = function() {
+
+				return this.userId == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+			};
+
+			return report;
+		});
+
+
+
+		return reports;
+	};
+
+	ReportsRest.$inject = ['$rootScope', '$stateParams', 'Restangular', 'storageService'];
+	angular.module('appModule').factory('ReportsRest', ReportsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, Restangular) {
+
+		var service = this;
+
+		service.deleteReports = function(reports) {
+
+			if (reports && reports.length > 0) {
+
+				// Showing confirm modal
+				$rootScope.ui.modals.deleteReportModal.show({
+					message: (function() { return $rootScope.hardData.warnings[2]; })(),
+					acceptCb: function() {
+
+						var promises = [];
+						for (var report of reports) { promises.push(report.remove({ userId: report.userId })); }
+
+						$q.all(promises).then(function(results) {
+
+							switch ($state.current.name) {
+
+								case 'app.profile':
+									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
+									break;
+
+								case 'app.report':
+									window.history.back();
+									break;
+							}
+						});
+					}
+				});
+			}
+		};
+
+		return service;
+	};
+
+
+
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'Restangular'];
+	angular.module('appModule').service('reportsService', reportsService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 
 
 	appModule.directive('myAlert', function() {
@@ -6361,753 +7168,6 @@
 
 		return myTextArea;
 	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('reportAvatar', function(reportAvatarService, reportAvatarConf, MySrc) {
-
-		var reportAvatar = {
-			restrict: 'E',
-			templateUrl: 'public/directives/REPORT/reportAvatar/reportAvatar.html',
-			scope: {
-				report: '=',
-				noLink: '&'
-			},
-			controller: function($scope) {
-
-				$scope.src = new MySrc({ defaultUrl: reportAvatarConf.defaultUrl });
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return scope.report; }, function(report) {
-
-						if (report) {
-
-							if (!scope.noLink()) { scope.src.href = '/#/report/photos?id=' + report._id; }
-							scope.src.load(reportAvatarService.constructPhotoUrl(scope, true));
-						}
-					});
-				};
-			}
-		};
-
-		return reportAvatar;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportAvatarConf = function() {
-
-		var conf = {
-			defaultUrl: 'public/imgs/item.png'
-		};
-
-		return conf;
-	};
-
-
-
-	reportAvatarConf.$inject = [];
-	angular.module('appModule').service('reportAvatarConf', reportAvatarConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportAvatarService = function(URLS) {
-
-		var service = {
-			constructPhotoUrl: function(scope, useThumb) {
-
-				if (!scope.report.avatarFileName) { return scope.src.defaultUrl; }
-
-				if (!useThumb) {
-					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
-
-				} else {
-					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
-				}
-			}
-		};
-
-		return service;
-	};
-
-	reportAvatarService.$inject = ['URLS'];
-	angular.module('appModule').service('reportAvatarService', reportAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('reportPhotos', function($rootScope, reportPhotosService, reportPhotosConf, MySrcCollection, MySrcAction, NUMS) {
-
-		var reportPhotos = {
-			restrict: 'E',
-			templateUrl: 'public/directives/REPORT/reportPhotos/reportPhotos.html',
-			scope: {
-				report: '=',
-				editable: '&'
-			},
-			controller: function($scope) {
-
-				$scope.srcAction = new MySrcAction({
-					acceptedFiles: 'image/png,image/jpg,image/jpeg',
-					maxFiles: NUMS.reportMaxPhotos,
-					maxFileSize: NUMS.photoMaxSize,
-					getFilesCount: function() {
-						return $rootScope.apiData.report.photos.length;
-					}
-				});
-
-				// Initializing context menus
-				$scope.mainContextMenuConf = reportPhotosConf.getMainContextMenuConf($scope);
-				$scope.srcContextMenuConf = reportPhotosConf.getSrcContextMenuConf($scope);
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					// Watching current report
-					scope.$watch(function() { return scope.report; }, function(report) {
-
-						if (report) {
-
-							// Instantiating
-
-							scope.srcThumbsCollection = new MySrcCollection({
-								defaultUrl: reportPhotosConf.defaultUrl,
-								constructUrl: function(i) {
-									return reportPhotosService.constructPhotoUrl(scope.report.userId, scope.report._id, scope.report.photos[i].filename, true);
-								},
-								uploadRequest: reportPhotosService.uploadRequest,
-								remove: function(indexes) {
-
-									for (var i = indexes.length - 1; i >= 0; i--) {
-										scope.report.photos.splice(indexes[i], 1);
-									}
-
-									return scope.report.put();
-								}
-							});
-
-							scope.srcSlidesCollection = new MySrcCollection({
-								defaultUrl: reportPhotosConf.defaultUrl,
-								constructUrl: function(i) {
-									return reportPhotosService.constructPhotoUrl(scope.report.userId, scope.report._id, scope.report.photos[i].filename, false);
-								}
-							});
-
-							// Initializing
-
-							scope.srcThumbsCollection.init(scope.report.photos);
-
-							scope.srcSlidesCollection.init(scope.report.photos, function() {
-								for (var i in scope.srcSlidesCollection.collection) {
-									scope.srcSlidesCollection.collection[i].href = scope.srcSlidesCollection.collection[i].url;
-								}
-							});
-						}
-					});
-				};
-			}
-		};
-
-		return reportPhotos;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportPhotosConf = function($rootScope, reportPhotosService) {
-
-		var conf = {
-			defaultUrl: 'public/imgs/item.png',
-			getMainContextMenuConf: function(scope) {
-
-				var isHidden = function() {
-					if (scope.srcThumbsCollection) {
-						return scope.srcThumbsCollection.collection.length === 0;
-					}
-				};
-
-				return {
-					icon: 'glyphicon glyphicon-option-horizontal',
-					switchers: [
-						{
-							_id: 'update',
-							label: $rootScope.hardData.imperatives[16],
-							onClick: function() {
-
-								if (scope.srcAction.getFilesCount() < scope.srcAction.maxFiles) {
-									$rootScope.$broadcast('displayMultipleFilesInput', {
-										cb: function(files) {
-											reportPhotosService.update('addToSet', scope, files);
-										}
-									});
-
-								} else {
-									scope.srcAction.displayModalMessage('MAX_FILES_UPLOADED');
-								}
-							}
-						},
-						{
-							_id: 'delete',
-							label: $rootScope.hardData.imperatives[14],
-							onClick: function() {
-								reportPhotosService.delete('multiple', scope);
-							},
-							isHidden: isHidden
-						},
-						{
-							_id: 'refresh',
-							label: $rootScope.hardData.imperatives[19],
-							onClick: function() {
-								scope.srcThumbsCollection.init(scope.report.photos);
-							},
-							isHidden: isHidden
-						},
-						{
-							_id: 'select_all',
-							label: $rootScope.hardData.imperatives[30],
-							onClick: function() {
-								scope.srcThumbsCollection.selectAll();
-							},
-							isHidden: isHidden
-						},
-						{
-							_id: 'deselect_all',
-							label: $rootScope.hardData.imperatives[29],
-							onClick: function() {
-								scope.srcThumbsCollection.deselectAll();
-							},
-							isHidden: isHidden
-						}
-					]
-				};
-			},
-			getSrcContextMenuConf: function(scope) {
-
-				var move = function(that) {
-					scope.srcThumbsCollection.moveSingle(that._id, that.parent.data, function() {
-						reportPhotosService.afterUpdateSync(scope);
-					});
-				};
-
-				return {
-					icon: 'glyphicon glyphicon-option-horizontal',
-					switchers: [
-						{
-							_id: 'updateSingle',
-							label: $rootScope.hardData.imperatives[5],
-							onClick: function() {
-
-								var that = this;
-
-								$rootScope.$broadcast('displaySingleFileInput', {
-									cb: function(files) {
-										reportPhotosService.update('updateSingle', scope, files, that.parent.data);
-									}
-								});
-							}
-						},
-						{
-							_id: 'delete',
-							label: $rootScope.hardData.imperatives[14],
-							onClick: function() {
-								reportPhotosService.delete('single', scope, this.parent.data);
-							}
-						},
-						{
-							_id: 'refresh',
-							label: $rootScope.hardData.imperatives[19],
-							onClick: function() {
-								this.parent.data.load(undefined, true);
-							}
-						},
-						{
-							_id: 'moveLeft',
-							label: $rootScope.hardData.imperatives[20],
-							onClick: function() {
-								move(this);
-							},
-							isHidden: function() {
-								if (scope.srcThumbsCollection) {
-									return scope.srcThumbsCollection.collection.length < 2;
-								}
-							}
-						},
-						{
-							_id: 'moveRight',
-							label: $rootScope.hardData.imperatives[21],
-							onClick: function() {
-								move(this);
-							},
-							isHidden: function() {
-								if (scope.srcThumbsCollection) {
-									return scope.srcThumbsCollection.collection.length < 2;
-								}
-							}
-						},
-						{
-							_id: 'set_as_avatar',
-							label: $rootScope.hardData.imperatives[28],
-							onClick: function() {
-
-								scope.report.avatarFileName = this.parent.data.filename;
-								reportPhotosService.afterUpdateSync(scope);
-							}
-						}
-					]
-				};
-			}
-		};
-
-		return conf;
-	};
-
-	reportPhotosConf.$inject = ['$rootScope', 'reportPhotosService'];
-	angular.module('appModule').service('reportPhotosConf', reportPhotosConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportPhotosService = function($rootScope, $q, aws3Service, MySrcAction, ReportsRest, Restangular, URLS) {
-
-		var self = {
-			constructPhotoUrl: function(userId, reportId, filename, useThumb) {
-
-				if (!useThumb) {
-					return URLS.AWS3_UPLOADS_BUCKET_URL + userId + '/reports/' + reportId + '/' + filename;
-
-				} else {
-					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + userId + '/reports/' + reportId + '/' + filename;
-				}
-			},
-			uploadRequest: function(args, i) {
-
-				var src = this;
-
-				return $q(function(resolve) {
-
-					var credentials = args.credentials[i];
-					var inputData = args.inputData[i];
-
-					// Creating form data
-					var formData = MySrcAction.createFormDataObject(credentials.awsFormData, inputData);
-
-					// Uploading to s3
-					aws3Service.makeRequest(credentials.awsUrl, formData).success(function(res) {
-
-						// When whole upload ended successfully
-
-						src.filename = credentials.awsFilename;
-						src.size = inputData.size;
-
-						var report = $rootScope.apiData.report;
-
-						resolve({
-							success: true,
-							url: self.constructPhotoUrl(report.userId, report._id, src.filename, true)
-						});
-
-					}).error(function(res) {
-						resolve({ success: false });
-					});
-				});
-			},
-			update: function(actionId, scope, inputData, src) {
-
-				// Validating input after choose
-				scope.srcAction.validate(actionId, inputData).then(function(res) {
-
-					// When action valid
-					if (res.success) {
-
-						// Preparing fileTypes array
-						var fileTypes = [];
-
-						for (var i in inputData) {
-							if (inputData[i] instanceof File) { fileTypes.push(inputData[i].type); }
-						}
-
-						// Asking server for upload credentials for all files
-						aws3Service.getCredentials('report_photos', { reportId: $rootScope.apiData.report._id, 'fileTypes': fileTypes }).then(function(res) {
-
-							var args = {
-								inputData: inputData,
-								credentials: res.data,
-								src: src
-							};
-
-							scope.srcThumbsCollection[actionId](args, function(result) {
-								self.afterUpdateSync(scope);
-							});
-						});
-
-					// When action invalid
-					} else { scope.srcAction.displayModalMessage(res.msgId); }
-				});
-			},
-			delete: function(flag, scope, src, cb) {
-
-				var collection;
-
-				switch (flag) {
-
-					case 'single':
-						collection = [src];
-						break;
-
-					case 'multiple':
-						collection = scope.srcThumbsCollection.getSelectedCollection();
-						break;
-				}
-
-				scope.srcThumbsCollection.removeFromSet({ collection: collection }, function(success, results) {
-
-					if (success) {
-						ReportsRest.getList({ _id: $rootScope.apiData.report._id });
-					}
-				});
-			},
-			afterUpdateSync: function(scope, cb) {
-
-				var copy = Restangular.copy($rootScope.apiData.report);
-
-				copy.photos = [];
-
-				for (var i in scope.srcThumbsCollection.collection) {
-					copy.photos[i] = {
-						filename: scope.srcThumbsCollection.collection[i].filename,
-						size: scope.srcThumbsCollection.collection[i].size
-					};
-				}
-
-				copy.put().then(function(res) {
-					$rootScope.apiData.report = res.data;
-					if (cb) { cb(true); }
-
-				}, function(res) {
-					if (cb) { cb(false); }
-				});
-			}
-		};
-
-		return self;
-	};
-
-	reportPhotosService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'ReportsRest', 'Restangular', 'URLS'];
-	angular.module('appModule').service('reportPhotosService', reportPhotosService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf) {
-
-		var reports = {
-			restrict: 'E',
-			templateUrl: 'public/directives/REPORT/reports/reports.html',
-			scope: {
-				ctrlId: '@',
-				noAvatar: '=',
-				noInfo: '='
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-
-				$scope.initUserReports = function(userId) {
-
-					$scope.collectionBrowser = reportsConf.profileCollectionBrowser;
-
-					if (userId == $rootScope.apiData.loggedInUser._id) {
-						$scope.elemContextMenuConf = contextMenuConf.reportContextMenuConf;
-
-					} else {
-						$scope.elemContextMenuConf = undefined;
-					}
-
-					$scope.collectionBrowser.init();
-				};
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					switch (scope.ctrlId) {
-
-						case 'UserReports':
-
-							if (!$rootScope.$$listeners.initUserReports) {
-								$rootScope.$on('initUserReports', function(e, args) {
-									scope.initUserReports(args.userId);
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initUserReports = null;
-							});
-
-							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) { scope.initUserReports(userId); }
-							});
-
-							break;
-
-						case 'SearchReports':
-
-							if (!$rootScope.$$listeners.initSearchReports) {
-								$rootScope.$on('initSearchReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.searchCollectionBrowser;
-									scope.collectionBrowser.init();
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initSearchReports = null;
-							});
-
-							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'RecentlyViewedReports':
-
-							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'NewReports':
-
-							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
-							scope.collectionBrowser.init();
-							break;
-					}
-				};
-			}
-		};
-
-		return reports;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
-
-		var hardData = hardDataService.get();
-
-		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'L',
-						label: hardData.reportGroups[0].label
-					},
-					{
-						_id: 'F',
-						label: hardData.reportGroups[1].label
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				var model = $rootScope.globalFormModels.reportSearchModel.getValues();
-
-				query.subject = 'reports';
-				query.title = model.title;
-				query.categoryId = model.categoryId;
-				query.subcategoryId = model.subcategoryId;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.profileCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'L',
-						label: hardData.reportGroups[0].label
-					},
-					{
-						_id: 'F',
-						label: hardData.reportGroups[1].label
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.subject = 'user_reports';
-				query.userId = $rootScope.apiData.profileUser._id;
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			fetchData: function(query) {
-
-				query.subject = 'new_reports';
-				query.sort='-dateAdded';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			fetchData: function(query) {
-
-				query.subject = 'recently_viewed_reports';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		return this;
-	};
-
-
-
-	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
-	angular.module('appModule').service('reportsConf', reportsConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ReportsRest = function($rootScope, $stateParams, Restangular, storageService) {
-
-		var reports = Restangular.service('reports');
-
-		Restangular.extendModel('reports', function(report) {
-
-			report._isOwn = function() {
-
-				return this.userId == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-			};
-
-			return report;
-		});
-
-
-
-		return reports;
-	};
-
-	ReportsRest.$inject = ['$rootScope', '$stateParams', 'Restangular', 'storageService'];
-	angular.module('appModule').factory('ReportsRest', ReportsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, Restangular) {
-
-		var service = this;
-
-		service.deleteReports = function(reports) {
-
-			if (reports && reports.length > 0) {
-
-				// Showing confirm modal
-				$rootScope.ui.modals.deleteReportModal.show({
-					message: (function() { return $rootScope.hardData.warnings[2]; })(),
-					acceptCb: function() {
-
-						var promises = [];
-						for (var report of reports) { promises.push(report.remove({ userId: report.userId })); }
-
-						$q.all(promises).then(function(results) {
-
-							switch ($state.current.name) {
-
-								case 'app.profile':
-									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
-									break;
-
-								case 'app.report':
-									window.history.back();
-									break;
-							}
-						});
-					}
-				});
-			}
-		};
-
-		return service;
-	};
-
-
-
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'Restangular'];
-	angular.module('appModule').service('reportsService', reportsService);
 
 })();
 (function() {

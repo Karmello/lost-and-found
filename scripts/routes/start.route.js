@@ -5,63 +5,65 @@
 		$stateProvider.state('app.start', {
 			url: '/start/:tab?action',
 			resolve: {
-				_tab: function(authentication, $q, $state, $stateParams, $timeout, ui, authService) {
+				tab: function(authentication, $q, $state, $stateParams, $timeout, authService, ui) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
 						// Valid tab
 						if (ui.tabs.start.switcherIds.indexOf($stateParams.tab) > -1) {
 
 							if (authService.state.authenticated && $stateParams.tab != 'status') {
-								$timeout(function() {
-									$state.go('app.start', { tab: 'status' }, { location: 'replace' });
-								});
+								reject('status');
 
-							} else { resolve(); }
+							} else if (!authService.state.authenticated && $stateParams.tab == 'status') {
+								reject('login');
+
+							} else {
+								resolve();
+							}
 
 						// Invalid tab
-						} else {
+						} else { reject('login'); }
 
-							$timeout(function() {
-								$state.go('app.start', { tab: 'login' }, { location: 'replace' });
-							});
-						}
+	    			}).then(function() {
+
+	    				// Resolve
+
+	    				ui.tabs.start.activateSwitcher($stateParams.tab);
+						ui.frames.main.activateSwitcher();
+						ui.frames.app.activateSwitcher('start');
+	    				ui.listGroups.settings.getFirstSwitcher().activate();
+
+						angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+							ui.tabs[switcher._id].getFirstSwitcher().activate();
+						});
+
+	    			}, function(redirectTab) {
+
+	    				// Reject
+	    				$timeout(function() {
+							$state.go('app.start', { tab: redirectTab }, { location: 'replace' });
+						});
 	    			});
 				}
 			},
-			onEnter: function($rootScope, $state, $stateParams, $timeout, ui) {
+			onEnter: function($rootScope, $stateParams, $timeout, ui) {
 
-				ui.listGroups.settings.getFirstSwitcher().activate();
+				switch ($stateParams.action) {
 
-				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-					ui.tabs[switcher._id].getFirstSwitcher().activate();
-				});
+					case 'deactivation':
 
-				ui.tabs.start.activateSwitcher($stateParams.tab);
-				ui.frames.main.activateSwitcher();
-				ui.frames.app.activateSwitcher('start');
+						$timeout(function() { ui.modals.deactivationDoneModal.show(); }, 5000);
+						break;
 
+					case 'pass_reset':
 
+						if ($stateParams.tab == 'login') {
+							$timeout(function() { $rootScope.ui.modals.passResetDoneModal.show(); }, 5000);
+						}
 
-				$timeout(function() {
-
-					switch ($state.params.action) {
-
-						case 'deactivation':
-
-							$timeout(function() { ui.modals.deactivationDoneModal.show(); }, 500);
-							break;
-
-						case 'pass_reset':
-
-							if ($state.params.tab == 'login') {
-								$timeout(function() { $rootScope.ui.modals.passResetDoneModal.show(); }, 500);
-							}
-
-							break;
-					}
-
-				}, 2500);
+						break;
+				}
 			}
 		});
 	});

@@ -63,6 +63,7 @@
 
 						// Initializing pager ctrl
 
+						if (that.noPager) { that.meta.count = that.collection.length; }
 						that.refresher = {};
 
 						if (that.meta.count > 0) {
@@ -133,7 +134,14 @@
 			that.init(function() {
 
 				if (that.pager && angular.isDefined(currentPage)) {
-					that.pager.activateSwitcher(currentPage);
+
+					if (currentPage <= that.pager.switcherIds.length) {
+						that.pager.activateSwitcher(currentPage);
+
+					} else {
+						that.pager = undefined;
+						that.onRefreshClick();
+					}
 				}
 			});
 		};

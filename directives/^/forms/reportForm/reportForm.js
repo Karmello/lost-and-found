@@ -16,78 +16,96 @@
 
 				$scope.ui = $rootScope.ui;
 				$scope.hardData = $rootScope.hardData;
-
-				$scope.minDate = new Date(2000, 0, 1);
-				$scope.maxDate = new Date();
-				$scope.autocomplete = {};
-
 				$scope.reportGroups = $rootScope.hardData.reportGroups;
 				$scope.reportCategories = $rootScope.apiData.reportCategories;
-
-				var modelFields = ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId',
-									'title', 'serialNo', 'description'];
-
-				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true);
+				$scope.autocomplete = {};
 
 				var date = new Date();
-				date.setHours(12);
-				date.setMinutes(0);
-				date.setSeconds(0);
-				date.setMilliseconds(0);
-				$scope.myModel.set({ date: date });
+				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myForm = new myClass.MyForm({ ctrlId: 'reportForm', model: $scope.myModel });
+				var modelFields = ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'serialNo', 'description'];
+				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true);
 
-				$scope.myForm.submitAction = function(args) {
+				switch ($scope.action) {
 
-					switch ($scope.action) {
+					case 'newreport':
 
-						case 'newreport':
+						$scope.myForm = new myClass.MyForm({
+							ctrlId: 'reportForm',
+							model: $scope.myModel,
+							submitAction: function(args) {
 
-							$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+								$scope.myForm.submitSuccessCb = function(res) {
+									googleMapService.reportPlace = null;
+									$scope.myForm.reset();
+									$state.go('app.report', { id: res.data._id });
+								};
 
-							if (!$scope.myModel.getValue('date')) {
-								$scope.myModel.setValue('date', $scope.myModel.defaults.date);
+								var place = $scope.autocomplete.ins.getPlace();
+								var modelValues = $scope.myModel.getValues();
+
+								if (place) {
+
+									modelValues.placeId = place.place_id;
+
+									modelValues.geolocation = {
+										lat: place.geometry.location.lat(),
+										lng: place.geometry.location.lng()
+									};
+
+								} else {
+									modelValues.placeId = null;
+								}
+
+								$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+
+								return ReportsRest.post(modelValues);
+							},
+							onCancel: function() {
+
+								window.history.back();
 							}
+						});
 
-							$scope.myForm.submitSuccessCb = function(res) {
-								googleMapService.reportPlace = null;
-								$scope.myForm.reset();
-								$state.go('app.report', { id: res.data._id });
-							};
+						$scope.myModel.set({ date: $scope.maxDate });
 
-							// Making http request
-							var modelValues = $scope.myModel.getValues();
-							var place = $scope.autocomplete.ins.getPlace();
-							if (place) { modelValues.placeId = place.place_id; } else { modelValues.placeId = null; }
-							return ReportsRest.post(modelValues);
+						break;
 
-						case 'edit':
+					case 'edit':
 
-							// Making copy of active report
-							var copy = Restangular.copy($rootScope.apiData.report);
+						$scope.myForm = new myClass.MyForm({
+							ctrlId: 'reportForm',
+							model: $scope.myModel,
+							submitAction: function(args) {
 
-							// Updating model values
-							$scope.myModel.setRestObj(copy);
+								// Making copy of active report
+								var copy = Restangular.copy($rootScope.apiData.report);
 
-							$scope.myForm.submitSuccessCb = function(res) {
-								googleMapService.reportPlace = null;
-								$rootScope.apiData.report = res.data;
-								$state.go('app.report', { id: res.data._id, edit: undefined });
-							};
+								// Updating model values
+								$scope.myModel.setRestObj(copy);
 
-							$scope.myForm.submitErrorCb = function(res) {
-								$rootScope.apiData.report = copy;
-							};
+								$scope.myForm.submitSuccessCb = function(res) {
+									googleMapService.reportPlace = null;
+									$rootScope.apiData.report = res.data;
+									$state.go('app.report', { id: res.data._id, edit: undefined });
+								};
 
-							// Making request
-							return copy.put();
-					}
-				};
+								$scope.myForm.submitErrorCb = function(res) {
+									$rootScope.apiData.report = copy;
+								};
 
-				$scope.myForm.onCancel = function() {
-					window.history.back();
-				};
+								// Making request
+								return copy.put();
+							},
+							onCancel: function() {
+
+								window.history.back();
+							}
+						});
+
+						break;
+				}
 			},
 			compile: function(elem, attrs) {
 

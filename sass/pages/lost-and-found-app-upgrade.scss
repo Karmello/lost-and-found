@@ -4,7 +4,7 @@
 
 		margin: 0 auto;
 
-		> div:first-child {
+		> #section1 {
 			display: flex;
 			flex-flow: row wrap;
 
@@ -14,7 +14,7 @@
 			}
 		}
 
-		> div:last-child {
+		> #section2 {
 			text-align: center;
 			margin-top: 15px;
 			img { width: 100px; }

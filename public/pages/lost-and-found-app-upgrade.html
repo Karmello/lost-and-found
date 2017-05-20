@@ -11,11 +11,12 @@
 					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
 				</title-section>
 				<body-section>
-					<div ng-if="!apiData.loggedInUser.paymentId && !apiData.payment">
+					<div ng-show="!apiData.loggedInUser.paymentId && !apiData.payment">
 						<upgrade-form></upgrade-form>
 					</div>
-					<div ng-if="apiData.loggedInUser.paymentId && apiData.payment" id="whenPaidSection">
-						<div>
+					<div ng-show="apiData.loggedInUser.paymentId" id="whenPaidSection">
+						<my-loader abs-centered="true" ng-show="!apiData.payment"></my-loader>
+						<div id="section1" ng-class="{ transparent: !apiData.payment }">
 							<div>
 								<my-panel trans-heading="true">
 									<title-section>
@@ -73,7 +74,7 @@
 											<tr>
 												<td>
 													<span class="text-info">{{ hardData.labels[23] }}:</span>
-													<span>{{ apiData.payment.firstname }} {{ apiData.payment.payer.funding_instruments[0].credit_card.last_name }}</span>
+													<span>{{ apiData.payment.payer.funding_instruments[0].credit_card.first_name }} {{ apiData.payment.payer.funding_instruments[0].credit_card.last_name }}</span>
 												</td>
 											</tr>
 											<tr>
@@ -116,7 +117,7 @@
 								</my-panel>
 							</div>
 						</div>
-						<div>
+						<div id="section2" ng-class="{ transparent: !apiData.payment }">
 							<a href="http://www.paypal.com/" target="new">
 								<img src="public/imgs/paypal.png">
 							</a>

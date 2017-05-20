@@ -4,16 +4,88 @@
 		"selected_items":
 		[
 			[
-				"cre",
-				"creditCardExpireYear"
+				"req",
+				"required"
+			],
+			[
+				"paym",
+				"payment\t(?)"
+			],
+			[
+				"de",
+				"decoded"
+			],
+			[
+				"get",
+				"getPaymentDetails\t(paypalModule.js)"
+			],
+			[
+				"pay",
+				"paypalModule"
 			],
 			[
 				"credi",
 				"creditCardType"
 			],
 			[
-				"pay",
-				"paypal"
+				"validat",
+				"validateBeforeSave"
+			],
+			[
+				"fun",
+				"funding_instruments"
+			],
+			[
+				"cre",
+				"credit_card"
+			],
+			[
+				"paypal",
+				"paypalModule\t(postPayment.js)"
+			],
+			[
+				"token",
+				"token_type"
+			],
+			[
+				"payme",
+				"payment"
+			],
+			[
+				"redi",
+				"redirectUrl"
+			],
+			[
+				"pa",
+				"paymentMethod"
+			],
+			[
+				"la",
+				"last_name\t(postPayment.js)"
+			],
+			[
+				"ex",
+				"expire_month\t(postPayment.js)"
+			],
+			[
+				"payment",
+				"payment_method\t(?)"
+			],
+			[
+				"paypa",
+				"paypalModule"
+			],
+			[
+				"node",
+				"nodeModule\tnodeModule"
+			],
+			[
+				"paymen",
+				"paymentMethod"
+			],
+			[
+				"desc",
+				"description"
 			],
 			[
 				"new",
@@ -24,24 +96,12 @@
 				"required"
 			],
 			[
-				"pa",
-				"payVal\t{}"
-			],
-			[
 				"cred",
 				"creditCardType"
 			],
 			[
-				"payme",
-				"paymentValidators"
-			],
-			[
 				"Pay",
 				"Payment\t(server.js)"
-			],
-			[
-				"req",
-				"require"
 			],
 			[
 				"Bo",
@@ -146,10 +206,6 @@
 			[
 				"$sta",
 				"$stateParams"
-			],
-			[
-				"get",
-				"getRoute"
 			],
 			[
 				"num",
@@ -458,100 +514,24 @@
 			[
 				"aws",
 				"awsKey"
-			],
-			[
-				"par",
-				"paramsArr"
-			],
-			[
-				"uploa",
-				"uploadRequest"
-			],
-			[
-				"uplo",
-				"uploadRequest\t(userAvatar.js)"
-			],
-			[
-				"usera",
-				"userAvatarConf"
-			],
-			[
-				"userAA",
-				"userAvatarService\t(userAvatar.js)"
-			],
-			[
-				"fun",
-				"function"
-			],
-			[
-				"upd",
-				"updateSingle"
-			],
-			[
-				"swit",
-				"switcherId"
-			],
-			[
-				"itemC",
-				"itemContextMenuConf\t(itemsConf.js)"
-			],
-			[
-				"subs",
-				"subscribeToAnAuction\t(AuctionController.js)"
-			],
-			[
-				"dele",
-				"deleteAuctions\t(auctionsService.js)"
-			],
-			[
-				"auctions",
-				"auctionsService\t(auctionsService.js)"
-			],
-			[
-				"Au",
-				"AuctionsRest"
-			],
-			[
-				"back",
-				"background-color"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/server/schemas/PaymentSchema.js",
+			"file": "/D/Workspace/laf/dev/server/controllers/ReportController.js",
 			"settings":
 			{
-				"buffer_size": 1061,
-				"encoding": "UTF-8",
+				"buffer_size": 1171,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/server/validators/paymentValidators.js",
+			"file": "/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
 			"settings":
 			{
-				"buffer_size": 2406,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/controllers/PaymentController.js",
-			"settings":
-			{
-				"buffer_size": 359,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/actions/Payment/postPayment.js",
-			"settings":
-			{
-				"buffer_size": 1710,
-				"encoding": "UTF-8",
+				"buffer_size": 1279,
 				"line_ending": "Windows"
 			}
 		}
@@ -635,35 +615,54 @@
 	"expanded_folders":
 	[
 		"/D/Workspace/laf/dev/server",
-		"/D/Workspace/laf/dev/server/validators"
+		"/D/Workspace/laf/dev/server/actions",
+		"/D/Workspace/laf/dev/server/actions/Report",
+		"/D/Workspace/laf/dev/server/controllers"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/server/validators/userValidators.js",
-		"/D/Workspace/laf/dev/server/schemas/UserSchema.js",
-		"/D/Workspace/laf/dev/server/validators/globalValidators.js",
-		"/D/Workspace/laf/dev/server/prototypes/Action.js",
-		"/D/Workspace/laf/dev/server.js",
-		"/D/Workspace/laf/dev/server/actions/User/postUser.js",
-		"/D/Workspace/laf/dev/server/routes.js",
+		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
+		"/D/Workspace/laf/dev/server/actions/Payment/postPayment.js",
+		"/D/Workspace/laf/dev/server/modules/paypalModule.js",
+		"/D/Workspace/laf/dev/server/schemas/PaymentSchema.js",
+		"/D/Workspace/laf/dev/server/validators/paymentValidators.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
+		"/D/Workspace/laf/dev/todos.txt",
+		"/D/Workspace/laf/dev/server/schemas/UserSchema.js",
+		"/D/Workspace/laf/dev/server/validators/userValidators.js",
+		"/D/Workspace/laf/dev/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/db/init.js",
+		"/D/Workspace/laf/dev/server/controllers/PaymentController.js",
+		"/D/Workspace/laf/dev/.env",
+		"/D/Workspace/laf/dev/server/_requires.js",
+		"/D/Workspace/laf/dev/server/modules/captchaModule.js",
+		"/D/Workspace/laf/dev/server/modules/aws3Module.js",
+		"/D/Workspace/laf/dev/server/modules/_modules.js",
+		"/D/Workspace/laf/dev/server/modules/utilModule.js",
+		"/D/Workspace/laf/dev/server/modules/modelDataModule.js",
+		"/D/Workspace/laf/dev/server/setups/setupPaypal.js",
+		"/D/Workspace/laf/dev/server.js",
+		"/D/Workspace/laf/dev/server/prototypes/Action.js",
+		"/D/Workspace/laf/dev/tests/server/.env",
 		"/D/Workspace/laf/dev/server/setups/_setups.js",
+		"/D/Workspace/laf/dev/server/setups/setupSession.js",
+		"/D/Workspace/laf/dev/server/setups/setupSockets.js",
+		"/D/Workspace/laf/dev/server/setups/setupDb.js",
+		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
+		"/D/Workspace/laf/dev/server/routes.js",
+		"/D/Workspace/laf/dev/server/validators/globalValidators.js",
+		"/D/Workspace/laf/dev/server/actions/User/postUser.js",
 		"/D/Workspace/laf/dev/server/schemas/AppConfigSchema.js",
 		"/D/Workspace/laf/dev/server/controllers/ReportCategoryController.js",
 		"/D/Workspace/laf/dev/server/actions/_actions.js",
-		"/D/Workspace/laf/dev/server/modules/authorize.js",
 		"/D/Workspace/laf/dev/server/controllers/UserController.js",
-		"/D/Workspace/laf/dev/server/modules/_modules.js",
-		"/D/Workspace/laf/dev/server/controllers/PaymentController.js",
 		"/D/Workspace/laf/dev/server/models.js",
-		"/D/Workspace/laf/dev/server/schemas/PaymentSchema.js",
 		"/D/Workspace/laf/dev/server/validators/_validators.js",
-		"/D/Workspace/laf/dev/server/_requires.js",
 		"/D/Workspace/laf/dev/server/validators/passwordValidators.js",
 		"/D/Workspace/laf/dev/server/actions/User/getUser.js",
-		"/D/Workspace/laf/dev/server/validators/paymentValidators.js",
 		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
-		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReportById.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReportByIds.js",
@@ -674,7 +673,6 @@
 		"/D/Workspace/laf/dev/server/actions/Report/getReportByUserId.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReport.js",
 		"/D/Workspace/laf/dev/server/actions/Comment/getComment.js",
-		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
 		"/D/Workspace/laf/dev/server/actions/Comment/deleteComment.js",
 		"/D/Workspace/laf/dev/server/actions/User/putUser.js",
 		"/D/Workspace/laf/dev/server/actions/User/deleteUser.js",
@@ -684,7 +682,6 @@
 		"/D/Workspace/laf/dev/server/actions/Password/recoverPassword.js",
 		"/D/Workspace/laf/dev/server/actions/Report/deleteReport.js",
 		"/D/Workspace/laf/dev/server/actions/Report/putReport.js",
-		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
 		"/D/Workspace/laf/dev/server/actions/Other/getStats.js",
 		"/D/Workspace/laf/dev/server/schemas/CommentSchema.js",
 		"/D/Workspace/laf/dev/scripts/services/aws3Service.js",
@@ -702,7 +699,6 @@
 		"/D/Workspace/laf/dev/scripts/constants.js",
 		"/D/Workspace/laf/dev/scripts/routes/main.report.tab.js",
 		"/D/Workspace/laf/dev/scripts/services/ui.js",
-		"/D/Workspace/laf/dev/server/modules/aws3Module.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report-tab.html",
 		"/D/Workspace/laf/dev/scripts/routes/main.report.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
@@ -735,11 +731,7 @@
 		"/D/Workspace/laf/dev/server/actions/Item/getItem.js",
 		"/D/Workspace/laf/dev/server/actions/Item/postItem.js",
 		"/D/Workspace/laf/dev/server/schemas/ItemSchema.js",
-		"/D/Workspace/laf/dev/db/init.js",
-		"/D/Workspace/laf/dev/server/setups/setupSession.js",
 		"/D/Workspace/laf/dev/server/validators/auctionValidators.js",
-		"/D/Workspace/laf/dev/server/setups/setupSockets.js",
-		"/D/Workspace/laf/dev/server/setups/setupDb.js",
 		"/D/Workspace/laf/dev/server/controllers/AuctionController.js",
 		"/D/Workspace/laf/dev/server/schemas/AuctionSchema.js",
 		"/D/Workspace/laf/dev/server/actions/Item/putItem.js",
@@ -756,17 +748,7 @@
 		"/D/Workspace/laf/dev/directives/ITEM/items/itemsConf.js",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.html",
 		"/D/Workspace/laf/dev/directives/my/myDropDown/myDropDown.js",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/items/items.html",
-		"/D/Workspace/laf/dev/node_modules/font-awesome/scss/_variables.scss",
-		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.scss",
-		"/D/Workspace/laf/dev/directives/my/myPanel/myPanel.html",
-		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
-		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.scss",
-		"/D/Workspace/laf/dev/directives/ITEM/itemPhotos/itemPhotos.scss",
-		"/D/Workspace/laf/dev/directives/my/myElemSelector/myElemSelector.html"
+		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.html"
 	],
 	"find":
 	{
@@ -845,6 +827,29 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".account",
+			"finalizePayment",
+			"getPaymentConfig",
+			"executePaypalPayment",
+			"req.session.paymentId",
+			"newPayment.paymentId",
+			"paymentId",
+			"req.session.paymentId",
+			"finalizePayment",
+			"makeCreditCardPayment",
+			"finalizePayment",
+			"r.https",
+			"https",
+			"r.http",
+			"r.http.get",
+			"r.http.post",
+			"ObjectId",
+			"isPaid",
+			"console.log",
+			"req.headers.host",
+			"process",
+			"PAYPAL_CLIENT_ID",
+			"GMAIL_USER",
 			"regex",
 			"hardData.en",
 			"req.session.language",
@@ -949,30 +954,7 @@
 			"_isTheOneLoggedIn",
 			"user-avatar",
 			"UserItems",
-			"profileUser",
-			"'user'",
-			"anotherUsersCollectionBrowser",
-			"ownCollectionBrowser",
-			"<items",
-			"profileUser",
-			"profileUser =",
-			"UserItems",
-			"'auction'",
-			"UserItems",
-			"media",
-			"email",
-			"myBtns",
-			"myBtnsGroupCentered",
-			"main-with-aside-1",
-			"my-page",
-			".user",
-			"main.user",
-			"getSwitcher",
-			"Item",
-			"user.html",
-			"#/user",
-			"/user",
-			"/user/"
+			"profileUser"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -980,6 +962,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"createPaymentConfig",
+			"makePaypalPayment",
+			"executePayment",
 			"getByQuery",
 			"reportMaxPhotos",
 			"reportPhotoSlidesWindow",
@@ -1104,10 +1089,7 @@
 			"cropInput",
 			"cropImg",
 			"onUnsubscribeFromAnAuctionClick",
-			"onSubscribeToAnAuctionClick",
-			"onSeeAuctionSubscribersClick",
-			"my-form-error-icon",
-			"auctionSubscribersDisplayer"
+			"onSubscribeToAnAuctionClick"
 		],
 		"reverse": false,
 		"show_context": false,
@@ -1124,24 +1106,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/server/schemas/PaymentSchema.js",
+					"file": "/D/Workspace/laf/dev/server/controllers/ReportController.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1061,
+						"buffer_size": 1171,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								960,
-								960
+								646,
+								656
 							]
 						],
 						"settings":
@@ -1158,96 +1140,10 @@
 								}
 							],
 							"bs_sintax": "javascript",
-							"buffer_scroll_name": "c2f8257f",
+							"buffer_scroll_name": "f7680326",
 							"spell_check": false,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/server/validators/paymentValidators.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2406,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								718,
-								718
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "2a0a6844",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 48.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/server/controllers/PaymentController.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 359,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								194,
-								194
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "154500e9",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1257,20 +1153,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "/D/Workspace/laf/dev/server/actions/Payment/postPayment.js",
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1710,
+						"buffer_size": 1279,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								615,
-								615
+								819,
+								819
 							]
 						],
 						"settings":
@@ -1287,13 +1183,13 @@
 								}
 							],
 							"bs_sintax": "javascript",
-							"buffer_scroll_name": "d7b18dfc",
-							"open_with_edit": true,
+							"buffer_scroll_name": "c6391df1",
+							"spell_check": false,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 48.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1363,8 +1259,56 @@
 		"selected_items":
 		[
 			[
+				"postre",
+				"actions\\Report\\postReport.js"
+			],
+			[
+				"paymen",
+				"validators\\paymentValidators.js"
+			],
+			[
+				"pyam",
+				"schemas\\PaymentSchema.js"
+			],
+			[
 				"userv",
 				"validators\\userValidators.js"
+			],
+			[
+				"users",
+				"schemas\\UserSchema.js"
+			],
+			[
+				"paym",
+				"schemas\\PaymentSchema.js"
+			],
+			[
+				"setupr",
+				"setups\\setupRoutes.js"
+			],
+			[
+				"_re",
+				"_requires.js"
+			],
+			[
+				"payme",
+				"schemas\\PaymentSchema.js"
+			],
+			[
+				"reports",
+				"schemas\\ReportSchema.js"
+			],
+			[
+				"repr",
+				"schemas\\ReportSchema.js"
+			],
+			[
+				"pay",
+				"schemas\\PaymentSchema.js"
+			],
+			[
+				"setu",
+				"setups\\setupRoutes.js"
 			],
 			[
 				"user",
@@ -1396,14 +1340,6 @@
 			],
 			[
 				"report",
-				"schemas\\ReportSchema.js"
-			],
-			[
-				"users",
-				"schemas\\UserSchema.js"
-			],
-			[
-				"reports",
 				"schemas\\ReportSchema.js"
 			],
 			[
@@ -1833,46 +1769,6 @@
 			[
 				"_myc",
 				"sass\\_myClasses.scss"
-			],
-			[
-				"settings",
-				"pages\\auction-house-settings.html"
-			],
-			[
-				"main.scs",
-				"sass\\pages\\auction-house-main.scss"
-			],
-			[
-				"mytabs",
-				"directives\\my\\myTabs\\myTabs.scss"
-			],
-			[
-				"myform",
-				"directives\\my\\myForm\\myForm.scss"
-			],
-			[
-				"settings.scs",
-				"sass\\pages\\auction-house-settings.scss"
-			],
-			[
-				"myp",
-				"directives\\my\\myPage\\myPage.scss"
-			],
-			[
-				"auctions.scs",
-				"directives\\AUCTION\\auctions\\auctions.scss"
-			],
-			[
-				"guest.thm",
-				"pages\\auction-house-guest.html"
-			],
-			[
-				"guest.th",
-				"pages\\auction-house-guest.html"
-			],
-			[
-				"gu",
-				"routes\\guest.1.js"
 			]
 		],
 		"width": 0.0

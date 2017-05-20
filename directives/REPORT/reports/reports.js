@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf) {
+	appModule.directive('reports', function($rootScope, reportsConf, reportsService, contextMenuConf) {
 
 		var reports = {
 			restrict: 'E',
@@ -18,20 +18,7 @@
 
 				$scope.hardData = $rootScope.hardData;
 				$scope.apiData = $rootScope.apiData;
-
-				$scope.initUserReports = function(userId) {
-
-					$scope.collectionBrowser = reportsConf.profileCollectionBrowser;
-
-					if (userId == $rootScope.apiData.loggedInUser._id) {
-						$scope.elemContextMenuConf = contextMenuConf.reportContextMenuConf;
-
-					} else {
-						$scope.elemContextMenuConf = undefined;
-					}
-
-					$scope.collectionBrowser.init();
-				};
+				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
 			},
 			compile: function(elem, attrs) {
 
@@ -43,7 +30,7 @@
 
 							if (!$rootScope.$$listeners.initUserReports) {
 								$rootScope.$on('initUserReports', function(e, args) {
-									scope.initUserReports(args.userId);
+									reportsService.initUserReports(scope, args.userId);
 								});
 							}
 
@@ -52,7 +39,7 @@
 							});
 
 							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) { scope.initUserReports(userId); }
+								if (angular.isDefined(userId)) { reportsService.initUserReports(scope, userId); }
 							});
 
 							break;

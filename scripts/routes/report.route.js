@@ -13,7 +13,7 @@
 				isAuthenticated: function(authentication, resolveService) {
 					return resolveService.isAuthenticated();
 				},
-				apiData: function(isAuthenticated, $q, $rootScope, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
+				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -29,6 +29,7 @@
 
 							}, function() {
 								reject();
+								$state.go('app.home');
 							});
 
 						} else {
@@ -47,7 +48,7 @@
 						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 					} else {
-						googleMapService.initReportMap($rootScope.apiData.report.placeId);
+						googleMapService.singleReportMap.init($rootScope.apiData.report.placeId);
 					}
 
 					$timeout(function() {

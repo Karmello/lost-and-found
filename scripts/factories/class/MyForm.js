@@ -15,6 +15,7 @@
 			this.submitAction = config.submitAction;
 			this.submitSuccessCb = config.submitSuccessCb;
 			this.submitErrorCb = config.submitErrorCb;
+			this.onCancel = config.onCancel;
 		};
 
 		MyForm.prototype.submit = function() {
@@ -94,7 +95,6 @@
 
 			this.model.clear();
 			this.model.set();
-			this.scope.$broadcast('reset');
 		};
 
 		return MyForm;

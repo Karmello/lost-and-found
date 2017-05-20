@@ -4,13 +4,10 @@
 	<input
 		id="{{ ctrlId }}"
 		class="form-control"
-		type="{{ ctrlType }}"
-		placeholder="{{ placeholder || '...' }}"
-		maxlength="{{ ctrlMaxLength }}"
-		min="{{ ctrlMinValue }}"
-		max="{{ ctrlMaxValue }}"
+		type="date"
+		min="{{ ctrlMinValue | date:'yyyy-MM-dd' }}"
+		max="{{ ctrlMaxValue | date:'yyyy-MM-dd' }}"
 		ng-model="model.value"
-		ng-disabled="isDisabled"
-		autocomplete="autocomplete"
+		ng-required="isRequired"
 	>
 </div>

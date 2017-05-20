@@ -9,11 +9,15 @@
 					return resolveService.isAuthenticated();
 				}
 			},
-			onEnter: function(ui) {
+			onEnter: function($timeout, googleMapService, ui) {
 
 				ui.menus.top.activateSwitcher('search');
 				ui.frames.main.activateSwitcher('search');
 				ui.frames.app.activateSwitcher('main');
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 4000; }
+				$timeout(function() { googleMapService.searchReportsMap.init(); }, timeout);
 			}
 		});
 	});

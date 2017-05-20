@@ -20,7 +20,6 @@
 				model: '=',
 				hardData: '=',
 				hideErrors: '=',
-				isRequired: '=',
 				isDisabled: '=',
 				autocomplete: '='
 			},
@@ -31,9 +30,9 @@
 
 					if (scope.autocomplete) {
 
-						var input = $(elem).find('input')[0];
-						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
+						var input = $(elem).find('input').get()[0];
 
+						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
 						scope.autocomplete.ins.addListener('place_changed', function() {});
 					}
 				};

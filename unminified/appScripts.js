@@ -1004,7 +1004,6 @@
 						promises.push(DeactivationReasonsRest.getList());
 						promises.push(ContactTypesRest.getList());
 						promises.push(ReportCategoriesRest.getList());
-						promises.push($http.get('/stats'));
 
 						$q.all(promises).then(function(results) {
 
@@ -1013,7 +1012,6 @@
 								$rootScope.apiData.deactivationReasons = $filter('orderBy')(results[0].data.plain(), 'index');
 								$rootScope.apiData.contactTypes = $filter('orderBy')(results[1].data.plain(), 'index');
 								$rootScope.apiData.reportCategories = results[2].data.plain();
-								$rootScope.apiData.stats = results[3].data;
 
 								resolve(true);
 
@@ -1094,6 +1092,19 @@
 			resolve: {
 				isAuthenticated: function(authentication, resolveService) {
 					return resolveService.isAuthenticated();
+				},
+				apiData: function(isAuthenticated, $q, $http, $rootScope) {
+
+					return $q(function(resolve) {
+
+						$http.get('/stats').success(function(res) {
+							$rootScope.apiData.stats = res;
+							resolve(true);
+
+						}).error(function() {
+							resolve(false);
+						});
+					});
 				}
 			},
 			onEnter: function(ui) {
@@ -1183,7 +1194,7 @@
 				isAuthenticated: function(authentication, resolveService) {
 					return resolveService.isAuthenticated();
 				},
-				apiData: function(isAuthenticated, $q, $rootScope, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
+				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
 
 					return $q(function(resolve, reject) {
 
@@ -1199,6 +1210,7 @@
 
 							}, function() {
 								reject();
+								$state.go('app.home');
 							});
 
 						} else {
@@ -1217,7 +1229,7 @@
 						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 					} else {
-						googleMapService.initReportMap($rootScope.apiData.report.placeId);
+						googleMapService.singleReportMap.init($rootScope.apiData.report.placeId);
 					}
 
 					$timeout(function() {
@@ -1256,11 +1268,15 @@
 					return resolveService.isAuthenticated();
 				}
 			},
-			onEnter: function(ui) {
+			onEnter: function($timeout, googleMapService, ui) {
 
 				ui.menus.top.activateSwitcher('search');
 				ui.frames.main.activateSwitcher('search');
 				ui.frames.app.activateSwitcher('main');
+
+				var timeout = 0;
+				if (ui.loaders.renderer.isLoading) { timeout = 4000; }
+				$timeout(function() { googleMapService.searchReportsMap.init(); }, timeout);
 			}
 		});
 	});
@@ -1526,7 +1542,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, $moment, storageService, reportsConf, commentsConf, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, $moment, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -1649,6 +1665,7 @@
 
 										case 'reports':
 											reportsConf.searchCollectionBrowser.setData(data);
+											googleMapService.searchReportsMap.addMarkers(data.collection);
 											return data.collection;
 
 										case 'new_reports':
@@ -1709,7 +1726,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();
@@ -1906,145 +1923,165 @@
 
 	'use strict';
 
-	var googleMapService = function($timeout) {
+	var SAME_LOCATION_OFFSET = 0.000015;
+
+	var googleMapService = function($q, $timeout, $state, reportsConf) {
 
 		var service = this;
 
-		service.initReportMap = function(placeId) {
+		service.geo = {
+			allowed: undefined
+		};
 
-			if (!service.reportPlace || service.reportPlace.place_id != placeId) {
+		service.singleReportMap = {
+			init: function(placeId) {
 
-				var map = new google.maps.Map(document.getElementById('reportMap'));
+				if (!service.reportPlace || service.reportPlace.place_id != placeId) {
 
-				google.maps.event.addListener(map, 'idle', function() {
-					google.maps.event.trigger(map, 'resize');
-				});
+					var map = new google.maps.Map(document.getElementById('reportMap'));
 
-				$timeout(function() {
-
-					var geocoder = new google.maps.Geocoder();
-					var infowindow = new google.maps.InfoWindow();
-
-					geocoder.geocode({ 'placeId': placeId }, function(results, status) {
-
-						service.reportPlace = results[0];
-
-						map.setCenter(service.reportPlace.geometry.location);
-						map.setZoom(13);
-
-						var marker = new google.maps.Marker({
-							map: map,
-							position: service.reportPlace.geometry.location
-						});
-
-						marker.addListener('click', function() {
-							infowindow.setContent(service.reportPlace.formatted_address);
-							infowindow.open(map, marker);
-						});
-
-						$timeout(function() {
-							infowindow.setContent(service.reportPlace.formatted_address);
-							infowindow.open(map, marker);
-						}, 1000);
+					google.maps.event.addListener(map, 'idle', function() {
+						google.maps.event.trigger(map, 'resize');
 					});
 
-				}, 1000);
+					$timeout(function() {
+
+						var geocoder = new google.maps.Geocoder();
+						var infowindow = new google.maps.InfoWindow();
+
+						geocoder.geocode({ 'placeId': placeId }, function(results, status) {
+
+							service.reportPlace = results[0];
+
+							map.setCenter(service.reportPlace.geometry.location);
+							map.setZoom(13);
+
+							var marker = new google.maps.Marker({
+								map: map,
+								position: service.reportPlace.geometry.location
+							});
+
+							marker.addListener('click', function() {
+								infowindow.setContent(service.reportPlace.formatted_address);
+								infowindow.open(map, marker);
+							});
+
+							$timeout(function() {
+								infowindow.setContent(service.reportPlace.formatted_address);
+								infowindow.open(map, marker);
+							}, 1000);
+						});
+
+					}, 1000);
+				}
+			}
+		};
+
+		service.searchReportsMap = {
+			init: function() {
+
+				if (angular.isUndefined(service.geo.allowed)) {
+
+					$q(function(resolve) {
+
+						navigator.geolocation.getCurrentPosition(function(pos) {
+
+							resolve({
+								geoAllowed: true,
+								coords: pos.coords
+							});
+
+						}, function() {
+
+							resolve({
+								geoAllowed: false,
+								coords: { latitude: 0, longitude: 0 }
+							});
+
+						}, { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 });
+
+					}).then(function(conf) {
+
+						service.searchReportsMap.ins = new google.maps.Map(document.getElementById('reportsMap'), {
+							center: new google.maps.LatLng(conf.coords.latitude, conf.coords.longitude),
+							zoom: 5
+						});
+
+						service.geo.allowed = conf.geoAllowed;
+
+						if (!service.searchReportsMap.markers) {
+							service.searchReportsMap.addMarkers(reportsConf.searchCollectionBrowser.collection);
+						}
+					});
+				}
+			},
+			addMarkers: function(collection) {
+
+				if (angular.isDefined(service.geo.allowed)) {
+
+					var i;
+
+					// Clearing markers
+					if (service.searchReportsMap.markerCluster) {
+						service.searchReportsMap.markerCluster.clearMarkers();
+					}
+
+					// Resetting markers array
+					service.searchReportsMap.markers = [];
+
+
+
+					$timeout(function() {
+
+						// Adding new markers
+						for (i = 0; i < collection.length; i++) {
+							service.searchReportsMap.addSingleMarker(collection, i);
+						}
+
+						// Creating clusters
+						var map = service.searchReportsMap.ins;
+						var markers = service.searchReportsMap.markers;
+						var imagePath = 'node_modules/js-marker-clusterer/images/m';
+						service.searchReportsMap.markerCluster = new MarkerClusterer(map, markers, { imagePath: imagePath });
+
+					}, 1000);
+				}
+			},
+			addSingleMarker: function(collection, i) {
+
+				var infowindow = new google.maps.InfoWindow();
+				var iconName = collection[i].group == 'L' ? 'red-dot.png' : 'blue-dot.png';
+
+				var newMarker = new google.maps.Marker({
+					map: service.searchReportsMap.ins,
+					position: new google.maps.LatLng(collection[i].geolocation.lat, collection[i].geolocation.lng),
+					icon: 'http://maps.google.com/mapfiles/ms/icons/' + iconName
+				});
+
+				newMarker.addListener('mouseover', function() {
+					infowindow.setContent(collection[i].title);
+					infowindow.open(service.searchReportsMap.ins, newMarker);
+				});
+
+				newMarker.addListener('mouseout', function() {
+					infowindow.close();
+				});
+
+				newMarker.addListener('click', function() {
+					$state.go('app.report', { id: collection[i]._id });
+				});
+
+				service.searchReportsMap.markers.push(newMarker);
 			}
 		};
 
 		return service;
 	};
 
-	googleMapService.$inject = ['$timeout'];
+	googleMapService.$inject = ['$q', '$timeout', '$state', 'reportsConf'];
 	angular.module('appModule').service('googleMapService', googleMapService);
 
 })();
-
-
-
-
-
-
-
-
-
-// var card = document.getElementById('pac-card');
-// var input = document.getElementById('pac-input');
-// var types = document.getElementById('type-selector');
-// var strictBounds = document.getElementById('strict-bounds-selector');
-
-// map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
-
-// var autocomplete = new google.maps.places.Autocomplete(input);
-
-// // Bind the map's bounds (viewport) property to the autocomplete object,
-// // so that the autocomplete requests use the current map bounds for the
-// // bounds option in the request.
-// autocomplete.bindTo('bounds', map);
-
-// var infowindow = new google.maps.InfoWindow();
-// var infowindowContent = document.getElementById('infowindow-content');
-// infowindow.setContent(infowindowContent);
-// var marker = new google.maps.Marker({
-// map: map,
-// anchorPoint: new google.maps.Point(0, -29)
-// });
-
-// autocomplete.addListener('place_changed', function() {
-// infowindow.close();
-// marker.setVisible(false);
-// var place = autocomplete.getPlace();
-// if (!place.geometry) {
-// // User entered the name of a Place that was not suggested and
-// // pressed the Enter key, or the Place Details request failed.
-// window.alert("No details available for input: '" + place.name + "'");
-// return;
-// }
-
-// // If the place has a geometry, then present it on a map.
-// if (place.geometry.viewport) {
-// map.fitBounds(place.geometry.viewport);
-// } else {
-// map.setCenter(place.geometry.location);
-// map.setZoom(17);  // Why 17? Because it looks good.
-// }
-// marker.setPosition(place.geometry.location);
-// marker.setVisible(true);
-
-// var address = '';
-// if (place.address_components) {
-// address = [
-// (place.address_components[0] && place.address_components[0].short_name || ''),
-// (place.address_components[1] && place.address_components[1].short_name || ''),
-// (place.address_components[2] && place.address_components[2].short_name || '')
-// ].join(' ');
-// }
-
-// infowindowContent.children['place-icon'].src = place.icon;
-// infowindowContent.children['place-name'].textContent = place.name;
-// infowindowContent.children['place-address'].textContent = address;
-// infowindow.open(map, marker);
-// });
-
-// // Sets a listener on a radio button to change the filter type on Places
-// // Autocomplete.
-// function setupClickListener(id, types) {
-// var radioButton = document.getElementById(id);
-// radioButton.addEventListener('click', function() {
-// autocomplete.setTypes(types);
-// });
-// }
-
-// setupClickListener('changetype-all', []);
-// setupClickListener('changetype-address', ['address']);
-// setupClickListener('changetype-establishment', ['establishment']);
-// setupClickListener('changetype-geocode', ['geocode']);
-
-// document.getElementById('use-strict-bounds')
-// .addEventListener('click', function() {
-// console.log('Checkbox clicked! New state=' + this.checked);
-// autocomplete.setOptions({strictBounds: this.checked});
-// });
 (function() {
 
 	'use strict';
@@ -2759,6 +2796,7 @@
 
 						// Initializing pager ctrl
 
+						if (that.noPager) { that.meta.count = that.collection.length; }
 						that.refresher = {};
 
 						if (that.meta.count > 0) {
@@ -2829,7 +2867,14 @@
 			that.init(function() {
 
 				if (that.pager && angular.isDefined(currentPage)) {
-					that.pager.activateSwitcher(currentPage);
+
+					if (currentPage <= that.pager.switcherIds.length) {
+						that.pager.activateSwitcher(currentPage);
+
+					} else {
+						that.pager = undefined;
+						that.onRefreshClick();
+					}
 				}
 			});
 		};
@@ -2978,6 +3023,7 @@
 			this.submitAction = config.submitAction;
 			this.submitSuccessCb = config.submitSuccessCb;
 			this.submitErrorCb = config.submitErrorCb;
+			this.onCancel = config.onCancel;
 		};
 
 		MyForm.prototype.submit = function() {
@@ -3057,7 +3103,6 @@
 
 			this.model.clear();
 			this.model.set();
-			this.scope.$broadcast('reset');
 		};
 
 		return MyForm;
@@ -4447,56 +4492,6 @@
 
 
 
-	appModule.directive('loginForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
-
-		var loginForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/loginForm/loginForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				var formModel = $rootScope.globalFormModels.userModel;
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'loginForm',
-					model: formModel,
-					submitAction: function(args) {
-
-						var body = {
-							username: formModel.getValue('username'),
-							password: formModel.getValue('password'),
-						};
-
-						return UsersRest.post(body, undefined, { captcha_response: args.captchaResponse });
-					},
-					submitSuccessCb: function(res) {
-
-						authService.setAsLoggedIn(function() {
-							$timeout(function() {
-								$state.go('app.start', { tab: 'status' });
-							});
-						});
-					},
-					submitErrorCb: function(res) {
-
-						authService.setAsLoggedOut();
-					}
-				});
-			}
-		};
-
-		return loginForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('deactivationForm', function($rootScope, $timeout, $filter, ui, DeactivationReasonsRest, myClass) {
 
 		var deactivationForm = {
@@ -4549,6 +4544,56 @@
 		};
 
 		return deactivationForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('loginForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
+
+		var loginForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/loginForm/loginForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				var formModel = $rootScope.globalFormModels.userModel;
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'loginForm',
+					model: formModel,
+					submitAction: function(args) {
+
+						var body = {
+							username: formModel.getValue('username'),
+							password: formModel.getValue('password'),
+						};
+
+						return UsersRest.post(body, undefined, { captcha_response: args.captchaResponse });
+					},
+					submitSuccessCb: function(res) {
+
+						authService.setAsLoggedIn(function() {
+							$timeout(function() {
+								$state.go('app.start', { tab: 'status' });
+							});
+						});
+					},
+					submitErrorCb: function(res) {
+
+						authService.setAsLoggedOut();
+					}
+				});
+			}
+		};
+
+		return loginForm;
 	});
 
 })();
@@ -4677,43 +4722,6 @@
 
 
 
-	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
-
-		var regionalForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/regionalForm/regionalForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				var formModel = $rootScope.globalFormModels.appConfigModel;
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'regionalForm',
-					model: formModel,
-					reload: true,
-					submitAction: function(args) {
-
-						formModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
-						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
-						formModel.setRestObj(restCopy);
-						return restCopy.put();
-					}
-				});
-			}
-		};
-
-		return regionalForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
 
 		var registerForm = {
@@ -4759,6 +4767,43 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
+
+		var regionalForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/regionalForm/regionalForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				var formModel = $rootScope.globalFormModels.appConfigModel;
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'regionalForm',
+					model: formModel,
+					reload: true,
+					submitAction: function(args) {
+
+						formModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
+						formModel.setRestObj(restCopy);
+						return restCopy.put();
+					}
+				});
+			}
+		};
+
+		return regionalForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('reportForm', function($rootScope, $state, $stateParams, $timeout, googleMapService, myClass, ReportsRest, Restangular) {
 
 		var reportForm = {
@@ -4771,78 +4816,96 @@
 
 				$scope.ui = $rootScope.ui;
 				$scope.hardData = $rootScope.hardData;
-
-				$scope.minDate = new Date(2000, 0, 1);
-				$scope.maxDate = new Date();
-				$scope.autocomplete = {};
-
 				$scope.reportGroups = $rootScope.hardData.reportGroups;
 				$scope.reportCategories = $rootScope.apiData.reportCategories;
-
-				var modelFields = ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId',
-									'title', 'serialNo', 'description'];
-
-				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true);
+				$scope.autocomplete = {};
 
 				var date = new Date();
-				date.setHours(12);
-				date.setMinutes(0);
-				date.setSeconds(0);
-				date.setMilliseconds(0);
-				$scope.myModel.set({ date: date });
+				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myForm = new myClass.MyForm({ ctrlId: 'reportForm', model: $scope.myModel });
+				var modelFields = ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'serialNo', 'description'];
+				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true);
 
-				$scope.myForm.submitAction = function(args) {
+				switch ($scope.action) {
 
-					switch ($scope.action) {
+					case 'newreport':
 
-						case 'newreport':
+						$scope.myForm = new myClass.MyForm({
+							ctrlId: 'reportForm',
+							model: $scope.myModel,
+							submitAction: function(args) {
 
-							$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+								$scope.myForm.submitSuccessCb = function(res) {
+									googleMapService.reportPlace = null;
+									$scope.myForm.reset();
+									$state.go('app.report', { id: res.data._id });
+								};
 
-							if (!$scope.myModel.getValue('date')) {
-								$scope.myModel.setValue('date', $scope.myModel.defaults.date);
+								var place = $scope.autocomplete.ins.getPlace();
+								var modelValues = $scope.myModel.getValues();
+
+								if (place) {
+
+									modelValues.placeId = place.place_id;
+
+									modelValues.geolocation = {
+										lat: place.geometry.location.lat(),
+										lng: place.geometry.location.lng()
+									};
+
+								} else {
+									modelValues.placeId = null;
+								}
+
+								$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+
+								return ReportsRest.post(modelValues);
+							},
+							onCancel: function() {
+
+								window.history.back();
 							}
+						});
 
-							$scope.myForm.submitSuccessCb = function(res) {
-								googleMapService.reportPlace = null;
-								$scope.myForm.reset();
-								$state.go('app.report', { id: res.data._id });
-							};
+						$scope.myModel.set({ date: $scope.maxDate });
 
-							// Making http request
-							var modelValues = $scope.myModel.getValues();
-							var place = $scope.autocomplete.ins.getPlace();
-							if (place) { modelValues.placeId = place.place_id; } else { modelValues.placeId = null; }
-							return ReportsRest.post(modelValues);
+						break;
 
-						case 'edit':
+					case 'edit':
 
-							// Making copy of active report
-							var copy = Restangular.copy($rootScope.apiData.report);
+						$scope.myForm = new myClass.MyForm({
+							ctrlId: 'reportForm',
+							model: $scope.myModel,
+							submitAction: function(args) {
 
-							// Updating model values
-							$scope.myModel.setRestObj(copy);
+								// Making copy of active report
+								var copy = Restangular.copy($rootScope.apiData.report);
 
-							$scope.myForm.submitSuccessCb = function(res) {
-								googleMapService.reportPlace = null;
-								$rootScope.apiData.report = res.data;
-								$state.go('app.report', { id: res.data._id, edit: undefined });
-							};
+								// Updating model values
+								$scope.myModel.setRestObj(copy);
 
-							$scope.myForm.submitErrorCb = function(res) {
-								$rootScope.apiData.report = copy;
-							};
+								$scope.myForm.submitSuccessCb = function(res) {
+									googleMapService.reportPlace = null;
+									$rootScope.apiData.report = res.data;
+									$state.go('app.report', { id: res.data._id, edit: undefined });
+								};
 
-							// Making request
-							return copy.put();
-					}
-				};
+								$scope.myForm.submitErrorCb = function(res) {
+									$rootScope.apiData.report = copy;
+								};
 
-				$scope.myForm.onCancel = function() {
-					window.history.back();
-				};
+								// Making request
+								return copy.put();
+							},
+							onCancel: function() {
+
+								window.history.back();
+							}
+						});
+
+						break;
+				}
 			},
 			compile: function(elem, attrs) {
 
@@ -5506,39 +5569,6 @@
 
 
 
-	appModule.directive('myCollectionBrowser', function($rootScope) {
-
-		var myCollectionBrowser = {
-			restrict: 'E',
-			transclude: {
-				frontctrls: '?frontctrls',
-				endctrls: '?endctrls',
-				extractrls: '?extractrls',
-				elems: '?elems',
-			},
-			templateUrl: 'public/directives/my/myCollectionBrowser/myCollectionBrowser.html',
-			scope: {
-				ins: '=',
-				noScrollTopBtn: '='
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-			}
-		};
-
-		return myCollectionBrowser;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('myCaptcha', function($timeout, grecaptchaService) {
 
 		var myCaptcha = {
@@ -5587,6 +5617,39 @@
 		};
 
 		return myCaptcha;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myCollectionBrowser', function($rootScope) {
+
+		var myCollectionBrowser = {
+			restrict: 'E',
+			transclude: {
+				frontctrls: '?frontctrls',
+				endctrls: '?endctrls',
+				extractrls: '?extractrls',
+				elems: '?elems',
+			},
+			templateUrl: 'public/directives/my/myCollectionBrowser/myCollectionBrowser.html',
+			scope: {
+				ins: '=',
+				noScrollTopBtn: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+			}
+		};
+
+		return myCollectionBrowser;
 	});
 
 })();
@@ -5662,6 +5725,43 @@
 		};
 
 		return myContextMenu;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDateInput', function() {
+
+		var myDateInput = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myDateInput/myDateInput.html',
+			scope: {
+				ctrlId: '=',
+				ctrlMaxLength: '=',
+				ctrlMinValue: '=',
+				ctrlMaxValue: '=',
+				model: '=',
+				hardData: '=',
+				hideErrors: '=',
+				isRequired: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+
+				};
+			}
+		};
+
+		return myDateInput;
 	});
 
 })();
@@ -5820,7 +5920,6 @@
 				model: '=',
 				hardData: '=',
 				hideErrors: '=',
-				isRequired: '=',
 				isDisabled: '=',
 				autocomplete: '='
 			},
@@ -5831,9 +5930,9 @@
 
 					if (scope.autocomplete) {
 
-						var input = $(elem).find('input')[0];
-						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
+						var input = $(elem).find('input').get()[0];
 
+						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
 						scope.autocomplete.ins.addListener('place_changed', function() {});
 					}
 				};
@@ -6254,6 +6353,51 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('mySrcSlides', function(MySwitchable) {
+
+		var mySrcSlides = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
+			scope: {
+				mySrcCollection: '=',
+				srcType: '@'
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+
+						if (collection) {
+
+							var switchers = [];
+
+							for (var i in collection) {
+								switchers.push({ _id: collection[i].index, index: collection[i].index });
+							}
+
+							scope.mySwitchable = new MySwitchable({ switchers: switchers });
+							scope.mySrcCollection.switchable = scope.mySwitchable;
+						}
+					});
+				};
+			}
+		};
+
+		return mySrcSlides;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
@@ -6338,51 +6482,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('mySrcSlides', function(MySwitchable) {
-
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
-
-						if (collection) {
-
-							var switchers = [];
-
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
-
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
-
-		return mySrcSlides;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 
 
 	appModule.directive('myTabs', function() {
@@ -6420,6 +6519,91 @@
 
 		return myTextArea;
 	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('reportAvatar', function(reportAvatarService, reportAvatarConf, MySrc) {
+
+		var reportAvatar = {
+			restrict: 'E',
+			templateUrl: 'public/directives/REPORT/reportAvatar/reportAvatar.html',
+			scope: {
+				report: '=',
+				noLink: '&'
+			},
+			controller: function($scope) {
+
+				$scope.src = new MySrc({ defaultUrl: reportAvatarConf.defaultUrl });
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.report; }, function(report) {
+
+						if (report) {
+
+							if (!scope.noLink()) { scope.src.href = '/#/report/photos?id=' + report._id; }
+							scope.src.load(reportAvatarService.constructPhotoUrl(scope, true));
+						}
+					});
+				};
+			}
+		};
+
+		return reportAvatar;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportAvatarConf = function() {
+
+		var conf = {
+			defaultUrl: 'public/imgs/item.png'
+		};
+
+		return conf;
+	};
+
+
+
+	reportAvatarConf.$inject = [];
+	angular.module('appModule').service('reportAvatarConf', reportAvatarConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportAvatarService = function(URLS) {
+
+		var service = {
+			constructPhotoUrl: function(scope, useThumb) {
+
+				if (!scope.report.avatarFileName) { return scope.src.defaultUrl; }
+
+				if (!useThumb) {
+					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
+
+				} else {
+					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
+				}
+			}
+		};
+
+		return service;
+	};
+
+	reportAvatarService.$inject = ['URLS'];
+	angular.module('appModule').service('reportAvatarService', reportAvatarService);
 
 })();
 (function() {
@@ -6799,92 +6983,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportAvatar', function(reportAvatarService, reportAvatarConf, MySrc) {
-
-		var reportAvatar = {
-			restrict: 'E',
-			templateUrl: 'public/directives/REPORT/reportAvatar/reportAvatar.html',
-			scope: {
-				report: '=',
-				noLink: '&'
-			},
-			controller: function($scope) {
-
-				$scope.src = new MySrc({ defaultUrl: reportAvatarConf.defaultUrl });
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return scope.report; }, function(report) {
-
-						if (report) {
-
-							if (!scope.noLink()) { scope.src.href = '/#/report/photos?id=' + report._id; }
-							scope.src.load(reportAvatarService.constructPhotoUrl(scope, true));
-						}
-					});
-				};
-			}
-		};
-
-		return reportAvatar;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportAvatarConf = function() {
-
-		var conf = {
-			defaultUrl: 'public/imgs/item.png'
-		};
-
-		return conf;
-	};
-
-
-
-	reportAvatarConf.$inject = [];
-	angular.module('appModule').service('reportAvatarConf', reportAvatarConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportAvatarService = function(URLS) {
-
-		var service = {
-			constructPhotoUrl: function(scope, useThumb) {
-
-				if (!scope.report.avatarFileName) { return scope.src.defaultUrl; }
-
-				if (!useThumb) {
-					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
-
-				} else {
-					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.report.userId + '/reports/' + scope.report._id + '/' + scope.report.avatarFileName;
-				}
-			}
-		};
-
-		return service;
-	};
-
-	reportAvatarService.$inject = ['URLS'];
-	angular.module('appModule').service('reportAvatarService', reportAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('reports', function($rootScope, reportsConf, contextMenuConf) {
+	appModule.directive('reports', function($rootScope, reportsConf, reportsService, contextMenuConf) {
 
 		var reports = {
 			restrict: 'E',
@@ -6898,20 +6997,7 @@
 
 				$scope.hardData = $rootScope.hardData;
 				$scope.apiData = $rootScope.apiData;
-
-				$scope.initUserReports = function(userId) {
-
-					$scope.collectionBrowser = reportsConf.profileCollectionBrowser;
-
-					if (userId == $rootScope.apiData.loggedInUser._id) {
-						$scope.elemContextMenuConf = contextMenuConf.reportContextMenuConf;
-
-					} else {
-						$scope.elemContextMenuConf = undefined;
-					}
-
-					$scope.collectionBrowser.init();
-				};
+				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
 			},
 			compile: function(elem, attrs) {
 
@@ -6923,7 +7009,7 @@
 
 							if (!$rootScope.$$listeners.initUserReports) {
 								$rootScope.$on('initUserReports', function(e, args) {
-									scope.initUserReports(args.userId);
+									reportsService.initUserReports(scope, args.userId);
 								});
 							}
 
@@ -6932,7 +7018,7 @@
 							});
 
 							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) { scope.initUserReports(userId); }
+								if (angular.isDefined(userId)) { reportsService.initUserReports(scope, userId); }
 							});
 
 							break;
@@ -7065,6 +7151,7 @@
 
 		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 5,
+			noPager: true,
 			fetchData: function(query) {
 
 				query.subject = 'new_reports';
@@ -7126,9 +7213,23 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, Restangular) {
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, Restangular) {
 
 		var service = this;
+
+		service.initUserReports = function(scope, userId) {
+
+			scope.collectionBrowser = reportsConf.profileCollectionBrowser;
+
+			if (userId == $rootScope.apiData.loggedInUser._id) {
+				scope.elemContextMenuConf = scope.reportContextMenuConf;
+
+			} else {
+				$scope.elemContextMenuConf = undefined;
+			}
+
+			scope.collectionBrowser.onRefreshClick();
+		};
 
 		service.deleteReports = function(reports) {
 
@@ -7165,7 +7266,7 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'Restangular'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'Restangular'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();

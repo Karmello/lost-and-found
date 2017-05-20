@@ -54,6 +54,7 @@
     "express-session": "^1.14.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
+    "js-marker-clusterer": "^1.0.0",
     "jsonwebtoken": "^7.0.1",
     "lodash": "^4.16.4",
     "method-override": "^2.3.6",

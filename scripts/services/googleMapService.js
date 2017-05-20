@@ -2,142 +2,162 @@
 
 	'use strict';
 
-	var googleMapService = function($timeout) {
+	var SAME_LOCATION_OFFSET = 0.000015;
+
+	var googleMapService = function($q, $timeout, $state, reportsConf) {
 
 		var service = this;
 
-		service.initReportMap = function(placeId) {
+		service.geo = {
+			allowed: undefined
+		};
 
-			if (!service.reportPlace || service.reportPlace.place_id != placeId) {
+		service.singleReportMap = {
+			init: function(placeId) {
 
-				var map = new google.maps.Map(document.getElementById('reportMap'));
+				if (!service.reportPlace || service.reportPlace.place_id != placeId) {
 
-				google.maps.event.addListener(map, 'idle', function() {
-					google.maps.event.trigger(map, 'resize');
-				});
+					var map = new google.maps.Map(document.getElementById('reportMap'));
 
-				$timeout(function() {
-
-					var geocoder = new google.maps.Geocoder();
-					var infowindow = new google.maps.InfoWindow();
-
-					geocoder.geocode({ 'placeId': placeId }, function(results, status) {
-
-						service.reportPlace = results[0];
-
-						map.setCenter(service.reportPlace.geometry.location);
-						map.setZoom(13);
-
-						var marker = new google.maps.Marker({
-							map: map,
-							position: service.reportPlace.geometry.location
-						});
-
-						marker.addListener('click', function() {
-							infowindow.setContent(service.reportPlace.formatted_address);
-							infowindow.open(map, marker);
-						});
-
-						$timeout(function() {
-							infowindow.setContent(service.reportPlace.formatted_address);
-							infowindow.open(map, marker);
-						}, 1000);
+					google.maps.event.addListener(map, 'idle', function() {
+						google.maps.event.trigger(map, 'resize');
 					});
 
-				}, 1000);
+					$timeout(function() {
+
+						var geocoder = new google.maps.Geocoder();
+						var infowindow = new google.maps.InfoWindow();
+
+						geocoder.geocode({ 'placeId': placeId }, function(results, status) {
+
+							service.reportPlace = results[0];
+
+							map.setCenter(service.reportPlace.geometry.location);
+							map.setZoom(13);
+
+							var marker = new google.maps.Marker({
+								map: map,
+								position: service.reportPlace.geometry.location
+							});
+
+							marker.addListener('click', function() {
+								infowindow.setContent(service.reportPlace.formatted_address);
+								infowindow.open(map, marker);
+							});
+
+							$timeout(function() {
+								infowindow.setContent(service.reportPlace.formatted_address);
+								infowindow.open(map, marker);
+							}, 1000);
+						});
+
+					}, 1000);
+				}
+			}
+		};
+
+		service.searchReportsMap = {
+			init: function() {
+
+				if (angular.isUndefined(service.geo.allowed)) {
+
+					$q(function(resolve) {
+
+						navigator.geolocation.getCurrentPosition(function(pos) {
+
+							resolve({
+								geoAllowed: true,
+								coords: pos.coords
+							});
+
+						}, function() {
+
+							resolve({
+								geoAllowed: false,
+								coords: { latitude: 0, longitude: 0 }
+							});
+
+						}, { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 });
+
+					}).then(function(conf) {
+
+						service.searchReportsMap.ins = new google.maps.Map(document.getElementById('reportsMap'), {
+							center: new google.maps.LatLng(conf.coords.latitude, conf.coords.longitude),
+							zoom: 5
+						});
+
+						service.geo.allowed = conf.geoAllowed;
+
+						if (!service.searchReportsMap.markers) {
+							service.searchReportsMap.addMarkers(reportsConf.searchCollectionBrowser.collection);
+						}
+					});
+				}
+			},
+			addMarkers: function(collection) {
+
+				if (angular.isDefined(service.geo.allowed)) {
+
+					var i;
+
+					// Clearing markers
+					if (service.searchReportsMap.markerCluster) {
+						service.searchReportsMap.markerCluster.clearMarkers();
+					}
+
+					// Resetting markers array
+					service.searchReportsMap.markers = [];
+
+
+
+					$timeout(function() {
+
+						// Adding new markers
+						for (i = 0; i < collection.length; i++) {
+							service.searchReportsMap.addSingleMarker(collection, i);
+						}
+
+						// Creating clusters
+						var map = service.searchReportsMap.ins;
+						var markers = service.searchReportsMap.markers;
+						var imagePath = 'node_modules/js-marker-clusterer/images/m';
+						service.searchReportsMap.markerCluster = new MarkerClusterer(map, markers, { imagePath: imagePath });
+
+					}, 1000);
+				}
+			},
+			addSingleMarker: function(collection, i) {
+
+				var infowindow = new google.maps.InfoWindow();
+				var iconName = collection[i].group == 'L' ? 'red-dot.png' : 'blue-dot.png';
+
+				var newMarker = new google.maps.Marker({
+					map: service.searchReportsMap.ins,
+					position: new google.maps.LatLng(collection[i].geolocation.lat, collection[i].geolocation.lng),
+					icon: 'http://maps.google.com/mapfiles/ms/icons/' + iconName
+				});
+
+				newMarker.addListener('mouseover', function() {
+					infowindow.setContent(collection[i].title);
+					infowindow.open(service.searchReportsMap.ins, newMarker);
+				});
+
+				newMarker.addListener('mouseout', function() {
+					infowindow.close();
+				});
+
+				newMarker.addListener('click', function() {
+					$state.go('app.report', { id: collection[i]._id });
+				});
+
+				service.searchReportsMap.markers.push(newMarker);
 			}
 		};
 
 		return service;
 	};
 
-	googleMapService.$inject = ['$timeout'];
+	googleMapService.$inject = ['$q', '$timeout', '$state', 'reportsConf'];
 	angular.module('appModule').service('googleMapService', googleMapService);
 
 })();
-
-
-
-
-
-
-
-
-
-// var card = document.getElementById('pac-card');
-// var input = document.getElementById('pac-input');
-// var types = document.getElementById('type-selector');
-// var strictBounds = document.getElementById('strict-bounds-selector');
-
-// map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
-
-// var autocomplete = new google.maps.places.Autocomplete(input);
-
-// // Bind the map's bounds (viewport) property to the autocomplete object,
-// // so that the autocomplete requests use the current map bounds for the
-// // bounds option in the request.
-// autocomplete.bindTo('bounds', map);
-
-// var infowindow = new google.maps.InfoWindow();
-// var infowindowContent = document.getElementById('infowindow-content');
-// infowindow.setContent(infowindowContent);
-// var marker = new google.maps.Marker({
-// map: map,
-// anchorPoint: new google.maps.Point(0, -29)
-// });
-
-// autocomplete.addListener('place_changed', function() {
-// infowindow.close();
-// marker.setVisible(false);
-// var place = autocomplete.getPlace();
-// if (!place.geometry) {
-// // User entered the name of a Place that was not suggested and
-// // pressed the Enter key, or the Place Details request failed.
-// window.alert("No details available for input: '" + place.name + "'");
-// return;
-// }
-
-// // If the place has a geometry, then present it on a map.
-// if (place.geometry.viewport) {
-// map.fitBounds(place.geometry.viewport);
-// } else {
-// map.setCenter(place.geometry.location);
-// map.setZoom(17);  // Why 17? Because it looks good.
-// }
-// marker.setPosition(place.geometry.location);
-// marker.setVisible(true);
-
-// var address = '';
-// if (place.address_components) {
-// address = [
-// (place.address_components[0] && place.address_components[0].short_name || ''),
-// (place.address_components[1] && place.address_components[1].short_name || ''),
-// (place.address_components[2] && place.address_components[2].short_name || '')
-// ].join(' ');
-// }
-
-// infowindowContent.children['place-icon'].src = place.icon;
-// infowindowContent.children['place-name'].textContent = place.name;
-// infowindowContent.children['place-address'].textContent = address;
-// infowindow.open(map, marker);
-// });
-
-// // Sets a listener on a radio button to change the filter type on Places
-// // Autocomplete.
-// function setupClickListener(id, types) {
-// var radioButton = document.getElementById(id);
-// radioButton.addEventListener('click', function() {
-// autocomplete.setTypes(types);
-// });
-// }
-
-// setupClickListener('changetype-all', []);
-// setupClickListener('changetype-address', ['address']);
-// setupClickListener('changetype-establishment', ['establishment']);
-// setupClickListener('changetype-geocode', ['geocode']);
-
-// document.getElementById('use-strict-bounds')
-// .addEventListener('click', function() {
-// console.log('Checkbox clicked! New state=' + this.checked);
-// autocomplete.setOptions({strictBounds: this.checked});
-// });

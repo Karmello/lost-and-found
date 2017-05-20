@@ -89,6 +89,7 @@
 
 		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 5,
+			noPager: true,
 			fetchData: function(query) {
 
 				query.subject = 'new_reports';

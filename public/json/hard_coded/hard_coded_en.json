@@ -75,7 +75,8 @@
 		"Logged out", "All", "Nothing to show", "Ascending", "Descending", "No access", "Error", "By title", "By date"
 	],
 	"count": [
-		"on", "Registered for", "Users", "Reports", "Reported as lost", "Reported as found", "By", "Submitted", "ago", "Approximately"
+		"on", "Registered for", "Users", "Reports", "Reported as lost", "Reported as found", "By", "Submitted", "ago", "Approximately",
+		"visible", "all together"
 	],
 	"warnings": [
 		"Sure you want to continue ?",

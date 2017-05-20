@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, $moment, storageService, reportsConf, commentsConf, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, $moment, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -125,6 +125,7 @@
 
 										case 'reports':
 											reportsConf.searchCollectionBrowser.setData(data);
+											googleMapService.searchReportsMap.addMarkers(data.collection);
 											return data.collection;
 
 										case 'new_reports':
@@ -185,7 +186,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();

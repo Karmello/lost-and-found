@@ -12,6 +12,16 @@ var ReportSchema = new r.mongoose.Schema({
 		type: String,
 		required: true
 	},
+	geolocation: {
+		lat: {
+			type: Number,
+			required: true
+		},
+		lng: {
+			type: Number,
+			required: true
+		}
+	},
 	details: {
 		type: String,
 		required: true

@@ -2,7 +2,6 @@
 	<my-label text="label" css-class="'text-info'"></my-label>
 	<my-form-error-icon args="{ error: model.error, hideErrors: hideErrors }"></my-form-error-icon>
 	<input
-		ng-if="ctrlType != 'date'"
 		id="{{ ctrlId }}"
 		class="form-control"
 		type="{{ ctrlType }}"
@@ -12,16 +11,6 @@
 		max="{{ ctrlMaxValue }}"
 		ng-model="model.value"
 		ng-disabled="isDisabled"
-	>
-	<input
-		ng-if="ctrlType == 'date'"
-		id="{{ ctrlId }}"
-		class="form-control"
-		type="{{ ctrlType }}"
-		min="{{ ctrlMinValue | date:'yyyy-MM-dd' }}"
-		max="{{ ctrlMaxValue | date:'yyyy-MM-dd' }}"
-		ng-model="model.value"
-		ng-required="isRequired"
 		autocomplete="autocomplete"
 	>
 </div>

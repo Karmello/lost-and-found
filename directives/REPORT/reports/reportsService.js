@@ -2,9 +2,23 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, Restangular) {
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, Restangular) {
 
 		var service = this;
+
+		service.initUserReports = function(scope, userId) {
+
+			scope.collectionBrowser = reportsConf.profileCollectionBrowser;
+
+			if (userId == $rootScope.apiData.loggedInUser._id) {
+				scope.elemContextMenuConf = scope.reportContextMenuConf;
+
+			} else {
+				$scope.elemContextMenuConf = undefined;
+			}
+
+			scope.collectionBrowser.onRefreshClick();
+		};
 
 		service.deleteReports = function(reports) {
 
@@ -41,7 +55,7 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'Restangular'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'Restangular'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();

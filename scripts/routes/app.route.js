@@ -76,7 +76,6 @@
 						promises.push(DeactivationReasonsRest.getList());
 						promises.push(ContactTypesRest.getList());
 						promises.push(ReportCategoriesRest.getList());
-						promises.push($http.get('/stats'));
 
 						$q.all(promises).then(function(results) {
 
@@ -85,7 +84,6 @@
 								$rootScope.apiData.deactivationReasons = $filter('orderBy')(results[0].data.plain(), 'index');
 								$rootScope.apiData.contactTypes = $filter('orderBy')(results[1].data.plain(), 'index');
 								$rootScope.apiData.reportCategories = results[2].data.plain();
-								$rootScope.apiData.stats = results[3].data;
 
 								resolve(true);
 

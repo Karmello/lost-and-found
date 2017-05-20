@@ -24,33 +24,27 @@
 						} else { resolve(); }
 					});
 				},
-				getPayment: function(id, $q, $http, $rootScope, $moment, storageService) {
+				getPayment: function(id, $q, $http, $rootScope, $moment, storageService, ui) {
 
 					return $q(function(resolve, reject) {
 
-						var token = storageService.authToken.getValue();
+						if ($rootScope.apiData.loggedInUser.paymentId) {
 
-						$http.get('/paypal/payment', { headers: { 'x-access-token': token } }).success(function(res) {
-
-							$rootScope.apiData.payment = {
-								paymentId: res.id,
-								date: $moment(res.create_time).format('DD-MM-YYYY, HH:mm'),
-								paymentMethod: res.payer.payment_method,
-								amount: res.transactions[0].amount.total,
-								currency: res.transactions[0].amount.currency,
-								creditCardType: res.payer.funding_instruments[0].credit_card.type,
-								creditCardNumber: res.payer.funding_instruments[0].credit_card.number,
-								firstname: res.payer.funding_instruments[0].credit_card.first_name,
-								lastname: res.payer.funding_instruments[0].credit_card.last_name,
-								creditCardExpireMonth: res.payer.funding_instruments[0].credit_card.expire_month,
-								creditCardExpireYear: res.payer.funding_instruments[0].credit_card.expire_year
+							var config = {
+								paymentId: $rootScope.apiData.loggedInUser.paymentId,
+								headers: { 'x-access-token': storageService.authToken.getValue() }
 							};
 
-							resolve();
+							$http.get('/paypal/payment', config).success(function(res) {
+								res.create_time = $moment(res.create_time).format('DD-MM-YYYY, HH:mm');
+								$rootScope.apiData.payment = res;
 
-						}).error(function(res) {
-							reject();
-						});
+							}).error(function(res) {
+								ui.modals.tryAgainLaterModal.show();
+							});
+						}
+
+						resolve();
 					});
 				}
 			},

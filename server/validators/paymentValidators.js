@@ -7,8 +7,10 @@ module.exports = {
             msgIndex: 2,
             validator: function (method) {
 
-                for (var i = 0; i < r.hardData.en.payment.methods.length; i++) {
-                    if (r.hardData.en.payment.methods[i].value == method) {
+                var methods = Object.keys(r.hardData.en.payment.methods);
+
+                for (var i = 0; i < methods.length; i++) {
+                    if (methods[i] == method) {
                         return true;
                     }
                 }

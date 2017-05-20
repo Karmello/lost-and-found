@@ -39,7 +39,7 @@
 					});
 				}
 			},
-			onEnter: function(apiData, $rootScope, $stateParams, googleMapService, ui) {
+			onEnter: function(apiData, $rootScope, $timeout, $stateParams, googleMapService, ui) {
 
 				if (apiData) {
 
@@ -50,9 +50,11 @@
 						googleMapService.initReportMap($rootScope.apiData.report.placeId);
 					}
 
-					ui.menus.top.activateSwitcher();
-					ui.frames.main.activateSwitcher('report');
-					ui.frames.app.activateSwitcher('main');
+					$timeout(function() {
+						ui.menus.top.activateSwitcher();
+						ui.frames.main.activateSwitcher('report');
+						ui.frames.app.activateSwitcher('main');
+					});
 				}
 			}
 		});

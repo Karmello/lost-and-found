@@ -33,7 +33,7 @@ module.exports = {
 								case 'credit_card':
 
 									r.modules.paypalModule.makeCreditCardPayment(payment).then(function() {
-										r.modules.paypalModule.finalizePayment(req).then(function() {
+										r.modules.paypalModule.finalizePayment(payment).then(function() {
 											resolve();
 
 										}, function(err) { reject(err); });

@@ -52,7 +52,7 @@
 		"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Grupa", "Lokalizacja", "ID", "Szczegóły",
 		"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie", "",
 		"Metoda", "Rodzaj", "Numer", "Ważna do (miesiąc)", "Ważna do (rok)", "Waluta", "Kwota", "Płatność", "Cvv2", "Data i czas",
-		"ID transakcji", "Data ważności"
+		"ID transakcji", "Data ważności", "ID płatnika"
 	],
 	"description": [
 		"Zaloguj się i korzystaj z serwisu.",

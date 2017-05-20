@@ -4,10 +4,6 @@
 
 		margin: 0 auto;
 
-		.myPanel {
-			.panel-heading { background-color: transparent; }
-		}
-
 		> div:first-child {
 			display: flex;
 			flex-flow: row wrap;

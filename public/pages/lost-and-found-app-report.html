@@ -14,6 +14,11 @@
 					<action-section>
 						<my-context-menu ng-if="reportContextMenu" ins="reportContextMenu"></my-context-menu>
 					</action-section>
+				</my-panel>
+				<my-panel trans-heading="true">
+					<title-section>
+						<span ng-bind="hardData.sections[16]"></span>
+					</title-section>
 					<body-section>
 						<div id="section1">
 							<div>
@@ -53,6 +58,13 @@
 								</div>
 							</div>
 						</div>
+					</body-section>
+				</my-panel>
+				<my-panel trans-heading="true">
+					<title-section>
+						<span ng-bind="hardData.sections[15]"></span>
+					</title-section>
+					<body-section>
 						<div id="section2">
 							<div>
 								<div>
@@ -71,19 +83,19 @@
 								</div>
 							</div>
 						</div>
-						<div id="section3" class="myBtnsGroupCenter">
-							<my-btn
-								ng-if="apiData.report.group == 'L' && apiData.report.userId != apiData.loggedInUser._id"
-								ctrl-class="'btn-primary'"
-								hard-data="{ label: ['declaratives', 0] }"
-							></my-btn>
-						</div>
-						<div id="section4">
-							<my-tabs ins="ui.tabs.report"></my-tabs>
-							<div ui-view="tab"></div>
-						</div>
 					</body-section>
 				</my-panel>
+				<div id="section3" class="myBtnsGroupCenter">
+					<my-btn
+						ng-if="apiData.report.group == 'L' && apiData.report.userId != apiData.loggedInUser._id"
+						ctrl-class="'btn-primary'"
+						hard-data="{ label: ['declaratives', 0] }"
+					></my-btn>
+				</div>
+				<div id="section4">
+					<my-tabs ins="ui.tabs.report"></my-tabs>
+					<div ui-view="tab"></div>
+				</div>
 			</div>
 			<div ng-show="params.edit === '1'">
 				<my-panel>

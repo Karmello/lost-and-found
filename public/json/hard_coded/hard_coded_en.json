@@ -52,7 +52,7 @@
 		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Group", "Location", "ID", "Details",
 		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
 		"Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
-		"Transaction ID", "Expiration date"
+		"Transaction ID", "Expiration date", "Payer ID"
 	],
 	"description": [
 		"Log in to your account and take advantage of our services.",

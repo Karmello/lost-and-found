@@ -94,6 +94,7 @@ module.exports = {
 								headers: { 'Authorization': data.token_type + ' ' + data.access_token }
 
 							}, function(err, res, body) {
+
 								if (!err) { resolve(JSON.parse(body)); } else { reject(err); }
 							});
 
@@ -144,8 +145,12 @@ module.exports = {
 	    r.paypal.payment.execute(req.session.paymentId, { payer_id: req.query.PayerID }, function (err, payment) {
 
 	        if (!err) {
-	        	r.modules.paypalModule.finalizePayment(req).then(function() {
-	        		res.redirect('http://' + req.headers.host + '/#/upgrade');
+
+	        	r.modules.paypalModule.finalizePayment(payment).then(function() {
+	        		res.redirect('http://' + req.headers.host + '/#/upgrade?id=' + payment.transactions[0].description);
+
+	        	}, function() {
+	        		res.send('Error occured.');
 	        	});
 
 	        } else {
@@ -153,18 +158,18 @@ module.exports = {
 	        }
 	    });
 	},
-	finalizePayment: function(req) {
+	finalizePayment: function(payment) {
 
 		return new r.Promise(function(resolve, reject) {
 
-			r.User.findOne({ _id: req.decoded._doc._id }, function(err, user) {
+			r.User.findOne({ _id: payment.transactions[0].description }, function(err, user) {
 
                 if (!err && user) {
 
-                    user.paymentId = req.session.paymentId;
+                    user.paymentId = payment.id;
 
                     user.save({ validateBeforeSave: false }, function(err) {
-                        if (!err) { resolve(err); } else { reject(err); }
+                        if (!err) { resolve(); } else { reject(err); }
                     });
 
                 } else { reject(err); }

@@ -3,7 +3,7 @@
 	<my-form ins="myForm">
 		<div id="formSection">
 			<div>
-				<my-panel>
+				<my-panel trans-heading="true">
 					<title-section>
 						<span>&nbsp;&nbsp;&nbsp;{{ hardData.labels[37] }}</span>
 						<span ng-show="myModel.values.currency.value">-</span>
@@ -14,7 +14,6 @@
 							ctrl-id="'paymentMethod'"
 							collection="hardData.payment.methods"
 							model="myModel.values.paymentMethod"
-							prop-names="{ optionValue: 'value', optionLabel: 'label' }"
 							option-zero="true"
 							hard-data="{ label: ['labels', 30], placeholder: ['imperatives', 18] }"
 						></my-select>
@@ -30,9 +29,9 @@
 				</my-panel>
 			</div>
 			<div ng-show="myModel.getValue('paymentMethod') == 'credit_card'">
-				<my-panel>
+				<my-panel trans-heading="true">
 					<title-section>
-						<span>&nbsp;&nbsp;&nbsp;{{ hardData.payment.methods[0].label }}</span>
+						<span>&nbsp;&nbsp;&nbsp;{{ hardData.payment.methods.credit_card }}</span>
 					</title-section>
 					<body-section>
 						<my-select

@@ -318,8 +318,6 @@ body table tr td {
 
 #lost-and-found-app-upgrade #whenPaidSection {
   margin: 0 auto; }
-  #lost-and-found-app-upgrade #whenPaidSection .myPanel .panel-heading {
-    background-color: transparent; }
   #lost-and-found-app-upgrade #whenPaidSection > div:first-child {
     display: -ms-flexbox;
     display: flex;
@@ -353,15 +351,15 @@ body table tr td {
       margin: 2px 5px 2px 5px;
       line-height: 18px; }
 
-.comments .myTextArea {
-  max-width: 700px;
-  margin: 0 auto; }
-
 .myAlert {
   display: table;
   margin: 0 auto;
   text-align: center;
   padding: 15px; }
+
+.comments .myTextArea {
+  max-width: 700px;
+  margin: 0 auto; }
 
 .myBtn {
   padding: 7px 15px 7px 14px; }
@@ -632,6 +630,28 @@ body table tr td {
     .responsiveImgAndDesc > div {
       display: block; } }
 
+.myPopOverIcon {
+  display: table;
+  border-radius: 3px; }
+  .myPopOverIcon > div {
+    display: table-cell;
+    vertical-align: middle; }
+    .myPopOverIcon > div > span {
+      display: table;
+      margin: 0 auto;
+      text-align: center; }
+      .myPopOverIcon > div > span.glyphicon {
+        display: table;
+        width: 28px;
+        height: 28px;
+        position: relative;
+        padding-top: 7px;
+        padding-left: 1px;
+        font-size: 15px;
+        color: #eeeeee; }
+  .myPopOverIcon .glyphicon-play {
+    top: 0 !important; }
+
 .myPanel .panel-heading {
   display: -ms-flexbox;
   display: flex;
@@ -661,27 +681,8 @@ body table tr td {
   position: relative;
   margin: 0 auto; }
 
-.myPopOverIcon {
-  display: table;
-  border-radius: 3px; }
-  .myPopOverIcon > div {
-    display: table-cell;
-    vertical-align: middle; }
-    .myPopOverIcon > div > span {
-      display: table;
-      margin: 0 auto;
-      text-align: center; }
-      .myPopOverIcon > div > span.glyphicon {
-        display: table;
-        width: 28px;
-        height: 28px;
-        position: relative;
-        padding-top: 7px;
-        padding-left: 1px;
-        font-size: 15px;
-        color: #eeeeee; }
-  .myPopOverIcon .glyphicon-play {
-    top: 0 !important; }
+.myPanel .trasparentHeading {
+  background-color: transparent; }
 
 .mySrc {
   position: relative;
@@ -897,8 +898,6 @@ body table tr td {
     flex-grow: 1;
     max-width: 300px;
     margin: 5px; }
-    .upgradeForm .myForm > div #formSection > div .myPanel .panel-heading {
-      background-color: transparent; }
 
 #imgCropWindow img {
   max-width: 100%; }

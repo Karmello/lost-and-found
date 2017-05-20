@@ -1,3 +1,2 @@
 - check pay scenarios with error
 - map with all markers
-- improve report edit view loading when coming from profile view

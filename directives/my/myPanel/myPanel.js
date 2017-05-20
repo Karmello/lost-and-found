@@ -13,6 +13,9 @@
 				titleSection: '?titleSection',
 				actionSection: '?actionSection',
 				bodySection: '?bodySection'
+			},
+			scope: {
+				transHeading: '='
 			}
 		};
 

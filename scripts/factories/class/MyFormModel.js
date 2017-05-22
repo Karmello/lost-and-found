@@ -103,7 +103,7 @@
 					that.values[key] = new MyFormModelValue(null, null, null);
 				});
 			},
-			trimValues: function(formId, callback) {
+			trimValues: function(formId, cb) {
 
 				var that = this;
 
@@ -129,7 +129,7 @@
 					}
 				});
 
-				if (callback) { callback(); }
+				if (cb) { cb(); }
 			},
 			getValues: function() {
 
@@ -146,7 +146,7 @@
 
 				return this.values[key].value;
 			},
-			bindErrors: function(errors, callback) {
+			bindErrors: function(errors, cb) {
 
 				var that = this;
 
@@ -168,11 +168,11 @@
 						}
 					});
 
-					if (callback) { callback(); }
+					if (cb) { cb(); }
 
-				} else { if (callback) { callback(); } }
+				} else { if (cb) { cb(); } }
 			},
-			clearErrors: function(callback) {
+			clearErrors: function(cb) {
 
 				var that = this;
 
@@ -182,7 +182,7 @@
 					that.values[key].errorType = null;
 				});
 
-				if (callback) { callback(); }
+				if (cb) { cb(); }
 			}
 		};
 

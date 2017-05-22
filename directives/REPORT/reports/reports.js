@@ -63,6 +63,17 @@
 
 						case 'RecentlyViewedReports':
 
+							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
+								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initRecentlyViewedReports = null;
+							});
+
 							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
 							scope.collectionBrowser.init();
 							break;

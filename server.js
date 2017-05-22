@@ -74,14 +74,12 @@ r.setups.setupConstants(app, function() {
 					r.User = r.mongoose.model('user');
 
 					var server = r.http.createServer(app);
+					r.io = r.socketIO(server);
 
-					r.setups.setupSockets(server, function() {
-						server.listen(process.env.PORT, function () {
-
-					    	var log = 'App server listening on port ' + process.env.PORT;
-					        r.modules.utilModule.printFormattedLog(log);
-					    });
-					});
+					server.listen(process.env.PORT, function () {
+				    	var log = 'App server listening on port ' + process.env.PORT;
+				        r.modules.utilModule.printFormattedLog(log);
+				    });
 				});
 			});
 		});

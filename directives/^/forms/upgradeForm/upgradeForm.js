@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('upgradeForm', function($rootScope, $http, $window, exchangeRateService, PaymentsRest, myClass) {
+	appModule.directive('upgradeForm', function($http, $window, hardDataService, exchangeRateService, PaymentsRest, myClass) {
 
 		var DEFAULT_CURRENCY = 'USD';
 		var DEFAULT_AMOUNT = '5.00';
@@ -16,7 +16,7 @@
 			scope: {},
 			controller: function($scope) {
 
-				$scope.hardData = $rootScope.hardData;
+				$scope.hardData = hardDataService.get();
 				$scope.currentYear = CURRENT_YEAR;
 
 				var fields = [

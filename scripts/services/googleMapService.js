@@ -92,6 +92,10 @@
 							service.searchReportsMap.addMarkers(reportsConf.searchCollectionBrowser.collection);
 						}
 					});
+
+				} else {
+
+					google.maps.event.trigger(service.searchReportsMap.ins, 'resize');
 				}
 			},
 			addMarkers: function(collection) {
@@ -129,7 +133,7 @@
 			addSingleMarker: function(collection, i) {
 
 				var infowindow = new google.maps.InfoWindow();
-				var iconName = collection[i].group == 'L' ? 'red-dot.png' : 'blue-dot.png';
+				var iconName = collection[i].group == 'lost' ? 'red-dot.png' : 'blue-dot.png';
 
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,

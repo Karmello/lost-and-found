@@ -3,7 +3,7 @@ function getRandomInRange(from, to, fixed) {
     // .toFixed() returns string, so ' * 1' is a trick to convert to number
 }
 
-var groups = ['L', 'F'];
+var groups = ['lost', 'found'];
 
 
 

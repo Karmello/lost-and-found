@@ -7,7 +7,7 @@ var _requires = {
 	express: require('express'),
 	http: require('http'),
 	https: require('https'),
-	io: require('socket.io'),
+	socketIO: require('socket.io'),
 	jwt: require('jsonwebtoken'),
 	methodOverride: require('method-override'),
 	mongoose: require('mongoose'),

@@ -4,7 +4,7 @@
 		<meta name="fragment" content="!" />
 	</head>
 	<body>
-		<div id="lost-and-found-app-search">
+		<div id="lost-and-found-app-search" ng-controller="SearchController">
 			<my-panel>
 				<title-section>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
@@ -27,7 +27,12 @@
 					</span>
 				</title-section>
 				<body-section>
-					<div id="reportsMap" class="myGoogleMap"></div>
+					<div id="mapSection">
+						<div>
+							<a class="text-info" ng-bind="hardData.imperatives[showMap ? 37 : 38]" ng-click="toggleMap()"></a>
+						</div>
+						<div id="reportsMap" class="myGoogleMap" ng-show="showMap"></div>
+					</div>
 					<reports ctrl-id="SearchReports"></reports>
 				</body-section>
 			</my-panel>

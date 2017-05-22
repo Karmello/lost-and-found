@@ -1,7 +1,7 @@
 <div class="userBadge thumbnail">
 	<div ng-hide="authState.loggedIn" ng-bind="label1"></div>
 	<div ng-show="authState.loggedIn">
-		<user-avatar user="apiData.loggedInUser"></user-avatar>
+		<user-avatar user="apiData.loggedInUser" with-label="true"></user-avatar>
 		<br />
 		<div class="myBtnsGroupCenter">
 			<my-btn ctrl-class="'btn-default'" click-action="onLogoutClick" hard-data="{ label: ['imperatives', 12] }" ></my-btn>

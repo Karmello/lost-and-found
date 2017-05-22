@@ -42,8 +42,10 @@
 									$state.go('app.report', { id: res.data._id });
 								};
 
-								var place = $scope.autocomplete.ins.getPlace();
+								$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
 								var modelValues = $scope.myModel.getValues();
+
+								var place = $scope.autocomplete.ins.getPlace();
 
 								if (place) {
 
@@ -57,8 +59,6 @@
 								} else {
 									modelValues.placeId = null;
 								}
-
-								$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
 
 								return ReportsRest.post(modelValues);
 							},

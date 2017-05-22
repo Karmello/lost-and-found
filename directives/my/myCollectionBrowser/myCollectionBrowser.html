@@ -13,7 +13,7 @@
 		<div class="myPager" ng-show="ins.pager.switchers.length > 1">
 			<my-drop-down ins="ins.pager" open-direction="'down'" ctrl-class="'btn-warning'"></my-drop-down>
 		</div>
-		<div class="refresher">
+		<div class="refresher" ng-hide="ins.hideRefresher">
 			<div>
 				<button
 					type="button"

@@ -14,16 +14,16 @@
 					<br>
 					<app-stats></app-stats>
 					<br>
-					<my-panel>
+					<my-panel trans-heading="true">
 						<title-section>
-							<span class="glyphicon glyphicon-time"></span>
+							<span ng-class="ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
 							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[22] }}</span>
 						</title-section>
 						<body-section>
 							<reports ctrl-id="NewReports"></reports>
 						</body-section>
 					</my-panel>
-					<my-panel>
+					<my-panel trans-heading="true">
 						<title-section>
 							<span class="glyphicon glyphicon-eye-open"></span>
 							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[21] }}</span>

@@ -155,6 +155,9 @@ module.exports = {
 							}
 
 							if (action.id == 'register') {
+
+								r.modules.socketModule.emitUsersCount();
+
 								body.msg = {
 									title: r.hardData[req.session.language].msgs.titles[0],
 									info: r.hardData[req.session.language].msgs.infos[0]

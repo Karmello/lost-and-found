@@ -27,6 +27,8 @@
 			},
 			getResponse: function(captchaObj) {
 
+				console.log(captchaObj);
+
 				if (window.grecaptcha && captchaObj) {
 					return window.grecaptcha.getResponse(captchaObj.grecaptchaId);
 				}

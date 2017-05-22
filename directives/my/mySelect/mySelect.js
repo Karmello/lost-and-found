@@ -101,7 +101,7 @@
 							scope.$watch('model.value', function(newValue) {
 
 								// Selecting option 1 as default, later setting model overrides this
-								if (!scope.optionZero && !newValue) {
+								if (!scope.optionZero && !newValue && scope.collection) {
 									scope.model.value = scope.collection[0][scope.propNames.optionValue];
 								}
 							});

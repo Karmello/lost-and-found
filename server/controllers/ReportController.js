@@ -6,6 +6,7 @@ module.exports = function(app, route) {
 	var rest = r.restful.model('report', app.models.Report).methods(['post', 'get', 'put', 'delete']);
 
 	rest.before('post', [authorize.userToken, authorize.reportAction, r.actions.report.post.before]);
+	rest.after('post', r.actions.report.post.after);
 
 	rest.before('get', [authorize.reportAction, function(req, res, next) {
 

@@ -31,8 +31,8 @@
 		]
 	},
 	"reportGroups": [
-		{ "value": "L", "label": "Lost" },
-		{ "value": "F", "label": "Found" }
+		{ "value": "lost", "label": "Lost" },
+		{ "value": "found", "label": "Found" }
 	],
 	"themes": [
 		{ "value": "standard", "label": "Standard" },
@@ -66,7 +66,7 @@
 		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
 		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Search", "Choose", "Refresh",
 		"Move left", "Move right", "Rotate", "Zoom in", "Zoom out", "Scroll to top", "Delete account", "Choose an image", "Set as avatar", "Deselect all",
-		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay"
+		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay", "Hide map", "Show map"
 	],
 	"declaratives": [
 		"I found it !"

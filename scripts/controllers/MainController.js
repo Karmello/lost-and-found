@@ -2,13 +2,12 @@
 
 	'use strict';
 
-	var MainController = function($scope, reportsConf) {
+	var MainController = function($scope) {
 
-		$scope.searchCollectionBrowser = reportsConf.searchCollectionBrowser;
-		$scope.profileCollectionBrowser = reportsConf.profileCollectionBrowser;
+
 	};
 
-	MainController.$inject = ['$scope', 'reportsConf'];
+	MainController.$inject = ['$scope'];
 	angular.module('appModule').controller('MainController', MainController);
 
 })();

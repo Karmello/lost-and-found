@@ -5,5 +5,6 @@ module.exports = {
 	mailModule: require('./mailModule'),
 	modelDataModule: require('./modelDataModule'),
 	paypalModule: require('./paypalModule'),
+	socketModule: require('./socketModule'),
 	utilModule: require('./utilModule')
 };

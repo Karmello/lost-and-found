@@ -15,11 +15,11 @@
 						label: hardData.status[1]
 					},
 					{
-						_id: 'L',
+						_id: 'lost',
 						label: hardData.reportGroups[0].label
 					},
 					{
-						_id: 'F',
+						_id: 'found',
 						label: hardData.reportGroups[1].label
 					}
 				]
@@ -58,11 +58,11 @@
 						label: hardData.status[1]
 					},
 					{
-						_id: 'L',
+						_id: 'lost',
 						label: hardData.reportGroups[0].label
 					},
 					{
-						_id: 'F',
+						_id: 'found',
 						label: hardData.reportGroups[1].label
 					}
 				]
@@ -102,6 +102,7 @@
 
 		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 5,
+			hideRefresher: true,
 			fetchData: function(query) {
 
 				query.subject = 'recently_viewed_reports';

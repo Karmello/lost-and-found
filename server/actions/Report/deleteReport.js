@@ -8,7 +8,13 @@ module.exports = {
 			if (!err && report) {
 
 				report.remove(function(err) {
-					if (!err) { res.status(204).send(); } else { res.status(400).send(err); }
+
+					if (!err) {
+						res.status(204).send();
+
+					} else {
+						res.status(400).send(err);
+					}
 				});
 
 			} else { res.status(400).send(err); }

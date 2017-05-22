@@ -157,6 +157,8 @@ UserSchema.post('remove', function(doc) {
 
 	// Removing avatar file from S3
 	doc.removeAvatarFromS3();
+
+	r.modules.socketModule.emitUsersCount();
 });
 
 

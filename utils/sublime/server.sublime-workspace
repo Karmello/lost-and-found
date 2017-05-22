@@ -526,14 +526,6 @@
 				"buffer_size": 1171,
 				"line_ending": "Windows"
 			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
-			"settings":
-			{
-				"buffer_size": 1279,
-				"line_ending": "Windows"
-			}
 		}
 	],
 	"build_system": "",
@@ -621,6 +613,7 @@
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
 		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
 		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
@@ -669,7 +662,6 @@
 		"/D/Workspace/laf/dev/server/controllers/DeactivationReasonController.js",
 		"/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
 		"/D/Workspace/laf/dev/server/actions/ReportCategory/getReportCategories.js",
-		"/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReportByUserId.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReport.js",
 		"/D/Workspace/laf/dev/server/actions/Comment/getComment.js",
@@ -1106,7 +1098,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1147,49 +1139,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1279,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								819,
-								819
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "c6391df1",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 48.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

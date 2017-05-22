@@ -720,10 +720,10 @@
 
 	var AppController = function(
 		$rootScope, $scope, $window, $timeout, $moment, $state, storageService, authService, hardDataService, ui,
-		uiSetupService, myClass, Restangular
+		uiSetupService, socketService, myClass, Restangular
 	) {
 
-		$rootScope.socket = io('http://localhost:8080');
+		socketService.init();
 
 		$rootScope.ui = ui;
 		$rootScope.hardData = hardDataService.get();
@@ -813,7 +813,7 @@
 
 	AppController.$inject = [
 		'$rootScope', '$scope', '$window', '$timeout', '$moment', '$state', 'storageService', 'authService',
-		'hardDataService', 'ui', 'uiSetupService', 'myClass', 'Restangular'
+		'hardDataService', 'ui', 'uiSetupService', 'socketService', 'myClass', 'Restangular'
 	];
 
 	angular.module('appModule').controller('AppController', AppController);
@@ -823,13 +823,12 @@
 
 	'use strict';
 
-	var MainController = function($scope, reportsConf) {
+	var MainController = function($scope) {
 
-		$scope.searchCollectionBrowser = reportsConf.searchCollectionBrowser;
-		$scope.profileCollectionBrowser = reportsConf.profileCollectionBrowser;
+
 	};
 
-	MainController.$inject = ['$scope', 'reportsConf'];
+	MainController.$inject = ['$scope'];
 	angular.module('appModule').controller('MainController', MainController);
 
 })();
@@ -837,12 +836,13 @@
 
 	'use strict';
 
-	var ProfileController = function($rootScope, $scope, contextMenuConf, MySwitchable) {
+	var ProfileController = function($rootScope, $scope, contextMenuConf, reportsConf, MySwitchable) {
 
+		$scope.profileCollectionBrowser = reportsConf.profileCollectionBrowser;
 		$scope.profileReportsContextMenu = new MySwitchable(contextMenuConf.profileReportsContextMenu);
 	};
 
-	ProfileController.$inject = ['$rootScope', '$scope', 'contextMenuConf', 'MySwitchable'];
+	ProfileController.$inject = ['$rootScope', '$scope', 'contextMenuConf', 'reportsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ProfileController', ProfileController);
 
 })();
@@ -871,6 +871,31 @@
 
 	ReportController.$inject = ['$scope', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ReportController', ReportController);
+
+})();
+(function() {
+
+	'use strict';
+
+	var SearchController = function($rootScope, $scope, $timeout, reportsConf, googleMapService) {
+
+		$scope.searchCollectionBrowser = reportsConf.searchCollectionBrowser;
+		$scope.showMap = true;
+
+		$scope.toggleMap = function() {
+
+			$scope.showMap = !$scope.showMap;
+
+			if ($scope.showMap && googleMapService.searchReportsMap.ins) {
+				$timeout(function() {
+					google.maps.event.trigger(googleMapService.searchReportsMap.ins, 'resize');
+				});
+			}
+		};
+	};
+
+	SearchController.$inject = ['$rootScope', '$scope', '$timeout', 'reportsConf', 'googleMapService'];
+	angular.module('appModule').controller('SearchController', SearchController);
 
 })();
 (function() {
@@ -1004,6 +1029,7 @@
 						promises.push(DeactivationReasonsRest.getList());
 						promises.push(ContactTypesRest.getList());
 						promises.push(ReportCategoriesRest.getList());
+						promises.push($http.get('/stats'));
 
 						$q.all(promises).then(function(results) {
 
@@ -1012,6 +1038,7 @@
 								$rootScope.apiData.deactivationReasons = $filter('orderBy')(results[0].data.plain(), 'index');
 								$rootScope.apiData.contactTypes = $filter('orderBy')(results[1].data.plain(), 'index');
 								$rootScope.apiData.reportCategories = results[2].data.plain();
+								$rootScope.apiData.stats = results[3].data;
 
 								resolve(true);
 
@@ -1092,22 +1119,11 @@
 			resolve: {
 				isAuthenticated: function(authentication, resolveService) {
 					return resolveService.isAuthenticated();
-				},
-				apiData: function(isAuthenticated, $q, $http, $rootScope) {
-
-					return $q(function(resolve) {
-
-						$http.get('/stats').success(function(res) {
-							$rootScope.apiData.stats = res;
-							resolve(true);
-
-						}).error(function() {
-							resolve(false);
-						});
-					});
 				}
 			},
-			onEnter: function(ui) {
+			onEnter: function($rootScope, ui) {
+
+				$rootScope.$broadcast('initRecentlyViewedReports');
 
 				ui.menus.top.activateSwitcher('home');
 				ui.frames.main.activateSwitcher('home');
@@ -1276,6 +1292,7 @@
 
 				var timeout = 0;
 				if (ui.loaders.renderer.isLoading) { timeout = 4000; }
+
 				$timeout(function() { googleMapService.searchReportsMap.init(); }, timeout);
 			}
 		});
@@ -2013,6 +2030,10 @@
 							service.searchReportsMap.addMarkers(reportsConf.searchCollectionBrowser.collection);
 						}
 					});
+
+				} else {
+
+					google.maps.event.trigger(service.searchReportsMap.ins, 'resize');
 				}
 			},
 			addMarkers: function(collection) {
@@ -2050,7 +2071,7 @@
 			addSingleMarker: function(collection, i) {
 
 				var infowindow = new google.maps.InfoWindow();
-				var iconName = collection[i].group == 'L' ? 'red-dot.png' : 'blue-dot.png';
+				var iconName = collection[i].group == 'lost' ? 'red-dot.png' : 'blue-dot.png';
 
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,
@@ -2110,6 +2131,8 @@
 				}
 			},
 			getResponse: function(captchaObj) {
+
+				console.log(captchaObj);
 
 				if (window.grecaptcha && captchaObj) {
 					return window.grecaptcha.getResponse(captchaObj.grecaptchaId);
@@ -2493,6 +2516,35 @@
 
 	sessionService.$inject = ['$http'];
 	angular.module('appModule').service('sessionService', sessionService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var socketService = function($rootScope) {
+
+		var service = this;
+
+		service.init = function() {
+
+			service.socket = io('http://localhost:8080');
+			service.socket.on('UpdateAppStats', service.onUpdateAppStats);
+		};
+
+		service.onUpdateAppStats = function(data) {
+
+			console.log(data);
+
+			Object.assign($rootScope.apiData.stats, data);
+			$rootScope.$apply();
+		};
+
+		return service;
+	};
+
+	socketService.$inject = ['$rootScope'];
+	angular.module('appModule').service('socketService', socketService);
 
 })();
 (function() {
@@ -3217,7 +3269,7 @@
 					that.values[key] = new MyFormModelValue(null, null, null);
 				});
 			},
-			trimValues: function(formId, callback) {
+			trimValues: function(formId, cb) {
 
 				var that = this;
 
@@ -3243,7 +3295,7 @@
 					}
 				});
 
-				if (callback) { callback(); }
+				if (cb) { cb(); }
 			},
 			getValues: function() {
 
@@ -3260,7 +3312,7 @@
 
 				return this.values[key].value;
 			},
-			bindErrors: function(errors, callback) {
+			bindErrors: function(errors, cb) {
 
 				var that = this;
 
@@ -3282,11 +3334,11 @@
 						}
 					});
 
-					if (callback) { callback(); }
+					if (cb) { cb(); }
 
-				} else { if (callback) { callback(); } }
+				} else { if (cb) { cb(); } }
 			},
-			clearErrors: function(callback) {
+			clearErrors: function(cb) {
 
 				var that = this;
 
@@ -3296,7 +3348,7 @@
 					that.values[key].errorType = null;
 				});
 
-				if (callback) { callback(); }
+				if (cb) { cb(); }
 			}
 		};
 
@@ -4386,31 +4438,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('scrollTopBtn', function() {
-
-		var scrollTopBtn = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
-			controller: function($scope) {
-
-				$scope.scroll = function() {
-					$('html, body').animate({ scrollTop: 0 }, 'fast');
-				};
-			}
-		};
-
-		return scrollTopBtn;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('appearanceForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
 
 		var appearanceForm = {
@@ -4437,6 +4464,31 @@
 		};
 
 		return appearanceForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('scrollTopBtn', function() {
+
+		var scrollTopBtn = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
+			controller: function($scope) {
+
+				$scope.scroll = function() {
+					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				};
+			}
+		};
+
+		return scrollTopBtn;
 	});
 
 })();
@@ -4722,6 +4774,43 @@
 
 
 
+	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
+
+		var regionalForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/regionalForm/regionalForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				var formModel = $rootScope.globalFormModels.appConfigModel;
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'regionalForm',
+					model: formModel,
+					reload: true,
+					submitAction: function(args) {
+
+						formModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
+						formModel.setRestObj(restCopy);
+						return restCopy.put();
+					}
+				});
+			}
+		};
+
+		return regionalForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
 
 		var registerForm = {
@@ -4758,43 +4847,6 @@
 		};
 
 		return registerForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
-
-		var regionalForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/regionalForm/regionalForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				var formModel = $rootScope.globalFormModels.appConfigModel;
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'regionalForm',
-					model: formModel,
-					reload: true,
-					submitAction: function(args) {
-
-						formModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
-						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
-						formModel.setRestObj(restCopy);
-						return restCopy.put();
-					}
-				});
-			}
-		};
-
-		return regionalForm;
 	});
 
 })();
@@ -4842,8 +4894,10 @@
 									$state.go('app.report', { id: res.data._id });
 								};
 
-								var place = $scope.autocomplete.ins.getPlace();
+								$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
 								var modelValues = $scope.myModel.getValues();
+
+								var place = $scope.autocomplete.ins.getPlace();
 
 								if (place) {
 
@@ -4857,8 +4911,6 @@
 								} else {
 									modelValues.placeId = null;
 								}
-
-								$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
 
 								return ReportsRest.post(modelValues);
 							},
@@ -4979,7 +5031,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('upgradeForm', function($rootScope, $http, $window, exchangeRateService, PaymentsRest, myClass) {
+	appModule.directive('upgradeForm', function($http, $window, hardDataService, exchangeRateService, PaymentsRest, myClass) {
 
 		var DEFAULT_CURRENCY = 'USD';
 		var DEFAULT_AMOUNT = '5.00';
@@ -4991,7 +5043,7 @@
 			scope: {},
 			controller: function($scope) {
 
-				$scope.hardData = $rootScope.hardData;
+				$scope.hardData = hardDataService.get();
 				$scope.currentYear = CURRENT_YEAR;
 
 				var fields = [
@@ -5319,64 +5371,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('auctionNumBox', function($rootScope, $sce, exchangeRateService) {
-
-		var auctionNumBox = {
-			restrict: 'E',
-			templateUrl: 'public/directives/AUCTION/auctionNumBox/auctionNumBox.html',
-			scope: {
-				auction: '=auction'
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.exchangeRateService = exchangeRateService;
-
-				$scope.numValues = [
-					{ name: 'initialValue', message: '' },
-					{ name: 'bidIncrement', message: '' },
-					{ name: 'minSellPrice', message: '' }
-				];
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return scope.auction; }, function(auction) {
-
-						if (auction) {
-
-							var rates = exchangeRateService.config.availableRates;
-
-							for (var i in scope.numValues) {
-
-								var message = '';
-
-								for (var rateKey in rates) {
-									if (rateKey != scope.auction.currency) {
-										var value = exchangeRateService.methods.convert(scope.auction[scope.numValues[i].name], scope.auction.currency, rateKey);
-										message += value + '<br />';
-									}
-								}
-
-								scope.numValues[i].message = $sce.trustAsHtml(message);
-							}
-						}
-					});
-				};
-			}
-		};
-
-		return auctionNumBox;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest) {
 
 		var comments = {
@@ -5484,6 +5478,64 @@
 
 	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
 	angular.module('appModule').service('commentsConf', commentsConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('auctionNumBox', function($rootScope, $sce, exchangeRateService) {
+
+		var auctionNumBox = {
+			restrict: 'E',
+			templateUrl: 'public/directives/AUCTION/auctionNumBox/auctionNumBox.html',
+			scope: {
+				auction: '=auction'
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.exchangeRateService = exchangeRateService;
+
+				$scope.numValues = [
+					{ name: 'initialValue', message: '' },
+					{ name: 'bidIncrement', message: '' },
+					{ name: 'minSellPrice', message: '' }
+				];
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.auction; }, function(auction) {
+
+						if (auction) {
+
+							var rates = exchangeRateService.config.availableRates;
+
+							for (var i in scope.numValues) {
+
+								var message = '';
+
+								for (var rateKey in rates) {
+									if (rateKey != scope.auction.currency) {
+										var value = exchangeRateService.methods.convert(scope.auction[scope.numValues[i].name], scope.auction.currency, rateKey);
+										message += value + '<br />';
+									}
+								}
+
+								scope.numValues[i].message = $sce.trustAsHtml(message);
+							}
+						}
+					});
+				};
+			}
+		};
+
+		return auctionNumBox;
+	});
 
 })();
 (function() {
@@ -5974,26 +6026,6 @@
 
 
 
-	appModule.directive('myListGroup', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('myLoader', function($timeout) {
 
 		var myLoader = {
@@ -6006,6 +6038,26 @@
 		};
 
 		return myLoader;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myListGroup', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
+			scope: {
+				ins: '='
+			}
+		};
 	});
 
 })();
@@ -6254,7 +6306,7 @@
 							scope.$watch('model.value', function(newValue) {
 
 								// Selecting option 1 as default, later setting model overrides this
-								if (!scope.optionZero && !newValue) {
+								if (!scope.optionZero && !newValue && scope.collection) {
 									scope.model.value = scope.collection[0][scope.propNames.optionValue];
 								}
 							});
@@ -7042,6 +7094,17 @@
 
 						case 'RecentlyViewedReports':
 
+							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
+								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initRecentlyViewedReports = null;
+							});
+
 							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
 							scope.collectionBrowser.init();
 							break;
@@ -7077,11 +7140,11 @@
 						label: hardData.status[1]
 					},
 					{
-						_id: 'L',
+						_id: 'lost',
 						label: hardData.reportGroups[0].label
 					},
 					{
-						_id: 'F',
+						_id: 'found',
 						label: hardData.reportGroups[1].label
 					}
 				]
@@ -7120,11 +7183,11 @@
 						label: hardData.status[1]
 					},
 					{
-						_id: 'L',
+						_id: 'lost',
 						label: hardData.reportGroups[0].label
 					},
 					{
-						_id: 'F',
+						_id: 'found',
 						label: hardData.reportGroups[1].label
 					}
 				]
@@ -7164,6 +7227,7 @@
 
 		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
 			singlePageSize: 5,
+			hideRefresher: true,
 			fetchData: function(query) {
 
 				query.subject = 'recently_viewed_reports';
@@ -7284,7 +7348,8 @@
 			scope: {
 				user: '=',
 				editable: '=',
-				noLink: '&'
+				noLink: '&',
+				withLabel: '='
 			},
 			controller: function($scope) {
 
@@ -7303,6 +7368,7 @@
 					scope.$watch(function() { return scope.user; }, function(user) {
 
 						if (user) {
+							if (scope.withLabel) { scope.src.label = scope.user.truncatedUsername; }
 							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
 							userAvatarService.loadPhoto(scope);
 						}

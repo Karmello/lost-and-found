@@ -17,6 +17,7 @@
 
 				var timeout = 0;
 				if (ui.loaders.renderer.isLoading) { timeout = 4000; }
+
 				$timeout(function() { googleMapService.searchReportsMap.init(); }, timeout);
 			}
 		});

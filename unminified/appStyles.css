@@ -251,7 +251,13 @@ body .gm-style-iw + div {
         #lost-and-found-app-report #section2 #mapContainer > div {
           width: 300px; } }
 
-#lost-and-found-app-search .myGoogleMap {
+#lost-and-found-app-search #mapSection > div:first-child {
+  text-align: right;
+  margin-bottom: 5px; }
+  #lost-and-found-app-search #mapSection > div:first-child a {
+    font-weight: bold; }
+
+#lost-and-found-app-search #mapSection .myGoogleMap {
   max-width: 100%;
   height: 500px;
   margin-bottom: 50px; }
@@ -466,6 +472,14 @@ body .gm-style-iw + div {
     right: 50%;
     transform: translate(16px, -31px); }
 
+.myDropDown .dropdown-menu {
+  overflow-y: auto;
+  min-width: 100px;
+  max-height: 282px;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, 0); }
+
 .myElemSelector button {
   width: 28px;
   height: 28px;
@@ -502,14 +516,6 @@ body .gm-style-iw + div {
 
 .myLabel {
   padding: 1px; }
-
-.myDropDown .dropdown-menu {
-  overflow-y: auto;
-  min-width: 100px;
-  max-height: 282px;
-  left: 50%;
-  right: auto;
-  transform: translate(-50%, 0); }
 
 .myLoader {
   position: relative;
@@ -638,28 +644,6 @@ body .gm-style-iw + div {
     .responsiveImgAndDesc > div {
       display: block; } }
 
-.myPopOverIcon {
-  display: table;
-  border-radius: 3px; }
-  .myPopOverIcon > div {
-    display: table-cell;
-    vertical-align: middle; }
-    .myPopOverIcon > div > span {
-      display: table;
-      margin: 0 auto;
-      text-align: center; }
-      .myPopOverIcon > div > span.glyphicon {
-        display: table;
-        width: 28px;
-        height: 28px;
-        position: relative;
-        padding-top: 7px;
-        padding-left: 1px;
-        font-size: 15px;
-        color: #eeeeee; }
-  .myPopOverIcon .glyphicon-play {
-    top: 0 !important; }
-
 .myPanel .panel-heading {
   display: -ms-flexbox;
   display: flex;
@@ -691,6 +675,28 @@ body .gm-style-iw + div {
 
 .myPanel .trasparentHeading {
   background-color: transparent; }
+
+.myPopOverIcon {
+  display: table;
+  border-radius: 3px; }
+  .myPopOverIcon > div {
+    display: table-cell;
+    vertical-align: middle; }
+    .myPopOverIcon > div > span {
+      display: table;
+      margin: 0 auto;
+      text-align: center; }
+      .myPopOverIcon > div > span.glyphicon {
+        display: table;
+        width: 28px;
+        height: 28px;
+        position: relative;
+        padding-top: 7px;
+        padding-left: 1px;
+        font-size: 15px;
+        color: #eeeeee; }
+  .myPopOverIcon .glyphicon-play {
+    top: 0 !important; }
 
 .mySrc {
   position: relative;

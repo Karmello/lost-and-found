@@ -7,7 +7,18 @@ module.exports = {
 		var report = new r.Report(req.body);
 
 		report.validate(function(err) {
-			if (!err) { next(); } else { action.end(400, err); }
+
+			if (!err) {
+				next();
+
+			} else {
+				action.end(400, err);
+			}
 		});
+	},
+	after: function(req, res, next) {
+
+		r.modules.socketModule.emitReportsCount(req.body.group);
+		next();
 	}
 };

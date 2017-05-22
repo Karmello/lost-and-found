@@ -25,6 +25,7 @@ module.exports = {
 
 						deactivationReason.count += 1;
 						deactivationReason.save();
+
 						res.status(204).send();
 
 					} else { res.status(400).send(err); }

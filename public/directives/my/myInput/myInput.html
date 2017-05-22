@@ -13,4 +13,8 @@
 		ng-disabled="isDisabled"
 		autocomplete="autocomplete"
 	>
+	<div id="autocompleteSection" ng-if="autocomplete">
+		<img src="{{ autocomplete.icon }}">&nbsp;
+		<span ng-bind="autocomplete.label"></span>
+	</div>
 </div>

@@ -14,8 +14,6 @@
 
 		service.onUpdateAppStats = function(data) {
 
-			console.log(data);
-
 			Object.assign($rootScope.apiData.stats, data);
 			$rootScope.$apply();
 		};

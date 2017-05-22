@@ -1,4 +1,14 @@
 .myInput {
 
+	#autocompleteSection {
 
+		display: flex;
+		align-items: flex-end;
+		padding-top: 2px;
+
+		img {
+			max-width: 25px;
+			max-height: 25px;
+		}
+	}
 }

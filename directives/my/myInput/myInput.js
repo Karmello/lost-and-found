@@ -4,8 +4,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
 	appModule.directive('myInput', function() {
 
 		var myInput = {
@@ -30,10 +28,20 @@
 
 					if (scope.autocomplete) {
 
-						var input = $(elem).find('input').get()[0];
+						scope.autocomplete.init = function() {
 
-						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
-						scope.autocomplete.ins.addListener('place_changed', function() {});
+							var input = $(elem).find('input').get()[0];
+
+							scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
+							scope.autocomplete.icon = null;
+							scope.autocomplete.label = null;
+
+							scope.autocomplete.ins.addListener('place_changed', function() {
+								scope.autocomplete.onPlaceChanged();
+							});
+						};
+
+						scope.autocomplete.init();
 					}
 				};
 			}

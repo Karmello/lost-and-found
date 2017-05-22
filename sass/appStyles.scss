@@ -461,12 +461,6 @@ $avatarSize: 240px;
 		}
 	}
 }
-.myAlert {
-	display: table;
-	margin: 0 auto;
-	text-align: center;
-	padding: 15px;
-}
 .myBtn {
 	padding: 7px 15px 7px 14px;
 }
@@ -489,6 +483,12 @@ $avatarSize: 240px;
 	@extend .myBtnsGroup;
 	margin-left: auto;
 	margin-right: 0;
+}
+.myAlert {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+	padding: 15px;
 }
 .myCollectionBrowser {
 
@@ -662,7 +662,17 @@ $avatarSize: 240px;
 }
 .myInput {
 
+	#autocompleteSection {
 
+		display: flex;
+		align-items: flex-end;
+		padding-top: 2px;
+
+		img {
+			max-width: 25px;
+			max-height: 25px;
+		}
+	}
 }
 .myLabel {
 

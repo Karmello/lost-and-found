@@ -11,15 +11,15 @@
 			this.errorType = errorType;
 		};
 
-		var MyFormModel = function(_id, keys, allowUseDefaults, onSetCallback) {
+		var MyFormModel = function(_id, keys, allowUseDefaults, clearCb) {
 
 			this._id = _id;
 			this.keys = keys;
-			this.values = {};
-
-			this.defaults = undefined;
 			this.allowUseDefaults = allowUseDefaults;
-			this.onSetCallback = onSetCallback;
+			this.clearCb = clearCb;
+
+			this.values = {};
+			this.defaults = undefined;
 
 			this.clear();
 		};
@@ -102,6 +102,8 @@
 				angular.forEach(that.keys, function(key) {
 					that.values[key] = new MyFormModelValue(null, null, null);
 				});
+
+				if (that.clearCb) { that.clearCb(); }
 			},
 			trimValues: function(formId, cb) {
 

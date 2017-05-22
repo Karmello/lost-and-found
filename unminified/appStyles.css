@@ -369,12 +369,6 @@ body .gm-style-iw + div {
   max-width: 700px;
   margin: 0 auto; }
 
-.myAlert {
-  display: table;
-  margin: 0 auto;
-  text-align: center;
-  padding: 15px; }
-
 .myBtn {
   padding: 7px 15px 7px 14px; }
 
@@ -392,6 +386,12 @@ body .gm-style-iw + div {
 .myBtnsGroupRight {
   margin-left: auto;
   margin-right: 0; }
+
+.myAlert {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  padding: 15px; }
 
 .myCollectionBrowser {
   position: relative; }
@@ -513,6 +513,16 @@ body .gm-style-iw + div {
 .myFormErrorIcon {
   margin-left: 3px;
   font-size: 20px; }
+
+.myInput #autocompleteSection {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  padding-top: 2px; }
+  .myInput #autocompleteSection img {
+    max-width: 25px;
+    max-height: 25px; }
 
 .myLabel {
   padding: 1px; }

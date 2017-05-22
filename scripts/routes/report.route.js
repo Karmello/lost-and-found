@@ -48,7 +48,7 @@
 						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 					} else {
-						googleMapService.singleReportMap.init($rootScope.apiData.report.placeId);
+						googleMapService.singleReportMap.init();
 					}
 
 					$timeout(function() {

@@ -18,14 +18,27 @@
 				$scope.hardData = $rootScope.hardData;
 				$scope.reportGroups = $rootScope.hardData.reportGroups;
 				$scope.reportCategories = $rootScope.apiData.reportCategories;
-				$scope.autocomplete = {};
+
+				$scope.autocomplete = {
+					onPlaceChanged: function() {
+
+						var place = $scope.autocomplete.ins.getPlace();
+						$scope.autocomplete.icon = place.icon;
+						$scope.autocomplete.label = place.formatted_address;
+						$scope.$apply();
+					}
+				};
 
 				var date = new Date();
 				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 				$scope.minDate = new Date(2000, 0, 1);
 
-				var modelFields = ['userId', 'date', 'placeId', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'serialNo', 'description'];
-				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true);
+				var modelFields = ['userId', 'date', 'geolocation', 'details', 'group', 'categoryId', 'subcategoryId', 'title', 'serialNo', 'description'];
+				$scope.myModel = new myClass.MyFormModel('reportForm', modelFields, true, function() {
+					if ($scope.autocomplete.init) { $scope.autocomplete.init(); }
+				});
+
+
 
 				switch ($scope.action) {
 
@@ -37,27 +50,23 @@
 							submitAction: function(args) {
 
 								$scope.myForm.submitSuccessCb = function(res) {
-									googleMapService.reportPlace = null;
 									$scope.myForm.reset();
 									$state.go('app.report', { id: res.data._id });
 								};
 
 								$scope.myModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
-								var modelValues = $scope.myModel.getValues();
 
+								var modelValues = $scope.myModel.getValues();
 								var place = $scope.autocomplete.ins.getPlace();
 
 								if (place) {
-
-									modelValues.placeId = place.place_id;
-
 									modelValues.geolocation = {
 										lat: place.geometry.location.lat(),
 										lng: place.geometry.location.lng()
 									};
 
 								} else {
-									modelValues.placeId = null;
+									modelValues.geolocation = null;
 								}
 
 								return ReportsRest.post(modelValues);
@@ -86,7 +95,6 @@
 								$scope.myModel.setRestObj(copy);
 
 								$scope.myForm.submitSuccessCb = function(res) {
-									googleMapService.reportPlace = null;
 									$rootScope.apiData.report = res.data;
 									$state.go('app.report', { id: res.data._id, edit: undefined });
 								};

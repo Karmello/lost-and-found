@@ -4,24 +4,13 @@ var reportVal = r.validators.reportValidators;
 
 
 var ReportSchema = new r.mongoose.Schema({
-	date: {
+	dateAdded: {
 		type: Date,
-		required: true
+		default: Date.now
 	},
-	placeId: {
-		type: String,
-		required: true
-	},
-	geolocation: {
-		type: r.mongoose.Schema.Types.Mixed,
-		required: true
-	},
-	details: {
-		type: String,
-		required: true
-	},
-	group: {
-		type: String,
+	userId: {
+		type: r.mongoose.Schema.Types.ObjectId,
+		ref: 'user',
 		required: true
 	},
 	categoryId: {
@@ -41,29 +30,21 @@ var ReportSchema = new r.mongoose.Schema({
 		validate: [reportVal.title.length],
 		required: true
 	},
-	serialNo: {
-		type: String
-	},
 	description: {
 		type: String,
 		validate: [reportVal.description.length],
 		required: true
 	},
-	userId: {
-		type: r.mongoose.Schema.Types.ObjectId,
-		ref: 'user',
-		required: true
+	serialNo: {
+		type: String
 	},
-	dateAdded: {
-		type: Date,
-		default: Date.now
-	},
-	photos: [global.paths.schemas + 'ReportPhotoSchema'],
 	avatarFileName: {
 		type: String,
 		default: ''
 	},
-	comments: [global.paths.schemas + 'CommentSchema']
+	photos: [global.paths.schemas + 'ReportPhotoSchema'],
+	comments: [global.paths.schemas + 'CommentSchema'],
+	events: [global.paths.schemas + 'ReportEventSchema']
 }, { versionKey: false });
 
 

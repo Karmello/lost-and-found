@@ -423,6 +423,27 @@ $avatarSize: 240px;
 		}
 	}
 }
+#auctionNumBox {
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	text-align: center;
+
+	.well {
+
+		padding: 5px 10px 5px 10px;
+		margin: 2px;
+		border: 2px solid $brand-info;
+
+		span {
+			display: block;
+			white-space: nowrap;
+			margin: 2px 5px 2px 5px;
+			line-height: 18px;
+		}
+	}
+}
 .comments {
 
 	.myTextArea {
@@ -644,12 +665,15 @@ $avatarSize: 240px;
 	#autocompleteSection {
 
 		display: flex;
-		align-items: flex-end;
 		padding-top: 2px;
 
 		img {
 			max-width: 20px;
 			max-height: 20px;
+		}
+
+		span {
+			padding-top: 2px;
 		}
 	}
 }
@@ -1234,27 +1258,6 @@ $avatarSize: 240px;
 #singleFileInput, #multipleFilesInput {
 
 	display: none;
-}
-#auctionNumBox {
-
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
-	text-align: center;
-
-	.well {
-
-		padding: 5px 10px 5px 10px;
-		margin: 2px;
-		border: 2px solid $brand-info;
-
-		span {
-			display: block;
-			white-space: nowrap;
-			margin: 2px 5px 2px 5px;
-			line-height: 18px;
-		}
-	}
 }
 #contactForm {
 

@@ -13,7 +13,7 @@ module.exports = {
 	emitReportsCount: function(group) {
 
 		r.Report.count({}, function(err1, reportsCount) {
-			r.Report.count({ group: group }, function(err2, groupReportsCount) {
+			r.Report.count({ 'startEvent.group': group }, function(err2, groupReportsCount) {
 
 				if (!err1 && !err2) {
 					var data = { reportsCount: reportsCount };

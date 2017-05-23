@@ -68,12 +68,12 @@
 						<div id="section2">
 							<div>
 								<div>
-									<span class="text-info">{{ hardData.reportGroups[apiData.report.group == 'lost' ? 0 : 1].label }} {{ hardData.count[0] }}:</span>
+									<span class="text-info">{{ hardData.reportGroups[apiData.report.startEvent.group == 'lost' ? 0 : 1].label }} {{ hardData.count[0] }}:</span>
 									<span>{{ apiData.report.formattedDate }}</span>
 								</div>
 								<div style="text-align: justify;">
 									<span class="text-info">{{ hardData.labels[19] }}:</span><br>
-									<span ng-bind="apiData.report.details"></span>
+									<span ng-bind="apiData.report.startEvent.details"></span>
 								</div>
 							</div>
 							<div id="mapContainer">
@@ -87,7 +87,7 @@
 				</my-panel>
 				<div id="section3" class="myBtnsGroupCenter">
 					<my-btn
-						ng-if="apiData.report.group == 'lost' && apiData.report.userId != apiData.loggedInUser._id"
+						ng-if="apiData.report.startEvent.group == 'lost' && apiData.report.userId != apiData.loggedInUser._id"
 						ctrl-class="'btn-primary'"
 						hard-data="{ label: ['declaratives', 0] }"
 					></my-btn>

@@ -7,7 +7,7 @@ module.exports = function(req, res, next) {
 
 	new r.Promise(function(resolve, reject) {
 
-		if (action.req.query.filter && action.req.query.filter != 'all') { query.group = action.req.query.filter; }
+		if (action.req.query.filter && action.req.query.filter != 'all') { query['startEvent.group'] = action.req.query.filter; }
 		if (action.req.query.title) { query.title = { '$regex': action.req.query.title, '$options': 'i' }; }
 		if (action.req.query.categoryId) { query.categoryId = action.req.query.categoryId; }
 		if (action.req.query.subcategoryId) { query.subcategoryId = action.req.query.subcategoryId; }

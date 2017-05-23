@@ -78,9 +78,12 @@
 				onPlaceChanged: function() {
 
 					var place = scope.autocomplete.ins.getPlace();
-					scope.autocomplete.icon = place.icon;
-					scope.autocomplete.label = place.formatted_address;
-					scope.$apply();
+
+					if (place) {
+						scope.autocomplete.icon = place.icon;
+						scope.autocomplete.label = place.formatted_address;
+						scope.$apply();
+					}
 				}
 			};
 		};

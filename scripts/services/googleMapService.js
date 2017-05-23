@@ -17,13 +17,13 @@
 
 				var geocoder = new google.maps.Geocoder();
 				var map = new google.maps.Map(document.getElementById('reportMap'));
-				var latLng = new google.maps.LatLng(report.geolocation.lat, report.geolocation.lng);
+				var latLng = new google.maps.LatLng(report.startEvent.geolocation.lat, report.startEvent.geolocation.lng);
 
 				google.maps.event.addListener(map, 'idle', function() {
 					google.maps.event.trigger(map, 'resize');
 				});
 
-				geocoder.geocode({ 'placeId': report.placeId }, function(results, status) {
+				geocoder.geocode({ 'placeId': report.startEvent.placeId }, function(results, status) {
 
 					$timeout(function() {
 
@@ -128,11 +128,11 @@
 			addSingleMarker: function(collection, i) {
 
 				var infowindow = new google.maps.InfoWindow();
-				var iconName = collection[i].group == 'lost' ? 'red-dot.png' : 'blue-dot.png';
+				var iconName = collection[i].startEvent.group == 'lost' ? 'red-dot.png' : 'blue-dot.png';
 
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,
-					position: new google.maps.LatLng(collection[i].geolocation.lat, collection[i].geolocation.lng),
+					position: new google.maps.LatLng(collection[i].startEvent.geolocation.lat, collection[i].startEvent.geolocation.lng),
 					icon: 'http://maps.google.com/mapfiles/ms/icons/' + iconName
 				});
 

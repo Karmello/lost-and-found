@@ -4,23 +4,34 @@ module.exports = {
 	before: function(req, res, next) {
 
 		var action = new r.prototypes.Action(arguments);
+
 		var report = new r.Report(req.body);
+		report.startEvent = new r.ReportEvent(req.body);
 
-		console.log(report);
+		report.validate(function(err1) {
+			report.startEvent.validate(function(err2) {
 
-		report.validate(function(err) {
+				if (!err1 && !err2) {
 
-			if (!err) {
-				next();
+					report.save({ validateBeforeSave: false }, function(err) {
 
-			} else {
-				action.end(400, err);
-			}
+						if (!err) {
+							r.modules.socketModule.emitReportsCount(report.startEvent.group);
+							action.end(201, report);
+
+						} else { action.end(400, err); }
+					});
+
+				} else if (err1 && err2) {
+
+					Object.assign(err1.errors, err2.errors);
+					action.end(400, err1);
+
+				} else {
+
+					action.end(400, err1 || err2);
+				}
+			});
 		});
-	},
-	after: function(req, res, next) {
-
-		r.modules.socketModule.emitReportsCount(req.body.group);
-		next();
 	}
 };

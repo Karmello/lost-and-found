@@ -44,7 +44,15 @@ var ReportSchema = new r.mongoose.Schema({
 	},
 	photos: [global.paths.schemas + 'ReportPhotoSchema'],
 	comments: [global.paths.schemas + 'CommentSchema'],
-	events: [global.paths.schemas + 'ReportEventSchema']
+	startEvent: {
+		type: r.mongoose.Schema.Types.Mixed,
+		ref: 'report_event',
+		required: true
+	},
+	endEvent: {
+		type: r.mongoose.Schema.Types.Mixed,
+		ref: 'report_event'
+	}
 }, { versionKey: false });
 
 
@@ -97,7 +105,7 @@ ReportSchema.post('remove', function(doc) {
 	// Removing photos from S3
 	for (var photo of doc.photos) { doc.removePhotoFromS3(photo.filename); }
 
-	r.modules.socketModule.emitReportsCount(doc.group);
+	r.modules.socketModule.emitReportsCount(doc.startEvent.group);
 });
 
 

@@ -30,8 +30,8 @@
 
 				Restangular.addElementTransformer('reports', false, function(report) {
 					report.truncatedTitle = report.title.truncate(25);
-					report.date = new Date(report.date);
-					report.formattedDate = $moment(report.date).format('DD-MM-YYYY');
+					report.startEvent.date = new Date(report.startEvent.date);
+					report.formattedDate = $moment(report.startEvent.date).format('DD-MM-YYYY');
 					report.formattedDateAdded = $moment(report.dateAdded).format('DD-MM-YYYY HH:mm');
 					report.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(report.dateAdded))).humanize();
 					service.createReportFullCategoryString(report);
@@ -135,6 +135,10 @@
 								}
 
 								break;
+
+							case 'post':
+
+								return Restangular.restangularizeElement(undefined, data, 'reports');
 
 							case 'put':
 

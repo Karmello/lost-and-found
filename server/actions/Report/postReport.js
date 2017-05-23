@@ -6,6 +6,8 @@ module.exports = {
 		var action = new r.prototypes.Action(arguments);
 		var report = new r.Report(req.body);
 
+		console.log(report);
+
 		report.validate(function(err) {
 
 			if (!err) {

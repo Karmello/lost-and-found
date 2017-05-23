@@ -2,10 +2,10 @@
 
 	'use strict';
 
-	var resolveService = function($q, $state, authService) {
+	var resolveService = function($q, $state, authService, ui) {
 
 		return {
-			isAuthenticated: function() {
+			isAuthenticated: function(currentStateName) {
 
 				return $q(function(resolve, reject) {
 
@@ -13,15 +13,22 @@
 						resolve();
 
 					} else {
+
 						reject();
-						$state.go('app.start', { tab: 'status' }, { location: 'replace' });
+
+						if (currentStateName == 'app.start') {
+							ui.modals.accountRequiredModal.show();
+
+						} else {
+							$state.go('app.start', { tab: 'status' }, { location: 'replace' });
+						}
 					}
 				});
 			}
 		};
 	};
 
-	resolveService.$inject = ['$q', '$state', 'authService'];
+	resolveService.$inject = ['$q', '$state', 'authService', 'ui'];
 	angular.module('appModule').service('resolveService', resolveService);
 
 })();

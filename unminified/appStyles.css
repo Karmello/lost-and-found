@@ -347,27 +347,15 @@ body .gm-style-iw + div {
     #lost-and-found-app-upgrade #whenPaidSection > #section2 img {
       width: 100px; }
 
-#auctionNumBox {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-pack: center;
-  justify-content: center;
-  text-align: center; }
-  #auctionNumBox .well {
-    padding: 5px 10px 5px 10px;
-    margin: 2px;
-    border: 2px solid #5bc0de; }
-    #auctionNumBox .well span {
-      display: block;
-      white-space: nowrap;
-      margin: 2px 5px 2px 5px;
-      line-height: 18px; }
-
 .comments .myTextArea {
   max-width: 700px;
   margin: 0 auto; }
+
+.myAlert {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  padding: 15px; }
 
 .myBtn {
   padding: 7px 15px 7px 14px; }
@@ -386,12 +374,6 @@ body .gm-style-iw + div {
 .myBtnsGroupRight {
   margin-left: auto;
   margin-right: 0; }
-
-.myAlert {
-  display: table;
-  margin: 0 auto;
-  text-align: center;
-  padding: 15px; }
 
 .myCollectionBrowser {
   position: relative; }
@@ -521,8 +503,8 @@ body .gm-style-iw + div {
   align-items: flex-end;
   padding-top: 2px; }
   .myInput #autocompleteSection img {
-    max-width: 25px;
-    max-height: 25px; }
+    max-width: 20px;
+    max-height: 20px; }
 
 .myLabel {
   padding: 1px; }
@@ -854,6 +836,24 @@ body .gm-style-iw + div {
 
 #singleFileInput, #multipleFilesInput {
   display: none; }
+
+#auctionNumBox {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center; }
+  #auctionNumBox .well {
+    padding: 5px 10px 5px 10px;
+    margin: 2px;
+    border: 2px solid #5bc0de; }
+    #auctionNumBox .well span {
+      display: block;
+      white-space: nowrap;
+      margin: 2px 5px 2px 5px;
+      line-height: 18px; }
 
 #contactForm .myForm {
   margin: 0 auto;

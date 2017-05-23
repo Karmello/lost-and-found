@@ -10,8 +10,8 @@
 				}
 			},
 			resolve: {
-				isAuthenticated: function(authentication, resolveService) {
-					return resolveService.isAuthenticated();
+				isAuthenticated: function(authentication, resolveService, $state) {
+					return resolveService.isAuthenticated($state.current.name);
 				},
 				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
 
@@ -32,11 +32,7 @@
 								$state.go('app.home');
 							});
 
-						} else {
-
-							reject();
-							ui.modals.accountRequiredModal.show();
-						}
+						} else { reject(); }
 					});
 				}
 			},
@@ -48,7 +44,7 @@
 						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 					} else {
-						googleMapService.singleReportMap.init();
+						googleMapService.singleReportMap.init($rootScope.apiData.report);
 					}
 
 					$timeout(function() {

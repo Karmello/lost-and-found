@@ -13,46 +13,41 @@
 		};
 
 		service.singleReportMap = {
-			init: function() {
+			init: function(report) {
 
-				// if (!service.reportPlace || service.reportPlace.place_id != placeId) {
+				var geocoder = new google.maps.Geocoder();
+				var map = new google.maps.Map(document.getElementById('reportMap'));
+				var latLng = new google.maps.LatLng(report.geolocation.lat, report.geolocation.lng);
 
-				// 	var map = new google.maps.Map(document.getElementById('reportMap'));
+				google.maps.event.addListener(map, 'idle', function() {
+					google.maps.event.trigger(map, 'resize');
+				});
 
-				// 	google.maps.event.addListener(map, 'idle', function() {
-				// 		google.maps.event.trigger(map, 'resize');
-				// 	});
+				geocoder.geocode({ 'placeId': report.placeId }, function(results, status) {
 
-				// 	$timeout(function() {
+					$timeout(function() {
 
-				// 		var geocoder = new google.maps.Geocoder();
-				// 		var infowindow = new google.maps.InfoWindow();
+						var infowindow = new google.maps.InfoWindow();
 
-				// 		geocoder.geocode({ 'placeId': placeId }, function(results, status) {
+						map.setCenter(latLng);
+						map.setZoom(13);
 
-				// 			service.reportPlace = results[0];
+						var marker = new google.maps.Marker({
+							map: map,
+							position: latLng
+						});
 
-				// 			map.setCenter(service.reportPlace.geometry.location);
-				// 			map.setZoom(13);
+						marker.addListener('mouseover', function() {
+							infowindow.setContent(results[0].formatted_address);
+							infowindow.open(map, marker);
+						});
 
-				// 			var marker = new google.maps.Marker({
-				// 				map: map,
-				// 				position: service.reportPlace.geometry.location
-				// 			});
+						marker.addListener('mouseout', function() {
+							infowindow.close();
+						});
 
-				// 			marker.addListener('click', function() {
-				// 				infowindow.setContent(service.reportPlace.formatted_address);
-				// 				infowindow.open(map, marker);
-				// 			});
-
-				// 			$timeout(function() {
-				// 				infowindow.setContent(service.reportPlace.formatted_address);
-				// 				infowindow.open(map, marker);
-				// 			}, 1000);
-				// 		});
-
-				// 	}, 1000);
-				// }
+					}, 1000);
+				});
 			}
 		};
 

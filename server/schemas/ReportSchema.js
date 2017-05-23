@@ -8,6 +8,10 @@ var ReportSchema = new r.mongoose.Schema({
 		type: Date,
 		required: true
 	},
+	placeId: {
+		type: String,
+		required: true
+	},
 	geolocation: {
 		type: r.mongoose.Schema.Types.Mixed,
 		required: true

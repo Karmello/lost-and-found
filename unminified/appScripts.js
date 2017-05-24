@@ -822,12 +822,16 @@
 
 	'use strict';
 
-	var MainController = function($scope) {
+	var MainController = function($rootScope, $scope, MyDataModel, ReportsRest) {
 
+		$rootScope.runTest = function() {
 
+			var reportModel = new MyDataModel(ReportsRest.myDataModel);
+			console.log(reportModel.set($rootScope.apiData.report.plain()));
+		};
 	};
 
-	MainController.$inject = ['$scope'];
+	MainController.$inject = ['$rootScope', '$scope', 'MyDataModel', 'ReportsRest'];
 	angular.module('appModule').controller('MainController', MainController);
 
 })();
@@ -3079,6 +3083,92 @@
 
 	'use strict';
 
+	var MyDataModel = function() {
+
+		var MyDataModelValue = function() {
+
+			this.value = undefined;
+			this.error = { type: undefined, msg: undefined };
+		};
+
+		var MyDataModel = function(myModelConf) {
+
+			var goThrough = function(obj) {
+
+				for (var prop in obj) {
+
+					if (!_.isEmpty(obj[prop])) {
+						goThrough(obj[prop]);
+
+					} else {
+						obj[prop] = new MyDataModelValue();
+					}
+				}
+
+				return myModelConf;
+			};
+
+			Object.assign(this, goThrough(myModelConf));
+		};
+
+		MyDataModel.prototype = {
+			set: function(data) {
+
+				var goThrough = function(toSetWithObj, toBeSetObj) {
+
+					for (var prop in toSetWithObj) {
+
+						if (toSetWithObj.hasOwnProperty(prop) && toBeSetObj.hasOwnProperty(prop)) {
+
+							if (toBeSetObj[prop] instanceof MyDataModelValue) {
+								toBeSetObj[prop].value = toSetWithObj[prop];
+
+							} else {
+								goThrough(toSetWithObj[prop], toBeSetObj[prop]);
+							}
+						}
+					}
+
+					return toBeSetObj;
+				};
+
+				return goThrough(data, this);
+			},
+			getValues: function() {
+
+				var goThrough = function(obj, myModelValues) {
+
+					for (var prop in obj) {
+
+						if (obj.hasOwnProperty(prop)) {
+
+							if (obj[prop] instanceof MyDataModelValue) {
+								myModelValues[prop] = obj[prop].value;
+
+							} else {
+								goThrough(obj[prop], myModelValues[prop] = {});
+							}
+						}
+					}
+
+					return myModelValues;
+				};
+
+				return goThrough(this, {});
+			}
+		};
+
+		return MyDataModel;
+	};
+
+	MyDataModel.$inject = [];
+	angular.module('appModule').factory('MyDataModel', MyDataModel);
+
+})();
+(function() {
+
+	'use strict';
+
 	var MyForm = function($rootScope, $window, $timeout, grecaptchaService) {
 
 		MyForm = function(config) {
@@ -5145,35 +5235,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('appStats', function($rootScope) {
-
-		var appStats = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/tables/appStats/appStats.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-				};
-			}
-		};
-
-		return appStats;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('imgCropWindow', function($rootScope, $window, $timeout, MySrcAction, MyModal, MyLoader, NUMS) {
 
 		var imgId = '#cropImg';
@@ -5314,6 +5375,35 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('appStats', function($rootScope) {
+
+		var appStats = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/tables/appStats/appStats.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return appStats;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('auctionNumBox', function($rootScope, $sce, exchangeRateService) {
 
 		var auctionNumBox = {
@@ -5364,6 +5454,121 @@
 
 		return auctionNumBox;
 	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest) {
+
+		var comments = {
+			restrict: 'E',
+			templateUrl: 'public/directives/COMMENT/comments/comments.html',
+			scope: {
+				ctrlId: '@'
+			},
+			controller: function($scope) {
+
+				$scope.apiData = $rootScope.apiData;
+				$scope.hardData = $rootScope.hardData;
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'commentForm',
+					model: new myClass.MyFormModel('commentModel', ['userId', 'content'], false),
+					submitAction: function(args) {
+
+						var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+						$scope.myForm.model.setValue('userId', userId);
+						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
+					},
+					submitSuccessCb: function(res) {
+
+						$scope.myForm.model.clear();
+						$rootScope.$broadcast('initReportComments');
+					}
+				});
+
+				$scope.init = function() {
+
+					$scope.collectionBrowser = commentsConf.reportCommentsBrowser;
+					$scope.commentContextMenuConf = commentsConf.commentContextMenuConf;
+
+					$scope.collectionBrowser.init();
+				};
+
+				if (!$scope.collectionBrowser) { $scope.init(); }
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (!$rootScope.$$listeners['init' + scope.ctrlId]) {
+						$rootScope.$on('init' + scope.ctrlId, function(e, args) {
+							scope.init();
+						});
+					}
+
+					scope.$on('$destroy', function() {
+						$rootScope.$$listeners['init' + scope.ctrlId] = null;
+					});
+				};
+			}
+		};
+
+		return comments;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var commentsConf = function($rootScope, hardDataService, CommentsRest, myClass) {
+
+		var hardData = hardDataService.get();
+
+		this.commentContextMenuConf = {
+			icon: 'glyphicon glyphicon-option-horizontal',
+			switchers: [
+				{
+					_id: 'edit',
+					label: hardData.imperatives[33],
+					onClick: function() {
+
+					}
+				},
+				{
+					_id: 'delete',
+					label: hardData.imperatives[14],
+					onClick: function() {
+
+						this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {
+							$rootScope.$broadcast('initReportComments');
+						});
+					}
+				}
+			]
+		};
+
+		this.reportCommentsBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 10,
+			fetchData: function(query) {
+
+				if ($rootScope.apiData.report) {
+					query.reportId = $rootScope.apiData.report._id;
+					return CommentsRest.getList(query);
+				}
+			}
+		});
+
+		return this;
+	};
+
+	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
+	angular.module('appModule').service('commentsConf', commentsConf);
 
 })();
 (function() {
@@ -5616,29 +5821,6 @@
 
 
 
-	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
-
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
-
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
-
-		return myDirective;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('myDateInput', function() {
 
 		var myDateInput = {
@@ -5665,6 +5847,29 @@
 		};
 
 		return myDateInput;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
 	});
 
 })();
@@ -7132,26 +7337,38 @@
 
 	'use strict';
 
-	var ReportsRest = function($rootScope, $stateParams, Restangular, storageService) {
+	var ReportsRest = function($rootScope, $stateParams, Restangular, storageService, MyDataModel) {
 
 		var reports = Restangular.service('reports');
+
+		reports.myDataModel = {
+			categoryId: {},
+			subcategoryId: {},
+			subsubcategoryId: {},
+			title: {},
+			serialNo: {},
+			description: {},
+			startEvent: {
+				group: {},
+				date: {},
+				geolocation: {},
+				details: {}
+			}
+		};
 
 		Restangular.extendModel('reports', function(report) {
 
 			report._isOwn = function() {
-
 				return this.userId == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
 			};
 
 			return report;
 		});
 
-
-
 		return reports;
 	};
 
-	ReportsRest.$inject = ['$rootScope', '$stateParams', 'Restangular', 'storageService'];
+	ReportsRest.$inject = ['$rootScope', '$stateParams', 'Restangular', 'storageService', 'MyDataModel'];
 	angular.module('appModule').factory('ReportsRest', ReportsRest);
 
 })();
@@ -7510,121 +7727,6 @@
 			}
 		};
 	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest) {
-
-		var comments = {
-			restrict: 'E',
-			templateUrl: 'public/directives/COMMENT/comments/comments.html',
-			scope: {
-				ctrlId: '@'
-			},
-			controller: function($scope) {
-
-				$scope.apiData = $rootScope.apiData;
-				$scope.hardData = $rootScope.hardData;
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'commentForm',
-					model: new myClass.MyFormModel('commentModel', ['userId', 'content'], false),
-					submitAction: function(args) {
-
-						var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-						$scope.myForm.model.setValue('userId', userId);
-						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
-					},
-					submitSuccessCb: function(res) {
-
-						$scope.myForm.model.clear();
-						$rootScope.$broadcast('initReportComments');
-					}
-				});
-
-				$scope.init = function() {
-
-					$scope.collectionBrowser = commentsConf.reportCommentsBrowser;
-					$scope.commentContextMenuConf = commentsConf.commentContextMenuConf;
-
-					$scope.collectionBrowser.init();
-				};
-
-				if (!$scope.collectionBrowser) { $scope.init(); }
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					if (!$rootScope.$$listeners['init' + scope.ctrlId]) {
-						$rootScope.$on('init' + scope.ctrlId, function(e, args) {
-							scope.init();
-						});
-					}
-
-					scope.$on('$destroy', function() {
-						$rootScope.$$listeners['init' + scope.ctrlId] = null;
-					});
-				};
-			}
-		};
-
-		return comments;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var commentsConf = function($rootScope, hardDataService, CommentsRest, myClass) {
-
-		var hardData = hardDataService.get();
-
-		this.commentContextMenuConf = {
-			icon: 'glyphicon glyphicon-option-horizontal',
-			switchers: [
-				{
-					_id: 'edit',
-					label: hardData.imperatives[33],
-					onClick: function() {
-
-					}
-				},
-				{
-					_id: 'delete',
-					label: hardData.imperatives[14],
-					onClick: function() {
-
-						this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {
-							$rootScope.$broadcast('initReportComments');
-						});
-					}
-				}
-			]
-		};
-
-		this.reportCommentsBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 10,
-			fetchData: function(query) {
-
-				if ($rootScope.apiData.report) {
-					query.reportId = $rootScope.apiData.report._id;
-					return CommentsRest.getList(query);
-				}
-			}
-		});
-
-		return this;
-	};
-
-	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
-	angular.module('appModule').service('commentsConf', commentsConf);
 
 })();
 (function() {

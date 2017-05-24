@@ -19,6 +19,10 @@
 		{
 			"follow_symlinks": true,
 			"path": "D:\\Workspace\\laf\\dev\\scripts\\factories"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\directives"
 		}
 	]
 }

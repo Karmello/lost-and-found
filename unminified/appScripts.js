@@ -3210,51 +3210,43 @@
 			set: function(freshValues) {
 
 				var that = this;
+				var tempValues;
 
 				// Setting with fresh values
 				if (typeof freshValues == 'object') {
 
-					if (that.allowUseDefaults && Object.keys(freshValues).length > 0) { that.defaults = freshValues; }
+					// Fresh values have values
+					if (!_.isEmpty(freshValues)) {
 
-					if (_.isEmpty(freshValues)) {
+						if (that.allowUseDefaults) { that.defaults = freshValues; }
+						tempValues = freshValues;
 
-						angular.forEach(that.keys, function(key) {
-							that.values[key].value = null;
-						});
-
-					} else {
-
-						angular.forEach(that.keys, function(key) {
-
-							if (angular.isDefined(freshValues[key])) {
-								that.values[key].value = freshValues[key];
-
-							} else {
-								that.values[key].value = null;
-							}
-						});
-					}
+					// Fresh values are empty
+					} else { that.clear(); }
 
 				// Setting with defaults
-				} else {
+				} else if (this.allowUseDefaults && that.defaults) {
 
-					if (this.allowUseDefaults && that.defaults) {
+					tempValues = that.defaults;
+				}
 
-						angular.forEach(that.keys, function(key) {
+				// Setting values
+				if (tempValues) {
 
-							if (angular.isDefined(that.defaults[key])) {
-								that.values[key].value = that.defaults[key];
+					angular.forEach(that.keys, function(key) {
 
-							} else {
-								that.values[key].value = null;
-							}
-						});
-					}
+						if (angular.isDefined(tempValues[key])) {
+							that.values[key].value = tempValues[key];
+
+						} else {
+							that.values[key] = new MyFormModelValue(null, null, null);
+						}
+					});
 				}
 			},
 			setValue: function(key, value) {
 
-				this.values[key].value = value;
+				this.values[key] = new MyFormModelValue(value, null, null);
 			},
 			setWithRestObj: function(restObj) {
 
@@ -3313,21 +3305,6 @@
 
 				if (cb) { cb(); }
 			},
-			getValues: function() {
-
-				var that = this;
-				var values = {};
-
-				angular.forEach(that.keys, function(key) {
-					values[key] = that.values[key].value;
-				});
-
-				return values;
-			},
-			getValue: function(key) {
-
-				return this.values[key].value;
-			},
 			bindErrors: function(errors, cb) {
 
 				var that = this;
@@ -3365,6 +3342,21 @@
 				});
 
 				if (cb) { cb(); }
+			},
+			getValue: function(key) {
+
+				return this.values[key].value;
+			},
+			getValues: function() {
+
+				var that = this;
+				var values = {};
+
+				angular.forEach(that.keys, function(key) {
+					values[key] = that.values[key].value;
+				});
+
+				return values;
 			}
 		};
 
@@ -5380,121 +5372,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest) {
-
-		var comments = {
-			restrict: 'E',
-			templateUrl: 'public/directives/COMMENT/comments/comments.html',
-			scope: {
-				ctrlId: '@'
-			},
-			controller: function($scope) {
-
-				$scope.apiData = $rootScope.apiData;
-				$scope.hardData = $rootScope.hardData;
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'commentForm',
-					model: new myClass.MyFormModel('commentModel', ['userId', 'content'], false),
-					submitAction: function(args) {
-
-						var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-						$scope.myForm.model.setValue('userId', userId);
-						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
-					},
-					submitSuccessCb: function(res) {
-
-						$scope.myForm.model.clear();
-						$rootScope.$broadcast('initReportComments');
-					}
-				});
-
-				$scope.init = function() {
-
-					$scope.collectionBrowser = commentsConf.reportCommentsBrowser;
-					$scope.commentContextMenuConf = commentsConf.commentContextMenuConf;
-
-					$scope.collectionBrowser.init();
-				};
-
-				if (!$scope.collectionBrowser) { $scope.init(); }
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					if (!$rootScope.$$listeners['init' + scope.ctrlId]) {
-						$rootScope.$on('init' + scope.ctrlId, function(e, args) {
-							scope.init();
-						});
-					}
-
-					scope.$on('$destroy', function() {
-						$rootScope.$$listeners['init' + scope.ctrlId] = null;
-					});
-				};
-			}
-		};
-
-		return comments;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var commentsConf = function($rootScope, hardDataService, CommentsRest, myClass) {
-
-		var hardData = hardDataService.get();
-
-		this.commentContextMenuConf = {
-			icon: 'glyphicon glyphicon-option-horizontal',
-			switchers: [
-				{
-					_id: 'edit',
-					label: hardData.imperatives[33],
-					onClick: function() {
-
-					}
-				},
-				{
-					_id: 'delete',
-					label: hardData.imperatives[14],
-					onClick: function() {
-
-						this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {
-							$rootScope.$broadcast('initReportComments');
-						});
-					}
-				}
-			]
-		};
-
-		this.reportCommentsBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 10,
-			fetchData: function(query) {
-
-				if ($rootScope.apiData.report) {
-					query.reportId = $rootScope.apiData.report._id;
-					return CommentsRest.getList(query);
-				}
-			}
-		});
-
-		return this;
-	};
-
-	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
-	angular.module('appModule').service('commentsConf', commentsConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 
 
 	appModule.directive('myAlert', function() {
@@ -5739,6 +5616,29 @@
 
 
 
+	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('myDateInput', function() {
 
 		var myDateInput = {
@@ -5765,29 +5665,6 @@
 		};
 
 		return myDateInput;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
-
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
-
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
-
-		return myDirective;
 	});
 
 })();
@@ -5907,6 +5784,69 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('myGooglePlaceAutoComplete', function() {
+
+		var myGooglePlaceAutoComplete = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.html',
+			scope: {
+				ctrlId: '=',
+				model: '=',
+				hardData: '=',
+				hideErrors: '=',
+				autocomplete: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var initAutoComplete = function() {
+
+						var input = $(elem).find('input').get()[0];
+
+						scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
+						scope.autocomplete.label = null;
+
+						scope.autocomplete.ins.addListener('place_changed', function() {
+
+							var place = scope.autocomplete.ins.getPlace();
+
+							if (place) {
+								scope.autocomplete.label = place.formatted_address;
+								scope.$apply();
+							}
+						});
+					};
+
+					scope.$watch('model.value', function(newValue, oldValue) {
+
+						if (newValue) {
+
+							var geocoder = new google.maps.Geocoder();
+
+							geocoder.geocode({ 'address': newValue }, function(results, status) {
+								if (status == 'OK') { scope.autocomplete.ins.set('place', results[0]); }
+							});
+
+						} else { scope.autocomplete.label = null; }
+					});
+
+					initAutoComplete();
+				};
+			}
+		};
+
+		return myGooglePlaceAutoComplete;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('myInput', function() {
 
 		var myInput = {
@@ -5921,49 +5861,14 @@
 				model: '=',
 				hardData: '=',
 				hideErrors: '=',
-				isDisabled: '=',
-				autocomplete: '='
+				isDisabled: '='
 			},
 			controller: function($scope) {},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
-					if (scope.autocomplete) {
 
-						scope.$watch('model.value', function(newValue, oldValue) {
-
-							if (newValue) {
-								var geocoder = new google.maps.Geocoder();
-								geocoder.geocode({ 'address': newValue }, function(results, status) {
-									scope.autocomplete.ins.set('place', results[0]);
-								});
-
-							} else {
-								scope.autocomplete.label = null;
-							}
-						});
-
-						scope.autocomplete.init = function() {
-
-							var input = $(elem).find('input').get()[0];
-
-							scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
-							scope.autocomplete.label = null;
-
-							scope.autocomplete.ins.addListener('place_changed', function() {
-
-								var place = scope.autocomplete.ins.getPlace();
-
-								if (place) {
-									scope.autocomplete.label = place.formatted_address;
-									scope.$apply();
-								}
-							});
-						};
-
-						scope.autocomplete.init();
-					}
 				};
 			}
 		};
@@ -6093,6 +5998,28 @@
 
 
 
+	appModule.directive('myNavDropDown', function() {
+
+		var myNavDropDown = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myNavDropDown/myNavDropDown.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return myNavDropDown;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('myNavMenu', function() {
 
 		var myNavMenu = {
@@ -6105,28 +6032,6 @@
 		};
 
 		return myNavMenu;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myNavDropDown', function() {
-
-		var myNavDropDown = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myNavDropDown/myNavDropDown.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return myNavDropDown;
 	});
 
 })();
@@ -7605,6 +7510,121 @@
 			}
 		};
 	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest) {
+
+		var comments = {
+			restrict: 'E',
+			templateUrl: 'public/directives/COMMENT/comments/comments.html',
+			scope: {
+				ctrlId: '@'
+			},
+			controller: function($scope) {
+
+				$scope.apiData = $rootScope.apiData;
+				$scope.hardData = $rootScope.hardData;
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'commentForm',
+					model: new myClass.MyFormModel('commentModel', ['userId', 'content'], false),
+					submitAction: function(args) {
+
+						var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+						$scope.myForm.model.setValue('userId', userId);
+						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
+					},
+					submitSuccessCb: function(res) {
+
+						$scope.myForm.model.clear();
+						$rootScope.$broadcast('initReportComments');
+					}
+				});
+
+				$scope.init = function() {
+
+					$scope.collectionBrowser = commentsConf.reportCommentsBrowser;
+					$scope.commentContextMenuConf = commentsConf.commentContextMenuConf;
+
+					$scope.collectionBrowser.init();
+				};
+
+				if (!$scope.collectionBrowser) { $scope.init(); }
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (!$rootScope.$$listeners['init' + scope.ctrlId]) {
+						$rootScope.$on('init' + scope.ctrlId, function(e, args) {
+							scope.init();
+						});
+					}
+
+					scope.$on('$destroy', function() {
+						$rootScope.$$listeners['init' + scope.ctrlId] = null;
+					});
+				};
+			}
+		};
+
+		return comments;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var commentsConf = function($rootScope, hardDataService, CommentsRest, myClass) {
+
+		var hardData = hardDataService.get();
+
+		this.commentContextMenuConf = {
+			icon: 'glyphicon glyphicon-option-horizontal',
+			switchers: [
+				{
+					_id: 'edit',
+					label: hardData.imperatives[33],
+					onClick: function() {
+
+					}
+				},
+				{
+					_id: 'delete',
+					label: hardData.imperatives[14],
+					onClick: function() {
+
+						this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {
+							$rootScope.$broadcast('initReportComments');
+						});
+					}
+				}
+			]
+		};
+
+		this.reportCommentsBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 10,
+			fetchData: function(query) {
+
+				if ($rootScope.apiData.report) {
+					query.reportId = $rootScope.apiData.report._id;
+					return CommentsRest.getList(query);
+				}
+			}
+		});
+
+		return this;
+	};
+
+	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
+	angular.module('appModule').service('commentsConf', commentsConf);
 
 })();
 (function() {

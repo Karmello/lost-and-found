@@ -136,33 +136,6 @@ body {
 	position: absolute !important;
 }
 $avatarSize: 240px;
-.main-with-aside-1 {
-
-	display: flex;
-	flex-flow: column wrap;
-	justify-content: center;
-	margin-top: 25px;
-
-	@media only screen and (min-width: 992px) { flex-flow: row nowrap; }
-
-	> div:first-child {
-
-		display: flex;
-		flex-flow: row wrap;
-		flex-basis: 30%;
-		justify-content: center;
-		align-content: flex-start;
-
-		margin-bottom: 25px;
-
-		> div { flex-grow: 1; padding: 0 15px 0 15px; }
-	}
-
-	> div:last-child {
-
-		flex-basis: 650px;
-	}
-}
 #lost-and-found-app-contact {
 
 
@@ -421,6 +394,33 @@ $avatarSize: 240px;
 		}
 	}
 }
+.main-with-aside-1 {
+
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	margin-top: 25px;
+
+	@media only screen and (min-width: 992px) { flex-flow: row nowrap; }
+
+	> div:first-child {
+
+		display: flex;
+		flex-flow: row wrap;
+		flex-basis: 30%;
+		justify-content: center;
+		align-content: flex-start;
+
+		margin-bottom: 25px;
+
+		> div { flex-grow: 1; padding: 0 15px 0 15px; }
+	}
+
+	> div:last-child {
+
+		flex-basis: 650px;
+	}
+}
 #auctionNumBox {
 
 	display: flex;
@@ -658,9 +658,9 @@ $avatarSize: 240px;
 	margin-left: 3px;
 	font-size: 20px;
 }
-.myInput {
+.myGooglePlaceAutoComplete {
 
-	#autocompleteSection {
+	#activePlaceSection {
 
 		display: flex;
 		padding-top: 2px;
@@ -678,6 +678,10 @@ $avatarSize: 240px;
 .myLabel {
 
 	padding: 1px;
+}
+.myInput {
+
+
 }
 @import '_vars';
 

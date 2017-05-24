@@ -136,7 +136,7 @@
 		"Wylogowany", "Wszystkie", "Pusto", "Rosnąco", "Malejąco", "Brak dostępu", "Błąd", "Według tytułu", "Według daty"
 	],
 	"count": [
-		"dnia", "Zarejestrowany przez", "Użytkowników", "Zgłoszeń", "Utraconych", "Odnalezionych", "Przez", "Zgłoszono", "temu", "W przybliżeniu",
+		"dnia", "Zarejestrowany przez", "Użytkowników", "Zgłoszeń", "Zgłoszonych jako stracone", "Zgłoszonych jako znalezione", "Przez", "Zgłoszono", "temu", "W przybliżeniu",
 		"widocznych", "wszystkich"
 	],
 	"warnings": [

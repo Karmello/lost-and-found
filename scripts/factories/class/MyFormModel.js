@@ -27,51 +27,43 @@
 			set: function(freshValues) {
 
 				var that = this;
+				var tempValues;
 
 				// Setting with fresh values
 				if (typeof freshValues == 'object') {
 
-					if (that.allowUseDefaults && Object.keys(freshValues).length > 0) { that.defaults = freshValues; }
+					// Fresh values have values
+					if (!_.isEmpty(freshValues)) {
 
-					if (_.isEmpty(freshValues)) {
+						if (that.allowUseDefaults) { that.defaults = freshValues; }
+						tempValues = freshValues;
 
-						angular.forEach(that.keys, function(key) {
-							that.values[key].value = null;
-						});
-
-					} else {
-
-						angular.forEach(that.keys, function(key) {
-
-							if (angular.isDefined(freshValues[key])) {
-								that.values[key].value = freshValues[key];
-
-							} else {
-								that.values[key].value = null;
-							}
-						});
-					}
+					// Fresh values are empty
+					} else { that.clear(); }
 
 				// Setting with defaults
-				} else {
+				} else if (this.allowUseDefaults && that.defaults) {
 
-					if (this.allowUseDefaults && that.defaults) {
+					tempValues = that.defaults;
+				}
 
-						angular.forEach(that.keys, function(key) {
+				// Setting values
+				if (tempValues) {
 
-							if (angular.isDefined(that.defaults[key])) {
-								that.values[key].value = that.defaults[key];
+					angular.forEach(that.keys, function(key) {
 
-							} else {
-								that.values[key].value = null;
-							}
-						});
-					}
+						if (angular.isDefined(tempValues[key])) {
+							that.values[key].value = tempValues[key];
+
+						} else {
+							that.values[key] = new MyFormModelValue(null, null, null);
+						}
+					});
 				}
 			},
 			setValue: function(key, value) {
 
-				this.values[key].value = value;
+				this.values[key] = new MyFormModelValue(value, null, null);
 			},
 			setWithRestObj: function(restObj) {
 
@@ -130,21 +122,6 @@
 
 				if (cb) { cb(); }
 			},
-			getValues: function() {
-
-				var that = this;
-				var values = {};
-
-				angular.forEach(that.keys, function(key) {
-					values[key] = that.values[key].value;
-				});
-
-				return values;
-			},
-			getValue: function(key) {
-
-				return this.values[key].value;
-			},
 			bindErrors: function(errors, cb) {
 
 				var that = this;
@@ -182,6 +159,21 @@
 				});
 
 				if (cb) { cb(); }
+			},
+			getValue: function(key) {
+
+				return this.values[key].value;
+			},
+			getValues: function() {
+
+				var that = this;
+				var values = {};
+
+				angular.forEach(that.keys, function(key) {
+					values[key] = that.values[key].value;
+				});
+
+				return values;
 			}
 		};
 

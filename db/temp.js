@@ -28,8 +28,8 @@ use laf-dev
 
 
 
-db.users.update({}, {
-	$set: {
-		account: 'basic'
-	}
-}, { multi: true });
+// db.users.update({}, {
+// 	$set: {
+// 		account: 'basic'
+// 	}
+// }, { multi: true });

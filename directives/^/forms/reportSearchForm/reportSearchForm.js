@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				$scope.reportCategories = $rootScope.apiData.reportCategories;
+				$scope.reportCategories = $rootScope.hardData.reportCategories;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'reportSearchForm',

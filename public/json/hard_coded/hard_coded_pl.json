@@ -31,8 +31,69 @@
 		]
 	},
 	"reportGroups": [
-		{ "value": "lost", "label": "Utracone" },
-		{ "value": "found", "label": "Odnalezione" }
+		{ "value": "lost", "label": "Strata", "label2": "Stracono" },
+		{ "value": "found", "label": "Znalezienie", "label2": "Znaleziono" }
+	],
+	"reportCategories": [
+		{
+			"_id": "electronics",
+			"label": "Elektronika",
+			"subcategories": [
+				{ "_id": "mobile_phone", "label": "Telefon komórkowy" },
+				{ "_id": "laptop", "label": "Laptop" },
+				{ "_id": "watch", "label": "Zegarek" }
+			]
+		},
+		{
+			"_id": "living_beings",
+			"label": "Żywe istoty",
+			"subcategories": [
+				{
+					"_id": "animals",
+					"label": "Zwierzęta",
+					"subcategories": [
+						{ "_id": "dog", "label": "Pies" },
+						{ "_id": "cat", "label": "Kot" }
+					]
+				},
+				{ "_id": "human", "label": "Człowiek" }
+			]
+		},
+		{
+			"_id": "personal_items",
+			"label": "Rzeczy osobiste",
+			"subcategories": [
+				{ "_id": "wallet", "label": "Portfel" },
+				{ "_id": "keys", "label": "Klucze" },
+				{
+					"_id": "documents",
+					"label": "Dokumenty",
+					"subcategories": [
+						{ "_id": "passport", "label": "Paszport" },
+						{ "_id": "driving_license", "label": "Prawo jazdy" },
+						{ "_id": "identity_card", "label": "Dowód osobisty" },
+						{ "_id": "payment_card", "label": "Karta płatnicza" }
+					]
+				}
+			]
+		},
+		{
+			"_id": "jewelry",
+			"label": "Biżuteria",
+			"subcategories": [
+				{ "_id": "earrings", "label": "Kolczyki" },
+				{ "_id": "bracelet", "label": "Bransoletka" },
+				{ "_id": "ring", "label": "Pierścień" }
+			]
+		},
+		{
+			"_id": "vehicles",
+			"label": "Pojazdy",
+			"subcategories": [
+				{ "_id": "car", "label": "Samochód" },
+				{ "_id": "bike", "label": "Rower" }
+			]
+		}
 	],
 	"themes": [
 		{ "value": "standard", "label": "Standardowy" },
@@ -49,7 +110,7 @@
 	],
 	"labels": [
 		"Email", "Nazwa użytkownika", "Hasło", "Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Język",
-		"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Grupa", "Lokalizacja", "ID", "Szczegóły",
+		"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Rodzaj", "Lokalizacja", "ID", "Szczegóły",
 		"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie", "",
 		"Metoda", "Rodzaj", "Numer", "Ważna do (miesiąc)", "Ważna do (rok)", "Waluta", "Kwota", "Płatność", "Cvv2", "Data i czas",
 		"ID transakcji", "Data ważności", "ID płatnika"

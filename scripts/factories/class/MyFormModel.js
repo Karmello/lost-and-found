@@ -11,12 +11,11 @@
 			this.errorType = errorType;
 		};
 
-		var MyFormModel = function(_id, keys, allowUseDefaults, clearCb) {
+		var MyFormModel = function(_id, keys, allowUseDefaults) {
 
 			this._id = _id;
 			this.keys = keys;
 			this.allowUseDefaults = allowUseDefaults;
-			this.clearCb = clearCb;
 
 			this.values = {};
 			this.defaults = undefined;
@@ -102,8 +101,6 @@
 				angular.forEach(that.keys, function(key) {
 					that.values[key] = new MyFormModelValue(null, null, null);
 				});
-
-				if (that.clearCb) { that.clearCb(); }
 			},
 			trimValues: function(formId, cb) {
 

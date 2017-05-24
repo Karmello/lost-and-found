@@ -70,7 +70,6 @@ r.setups.setupConstants(app, function() {
 					r.Password = r.mongoose.model('password');
 					r.Payment = r.mongoose.model('payment');
 					r.Report = r.mongoose.model('report');
-					r.ReportCategory = r.mongoose.model('report_category');
 					r.ReportEvent = r.mongoose.model('report_event', require(global.paths.schemas + 'ReportEventSchema'));
 					r.User = r.mongoose.model('user');
 

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, ReportsRest) {
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, ReportsRest, Restangular) {
 
 		var service = this;
 
@@ -10,6 +10,7 @@
 			'group',
 			'categoryId',
 			'subcategoryId',
+			'subsubcategoryId',
 			'title',
 			'serialNo',
 			'description',
@@ -56,36 +57,20 @@
 
 					return function(args) {
 
-						$scope.myForm.submitSuccessCb = function(res) {
+						scope.myForm.submitSuccessCb = function(res) {
 							$rootScope.apiData.report = res.data;
 							$state.go('app.report', { id: res.data._id, edit: undefined });
 						};
 
-						$scope.myForm.submitErrorCb = function(res) {
+						scope.myForm.submitErrorCb = function(res) {
 							$rootScope.apiData.report = copy;
 						};
 
 						var copy = Restangular.copy($rootScope.apiData.report);
-						$scope.myModel.setRestObj(copy);
+						scope.myModel.setRestObj(copy);
 						return copy.put();
 					};
 			}
-		};
-
-		service.getAutoCompleteObj = function(scope) {
-
-			return {
-				onPlaceChanged: function() {
-
-					var place = scope.autocomplete.ins.getPlace();
-
-					if (place) {
-						scope.autocomplete.icon = place.icon;
-						scope.autocomplete.label = place.formatted_address;
-						scope.$apply();
-					}
-				}
-			};
 		};
 
 		service.deleteReports = function(reports) {
@@ -137,7 +122,7 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'ReportsRest'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'ReportsRest', 'Restangular'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();

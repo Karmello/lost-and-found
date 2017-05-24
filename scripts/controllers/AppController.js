@@ -18,7 +18,6 @@
 			profileUser: undefined,
 			reportUser: undefined,
 			report: undefined,
-			reportCategories: undefined,
 			deactivationReasons: undefined,
 			contactTypes: undefined,
 			stats: undefined,

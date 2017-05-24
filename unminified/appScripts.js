@@ -734,7 +734,6 @@
 			profileUser: undefined,
 			reportUser: undefined,
 			report: undefined,
-			reportCategories: undefined,
 			deactivationReasons: undefined,
 			contactTypes: undefined,
 			stats: undefined,
@@ -1020,7 +1019,27 @@
 						}).error(function() { resolve(false); });
 					});
 				},
-				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest, ReportCategoriesRest) {
+				hardData: function($q, $rootScope) {
+
+					return $q(function(resolve) {
+
+						var sortByLabel = function(array) {
+
+							for (var i = 0; i < array.length; i++) {
+
+								if (array[i].subcategories) {
+									array[i].subcategories = sortByLabel(array[i].subcategories);
+								}
+							}
+
+							return _.sortBy(array, 'label');
+						};
+
+						$rootScope.hardData.reportCategories = sortByLabel($rootScope.hardData.reportCategories);
+						resolve();
+					});
+				},
+				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest) {
 
 					return $q(function(resolve) {
 
@@ -1028,7 +1047,6 @@
 
 						promises.push(DeactivationReasonsRest.getList());
 						promises.push(ContactTypesRest.getList());
-						promises.push(ReportCategoriesRest.getList());
 						promises.push($http.get('/stats'));
 
 						$q.all(promises).then(function(results) {
@@ -1037,8 +1055,7 @@
 
 								$rootScope.apiData.deactivationReasons = $filter('orderBy')(results[0].data.plain(), 'index');
 								$rootScope.apiData.contactTypes = $filter('orderBy')(results[1].data.plain(), 'index');
-								$rootScope.apiData.reportCategories = results[2].data.plain();
-								$rootScope.apiData.stats = results[3].data;
+								$rootScope.apiData.stats = results[2].data;
 
 								resolve(true);
 
@@ -1046,7 +1063,7 @@
 						});
 					});
 				},
-				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, apiData) {
+				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, hardData, apiData) {
 
 					return $q(function(resolve, reject) {
 
@@ -1728,7 +1745,7 @@
 			},
 			createReportFullCategoryString: function(report) {
 
-				var category = _.find($rootScope.apiData.reportCategories, function(obj) {
+				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
 					return obj._id == report.categoryId;
 				});
 
@@ -3177,12 +3194,11 @@
 			this.errorType = errorType;
 		};
 
-		var MyFormModel = function(_id, keys, allowUseDefaults, clearCb) {
+		var MyFormModel = function(_id, keys, allowUseDefaults) {
 
 			this._id = _id;
 			this.keys = keys;
 			this.allowUseDefaults = allowUseDefaults;
-			this.clearCb = clearCb;
 
 			this.values = {};
 			this.defaults = undefined;
@@ -3268,8 +3284,6 @@
 				angular.forEach(that.keys, function(key) {
 					that.values[key] = new MyFormModelValue(null, null, null);
 				});
-
-				if (that.clearCb) { that.clearCb(); }
 			},
 			trimValues: function(formId, cb) {
 
@@ -4316,18 +4330,6 @@
 
 	'use strict';
 
-	var ReportCategoriesRest = function(Restangular) {
-		return Restangular.service('report_categories');
-	};
-
-	ReportCategoriesRest.$inject = ['Restangular'];
-	angular.module('appModule').factory('ReportCategoriesRest', ReportCategoriesRest);
-
-})();
-(function() {
-
-	'use strict';
-
 	var UsersRest = function($rootScope, Restangular) {
 
 		var users = Restangular.service('users');
@@ -4457,66 +4459,6 @@
 		};
 
 		return scrollTopBtn;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmDangerModal', function() {
-
-		var confirmDangerModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmDangerModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('infoModal', function() {
-
-		var infoModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return infoModal;
 	});
 
 })();
@@ -4919,7 +4861,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $state, myClass, reportsService, Restangular) {
+	appModule.directive('reportForm', function($rootScope, $timeout, $state, myClass, reportsService, Restangular) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -4933,23 +4875,24 @@
 				$scope.apiData = $rootScope.apiData;
 				$scope.hardData = $rootScope.hardData;
 
-				$scope.autocomplete = reportsService.getAutoCompleteObj($scope);
+				$scope.autocomplete = {};
 
 				var date = new Date();
 				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myModel = new myClass.MyFormModel('reportFormModel', reportsService.formModelFields, true, function() {
-					if ($scope.autocomplete.init) { $scope.autocomplete.init(); }
-				});
-
+				$scope.myModel = new myClass.MyFormModel('reportFormModel', reportsService.formModelFields, true);
 				$scope.myModel.set({ date: $scope.maxDate });
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: $scope.action + 'Form',
 					model: $scope.myModel,
 					submitAction: reportsService.getFormSubmitAction($scope),
-					onCancel: function() { window.history.back(); }
+					onCancel: function() {
+
+						$timeout(function() { $scope.myForm.reset(); });
+						window.history.back();
+					}
 				});
 			},
 			compile: function(elem, attrs) {
@@ -4962,7 +4905,26 @@
 
 							if (!$rootScope.$$listeners.editReport) {
 								$rootScope.$on('editReport', function(e, args) {
-									if (args.report) { scope.myModel.setWithRestObj(args.report); }
+									if (args.report) {
+
+										var geocoder = new google.maps.Geocoder();
+
+										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
+
+											scope.myModel.set({
+												title: args.report.title,
+												categoryId: args.report.categoryId,
+												subcategoryId: args.report.subcategoryId,
+												subsubcategoryId: args.report.subsubcategoryId,
+												serialNo: args.report.serialNo,
+												description: args.report.description,
+												group: args.report.startEvent.group,
+												date: args.report.startEvent.date,
+												geolocation: results[0].formatted_address,
+												details: args.report.startEvent.details
+											});
+										});
+									}
 								});
 							}
 
@@ -4996,7 +4958,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				$scope.reportCategories = $rootScope.apiData.reportCategories;
+				$scope.reportCategories = $rootScope.hardData.reportCategories;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'reportSearchForm',
@@ -5122,6 +5084,66 @@
 		};
 
 		return upgradeForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmDangerModal', function() {
+
+		var confirmDangerModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmDangerModal/confirmDangerModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmDangerModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('confirmModal', function() {
+
+		var confirmModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('infoModal', function() {
+
+		var infoModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return infoModal;
 	});
 
 })();
@@ -5465,6 +5487,1067 @@
 
 	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
 	angular.module('appModule').service('commentsConf', commentsConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myAlert', function() {
+
+		var myAlert = {
+			restrict: 'E',
+			template: '<div class="myAlert alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
+			scope: {
+				ctrlClass: "=",
+				hardData: '='
+			}
+		};
+
+		return myAlert;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myBtn', function($rootScope) {
+
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'public/directives/my/myBtn/myBtn.html',
+			scope: {
+				ctrlClass: '=',
+				clickAction: '=',
+				clickArgs: '=',
+				clickContext: '=',
+				showModalId: '@',
+				explicitLabel: '=',
+				hardData: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (scope.showModalId) {
+
+						scope.onClick = function() {
+							$rootScope.$broadcast(scope.showModalId);
+						};
+
+					} else if (typeof scope.clickAction == 'function') {
+
+						scope.onClick = function() {
+
+							if (scope.clickContext) {
+								scope.clickAction.call(scope.clickContext, scope.clickArgs);
+
+							} else {
+								scope.clickAction(scope.clickArgs);
+							}
+						};
+					}
+				};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myCaptcha', function($timeout, grecaptchaService) {
+
+		var myCaptcha = {
+			restrict: 'E',
+			template: '<div id="{{ ctrlId }}" ng-show="visible" style="margin-bottom: 20px;" my-directive></div>',
+			scope: {
+				ctrlId: '=',
+				actionName: '='
+			},
+			controller: function($scope, $timeout) {
+
+				$timeout(function() {
+
+					// Loading captcha
+					$scope.grecaptchaId = grecaptchaService.load($scope.ctrlId, $scope.actionName, function() {
+
+						// When captcha resolved callback
+						$timeout(function() { $scope.visible = false; }, 1000);
+					});
+				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					// Getting parent form scope
+					var form = $(elem).parents('.myForm:first');
+					var formScope = $(form).scope();
+
+					scope.$watch('visible', function(newValue) {
+						if (newValue === true) { grecaptchaService.reset(scope.grecaptchaId); }
+					});
+
+
+
+					$timeout(function() {
+
+						// Setting initial captcha visibility
+						grecaptchaService.shouldBeVisible(scope.ctrlId, function(visible) {
+							formScope.captcha = scope;
+							scope.visible = visible;
+						});
+					});
+				};
+			}
+		};
+
+		return myCaptcha;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myCollectionBrowser', function($rootScope) {
+
+		var myCollectionBrowser = {
+			restrict: 'E',
+			transclude: {
+				frontctrls: '?frontctrls',
+				endctrls: '?endctrls',
+				extractrls: '?extractrls',
+				elems: '?elems',
+			},
+			templateUrl: 'public/directives/my/myCollectionBrowser/myCollectionBrowser.html',
+			scope: {
+				ins: '=',
+				noScrollTopBtn: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+			}
+		};
+
+		return myCollectionBrowser;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myCollectionElem', function($rootScope, MySwitchable) {
+
+		var myCollectionElem = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myCollectionElem/myCollectionElem.html',
+			transclude: {
+				titleSection: '?titleSection',
+				avatarSection: '?avatarSection',
+				infoSection: '?infoSection'
+			},
+			scope: {
+				data: '=',
+				contextMenuConf: '=',
+				isSelectable: '='
+			},
+			controller: function($scope) {
+
+				if ($scope.contextMenuConf) {
+
+					// Creating context menu
+					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
+					$scope.contextMenu.data = $scope.data;
+				}
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return myCollectionElem;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myContextMenu', function() {
+
+		var myContextMenu = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myContextMenu/myContextMenu.html',
+			scope: {
+				ins: '='
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+
+				};
+			}
+		};
+
+		return myContextMenu;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDateInput', function() {
+
+		var myDateInput = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myDateInput/myDateInput.html',
+			scope: {
+				ctrlId: '=',
+				ctrlMaxLength: '=',
+				ctrlMinValue: '=',
+				ctrlMaxValue: '=',
+				model: '=',
+				hardData: '=',
+				hideErrors: '=',
+				isRequired: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+
+				};
+			}
+		};
+
+		return myDateInput;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDropDown', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myDropDown/myDropDown.html',
+			scope: {
+				ins: '=',
+				openDirection: '=',
+				ctrlClass: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myElemSelector', function() {
+
+		var myElemSelector = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myElemSelector/myElemSelector.html',
+			scope: {
+				isSelected: '='
+			},
+			controller: function() {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var button = $(elem).find('button').get()[0];
+
+					$(button).on('click', function() {
+
+						scope.isSelected = !scope.isSelected;
+						scope.$apply();
+					});
+				};
+			}
+		};
+
+		return myElemSelector;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myForm', function(MyLoader) {
+
+		return {
+			restrict: 'E',
+			transclude: true,
+			templateUrl: 'public/directives/my/myForm/myForm.html',
+			scope: {
+				ins: '=',
+				hardData: '='
+			},
+			controller: function($scope) {
+
+				$scope.ins.scope = $scope;
+
+				$scope.loader = new MyLoader();
+				$scope.ins.model.clear();
+				$scope.ins.model.set();
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myFormErrorIcon', function() {
+
+		var myFormErrorIcon = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myFormErrorIcon/myFormErrorIcon.html',
+			scope: {
+				args: '='
+			}
+		};
+
+		return myFormErrorIcon;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myInput', function() {
+
+		var myInput = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myInput/myInput.html',
+			scope: {
+				ctrlId: '=',
+				ctrlType: '=',
+				ctrlMaxLength: '=',
+				ctrlMinValue: '=',
+				ctrlMaxValue: '=',
+				model: '=',
+				hardData: '=',
+				hideErrors: '=',
+				isDisabled: '=',
+				autocomplete: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (scope.autocomplete) {
+
+						scope.$watch('model.value', function(newValue, oldValue) {
+
+							if (newValue) {
+								var geocoder = new google.maps.Geocoder();
+								geocoder.geocode({ 'address': newValue }, function(results, status) {
+									scope.autocomplete.ins.set('place', results[0]);
+								});
+
+							} else {
+								scope.autocomplete.label = null;
+							}
+						});
+
+						scope.autocomplete.init = function() {
+
+							var input = $(elem).find('input').get()[0];
+
+							scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
+							scope.autocomplete.label = null;
+
+							scope.autocomplete.ins.addListener('place_changed', function() {
+
+								var place = scope.autocomplete.ins.getPlace();
+
+								if (place) {
+									scope.autocomplete.label = place.formatted_address;
+									scope.$apply();
+								}
+							});
+						};
+
+						scope.autocomplete.init();
+					}
+				};
+			}
+		};
+
+		return myInput;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myLabel', function() {
+
+		var myLabel = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myLabel/myLabel.html',
+			scope: {
+				text: '=',
+				cssClass: '='
+			}
+		};
+
+		return myLabel;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myListGroup', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
+			scope: {
+				ins: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myLoader', function($timeout) {
+
+		var myLoader = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myLoader/myLoader.html',
+			scope: {
+				fixedCentered: '=',
+				absCentered: '='
+			}
+		};
+
+		return myLoader;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myModal', function($rootScope, $timeout) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myModal/myModal.html',
+			transclude: {
+				header: '?myModalHeader',
+				body: '?myModalBody',
+				footer: '?myModalFooter'
+			},
+			scope: {
+				ins: '=',
+				slideInFromLeft: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					// onShow
+					$('.modal').on('show.bs.modal', function() {
+
+						$rootScope.isAnyModalOpen = true;
+					});
+
+					// onHide
+					$('.modal').on('hide.bs.modal', function() {
+
+						$rootScope.isAnyModalOpen = false;
+
+						if (scope.ins.hideCb) {
+							$timeout(function() { scope.ins.hideCb(); }, 500);
+						}
+					});
+				};
+			}
+		};
+	});
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myNavMenu', function() {
+
+		var myNavMenu = {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'public/directives/my/myNavMenu/myNavMenu.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return myNavMenu;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myNavDropDown', function() {
+
+		var myNavDropDown = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myNavDropDown/myNavDropDown.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return myNavDropDown;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myPanel', function(ui) {
+
+		var myPanel = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myPanel/myPanel.html',
+			transclude: {
+				titleSection: '?titleSection',
+				actionSection: '?actionSection',
+				bodySection: '?bodySection'
+			},
+			scope: {
+				transHeading: '='
+			}
+		};
+
+		return myPanel;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myPopOverIcon', function() {
+
+		var myPopOverIcon = {
+			restrict: 'E',
+			transclude: {
+				icon: 'span'
+			},
+			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
+			scope: {
+				hardData: '='
+			}
+		};
+
+		return myPopOverIcon;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('mySelect', function(jsonService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySelect/mySelect.html',
+			scope: {
+				ctrlId: '=',
+				model: '=',
+				collection: '=',
+				nestedCollectionFieldName: '=',
+				propNames: '=',
+				optionZero: '=',
+				hardData: '=',
+				hideErrors: '='
+			},
+			link: function(scope, elem, attrs) {
+
+				var parentGroup = $(elem).parents('my-selects-group').get();
+
+				// If select is nested in mySelectGroup
+				if (parentGroup.length > 0) {
+
+					// Getting select index in parent group
+					var myIndex = $($(elem).parent()[0].children).index(elem);
+
+
+
+					/* Setting for all selects */
+
+					// Defining onSelect event handler
+					scope.onSelect = function() {
+
+						var allSelectsCount = $(elem).parent()[0].children.length;
+
+						// For all selects below this one
+						for (var i = myIndex + 1; i < allSelectsCount; i++) {
+
+							// Getting select scope
+							var select_scope = $($($(elem).parent()[0].children[i]).find('select')[0]).scope();
+
+							// Resetting scope variables
+							select_scope.model.value = '';
+							select_scope.collection = undefined;
+						}
+					};
+
+
+
+					/* If I am not top select */
+
+					if (myIndex > 0) {
+
+						// Getting scope of the first select above
+						var select_scope = $($($(elem).parent()[0].children[myIndex - 1]).find('select')[0]).scope();
+
+						// Watching for its model changes
+						scope.$watch(function() { return select_scope.model.value; }, function(newValue) {
+
+							if (newValue) {
+
+								// Getting collection of the first select above
+								var collection = select_scope.collection;
+
+								// Setting proper collection for myself
+								jsonService.find.objectByProperty(collection, select_scope.propNames.optionValue, newValue, function(obj) {
+									if (obj) { scope.collection = obj[scope.nestedCollectionFieldName]; }
+								});
+
+							} else {
+
+								// Resetting own scope collection
+								scope.collection = undefined;
+							}
+						});
+					}
+
+
+
+					/* Setting for select with particular index */
+
+					switch (myIndex) {
+
+						case 0:
+
+							// Watching parent group collection for changes
+							scope.$watch('$parent.$parent.collection', function(newValue) {
+								if (newValue) {
+									scope.collection = newValue;
+								}
+							});
+
+							// Watching for model changes
+							scope.$watch('model.value', function(newValue) {
+
+								// Selecting option 1 as default, later setting model overrides this
+								if (!scope.optionZero && !newValue && scope.collection) {
+									scope.model.value = scope.collection[0][scope.propNames.optionValue];
+								}
+							});
+
+							break;
+					}
+				}
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('mySelectsGroup', function(hardDataService) {
+
+		var mySelectsGroup = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
+			transclude: true,
+			scope: {
+				collection: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return mySelectsGroup;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrc', function($timeout, MySwitchable) {
+
+		var mySrc = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrc/mySrc.html',
+			scope: {
+				ins: '=',
+				type: '@',
+				isSelectable: '&',
+				contextMenuConf: '=',
+				hrefTarget: '@'
+			},
+			controller: function($scope) {
+
+				if ($scope.isSelectable() || $scope.contextMenuConf) {
+					$scope.onMouseEnter = function() { $scope.srcCtrlsVisible = true; };
+					$scope.onMouseLeave = function() { $scope.srcCtrlsVisible = false; };
+				}
+
+				if ($scope.isSelectable()) { $scope.ins.isSelected = false; }
+
+				if ($scope.contextMenuConf) {
+					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
+					$scope.contextMenu.data = $scope.ins;
+				}
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var srcCtrl = $(elem).find(scope.type).get()[0];
+
+					$(srcCtrl).bind('load', function() {
+						scope.$apply();
+		            	scope.ins.deferred.resolve(true);
+		            });
+
+		            $(srcCtrl).bind('error', function() {
+		            	scope.$apply();
+		                scope.ins.deferred.resolve(false);
+		            });
+				};
+			}
+		};
+
+		return mySrc;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrcSlides', function(MySwitchable) {
+
+		var mySrcSlides = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
+			scope: {
+				mySrcCollection: '=',
+				srcType: '@'
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+
+						if (collection) {
+
+							var switchers = [];
+
+							for (var i in collection) {
+								switchers.push({ _id: collection[i].index, index: collection[i].index });
+							}
+
+							scope.mySwitchable = new MySwitchable({ switchers: switchers });
+							scope.mySrcCollection.switchable = scope.mySwitchable;
+						}
+					});
+				};
+			}
+		};
+
+		return mySrcSlides;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
+
+		var mySrcThumbs = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcThumbs/mySrcThumbs.html',
+			scope: {
+				srcThumbsCollection: '=',
+				srcSlidesCollection: '=',
+				mainContextMenuConf: '=',
+				srcContextMenuConf: '=',
+				browsingWindowId: '@',
+				srcType: '@',
+				isSrcSelectable: '&',
+			},
+			controller: function($scope) {
+
+				// Creating modal instance for slides
+				$scope.srcSlidesModal = new MyModal({ id: $scope.browsingWindowId });
+
+				// Initializing main context menu
+				if ($scope.mainContextMenuConf) {
+					$scope.mainContextMenu = new MySwitchable($scope.mainContextMenuConf);
+				}
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					// When collection browsing window available
+					if (scope.browsingWindowId) {
+
+						// Watching thumbs collection srcs
+						scope.$watchCollection('srcThumbsCollection.collection', function(collection) {
+
+							if (collection) {
+
+								var onClick = function() {
+
+									if (scope.srcSlidesCollection.switchable) {
+
+										// Changing active slides switchable
+										scope.srcSlidesCollection.switchable.switchers[this.index].activate();
+
+										// Displaying modal
+										scope.srcSlidesModal.show();
+									}
+								};
+
+								// Binding click event to each src
+								for (var i in collection) {
+									collection[i].onClick = onClick;
+								}
+							}
+						});
+
+						// Watching slides srcs switchable
+						scope.$watch('srcSlidesCollection.switchable', function(switchable) {
+
+							if (switchable) {
+
+								var onActivate = function() {
+									scope.srcSlidesModal.title = scope.srcSlidesCollection.collection[this.index].filename;
+								};
+
+								for (var i in switchable.switchers) {
+									switchable.switchers[i].onActivate = onActivate;
+								}
+							}
+						});
+					}
+				};
+			}
+		};
+
+		return mySrcThumbs;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTabs', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTabs/myTabs.html',
+			scope: {
+				ins: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTextArea', function() {
+
+		var myTextArea = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
+			scope: {
+				ctrlId: '=',
+				ctrlMaxLength: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return myTextArea;
+	});
 
 })();
 (function() {
@@ -6035,11 +7118,11 @@
 					},
 					{
 						_id: 'lost',
-						label: hardData.reportGroups[0].label
+						label: hardData.reportGroups[0].label2
 					},
 					{
 						_id: 'found',
-						label: hardData.reportGroups[1].label
+						label: hardData.reportGroups[1].label2
 					}
 				]
 			},
@@ -6078,11 +7161,11 @@
 					},
 					{
 						_id: 'lost',
-						label: hardData.reportGroups[0].label
+						label: hardData.reportGroups[0].label2
 					},
 					{
 						_id: 'found',
-						label: hardData.reportGroups[1].label
+						label: hardData.reportGroups[1].label2
 					}
 				]
 			},
@@ -6171,7 +7254,7 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, ReportsRest) {
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, ReportsRest, Restangular) {
 
 		var service = this;
 
@@ -6179,6 +7262,7 @@
 			'group',
 			'categoryId',
 			'subcategoryId',
+			'subsubcategoryId',
 			'title',
 			'serialNo',
 			'description',
@@ -6225,36 +7309,20 @@
 
 					return function(args) {
 
-						$scope.myForm.submitSuccessCb = function(res) {
+						scope.myForm.submitSuccessCb = function(res) {
 							$rootScope.apiData.report = res.data;
 							$state.go('app.report', { id: res.data._id, edit: undefined });
 						};
 
-						$scope.myForm.submitErrorCb = function(res) {
+						scope.myForm.submitErrorCb = function(res) {
 							$rootScope.apiData.report = copy;
 						};
 
 						var copy = Restangular.copy($rootScope.apiData.report);
-						$scope.myModel.setRestObj(copy);
+						scope.myModel.setRestObj(copy);
 						return copy.put();
 					};
 			}
-		};
-
-		service.getAutoCompleteObj = function(scope) {
-
-			return {
-				onPlaceChanged: function() {
-
-					var place = scope.autocomplete.ins.getPlace();
-
-					if (place) {
-						scope.autocomplete.icon = place.icon;
-						scope.autocomplete.label = place.formatted_address;
-						scope.$apply();
-					}
-				}
-			};
 		};
 
 		service.deleteReports = function(reports) {
@@ -6306,1051 +7374,8 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'ReportsRest'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'ReportsRest', 'Restangular'];
 	angular.module('appModule').service('reportsService', reportsService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myAlert', function() {
-
-		var myAlert = {
-			restrict: 'E',
-			template: '<div class="myAlert alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
-			scope: {
-				ctrlClass: "=",
-				hardData: '='
-			}
-		};
-
-		return myAlert;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myBtn', function($rootScope) {
-
-		return {
-			restrict: 'E',
-			replace: true,
-			templateUrl: 'public/directives/my/myBtn/myBtn.html',
-			scope: {
-				ctrlClass: '=',
-				clickAction: '=',
-				clickArgs: '=',
-				clickContext: '=',
-				showModalId: '@',
-				explicitLabel: '=',
-				hardData: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					if (scope.showModalId) {
-
-						scope.onClick = function() {
-							$rootScope.$broadcast(scope.showModalId);
-						};
-
-					} else if (typeof scope.clickAction == 'function') {
-
-						scope.onClick = function() {
-
-							if (scope.clickContext) {
-								scope.clickAction.call(scope.clickContext, scope.clickArgs);
-
-							} else {
-								scope.clickAction(scope.clickArgs);
-							}
-						};
-					}
-				};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myCaptcha', function($timeout, grecaptchaService) {
-
-		var myCaptcha = {
-			restrict: 'E',
-			template: '<div id="{{ ctrlId }}" ng-show="visible" style="margin-bottom: 20px;" my-directive></div>',
-			scope: {
-				ctrlId: '=',
-				actionName: '='
-			},
-			controller: function($scope, $timeout) {
-
-				$timeout(function() {
-
-					// Loading captcha
-					$scope.grecaptchaId = grecaptchaService.load($scope.ctrlId, $scope.actionName, function() {
-
-						// When captcha resolved callback
-						$timeout(function() { $scope.visible = false; }, 1000);
-					});
-				});
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					// Getting parent form scope
-					var form = $(elem).parents('.myForm:first');
-					var formScope = $(form).scope();
-
-					scope.$watch('visible', function(newValue) {
-						if (newValue === true) { grecaptchaService.reset(scope.grecaptchaId); }
-					});
-
-
-
-					$timeout(function() {
-
-						// Setting initial captcha visibility
-						grecaptchaService.shouldBeVisible(scope.ctrlId, function(visible) {
-							formScope.captcha = scope;
-							scope.visible = visible;
-						});
-					});
-				};
-			}
-		};
-
-		return myCaptcha;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myCollectionBrowser', function($rootScope) {
-
-		var myCollectionBrowser = {
-			restrict: 'E',
-			transclude: {
-				frontctrls: '?frontctrls',
-				endctrls: '?endctrls',
-				extractrls: '?extractrls',
-				elems: '?elems',
-			},
-			templateUrl: 'public/directives/my/myCollectionBrowser/myCollectionBrowser.html',
-			scope: {
-				ins: '=',
-				noScrollTopBtn: '='
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-			}
-		};
-
-		return myCollectionBrowser;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myCollectionElem', function($rootScope, MySwitchable) {
-
-		var myCollectionElem = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myCollectionElem/myCollectionElem.html',
-			transclude: {
-				titleSection: '?titleSection',
-				avatarSection: '?avatarSection',
-				infoSection: '?infoSection'
-			},
-			scope: {
-				data: '=',
-				contextMenuConf: '=',
-				isSelectable: '='
-			},
-			controller: function($scope) {
-
-				if ($scope.contextMenuConf) {
-
-					// Creating context menu
-					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
-					$scope.contextMenu.data = $scope.data;
-				}
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-				};
-			}
-		};
-
-		return myCollectionElem;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myContextMenu', function() {
-
-		var myContextMenu = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myContextMenu/myContextMenu.html',
-			scope: {
-				ins: '='
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-
-				};
-			}
-		};
-
-		return myContextMenu;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myDateInput', function() {
-
-		var myDateInput = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myDateInput/myDateInput.html',
-			scope: {
-				ctrlId: '=',
-				ctrlMaxLength: '=',
-				ctrlMinValue: '=',
-				ctrlMaxValue: '=',
-				model: '=',
-				hardData: '=',
-				hideErrors: '=',
-				isRequired: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-
-				};
-			}
-		};
-
-		return myDateInput;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myDirective', function($rootScope, $timeout, hardDataService) {
-
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
-
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
-
-		return myDirective;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myDropDown', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myDropDown/myDropDown.html',
-			scope: {
-				ins: '=',
-				openDirection: '=',
-				ctrlClass: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myElemSelector', function() {
-
-		var myElemSelector = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myElemSelector/myElemSelector.html',
-			scope: {
-				isSelected: '='
-			},
-			controller: function() {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var button = $(elem).find('button').get()[0];
-
-					$(button).on('click', function() {
-
-						scope.isSelected = !scope.isSelected;
-						scope.$apply();
-					});
-				};
-			}
-		};
-
-		return myElemSelector;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myForm', function(MyLoader) {
-
-		return {
-			restrict: 'E',
-			transclude: true,
-			templateUrl: 'public/directives/my/myForm/myForm.html',
-			scope: {
-				ins: '=',
-				hardData: '='
-			},
-			controller: function($scope) {
-
-				$scope.ins.scope = $scope;
-
-				$scope.loader = new MyLoader();
-				$scope.ins.model.clear();
-				$scope.ins.model.set();
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myFormErrorIcon', function() {
-
-		var myFormErrorIcon = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myFormErrorIcon/myFormErrorIcon.html',
-			scope: {
-				args: '='
-			}
-		};
-
-		return myFormErrorIcon;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myInput', function() {
-
-		var myInput = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myInput/myInput.html',
-			scope: {
-				ctrlId: '=',
-				ctrlType: '=',
-				ctrlMaxLength: '=',
-				ctrlMinValue: '=',
-				ctrlMaxValue: '=',
-				model: '=',
-				hardData: '=',
-				hideErrors: '=',
-				isDisabled: '=',
-				autocomplete: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					if (scope.autocomplete) {
-
-						scope.autocomplete.init = function() {
-
-							var input = $(elem).find('input').get()[0];
-
-							scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
-							scope.autocomplete.icon = null;
-							scope.autocomplete.label = null;
-
-							scope.autocomplete.ins.addListener('place_changed', function() {
-								scope.autocomplete.onPlaceChanged();
-							});
-						};
-
-						scope.autocomplete.init();
-					}
-				};
-			}
-		};
-
-		return myInput;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myLabel', function() {
-
-		var myLabel = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myLabel/myLabel.html',
-			scope: {
-				text: '=',
-				cssClass: '='
-			}
-		};
-
-		return myLabel;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myListGroup', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myLoader', function($timeout) {
-
-		var myLoader = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myLoader/myLoader.html',
-			scope: {
-				fixedCentered: '=',
-				absCentered: '='
-			}
-		};
-
-		return myLoader;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myModal', function($rootScope, $timeout) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myModal/myModal.html',
-			transclude: {
-				header: '?myModalHeader',
-				body: '?myModalBody',
-				footer: '?myModalFooter'
-			},
-			scope: {
-				ins: '=',
-				slideInFromLeft: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					// onShow
-					$('.modal').on('show.bs.modal', function() {
-
-						$rootScope.isAnyModalOpen = true;
-					});
-
-					// onHide
-					$('.modal').on('hide.bs.modal', function() {
-
-						$rootScope.isAnyModalOpen = false;
-
-						if (scope.ins.hideCb) {
-							$timeout(function() { scope.ins.hideCb(); }, 500);
-						}
-					});
-				};
-			}
-		};
-	});
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myNavDropDown', function() {
-
-		var myNavDropDown = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myNavDropDown/myNavDropDown.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return myNavDropDown;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myNavMenu', function() {
-
-		var myNavMenu = {
-			restrict: 'E',
-			replace: true,
-			templateUrl: 'public/directives/my/myNavMenu/myNavMenu.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return myNavMenu;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myPanel', function(ui) {
-
-		var myPanel = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myPanel/myPanel.html',
-			transclude: {
-				titleSection: '?titleSection',
-				actionSection: '?actionSection',
-				bodySection: '?bodySection'
-			},
-			scope: {
-				transHeading: '='
-			}
-		};
-
-		return myPanel;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myPopOverIcon', function() {
-
-		var myPopOverIcon = {
-			restrict: 'E',
-			transclude: {
-				icon: 'span'
-			},
-			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
-			scope: {
-				hardData: '='
-			}
-		};
-
-		return myPopOverIcon;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('mySelect', function(jsonService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySelect/mySelect.html',
-			scope: {
-				ctrlId: '=',
-				model: '=',
-				collection: '=',
-				nestedCollectionFieldName: '=',
-				propNames: '=',
-				optionZero: '=',
-				hardData: '=',
-				hideErrors: '='
-			},
-			link: function(scope, elem, attrs) {
-
-				var parentGroup = $(elem).parents('my-selects-group').get();
-
-				// If select is nested in mySelectGroup
-				if (parentGroup.length > 0) {
-
-					// Getting select index in parent group
-					var myIndex = $($(elem).parent()[0].children).index(elem);
-
-
-
-					/* Setting for all selects */
-
-					// Defining onSelect event handler
-					scope.onSelect = function() {
-
-						var allSelectsCount = $(elem).parent()[0].children.length;
-
-						// For all selects below this one
-						for (var i = myIndex + 1; i < allSelectsCount; i++) {
-
-							// Getting select scope
-							var select_scope = $($($(elem).parent()[0].children[i]).find('select')[0]).scope();
-
-							// Resetting scope variables
-							select_scope.model.value = '';
-							select_scope.collection = undefined;
-						}
-					};
-
-
-
-					/* If I am not top select */
-
-					if (myIndex > 0) {
-
-						// Getting scope of the first select above
-						var select_scope = $($($(elem).parent()[0].children[myIndex - 1]).find('select')[0]).scope();
-
-						// Watching for its model changes
-						scope.$watch(function() { return select_scope.model.value; }, function(newValue) {
-
-							if (newValue) {
-
-								// Getting collection of the first select above
-								var collection = select_scope.collection;
-
-								// Setting proper collection for myself
-								jsonService.find.objectByProperty(collection, select_scope.propNames.optionValue, newValue, function(obj) {
-									if (obj) { scope.collection = obj[scope.nestedCollectionFieldName]; }
-								});
-
-							} else {
-
-								// Resetting own scope collection
-								scope.collection = undefined;
-							}
-						});
-					}
-
-
-
-					/* Setting for select with particular index */
-
-					switch (myIndex) {
-
-						case 0:
-
-							// Watching parent group collection for changes
-							scope.$watch('$parent.$parent.collection', function(newValue) {
-								if (newValue) {
-									scope.collection = newValue;
-								}
-							});
-
-							// Watching for model changes
-							scope.$watch('model.value', function(newValue) {
-
-								// Selecting option 1 as default, later setting model overrides this
-								if (!scope.optionZero && !newValue && scope.collection) {
-									scope.model.value = scope.collection[0][scope.propNames.optionValue];
-								}
-							});
-
-							break;
-					}
-				}
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('mySelectsGroup', function(hardDataService) {
-
-		var mySelectsGroup = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
-			transclude: true,
-			scope: {
-				collection: '=',
-				model: '=',
-				hardData: '='
-			}
-		};
-
-		return mySelectsGroup;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrc', function($timeout, MySwitchable) {
-
-		var mySrc = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrc/mySrc.html',
-			scope: {
-				ins: '=',
-				type: '@',
-				isSelectable: '&',
-				contextMenuConf: '=',
-				hrefTarget: '@'
-			},
-			controller: function($scope) {
-
-				if ($scope.isSelectable() || $scope.contextMenuConf) {
-					$scope.onMouseEnter = function() { $scope.srcCtrlsVisible = true; };
-					$scope.onMouseLeave = function() { $scope.srcCtrlsVisible = false; };
-				}
-
-				if ($scope.isSelectable()) { $scope.ins.isSelected = false; }
-
-				if ($scope.contextMenuConf) {
-					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
-					$scope.contextMenu.data = $scope.ins;
-				}
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var srcCtrl = $(elem).find(scope.type).get()[0];
-
-					$(srcCtrl).bind('load', function() {
-						scope.$apply();
-		            	scope.ins.deferred.resolve(true);
-		            });
-
-		            $(srcCtrl).bind('error', function() {
-		            	scope.$apply();
-		                scope.ins.deferred.resolve(false);
-		            });
-				};
-			}
-		};
-
-		return mySrc;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrcSlides', function(MySwitchable) {
-
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
-
-						if (collection) {
-
-							var switchers = [];
-
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
-
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
-
-		return mySrcSlides;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
-
-		var mySrcThumbs = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcThumbs/mySrcThumbs.html',
-			scope: {
-				srcThumbsCollection: '=',
-				srcSlidesCollection: '=',
-				mainContextMenuConf: '=',
-				srcContextMenuConf: '=',
-				browsingWindowId: '@',
-				srcType: '@',
-				isSrcSelectable: '&',
-			},
-			controller: function($scope) {
-
-				// Creating modal instance for slides
-				$scope.srcSlidesModal = new MyModal({ id: $scope.browsingWindowId });
-
-				// Initializing main context menu
-				if ($scope.mainContextMenuConf) {
-					$scope.mainContextMenu = new MySwitchable($scope.mainContextMenuConf);
-				}
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					// When collection browsing window available
-					if (scope.browsingWindowId) {
-
-						// Watching thumbs collection srcs
-						scope.$watchCollection('srcThumbsCollection.collection', function(collection) {
-
-							if (collection) {
-
-								var onClick = function() {
-
-									if (scope.srcSlidesCollection.switchable) {
-
-										// Changing active slides switchable
-										scope.srcSlidesCollection.switchable.switchers[this.index].activate();
-
-										// Displaying modal
-										scope.srcSlidesModal.show();
-									}
-								};
-
-								// Binding click event to each src
-								for (var i in collection) {
-									collection[i].onClick = onClick;
-								}
-							}
-						});
-
-						// Watching slides srcs switchable
-						scope.$watch('srcSlidesCollection.switchable', function(switchable) {
-
-							if (switchable) {
-
-								var onActivate = function() {
-									scope.srcSlidesModal.title = scope.srcSlidesCollection.collection[this.index].filename;
-								};
-
-								for (var i in switchable.switchers) {
-									switchable.switchers[i].onActivate = onActivate;
-								}
-							}
-						});
-					}
-				};
-			}
-		};
-
-		return mySrcThumbs;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myTabs', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTabs/myTabs.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myTextArea', function() {
-
-		var myTextArea = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
-			scope: {
-				ctrlId: '=',
-				ctrlMaxLength: '=',
-				model: '=',
-				hardData: '='
-			}
-		};
-
-		return myTextArea;
-	});
 
 })();
 (function() {

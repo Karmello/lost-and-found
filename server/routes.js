@@ -7,6 +7,5 @@ module.exports = {
 	'/password': require(global.paths.controllers + 'PasswordController'),
 	'/payments': require(global.paths.controllers + 'PaymentController'),
 	'/reports': require(global.paths.controllers + 'ReportController'),
-	'/report_categories': require(global.paths.controllers + 'ReportCategoryController'),
 	'/users': require(global.paths.controllers + 'UserController')
 };

@@ -24,20 +24,20 @@
 							<div>
 								<div>
 									<div>
-										<span class="text-info">{{ hardData.labels[18] }}:</span>
+										<span class="text-info">{{ hardData.labels[18] }}</span> -
 										<span ng-bind="apiData.report._id"></span>
 									</div>
 									<div>
-										<span class="text-info">{{ hardData.labels[12] }}:</span>
+										<span class="text-info">{{ hardData.labels[12] }}</span> -
 										<span ng-bind="apiData.report.fullCategory"></span>
 									</div>
 									<div>
-										<span class="text-info">{{ hardData.count[7] }}:</span>
+										<span class="text-info">{{ hardData.count[7] }}</span>
 										<span>{{ apiData.report.pastSinceAdded + ' ' + hardData.count[8] }}</span>
 										<span style="white-space: nowrap;">({{ apiData.report.formattedDateAdded }})</span>
 									</div>
 									<div>
-										<span class="text-info">{{ hardData.count[6] }}:</span>
+										<span class="text-info">{{ hardData.count[6] }}</span>
 										<a ui-sref="app.profile({ id: apiData.reportUser._id })">
 											<span ng-bind="apiData.reportUser.username" class="text-warning"></span>
 										</a>
@@ -49,11 +49,11 @@
 							</div>
 							<div>
 								<div style="text-align: justify;">
-									<span class="text-info">{{ hardData.labels[10] }}:</span><br>
+									<span class="text-info">{{ hardData.labels[10] }}</span><br>
 									<span ng-bind="apiData.report.description"></span>
 								</div>
 								<div>
-									<span class="text-info">{{ hardData.labels[20] }}:</span>
+									<span class="text-info">{{ hardData.labels[20] }}</span> -
 									<span ng-bind="apiData.report.serialNo"></span>
 								</div>
 							</div>
@@ -62,23 +62,20 @@
 				</my-panel>
 				<my-panel trans-heading="true">
 					<title-section>
-						<span ng-bind="hardData.sections[15]"></span>
+						<span class="text-info">{{ hardData.reportGroups[apiData.report.startEvent.group == 'lost' ? 0 : 1].label }} {{ hardData.count[0] }}</span>
+						<span>{{ apiData.report.formattedDate }}</span>
 					</title-section>
 					<body-section>
 						<div id="section2">
 							<div>
-								<div>
-									<span class="text-info">{{ hardData.reportGroups[apiData.report.startEvent.group == 'lost' ? 0 : 1].label }} {{ hardData.count[0] }}:</span>
-									<span>{{ apiData.report.formattedDate }}</span>
-								</div>
 								<div style="text-align: justify;">
-									<span class="text-info">{{ hardData.labels[19] }}:</span><br>
+									<span class="text-info">{{ hardData.labels[19] }}</span><br>
 									<span ng-bind="apiData.report.startEvent.details"></span>
 								</div>
 							</div>
 							<div id="mapContainer">
 								<div>
-									<span class="text-info">{{ hardData.labels[17] }}:</span>
+									<span class="text-info">{{ hardData.labels[17] }}</span>
 									<div id="reportMap" class="myGoogleMap"></div>
 								</div>
 							</div>

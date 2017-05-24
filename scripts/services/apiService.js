@@ -175,7 +175,7 @@
 			},
 			createReportFullCategoryString: function(report) {
 
-				var category = _.find($rootScope.apiData.reportCategories, function(obj) {
+				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
 					return obj._id == report.categoryId;
 				});
 

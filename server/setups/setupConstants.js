@@ -21,7 +21,7 @@ module.exports = function(app, cb) {
 	// Report model
 	app.set('REPORT_TITLE_MIN_LENGTH', 10);
 	app.set('REPORT_TITLE_MAX_LENGTH', 50);
-	app.set('REPORT_DESCRIPTION_MIN_LENGTH', 200);
+	app.set('REPORT_DESCRIPTION_MIN_LENGTH', 50);
 	app.set('REPORT_DESCRIPTION_MAX_LENGTH', 1000);
 
 	// Report photos

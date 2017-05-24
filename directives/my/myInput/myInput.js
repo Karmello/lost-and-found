@@ -28,16 +28,34 @@
 
 					if (scope.autocomplete) {
 
+						scope.$watch('model.value', function(newValue, oldValue) {
+
+							if (newValue) {
+								var geocoder = new google.maps.Geocoder();
+								geocoder.geocode({ 'address': newValue }, function(results, status) {
+									scope.autocomplete.ins.set('place', results[0]);
+								});
+
+							} else {
+								scope.autocomplete.label = null;
+							}
+						});
+
 						scope.autocomplete.init = function() {
 
 							var input = $(elem).find('input').get()[0];
 
 							scope.autocomplete.ins = new google.maps.places.Autocomplete(input);
-							scope.autocomplete.icon = null;
 							scope.autocomplete.label = null;
 
 							scope.autocomplete.ins.addListener('place_changed', function() {
-								scope.autocomplete.onPlaceChanged();
+
+								var place = scope.autocomplete.ins.getPlace();
+
+								if (place) {
+									scope.autocomplete.label = place.formatted_address;
+									scope.$apply();
+								}
 							});
 						};
 

@@ -32,9 +32,6 @@ module.exports = {
 		put: require('./Report/putReport'),
 		delete: require('./Report/deleteReport'),
 	},
-	report_category: {
-		get: require('./ReportCategory/getReportCategories')
-	},
 	user: {
 		post: require('./User/postUser'),
 		get: require('./User/getUser'),

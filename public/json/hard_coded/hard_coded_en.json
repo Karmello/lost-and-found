@@ -31,8 +31,69 @@
 		]
 	},
 	"reportGroups": [
-		{ "value": "lost", "label": "Lost" },
-		{ "value": "found", "label": "Found" }
+		{ "value": "lost", "label": "Loss", "label2": "Lost" },
+		{ "value": "found", "label": "Finding", "label2": "Found" }
+	],
+	"reportCategories": [
+		{
+			"_id": "electronics",
+			"label": "Electronics",
+			"subcategories": [
+				{ "_id": "mobile_phone", "label": "Mobile phone" },
+				{ "_id": "laptop", "label": "Laptop" },
+				{ "_id": "watch", "label": "Watch" }
+			]
+		},
+		{
+			"_id": "living_beings",
+			"label": "Living beings",
+			"subcategories": [
+				{
+					"_id": "animals",
+					"label": "Animals",
+					"subcategories": [
+						{ "_id": "dog", "label": "Dog" },
+						{ "_id": "cat", "label": "Cat" }
+					]
+				},
+				{ "_id": "human", "label": "Human" }
+			]
+		},
+		{
+			"_id": "personal_items",
+			"label": "Personal items",
+			"subcategories": [
+				{ "_id": "wallet", "label": "Wallet" },
+				{ "_id": "keys", "label": "Keys" },
+				{
+					"_id": "documents",
+					"label": "Documents",
+					"subcategories": [
+						{ "_id": "passport", "label": "Passport" },
+						{ "_id": "driving_license", "label": "Driving license" },
+						{ "_id": "identity_card", "label": "Identity card" },
+						{ "_id": "payment_card", "label": "Payment card" }
+					]
+				}
+			]
+		},
+		{
+			"_id": "jewelry",
+			"label": "Jewelry",
+			"subcategories": [
+				{ "_id": "earrings", "label": "Earrings" },
+				{ "_id": "bracelet", "label": "Bracelet" },
+				{ "_id": "ring", "label": "Ring" }
+			]
+		},
+		{
+			"_id": "vehicles",
+			"label": "Vehicles",
+			"subcategories": [
+				{ "_id": "car", "label": "Car" },
+				{ "_id": "bike", "label": "Bike" }
+			]
+		}
 	],
 	"themes": [
 		{ "value": "standard", "label": "Standard" },
@@ -49,7 +110,7 @@
 	],
 	"labels": [
 		"Email", "Username", "Password", "Current password", "New password", "First name", "Last name", "Title", "Country", "Language",
-		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Group", "Location", "ID", "Details",
+		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Type", "Location", "ID", "Details",
 		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
 		"Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
 		"Transaction ID", "Expiration date", "Payer ID"

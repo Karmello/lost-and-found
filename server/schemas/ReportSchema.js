@@ -15,13 +15,11 @@ var ReportSchema = new r.mongoose.Schema({
 	},
 	categoryId: {
 		type: String,
-		ref: 'report_category',
 		validate: [reportVal.categoryId.correctness],
 		required: true
 	},
 	subcategoryId: {
 		type: String,
-		ref: 'report_subcategory',
 		validate: [reportVal.subcategoryId.correctness],
 		required: true
 	},

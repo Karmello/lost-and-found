@@ -9,6 +9,5 @@ module.exports = {
 	Password: require(path + 'PasswordSchema'),
 	Payment: require(path + 'PaymentSchema'),
 	Report: require(path + 'ReportSchema'),
-	ReportCategory: require(path + 'ReportCategorySchema'),
 	User: require(path + 'UserSchema')
 };

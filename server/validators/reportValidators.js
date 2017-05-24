@@ -5,17 +5,15 @@ module.exports = {
         correctness: {
             type: 'incorrect',
             msgIndex: 2,
-            validator: function(categoryId, cb) {
+            validator: function(categoryId) {
 
-                if (categoryId == 'other') {
-                    cb(true);
-
-                } else {
-
-                    return r.ReportCategory.findOne({ _id: categoryId }, function(err, reportCategory) {
-                        cb(Boolean(reportCategory));
-                    });
+                for (var i = 0; i < r.hardData.en.reportCategories.length; i++) {
+                    if (r.hardData.en.reportCategories[i]._id == categoryId) {
+                        return true;
+                    }
                 }
+
+                return false;
             }
         }
     },
@@ -23,25 +21,28 @@ module.exports = {
         correctness: {
             type: 'incorrect',
             msgIndex: 2,
-            validator: function (subcategoryId, cb) {
+            validator: function (subcategoryId) {
 
-                if (subcategoryId == 'other') {
-                    cb(true);
+                var i, subcategories;
+
+                for (i = 0; i < r.hardData.en.reportCategories.length; i++) {
+                    if (r.hardData.en.reportCategories[i]._id == this.categoryId) {
+                        subcategories = r.hardData.en.reportCategories[i].subcategories;
+                    }
+                }
+
+                if (subcategories) {
+
+                    for (i = 0; i < subcategories.length; i++) {
+                        if (subcategories[i]._id == subcategoryId) {
+                            return true;
+                        }
+                    }
+
+                    return false;
 
                 } else {
-
-                    return r.ReportCategory.findOne({ _id: this.categoryId }, function(err, reportCategory) {
-
-                        if (!err && reportCategory) {
-
-                            var subCategory = reportCategory.subcategories.filter(function(child) {
-                                return child._id === subcategoryId;
-                            }).pop();
-
-                            cb(Boolean(subCategory));
-
-                        } else { cb(false); }
-                    });
+                    return false;
                 }
             }
         },

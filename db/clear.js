@@ -7,4 +7,3 @@ db.reports.remove({});
 db.sessions.remove({});
 
 //db.deactivation_reasons.remove({});
-//db.report_categories.remove({});

@@ -67,7 +67,27 @@
 						}).error(function() { resolve(false); });
 					});
 				},
-				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest, ReportCategoriesRest) {
+				hardData: function($q, $rootScope) {
+
+					return $q(function(resolve) {
+
+						var sortByLabel = function(array) {
+
+							for (var i = 0; i < array.length; i++) {
+
+								if (array[i].subcategories) {
+									array[i].subcategories = sortByLabel(array[i].subcategories);
+								}
+							}
+
+							return _.sortBy(array, 'label');
+						};
+
+						$rootScope.hardData.reportCategories = sortByLabel($rootScope.hardData.reportCategories);
+						resolve();
+					});
+				},
+				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest) {
 
 					return $q(function(resolve) {
 
@@ -75,7 +95,6 @@
 
 						promises.push(DeactivationReasonsRest.getList());
 						promises.push(ContactTypesRest.getList());
-						promises.push(ReportCategoriesRest.getList());
 						promises.push($http.get('/stats'));
 
 						$q.all(promises).then(function(results) {
@@ -84,8 +103,7 @@
 
 								$rootScope.apiData.deactivationReasons = $filter('orderBy')(results[0].data.plain(), 'index');
 								$rootScope.apiData.contactTypes = $filter('orderBy')(results[1].data.plain(), 'index');
-								$rootScope.apiData.reportCategories = results[2].data.plain();
-								$rootScope.apiData.stats = results[3].data;
+								$rootScope.apiData.stats = results[2].data;
 
 								resolve(true);
 
@@ -93,7 +111,7 @@
 						});
 					});
 				},
-				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, apiData) {
+				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, hardData, apiData) {
 
 					return $q(function(resolve, reject) {
 

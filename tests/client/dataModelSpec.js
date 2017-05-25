@@ -1,128 +1,167 @@
 describe('dataModel', function() {
 
-	var formModelService;
-	var personalDetailsModel, userModel;
-	var values1, values2, error;
+	var MyDataModel, myDataModel;
+
+	var exampleData = {
+		prop: 'xxx',
+		obj: {
+			prop: 'yyy'
+		}
+	};
+
+	var exampleDataForTrim = {
+		prop: '   xxx   ',
+		obj: {
+			prop: '   yyy   '
+		}
+	};
+
+	var exampleErrors = {
+		prop: {
+			kind: 'required',
+			message: 'is required'
+		},
+		obj: {
+			prop: {
+				kind: 'incorrect',
+				message: 'is incorrect'
+			}
+		}
+	};
 
 	beforeEach(function() {
 
 		initApp();
 
 		inject(function($injector) {
-			formModelService = $injector.get('formModelService');
-			personalDetailsModel = formModelService.personalDetailsModel;
-			userModel = formModelService.userModel;
-		});
 
-		values1 = { username: 'Karmello' };
-		values2 = { email: 'nogakamil@vp.pl' };
-		error = 'Validation Error';
-	});
+			MyDataModel = $injector.get('MyDataModel');
 
+			myDataModel = {
+				prop: {},
+				obj: {
+					prop: {}
+				}
+			};
 
-
-	describe('keys', function() {
-
-		describe('personalDetailsModel', function() {
-
-			it('length should equal 8', function() {
-				expect(personalDetailsModel.keys.length).toEqual(8);
-			});
+			myDataModel = new MyDataModel(myDataModel);
 		});
 	});
 
-	describe('values', function() {
+	it('new myDataModel instance', function() {
 
-		describe('personalDetailsModel', function() {
-
-			it('length should equal 8', function() {
-				expect(Object.keys(personalDetailsModel.values).length).toEqual(8);
-			});
-
-			it('username should be undefined', function() {
-				expect(personalDetailsModel.values.username.value).toBeUndefined();
-			});
-
-			it('username should be Karmello', function() {
-				personalDetailsModel.set(values1);
-				expect(personalDetailsModel.values.username.value).toEqual(values1.username);
-			});
-
-			it('username should be undefined', function() {
-				personalDetailsModel.set(values1);
-				personalDetailsModel.clear();
-				expect(personalDetailsModel.values.username.value).toBeUndefined();
-			});
-
-			it('username should be Karmello', function() {
-				personalDetailsModel.set(values1);
-				personalDetailsModel.clear();
-				personalDetailsModel.set();
-				expect(personalDetailsModel.values.username.value).toEqual(values1.username);
-			});
-
-			it('username should be undefined', function() {
-				personalDetailsModel.set(values1);
-				personalDetailsModel.set({});
-				expect(personalDetailsModel.values.username.value).toBeUndefined();
-			});
-
-			it('username should be Karmello', function() {
-				personalDetailsModel.set(values1);
-				personalDetailsModel.clearErrors();
-				expect(personalDetailsModel.values.username.value).toEqual(values1.username);
-			});
-
-			it('username should be Karmello', function() {
-				personalDetailsModel.setValue('username', values1.username);
-				expect(personalDetailsModel.getValue('username')).toEqual(values1.username);
-			});
-		});
+		expect(myDataModel.prop.value.active).toBe(undefined);
+		expect(myDataModel.prop.value.default).toBe(undefined);
+		expect(myDataModel.obj.prop.value.active).toBe(undefined);
+		expect(myDataModel.obj.prop.value.default).toBe(undefined);
 	});
 
-	describe('defaults', function() {
+	it('set method', function() {
 
-		describe('personalDetailsModel', function() {
+		myDataModel.set(exampleData);
 
-			it('should be undefined', function() {
-				expect(personalDetailsModel.defaults).toBeUndefined();
-			});
-
-			it('default username should be Karmello', function() {
-				personalDetailsModel.set(values1);
-				expect(personalDetailsModel.defaults.username).toEqual(values1.username);
-			});
-		});
-
-		describe('userModel', function() {
-
-			it('defaults should be undefined', function() {
-				userModel.set(values2);
-				expect(userModel.defaults).toBeUndefined();
-			});
-		});
+		expect(myDataModel.prop.value.active).toEqual(exampleData.prop);
+		expect(myDataModel.prop.value.default).toBe(undefined);
+		expect(myDataModel.obj.prop.value.active).toEqual(exampleData.obj.prop);
+		expect(myDataModel.obj.prop.value.default).toBe(undefined);
 	});
 
-	describe('errors', function() {
+	it('set method with defaults', function() {
 
-		describe('personalDetailsModel', function() {
+		myDataModel.set(exampleData, true);
 
-			it('username error should be ' + error, function() {
-				personalDetailsModel.values.username.error = error;
-				expect(personalDetailsModel.values.username.error).toEqual(error);
-			});
+		expect(myDataModel.prop.value.active).toEqual(exampleData.prop);
+		expect(myDataModel.prop.value.default).toEqual(exampleData.prop);
+		expect(myDataModel.obj.prop.value.active).toEqual(exampleData.obj.prop);
+		expect(myDataModel.obj.prop.value.default).toEqual(exampleData.obj.prop);
+	});
 
-			it('username error should be undefined', function() {
-				personalDetailsModel.values.username.error = error;
-				personalDetailsModel.clear();
-				expect(personalDetailsModel.values.username.error).toBeUndefined();
-			});
+	it('getValues method', function() {
 
-			it('username error should be undefined', function() {
-				personalDetailsModel.values.username.error = error;
-				personalDetailsModel.clearErrors();
-				expect(personalDetailsModel.values.username.error).toBeUndefined();
-			});
-		});
+		myDataModel.set(exampleData);
+		var values = myDataModel.getValues();
+
+		expect(values.prop).toEqual(exampleData.prop);
+		expect(values.obj.prop).toEqual(exampleData.obj.prop);
+	});
+
+	it('clear method', function() {
+
+		myDataModel.set(exampleData);
+		myDataModel.clear();
+
+		expect(myDataModel.prop.value.active).toBe(undefined);
+		expect(myDataModel.prop.value.default).toBe(undefined);
+		expect(myDataModel.obj.prop.value.active).toBe(undefined);
+		expect(myDataModel.obj.prop.value.default).toBe(undefined);
+	});
+
+	it('clear method after defaults set', function() {
+
+		myDataModel.set(exampleData, true);
+		myDataModel.clear();
+
+		expect(myDataModel.prop.value.active).toBe(undefined);
+		expect(myDataModel.prop.value.default).toBe(undefined);
+		expect(myDataModel.obj.prop.value.active).toBe(undefined);
+		expect(myDataModel.obj.prop.value.default).toBe(undefined);
+	});
+
+	it('setErrors method', function() {
+
+		myDataModel.set(exampleData);
+		myDataModel.setErrors(exampleErrors);
+
+		expect(myDataModel.prop.error.kind).toEqual(exampleErrors.prop.kind);
+		expect(myDataModel.prop.error.message).toEqual(exampleErrors.prop.message);
+		expect(myDataModel.obj.prop.error.kind).toEqual(exampleErrors.obj.prop.kind);
+		expect(myDataModel.obj.prop.error.message).toEqual(exampleErrors.obj.prop.message);
+	});
+
+	it('clearErrors method', function() {
+
+		myDataModel.set(exampleData);
+		myDataModel.setErrors(exampleErrors);
+		myDataModel.clearErrors();
+
+		expect(myDataModel.prop.value.active).toEqual(exampleData.prop);
+		expect(myDataModel.obj.prop.value.active).toEqual(exampleData.obj.prop);
+
+		expect(myDataModel.prop.error.kind).toBe(undefined);
+		expect(myDataModel.prop.error.message).toBe(undefined);
+		expect(myDataModel.obj.prop.error.kind).toBe(undefined);
+		expect(myDataModel.obj.prop.error.message).toBe(undefined);
+	});
+
+	it('getValue method', function() {
+
+		myDataModel.set(exampleData);
+
+		var value1 = myDataModel.getValue('prop');
+		var value2 = myDataModel.getValue('obj.prop');
+
+		expect(value1).toEqual(exampleData.prop);
+		expect(value2).toEqual(exampleData.obj.prop);
+	});
+
+	it('trimValues method', function() {
+
+		myDataModel.set(exampleDataForTrim);
+
+		expect(myDataModel.prop.value.active).toEqual(exampleDataForTrim.prop);
+		expect(myDataModel.obj.prop.value.active).toEqual(exampleDataForTrim.obj.prop);
+
+		var form = $('<div>').attr('id', 'myForm');
+		$(form).append($('<input>').attr({ id: 'prop' }).val(exampleDataForTrim.prop));
+		$(form).append($('<input>').attr({ id: 'obj_prop' }).val(exampleDataForTrim.obj.prop));
+		$('body').append(form);
+
+		myDataModel.trimValues('myForm');
+
+		expect(myDataModel.prop.value.active).toEqual(exampleData.prop);
+		expect(myDataModel.obj.prop.value.active).toEqual(exampleData.obj.prop);
+
+		expect($('#myForm #prop').val()).toEqual(exampleData.prop);
+		expect($('#myForm #obj_prop').val()).toEqual(exampleData.obj.prop);
 	});
 });

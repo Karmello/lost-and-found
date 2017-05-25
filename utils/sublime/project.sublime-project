@@ -31,6 +31,14 @@
 		{
 			"follow_symlinks": true,
 			"path": "D:\\Workspace\\laf\\dev\\scripts\\controllers"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\tests"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\scripts\\configuration"
 		}
 	]
 }

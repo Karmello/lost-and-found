@@ -2,16 +2,12 @@
 
 	'use strict';
 
-	var MainController = function($rootScope, $scope, MyDataModel, ReportsRest) {
+	var MainController = function($rootScope, $scope) {
 
-		$rootScope.runTest = function() {
 
-			var reportModel = new MyDataModel(ReportsRest.myDataModel);
-			console.log(reportModel.set($rootScope.apiData.report.plain()));
-		};
 	};
 
-	MainController.$inject = ['$rootScope', '$scope', 'MyDataModel', 'ReportsRest'];
+	MainController.$inject = ['$rootScope', '$scope'];
 	angular.module('appModule').controller('MainController', MainController);
 
 })();

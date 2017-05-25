@@ -822,16 +822,12 @@
 
 	'use strict';
 
-	var MainController = function($rootScope, $scope, MyDataModel, ReportsRest) {
+	var MainController = function($rootScope, $scope) {
 
-		$rootScope.runTest = function() {
 
-			var reportModel = new MyDataModel(ReportsRest.myDataModel);
-			console.log(reportModel.set($rootScope.apiData.report.plain()));
-		};
 	};
 
-	MainController.$inject = ['$rootScope', '$scope', 'MyDataModel', 'ReportsRest'];
+	MainController.$inject = ['$rootScope', '$scope'];
 	angular.module('appModule').controller('MainController', MainController);
 
 })();
@@ -3087,8 +3083,8 @@
 
 		var MyDataModelValue = function() {
 
-			this.value = undefined;
-			this.error = { type: undefined, msg: undefined };
+			this.value = { active: undefined, default: undefined };
+			this.error = { kind: undefined, message: undefined };
 		};
 
 		var MyDataModel = function(myModelConf) {
@@ -3112,7 +3108,7 @@
 		};
 
 		MyDataModel.prototype = {
-			set: function(data) {
+			set: function(data, storeDefault) {
 
 				var goThrough = function(toSetWithObj, toBeSetObj) {
 
@@ -3121,18 +3117,72 @@
 						if (toSetWithObj.hasOwnProperty(prop) && toBeSetObj.hasOwnProperty(prop)) {
 
 							if (toBeSetObj[prop] instanceof MyDataModelValue) {
-								toBeSetObj[prop].value = toSetWithObj[prop];
+								toBeSetObj[prop].value.active = toSetWithObj[prop];
+								if (storeDefault) { toBeSetObj[prop].value.default = toSetWithObj[prop]; }
 
 							} else {
 								goThrough(toSetWithObj[prop], toBeSetObj[prop]);
 							}
 						}
 					}
-
-					return toBeSetObj;
 				};
 
-				return goThrough(data, this);
+				goThrough(data, this);
+			},
+			clear: function(onlyErrors) {
+
+				var goThrough = function(obj) {
+
+					for (var prop in obj) {
+
+						if (obj.hasOwnProperty(prop)) {
+
+							if (obj[prop] instanceof MyDataModelValue) {
+
+								if (!onlyErrors) {
+									obj[prop] = new MyDataModelValue();
+
+
+								} else {
+									obj[prop].error.kind = undefined;
+									obj[prop].error.message = undefined;
+								}
+
+							} else {
+								goThrough(obj[prop]);
+							}
+						}
+					}
+				};
+
+				goThrough(this);
+			},
+			setErrors: function(errors, cb) {
+
+				var goThrough = function(obj, toBeSetObj) {
+
+					for (var prop in obj) {
+
+						if (obj.hasOwnProperty(prop) && toBeSetObj.hasOwnProperty(prop)) {
+
+							if (toBeSetObj[prop] instanceof MyDataModelValue) {
+								toBeSetObj[prop].error.kind = obj[prop].kind;
+								toBeSetObj[prop].error.message = obj[prop].message;
+
+							} else {
+								goThrough(obj[prop], toBeSetObj[prop]);
+							}
+						}
+					}
+				};
+
+				goThrough(errors, this);
+				if (cb) { cb(); }
+			},
+			clearErrors: function(cb) {
+
+				this.clear(true);
+				if (cb) { cb(); }
 			},
 			getValues: function() {
 
@@ -3143,7 +3193,7 @@
 						if (obj.hasOwnProperty(prop)) {
 
 							if (obj[prop] instanceof MyDataModelValue) {
-								myModelValues[prop] = obj[prop].value;
+								myModelValues[prop] = obj[prop].value.active;
 
 							} else {
 								goThrough(obj[prop], myModelValues[prop] = {});
@@ -3155,8 +3205,60 @@
 				};
 
 				return goThrough(this, {});
+			},
+			getValue: function(propPath) {
+
+				var props = propPath.split('.');
+				var obj = this;
+
+				for (var prop of props) {
+					obj = obj[prop];
+				}
+
+				return obj.value.active;
+			},
+			trimValues: function(ctrlId, cb) {
+
+				var goThrough = function(obj, propPath) {
+
+					if (propPath != '') { propPath += '_'; }
+
+					for (var prop in obj) {
+
+						if (obj.hasOwnProperty(prop)) {
+
+							if (obj[prop] instanceof MyDataModelValue) {
+
+								if (typeof obj[prop].value.active != 'number') {
+
+									var htmlCtrl = $('#' + ctrlId + ' #' + propPath + prop);
+
+									if (htmlCtrl.length > 0) {
+
+										var value = $(htmlCtrl).val();
+
+										if (value) {
+											var trimmed = value.trim();
+											obj[prop].value.active = trimmed;
+											$(htmlCtrl).val(trimmed);
+
+										} else {
+											obj[prop].value.active = undefined;
+										}
+									}
+								}
+
+							} else {
+								goThrough(obj[prop], propPath + prop);
+							}
+						}
+					}
+				};
+
+				goThrough(this, '');
+				if (cb) { cb(); }
 			}
-		};
+		}
 
 		return MyDataModel;
 	};
@@ -4784,41 +4886,6 @@
 
 
 
-	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular) {
-
-		var personalDetailsForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/personalDetailsForm/personalDetailsForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.countries = $rootScope.localData.countries;
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'personalDetailsForm',
-					model: $rootScope.globalFormModels.personalDetailsModel,
-					submitAction: function(args) {
-
-						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						$scope.myForm.model.setRestObj(copy);
-						return copy.put();
-					}
-				});
-			}
-		};
-
-		return personalDetailsForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('recoverForm', function($rootScope, $http, MyForm) {
 
 		var recoverForm = {
@@ -4850,6 +4917,41 @@
 		};
 
 		return recoverForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular) {
+
+		var personalDetailsForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/personalDetailsForm/personalDetailsForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.countries = $rootScope.localData.countries;
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'personalDetailsForm',
+					model: $rootScope.globalFormModels.personalDetailsModel,
+					submitAction: function(args) {
+
+						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
+						$scope.myForm.model.setRestObj(copy);
+						return copy.put();
+					}
+				});
+			}
+		};
+
+		return personalDetailsForm;
 	});
 
 })();
@@ -5235,6 +5337,35 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('appStats', function($rootScope) {
+
+		var appStats = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/tables/appStats/appStats.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return appStats;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('imgCropWindow', function($rootScope, $window, $timeout, MySrcAction, MyModal, MyLoader, NUMS) {
 
 		var imgId = '#cropImg';
@@ -5366,35 +5497,6 @@
 		};
 
 		return imgCropWindow;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('appStats', function($rootScope) {
-
-		var appStats = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/tables/appStats/appStats.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-				};
-			}
-		};
-
-		return appStats;
 	});
 
 })();
@@ -6113,26 +6215,6 @@
 
 
 
-	appModule.directive('myListGroup', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('myLoader', function($timeout) {
 
 		var myLoader = {
@@ -6145,6 +6227,26 @@
 		};
 
 		return myLoader;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myListGroup', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
+			scope: {
+				ins: '='
+			}
+		};
 	});
 
 })();
@@ -6273,31 +6375,6 @@
 
 
 
-	appModule.directive('myPopOverIcon', function() {
-
-		var myPopOverIcon = {
-			restrict: 'E',
-			transclude: {
-				icon: 'span'
-			},
-			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
-			scope: {
-				hardData: '='
-			}
-		};
-
-		return myPopOverIcon;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('mySelect', function(jsonService) {
 
 		return {
@@ -6414,6 +6491,31 @@
 
 
 
+	appModule.directive('myPopOverIcon', function() {
+
+		var myPopOverIcon = {
+			restrict: 'E',
+			transclude: {
+				icon: 'span'
+			},
+			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
+			scope: {
+				hardData: '='
+			}
+		};
+
+		return myPopOverIcon;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('mySelectsGroup', function(hardDataService) {
 
 		var mySelectsGroup = {
@@ -6483,51 +6585,6 @@
 		};
 
 		return mySrc;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySrcSlides', function(MySwitchable) {
-
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
-
-						if (collection) {
-
-							var switchers = [];
-
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
-
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
-
-		return mySrcSlides;
 	});
 
 })();
@@ -6621,17 +6678,42 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('mySrcSlides', function(MySwitchable) {
 
-
-	appModule.directive('myTabs', function() {
-
-		return {
+		var mySrcSlides = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/myTabs/myTabs.html',
+			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
 			scope: {
-				ins: '='
+				mySrcCollection: '=',
+				srcType: '@'
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+
+						if (collection) {
+
+							var switchers = [];
+
+							for (var i in collection) {
+								switchers.push({ _id: collection[i].index, index: collection[i].index });
+							}
+
+							scope.mySwitchable = new MySwitchable({ switchers: switchers });
+							scope.mySrcCollection.switchable = scope.mySwitchable;
+						}
+					});
+				};
 			}
 		};
+
+		return mySrcSlides;
 	});
 
 })();
@@ -6643,20 +6725,15 @@
 
 
 
-	appModule.directive('myTextArea', function() {
+	appModule.directive('myTabs', function() {
 
-		var myTextArea = {
+		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
+			templateUrl: 'public/directives/my/myTabs/myTabs.html',
 			scope: {
-				ctrlId: '=',
-				ctrlMaxLength: '=',
-				model: '=',
-				hardData: '='
+				ins: '='
 			}
 		};
-
-		return myTextArea;
 	});
 
 })();
@@ -6743,6 +6820,31 @@
 
 	reportAvatarService.$inject = ['URLS'];
 	angular.module('appModule').service('reportAvatarService', reportAvatarService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTextArea', function() {
+
+		var myTextArea = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
+			scope: {
+				ctrlId: '=',
+				ctrlMaxLength: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return myTextArea;
+	});
 
 })();
 (function() {
@@ -7114,6 +7216,204 @@
 
 	reportPhotosService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'ReportsRest', 'Restangular', 'URLS'];
 	angular.module('appModule').service('reportPhotosService', reportPhotosService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
+
+		var userAvatar = {
+			restrict: 'E',
+			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
+			scope: {
+				user: '=',
+				editable: '=',
+				noLink: '&',
+				withLabel: '='
+			},
+			controller: function($scope) {
+
+				$scope.src = new MySrc({
+					defaultUrl: userAvatarConf.defaultUrl,
+					uploadRequest: userAvatarService.uploadRequest,
+					removeRequest: userAvatarService.removeRequest
+				});
+
+				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.user; }, function(user) {
+
+						if (user) {
+							if (scope.withLabel) { scope.src.label = scope.user.truncatedUsername; }
+							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
+							userAvatarService.loadPhoto(scope);
+						}
+					});
+				};
+			}
+		};
+
+		return userAvatar;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var userAvatarConf = function($rootScope, userAvatarService, utilService) {
+
+		var conf = {
+			defaultUrl: 'public/imgs/avatar.png',
+			getSrcContextMenuConf: function(scope) {
+
+				return {
+					icon: 'glyphicon glyphicon-option-horizontal',
+					switchers: [
+						{
+							_id: 'update',
+							label: $rootScope.hardData.imperatives[5],
+							onClick: function() {
+
+								$rootScope.$broadcast('displayImgCropWindow', {
+									acceptCb: function(dataURI) {
+
+										scope.src.update({ file: utilService.dataURItoBlob(dataURI) }, true).then(function(success) {
+											if (success) { userAvatarService.loadPhoto(scope, true); }
+										});
+									}
+								});
+							}
+						},
+						{
+							_id: 'delete',
+							label: $rootScope.hardData.imperatives[14],
+							onClick: function() {
+
+								scope.src.remove(undefined, true);
+							},
+							isHidden: function() { return scope.src.isDefaultUrlLoaded(); }
+						},
+						{
+							_id: 'refresh',
+							label: $rootScope.hardData.imperatives[19],
+							onClick: function() {
+
+								userAvatarService.loadPhoto(scope, true);
+							}
+						}
+					]
+				};
+			}
+		};
+
+		return conf;
+	};
+
+	userAvatarConf.$inject = ['$rootScope', 'userAvatarService', 'utilService'];
+	angular.module('appModule').service('userAvatarConf', userAvatarConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var userAvatarService = function($rootScope, $q, aws3Service, MySrcAction, Restangular, URLS) {
+
+		var service = {
+			loadPhoto: function(scope, force) {
+
+				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
+
+					if (!success) {
+						scope.src.load(service.constructPhotoUrl(scope, false), force);
+					}
+				});
+			},
+			constructPhotoUrl: function(scope, useThumb) {
+
+				if (scope.user.photos.length === 0) { return scope.src.defaultUrl; }
+
+				if (!useThumb) {
+					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.user._id + '/' + scope.user.photos[0].filename;
+
+				} else {
+					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.user._id + '/' + scope.user.photos[0].filename;
+				}
+			},
+			uploadRequest: function(args) {
+
+				var src = this;
+
+				return $q(function(resolve) {
+
+					aws3Service.getCredentials('user_avatar', { fileTypes: [args.file.type] }).then(function(res1) {
+
+						var formData = MySrcAction.createFormDataObject(res1.data[0].awsFormData, args.file);
+
+						aws3Service.makeRequest(res1.data[0].awsUrl, formData).success(function(res2) {
+
+							$rootScope.apiData.profileUser.photos[0] = {
+								filename: res1.data[0].awsFilename,
+								size: args.file.size
+							};
+
+							$rootScope.apiData.profileUser.put().then(function(res3) {
+
+								$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
+
+								resolve({
+									success: true,
+									url: service.constructPhotoUrl({
+										src: src,
+										user: $rootScope.apiData.profileUser
+									}, true)
+								});
+
+							}, function(res3) {
+								resolve({ success: false });
+							});
+
+						}).error(function(res2) {
+							resolve({ success: false });
+						});
+
+					}, function(res1) {
+						resolve({ success: false });
+					});
+				});
+			},
+			removeRequest: function() {
+
+				return $q(function(resolve) {
+
+					$rootScope.apiData.profileUser.photos = [];
+
+					$rootScope.apiData.profileUser.put().then(function() {
+
+						$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
+						resolve(true);
+
+					}, function() {
+						resolve(false);
+					});
+				});
+			}
+		};
+
+		return service;
+	};
+
+	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
+	angular.module('appModule').service('userAvatarService', userAvatarService);
 
 })();
 (function() {
@@ -7498,204 +7798,6 @@
 
 	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'ReportsRest', 'Restangular'];
 	angular.module('appModule').service('reportsService', reportsService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
-
-		var userAvatar = {
-			restrict: 'E',
-			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
-			scope: {
-				user: '=',
-				editable: '=',
-				noLink: '&',
-				withLabel: '='
-			},
-			controller: function($scope) {
-
-				$scope.src = new MySrc({
-					defaultUrl: userAvatarConf.defaultUrl,
-					uploadRequest: userAvatarService.uploadRequest,
-					removeRequest: userAvatarService.removeRequest
-				});
-
-				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return scope.user; }, function(user) {
-
-						if (user) {
-							if (scope.withLabel) { scope.src.label = scope.user.truncatedUsername; }
-							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
-							userAvatarService.loadPhoto(scope);
-						}
-					});
-				};
-			}
-		};
-
-		return userAvatar;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var userAvatarConf = function($rootScope, userAvatarService, utilService) {
-
-		var conf = {
-			defaultUrl: 'public/imgs/avatar.png',
-			getSrcContextMenuConf: function(scope) {
-
-				return {
-					icon: 'glyphicon glyphicon-option-horizontal',
-					switchers: [
-						{
-							_id: 'update',
-							label: $rootScope.hardData.imperatives[5],
-							onClick: function() {
-
-								$rootScope.$broadcast('displayImgCropWindow', {
-									acceptCb: function(dataURI) {
-
-										scope.src.update({ file: utilService.dataURItoBlob(dataURI) }, true).then(function(success) {
-											if (success) { userAvatarService.loadPhoto(scope, true); }
-										});
-									}
-								});
-							}
-						},
-						{
-							_id: 'delete',
-							label: $rootScope.hardData.imperatives[14],
-							onClick: function() {
-
-								scope.src.remove(undefined, true);
-							},
-							isHidden: function() { return scope.src.isDefaultUrlLoaded(); }
-						},
-						{
-							_id: 'refresh',
-							label: $rootScope.hardData.imperatives[19],
-							onClick: function() {
-
-								userAvatarService.loadPhoto(scope, true);
-							}
-						}
-					]
-				};
-			}
-		};
-
-		return conf;
-	};
-
-	userAvatarConf.$inject = ['$rootScope', 'userAvatarService', 'utilService'];
-	angular.module('appModule').service('userAvatarConf', userAvatarConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var userAvatarService = function($rootScope, $q, aws3Service, MySrcAction, Restangular, URLS) {
-
-		var service = {
-			loadPhoto: function(scope, force) {
-
-				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
-
-					if (!success) {
-						scope.src.load(service.constructPhotoUrl(scope, false), force);
-					}
-				});
-			},
-			constructPhotoUrl: function(scope, useThumb) {
-
-				if (scope.user.photos.length === 0) { return scope.src.defaultUrl; }
-
-				if (!useThumb) {
-					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.user._id + '/' + scope.user.photos[0].filename;
-
-				} else {
-					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.user._id + '/' + scope.user.photos[0].filename;
-				}
-			},
-			uploadRequest: function(args) {
-
-				var src = this;
-
-				return $q(function(resolve) {
-
-					aws3Service.getCredentials('user_avatar', { fileTypes: [args.file.type] }).then(function(res1) {
-
-						var formData = MySrcAction.createFormDataObject(res1.data[0].awsFormData, args.file);
-
-						aws3Service.makeRequest(res1.data[0].awsUrl, formData).success(function(res2) {
-
-							$rootScope.apiData.profileUser.photos[0] = {
-								filename: res1.data[0].awsFilename,
-								size: args.file.size
-							};
-
-							$rootScope.apiData.profileUser.put().then(function(res3) {
-
-								$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
-
-								resolve({
-									success: true,
-									url: service.constructPhotoUrl({
-										src: src,
-										user: $rootScope.apiData.profileUser
-									}, true)
-								});
-
-							}, function(res3) {
-								resolve({ success: false });
-							});
-
-						}).error(function(res2) {
-							resolve({ success: false });
-						});
-
-					}, function(res1) {
-						resolve({ success: false });
-					});
-				});
-			},
-			removeRequest: function() {
-
-				return $q(function(resolve) {
-
-					$rootScope.apiData.profileUser.photos = [];
-
-					$rootScope.apiData.profileUser.put().then(function() {
-
-						$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
-						resolve(true);
-
-					}, function() {
-						resolve(false);
-					});
-				});
-			}
-		};
-
-		return service;
-	};
-
-	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
-	angular.module('appModule').service('userAvatarService', userAvatarService);
 
 })();
 (function() {

@@ -1,11 +1,11 @@
 <div class="mySelect myFormCtrl" ng-show="collection" my-directive>
 	<my-label text="label" css-class="'text-info'"></my-label>
-	<my-form-error-icon args="{ error: model.error, hideErrors: hideErrors }"></my-form-error-icon>
+	<my-form-error-icon args="{ error: model.error.message, hideErrors: hideErrors }"></my-form-error-icon>
 	<select
 		id="{{ ctrlId }}"
 		class="form-control"
-		ng-class="{ empty: !model.value }"
-		ng-model="model.value"
+		ng-class="{ empty: !model.value.active }"
+		ng-model="model.value.active"
 		ng-change="onSelect()"
 	>
 		<option ng-if="optionZero" value="" selected>{{ placeholder + ' ...' || '...' }}</option>

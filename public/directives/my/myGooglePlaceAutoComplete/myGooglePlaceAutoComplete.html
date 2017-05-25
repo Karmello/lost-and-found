@@ -1,12 +1,12 @@
 <div class="myGooglePlaceAutoComplete myFormCtrl" my-directive>
 	<my-label text="label" css-class="'text-info'"></my-label>
-	<my-form-error-icon args="{ error: model.error, hideErrors: hideErrors }"></my-form-error-icon>
+	<my-form-error-icon args="{ error: model.error.message, hideErrors: hideErrors }"></my-form-error-icon>
 	<input
 		id="{{ ctrlId }}"
 		class="form-control"
 		type="text"
 		placeholder="{{ placeholder || '...' }}"
-		ng-model="model.value"
+		ng-model="model.value.active"
 		autocomplete="autocomplete"
 	>
 	<div id="activePlaceSection" ng-show="autocomplete.label">

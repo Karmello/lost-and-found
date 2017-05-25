@@ -4,14 +4,14 @@
 			ctrl-id="'title'"
 			ctrl-type="'text'"
 			ctrl-max-length="50"
-			model="myForm.model.values.title"
+			model="myForm.model.title"
 			hard-data="{ label: ['labels', 7] }"
 		></my-input>
 		<my-selects-group collection="reportCategories">
 			<my-select
 				ctrl-id="'categoryId'"
 				collection=""
-				model="myForm.model.values.categoryId"
+				model="myForm.model.categoryId"
 				prop-names="{ optionValue: '_id', optionLabel: 'label' }"
 				option-zero="true"
 				hard-data="{ label: ['labels', 12], placeholder: ['imperatives', 18] }"
@@ -20,7 +20,7 @@
 				ctrl-id="'subcategoryId'"
 				collection=""
 				nested-collection-field-name="'subcategories'"
-				model="myForm.model.values.subcategoryId"
+				model="myForm.model.subcategoryId"
 				prop-names="{ optionValue: '_id', optionLabel: 'label' }"
 				option-zero="true"
 				hard-data="{ label: ['labels', 13], placeholder: ['imperatives', 18] }"

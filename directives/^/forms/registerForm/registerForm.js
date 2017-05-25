@@ -16,7 +16,7 @@
 
 				$scope.countries = $rootScope.localData.countries;
 
-				var formModel = $rootScope.globalFormModels.userModel;
+				var formModel = UsersRest.userModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'registerForm',

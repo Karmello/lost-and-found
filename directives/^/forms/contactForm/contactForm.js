@@ -12,7 +12,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = new myClass.MyFormModel('contactForm', ['contactType', 'contactMsg'], false);
+				var formModel = ContactTypesRest.contactTypeModel;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'contactForm',

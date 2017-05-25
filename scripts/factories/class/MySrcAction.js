@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var MySrcAction = function($rootScope, $q) {
+	var MySrcAction = function($rootScope, $q, UsersRest) {
 
 		var MySrcAction = function(config) {
 
@@ -114,7 +114,7 @@
 
 		MySrcAction.prototype.displayModalMessage = function(msgId, acceptCb) {
 
-			var username = $rootScope.globalFormModels.personalDetailsModel.getValue('username');
+			var username = UsersRest.personalDetailsModel.getValue('username');
 
 			var settings;
 
@@ -164,7 +164,7 @@
 		return MySrcAction;
 	};
 
-	MySrcAction.$inject = ['$rootScope', '$q'];
+	MySrcAction.$inject = ['$rootScope', '$q', 'UsersRest'];
 	angular.module('appModule').factory('MySrcAction', MySrcAction);
 
 })();

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var startTabsConf = function($rootScope, hardDataService) {
+	var startTabsConf = function(hardDataService, UsersRest) {
 
 		var hardData = hardDataService.get();
 
@@ -14,28 +14,28 @@
 					label: hardData.sections[17],
 					info: hardData.description[0],
 					route: '/#/start/login',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				},
 				{
 					_id: 'register',
 					label: hardData.sections[18],
 					info: hardData.description[1],
 					route: '/#/start/register',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				},
 				{
 					_id: 'recover',
 					label: hardData.labels[4],
 					info: hardData.description[2],
 					route: '/#/start/recover',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				},
 				{
 					_id: 'status',
 					label: hardData.sections[23],
 					info: hardData.information[8],
 					route: '/#/start/status',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				}
 			]
 		};
@@ -43,7 +43,7 @@
 		return config;
 	};
 
-	var settingsTabsConf = function($rootScope, hardDataService) {
+	var settingsTabsConf = function(hardDataService, AppConfigsRest, UsersRest, DeactivationReasonsRest) {
 
 		var hardData = hardDataService.get();
 
@@ -57,7 +57,7 @@
 						label: hardData.sections[10],
 						info: hardData.imperatives[34],
 						onActivate: function() {
-							$rootScope.globalFormModels.appConfigModel.set();
+							AppConfigsRest.appConfigModel.set();
 						}
 					},
 					{
@@ -66,7 +66,7 @@
 						label: hardData.sections[9],
 						info: hardData.description[5],
 						onActivate: function() {
-							$rootScope.globalFormModels.appConfigModel.set();
+							AppConfigsRest.appConfigModel.set();
 						}
 					}
 				]
@@ -80,7 +80,7 @@
 						label: hardData.sections[12],
 						info: hardData.description[3],
 						onActivate: function() {
-							$rootScope.globalFormModels.personalDetailsModel.set();
+							UsersRest.personalDetailsModel.set();
 						}
 					},
 					{
@@ -89,7 +89,7 @@
 						label: hardData.labels[2],
 						info: hardData.description[4],
 						onActivate: function() {
-							$rootScope.globalFormModels.passwordModel.clear();
+							UsersRest.passwordModel.clear();
 						}
 					}
 				]
@@ -103,7 +103,7 @@
 						label: hardData.imperatives[26],
 						info: hardData.warnings[4],
 						onActivate: function() {
-							$rootScope.globalFormModels.deactivationModel.clear();
+							DeactivationReasonsRest.deactivationReasonModel.clear();
 						}
 					}
 				]
@@ -144,8 +144,8 @@
 
 
 
-	startTabsConf.$inject = ['$rootScope', 'hardDataService'];
-	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
+	startTabsConf.$inject = ['hardDataService', 'UsersRest'];
+	settingsTabsConf.$inject = ['hardDataService', 'AppConfigsRest', 'UsersRest', 'DeactivationReasonsRest'];
 	reportTabsConf.$inject = ['$rootScope'];
 
 	angular.module('appModule').service('startTabsConf', startTabsConf);

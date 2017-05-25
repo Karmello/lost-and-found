@@ -494,7 +494,7 @@
 
 	'use strict';
 
-	var settingsListGroupConf = function($rootScope, hardDataService) {
+	var settingsListGroupConf = function(hardDataService, DeactivationReasonsRest, UsersRest, AppConfigsRest) {
 
 		var hardData = hardDataService.get();
 
@@ -505,22 +505,22 @@
 					_id: 'application',
 					label: hardData.sections[7],
 					onActivate: function() {
-						$rootScope.globalFormModels.appConfigModel.set();
+						AppConfigsRest.appConfigModel.set();
 					}
 				},
 				{
 					_id: 'account',
 					label: hardData.sections[8],
 					onActivate: function() {
-						$rootScope.globalFormModels.personalDetailsModel.set();
-						$rootScope.globalFormModels.passwordModel.clear();
+						UsersRest.personalDetailsModel.set();
+						UsersRest.passwordModel.clear();
 					}
 				},
 				{
 					_id: 'danger',
 					label: hardData.sections[24],
 					onActivate: function() {
-						$rootScope.globalFormModels.deactivationModel.clear();
+						DeactivationReasonsRest.deactivationReasonModel.clear();
 					}
 				}
 			]
@@ -531,7 +531,7 @@
 
 
 
-	settingsListGroupConf.$inject = ['$rootScope', 'hardDataService'];
+	settingsListGroupConf.$inject = ['hardDataService', 'DeactivationReasonsRest', 'UsersRest', 'AppConfigsRest'];
 	angular.module('appModule').service('settingsListGroupConf', settingsListGroupConf);
 
 })();
@@ -539,7 +539,7 @@
 
 	'use strict';
 
-	var startTabsConf = function($rootScope, hardDataService) {
+	var startTabsConf = function(hardDataService, UsersRest) {
 
 		var hardData = hardDataService.get();
 
@@ -551,28 +551,28 @@
 					label: hardData.sections[17],
 					info: hardData.description[0],
 					route: '/#/start/login',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				},
 				{
 					_id: 'register',
 					label: hardData.sections[18],
 					info: hardData.description[1],
 					route: '/#/start/register',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				},
 				{
 					_id: 'recover',
 					label: hardData.labels[4],
 					info: hardData.description[2],
 					route: '/#/start/recover',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				},
 				{
 					_id: 'status',
 					label: hardData.sections[23],
 					info: hardData.information[8],
 					route: '/#/start/status',
-					onActivate: function() { $rootScope.globalFormModels.userModel.clearErrors(); }
+					onActivate: function() { UsersRest.userModel.clearErrors(); }
 				}
 			]
 		};
@@ -580,7 +580,7 @@
 		return config;
 	};
 
-	var settingsTabsConf = function($rootScope, hardDataService) {
+	var settingsTabsConf = function(hardDataService, AppConfigsRest, UsersRest, DeactivationReasonsRest) {
 
 		var hardData = hardDataService.get();
 
@@ -594,7 +594,7 @@
 						label: hardData.sections[10],
 						info: hardData.imperatives[34],
 						onActivate: function() {
-							$rootScope.globalFormModels.appConfigModel.set();
+							AppConfigsRest.appConfigModel.set();
 						}
 					},
 					{
@@ -603,7 +603,7 @@
 						label: hardData.sections[9],
 						info: hardData.description[5],
 						onActivate: function() {
-							$rootScope.globalFormModels.appConfigModel.set();
+							AppConfigsRest.appConfigModel.set();
 						}
 					}
 				]
@@ -617,7 +617,7 @@
 						label: hardData.sections[12],
 						info: hardData.description[3],
 						onActivate: function() {
-							$rootScope.globalFormModels.personalDetailsModel.set();
+							UsersRest.personalDetailsModel.set();
 						}
 					},
 					{
@@ -626,7 +626,7 @@
 						label: hardData.labels[2],
 						info: hardData.description[4],
 						onActivate: function() {
-							$rootScope.globalFormModels.passwordModel.clear();
+							UsersRest.passwordModel.clear();
 						}
 					}
 				]
@@ -640,7 +640,7 @@
 						label: hardData.imperatives[26],
 						info: hardData.warnings[4],
 						onActivate: function() {
-							$rootScope.globalFormModels.deactivationModel.clear();
+							DeactivationReasonsRest.deactivationReasonModel.clear();
 						}
 					}
 				]
@@ -681,8 +681,8 @@
 
 
 
-	startTabsConf.$inject = ['$rootScope', 'hardDataService'];
-	settingsTabsConf.$inject = ['$rootScope', 'hardDataService'];
+	startTabsConf.$inject = ['hardDataService', 'UsersRest'];
+	settingsTabsConf.$inject = ['hardDataService', 'AppConfigsRest', 'UsersRest', 'DeactivationReasonsRest'];
 	reportTabsConf.$inject = ['$rootScope'];
 
 	angular.module('appModule').service('startTabsConf', startTabsConf);
@@ -744,39 +744,6 @@
 			countries: { data: undefined }
 		};
 
-		$rootScope.globalFormModels = {
-			userModel: new myClass.MyFormModel(
-				'userModel',
-				['email', 'username', 'password', 'firstname', 'lastname', 'countryFirstLetter', 'country'],
-				false
-			),
-			appConfigModel: new myClass.MyFormModel(
-				'appConfigModel',
-				['userId', 'language', 'theme'],
-				true
-			),
-			personalDetailsModel: new myClass.MyFormModel(
-				'personalDetailsModel',
-				['_id', 'email', 'username', 'firstname', 'lastname', 'countryFirstLetter', 'country', 'registration_date'],
-				true
-			),
-			passwordModel: new myClass.MyFormModel(
-				'passwordModel',
-				['currentPassword', 'password'],
-				false
-			),
-			deactivationModel: new myClass.MyFormModel(
-				'deactivationModel',
-				['deactivationReasonId'],
-				false
-			),
-			reportSearchModel: new myClass.MyFormModel(
-				'reportSearchModel',
-				['title', 'categoryId', 'subcategoryId'],
-				true
-			)
-		};
-
 
 
 		$rootScope.logout = function(extraParams, cb) {
@@ -785,7 +752,7 @@
 			uiSetupService.reInitCtrls(ui);
 
 			// Resetting form models
-			$rootScope.resetGlobalFormModels();
+			$rootScope.resetRestModels();
 
 			authService.setAsLoggedOut(function() {
 				var params = { tab: 'login' };
@@ -795,10 +762,9 @@
 			});
 		};
 
-		$rootScope.resetGlobalFormModels = function() {
+		$rootScope.resetRestModels = function() {
 
-			var modelKeys = Object.keys($rootScope.globalFormModels);
-			for (var i = 0; i < modelKeys.length; i++) { $rootScope.globalFormModels[modelKeys[i]].set({}); }
+			// to be implemented
 		};
 
 		$rootScope.$watch(function() { return storageService.authToken.getValue(); }, function(newValue) {
@@ -1768,7 +1734,7 @@
 
 	'use strict';
 
-	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest) {
+	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest, AppConfigsRest) {
 
 		var service = {
 			state: {
@@ -1834,8 +1800,8 @@
 				} else {
 
 					// Setting models values
-					$rootScope.globalFormModels.personalDetailsModel.set($rootScope.apiData.loggedInUser);
-					$rootScope.globalFormModels.appConfigModel.set($rootScope.apiData.loggedInUser.appConfig);
+					UsersRest.personalDetailsModel.set($rootScope.apiData.loggedInUser);
+					AppConfigsRest.appConfigModel.set($rootScope.apiData.loggedInUser.appConfig);
 
 					if (cb) { cb(); }
 				}
@@ -1857,7 +1823,7 @@
 		return service;
 	};
 
-	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest'];
+	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest', 'AppConfigsRest'];
 	angular.module('appModule').service('authService', authService);
 
 })();
@@ -2773,8 +2739,8 @@
 	'use strict';
 
 	var myClass = function(
-		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyFormModel, MyCollectionBrowser,
-		MySrcCollection, MyForm, MySrcAction
+		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyDataModel, MyCollectionBrowser, MySrcCollection,
+		MyForm, MySrcAction
 	) {
 
 		return {
@@ -2784,7 +2750,7 @@
 			MyModal: MyModal,
 			MySrc: MySrc,
 			MyStorageItem: MyStorageItem,
-			MyFormModel: MyFormModel,
+			MyDataModel: MyDataModel,
 			MyCollectionBrowser: MyCollectionBrowser,
 			MySrcCollection: MySrcCollection,
 			MyForm: MyForm,
@@ -2793,8 +2759,8 @@
 	};
 
 	myClass.$inject = [
-		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyFormModel',
-		'MyCollectionBrowser', 'MySrcCollection', 'MyForm', 'MySrcAction'
+		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyDataModel', 'MyCollectionBrowser',
+		'MySrcCollection', 'MyForm', 'MySrcAction'
 	];
 
 	angular.module('appModule').factory('myClass', myClass);
@@ -3258,7 +3224,7 @@
 				goThrough(this, '');
 				if (cb) { cb(); }
 			}
-		}
+		};
 
 		return MyDataModel;
 	};
@@ -3371,192 +3337,6 @@
 
 	MyForm.$inject = ['$rootScope', '$window', '$timeout', 'grecaptchaService'];
 	angular.module('appModule').factory('MyForm', MyForm);
-
-})();
-(function() {
-
-	'use strict';
-
-	var MyFormModel = function($timeout) {
-
-		var MyFormModelValue = function(value, error, errorType) {
-
-			this.value = value;
-			this.error = error;
-			this.errorType = errorType;
-		};
-
-		var MyFormModel = function(_id, keys, allowUseDefaults) {
-
-			this._id = _id;
-			this.keys = keys;
-			this.allowUseDefaults = allowUseDefaults;
-
-			this.values = {};
-			this.defaults = undefined;
-
-			this.clear();
-		};
-
-		MyFormModel.prototype = {
-			set: function(freshValues) {
-
-				var that = this;
-				var tempValues;
-
-				// Setting with fresh values
-				if (typeof freshValues == 'object') {
-
-					// Fresh values have values
-					if (!_.isEmpty(freshValues)) {
-
-						if (that.allowUseDefaults) { that.defaults = freshValues; }
-						tempValues = freshValues;
-
-					// Fresh values are empty
-					} else { that.clear(); }
-
-				// Setting with defaults
-				} else if (this.allowUseDefaults && that.defaults) {
-
-					tempValues = that.defaults;
-				}
-
-				// Setting values
-				if (tempValues) {
-
-					angular.forEach(that.keys, function(key) {
-
-						if (angular.isDefined(tempValues[key])) {
-							that.values[key].value = tempValues[key];
-
-						} else {
-							that.values[key] = new MyFormModelValue(null, null, null);
-						}
-					});
-				}
-			},
-			setValue: function(key, value) {
-
-				this.values[key] = new MyFormModelValue(value, null, null);
-			},
-			setWithRestObj: function(restObj) {
-
-				var that = this;
-				var freshValues = {};
-
-				angular.forEach(that.keys, function(key) {
-					freshValues[key] = restObj[key];
-				});
-
-				that.set(freshValues);
-			},
-			setRestObj: function(restObj, cb) {
-
-				var that = this;
-
-				angular.forEach(that.keys, function(key) {
-					restObj[key] = that.values[key].value;
-				});
-
-				if (cb) { cb(); }
-			},
-			clear: function() {
-
-				var that = this;
-
-				angular.forEach(that.keys, function(key) {
-					that.values[key] = new MyFormModelValue(null, null, null);
-				});
-			},
-			trimValues: function(formId, cb) {
-
-				var that = this;
-
-				angular.forEach(that.keys, function(key) {
-
-					if (typeof that.values[key].value != 'number') {
-
-						var htmlCtrl = $('#' + formId + ' #' + key);
-
-						if (htmlCtrl.length > 0) {
-
-							var value = $(htmlCtrl).val();
-
-							if (value) {
-								var trimmed = value.trim();
-								that.values[key].value = trimmed;
-								$(htmlCtrl).val(trimmed);
-
-							} else {
-								that.values[key].value = null;
-							}
-						}
-					}
-				});
-
-				if (cb) { cb(); }
-			},
-			bindErrors: function(errors, cb) {
-
-				var that = this;
-
-				// When errors defined
-				if (angular.isDefined(errors)) {
-
-					// Going through all model keys
-					angular.forEach(that.keys, function(key) {
-
-						// When error for particular model field defined
-						if (errors[key]) {
-
-							that.values[key].errorType = errors[key].kind;
-							that.values[key].error = errors[key].message;
-
-						} else {
-							that.values[key].errorType = null;
-							that.values[key].error = null;
-						}
-					});
-
-					if (cb) { cb(); }
-
-				} else { if (cb) { cb(); } }
-			},
-			clearErrors: function(cb) {
-
-				var that = this;
-
-				angular.forEach(that.keys, function(key) {
-
-					that.values[key].error = null;
-					that.values[key].errorType = null;
-				});
-
-				if (cb) { cb(); }
-			},
-			getValue: function(key) {
-
-				return this.values[key].value;
-			},
-			getValues: function() {
-
-				var that = this;
-				var values = {};
-
-				angular.forEach(that.keys, function(key) {
-					values[key] = that.values[key].value;
-				});
-
-				return values;
-			}
-		};
-
-		return MyFormModel;
-	};
-
-	MyFormModel.$inject = ['$timeout'];
-	angular.module('appModule').factory('MyFormModel', MyFormModel);
 
 })();
 (function() {
@@ -3831,7 +3611,7 @@
 
 	'use strict';
 
-	var MySrcAction = function($rootScope, $q) {
+	var MySrcAction = function($rootScope, $q, UsersRest) {
 
 		var MySrcAction = function(config) {
 
@@ -3943,7 +3723,7 @@
 
 		MySrcAction.prototype.displayModalMessage = function(msgId, acceptCb) {
 
-			var username = $rootScope.globalFormModels.personalDetailsModel.getValue('username');
+			var username = UsersRest.personalDetailsModel.getValue('username');
 
 			var settings;
 
@@ -3993,7 +3773,7 @@
 		return MySrcAction;
 	};
 
-	MySrcAction.$inject = ['$rootScope', '$q'];
+	MySrcAction.$inject = ['$rootScope', '$q', 'UsersRest'];
 	angular.module('appModule').factory('MySrcAction', MySrcAction);
 
 })();
@@ -4452,11 +4232,20 @@
 
 	'use strict';
 
-	var AppConfigsRest = function(Restangular) {
-		return Restangular.service('app_configs');
+	var AppConfigsRest = function(Restangular, MyDataModel) {
+
+		var appConfigs = Restangular.service('app_configs');
+
+		appConfigs.appConfigModel = new MyDataModel({
+			userId: {},
+			language: {},
+			theme: {}
+		});
+
+		return appConfigs;
 	};
 
-	AppConfigsRest.$inject = ['Restangular'];
+	AppConfigsRest.$inject = ['Restangular', 'MyDataModel'];
 	angular.module('appModule').factory('AppConfigsRest', AppConfigsRest);
 
 })();
@@ -4464,11 +4253,19 @@
 
 	'use strict';
 
-	var CommentsRest = function(Restangular) {
-		return Restangular.service('comments');
+	var CommentsRest = function(Restangular, MyDataModel) {
+
+		var comments = Restangular.service('comments');
+
+		comments.commentModel = new MyDataModel({
+			userId: {},
+			content: {}
+		});
+
+		return comments;
 	};
 
-	CommentsRest.$inject = ['Restangular'];
+	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
 	angular.module('appModule').factory('CommentsRest', CommentsRest);
 
 })();
@@ -4476,13 +4273,19 @@
 
 	'use strict';
 
-	var ContactTypesRest = function(Restangular, storageService) {
+	var ContactTypesRest = function(Restangular, MyDataModel) {
 
 		var contactTypes = Restangular.service('contact_types');
+
+		contactTypes.contactTypeModel = new MyDataModel({
+			contactType: {},
+			contactMsg: {}
+		});
+
 		return contactTypes;
 	};
 
-	ContactTypesRest.$inject = ['Restangular', 'storageService'];
+	ContactTypesRest.$inject = ['Restangular', 'MyDataModel'];
 	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
 
 })();
@@ -4490,11 +4293,18 @@
 
 	'use strict';
 
-	var DeactivationReasonsRest = function(Restangular) {
-		return Restangular.service('deactivation_reasons');
+	var DeactivationReasonsRest = function(Restangular, MyDataModel) {
+
+		var deactivationReasons = Restangular.service('deactivation_reasons')
+
+		deactivationReasons.deactivationReasonModel = new MyDataModel({
+			deactivationReasonId: {}
+		});
+
+		return deactivationReasons;
 	};
 
-	DeactivationReasonsRest.$inject = ['Restangular'];
+	DeactivationReasonsRest.$inject = ['Restangular', 'MyDataModel'];
 	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
 
 })();
@@ -4502,11 +4312,27 @@
 
 	'use strict';
 
-	var PaymentsRest = function(Restangular) {
-		return Restangular.service('payments');
+	var PaymentsRest = function(Restangular, MyDataModel) {
+
+		var payments = Restangular.service('payments');
+
+		payments.myDataModel = new MyDataModel({
+			paymentMethod: {},
+			creditCardType: {},
+			creditCardNumber: {},
+			creditCardExpireMonth: {},
+			creditCardExpireYear: {},
+			cvv2: {},
+			firstname: {},
+			lastname: {},
+			amount: {},
+			currency: {}
+		});
+
+		return payments;
 	};
 
-	PaymentsRest.$inject = ['Restangular'];
+	PaymentsRest.$inject = ['Restangular', 'MyDataModel'];
 	angular.module('appModule').factory('PaymentsRest', PaymentsRest);
 
 })();
@@ -4514,9 +4340,35 @@
 
 	'use strict';
 
-	var UsersRest = function($rootScope, Restangular) {
+	var UsersRest = function($rootScope, Restangular, MyDataModel) {
 
 		var users = Restangular.service('users');
+
+		users.userModel = new MyDataModel({
+			email: {},
+			username: {},
+			password: {},
+			firstname: {},
+			lastname: {},
+			countryFirstLetter: {},
+			country: {}
+		});
+
+		users.personalDetailsModel = new MyDataModel({
+			_id: {},
+			email: {},
+			username: {},
+			firstname: {},
+			lastname: {},
+			countryFirstLetter: {},
+			country: {},
+			registration_date: {}
+		});
+
+		users.passwordModel = new MyDataModel({
+			currentPassword: {},
+			password: {}
+		});
 
 		Restangular.extendModel('users', function(user) {
 
@@ -4533,7 +4385,7 @@
 		return users;
 	};
 
-	UsersRest.$inject = ['$rootScope', 'Restangular'];
+	UsersRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
 	angular.module('appModule').factory('UsersRest', UsersRest);
 
 })();
@@ -4652,7 +4504,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('appearanceForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
+	appModule.directive('appearanceForm', function($rootScope, MyForm, Restangular, UsersRest, AppConfigsRest) {
 
 		var appearanceForm = {
 			restrict: 'E',
@@ -4660,7 +4512,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.appConfigModel;
+				var formModel = AppConfigsRest.appConfigModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'appearanceForm',
@@ -4668,7 +4520,7 @@
 					reload: true,
 					submitAction: function(args) {
 
-						formModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+						formModel.setValue('userId', UsersRest.personalDetailsModel.getValue('_id'));
 						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
 						formModel.setRestObj(restCopy);
 						return restCopy.put();
@@ -4695,7 +4547,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = new myClass.MyFormModel('contactForm', ['contactType', 'contactMsg'], false);
+				var formModel = ContactTypesRest.contactTypeModel;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'contactForm',
@@ -4741,7 +4593,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.deactivationModel;
+				var formModel = DeactivationReasonsRest.deactivationReasonModel;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'deactivationForm',
@@ -4804,7 +4656,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.userModel;
+				var formModel = UsersRest.userModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'loginForm',
@@ -4846,7 +4698,7 @@
 
 
 
-	appModule.directive('passwordForm', function($rootScope, MyForm, Restangular) {
+	appModule.directive('passwordForm', function($rootScope, MyForm, UsersRest, Restangular) {
 
 		var passwordForm = {
 			restrict: 'E',
@@ -4854,7 +4706,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.passwordModel;
+				var formModel = UsersRest.passwordModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'passwordForm',
@@ -4886,7 +4738,42 @@
 
 
 
-	appModule.directive('recoverForm', function($rootScope, $http, MyForm) {
+	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular, UsersRest) {
+
+		var personalDetailsForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/personalDetailsForm/personalDetailsForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.countries = $rootScope.localData.countries;
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'personalDetailsForm',
+					model: UsersRest.personalDetailsModel,
+					submitAction: function(args) {
+
+						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
+						$scope.myForm.model.setRestObj(copy);
+						return copy.put();
+					}
+				});
+			}
+		};
+
+		return personalDetailsForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('recoverForm', function($rootScope, $http, MyForm, UsersRest) {
 
 		var recoverForm = {
 			restrict: 'E',
@@ -4894,7 +4781,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.userModel;
+				var formModel = UsersRest.userModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'recoverForm',
@@ -4928,42 +4815,7 @@
 
 
 
-	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular) {
-
-		var personalDetailsForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/personalDetailsForm/personalDetailsForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.countries = $rootScope.localData.countries;
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'personalDetailsForm',
-					model: $rootScope.globalFormModels.personalDetailsModel,
-					submitAction: function(args) {
-
-						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						$scope.myForm.model.setRestObj(copy);
-						return copy.put();
-					}
-				});
-			}
-		};
-
-		return personalDetailsForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
+	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular, UsersRest) {
 
 		var regionalForm = {
 			restrict: 'E',
@@ -4971,7 +4823,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.appConfigModel;
+				var formModel = AppConfigsRest.appConfigModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'regionalForm',
@@ -4979,7 +4831,7 @@
 					reload: true,
 					submitAction: function(args) {
 
-						formModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+						formModel.setValue('userId', UsersRest.personalDetailsModel.getValue('_id'));
 						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
 						formModel.setRestObj(restCopy);
 						return restCopy.put();
@@ -5010,7 +4862,7 @@
 
 				$scope.countries = $rootScope.localData.countries;
 
-				var formModel = $rootScope.globalFormModels.userModel;
+				var formModel = UsersRest.userModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'registerForm',
@@ -5045,7 +4897,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $timeout, $state, myClass, reportsService, Restangular) {
+	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportsService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -5065,8 +4917,8 @@
 				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myModel = new myClass.MyFormModel('reportFormModel', reportsService.formModelFields, true);
-				$scope.myModel.set({ date: $scope.maxDate });
+				$scope.myModel = ReportsRest.reportModel;
+				$scope.myModel.set({ date: $scope.maxDate }, true);
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: $scope.action + 'Form',
@@ -5134,7 +4986,7 @@
 
 
 
-	appModule.directive('reportSearchForm', function($rootScope, myClass) {
+	appModule.directive('reportSearchForm', function($rootScope, myClass, ReportsRest) {
 
 		var reportSearchForm = {
 			restrict: 'E',
@@ -5147,7 +4999,7 @@
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'reportSearchForm',
 					noLoader: true,
-					model: $rootScope.globalFormModels.reportSearchModel,
+					model: ReportsRest.reportSearchModel,
 					submitAction: function(args) {
 
 						$rootScope.$broadcast('initSearchReports');
@@ -5181,20 +5033,7 @@
 				$scope.hardData = hardDataService.get();
 				$scope.currentYear = CURRENT_YEAR;
 
-				var fields = [
-					'paymentMethod',
-					'creditCardType',
-					'creditCardNumber',
-					'creditCardExpireMonth',
-					'creditCardExpireYear',
-					'cvv2',
-					'firstname',
-					'lastname',
-					'amount',
-					'currency'
-				];
-
-				$scope.myModel = new myClass.MyFormModel('upgradePaymentModel', fields, true);
+				$scope.myModel = PaymentsRest.myDataModel;
 
 				$scope.myModel.set({
 					paymentMethod: 'credit_card',
@@ -5257,7 +5096,7 @@
 						}
 					});
 
-					scope.$watch('myModel.values.currency.value', function(newCurrency, oldCurrency) {
+					scope.$watch('myModel.currency.value.active', function(newCurrency, oldCurrency) {
 
 						if (newCurrency != oldCurrency) {
 							scope.myModel.setValue('amount', amounts[newCurrency]);
@@ -5564,7 +5403,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest) {
+	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest, UsersRest) {
 
 		var comments = {
 			restrict: 'E',
@@ -5579,10 +5418,10 @@
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'commentForm',
-					model: new myClass.MyFormModel('commentModel', ['userId', 'content'], false),
+					model: CommentsRest.commentModel,
 					submitAction: function(args) {
 
-						var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+						var userId = UsersRest.personalDetailsModel.getValue('_id');
 						$scope.myForm.model.setValue('userId', userId);
 						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
 					},
@@ -6126,7 +5965,7 @@
 						});
 					};
 
-					scope.$watch('model.value', function(newValue, oldValue) {
+					scope.$watch('model.value.active', function(newValue, oldValue) {
 
 						if (newValue) {
 
@@ -6215,6 +6054,26 @@
 
 
 
+	appModule.directive('myListGroup', function() {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
+			scope: {
+				ins: '='
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('myLoader', function($timeout) {
 
 		var myLoader = {
@@ -6227,26 +6086,6 @@
 		};
 
 		return myLoader;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myListGroup', function() {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myListGroup/myListGroup.html',
-			scope: {
-				ins: '='
-			}
-		};
 	});
 
 })();
@@ -6375,6 +6214,31 @@
 
 
 
+	appModule.directive('myPopOverIcon', function() {
+
+		var myPopOverIcon = {
+			restrict: 'E',
+			transclude: {
+				icon: 'span'
+			},
+			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
+			scope: {
+				hardData: '='
+			}
+		};
+
+		return myPopOverIcon;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('mySelect', function(jsonService) {
 
 		return {
@@ -6416,7 +6280,7 @@
 							var select_scope = $($($(elem).parent()[0].children[i]).find('select')[0]).scope();
 
 							// Resetting scope variables
-							select_scope.model.value = '';
+							select_scope.model.value.active = '';
 							select_scope.collection = undefined;
 						}
 					};
@@ -6431,7 +6295,7 @@
 						var select_scope = $($($(elem).parent()[0].children[myIndex - 1]).find('select')[0]).scope();
 
 						// Watching for its model changes
-						scope.$watch(function() { return select_scope.model.value; }, function(newValue) {
+						scope.$watch(function() { return select_scope.model.value.active; }, function(newValue) {
 
 							if (newValue) {
 
@@ -6467,11 +6331,11 @@
 							});
 
 							// Watching for model changes
-							scope.$watch('model.value', function(newValue) {
+							scope.$watch('model.value.active', function(newValue) {
 
 								// Selecting option 1 as default, later setting model overrides this
 								if (!scope.optionZero && !newValue && scope.collection) {
-									scope.model.value = scope.collection[0][scope.propNames.optionValue];
+									scope.model.value.active = scope.collection[0][scope.propNames.optionValue];
 								}
 							});
 
@@ -6480,31 +6344,6 @@
 				}
 			}
 		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myPopOverIcon', function() {
-
-		var myPopOverIcon = {
-			restrict: 'E',
-			transclude: {
-				icon: 'span'
-			},
-			templateUrl: 'public/directives/my/myPopOverIcon/myPopOverIcon.html',
-			scope: {
-				hardData: '='
-			}
-		};
-
-		return myPopOverIcon;
 	});
 
 })();
@@ -6585,6 +6424,51 @@
 		};
 
 		return mySrc;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('mySrcSlides', function(MySwitchable) {
+
+		var mySrcSlides = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
+			scope: {
+				mySrcCollection: '=',
+				srcType: '@'
+			},
+			controller: function($scope) {
+
+
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+
+						if (collection) {
+
+							var switchers = [];
+
+							for (var i in collection) {
+								switchers.push({ _id: collection[i].index, index: collection[i].index });
+							}
+
+							scope.mySwitchable = new MySwitchable({ switchers: switchers });
+							scope.mySrcCollection.switchable = scope.mySwitchable;
+						}
+					});
+				};
+			}
+		};
+
+		return mySrcSlides;
 	});
 
 })();
@@ -6678,51 +6562,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('mySrcSlides', function(MySwitchable) {
-
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySrcSlides/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
-
-
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
-
-						if (collection) {
-
-							var switchers = [];
-
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
-
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
-
-		return mySrcSlides;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 
 
 	appModule.directive('myTabs', function() {
@@ -6734,6 +6573,31 @@
 				ins: '='
 			}
 		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myTextArea', function() {
+
+		var myTextArea = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
+			scope: {
+				ctrlId: '=',
+				ctrlMaxLength: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return myTextArea;
 	});
 
 })();
@@ -6820,31 +6684,6 @@
 
 	reportAvatarService.$inject = ['URLS'];
 	angular.module('appModule').service('reportAvatarService', reportAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myTextArea', function() {
-
-		var myTextArea = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myTextArea/myTextArea.html',
-			scope: {
-				ctrlId: '=',
-				ctrlMaxLength: '=',
-				model: '=',
-				hardData: '='
-			}
-		};
-
-		return myTextArea;
-	});
 
 })();
 (function() {
@@ -7224,6 +7063,383 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('reports', function($rootScope, reportsConf, reportsService, contextMenuConf) {
+
+		var reports = {
+			restrict: 'E',
+			templateUrl: 'public/directives/REPORT/reports/reports.html',
+			scope: {
+				ctrlId: '@',
+				noAvatar: '=',
+				noInfo: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					switch (scope.ctrlId) {
+
+						case 'UserReports':
+
+							if (!$rootScope.$$listeners.initUserReports) {
+								$rootScope.$on('initUserReports', function(e, args) {
+									reportsService.initUserReports(scope, args.userId);
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initUserReports = null;
+							});
+
+							scope.$watch('apiData.profileUser._id', function(userId) {
+								if (angular.isDefined(userId)) { reportsService.initUserReports(scope, userId); }
+							});
+
+							break;
+
+						case 'SearchReports':
+
+							if (!$rootScope.$$listeners.initSearchReports) {
+								$rootScope.$on('initSearchReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initSearchReports = null;
+							});
+
+							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+							scope.collectionBrowser.init();
+							break;
+
+						case 'RecentlyViewedReports':
+
+							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
+								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initRecentlyViewedReports = null;
+							});
+
+							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+							scope.collectionBrowser.init();
+							break;
+
+						case 'NewReports':
+
+							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
+							scope.collectionBrowser.init();
+							break;
+					}
+				};
+			}
+		};
+
+		return reports;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
+
+		var hardData = hardDataService.get();
+
+		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 25,
+			filterer: {
+				switchers: [
+					{
+						_id: 'all',
+						label: hardData.status[1]
+					},
+					{
+						_id: 'lost',
+						label: hardData.reportGroups[0].label2
+					},
+					{
+						_id: 'found',
+						label: hardData.reportGroups[1].label2
+					}
+				]
+			},
+			sorter: {
+				switchers: [
+					{
+						_id: 'title',
+						label: hardData.status[7]
+					},
+					{
+						_id: 'date',
+						label: hardData.status[8]
+					}
+				]
+			},
+			fetchData: function(query) {
+
+				var model = ReportsRest.reportSearchModel.getValues();
+
+				query.subject = 'reports';
+				query.title = model.title;
+				query.categoryId = model.categoryId;
+				query.subcategoryId = model.subcategoryId;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.profileCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 25,
+			filterer: {
+				switchers: [
+					{
+						_id: 'all',
+						label: hardData.status[1]
+					},
+					{
+						_id: 'lost',
+						label: hardData.reportGroups[0].label2
+					},
+					{
+						_id: 'found',
+						label: hardData.reportGroups[1].label2
+					}
+				]
+			},
+			sorter: {
+				switchers: [
+					{
+						_id: 'title',
+						label: hardData.status[7]
+					},
+					{
+						_id: 'date',
+						label: hardData.status[8]
+					}
+				]
+			},
+			fetchData: function(query) {
+
+				query.subject = 'user_reports';
+				query.userId = $rootScope.apiData.profileUser._id;
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			noPager: true,
+			fetchData: function(query) {
+
+				query.subject = 'new_reports';
+				query.sort='-dateAdded';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			hideRefresher: true,
+			fetchData: function(query) {
+
+				query.subject = 'recently_viewed_reports';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		return this;
+	};
+
+
+
+	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
+	angular.module('appModule').service('reportsConf', reportsConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
+
+		var reports = Restangular.service('reports');
+
+		reports.reportModel = new MyDataModel({
+			categoryId: {},
+			subcategoryId: {},
+			subsubcategoryId: {},
+			title: {},
+			serialNo: {},
+			description: {},
+			startEvent: {
+				group: {},
+				date: {},
+				geolocation: {},
+				details: {}
+			}
+		});
+
+		reports.reportSearchModel = new MyDataModel({
+			title: {},
+			categoryId: {},
+			subcategoryId: {}
+		});
+
+		Restangular.extendModel('reports', function(report) {
+
+			report._isOwn = function() {
+				return this.userId == $rootScope.apiData.loggedInUser._id;
+			};
+
+			return report;
+		});
+
+		return reports;
+	};
+
+	ReportsRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('ReportsRest', ReportsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportsService = function($rootScope, $state, $stateParams, $q, reportsConf, ReportsRest, UsersRest, Restangular) {
+
+		var service = this;
+
+		service.getFormSubmitAction = function(scope) {
+
+			switch (scope.action) {
+
+				case 'newReport':
+
+					return function(args) {
+
+						scope.myForm.submitSuccessCb = function(res) {
+							scope.myForm.reset();
+							$state.go('app.report', { id: res.data._id });
+						};
+
+						var modelValues = scope.myModel.getValues();
+						modelValues.userId = UsersRest.personalDetailsModel.getValue('_id');
+
+						var place = scope.autocomplete.ins.getPlace();
+
+						if (place) {
+
+							modelValues.geolocation = {
+								lat: place.geometry.location.lat(),
+								lng: place.geometry.location.lng()
+							};
+
+							modelValues.placeId = place.place_id;
+
+						} else {
+							modelValues.geolocation = null;
+						}
+
+						return ReportsRest.post(modelValues);
+					};
+
+				case 'editReport':
+
+					return function(args) {
+
+						scope.myForm.submitSuccessCb = function(res) {
+							$rootScope.apiData.report = res.data;
+							$state.go('app.report', { id: res.data._id, edit: undefined });
+						};
+
+						scope.myForm.submitErrorCb = function(res) {
+							$rootScope.apiData.report = copy;
+						};
+
+						var copy = Restangular.copy($rootScope.apiData.report);
+						scope.myModel.setRestObj(copy);
+						return copy.put();
+					};
+			}
+		};
+
+		service.deleteReports = function(reports) {
+
+			if (reports && reports.length > 0) {
+
+				// Showing confirm modal
+				$rootScope.ui.modals.deleteReportModal.show({
+					message: (function() { return $rootScope.hardData.warnings[2]; })(),
+					acceptCb: function() {
+
+						var promises = [];
+						for (var report of reports) { promises.push(report.remove({ userId: report.userId })); }
+
+						$q.all(promises).then(function(results) {
+
+							switch ($state.current.name) {
+
+								case 'app.profile':
+									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
+									break;
+
+								case 'app.report':
+									window.history.back();
+									break;
+							}
+						});
+					}
+				});
+			}
+		};
+
+		service.initUserReports = function(scope, userId) {
+
+			scope.collectionBrowser = reportsConf.profileCollectionBrowser;
+
+			if (userId == $rootScope.apiData.loggedInUser._id) {
+				scope.elemContextMenuConf = scope.reportContextMenuConf;
+
+			} else {
+				$scope.elemContextMenuConf = undefined;
+			}
+
+			scope.collectionBrowser.onRefreshClick();
+		};
+
+		return service;
+	};
+
+
+
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf', 'ReportsRest', 'UsersRest', 'Restangular'];
+	angular.module('appModule').service('reportsService', reportsService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
 
 		var userAvatar = {
@@ -7414,390 +7630,6 @@
 
 	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
 	angular.module('appModule').service('userAvatarService', userAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('reports', function($rootScope, reportsConf, reportsService, contextMenuConf) {
-
-		var reports = {
-			restrict: 'E',
-			templateUrl: 'public/directives/REPORT/reports/reports.html',
-			scope: {
-				ctrlId: '@',
-				noAvatar: '=',
-				noInfo: '='
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					switch (scope.ctrlId) {
-
-						case 'UserReports':
-
-							if (!$rootScope.$$listeners.initUserReports) {
-								$rootScope.$on('initUserReports', function(e, args) {
-									reportsService.initUserReports(scope, args.userId);
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initUserReports = null;
-							});
-
-							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) { reportsService.initUserReports(scope, userId); }
-							});
-
-							break;
-
-						case 'SearchReports':
-
-							if (!$rootScope.$$listeners.initSearchReports) {
-								$rootScope.$on('initSearchReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.searchCollectionBrowser;
-									scope.collectionBrowser.init();
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initSearchReports = null;
-							});
-
-							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'RecentlyViewedReports':
-
-							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
-								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
-									scope.collectionBrowser.init();
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initRecentlyViewedReports = null;
-							});
-
-							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'NewReports':
-
-							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
-							scope.collectionBrowser.init();
-							break;
-					}
-				};
-			}
-		};
-
-		return reports;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
-
-		var hardData = hardDataService.get();
-
-		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'lost',
-						label: hardData.reportGroups[0].label2
-					},
-					{
-						_id: 'found',
-						label: hardData.reportGroups[1].label2
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				var model = $rootScope.globalFormModels.reportSearchModel.getValues();
-
-				query.subject = 'reports';
-				query.title = model.title;
-				query.categoryId = model.categoryId;
-				query.subcategoryId = model.subcategoryId;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.profileCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'lost',
-						label: hardData.reportGroups[0].label2
-					},
-					{
-						_id: 'found',
-						label: hardData.reportGroups[1].label2
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.subject = 'user_reports';
-				query.userId = $rootScope.apiData.profileUser._id;
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			noPager: true,
-			fetchData: function(query) {
-
-				query.subject = 'new_reports';
-				query.sort='-dateAdded';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			hideRefresher: true,
-			fetchData: function(query) {
-
-				query.subject = 'recently_viewed_reports';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		return this;
-	};
-
-
-
-	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
-	angular.module('appModule').service('reportsConf', reportsConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ReportsRest = function($rootScope, $stateParams, Restangular, storageService, MyDataModel) {
-
-		var reports = Restangular.service('reports');
-
-		reports.myDataModel = {
-			categoryId: {},
-			subcategoryId: {},
-			subsubcategoryId: {},
-			title: {},
-			serialNo: {},
-			description: {},
-			startEvent: {
-				group: {},
-				date: {},
-				geolocation: {},
-				details: {}
-			}
-		};
-
-		Restangular.extendModel('reports', function(report) {
-
-			report._isOwn = function() {
-				return this.userId == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-			};
-
-			return report;
-		});
-
-		return reports;
-	};
-
-	ReportsRest.$inject = ['$rootScope', '$stateParams', 'Restangular', 'storageService', 'MyDataModel'];
-	angular.module('appModule').factory('ReportsRest', ReportsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, ReportsRest, Restangular) {
-
-		var service = this;
-
-		service.formModelFields = [
-			'group',
-			'categoryId',
-			'subcategoryId',
-			'subsubcategoryId',
-			'title',
-			'serialNo',
-			'description',
-			'date',
-			'geolocation',
-			'details'
-		];
-
-		service.getFormSubmitAction = function(scope) {
-
-			switch (scope.action) {
-
-				case 'newReport':
-
-					return function(args) {
-
-						scope.myForm.submitSuccessCb = function(res) {
-							scope.myForm.reset();
-							$state.go('app.report', { id: res.data._id });
-						};
-
-						var modelValues = scope.myModel.getValues();
-						modelValues.userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
-
-						var place = scope.autocomplete.ins.getPlace();
-
-						if (place) {
-
-							modelValues.geolocation = {
-								lat: place.geometry.location.lat(),
-								lng: place.geometry.location.lng()
-							};
-
-							modelValues.placeId = place.place_id;
-
-						} else {
-							modelValues.geolocation = null;
-						}
-
-						return ReportsRest.post(modelValues);
-					};
-
-				case 'editReport':
-
-					return function(args) {
-
-						scope.myForm.submitSuccessCb = function(res) {
-							$rootScope.apiData.report = res.data;
-							$state.go('app.report', { id: res.data._id, edit: undefined });
-						};
-
-						scope.myForm.submitErrorCb = function(res) {
-							$rootScope.apiData.report = copy;
-						};
-
-						var copy = Restangular.copy($rootScope.apiData.report);
-						scope.myModel.setRestObj(copy);
-						return copy.put();
-					};
-			}
-		};
-
-		service.deleteReports = function(reports) {
-
-			if (reports && reports.length > 0) {
-
-				// Showing confirm modal
-				$rootScope.ui.modals.deleteReportModal.show({
-					message: (function() { return $rootScope.hardData.warnings[2]; })(),
-					acceptCb: function() {
-
-						var promises = [];
-						for (var report of reports) { promises.push(report.remove({ userId: report.userId })); }
-
-						$q.all(promises).then(function(results) {
-
-							switch ($state.current.name) {
-
-								case 'app.profile':
-									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
-									break;
-
-								case 'app.report':
-									window.history.back();
-									break;
-							}
-						});
-					}
-				});
-			}
-		};
-
-		service.initUserReports = function(scope, userId) {
-
-			scope.collectionBrowser = reportsConf.profileCollectionBrowser;
-
-			if (userId == $rootScope.apiData.loggedInUser._id) {
-				scope.elemContextMenuConf = scope.reportContextMenuConf;
-
-			} else {
-				$scope.elemContextMenuConf = undefined;
-			}
-
-			scope.collectionBrowser.onRefreshClick();
-		};
-
-		return service;
-	};
-
-
-
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'ReportsRest', 'Restangular'];
-	angular.module('appModule').service('reportsService', reportsService);
 
 })();
 (function() {

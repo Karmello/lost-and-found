@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.deactivationModel;
+				var formModel = DeactivationReasonsRest.deactivationReasonModel;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'deactivationForm',

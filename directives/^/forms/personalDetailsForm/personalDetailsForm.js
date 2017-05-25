@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular) {
+	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular, UsersRest) {
 
 		var personalDetailsForm = {
 			restrict: 'E',
@@ -18,7 +18,7 @@
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'personalDetailsForm',
-					model: $rootScope.globalFormModels.personalDetailsModel,
+					model: UsersRest.personalDetailsModel,
 					submitAction: function(args) {
 
 						var copy = Restangular.copy($rootScope.apiData.loggedInUser);

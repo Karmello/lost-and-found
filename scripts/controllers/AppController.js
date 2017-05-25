@@ -28,39 +28,6 @@
 			countries: { data: undefined }
 		};
 
-		$rootScope.globalFormModels = {
-			userModel: new myClass.MyFormModel(
-				'userModel',
-				['email', 'username', 'password', 'firstname', 'lastname', 'countryFirstLetter', 'country'],
-				false
-			),
-			appConfigModel: new myClass.MyFormModel(
-				'appConfigModel',
-				['userId', 'language', 'theme'],
-				true
-			),
-			personalDetailsModel: new myClass.MyFormModel(
-				'personalDetailsModel',
-				['_id', 'email', 'username', 'firstname', 'lastname', 'countryFirstLetter', 'country', 'registration_date'],
-				true
-			),
-			passwordModel: new myClass.MyFormModel(
-				'passwordModel',
-				['currentPassword', 'password'],
-				false
-			),
-			deactivationModel: new myClass.MyFormModel(
-				'deactivationModel',
-				['deactivationReasonId'],
-				false
-			),
-			reportSearchModel: new myClass.MyFormModel(
-				'reportSearchModel',
-				['title', 'categoryId', 'subcategoryId'],
-				true
-			)
-		};
-
 
 
 		$rootScope.logout = function(extraParams, cb) {
@@ -69,7 +36,7 @@
 			uiSetupService.reInitCtrls(ui);
 
 			// Resetting form models
-			$rootScope.resetGlobalFormModels();
+			$rootScope.resetRestModels();
 
 			authService.setAsLoggedOut(function() {
 				var params = { tab: 'login' };
@@ -79,10 +46,9 @@
 			});
 		};
 
-		$rootScope.resetGlobalFormModels = function() {
+		$rootScope.resetRestModels = function() {
 
-			var modelKeys = Object.keys($rootScope.globalFormModels);
-			for (var i = 0; i < modelKeys.length; i++) { $rootScope.globalFormModels[modelKeys[i]].set({}); }
+			// to be implemented
 		};
 
 		$rootScope.$watch(function() { return storageService.authToken.getValue(); }, function(newValue) {

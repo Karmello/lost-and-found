@@ -1,12 +1,12 @@
 <div class="myTextArea" my-directive>
 	<my-label text="label" css-class="'text-info'"></my-label>
-	<my-form-error-icon args="{ error: model.error, hideErrors: hideErrors }"></my-form-error-icon>
+	<my-form-error-icon args="{ error: model.error.message, hideErrors: hideErrors }"></my-form-error-icon>
 	<textarea
 		id="{{ ctrlId }}"
 		class="form-control"
 		type="textarea"
 		placeholder="{{ placeholder || '...' }}"
 		maxlength="{{ ctrlMaxLength }}"
-		ng-model="model.value"
+		ng-model="model.value.active"
 	></textarea>
 </div>

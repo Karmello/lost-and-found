@@ -2,11 +2,11 @@
 
 	'use strict';
 
-	var ReportsRest = function($rootScope, $stateParams, Restangular, storageService, MyDataModel) {
+	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
 
 		var reports = Restangular.service('reports');
 
-		reports.myDataModel = {
+		reports.reportModel = new MyDataModel({
 			categoryId: {},
 			subcategoryId: {},
 			subsubcategoryId: {},
@@ -19,12 +19,18 @@
 				geolocation: {},
 				details: {}
 			}
-		};
+		});
+
+		reports.reportSearchModel = new MyDataModel({
+			title: {},
+			categoryId: {},
+			subcategoryId: {}
+		});
 
 		Restangular.extendModel('reports', function(report) {
 
 			report._isOwn = function() {
-				return this.userId == $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+				return this.userId == $rootScope.apiData.loggedInUser._id;
 			};
 
 			return report;
@@ -33,7 +39,7 @@
 		return reports;
 	};
 
-	ReportsRest.$inject = ['$rootScope', '$stateParams', 'Restangular', 'storageService', 'MyDataModel'];
+	ReportsRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
 	angular.module('appModule').factory('ReportsRest', ReportsRest);
 
 })();

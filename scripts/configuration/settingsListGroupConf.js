@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var settingsListGroupConf = function($rootScope, hardDataService) {
+	var settingsListGroupConf = function(hardDataService, DeactivationReasonsRest, UsersRest, AppConfigsRest) {
 
 		var hardData = hardDataService.get();
 
@@ -13,22 +13,22 @@
 					_id: 'application',
 					label: hardData.sections[7],
 					onActivate: function() {
-						$rootScope.globalFormModels.appConfigModel.set();
+						AppConfigsRest.appConfigModel.set();
 					}
 				},
 				{
 					_id: 'account',
 					label: hardData.sections[8],
 					onActivate: function() {
-						$rootScope.globalFormModels.personalDetailsModel.set();
-						$rootScope.globalFormModels.passwordModel.clear();
+						UsersRest.personalDetailsModel.set();
+						UsersRest.passwordModel.clear();
 					}
 				},
 				{
 					_id: 'danger',
 					label: hardData.sections[24],
 					onActivate: function() {
-						$rootScope.globalFormModels.deactivationModel.clear();
+						DeactivationReasonsRest.deactivationReasonModel.clear();
 					}
 				}
 			]
@@ -39,7 +39,7 @@
 
 
 
-	settingsListGroupConf.$inject = ['$rootScope', 'hardDataService'];
+	settingsListGroupConf.$inject = ['hardDataService', 'DeactivationReasonsRest', 'UsersRest', 'AppConfigsRest'];
 	angular.module('appModule').service('settingsListGroupConf', settingsListGroupConf);
 
 })();

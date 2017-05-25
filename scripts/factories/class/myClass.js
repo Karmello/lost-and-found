@@ -3,8 +3,8 @@
 	'use strict';
 
 	var myClass = function(
-		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyFormModel, MyCollectionBrowser,
-		MySrcCollection, MyForm, MySrcAction
+		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyDataModel, MyCollectionBrowser, MySrcCollection,
+		MyForm, MySrcAction
 	) {
 
 		return {
@@ -14,7 +14,7 @@
 			MyModal: MyModal,
 			MySrc: MySrc,
 			MyStorageItem: MyStorageItem,
-			MyFormModel: MyFormModel,
+			MyDataModel: MyDataModel,
 			MyCollectionBrowser: MyCollectionBrowser,
 			MySrcCollection: MySrcCollection,
 			MyForm: MyForm,
@@ -23,8 +23,8 @@
 	};
 
 	myClass.$inject = [
-		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyFormModel',
-		'MyCollectionBrowser', 'MySrcCollection', 'MyForm', 'MySrcAction'
+		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyDataModel', 'MyCollectionBrowser',
+		'MySrcCollection', 'MyForm', 'MySrcAction'
 	];
 
 	angular.module('appModule').factory('myClass', myClass);

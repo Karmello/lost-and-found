@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.userModel;
+				var formModel = UsersRest.userModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'loginForm',

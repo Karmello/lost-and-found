@@ -181,7 +181,7 @@
 				goThrough(this, '');
 				if (cb) { cb(); }
 			}
-		}
+		};
 
 		return MyDataModel;
 	};

@@ -38,7 +38,7 @@
 			},
 			fetchData: function(query) {
 
-				var model = $rootScope.globalFormModels.reportSearchModel.getValues();
+				var model = ReportsRest.reportSearchModel.getValues();
 
 				query.subject = 'reports';
 				query.title = model.title;

@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular) {
+	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular, UsersRest) {
 
 		var regionalForm = {
 			restrict: 'E',
@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.appConfigModel;
+				var formModel = AppConfigsRest.appConfigModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'regionalForm',
@@ -22,7 +22,7 @@
 					reload: true,
 					submitAction: function(args) {
 
-						formModel.setValue('userId', $rootScope.globalFormModels.personalDetailsModel.getValue('_id'));
+						formModel.setValue('userId', UsersRest.personalDetailsModel.getValue('_id'));
 						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
 						formModel.setRestObj(restCopy);
 						return restCopy.put();

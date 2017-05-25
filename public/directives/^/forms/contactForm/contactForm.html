@@ -3,7 +3,7 @@
 		<div>
 			<my-select
 				ctrl-id="'contactType'"
-				model="myForm.model.values.contactType"
+				model="myForm.model.contactType"
 				collection="contactTypes"
 				option-zero="true"
 				prop-names="{ optionValue: '_id', optionLabel: 'label' }"
@@ -14,7 +14,7 @@
 			<my-text-area
 				ctrl-id="'contactMsg'"
 				ctrl-max-length="2000"
-				model="myForm.model.values.contactMsg"
+				model="myForm.model.contactMsg"
 				hard-data="{ label: ['labels', 11] }"
 			></my-text-area>
 			<form-action-btns my-form="myForm"></form-action-btns>

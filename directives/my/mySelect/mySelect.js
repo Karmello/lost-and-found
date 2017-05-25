@@ -47,7 +47,7 @@
 							var select_scope = $($($(elem).parent()[0].children[i]).find('select')[0]).scope();
 
 							// Resetting scope variables
-							select_scope.model.value = '';
+							select_scope.model.value.active = '';
 							select_scope.collection = undefined;
 						}
 					};
@@ -62,7 +62,7 @@
 						var select_scope = $($($(elem).parent()[0].children[myIndex - 1]).find('select')[0]).scope();
 
 						// Watching for its model changes
-						scope.$watch(function() { return select_scope.model.value; }, function(newValue) {
+						scope.$watch(function() { return select_scope.model.value.active; }, function(newValue) {
 
 							if (newValue) {
 
@@ -98,11 +98,11 @@
 							});
 
 							// Watching for model changes
-							scope.$watch('model.value', function(newValue) {
+							scope.$watch('model.value.active', function(newValue) {
 
 								// Selecting option 1 as default, later setting model overrides this
 								if (!scope.optionZero && !newValue && scope.collection) {
-									scope.model.value = scope.collection[0][scope.propNames.optionValue];
+									scope.model.value.active = scope.collection[0][scope.propNames.optionValue];
 								}
 							});
 

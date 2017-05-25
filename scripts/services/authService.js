@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest) {
+	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest, AppConfigsRest) {
 
 		var service = {
 			state: {
@@ -68,8 +68,8 @@
 				} else {
 
 					// Setting models values
-					$rootScope.globalFormModels.personalDetailsModel.set($rootScope.apiData.loggedInUser);
-					$rootScope.globalFormModels.appConfigModel.set($rootScope.apiData.loggedInUser.appConfig);
+					UsersRest.personalDetailsModel.set($rootScope.apiData.loggedInUser);
+					AppConfigsRest.appConfigModel.set($rootScope.apiData.loggedInUser.appConfig);
 
 					if (cb) { cb(); }
 				}
@@ -91,7 +91,7 @@
 		return service;
 	};
 
-	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest'];
+	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest', 'AppConfigsRest'];
 	angular.module('appModule').service('authService', authService);
 
 })();

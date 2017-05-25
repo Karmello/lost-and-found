@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $timeout, $state, myClass, reportsService, Restangular) {
+	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportsService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -24,8 +24,8 @@
 				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myModel = new myClass.MyFormModel('reportFormModel', reportsService.formModelFields, true);
-				$scope.myModel.set({ date: $scope.maxDate });
+				$scope.myModel = ReportsRest.reportModel;
+				$scope.myModel.set({ date: $scope.maxDate }, true);
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: $scope.action + 'Form',

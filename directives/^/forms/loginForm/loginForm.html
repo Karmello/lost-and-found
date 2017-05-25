@@ -3,12 +3,12 @@
 		ctrl-id="'loginFormCaptcha'"
 		action-name="'login'"
 	></my-captcha>
-	<my-form-error-icon args="{ error: myForm.model.values.username.error, hideErrors: hideErrors }"></my-form-error-icon>
+	<my-form-error-icon args="{ error: myForm.model.username.error.message, hideErrors: hideErrors }"></my-form-error-icon>
 	<my-input
 		ctrl-id="'username'"
 		ctrl-type="'text'"
 		ctrl-max-length="20"
-		model="myForm.model.values.username"
+		model="myForm.model.username"
 		hard-data="{ label: ['labels', 1] }"
 		hide-errors="true"
 	></my-input>
@@ -16,7 +16,7 @@
 		ctrl-id="'password'"
 		ctrl-type="'password'"
 		ctrl-max-length="25"
-		model="myForm.model.values.password"
+		model="myForm.model.password"
 		hard-data="{ label: ['labels', 2] }"
 		hide-errors="true"
 	></my-input>

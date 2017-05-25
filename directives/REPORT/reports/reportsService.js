@@ -2,22 +2,9 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf, ReportsRest, Restangular) {
+	var reportsService = function($rootScope, $state, $stateParams, $q, reportsConf, ReportsRest, UsersRest, Restangular) {
 
 		var service = this;
-
-		service.formModelFields = [
-			'group',
-			'categoryId',
-			'subcategoryId',
-			'subsubcategoryId',
-			'title',
-			'serialNo',
-			'description',
-			'date',
-			'geolocation',
-			'details'
-		];
 
 		service.getFormSubmitAction = function(scope) {
 
@@ -33,7 +20,7 @@
 						};
 
 						var modelValues = scope.myModel.getValues();
-						modelValues.userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+						modelValues.userId = UsersRest.personalDetailsModel.getValue('_id');
 
 						var place = scope.autocomplete.ins.getPlace();
 
@@ -122,7 +109,7 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf', 'ReportsRest', 'Restangular'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf', 'ReportsRest', 'UsersRest', 'Restangular'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();

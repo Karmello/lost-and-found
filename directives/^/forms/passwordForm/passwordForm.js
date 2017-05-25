@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('passwordForm', function($rootScope, MyForm, Restangular) {
+	appModule.directive('passwordForm', function($rootScope, MyForm, UsersRest, Restangular) {
 
 		var passwordForm = {
 			restrict: 'E',
@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.passwordModel;
+				var formModel = UsersRest.passwordModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'passwordForm',

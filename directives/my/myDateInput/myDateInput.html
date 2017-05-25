@@ -1,13 +1,13 @@
 <div class="myInput myFormCtrl" my-directive>
 	<my-label text="label" css-class="'text-info'"></my-label>
-	<my-form-error-icon args="{ error: model.error, hideErrors: hideErrors }"></my-form-error-icon>
+	<my-form-error-icon args="{ error: model.error.message, hideErrors: hideErrors }"></my-form-error-icon>
 	<input
 		id="{{ ctrlId }}"
 		class="form-control"
 		type="date"
 		min="{{ ctrlMinValue | date:'yyyy-MM-dd' }}"
 		max="{{ ctrlMaxValue | date:'yyyy-MM-dd' }}"
-		ng-model="model.value"
+		ng-model="model.value.active"
 		ng-required="isRequired"
 	>
 </div>

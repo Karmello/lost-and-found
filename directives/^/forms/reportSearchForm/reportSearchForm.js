@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('reportSearchForm', function($rootScope, myClass) {
+	appModule.directive('reportSearchForm', function($rootScope, myClass, ReportsRest) {
 
 		var reportSearchForm = {
 			restrict: 'E',
@@ -19,7 +19,7 @@
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'reportSearchForm',
 					noLoader: true,
-					model: $rootScope.globalFormModels.reportSearchModel,
+					model: ReportsRest.reportSearchModel,
 					submitAction: function(args) {
 
 						$rootScope.$broadcast('initSearchReports');

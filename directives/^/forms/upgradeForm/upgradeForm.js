@@ -19,20 +19,7 @@
 				$scope.hardData = hardDataService.get();
 				$scope.currentYear = CURRENT_YEAR;
 
-				var fields = [
-					'paymentMethod',
-					'creditCardType',
-					'creditCardNumber',
-					'creditCardExpireMonth',
-					'creditCardExpireYear',
-					'cvv2',
-					'firstname',
-					'lastname',
-					'amount',
-					'currency'
-				];
-
-				$scope.myModel = new myClass.MyFormModel('upgradePaymentModel', fields, true);
+				$scope.myModel = PaymentsRest.myDataModel;
 
 				$scope.myModel.set({
 					paymentMethod: 'credit_card',
@@ -95,7 +82,7 @@
 						}
 					});
 
-					scope.$watch('myModel.values.currency.value', function(newCurrency, oldCurrency) {
+					scope.$watch('myModel.currency.value.active', function(newCurrency, oldCurrency) {
 
 						if (newCurrency != oldCurrency) {
 							scope.myModel.setValue('amount', amounts[newCurrency]);

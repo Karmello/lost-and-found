@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest) {
+	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest, UsersRest) {
 
 		var comments = {
 			restrict: 'E',
@@ -19,10 +19,10 @@
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'commentForm',
-					model: new myClass.MyFormModel('commentModel', ['userId', 'content'], false),
+					model: CommentsRest.commentModel,
 					submitAction: function(args) {
 
-						var userId = $rootScope.globalFormModels.personalDetailsModel.getValue('_id');
+						var userId = UsersRest.personalDetailsModel.getValue('_id');
 						$scope.myForm.model.setValue('userId', userId);
 						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
 					},

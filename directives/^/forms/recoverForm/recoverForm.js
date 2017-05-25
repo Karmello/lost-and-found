@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('recoverForm', function($rootScope, $http, MyForm) {
+	appModule.directive('recoverForm', function($rootScope, $http, MyForm, UsersRest) {
 
 		var recoverForm = {
 			restrict: 'E',
@@ -14,7 +14,7 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = $rootScope.globalFormModels.userModel;
+				var formModel = UsersRest.userModel;
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'recoverForm',

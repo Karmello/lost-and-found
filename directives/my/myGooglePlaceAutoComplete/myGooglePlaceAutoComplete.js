@@ -39,7 +39,7 @@
 						});
 					};
 
-					scope.$watch('model.value', function(newValue, oldValue) {
+					scope.$watch('model.value.active', function(newValue, oldValue) {
 
 						if (newValue) {
 

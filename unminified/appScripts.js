@@ -148,7 +148,7 @@
 						newScrollY = $state.current.scrollY;
 						break;
 
-					case 'app.report.tab':
+					case 'app.report.tabs':
 						return;
 
 					default:
@@ -494,7 +494,7 @@
 
 	'use strict';
 
-	var settingsListGroupConf = function(hardDataService, DeactivationReasonsRest, UsersRest, AppConfigsRest) {
+	var settingsListGroupConf = function(hardDataService) {
 
 		var hardData = hardDataService.get();
 
@@ -503,25 +503,15 @@
 			switchers: [
 				{
 					_id: 'application',
-					label: hardData.sections[7],
-					onActivate: function() {
-						AppConfigsRest.appConfigModel.set();
-					}
+					label: hardData.sections[7]
 				},
 				{
 					_id: 'account',
-					label: hardData.sections[8],
-					onActivate: function() {
-						UsersRest.personalDetailsModel.set();
-						UsersRest.passwordModel.clear();
-					}
+					label: hardData.sections[8]
 				},
 				{
 					_id: 'danger',
-					label: hardData.sections[24],
-					onActivate: function() {
-						DeactivationReasonsRest.deactivationReasonModel.clear();
-					}
+					label: hardData.sections[24]
 				}
 			]
 		};
@@ -529,9 +519,7 @@
 		return config;
 	};
 
-
-
-	settingsListGroupConf.$inject = ['hardDataService', 'DeactivationReasonsRest', 'UsersRest', 'AppConfigsRest'];
+	settingsListGroupConf.$inject = ['hardDataService'];
 	angular.module('appModule').service('settingsListGroupConf', settingsListGroupConf);
 
 })();
@@ -539,7 +527,7 @@
 
 	'use strict';
 
-	var startTabsConf = function(hardDataService, UsersRest) {
+	var startTabsConf = function(hardDataService) {
 
 		var hardData = hardDataService.get();
 
@@ -550,29 +538,25 @@
 					_id: 'login',
 					label: hardData.sections[17],
 					info: hardData.description[0],
-					route: '/#/start/login',
-					onActivate: function() { UsersRest.userModel.clearErrors(); }
+					route: '/#/start/login'
 				},
 				{
 					_id: 'register',
 					label: hardData.sections[18],
 					info: hardData.description[1],
-					route: '/#/start/register',
-					onActivate: function() { UsersRest.userModel.clearErrors(); }
+					route: '/#/start/register'
 				},
 				{
 					_id: 'recover',
 					label: hardData.labels[4],
 					info: hardData.description[2],
-					route: '/#/start/recover',
-					onActivate: function() { UsersRest.userModel.clearErrors(); }
+					route: '/#/start/recover'
 				},
 				{
 					_id: 'status',
 					label: hardData.sections[23],
 					info: hardData.information[8],
-					route: '/#/start/status',
-					onActivate: function() { UsersRest.userModel.clearErrors(); }
+					route: '/#/start/status'
 				}
 			]
 		};
@@ -580,7 +564,7 @@
 		return config;
 	};
 
-	var settingsTabsConf = function(hardDataService, AppConfigsRest, UsersRest, DeactivationReasonsRest) {
+	var settingsTabsConf = function(hardDataService) {
 
 		var hardData = hardDataService.get();
 
@@ -592,19 +576,13 @@
 						_id: 'appearance',
 						route: '/#/settings/application/appearance',
 						label: hardData.sections[10],
-						info: hardData.imperatives[34],
-						onActivate: function() {
-							AppConfigsRest.appConfigModel.set();
-						}
+						info: hardData.imperatives[34]
 					},
 					{
 						_id: 'regional',
 						route: '/#/settings/application/regional',
 						label: hardData.sections[9],
-						info: hardData.description[5],
-						onActivate: function() {
-							AppConfigsRest.appConfigModel.set();
-						}
+						info: hardData.description[5]
 					}
 				]
 			},
@@ -615,19 +593,13 @@
 						_id: 'personal-details',
 						route: '/#/settings/account/personal-details',
 						label: hardData.sections[12],
-						info: hardData.description[3],
-						onActivate: function() {
-							UsersRest.personalDetailsModel.set();
-						}
+						info: hardData.description[3]
 					},
 					{
 						_id: 'password',
 						route: '/#/settings/account/password',
 						label: hardData.labels[2],
-						info: hardData.description[4],
-						onActivate: function() {
-							UsersRest.passwordModel.clear();
-						}
+						info: hardData.description[4]
 					}
 				]
 			},
@@ -638,10 +610,7 @@
 						_id: 'deactivate',
 						route: '/#/settings/danger/deactivate',
 						label: hardData.imperatives[26],
-						info: hardData.warnings[4],
-						onActivate: function() {
-							DeactivationReasonsRest.deactivationReasonModel.clear();
-						}
+						info: hardData.warnings[4]
 					}
 				]
 			}
@@ -679,10 +648,8 @@
 		return config;
 	};
 
-
-
-	startTabsConf.$inject = ['hardDataService', 'UsersRest'];
-	settingsTabsConf.$inject = ['hardDataService', 'AppConfigsRest', 'UsersRest', 'DeactivationReasonsRest'];
+	startTabsConf.$inject = ['hardDataService'];
+	settingsTabsConf.$inject = ['hardDataService'];
 	reportTabsConf.$inject = ['$rootScope'];
 
 	angular.module('appModule').service('startTabsConf', startTabsConf);
@@ -867,14 +834,23 @@
 
 	'use strict';
 
-	var SettingsController = function($scope, ui) {
+	var SettingsController = function($scope, ui, UsersRest, AppConfigsRest) {
 
 		$scope.$watch('ui.listGroups.settings.activeSwitcherId', function(newValue) {
+
 			if (angular.isDefined(newValue)) { $scope.activeTabs = ui.tabs[newValue]; }
+		});
+
+		$scope.$watch('apiData.loggedInUser', function(newUser) {
+
+			if (newUser) {
+				UsersRest.personalDetailsModel.set(newUser.plain(), true);
+				AppConfigsRest.appConfigModel.set(newUser.appConfig, true);
+			}
 		});
 	};
 
-	SettingsController.$inject = ['$scope', 'ui'];
+	SettingsController.$inject = ['$scope', 'ui', 'UsersRest', 'AppConfigsRest'];
 	angular.module('appModule').controller('SettingsController', SettingsController);
 
 })();
@@ -1127,7 +1103,9 @@
 					return resolveService.isAuthenticated();
 				}
 			},
-			onEnter: function(ui) {
+			onEnter: function($rootScope, ui) {
+
+				$rootScope.$broadcast('newReport');
 
 				ui.menus.top.activateSwitcher('newreport');
 				ui.frames.main.activateSwitcher('newreport');
@@ -1184,11 +1162,6 @@
 
 		$stateProvider.state('app.report', {
 			url: '/report?id&edit',
-			views: {
-				tab: {
-					templateUrl: 'public/pages/lost-and-found-app-report-tab.html'
-				}
-			},
 			resolve: {
 				isAuthenticated: function(authentication, resolveService, $state) {
 					return resolveService.isAuthenticated($state.current.name);
@@ -1242,7 +1215,7 @@
 
 	angular.module('appModule').config(function($stateProvider) {
 
-		$stateProvider.state('app.report.tab', {
+		$stateProvider.state('app.report.tabs', {
 			url: '/:tab',
 			onEnter: function($stateParams, ui) {
 
@@ -1734,7 +1707,7 @@
 
 	'use strict';
 
-	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest, AppConfigsRest) {
+	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest) {
 
 		var service = {
 			state: {
@@ -1797,13 +1770,8 @@
 				if (appConfig.language != sessionConst.language || appConfig.theme != sessionConst.theme) {
 					$window.location.reload();
 
-				} else {
-
-					// Setting models values
-					UsersRest.personalDetailsModel.set($rootScope.apiData.loggedInUser);
-					AppConfigsRest.appConfigModel.set($rootScope.apiData.loggedInUser.appConfig);
-
-					if (cb) { cb(); }
+				} else if (cb) {
+					cb();
 				}
 			},
 			setAsLoggedOut: function(cb) {
@@ -1823,7 +1791,7 @@
 		return service;
 	};
 
-	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest', 'AppConfigsRest'];
+	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest'];
 	angular.module('appModule').service('authService', authService);
 
 })();
@@ -3095,7 +3063,39 @@
 
 				goThrough(data, this);
 			},
-			clear: function(onlyErrors) {
+			setValue: function(propPath, newValue, storeDefault) {
+
+				var props = propPath.split('.');
+				var obj = this;
+
+				for (var prop of props) {
+					obj = obj[prop];
+				}
+
+				obj.value.active = newValue;
+				if (storeDefault) { obj.value.default = newValue; }
+			},
+			assignTo: function(data) {
+
+				var goThrough = function(toSetWithObj, toBeSetObj) {
+
+					for (var prop in toSetWithObj) {
+
+						if (toSetWithObj.hasOwnProperty(prop) && toBeSetObj.hasOwnProperty(prop)) {
+
+							if (toSetWithObj[prop] instanceof MyDataModelValue) {
+								toBeSetObj[prop] = toSetWithObj[prop].value.active;
+
+							} else {
+								goThrough(toSetWithObj[prop], toBeSetObj[prop]);
+							}
+						}
+					}
+				};
+
+				goThrough(this, data);
+			},
+			reset: function(doForValues, doForErrors, useDefaults) {
 
 				var goThrough = function(obj) {
 
@@ -3105,11 +3105,11 @@
 
 							if (obj[prop] instanceof MyDataModelValue) {
 
-								if (!onlyErrors) {
-									obj[prop] = new MyDataModelValue();
+								if (doForValues) {
+									obj[prop].value.active = useDefaults ? obj[prop].value.default : undefined;
+								}
 
-
-								} else {
+								if (doForErrors) {
 									obj[prop].error.kind = undefined;
 									obj[prop].error.message = undefined;
 								}
@@ -3142,12 +3142,16 @@
 					}
 				};
 
-				goThrough(errors, this);
-				if (cb) { cb(); }
+				var that = this;
+
+				that.clearErrors(function() {
+					goThrough(errors, that);
+					if (cb) { cb(); }
+				});
 			},
 			clearErrors: function(cb) {
 
-				this.clear(true);
+				this.reset(false, true);
 				if (cb) { cb(); }
 			},
 			getValues: function() {
@@ -3289,7 +3293,7 @@
 
 								// Binding errors if any
 								if (res && res.data && res.data.errors) {
-									that.model.bindErrors(res.data.errors, function() {
+									that.model.setErrors(res.data.errors, function() {
 										$timeout(function() {
 											that.scope.loader.stop();
 										});
@@ -3323,13 +3327,12 @@
 
 		MyForm.prototype.clear = function() {
 
-			this.model.clear();
+			this.model.reset(true, true);
 		};
 
 		MyForm.prototype.reset = function() {
 
-			this.model.clear();
-			this.model.set();
+			this.model.reset(true, true, true);
 		};
 
 		return MyForm;
@@ -4237,7 +4240,6 @@
 		var appConfigs = Restangular.service('app_configs');
 
 		appConfigs.appConfigModel = new MyDataModel({
-			userId: {},
 			language: {},
 			theme: {}
 		});
@@ -4344,7 +4346,12 @@
 
 		var users = Restangular.service('users');
 
-		users.userModel = new MyDataModel({
+		users.loginModel = new MyDataModel({
+			username: {},
+			password: {}
+		});
+
+		users.registerModel = new MyDataModel({
 			email: {},
 			username: {},
 			password: {},
@@ -4354,15 +4361,16 @@
 			country: {}
 		});
 
+		users.recoverModel = new MyDataModel({
+			email: {}
+		});
+
 		users.personalDetailsModel = new MyDataModel({
-			_id: {},
 			email: {},
-			username: {},
 			firstname: {},
 			lastname: {},
 			countryFirstLetter: {},
-			country: {},
-			registration_date: {}
+			country: {}
 		});
 
 		users.passwordModel = new MyDataModel({
@@ -4504,7 +4512,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('appearanceForm', function($rootScope, MyForm, Restangular, UsersRest, AppConfigsRest) {
+	appModule.directive('appearanceForm', function($rootScope, MyForm, AppConfigsRest, Restangular) {
 
 		var appearanceForm = {
 			restrict: 'E',
@@ -4512,18 +4520,15 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = AppConfigsRest.appConfigModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'appearanceForm',
-					model: formModel,
+					model: AppConfigsRest.appConfigModel,
 					reload: true,
 					submitAction: function(args) {
 
-						formModel.setValue('userId', UsersRest.personalDetailsModel.getValue('_id'));
-						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
-						formModel.setRestObj(restCopy);
-						return restCopy.put();
+						var copy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
+						AppConfigsRest.appConfigModel.assignTo(copy);
+						return copy.put();
 					}
 				});
 			}
@@ -4539,7 +4544,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('contactForm', function($rootScope, $http, $timeout, ContactTypesRest, myClass) {
+	appModule.directive('contactForm', function($rootScope, myClass, ContactTypesRest) {
 
 		var contactForm = {
 			restrict: 'E',
@@ -4547,18 +4552,16 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = ContactTypesRest.contactTypeModel;
-
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'contactForm',
-					model: formModel,
+					model: ContactTypesRest.contactTypeModel,
 					submitAction: function(args) {
 
-						return ContactTypesRest.post(formModel.getValues());
+						return ContactTypesRest.post(ContactTypesRest.contactTypeModel.getValues());
 					},
 					submitSuccessCb: function(res) {
 
-						formModel.clear();
+						ContactTypesRest.contactTypeModel.reset(true, true);
 					}
 				});
 			},
@@ -4585,7 +4588,7 @@
 
 
 
-	appModule.directive('deactivationForm', function($rootScope, $timeout, $filter, ui, DeactivationReasonsRest, myClass) {
+	appModule.directive('deactivationForm', function($rootScope, ui, myClass, DeactivationReasonsRest) {
 
 		var deactivationForm = {
 			restrict: 'E',
@@ -4593,14 +4596,12 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = DeactivationReasonsRest.deactivationReasonModel;
-
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'deactivationForm',
-					model: formModel,
+					model: DeactivationReasonsRest.deactivationReasonModel,
 					submitAction: function(args, cb) {
 
-						return $rootScope.apiData.loggedInUser.remove(formModel.getValues());
+						return $rootScope.apiData.loggedInUser.remove(DeactivationReasonsRest.deactivationReasonModel.getValues());
 					},
 					submitSuccessCb: function(res) {
 
@@ -4648,7 +4649,7 @@
 
 
 
-	appModule.directive('loginForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
+	appModule.directive('loginForm', function($timeout, $state, authService, MyForm, UsersRest) {
 
 		var loginForm = {
 			restrict: 'E',
@@ -4656,18 +4657,12 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = UsersRest.userModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'loginForm',
-					model: formModel,
+					model: UsersRest.loginModel,
 					submitAction: function(args) {
 
-						var body = {
-							username: formModel.getValue('username'),
-							password: formModel.getValue('password'),
-						};
-
+						var body = UsersRest.loginModel.getValues();
 						return UsersRest.post(body, undefined, { captcha_response: args.captchaResponse });
 					},
 					submitSuccessCb: function(res) {
@@ -4706,21 +4701,20 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = UsersRest.passwordModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'passwordForm',
-					model: formModel,
+					model: UsersRest.passwordModel,
 					submitAction: function(args) {
 
 						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						copy.currentPassword = formModel.getValue('currentPassword');
-						copy.password = formModel.getValue('password');
+						var values = UsersRest.passwordModel.getValues();
+						copy.currentPassword = values.currentPassword;
+						copy.password = values.password;
 						return copy.put();
 					},
 					submitSuccessCb: function(res) {
 
-						formModel.clear();
+						UsersRest.passwordModel.reset(true, true);
 					}
 				});
 			}
@@ -4738,7 +4732,7 @@
 
 
 
-	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular, UsersRest) {
+	appModule.directive('personalDetailsForm', function($rootScope, MyForm, UsersRest, Restangular) {
 
 		var personalDetailsForm = {
 			restrict: 'E',
@@ -4754,10 +4748,14 @@
 					submitAction: function(args) {
 
 						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						$scope.myForm.model.setRestObj(copy);
+						$scope.myForm.model.assignTo(copy);
 						return copy.put();
 					}
 				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {};
 			}
 		};
 
@@ -4781,16 +4779,13 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = UsersRest.userModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'recoverForm',
-					model: formModel,
+					model: UsersRest.recoverModel,
 					submitAction: function(args) {
 
-						return $http.post('/recover', { email: formModel.getValue('email') }, {
-							headers: { captcha_response: args.captchaResponse }
-						});
+						var body = UsersRest.recoverModel.getValues();
+						return $http.post('/recover', body, { headers: { captcha_response: args.captchaResponse } });
 					},
 					submitSuccessCb: function(res) {
 
@@ -4815,7 +4810,7 @@
 
 
 
-	appModule.directive('regionalForm', function($rootScope, AppConfigsRest, MyForm, Restangular, UsersRest) {
+	appModule.directive('regionalForm', function($rootScope, MyForm, AppConfigsRest, Restangular) {
 
 		var regionalForm = {
 			restrict: 'E',
@@ -4823,18 +4818,15 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = AppConfigsRest.appConfigModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'regionalForm',
-					model: formModel,
+					model: AppConfigsRest.appConfigModel,
 					reload: true,
 					submitAction: function(args) {
 
-						formModel.setValue('userId', UsersRest.personalDetailsModel.getValue('_id'));
-						var restCopy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
-						formModel.setRestObj(restCopy);
-						return restCopy.put();
+						var copy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
+						AppConfigsRest.appConfigModel.assignTo(copy);
+						return copy.put();
 					}
 				});
 			}
@@ -4862,14 +4854,13 @@
 
 				$scope.countries = $rootScope.localData.countries;
 
-				var formModel = UsersRest.userModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'registerForm',
-					model: formModel,
+					model: UsersRest.registerModel,
 					submitAction: function(args) {
 
-						return UsersRest.post(formModel.getValues(), undefined, { captcha_response: args.captchaResponse });
+						var body = UsersRest.registerModel.getValues();
+						return UsersRest.post(body, undefined, { captcha_response: args.captchaResponse });
 					},
 					submitSuccessCb: function(res) {
 
@@ -4897,7 +4888,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportsService, ReportsRest) {
+	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportFormService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -4912,18 +4903,12 @@
 				$scope.hardData = $rootScope.hardData;
 
 				$scope.autocomplete = {};
-
-				var date = new Date();
-				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 				$scope.minDate = new Date(2000, 0, 1);
-
-				$scope.myModel = ReportsRest.reportModel;
-				$scope.myModel.set({ date: $scope.maxDate }, true);
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: $scope.action + 'Form',
-					model: $scope.myModel,
-					submitAction: reportsService.getFormSubmitAction($scope),
+					model: ReportsRest[$scope.action + 'Model'],
+					submitAction: reportFormService.getFormSubmitAction($scope),
 					onCancel: function() {
 
 						$timeout(function() { $scope.myForm.reset(); });
@@ -4940,25 +4925,17 @@
 						case 'editReport':
 
 							if (!$rootScope.$$listeners.editReport) {
+
 								$rootScope.$on('editReport', function(e, args) {
+
 									if (args.report) {
+
+										ReportsRest.editReportModel.set(args.report.plain(), true);
 
 										var geocoder = new google.maps.Geocoder();
 
 										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
-
-											scope.myModel.set({
-												title: args.report.title,
-												categoryId: args.report.categoryId,
-												subcategoryId: args.report.subcategoryId,
-												subsubcategoryId: args.report.subsubcategoryId,
-												serialNo: args.report.serialNo,
-												description: args.report.description,
-												group: args.report.startEvent.group,
-												date: args.report.startEvent.date,
-												geolocation: results[0].formatted_address,
-												details: args.report.startEvent.details
-											});
+											ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
 										});
 									}
 								});
@@ -4969,6 +4946,26 @@
 							});
 
 							break;
+
+						case 'newReport':
+
+							var setMaxDate = function(scope) {
+								var date = new Date();
+								scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+							};
+
+							setMaxDate(scope);
+							ReportsRest.newReportModel.set({ startEvent: { date: scope.maxDate } }, true);
+
+							if (!$rootScope.$$listeners.newReport) {
+								$rootScope.$on('newReport', function(e, args) { setMaxDate(scope); });
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.newReport = null;
+							});
+
+							break;
 					}
 				};
 			}
@@ -4976,6 +4973,80 @@
 
 		return reportForm;
 	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportFormService = function($rootScope, $state, ReportsRest, Restangular) {
+
+		var service = this;
+
+		service.getFormSubmitAction = function(scope) {
+
+			switch (scope.action) {
+
+				case 'newReport':
+
+					return function(args) {
+
+						scope.myForm.submitSuccessCb = function(res) {
+							scope.myForm.reset();
+							$state.go('app.report', { id: res.data._id });
+						};
+
+						service.setModelWithGooglePlaceObj(scope);
+
+						var modelValues = scope.myForm.model.getValues();
+						modelValues.userId = $rootScope.apiData.loggedInUser._id;
+						return ReportsRest.post(modelValues);
+					};
+
+				case 'editReport':
+
+					return function(args) {
+
+						scope.myForm.submitSuccessCb = function(res) {
+							$rootScope.apiData.report = res.data;
+							$state.go('app.report', { id: res.data._id, edit: undefined });
+						};
+
+						scope.myForm.submitErrorCb = function(res) {
+							$rootScope.apiData.report = copy;
+						};
+
+						service.setModelWithGooglePlaceObj(scope);
+
+						var copy = Restangular.copy($rootScope.apiData.report);
+						scope.myForm.model.assignTo(copy);
+						return copy.put();
+					};
+			}
+		};
+
+		service.setModelWithGooglePlaceObj = function(scope) {
+
+			var place = scope.autocomplete.ins.getPlace();
+
+			if (place) {
+				scope.myForm.model.set({
+					startEvent: {
+						geolocation: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() },
+						placeId: place.place_id
+					}
+				});
+
+			} else {
+				scope.myForm.model.setValue('startEvent.geolocation', undefined);
+			}
+		};
+
+		return service;
+	};
+
+	reportFormService.$inject = ['$rootScope', '$state', 'ReportsRest', 'Restangular'];
+	angular.module('appModule').service('reportFormService', reportFormService);
 
 })();
 (function() {
@@ -5099,7 +5170,7 @@
 					scope.$watch('myModel.currency.value.active', function(newCurrency, oldCurrency) {
 
 						if (newCurrency != oldCurrency) {
-							scope.myModel.setValue('amount', amounts[newCurrency]);
+							scope.myModel.set({ 'amount': amounts[newCurrency] });
 						}
 					});
 				};
@@ -5422,7 +5493,7 @@
 					submitAction: function(args) {
 
 						var userId = UsersRest.personalDetailsModel.getValue('_id');
-						$scope.myForm.model.setValue('userId', userId);
+						$scope.myForm.model.set({ 'userId': userId });
 						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
 					},
 					submitSuccessCb: function(res) {
@@ -5891,10 +5962,7 @@
 			controller: function($scope) {
 
 				$scope.ins.scope = $scope;
-
 				$scope.loader = new MyLoader();
-				$scope.ins.model.clear();
-				$scope.ins.model.set();
 			},
 			compile: function(elem, attrs) {
 
@@ -7280,22 +7348,28 @@
 
 	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
 
+		var getReportModelConf = function() {
+			return {
+				categoryId: {},
+				subcategoryId: {},
+				subsubcategoryId: {},
+				title: {},
+				serialNo: {},
+				description: {},
+				startEvent: {
+					group: {},
+					date: {},
+					placeId: {},
+					geolocation: {},
+					details: {}
+				}
+			};
+		};
+
 		var reports = Restangular.service('reports');
 
-		reports.reportModel = new MyDataModel({
-			categoryId: {},
-			subcategoryId: {},
-			subsubcategoryId: {},
-			title: {},
-			serialNo: {},
-			description: {},
-			startEvent: {
-				group: {},
-				date: {},
-				geolocation: {},
-				details: {}
-			}
-		});
+		reports.newReportModel = new MyDataModel(getReportModelConf());
+		reports.editReportModel = new MyDataModel(getReportModelConf());
 
 		reports.reportSearchModel = new MyDataModel({
 			title: {},
@@ -7323,63 +7397,9 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $q, reportsConf, ReportsRest, UsersRest, Restangular) {
+	var reportsService = function($rootScope, $state, $stateParams, $q, reportsConf) {
 
 		var service = this;
-
-		service.getFormSubmitAction = function(scope) {
-
-			switch (scope.action) {
-
-				case 'newReport':
-
-					return function(args) {
-
-						scope.myForm.submitSuccessCb = function(res) {
-							scope.myForm.reset();
-							$state.go('app.report', { id: res.data._id });
-						};
-
-						var modelValues = scope.myModel.getValues();
-						modelValues.userId = UsersRest.personalDetailsModel.getValue('_id');
-
-						var place = scope.autocomplete.ins.getPlace();
-
-						if (place) {
-
-							modelValues.geolocation = {
-								lat: place.geometry.location.lat(),
-								lng: place.geometry.location.lng()
-							};
-
-							modelValues.placeId = place.place_id;
-
-						} else {
-							modelValues.geolocation = null;
-						}
-
-						return ReportsRest.post(modelValues);
-					};
-
-				case 'editReport':
-
-					return function(args) {
-
-						scope.myForm.submitSuccessCb = function(res) {
-							$rootScope.apiData.report = res.data;
-							$state.go('app.report', { id: res.data._id, edit: undefined });
-						};
-
-						scope.myForm.submitErrorCb = function(res) {
-							$rootScope.apiData.report = copy;
-						};
-
-						var copy = Restangular.copy($rootScope.apiData.report);
-						scope.myModel.setRestObj(copy);
-						return copy.put();
-					};
-			}
-		};
 
 		service.deleteReports = function(reports) {
 
@@ -7430,7 +7450,7 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf', 'ReportsRest', 'UsersRest', 'Restangular'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();

@@ -2,63 +2,9 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $q, reportsConf, ReportsRest, UsersRest, Restangular) {
+	var reportsService = function($rootScope, $state, $stateParams, $q, reportsConf) {
 
 		var service = this;
-
-		service.getFormSubmitAction = function(scope) {
-
-			switch (scope.action) {
-
-				case 'newReport':
-
-					return function(args) {
-
-						scope.myForm.submitSuccessCb = function(res) {
-							scope.myForm.reset();
-							$state.go('app.report', { id: res.data._id });
-						};
-
-						var modelValues = scope.myModel.getValues();
-						modelValues.userId = UsersRest.personalDetailsModel.getValue('_id');
-
-						var place = scope.autocomplete.ins.getPlace();
-
-						if (place) {
-
-							modelValues.geolocation = {
-								lat: place.geometry.location.lat(),
-								lng: place.geometry.location.lng()
-							};
-
-							modelValues.placeId = place.place_id;
-
-						} else {
-							modelValues.geolocation = null;
-						}
-
-						return ReportsRest.post(modelValues);
-					};
-
-				case 'editReport':
-
-					return function(args) {
-
-						scope.myForm.submitSuccessCb = function(res) {
-							$rootScope.apiData.report = res.data;
-							$state.go('app.report', { id: res.data._id, edit: undefined });
-						};
-
-						scope.myForm.submitErrorCb = function(res) {
-							$rootScope.apiData.report = copy;
-						};
-
-						var copy = Restangular.copy($rootScope.apiData.report);
-						scope.myModel.setRestObj(copy);
-						return copy.put();
-					};
-			}
-		};
 
 		service.deleteReports = function(reports) {
 
@@ -109,7 +55,7 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf', 'ReportsRest', 'UsersRest', 'Restangular'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();

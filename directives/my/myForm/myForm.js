@@ -17,10 +17,7 @@
 			controller: function($scope) {
 
 				$scope.ins.scope = $scope;
-
 				$scope.loader = new MyLoader();
-				$scope.ins.model.clear();
-				$scope.ins.model.set();
 			},
 			compile: function(elem, attrs) {
 

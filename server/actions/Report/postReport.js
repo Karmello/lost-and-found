@@ -6,7 +6,7 @@ module.exports = {
 		var action = new r.prototypes.Action(arguments);
 
 		var report = new r.Report(req.body);
-		report.startEvent = new r.ReportEvent(req.body);
+		report.startEvent = new r.ReportEvent(req.body.startEvent);
 
 		report.validate(function(err1) {
 			report.startEvent.validate(function(err2) {
@@ -22,14 +22,20 @@ module.exports = {
 						} else { action.end(400, err); }
 					});
 
-				} else if (err1 && err2) {
-
-					Object.assign(err1.errors, err2.errors);
-					action.end(400, err1);
-
 				} else {
 
-					action.end(400, err1 || err2);
+					var err = { errors: {} };
+
+					if (err1) {
+						Object.assign(err.errors, err1.errors);
+					}
+
+					if (err2) {
+						err.errors.startEvent = {};
+						Object.assign(err.errors.startEvent, err2.errors);
+					}
+
+					action.end(400, err);
 				}
 			});
 		});

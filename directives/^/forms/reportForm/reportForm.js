@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportsService, ReportsRest) {
+	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportFormService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -19,18 +19,12 @@
 				$scope.hardData = $rootScope.hardData;
 
 				$scope.autocomplete = {};
-
-				var date = new Date();
-				$scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 				$scope.minDate = new Date(2000, 0, 1);
-
-				$scope.myModel = ReportsRest.reportModel;
-				$scope.myModel.set({ date: $scope.maxDate }, true);
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: $scope.action + 'Form',
-					model: $scope.myModel,
-					submitAction: reportsService.getFormSubmitAction($scope),
+					model: ReportsRest[$scope.action + 'Model'],
+					submitAction: reportFormService.getFormSubmitAction($scope),
 					onCancel: function() {
 
 						$timeout(function() { $scope.myForm.reset(); });
@@ -47,25 +41,17 @@
 						case 'editReport':
 
 							if (!$rootScope.$$listeners.editReport) {
+
 								$rootScope.$on('editReport', function(e, args) {
+
 									if (args.report) {
+
+										ReportsRest.editReportModel.set(args.report.plain(), true);
 
 										var geocoder = new google.maps.Geocoder();
 
 										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
-
-											scope.myModel.set({
-												title: args.report.title,
-												categoryId: args.report.categoryId,
-												subcategoryId: args.report.subcategoryId,
-												subsubcategoryId: args.report.subsubcategoryId,
-												serialNo: args.report.serialNo,
-												description: args.report.description,
-												group: args.report.startEvent.group,
-												date: args.report.startEvent.date,
-												geolocation: results[0].formatted_address,
-												details: args.report.startEvent.details
-											});
+											ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
 										});
 									}
 								});
@@ -73,6 +59,26 @@
 
 							scope.$on('$destroy', function() {
 								$rootScope.$$listeners.editReport = null;
+							});
+
+							break;
+
+						case 'newReport':
+
+							var setMaxDate = function(scope) {
+								var date = new Date();
+								scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+							};
+
+							setMaxDate(scope);
+							ReportsRest.newReportModel.set({ startEvent: { date: scope.maxDate } }, true);
+
+							if (!$rootScope.$$listeners.newReport) {
+								$rootScope.$on('newReport', function(e, args) { setMaxDate(scope); });
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.newReport = null;
 							});
 
 							break;

@@ -7,7 +7,7 @@ module.exports = {
 
         new r.Promise(function(resolve, reject) {
 
-            r.AppConfig.findOne({ userId: req.body.userId }, function(err, appConfig) {
+            r.AppConfig.findOne({ _id: req.params.id }, function(err, appConfig) {
 
                 if (!err && appConfig) {
 
@@ -15,7 +15,7 @@ module.exports = {
 
                         if (!err) {
 
-                            r.AppConfig.findOne({ userId: req.body.userId }, function(err, appConfig) {
+                            r.AppConfig.findOne({ _id: req.params.id }, function(err, appConfig) {
                                 if (!err) { resolve(appConfig); } else { reject(err); }
                             });
 

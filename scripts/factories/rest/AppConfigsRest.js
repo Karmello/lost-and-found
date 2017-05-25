@@ -7,7 +7,6 @@
 		var appConfigs = Restangular.service('app_configs');
 
 		appConfigs.appConfigModel = new MyDataModel({
-			userId: {},
 			language: {},
 			theme: {}
 		});

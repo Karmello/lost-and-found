@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('loginForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
+	appModule.directive('loginForm', function($timeout, $state, authService, MyForm, UsersRest) {
 
 		var loginForm = {
 			restrict: 'E',
@@ -14,18 +14,12 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = UsersRest.userModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'loginForm',
-					model: formModel,
+					model: UsersRest.loginModel,
 					submitAction: function(args) {
 
-						var body = {
-							username: formModel.getValue('username'),
-							password: formModel.getValue('password'),
-						};
-
+						var body = UsersRest.loginModel.getValues();
 						return UsersRest.post(body, undefined, { captcha_response: args.captchaResponse });
 					},
 					submitSuccessCb: function(res) {

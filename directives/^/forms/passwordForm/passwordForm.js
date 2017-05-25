@@ -14,21 +14,20 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = UsersRest.passwordModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'passwordForm',
-					model: formModel,
+					model: UsersRest.passwordModel,
 					submitAction: function(args) {
 
 						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						copy.currentPassword = formModel.getValue('currentPassword');
-						copy.password = formModel.getValue('password');
+						var values = UsersRest.passwordModel.getValues();
+						copy.currentPassword = values.currentPassword;
+						copy.password = values.password;
 						return copy.put();
 					},
 					submitSuccessCb: function(res) {
 
-						formModel.clear();
+						UsersRest.passwordModel.reset(true, true);
 					}
 				});
 			}

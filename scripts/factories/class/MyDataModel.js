@@ -52,7 +52,39 @@
 
 				goThrough(data, this);
 			},
-			clear: function(onlyErrors) {
+			setValue: function(propPath, newValue, storeDefault) {
+
+				var props = propPath.split('.');
+				var obj = this;
+
+				for (var prop of props) {
+					obj = obj[prop];
+				}
+
+				obj.value.active = newValue;
+				if (storeDefault) { obj.value.default = newValue; }
+			},
+			assignTo: function(data) {
+
+				var goThrough = function(toSetWithObj, toBeSetObj) {
+
+					for (var prop in toSetWithObj) {
+
+						if (toSetWithObj.hasOwnProperty(prop) && toBeSetObj.hasOwnProperty(prop)) {
+
+							if (toSetWithObj[prop] instanceof MyDataModelValue) {
+								toBeSetObj[prop] = toSetWithObj[prop].value.active;
+
+							} else {
+								goThrough(toSetWithObj[prop], toBeSetObj[prop]);
+							}
+						}
+					}
+				};
+
+				goThrough(this, data);
+			},
+			reset: function(doForValues, doForErrors, useDefaults) {
 
 				var goThrough = function(obj) {
 
@@ -62,11 +94,11 @@
 
 							if (obj[prop] instanceof MyDataModelValue) {
 
-								if (!onlyErrors) {
-									obj[prop] = new MyDataModelValue();
+								if (doForValues) {
+									obj[prop].value.active = useDefaults ? obj[prop].value.default : undefined;
+								}
 
-
-								} else {
+								if (doForErrors) {
 									obj[prop].error.kind = undefined;
 									obj[prop].error.message = undefined;
 								}
@@ -99,12 +131,16 @@
 					}
 				};
 
-				goThrough(errors, this);
-				if (cb) { cb(); }
+				var that = this;
+
+				that.clearErrors(function() {
+					goThrough(errors, that);
+					if (cb) { cb(); }
+				});
 			},
 			clearErrors: function(cb) {
 
-				this.clear(true);
+				this.reset(false, true);
 				if (cb) { cb(); }
 			},
 			getValues: function() {

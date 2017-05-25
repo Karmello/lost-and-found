@@ -25,9 +25,9 @@ Action.prototype.bindValErrMsgs = function(err, cb) {
 
 		if (err && err.name == 'ValidationError') {
 
-			var model = err.message.split(' ')[0];
-
 			for (var property in err.errors) {
+
+				console.log(property);
 
 				if (err.errors[property].kind == 'required') {
 					err.errors[property].message = r.hardData[lang].validation[0];

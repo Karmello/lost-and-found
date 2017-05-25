@@ -16,14 +16,13 @@
 
 				$scope.countries = $rootScope.localData.countries;
 
-				var formModel = UsersRest.userModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'registerForm',
-					model: formModel,
+					model: UsersRest.registerModel,
 					submitAction: function(args) {
 
-						return UsersRest.post(formModel.getValues(), undefined, { captcha_response: args.captchaResponse });
+						var body = UsersRest.registerModel.getValues();
+						return UsersRest.post(body, undefined, { captcha_response: args.captchaResponse });
 					},
 					submitSuccessCb: function(res) {
 

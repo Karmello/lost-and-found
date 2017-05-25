@@ -6,7 +6,12 @@
 
 		var users = Restangular.service('users');
 
-		users.userModel = new MyDataModel({
+		users.loginModel = new MyDataModel({
+			username: {},
+			password: {}
+		});
+
+		users.registerModel = new MyDataModel({
 			email: {},
 			username: {},
 			password: {},
@@ -16,15 +21,16 @@
 			country: {}
 		});
 
+		users.recoverModel = new MyDataModel({
+			email: {}
+		});
+
 		users.personalDetailsModel = new MyDataModel({
-			_id: {},
 			email: {},
-			username: {},
 			firstname: {},
 			lastname: {},
 			countryFirstLetter: {},
-			country: {},
-			registration_date: {}
+			country: {}
 		});
 
 		users.passwordModel = new MyDataModel({

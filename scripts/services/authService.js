@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest, AppConfigsRest) {
+	var authService = function($rootScope, $window, $q, storageService, sessionConst, UsersRest) {
 
 		var service = {
 			state: {
@@ -65,13 +65,8 @@
 				if (appConfig.language != sessionConst.language || appConfig.theme != sessionConst.theme) {
 					$window.location.reload();
 
-				} else {
-
-					// Setting models values
-					UsersRest.personalDetailsModel.set($rootScope.apiData.loggedInUser);
-					AppConfigsRest.appConfigModel.set($rootScope.apiData.loggedInUser.appConfig);
-
-					if (cb) { cb(); }
+				} else if (cb) {
+					cb();
 				}
 			},
 			setAsLoggedOut: function(cb) {
@@ -91,7 +86,7 @@
 		return service;
 	};
 
-	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest', 'AppConfigsRest'];
+	authService.$inject = ['$rootScope', '$window', '$q', 'storageService', 'sessionConst', 'UsersRest'];
 	angular.module('appModule').service('authService', authService);
 
 })();

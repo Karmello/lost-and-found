@@ -4,22 +4,28 @@
 
 	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
 
+		var getReportModelConf = function() {
+			return {
+				categoryId: {},
+				subcategoryId: {},
+				subsubcategoryId: {},
+				title: {},
+				serialNo: {},
+				description: {},
+				startEvent: {
+					group: {},
+					date: {},
+					placeId: {},
+					geolocation: {},
+					details: {}
+				}
+			};
+		};
+
 		var reports = Restangular.service('reports');
 
-		reports.reportModel = new MyDataModel({
-			categoryId: {},
-			subcategoryId: {},
-			subsubcategoryId: {},
-			title: {},
-			serialNo: {},
-			description: {},
-			startEvent: {
-				group: {},
-				date: {},
-				geolocation: {},
-				details: {}
-			}
-		});
+		reports.newReportModel = new MyDataModel(getReportModelConf());
+		reports.editReportModel = new MyDataModel(getReportModelConf());
 
 		reports.reportSearchModel = new MyDataModel({
 			title: {},

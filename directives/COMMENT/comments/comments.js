@@ -23,7 +23,7 @@
 					submitAction: function(args) {
 
 						var userId = UsersRest.personalDetailsModel.getValue('_id');
-						$scope.myForm.model.setValue('userId', userId);
+						$scope.myForm.model.set({ 'userId': userId });
 						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
 					},
 					submitSuccessCb: function(res) {

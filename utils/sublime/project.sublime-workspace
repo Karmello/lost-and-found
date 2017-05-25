@@ -4,6 +4,82 @@
 		"selected_items":
 		[
 			[
+				"reportF",
+				"reportFormService\t(reportFormService.js)"
+			],
+			[
+				"angu",
+				"angularService\tangularService"
+			],
+			[
+				"newRe",
+				"newReportModel\t(ReportsRest.js)"
+			],
+			[
+				"edi",
+				"editReportModel\t(ReportsRest.js)"
+			],
+			[
+				"new",
+				"newValue"
+			],
+			[
+				"set",
+				"setValue\t(MyDataModel.js)"
+			],
+			[
+				"pla",
+				"place_id"
+			],
+			[
+				"$ro",
+				"$rootScope"
+			],
+			[
+				"cur",
+				"currentPassword"
+			],
+			[
+				"get",
+				"getValues\t(MyDataModel.js)"
+			],
+			[
+				"pas",
+				"passwordModel"
+			],
+			[
+				"ass",
+				"assignTo\t(MyDataModel.js)"
+			],
+			[
+				"use",
+				"useDefaults"
+			],
+			[
+				"doF",
+				"doForErrors"
+			],
+			[
+				"do",
+				"doForValues"
+			],
+			[
+				"api",
+				"apiData"
+			],
+			[
+				"reco",
+				"recoverForm"
+			],
+			[
+				"clear",
+				"clearErrors"
+			],
+			[
+				"logi",
+				"loginModel\t(UsersRest.js)"
+			],
+			[
 				"MyD",
 				"MyDataModel"
 			],
@@ -52,10 +128,6 @@
 				"toEqual"
 			],
 			[
-				"set",
-				"setErrors"
-			],
-			[
 				"ex",
 				"exampleData"
 			],
@@ -90,10 +162,6 @@
 			[
 				"Re",
 				"ReportsRest"
-			],
-			[
-				"get",
-				"getValues\t(reportsService.js)"
 			],
 			[
 				"myMod",
@@ -156,10 +224,6 @@
 				"płatnicza\t(init.js)"
 			],
 			[
-				"new",
-				"newValue"
-			],
-			[
 				"parent",
 				"parentGroup"
 			],
@@ -212,10 +276,6 @@
 				"googleMapService"
 			],
 			[
-				"angu",
-				"angularWatch\tangularWatch"
-			],
-			[
 				"soc",
 				"socketService\t(socketService.js)"
 			],
@@ -240,16 +300,8 @@
 				"reportsService"
 			],
 			[
-				"cur",
-				"currentPage"
-			],
-			[
 				"co",
 				"content"
-			],
-			[
-				"pla",
-				"placeId"
 			],
 			[
 				"res",
@@ -462,63 +514,29 @@
 			[
 				"perso",
 				"personal"
-			],
-			[
-				"Desc",
-				"Descending"
-			],
-			[
-				"view",
-				"viewed\t(hard_coded_en.json)"
-			],
-			[
-				"Uplo",
-				"Uploaded\t(hard_coded_en.json)"
-			],
-			[
-				"Ed",
-				"Edit\t(hard_coded_en.json)"
-			],
-			[
-				"Res",
-				"Results\t(hard_coded_en.json)"
-			],
-			[
-				"De",
-				"Deleting"
-			],
-			[
-				"la",
-				"label"
-			],
-			[
-				"lang",
-				"Language"
-			],
-			[
-				"C",
-				"Currency"
-			],
-			[
-				"sele",
-				"select"
-			],
-			[
-				"sec",
-				"section1\t(lost-and-found-app-start.html)"
-			],
-			[
-				"loca",
-				"localData"
-			],
-			[
-				"D",
-				"DeactivationReasonsRest"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "/D/Workspace/laf/dev/scripts/routes/report.route.js",
+			"settings":
+			{
+				"buffer_size": 1529,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+			"settings":
+			{
+				"buffer_size": 4699,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -602,74 +620,104 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/scripts/factories",
-		"/D/Workspace/laf/dev/scripts/factories/class"
+		"/D/Workspace/laf/dev/scripts/routes"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/scripts/factories/class/MyFormModel.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/myClass.js",
-		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
+		"/D/Workspace/laf/dev/scripts/routes/report.tab.route.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report-tab.html",
+		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.scss",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyDataModel.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/ReportsRest.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsConf.js",
-		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/upgradeForm/upgradeForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportFormService.js",
+		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
+		"/D/Workspace/laf/dev/unminified/appScripts.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyForm.js",
+		"/D/Workspace/laf/dev/server/schemas/ReportEventSchema.js",
+		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
+		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
+		"/D/Workspace/laf/dev/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
+		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.html",
+		"/D/Workspace/laf/dev/scripts/routes/newreport.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/report.route.js",
+		"/D/Workspace/laf/dev/scripts/factories/rest/UsersRest.js",
+		"/D/Workspace/laf/dev/directives/^/forms/passwordForm/passwordForm.js",
+		"/D/Workspace/laf/dev/server/actions/User/postUser.js",
+		"/D/Workspace/laf/dev/server/actions/User/putUser.js",
+		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/server/actions/Password/recoverPassword.js",
+		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/deactivationForm/deactivationForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/appearanceForm/appearanceForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/regionalForm/regionalForm.js",
+		"/D/Workspace/laf/dev/scripts/factories/rest/AppConfigsRest.js",
+		"/D/Workspace/laf/dev/server/actions/AppConfig/putAppConfig.js",
+		"/D/Workspace/laf/dev/directives/^/forms/personalDetailsForm/personalDetailsForm.js",
+		"/D/Workspace/laf/dev/scripts/services/apiService.js",
+		"/D/Workspace/laf/dev/scripts/controllers/SettingsController.js",
 		"/D/Workspace/laf/dev/scripts/configuration/tabsConf.js",
 		"/D/Workspace/laf/dev/scripts/configuration/settingsListGroupConf.js",
-		"/D/Workspace/laf/dev/directives/^/forms/passwordForm/passwordForm.js",
-		"/D/Workspace/laf/dev/scripts/factories/rest/UsersRest.js",
 		"/D/Workspace/laf/dev/scripts/services/authService.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/MySrcAction.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
-		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.js",
-		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
-		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
-		"/D/Workspace/laf/dev/directives/^/forms/regionalForm/regionalForm.js",
-		"/D/Workspace/laf/dev/directives/^/forms/personalDetailsForm/personalDetailsForm.js",
-		"/D/Workspace/laf/dev/directives/^/forms/appearanceForm/appearanceForm.js",
-		"/D/Workspace/laf/dev/scripts/factories/rest/AppConfigsRest.js",
-		"/D/Workspace/laf/dev/directives/^/forms/registerForm/registerForm.js",
-		"/D/Workspace/laf/dev/directives/^/forms/recoverForm/recoverForm.js",
+		"/D/Workspace/laf/dev/directives/my/myForm/myForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/personalDetailsForm/personalDetailsForm.html",
+		"/D/Workspace/laf/dev/directives/my/mySelectsGroup/mySelectsGroup.js",
 		"/D/Workspace/laf/dev/directives/^/forms/loginForm/loginForm.js",
-		"/D/Workspace/laf/dev/scripts/factories/rest/PaymentsRest.js",
+		"/D/Workspace/laf/dev/directives/^/forms/recoverForm/recoverForm.js",
+		"/D/Workspace/laf/dev/directives/^/forms/registerForm/registerForm.js",
+		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.js",
 		"/D/Workspace/laf/dev/directives/^/forms/upgradeForm/upgradeForm.js",
-		"/D/Workspace/laf/dev/directives/^/forms/deactivationForm/deactivationForm.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyStorageItem.js",
+		"/D/Workspace/laf/dev/directives/^/forms/registerForm/registerForm.html",
+		"/D/Workspace/laf/dev/directives/my/mySelectsGroup/mySelectsGroup.html",
+		"/D/Workspace/laf/dev/directives/my/mySelect/mySelect.html",
+		"/D/Workspace/laf/dev/directives/my/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.js",
+		"/D/Workspace/laf/dev/directives/my/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.html",
+		"/D/Workspace/laf/dev/directives/my/myInput/myInput.html",
+		"/D/Workspace/laf/dev/directives/my/myDateInput/myDateInput.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsConf.js",
+		"/D/Workspace/laf/dev/directives/^/forms/loginForm/loginForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/passwordForm/passwordForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/recoverForm/recoverForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/regionalForm/regionalForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/deactivationForm/deactivationForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.html",
+		"/D/Workspace/laf/dev/directives/^/forms/appearanceForm/appearanceForm.html",
+		"/D/Workspace/laf/dev/directives/my/myTextArea/myTextArea.html",
+		"/D/Workspace/laf/dev/directives/COMMENT/comments/comments.html",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyFormModel.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/myClass.js",
+		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MySrcAction.js",
+		"/D/Workspace/laf/dev/scripts/factories/rest/PaymentsRest.js",
 		"/D/Workspace/laf/dev/scripts/factories/rest/DeactivationReasonsRest.js",
-		"/D/Workspace/laf/dev/directives/^/forms/contactForm/contactForm.js",
 		"/D/Workspace/laf/dev/scripts/factories/rest/ContactTypesRest.js",
 		"/D/Workspace/laf/dev/scripts/factories/rest/CommentsRest.js",
 		"/D/Workspace/laf/dev/node_modules/postcss/lib/comment.js",
 		"/D/Workspace/laf/dev/directives/my/mySelect/mySelect.js",
-		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.html",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyDataModel.js",
 		"/D/Workspace/laf/dev/tests/client/dataModelSpec.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyForm.js",
 		"/D/Workspace/laf/dev/karma.conf.js",
 		"/D/Workspace/laf/dev/public/index.html",
 		"/D/Workspace/laf/dev/scripts/services/uiThemeService.js",
-		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
 		"/D/Workspace/laf/dev/sass/_myClasses.scss",
 		"/D/Workspace/laf/dev/scripts/services/googleMapService.js",
-		"/D/Workspace/laf/dev/scripts/services/apiService.js",
 		"/D/Workspace/laf/dev/scripts/appModule.js",
 		"/D/Workspace/laf/dev/tests/client/helpers.js",
 		"/D/Workspace/laf/dev/scripts/controllers/MainController.js",
-		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
-		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
 		"/D/Workspace/laf/dev/server.js",
 		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
-		"/D/Workspace/laf/dev/directives/my/mySelect/mySelect.html",
-		"/D/Workspace/laf/dev/directives/^/forms/upgradeForm/upgradeForm.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
 		"/D/Workspace/laf/dev/directives/my/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.scss",
-		"/D/Workspace/laf/dev/directives/my/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.html",
-		"/D/Workspace/laf/dev/directives/my/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.js",
 		"/D/Workspace/laf/dev/directives/my/myInput/myInput.js",
-		"/D/Workspace/laf/dev/directives/my/myInput/myInput.html",
 		"/D/Workspace/laf/dev/directives/my/myInput/myInput.scss",
 		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
 		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
-		"/D/Workspace/laf/dev/scripts/routes/report.route.js",
 		"/D/Workspace/laf/dev/scripts/configuration/contextMenuConf.js",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
 		"/D/Workspace/laf/dev/directives/^/tables/appStats/appStats.html",
@@ -677,11 +725,9 @@
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-home.html",
 		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-report.scss",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.scss",
-		"/D/Workspace/laf/dev/server/schemas/ReportEventSchema.js",
 		"/D/Workspace/laf/dev/scripts/routes/app.route.js",
 		"/D/Workspace/laf/dev/scripts/services/hardDataService.js",
 		"/D/Workspace/laf/dev/scripts/config.js",
-		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.html",
 		"/D/Workspace/laf/dev/server/models.js",
 		"/D/Workspace/laf/dev/db/temp.js",
 		"/D/Workspace/laf/dev/db/clear.js",
@@ -696,7 +742,6 @@
 		"/D/Workspace/laf/dev/scripts/routes/home.route.js",
 		"/D/Workspace/laf/dev/scripts/routes/start.route.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
-		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/server/actions/Other/getStats.js",
 		"/D/Workspace/laf/dev/server/modules/socketModule.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
@@ -706,35 +751,7 @@
 		"/D/Workspace/laf/dev/server/controllers/DeactivationReasonController.js",
 		"/D/Workspace/laf/dev/server/controllers/CommentController.js",
 		"/D/Workspace/laf/dev/node_modules/mongoose/lib/schema.js",
-		"/D/Workspace/laf/dev/server/schemas/ReportPhotoSchema.js",
-		"/D/Workspace/laf/dev/server/setups/setupPaypal.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
-		"/D/Workspace/laf/dev/scripts/controllers/SearchController.js",
-		"/D/Workspace/laf/dev/scripts/services/resolveService.js",
-		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.scss",
-		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-newreport.html",
-		"/D/Workspace/laf/dev/directives/COMMENT/comments/commentsConf.js",
-		"/D/Workspace/laf/dev/scripts/services/socketService.js",
-		"/D/Workspace/laf/dev/scripts/services/grecaptchaService.js",
-		"/D/Workspace/laf/dev/db/fakes/fakeReports.js",
-		"/D/Workspace/laf/dev/directives/USER/userBadge/userBadge.html",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-start.html",
-		"/D/Workspace/laf/dev/directives/USER/userBadge/userBadge.js",
-		"/D/Workspace/laf/dev/directives/my/myCaptcha/myCaptcha.js",
-		"/D/Workspace/laf/dev/server/actions/User/putUser.js",
-		"/D/Workspace/laf/dev/scripts/routes/search.route.js",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
-		"/D/Workspace/laf/dev/directives/^/tables/appStats/appStats.js",
-		"/D/Workspace/laf/dev/scripts/configuration/framesConf.js",
-		"/D/Workspace/laf/dev/scripts/configuration/mainFrameNavConf.js",
-		"/D/Workspace/laf/dev/scripts/routes/profile.route.js",
-		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.js",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-search.scss",
-		"/D/Workspace/laf/dev/scripts/controllers/ProfileController.js",
-		"/D/Workspace/laf/dev/directives/my/myGoogleMap/myGoogleMap.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-main.scss"
+		"/D/Workspace/laf/dev/server/schemas/ReportPhotoSchema.js"
 	],
 	"find":
 	{
@@ -813,6 +830,43 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ng-view",
+			"ui-view",
+			"views: {",
+			"public/html/pages",
+			"getFormSubmitAction",
+			"reportModel",
+			"editReport",
+			"newReport",
+			"editReport",
+			"req.params.id",
+			"clear",
+			"$rootScope",
+			"reset",
+			"clearErrors",
+			".clear(",
+			"clearErrors",
+			"return $rootScope.apiData.loggedInUser",
+			"personalDetailsModel",
+			"userModel",
+			"bindErrors",
+			"setValue",
+			"personalDetailsModel.getValue('_id')",
+			"personalDetailsModel._id",
+			"registration_date",
+			"model.error",
+			"model.value",
+			"address",
+			"model",
+			"ng-model",
+			"<my-google",
+			"model.error",
+			"my-date-input",
+			"'date'",
+			"hardDataService",
+			"appConfigModel",
+			"<my-select",
+			"model.values",
 			"MyFormModel",
 			"globalFormModels",
 			"resetGlobalFormModels",
@@ -903,44 +957,7 @@
 			"MixedId",
 			"category.id",
 			"category._id",
-			"reportCategory._id",
-			"reportCategories",
-			"$first",
-			"reportCategories",
-			"createReportFull",
-			"createReport",
-			"'F'",
-			"'L'",
-			".group",
-			"emitReportsCount",
-			".details",
-			".geolocation",
-			".placeId",
-			".date",
-			".group",
-			"group",
-			"Restangularize",
-			"ReportPhotoSchema",
-			"Comment",
-			"new Comment",
-			"ReportPhotoSchema",
-			"global.paths.schemas",
-			"singleReportMap.init",
-			"reportMap",
-			"reportsService",
-			"reportForm",
-			"EDIT_REPORT",
-			"NEW_REPORT",
-			"newreport",
-			"<report-form",
-			"<reports",
-			"<report ",
-			"<report",
-			"'edit'",
-			"edit",
-			"onSetCallback",
-			"MyFormModelValue",
-			"autocomplete"
+			"reportCategory._id"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1086,8 +1103,95 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/D/Workspace/laf/dev/scripts/routes/report.route.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1529,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								149,
+								149
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "8f45cf39",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4699,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3286,
+								3286
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "html",
+							"buffer_scroll_name": "dc2b7347",
+							"spell_check": false,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1349.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1152,20 +1256,260 @@
 		"selected_items":
 		[
 			[
+				"reportp",
+				"directives\\REPORT\\reportPhotos\\reportPhotos.scss"
+			],
+			[
+				"report.html",
+				"laf\\dev\\public\\pages\\lost-and-found-app-report.html"
+			],
+			[
+				"reportc",
+				"controllers\\ReportController.js"
+			],
+			[
+				"report-tab",
+				"laf\\dev\\public\\pages\\lost-and-found-app-report-tab.html"
+			],
+			[
+				"report.tab",
+				"routes\\report.tab.route.js"
+			],
+			[
+				"report.t",
+				"routes\\report.tab.route.js"
+			],
+			[
+				"appc",
+				"controllers\\AppController.js"
+			],
+			[
+				"report-b",
+				"laf\\dev\\public\\pages\\lost-and-found-app-report-tab.html"
+			],
+			[
+				"report.htm",
+				"laf\\dev\\public\\pages\\lost-and-found-app-report.html"
+			],
+			[
+				"upgra",
+				"directives\\^\\forms\\upgradeForm\\upgradeForm.html"
+			],
+			[
+				"appscr",
+				"laf\\dev\\unminified\\appScripts.js"
+			],
+			[
+				"myform",
+				"factories\\class\\MyForm.js"
+			],
+			[
+				"myda",
+				"factories\\class\\MyDataModel.js"
+			],
+			[
+				"reporte",
+				"server\\schemas\\ReportEventSchema.js"
+			],
+			[
+				"reports",
+				"server\\schemas\\ReportSchema.js"
+			],
+			[
+				"auth",
+				"server\\modules\\authorize.js"
+			],
+			[
+				"autho",
+				"server\\modules\\authorize.js"
+			],
+			[
+				"postre",
+				"server\\actions\\Report\\postReport.js"
+			],
+			[
+				"postr",
+				"server\\actions\\Report\\postReport.js"
+			],
+			[
+				"reportss",
+				"directives\\REPORT\\reports\\reportsService.js"
+			],
+			[
+				"newr",
+				"routes\\newreport.route.js"
+			],
+			[
+				"report.",
+				"routes\\report.route.js"
+			],
+			[
 				"reportsr",
 				"directives\\REPORT\\reports\\ReportsRest.js"
+			],
+			[
+				"reportf",
+				"directives\\^\\forms\\reportForm\\reportForm.html"
+			],
+			[
+				"authro",
+				"server\\modules\\authorize.js"
+			],
+			[
+				"setupr",
+				"server\\setups\\setupRoutes.js"
+			],
+			[
+				"password",
+				"directives\\^\\forms\\passwordForm\\passwordForm.js"
+			],
+			[
+				"postu",
+				"server\\actions\\User\\postUser.js"
+			],
+			[
+				"contactf",
+				"directives\\^\\forms\\contactForm\\contactForm.js"
+			],
+			[
+				"post",
+				"server\\actions\\Report\\postReport.js"
+			],
+			[
+				"deactivationf",
+				"directives\\^\\forms\\deactivationForm\\deactivationForm.js"
+			],
+			[
+				"putu",
+				"server\\actions\\User\\putUser.js"
+			],
+			[
+				"passwordf",
+				"directives\\^\\forms\\passwordForm\\passwordForm.js"
+			],
+			[
+				"appearance",
+				"directives\\^\\forms\\appearanceForm\\appearanceForm.js"
+			],
+			[
+				"appconfi",
+				"factories\\rest\\AppConfigsRest.js"
+			],
+			[
+				"putap",
+				"server\\actions\\AppConfig\\putAppConfig.js"
+			],
+			[
+				"reginalf",
+				"directives\\^\\forms\\regionalForm\\regionalForm.js"
+			],
+			[
+				"mydaa",
+				"factories\\class\\MyDataModel.js"
+			],
+			[
+				"apis",
+				"laf\\dev\\scripts\\services\\apiService.js"
+			],
+			[
+				"puts",
+				"server\\actions\\User\\putUser.js"
+			],
+			[
+				"settingsc",
+				"controllers\\SettingsController.js"
+			],
+			[
+				"myform.",
+				"factories\\class\\MyForm.js"
+			],
+			[
+				"personald",
+				"directives\\^\\forms\\personalDetailsForm\\personalDetailsForm.html"
+			],
+			[
+				"auths",
+				"services\\authService.js"
+			],
+			[
+				"tabsc",
+				"configuration\\tabsConf.js"
+			],
+			[
+				"personal",
+				"directives\\^\\forms\\personalDetailsForm\\personalDetailsForm.js"
+			],
+			[
+				"myselec",
+				"directives\\my\\mySelectsGroup\\mySelectsGroup.js"
+			],
+			[
+				"loginf",
+				"directives\\^\\forms\\loginForm\\loginForm.js"
+			],
+			[
+				"recoverf",
+				"directives\\^\\forms\\recoverForm\\recoverForm.js"
+			],
+			[
+				"registerf",
+				"directives\\^\\forms\\registerForm\\registerForm.html"
+			],
+			[
+				"mydatam",
+				"factories\\class\\MyDataModel.js"
 			],
 			[
 				"usersr",
 				"factories\\rest\\UsersRest.js"
 			],
 			[
-				"appconfigsrest",
-				"factories\\rest\\AppConfigsRest.js"
+				"myselects",
+				"directives\\my\\mySelectsGroup\\mySelectsGroup.html"
 			],
 			[
-				"deactivationf",
-				"directives\\^\\forms\\deactivationForm\\deactivationForm.js"
+				"mysele",
+				"directives\\my\\mySelect\\mySelect.html"
+			],
+			[
+				"mygoo",
+				"directives\\my\\myGooglePlaceAutoComplete\\myGooglePlaceAutoComplete.html"
+			],
+			[
+				"myinpt",
+				"directives\\my\\myInput\\myInput.html"
+			],
+			[
+				"appscritps",
+				"laf\\dev\\unminified\\appScripts.js"
+			],
+			[
+				"mygool",
+				"directives\\my\\myGooglePlaceAutoComplete\\myGooglePlaceAutoComplete.html"
+			],
+			[
+				"mydate",
+				"directives\\my\\myDateInput\\myDateInput.html"
+			],
+			[
+				"myin",
+				"directives\\my\\myInput\\myInput.html"
+			],
+			[
+				"myte",
+				"directives\\my\\myTextArea\\myTextArea.html"
+			],
+			[
+				"upgradef",
+				"directives\\^\\forms\\upgradeForm\\upgradeForm.html"
+			],
+			[
+				"mydata",
+				"factories\\class\\MyDataModel.js"
+			],
+			[
+				"appconfigsrest",
+				"factories\\rest\\AppConfigsRest.js"
 			],
 			[
 				"comments.js",
@@ -1184,28 +1528,8 @@
 				"laf\\dev\\directives\\REPORT\\reports\\reportsConf.js"
 			],
 			[
-				"mysele",
-				"directives\\my\\mySelect\\mySelect.js"
-			],
-			[
-				"appc",
-				"controllers\\AppController.js"
-			],
-			[
-				"reportf",
-				"directives\\^\\forms\\reportForm\\reportForm.html"
-			],
-			[
-				"myda",
-				"factories\\class\\MyDataModel.js"
-			],
-			[
 				"myclas",
 				"factories\\class\\myClass.js"
-			],
-			[
-				"reportss",
-				"directives\\REPORT\\reports\\reportsService.js"
 			],
 			[
 				"myformm",
@@ -1213,10 +1537,6 @@
 			],
 			[
 				"setup",
-				"server\\setups\\setupRoutes.js"
-			],
-			[
-				"setupr",
 				"server\\setups\\setupRoutes.js"
 			],
 			[
@@ -1228,40 +1548,20 @@
 				"services\\googleMapService.js"
 			],
 			[
-				"apis",
-				"laf\\dev\\scripts\\services\\apiService.js"
-			],
-			[
 				"appm",
 				"laf\\dev\\scripts\\appModule.js"
-			],
-			[
-				"reportc",
-				"controllers\\ReportController.js"
 			],
 			[
 				"ser",
 				"laf\\dev\\server.js"
 			],
 			[
-				"postr",
-				"server\\actions\\Report\\postReport.js"
-			],
-			[
 				"hardd",
 				"laf\\dev\\public\\json\\hard_coded\\hard_coded_pl.json"
 			],
 			[
-				"myform",
-				"factories\\class\\MyFormModel.js"
-			],
-			[
 				"reportv",
 				"server\\validators\\reportValidators.js"
-			],
-			[
-				"reports",
-				"server\\schemas\\ReportSchema.js"
 			],
 			[
 				"reportser",
@@ -1270,18 +1570,6 @@
 			[
 				"myse",
 				"laf\\dev\\directives\\my\\mySelect\\mySelect.html"
-			],
-			[
-				"upgradef",
-				"directives\\^\\forms\\upgradeForm\\upgradeForm.html"
-			],
-			[
-				"report.htm",
-				"laf\\dev\\public\\pages\\lost-and-found-app-report.html"
-			],
-			[
-				"myin",
-				"directives\\my\\myInput\\myInput.scss"
 			],
 			[
 				"report.r",
@@ -1302,10 +1590,6 @@
 			[
 				"apps",
 				"laf\\dev\\directives\\^\\tables\\appStats\\appStats.html"
-			],
-			[
-				"report.html",
-				"laf\\dev\\public\\pages\\lost-and-found-app-report.html"
 			],
 			[
 				"setupc",
@@ -1364,10 +1648,6 @@
 				"laf\\dev\\public\\pages\\lost-and-found-app-home.html"
 			],
 			[
-				"myselec",
-				"laf\\dev\\directives\\my\\mySelect\\mySelect.js"
-			],
-			[
 				"hard",
 				"laf\\dev\\public\\json\\hard_coded\\hard_coded_en.json"
 			],
@@ -1398,10 +1678,6 @@
 			[
 				"reportsser",
 				"laf\\dev\\directives\\REPORT\\reports\\reportsService.js"
-			],
-			[
-				"reporte",
-				"server\\schemas\\ReportEventSchema.js"
 			],
 			[
 				"soc",
@@ -1490,178 +1766,6 @@
 			[
 				"home.r",
 				"routes\\home.route.js"
-			],
-			[
-				"mycollection",
-				"directives\\my\\myCollectionBrowser\\myCollectionBrowser.html"
-			],
-			[
-				"mymodel",
-				"factories\\class\\MyFormModel.js"
-			],
-			[
-				"",
-				"controllers\\AppController.js"
-			],
-			[
-				"search.th",
-				"pages\\lost-and-found-app-search.html"
-			],
-			[
-				"sea",
-				"routes\\search.route.js"
-			],
-			[
-				"search.r",
-				"routes\\search.route.js"
-			],
-			[
-				"fake",
-				"dev\\db\\fakes\\fakeReports.js"
-			],
-			[
-				"home.htm",
-				"pages\\lost-and-found-app-home.html"
-			],
-			[
-				"frames",
-				"configuration\\framesConf.js"
-			],
-			[
-				"start.htm",
-				"pages\\lost-and-found-app-start.html"
-			],
-			[
-				"mainf",
-				"configuration\\mainFrameNavConf.js"
-			],
-			[
-				"resolv",
-				"services\\resolveService.js"
-			],
-			[
-				"reports.",
-				"directives\\REPORT\\reports\\reports.js"
-			],
-			[
-				"profile.",
-				"routes\\profile.route.js"
-			],
-			[
-				"reports.htm",
-				"directives\\REPORT\\reports\\reports.html"
-			],
-			[
-				"start.th",
-				"pages\\lost-and-found-app-start.html"
-			],
-			[
-				"mycoll",
-				"directives\\my\\myCollectionBrowser\\myCollectionBrowser.js"
-			],
-			[
-				"search.scss",
-				"sass\\pages\\lost-and-found-app-search.scss"
-			],
-			[
-				"profilec",
-				"controllers\\ProfileController.js"
-			],
-			[
-				"mainc",
-				"controllers\\MainController.js"
-			],
-			[
-				"start",
-				"routes\\start.route.js"
-			],
-			[
-				"report.",
-				"routes\\report.route.js"
-			],
-			[
-				"contex",
-				"configuration\\contextMenuConf.js"
-			],
-			[
-				"reports.html",
-				"directives\\REPORT\\reports\\reports.html"
-			],
-			[
-				"faker",
-				"dev\\db\\fakes\\fakeReports.js"
-			],
-			[
-				"postre",
-				"dev\\server\\actions\\Report\\postReport.js"
-			],
-			[
-				"_inde",
-				"sass\\_index.scss"
-			],
-			[
-				"report",
-				"routes\\report.route.js"
-			],
-			[
-				"run",
-				"dev\\scripts\\run.js"
-			],
-			[
-				"search.scs",
-				"sass\\pages\\lost-and-found-app-search.scss"
-			],
-			[
-				"upgrade.sc",
-				"sass\\pages\\lost-and-found-app-upgrade.scss"
-			],
-			[
-				"upgrade.thm",
-				"pages\\lost-and-found-app-upgrade.html"
-			],
-			[
-				"newre",
-				"routes\\newreport.route.js"
-			],
-			[
-				"reportfo",
-				"directives\\^\\forms\\reportForm\\reportForm.html"
-			],
-			[
-				"input.htm",
-				"directives\\my\\myInput\\myInput.html"
-			],
-			[
-				"myinput",
-				"directives\\my\\myInput\\myInput.html"
-			],
-			[
-				"myinp",
-				"directives\\my\\myInput\\myInput.js"
-			],
-			[
-				"sear",
-				"routes\\search.route.js"
-			],
-			[
-				"_myc",
-				"sass\\_myClasses.scss"
-			],
-			[
-				"search.sc",
-				"sass\\pages\\lost-and-found-app-search.scss"
-			],
-			[
-				"newrep",
-				"pages\\lost-and-found-app-newreport.html"
-			],
-			[
-				"report.scss",
-				"sass\\pages\\lost-and-found-app-report.scss"
-			],
-			[
-				"report.sc",
-				"directives\\REPORT\\reports\\reports.scss"
 			]
 		],
 		"width": 0.0
@@ -1701,7 +1805,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 328.0,
+	"side_bar_width": 290.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

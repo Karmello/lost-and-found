@@ -54,7 +54,7 @@
 
 								// Binding errors if any
 								if (res && res.data && res.data.errors) {
-									that.model.bindErrors(res.data.errors, function() {
+									that.model.setErrors(res.data.errors, function() {
 										$timeout(function() {
 											that.scope.loader.stop();
 										});
@@ -88,13 +88,12 @@
 
 		MyForm.prototype.clear = function() {
 
-			this.model.clear();
+			this.model.reset(true, true);
 		};
 
 		MyForm.prototype.reset = function() {
 
-			this.model.clear();
-			this.model.set();
+			this.model.reset(true, true, true);
 		};
 
 		return MyForm;

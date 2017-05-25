@@ -39,6 +39,14 @@
 		{
 			"follow_symlinks": true,
 			"path": "D:\\Workspace\\laf\\dev\\scripts\\configuration"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\sass"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\public\\pages"
 		}
 	]
 }

@@ -85,7 +85,7 @@
 					scope.$watch('myModel.currency.value.active', function(newCurrency, oldCurrency) {
 
 						if (newCurrency != oldCurrency) {
-							scope.myModel.setValue('amount', amounts[newCurrency]);
+							scope.myModel.set({ 'amount': amounts[newCurrency] });
 						}
 					});
 				};

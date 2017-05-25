@@ -50,7 +50,7 @@
 						newScrollY = $state.current.scrollY;
 						break;
 
-					case 'app.report.tab':
+					case 'app.report.tabs':
 						return;
 
 					default:

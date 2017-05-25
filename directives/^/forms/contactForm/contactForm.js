@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('contactForm', function($rootScope, $http, $timeout, ContactTypesRest, myClass) {
+	appModule.directive('contactForm', function($rootScope, myClass, ContactTypesRest) {
 
 		var contactForm = {
 			restrict: 'E',
@@ -12,18 +12,16 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = ContactTypesRest.contactTypeModel;
-
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'contactForm',
-					model: formModel,
+					model: ContactTypesRest.contactTypeModel,
 					submitAction: function(args) {
 
-						return ContactTypesRest.post(formModel.getValues());
+						return ContactTypesRest.post(ContactTypesRest.contactTypeModel.getValues());
 					},
 					submitSuccessCb: function(res) {
 
-						formModel.clear();
+						ContactTypesRest.contactTypeModel.reset(true, true);
 					}
 				});
 			},

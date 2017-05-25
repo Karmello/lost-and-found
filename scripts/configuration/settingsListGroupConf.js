@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var settingsListGroupConf = function(hardDataService, DeactivationReasonsRest, UsersRest, AppConfigsRest) {
+	var settingsListGroupConf = function(hardDataService) {
 
 		var hardData = hardDataService.get();
 
@@ -11,25 +11,15 @@
 			switchers: [
 				{
 					_id: 'application',
-					label: hardData.sections[7],
-					onActivate: function() {
-						AppConfigsRest.appConfigModel.set();
-					}
+					label: hardData.sections[7]
 				},
 				{
 					_id: 'account',
-					label: hardData.sections[8],
-					onActivate: function() {
-						UsersRest.personalDetailsModel.set();
-						UsersRest.passwordModel.clear();
-					}
+					label: hardData.sections[8]
 				},
 				{
 					_id: 'danger',
-					label: hardData.sections[24],
-					onActivate: function() {
-						DeactivationReasonsRest.deactivationReasonModel.clear();
-					}
+					label: hardData.sections[24]
 				}
 			]
 		};
@@ -37,9 +27,7 @@
 		return config;
 	};
 
-
-
-	settingsListGroupConf.$inject = ['hardDataService', 'DeactivationReasonsRest', 'UsersRest', 'AppConfigsRest'];
+	settingsListGroupConf.$inject = ['hardDataService'];
 	angular.module('appModule').service('settingsListGroupConf', settingsListGroupConf);
 
 })();

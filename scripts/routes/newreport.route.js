@@ -9,7 +9,9 @@
 					return resolveService.isAuthenticated();
 				}
 			},
-			onEnter: function(ui) {
+			onEnter: function($rootScope, ui) {
+
+				$rootScope.$broadcast('newReport');
 
 				ui.menus.top.activateSwitcher('newreport');
 				ui.frames.main.activateSwitcher('newreport');

@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('personalDetailsForm', function($rootScope, MyForm, Restangular, UsersRest) {
+	appModule.directive('personalDetailsForm', function($rootScope, MyForm, UsersRest, Restangular) {
 
 		var personalDetailsForm = {
 			restrict: 'E',
@@ -22,10 +22,14 @@
 					submitAction: function(args) {
 
 						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						$scope.myForm.model.setRestObj(copy);
+						$scope.myForm.model.assignTo(copy);
 						return copy.put();
 					}
 				});
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {};
 			}
 		};
 

@@ -4,11 +4,6 @@
 
 		$stateProvider.state('app.report', {
 			url: '/report?id&edit',
-			views: {
-				tab: {
-					templateUrl: 'public/pages/lost-and-found-app-report-tab.html'
-				}
-			},
 			resolve: {
 				isAuthenticated: function(authentication, resolveService, $state) {
 					return resolveService.isAuthenticated($state.current.name);

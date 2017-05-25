@@ -3,6 +3,8 @@ var r = require(global.paths._requires);
 module.exports = {
 	before: function(req, res, next) {
 
+		console.log(req.body);
+
 		var isUpdatingPassword = function() {
 			return req.body.currentPassword !== undefined && req.body.password !== undefined;
 		};
@@ -15,7 +17,7 @@ module.exports = {
 
 		new r.Promise(function(resolve, reject) {
 
-			r.User.findOne({ _id: req.body._id }, selector, function(err, user) {
+			r.User.findOne({ _id: req.params.id }, selector, function(err, user) {
 
 				if (!err && user) {
 
@@ -27,7 +29,7 @@ module.exports = {
 
 							// Creating password instance
 							password = new r.Password({
-								userId: req.body._id,
+								userId: req.params.id,
 								currentPassword: req.body.currentPassword,
 								password: req.body.password
 							});

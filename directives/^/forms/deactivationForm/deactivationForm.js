@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('deactivationForm', function($rootScope, $timeout, $filter, ui, DeactivationReasonsRest, myClass) {
+	appModule.directive('deactivationForm', function($rootScope, ui, myClass, DeactivationReasonsRest) {
 
 		var deactivationForm = {
 			restrict: 'E',
@@ -14,14 +14,12 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = DeactivationReasonsRest.deactivationReasonModel;
-
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'deactivationForm',
-					model: formModel,
+					model: DeactivationReasonsRest.deactivationReasonModel,
 					submitAction: function(args, cb) {
 
-						return $rootScope.apiData.loggedInUser.remove(formModel.getValues());
+						return $rootScope.apiData.loggedInUser.remove(DeactivationReasonsRest.deactivationReasonModel.getValues());
 					},
 					submitSuccessCb: function(res) {
 

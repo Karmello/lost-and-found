@@ -14,16 +14,13 @@
 			scope: true,
 			controller: function($scope) {
 
-				var formModel = UsersRest.userModel;
-
 				$scope.myForm = new MyForm({
 					ctrlId: 'recoverForm',
-					model: formModel,
+					model: UsersRest.recoverModel,
 					submitAction: function(args) {
 
-						return $http.post('/recover', { email: formModel.getValue('email') }, {
-							headers: { captcha_response: args.captchaResponse }
-						});
+						var body = UsersRest.recoverModel.getValues();
+						return $http.post('/recover', body, { headers: { captcha_response: args.captchaResponse } });
 					},
 					submitSuccessCb: function(res) {
 

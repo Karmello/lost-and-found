@@ -29,12 +29,12 @@
 									</div>
 									<div>
 										<span class="text-info">{{ hardData.labels[12] }}</span> -
-										<span ng-bind="apiData.report.fullCategory"></span>
+										<span ng-bind="apiData.report.getFullCategory()"></span>
 									</div>
 									<div>
 										<span class="text-info">{{ hardData.count[7] }}</span>
-										<span>{{ apiData.report.pastSinceAdded + ' ' + hardData.count[8] }}</span>
-										<span style="white-space: nowrap;">({{ apiData.report.formattedDateAdded }})</span>
+										<span>{{ $moment.duration($moment(Date()).diff($moment(apiData.report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
+										<span style="white-space: nowrap;">({{ $moment(apiData.report.dateAdded).format('DD-MM-YYYY HH:mm') }})</span>
 									</div>
 									<div>
 										<span class="text-info">{{ hardData.count[6] }}</span>
@@ -63,7 +63,7 @@
 				<my-panel trans-heading="true">
 					<title-section>
 						<span>{{ hardData.reportGroups[apiData.report.startEvent.group == 'lost' ? 0 : 1].label2 }} {{ hardData.count[0] }}</span>
-						<span>{{ apiData.report.formattedDate }}</span>
+						<span>{{ $moment(apiData.report.startEvent.date).format('DD-MM-YYYY') }}</span>
 					</title-section>
 					<body-section>
 						<div id="section2">

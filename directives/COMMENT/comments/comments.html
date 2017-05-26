@@ -12,7 +12,7 @@
 				context-menu-conf="comment.userId == apiData.loggedInUser._id ? commentContextMenuConf : undefined"
 			>
 				<title-section>
-					{{ comment.user.username }} | {{ comment.pastSinceAdded + ' ' + hardData.count[8] }}
+					{{ comment.user.username }} | {{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}
 				</title-section>
 				<avatar-section>
 					<user-avatar user="comment.user"></user-avatar>

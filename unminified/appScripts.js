@@ -764,13 +764,22 @@
 
 	'use strict';
 
-	var ProfileController = function($rootScope, $scope, contextMenuConf, reportsConf, MySwitchable) {
+	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf, MySwitchable) {
 
 		$scope.profileCollectionBrowser = reportsConf.profileCollectionBrowser;
 		$scope.profileReportsContextMenu = new MySwitchable(contextMenuConf.profileReportsContextMenu);
+
+
+
+		$scope.$watch('apiData.profileUser', function(newUser) {
+
+			if (newUser) {
+				$scope.userSince = $moment.duration($moment(new Date()).diff($moment(newUser.registration_date))).humanize();
+			}
+		});
 	};
 
-	ProfileController.$inject = ['$rootScope', '$scope', 'contextMenuConf', 'reportsConf', 'MySwitchable'];
+	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ProfileController', ProfileController);
 
 })();
@@ -778,9 +787,10 @@
 
 	'use strict';
 
-	var ReportController = function($scope, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
+	var ReportController = function($scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
 
 		$scope.params = $stateParams;
+		$scope.$moment = $moment;
 
 		$scope.$watch('apiData.report', function(report) {
 
@@ -797,7 +807,7 @@
 		$scope.commentsBrowser = commentsConf.reportCommentsBrowser;
 	};
 
-	ReportController.$inject = ['$scope', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ReportController.$inject = ['$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();
@@ -837,7 +847,10 @@
 		});
 
 		$scope.$watch('apiData.loggedInUser', function(newUser) {
-			if (newUser) { UsersRest.personalDetailsModel.set(newUser.plain(), true); }
+			if (newUser) {
+				UsersRest.personalDetailsModel.set(newUser.plain(), true);
+				UsersRest.personalDetailsModel.setValue('countryFirstLetter', newUser.country[0], true);
+			}
 		});
 
 		$scope.$watch('apiData.appConfig', function(newAppConfig) {
@@ -1526,36 +1539,14 @@
 				Restangular.setRestangularFields({ id: '_id' });
 				Restangular.addResponseInterceptor(service.interceptResponse);
 
-				Restangular.addElementTransformer('users', false, function(user) {
-
-					if (user.username) {
-						user.truncatedUsername = user.username.truncate(15);
-						user.userSince = $moment.duration($moment(new Date()).diff($moment(user.registration_date))).humanize();
-						user.countryFirstLetter = user.country[0];
-
-					} else if (user.user) {
-						user.user.truncatedUsername = user.user.username.truncate(15);
-						user.user.userSince = $moment.duration($moment(new Date()).diff($moment(user.user.registration_date))).humanize();
-						user.user.countryFirstLetter = user.user.country[0];
-					}
-
-					return user;
-				});
+				Restangular.addElementTransformer('users', false, function(user) { return user; });
 
 				Restangular.addElementTransformer('reports', false, function(report) {
-					report.truncatedTitle = report.title.truncate(25);
 					report.startEvent.date = new Date(report.startEvent.date);
-					report.formattedDate = $moment(report.startEvent.date).format('DD-MM-YYYY');
-					report.formattedDateAdded = $moment(report.dateAdded).format('DD-MM-YYYY HH:mm');
-					report.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(report.dateAdded))).humanize();
-					service.createReportFullCategoryString(report);
 					return report;
 				});
 
-				Restangular.addElementTransformer('comments', false, function(comment) {
-					comment.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(comment.dateAdded))).humanize();
-					return comment;
-				});
+				Restangular.addElementTransformer('comments', false, function(comment) { return comment; });
 			},
 			interceptResponse: function(data, operation, what, url, res, deferred) {
 
@@ -1571,143 +1562,98 @@
 
 
 
-				var i;
+				if (operation == 'getList') {
 
-				switch (what) {
+					if (what == 'users') {
 
-					case 'app_configs':
+						if (res.config.params) {
+
+							if (res.config.params._id) {
+								$rootScope.apiData.profileUser = data[0];
+
+							} else if (res.config.params.reportId) {
+								$rootScope.apiData.reportUser = data[0];
+							}
+						}
+
+					} else if (what == 'reports') {
+
+						if (res.config.params) {
+
+							switch (res.config.params.subject) {
+
+								case 'reports':
+									reportsConf.searchCollectionBrowser.setData(data);
+									googleMapService.searchReportsMap.addMarkers(data.collection);
+									return data.collection;
+
+								case 'new_reports':
+									reportsConf.recentlyReportedCollectionBrowser.setData(data);
+									return data.collection;
+
+								case 'user_reports':
+									reportsConf.profileCollectionBrowser.setData(data);
+									return data.collection;
+
+								case 'recently_viewed_reports':
+									reportsConf.recentlyViewedCollectionBrowser.setData(data);
+									return data.collection;
+
+								case 'report':
+									$rootScope.apiData.report = data.report;
+									$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
+									return [data.report];
+							}
+						}
+
+					} else if (what == 'comments') {
+
+						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
+						commentsConf.reportCommentsBrowser.setData(data);
+						return data.collection;
+					}
+
+				} else if (operation == 'post') {
+
+					if (what == 'users') {
+
+						if (res.config.params.action == 'updatePass') {
+
+							$rootScope.apiData.loggedInUser = data.user;
+							return data.user;
+
+						} else {
+
+							$rootScope.apiData.loggedInUser = data.user;
+							$rootScope.apiData.appConfig = data.appConfig;
+							Restangular.restangularizeElement(undefined, $rootScope.apiData.appConfig, 'app_configs');
+							return Restangular.restangularizeCollection(undefined, [data.user], 'users');
+						}
+
+					} else if (what == 'reports') {
+
+						return Restangular.restangularizeElement(undefined, data, 'reports');
+					}
+
+				} else if (operation == 'put') {
+
+					if (what == 'users') {
+
+						$rootScope.apiData.loggedInUser = data.user;
+						return data.user;
+
+					} else if (what == 'app_configs') {
 
 						var appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
 						$rootScope.apiData.appConfig = appConfig;
-						break;
 
-					case 'users':
+					} else if (what == 'reports') {
 
-						switch (operation) {
-
-							case 'getList':
-
-								if (res.config.params) {
-
-									if (res.config.params._id) {
-										$rootScope.apiData.profileUser = data[0];
-
-									} else if (res.config.params.reportId) {
-										$rootScope.apiData.reportUser = data[0];
-									}
-								}
-
-								break;
-
-							case 'post':
-
-								if (res.config.params.action == 'updatePass') {
-
-									$rootScope.apiData.loggedInUser = data.user;
-									return data.user;
-
-								} else {
-
-									$rootScope.apiData.loggedInUser = data.user;
-									$rootScope.apiData.appConfig = data.appConfig;
-									Restangular.restangularizeElement(undefined, $rootScope.apiData.appConfig, 'app_configs');
-									return Restangular.restangularizeCollection(undefined, [data.user], 'users');
-								}
-
-								break;
-
-							case 'put':
-
-								$rootScope.apiData.loggedInUser = data.user;
-								return data.user;
-						}
-
-						break;
-
-					case 'reports':
-
-						switch (operation) {
-
-							case 'getList':
-
-								if (res.config.params) {
-
-									switch (res.config.params.subject) {
-
-										case 'report':
-											$rootScope.apiData.report = data.report;
-											$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
-											return [data.report];
-
-										case 'recently_viewed_reports':
-											reportsConf.recentlyViewedCollectionBrowser.setData(data);
-											return data.collection;
-
-										case 'user_reports':
-											reportsConf.profileCollectionBrowser.setData(data);
-											return data.collection;
-
-										case 'reports':
-											reportsConf.searchCollectionBrowser.setData(data);
-											googleMapService.searchReportsMap.addMarkers(data.collection);
-											return data.collection;
-
-										case 'new_reports':
-											reportsConf.recentlyReportedCollectionBrowser.setData(data);
-											return data.collection;
-									}
-								}
-
-								break;
-
-							case 'post':
-
-								return Restangular.restangularizeElement(undefined, data, 'reports');
-
-							case 'put':
-
-								return data;
-						}
-
-						break;
-
-					case 'comments':
-
-						switch (operation) {
-
-							case 'getList':
-
-								for (i in data.collection) { data.collection[i].user = data.users[i]; }
-								commentsConf.reportCommentsBrowser.setData(data);
-								break;
-						}
-
-						return data.collection;
-
-					case 'payments':
-
-						switch (operation) {
-
-							case 'getList':
-
-								$rootScope.apiData.payment = data[0];
-								break;
-						}
+						return data;
+					}
 				}
 
 				return data;
-			},
-			createReportFullCategoryString: function(report) {
-
-				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
-					return obj._id == report.categoryId;
-				});
-
-				var subcategory = _.find(category.subcategories, function(obj) {
-					return obj._id == report.subcategoryId;
-				});
-
-				report.fullCategory = category.label + ' / ' + subcategory.label;
 			}
 		};
 
@@ -2750,172 +2696,6 @@
 
 	utilService.$inject = [];
 	angular.module('appModule').service('utilService', utilService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var AppConfigsRest = function(Restangular, MyDataModel) {
-
-		var appConfigs = Restangular.service('app_configs');
-
-		appConfigs.appConfigModel = new MyDataModel({
-			language: {},
-			theme: {}
-		});
-
-		return appConfigs;
-	};
-
-	AppConfigsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('AppConfigsRest', AppConfigsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var CommentsRest = function(Restangular, MyDataModel) {
-
-		var comments = Restangular.service('comments');
-
-		comments.commentModel = new MyDataModel({
-			userId: {},
-			content: {}
-		});
-
-		return comments;
-	};
-
-	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('CommentsRest', CommentsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ContactTypesRest = function(Restangular, MyDataModel) {
-
-		var contactTypes = Restangular.service('contact_types');
-
-		contactTypes.contactTypeModel = new MyDataModel({
-			contactType: {},
-			contactMsg: {}
-		});
-
-		return contactTypes;
-	};
-
-	ContactTypesRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var DeactivationReasonsRest = function(Restangular, MyDataModel) {
-
-		var deactivationReasons = Restangular.service('deactivation_reasons')
-
-		deactivationReasons.deactivationReasonModel = new MyDataModel({
-			deactivationReasonId: {}
-		});
-
-		return deactivationReasons;
-	};
-
-	DeactivationReasonsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var PaymentsRest = function(Restangular, MyDataModel) {
-
-		var payments = Restangular.service('payments');
-
-		payments.myDataModel = new MyDataModel({
-			paymentMethod: {},
-			creditCardType: {},
-			creditCardNumber: {},
-			creditCardExpireMonth: {},
-			creditCardExpireYear: {},
-			cvv2: {},
-			firstname: {},
-			lastname: {},
-			amount: {},
-			currency: {}
-		});
-
-		return payments;
-	};
-
-	PaymentsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('PaymentsRest', PaymentsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var UsersRest = function($rootScope, Restangular, MyDataModel) {
-
-		var users = Restangular.service('users');
-
-		users.loginModel = new MyDataModel({
-			username: {},
-			password: {}
-		});
-
-		users.registerModel = new MyDataModel({
-			email: {},
-			username: {},
-			password: {},
-			firstname: {},
-			lastname: {},
-			countryFirstLetter: {},
-			country: {}
-		});
-
-		users.recoverModel = new MyDataModel({
-			email: {}
-		});
-
-		users.personalDetailsModel = new MyDataModel({
-			email: {},
-			firstname: {},
-			lastname: {},
-			countryFirstLetter: {},
-			country: {}
-		});
-
-		users.passwordModel = new MyDataModel({
-			currentPassword: {},
-			password: {}
-		});
-
-		Restangular.extendModel('users', function(user) {
-
-			user._isTheOneLoggedIn = function() {
-
-				if ($rootScope.apiData.loggedInUser) {
-					return user._id == $rootScope.apiData.loggedInUser._id;
-				}
-			};
-
-			return user;
-		});
-
-		return users;
-	};
-
-	UsersRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('UsersRest', UsersRest);
 
 })();
 (function() {
@@ -4453,6 +4233,172 @@
 
 	'use strict';
 
+	var AppConfigsRest = function(Restangular, MyDataModel) {
+
+		var appConfigs = Restangular.service('app_configs');
+
+		appConfigs.appConfigModel = new MyDataModel({
+			language: {},
+			theme: {}
+		});
+
+		return appConfigs;
+	};
+
+	AppConfigsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('AppConfigsRest', AppConfigsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var CommentsRest = function(Restangular, MyDataModel) {
+
+		var comments = Restangular.service('comments');
+
+		comments.commentModel = new MyDataModel({
+			userId: {},
+			content: {}
+		});
+
+		return comments;
+	};
+
+	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('CommentsRest', CommentsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ContactTypesRest = function(Restangular, MyDataModel) {
+
+		var contactTypes = Restangular.service('contact_types');
+
+		contactTypes.contactTypeModel = new MyDataModel({
+			contactType: {},
+			contactMsg: {}
+		});
+
+		return contactTypes;
+	};
+
+	ContactTypesRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var DeactivationReasonsRest = function(Restangular, MyDataModel) {
+
+		var deactivationReasons = Restangular.service('deactivation_reasons')
+
+		deactivationReasons.deactivationReasonModel = new MyDataModel({
+			deactivationReasonId: {}
+		});
+
+		return deactivationReasons;
+	};
+
+	DeactivationReasonsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var PaymentsRest = function(Restangular, MyDataModel) {
+
+		var payments = Restangular.service('payments');
+
+		payments.myDataModel = new MyDataModel({
+			paymentMethod: {},
+			creditCardType: {},
+			creditCardNumber: {},
+			creditCardExpireMonth: {},
+			creditCardExpireYear: {},
+			cvv2: {},
+			firstname: {},
+			lastname: {},
+			amount: {},
+			currency: {}
+		});
+
+		return payments;
+	};
+
+	PaymentsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('PaymentsRest', PaymentsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var UsersRest = function($rootScope, Restangular, MyDataModel) {
+
+		var users = Restangular.service('users');
+
+		users.loginModel = new MyDataModel({
+			username: {},
+			password: {}
+		});
+
+		users.registerModel = new MyDataModel({
+			email: {},
+			username: {},
+			password: {},
+			firstname: {},
+			lastname: {},
+			countryFirstLetter: {},
+			country: {}
+		});
+
+		users.recoverModel = new MyDataModel({
+			email: {}
+		});
+
+		users.personalDetailsModel = new MyDataModel({
+			email: {},
+			firstname: {},
+			lastname: {},
+			countryFirstLetter: {},
+			country: {}
+		});
+
+		users.passwordModel = new MyDataModel({
+			currentPassword: {},
+			password: {}
+		});
+
+		Restangular.extendModel('users', function(user) {
+
+			user._isTheOneLoggedIn = function() {
+
+				if ($rootScope.apiData.loggedInUser) {
+					return user._id == $rootScope.apiData.loggedInUser._id;
+				}
+			};
+
+			return user;
+		});
+
+		return users;
+	};
+
+	UsersRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('UsersRest', UsersRest);
+
+})();
+(function() {
+
+	'use strict';
+
 	var appModule = angular.module('appModule');
 
 	appModule.directive('formActionBtns', function() {
@@ -4539,31 +4485,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('scrollTopBtn', function() {
-
-		var scrollTopBtn = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
-			controller: function($scope) {
-
-				$scope.scroll = function() {
-					$('html, body').animate({ scrollTop: 0 }, 'fast');
-				};
-			}
-		};
-
-		return scrollTopBtn;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('appearanceForm', function($rootScope, MyForm, AppConfigsRest, Restangular) {
 
 		var appearanceForm = {
@@ -4587,6 +4508,31 @@
 		};
 
 		return appearanceForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('scrollTopBtn', function() {
+
+		var scrollTopBtn = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
+			controller: function($scope) {
+
+				$scope.scroll = function() {
+					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				};
+			}
+		};
+
+		return scrollTopBtn;
 	});
 
 })();
@@ -4629,6 +4575,50 @@
 		};
 
 		return contactForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('loginForm', function($timeout, $state, authService, MyForm, UsersRest) {
+
+		var loginForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/loginForm/loginForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.myForm = new MyForm({
+					ctrlId: 'loginForm',
+					model: UsersRest.loginModel,
+					submitAction: function(args) {
+
+						var body = UsersRest.loginModel.getValues();
+						return UsersRest.post(body, { action: 'login' }, { captcha_response: args.captchaResponse });
+					},
+					submitSuccessCb: function(res) {
+
+						authService.setAsLoggedIn(function() {
+							$timeout(function() {
+								$state.go('app.start', { tab: 'status' });
+							});
+						});
+					},
+					submitErrorCb: function(res) {
+
+						authService.setAsLoggedOut();
+					}
+				});
+			}
+		};
+
+		return loginForm;
 	});
 
 })();
@@ -4690,50 +4680,6 @@
 		};
 
 		return deactivationForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('loginForm', function($timeout, $state, authService, MyForm, UsersRest) {
-
-		var loginForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/loginForm/loginForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.myForm = new MyForm({
-					ctrlId: 'loginForm',
-					model: UsersRest.loginModel,
-					submitAction: function(args) {
-
-						var body = UsersRest.loginModel.getValues();
-						return UsersRest.post(body, { action: 'login' }, { captcha_response: args.captchaResponse });
-					},
-					submitSuccessCb: function(res) {
-
-						authService.setAsLoggedIn(function() {
-							$timeout(function() {
-								$state.go('app.start', { tab: 'status' });
-							});
-						});
-					},
-					submitErrorCb: function(res) {
-
-						authService.setAsLoggedOut();
-					}
-				});
-			}
-		};
-
-		return loginForm;
 	});
 
 })();
@@ -5524,7 +5470,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest, UsersRest) {
+	appModule.directive('comments', function($rootScope, $moment, commentsConf, myClass, CommentsRest, UsersRest) {
 
 		var comments = {
 			restrict: 'E',
@@ -5536,6 +5482,7 @@
 
 				$scope.apiData = $rootScope.apiData;
 				$scope.hardData = $rootScope.hardData;
+				$scope.$moment = $moment;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'commentForm',
@@ -5561,7 +5508,7 @@
 					$scope.collectionBrowser.init();
 				};
 
-				if (!$scope.collectionBrowser) { $scope.init(); }
+				if (!$scope.collectionBrowser && $rootScope.apiData.report) { $scope.init(); }
 			},
 			compile: function(elem, attrs) {
 
@@ -7181,7 +7128,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reports', function($rootScope, reportsConf, reportsService, contextMenuConf) {
+	appModule.directive('reports', function($rootScope, $moment, reportsConf, reportsService, contextMenuConf) {
 
 		var reports = {
 			restrict: 'E',
@@ -7195,6 +7142,8 @@
 
 				$scope.hardData = $rootScope.hardData;
 				$scope.apiData = $rootScope.apiData;
+				$scope.$moment = $moment;
+
 				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
 			},
 			compile: function(elem, attrs) {
@@ -7433,6 +7382,19 @@
 				return this.userId == $rootScope.apiData.loggedInUser._id;
 			};
 
+			report.getFullCategory = function() {
+
+				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
+					return obj._id == report.categoryId;
+				});
+
+				var subcategory = _.find(category.subcategories, function(obj) {
+					return obj._id == report.subcategoryId;
+				});
+
+				return category.label + ' / ' + subcategory.label;
+			};
+
 			return report;
 		});
 
@@ -7538,7 +7500,7 @@
 					scope.$watch(function() { return scope.user; }, function(user) {
 
 						if (user) {
-							if (scope.withLabel) { scope.src.label = scope.user.truncatedUsername; }
+							if (scope.withLabel) { scope.src.label = scope.user.username.truncate(15); }
 							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
 							userAvatarService.loadPhoto(scope);
 						}

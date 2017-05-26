@@ -9,18 +9,18 @@
 				ng-class="report.startEvent.group == 'found' ? 'isFound' : ''"
 			>
 				<title-section>
-					<a ui-sref="app.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.truncatedTitle }}</a>
+					<a ui-sref="app.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.title.truncate(25) }}</a>
 				</title-section>
 				<info-section ng-if="!noInfo">
-					<p>{{ report.fullCategory }}</p>
+					<p>{{ report.getFullCategory() }}</p>
 					<p>
 						<span>{{ hardData.reportGroups[report.startEvent.group == 'lost' ? 0 : 1].label2 }}</span>
 						<span ng-bind="hardData.count[0]"></span>
-						<span>{{ report.formattedDate }}</span>
+						<span>{{ $moment(report.startEvent.date).format('DD-MM-YYYY') }}</span>
 					</p>
 					<p>
 						<span ng-bind="hardData.count[7]"></span>
-						<span>{{ report.pastSinceAdded + ' ' + hardData.count[8] }}</span>
+						<span>{{ $moment.duration($moment(Date()).diff($moment(report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
 					</p>
 				</info-section>
 				<avatar-section ng-if="!noAvatar">

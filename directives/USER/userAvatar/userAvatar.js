@@ -32,7 +32,7 @@
 					scope.$watch(function() { return scope.user; }, function(user) {
 
 						if (user) {
-							if (scope.withLabel) { scope.src.label = scope.user.truncatedUsername; }
+							if (scope.withLabel) { scope.src.label = scope.user.username.truncate(15); }
 							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
 							userAvatarService.loadPhoto(scope);
 						}

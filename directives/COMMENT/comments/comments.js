@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('comments', function($rootScope, commentsConf, myClass, CommentsRest, UsersRest) {
+	appModule.directive('comments', function($rootScope, $moment, commentsConf, myClass, CommentsRest, UsersRest) {
 
 		var comments = {
 			restrict: 'E',
@@ -16,6 +16,7 @@
 
 				$scope.apiData = $rootScope.apiData;
 				$scope.hardData = $rootScope.hardData;
+				$scope.$moment = $moment;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'commentForm',
@@ -41,7 +42,7 @@
 					$scope.collectionBrowser.init();
 				};
 
-				if (!$scope.collectionBrowser) { $scope.init(); }
+				if (!$scope.collectionBrowser && $rootScope.apiData.report) { $scope.init(); }
 			},
 			compile: function(elem, attrs) {
 

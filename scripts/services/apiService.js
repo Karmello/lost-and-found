@@ -12,36 +12,14 @@
 				Restangular.setRestangularFields({ id: '_id' });
 				Restangular.addResponseInterceptor(service.interceptResponse);
 
-				Restangular.addElementTransformer('users', false, function(user) {
-
-					if (user.username) {
-						user.truncatedUsername = user.username.truncate(15);
-						user.userSince = $moment.duration($moment(new Date()).diff($moment(user.registration_date))).humanize();
-						user.countryFirstLetter = user.country[0];
-
-					} else if (user.user) {
-						user.user.truncatedUsername = user.user.username.truncate(15);
-						user.user.userSince = $moment.duration($moment(new Date()).diff($moment(user.user.registration_date))).humanize();
-						user.user.countryFirstLetter = user.user.country[0];
-					}
-
-					return user;
-				});
+				Restangular.addElementTransformer('users', false, function(user) { return user; });
 
 				Restangular.addElementTransformer('reports', false, function(report) {
-					report.truncatedTitle = report.title.truncate(25);
 					report.startEvent.date = new Date(report.startEvent.date);
-					report.formattedDate = $moment(report.startEvent.date).format('DD-MM-YYYY');
-					report.formattedDateAdded = $moment(report.dateAdded).format('DD-MM-YYYY HH:mm');
-					report.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(report.dateAdded))).humanize();
-					service.createReportFullCategoryString(report);
 					return report;
 				});
 
-				Restangular.addElementTransformer('comments', false, function(comment) {
-					comment.pastSinceAdded = $moment.duration($moment(new Date()).diff($moment(comment.dateAdded))).humanize();
-					return comment;
-				});
+				Restangular.addElementTransformer('comments', false, function(comment) { return comment; });
 			},
 			interceptResponse: function(data, operation, what, url, res, deferred) {
 
@@ -57,143 +35,98 @@
 
 
 
-				var i;
+				if (operation == 'getList') {
 
-				switch (what) {
+					if (what == 'users') {
 
-					case 'app_configs':
+						if (res.config.params) {
+
+							if (res.config.params._id) {
+								$rootScope.apiData.profileUser = data[0];
+
+							} else if (res.config.params.reportId) {
+								$rootScope.apiData.reportUser = data[0];
+							}
+						}
+
+					} else if (what == 'reports') {
+
+						if (res.config.params) {
+
+							switch (res.config.params.subject) {
+
+								case 'reports':
+									reportsConf.searchCollectionBrowser.setData(data);
+									googleMapService.searchReportsMap.addMarkers(data.collection);
+									return data.collection;
+
+								case 'new_reports':
+									reportsConf.recentlyReportedCollectionBrowser.setData(data);
+									return data.collection;
+
+								case 'user_reports':
+									reportsConf.profileCollectionBrowser.setData(data);
+									return data.collection;
+
+								case 'recently_viewed_reports':
+									reportsConf.recentlyViewedCollectionBrowser.setData(data);
+									return data.collection;
+
+								case 'report':
+									$rootScope.apiData.report = data.report;
+									$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
+									return [data.report];
+							}
+						}
+
+					} else if (what == 'comments') {
+
+						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
+						commentsConf.reportCommentsBrowser.setData(data);
+						return data.collection;
+					}
+
+				} else if (operation == 'post') {
+
+					if (what == 'users') {
+
+						if (res.config.params.action == 'updatePass') {
+
+							$rootScope.apiData.loggedInUser = data.user;
+							return data.user;
+
+						} else {
+
+							$rootScope.apiData.loggedInUser = data.user;
+							$rootScope.apiData.appConfig = data.appConfig;
+							Restangular.restangularizeElement(undefined, $rootScope.apiData.appConfig, 'app_configs');
+							return Restangular.restangularizeCollection(undefined, [data.user], 'users');
+						}
+
+					} else if (what == 'reports') {
+
+						return Restangular.restangularizeElement(undefined, data, 'reports');
+					}
+
+				} else if (operation == 'put') {
+
+					if (what == 'users') {
+
+						$rootScope.apiData.loggedInUser = data.user;
+						return data.user;
+
+					} else if (what == 'app_configs') {
 
 						var appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
 						$rootScope.apiData.appConfig = appConfig;
-						break;
 
-					case 'users':
+					} else if (what == 'reports') {
 
-						switch (operation) {
-
-							case 'getList':
-
-								if (res.config.params) {
-
-									if (res.config.params._id) {
-										$rootScope.apiData.profileUser = data[0];
-
-									} else if (res.config.params.reportId) {
-										$rootScope.apiData.reportUser = data[0];
-									}
-								}
-
-								break;
-
-							case 'post':
-
-								if (res.config.params.action == 'updatePass') {
-
-									$rootScope.apiData.loggedInUser = data.user;
-									return data.user;
-
-								} else {
-
-									$rootScope.apiData.loggedInUser = data.user;
-									$rootScope.apiData.appConfig = data.appConfig;
-									Restangular.restangularizeElement(undefined, $rootScope.apiData.appConfig, 'app_configs');
-									return Restangular.restangularizeCollection(undefined, [data.user], 'users');
-								}
-
-								break;
-
-							case 'put':
-
-								$rootScope.apiData.loggedInUser = data.user;
-								return data.user;
-						}
-
-						break;
-
-					case 'reports':
-
-						switch (operation) {
-
-							case 'getList':
-
-								if (res.config.params) {
-
-									switch (res.config.params.subject) {
-
-										case 'report':
-											$rootScope.apiData.report = data.report;
-											$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
-											return [data.report];
-
-										case 'recently_viewed_reports':
-											reportsConf.recentlyViewedCollectionBrowser.setData(data);
-											return data.collection;
-
-										case 'user_reports':
-											reportsConf.profileCollectionBrowser.setData(data);
-											return data.collection;
-
-										case 'reports':
-											reportsConf.searchCollectionBrowser.setData(data);
-											googleMapService.searchReportsMap.addMarkers(data.collection);
-											return data.collection;
-
-										case 'new_reports':
-											reportsConf.recentlyReportedCollectionBrowser.setData(data);
-											return data.collection;
-									}
-								}
-
-								break;
-
-							case 'post':
-
-								return Restangular.restangularizeElement(undefined, data, 'reports');
-
-							case 'put':
-
-								return data;
-						}
-
-						break;
-
-					case 'comments':
-
-						switch (operation) {
-
-							case 'getList':
-
-								for (i in data.collection) { data.collection[i].user = data.users[i]; }
-								commentsConf.reportCommentsBrowser.setData(data);
-								break;
-						}
-
-						return data.collection;
-
-					case 'payments':
-
-						switch (operation) {
-
-							case 'getList':
-
-								$rootScope.apiData.payment = data[0];
-								break;
-						}
+						return data;
+					}
 				}
 
 				return data;
-			},
-			createReportFullCategoryString: function(report) {
-
-				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
-					return obj._id == report.categoryId;
-				});
-
-				var subcategory = _.find(category.subcategories, function(obj) {
-					return obj._id == report.subcategoryId;
-				});
-
-				report.fullCategory = category.label + ' / ' + subcategory.label;
 			}
 		};
 

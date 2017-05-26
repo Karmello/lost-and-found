@@ -2,9 +2,10 @@
 
 	'use strict';
 
-	var ReportController = function($scope, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
+	var ReportController = function($scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
 
 		$scope.params = $stateParams;
+		$scope.$moment = $moment;
 
 		$scope.$watch('apiData.report', function(report) {
 
@@ -21,7 +22,7 @@
 		$scope.commentsBrowser = commentsConf.reportCommentsBrowser;
 	};
 
-	ReportController.$inject = ['$scope', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ReportController.$inject = ['$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();

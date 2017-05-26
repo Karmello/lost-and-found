@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reports', function($rootScope, reportsConf, reportsService, contextMenuConf) {
+	appModule.directive('reports', function($rootScope, $moment, reportsConf, reportsService, contextMenuConf) {
 
 		var reports = {
 			restrict: 'E',
@@ -18,6 +18,8 @@
 
 				$scope.hardData = $rootScope.hardData;
 				$scope.apiData = $rootScope.apiData;
+				$scope.$moment = $moment;
+
 				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
 			},
 			compile: function(elem, attrs) {

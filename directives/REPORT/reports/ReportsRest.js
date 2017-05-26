@@ -39,6 +39,19 @@
 				return this.userId == $rootScope.apiData.loggedInUser._id;
 			};
 
+			report.getFullCategory = function() {
+
+				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
+					return obj._id == report.categoryId;
+				});
+
+				var subcategory = _.find(category.subcategories, function(obj) {
+					return obj._id == report.subcategoryId;
+				});
+
+				return category.label + ' / ' + subcategory.label;
+			};
+
 			return report;
 		});
 

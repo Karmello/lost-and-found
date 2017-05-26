@@ -9,7 +9,10 @@
 		});
 
 		$scope.$watch('apiData.loggedInUser', function(newUser) {
-			if (newUser) { UsersRest.personalDetailsModel.set(newUser.plain(), true); }
+			if (newUser) {
+				UsersRest.personalDetailsModel.set(newUser.plain(), true);
+				UsersRest.personalDetailsModel.setValue('countryFirstLetter', newUser.country[0], true);
+			}
 		});
 
 		$scope.$watch('apiData.appConfig', function(newAppConfig) {

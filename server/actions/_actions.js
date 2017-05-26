@@ -33,7 +33,11 @@ module.exports = {
 		delete: require('./Report/deleteReport'),
 	},
 	user: {
-		post: require('./User/postUser'),
+		post: {
+			auth: require('./User/authUser'),
+			login: require('./User/loginUser'),
+			register: require('./User/registerUser')
+		},
 		get: require('./User/getUser'),
 		put: require('./User/putUser'),
 		delete: require('./User/deleteUser')

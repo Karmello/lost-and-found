@@ -50,6 +50,7 @@
 						newScrollY = $state.current.scrollY;
 						break;
 
+					case 'app.start':
 					case 'app.report.tabs':
 						return;
 
@@ -61,7 +62,7 @@
 				$('html, body').animate({ scrollTop: newScrollY }, 'fast');
 			});
 
-			$timeout(function() { ui.loaders.renderer.stop(); }, 3000);
+			$timeout(function() { ui.loaders.renderer.stop(); }, 1000);
 		});
 	});
 

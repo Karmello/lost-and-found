@@ -20,7 +20,7 @@
 					submitAction: function(args) {
 
 						var body = UsersRest.loginModel.getValues();
-						return UsersRest.post(body, undefined, { captcha_response: args.captchaResponse });
+						return UsersRest.post(body, { action: 'login' }, { captcha_response: args.captchaResponse });
 					},
 					submitSuccessCb: function(res) {
 

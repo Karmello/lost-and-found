@@ -16,30 +16,26 @@ module.exports = {
 
 		new r.Promise(function(resolve) {
 
-			// User authentication
-			if (req.body.authToken) {
+			switch (req.query.action) {
 
-				r.modules.authorize.userToken(req, res, function() {
-					resolve({ actionId: 'auth', query: { _id: req.decoded._doc._id } });
-				});
+				case 'auth':
 
-			} else {
+					r.modules.authorize.userToken(req, res, function() {
+						resolve({ query: { _id: req.decoded._doc._id } });
+					});
 
-				var props = Object.keys(req.body);
+					break;
 
-				// Logging in
-				if (props.length == 2 && props[0] == 'username' && props[1] == 'password') {
-					resolve({ actionId: 'login', query: { username: req.body.username } });
+				case 'login':
+				case 'register':
 
-				// Registering
-				} else {
-					resolve({ actionId: 'register', query: { username: req.body.username } });
-				}
+					resolve({ query: { username: req.body.username } });
+					break;
 			}
 
 		}).then(function(config) {
 
-			action.id = config.actionId;
+			action.id = req.query.action;
 			query = config.query;
 
 			new r.Promise(function(resolve) {

@@ -1,0 +1,60 @@
+var r = require(global.paths._requires);
+
+module.exports = function(req, res, next) {
+
+	var action = new r.prototypes.Action(arguments);
+	action.id = req.query.action;
+
+	new r.Promise(function(resolve, reject) {
+
+		r.modules.captchaModule.verify(action).then(function() {
+
+			var user = new r.User(req.body);
+
+			user.save(function(err) {
+
+				if (!err) {
+
+					var appConfig = new r.AppConfig({
+						userId: user._id,
+						language: req.session.language,
+						theme: req.session.theme
+					});
+
+					appConfig.save(function(err) {
+
+						if (!err) {
+
+							var body = { user: user, appConfig: appConfig };
+							body.authToken = r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') });
+
+							body.msg = {
+								title: r.hardData[req.session.language].msgs.titles[0],
+								info: r.hardData[req.session.language].msgs.infos[0]
+							};
+
+							resolve(body);
+
+						} else { resolve(err); }
+					});
+
+				} else {
+
+					action.setAsBad();
+					reject(err);
+				}
+			});
+		});
+
+	}).then(function(data) {
+
+		r.modules.socketModule.emitUsersCount();
+
+		action.resetBadCount();
+		action.end(200, data);
+
+	}, function(err) {
+
+		action.end(400, err);
+	});
+};

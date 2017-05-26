@@ -9,7 +9,7 @@
 			this.isLoading = false;
 		};
 
-		MyLoader.prototype.minLoadTime = 0;
+		MyLoader.prototype.minLoadTime = 150;
 
 		MyLoader.prototype.start = function(stopAutomagically, callback) {
 

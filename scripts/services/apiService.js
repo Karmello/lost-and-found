@@ -64,7 +64,7 @@
 					case 'app_configs':
 
 						var appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
-						$rootScope.apiData.loggedInUser.appConfig = appConfig;
+						$rootScope.apiData.appConfig = appConfig;
 						break;
 
 					case 'users':
@@ -87,10 +87,20 @@
 
 							case 'post':
 
-								data.user.appConfig = data.appConfig;
-								$rootScope.apiData.loggedInUser = data.user;
-								Restangular.restangularizeElement(undefined, $rootScope.apiData.loggedInUser.appConfig, 'app_configs');
-								return Restangular.restangularizeCollection(undefined, [data.user], 'users');
+								if (res.config.params.action == 'updatePass') {
+
+									$rootScope.apiData.loggedInUser = data.user;
+									return data.user;
+
+								} else {
+
+									$rootScope.apiData.loggedInUser = data.user;
+									$rootScope.apiData.appConfig = data.appConfig;
+									Restangular.restangularizeElement(undefined, $rootScope.apiData.appConfig, 'app_configs');
+									return Restangular.restangularizeCollection(undefined, [data.user], 'users');
+								}
+
+								break;
 
 							case 'put':
 

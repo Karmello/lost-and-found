@@ -31,6 +31,7 @@
 					that.model.trimValues(that.scope.ctrlId, function() {
 
 						var args = {};
+						console.log(that.ctrlId);
 						args.captchaResponse = grecaptchaService.getResponse(that.scope.captcha);
 
 						// Calling external submit action, usually making http request

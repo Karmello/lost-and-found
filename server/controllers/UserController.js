@@ -6,7 +6,11 @@ module.exports = function(app, route) {
 	var rest = r.restful.model('user', app.models.User).methods(['get', 'post', 'put', 'delete']);
 
 	rest.before('post', [authorize.userAction, function(req, res, next) {
-		r.actions.user.post[req.query.action](req, res, next);
+
+		if (r.actions.user.post[req.query.action]) {
+			r.actions.user.post[req.query.action](req, res, next);
+
+		} else { res.send(400); }
 	}]);
 
 	rest.before('get', [authorize.userToken, authorize.userAction, r.actions.user.get.before]);

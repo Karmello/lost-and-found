@@ -36,7 +36,8 @@ module.exports = {
 		post: {
 			auth: require('./User/authUser'),
 			login: require('./User/loginUser'),
-			register: require('./User/registerUser')
+			register: require('./User/registerUser'),
+			updatePass: require('./User/updateUserPass')
 		},
 		get: require('./User/getUser'),
 		put: require('./User/putUser'),

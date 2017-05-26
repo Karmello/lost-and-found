@@ -693,6 +693,7 @@
 
 		$rootScope.apiData = {
 			loggedInUser: undefined,
+			appConfig: undefined,
 			profileUser: undefined,
 			reportUser: undefined,
 			report: undefined,
@@ -832,16 +833,15 @@
 	var SettingsController = function($scope, ui, UsersRest, AppConfigsRest) {
 
 		$scope.$watch('ui.listGroups.settings.activeSwitcherId', function(newValue) {
-
 			if (angular.isDefined(newValue)) { $scope.activeTabs = ui.tabs[newValue]; }
 		});
 
 		$scope.$watch('apiData.loggedInUser', function(newUser) {
+			if (newUser) { UsersRest.personalDetailsModel.set(newUser.plain(), true); }
+		});
 
-			if (newUser) {
-				UsersRest.personalDetailsModel.set(newUser.plain(), true);
-				AppConfigsRest.appConfigModel.set(newUser.appConfig, true);
-			}
+		$scope.$watch('apiData.appConfig', function(newAppConfig) {
+			if (newAppConfig) { AppConfigsRest.appConfigModel.set(newAppConfig, true); }
 		});
 	};
 
@@ -1578,7 +1578,7 @@
 					case 'app_configs':
 
 						var appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
-						$rootScope.apiData.loggedInUser.appConfig = appConfig;
+						$rootScope.apiData.appConfig = appConfig;
 						break;
 
 					case 'users':
@@ -1601,10 +1601,20 @@
 
 							case 'post':
 
-								data.user.appConfig = data.appConfig;
-								$rootScope.apiData.loggedInUser = data.user;
-								Restangular.restangularizeElement(undefined, $rootScope.apiData.loggedInUser.appConfig, 'app_configs');
-								return Restangular.restangularizeCollection(undefined, [data.user], 'users');
+								if (res.config.params.action == 'updatePass') {
+
+									$rootScope.apiData.loggedInUser = data.user;
+									return data.user;
+
+								} else {
+
+									$rootScope.apiData.loggedInUser = data.user;
+									$rootScope.apiData.appConfig = data.appConfig;
+									Restangular.restangularizeElement(undefined, $rootScope.apiData.appConfig, 'app_configs');
+									return Restangular.restangularizeCollection(undefined, [data.user], 'users');
+								}
+
+								break;
 
 							case 'put':
 
@@ -1770,7 +1780,7 @@
 
 				// Checking if logged in user's appConfig and current session settings defer or not
 
-				var appConfig = $rootScope.apiData.loggedInUser.appConfig;
+				var appConfig = $rootScope.apiData.appConfig;
 
 				if (appConfig.language != sessionConst.language || appConfig.theme != sessionConst.theme) {
 					$window.location.reload();
@@ -2082,8 +2092,6 @@
 				}
 			},
 			getResponse: function(captchaObj) {
-
-				// console.log(captchaObj);
 
 				if (window.grecaptcha && captchaObj) {
 					return window.grecaptcha.getResponse(captchaObj.grecaptchaId);
@@ -2946,7 +2954,7 @@
 
 	'use strict';
 
-	var MyCollectionBrowser = function(hardDataService, MyCollectionSelector, MySwitchable, MyLoader, $timeout) {
+	var MyCollectionBrowser = function(hardDataService, MyCollectionSelector, MySwitchable, MyLoader) {
 
 		var hardData = hardDataService.get();
 
@@ -2996,65 +3004,63 @@
 		MyCollectionBrowser.prototype.init = function(cb) {
 
 			var that = this;
-			var fetched = false;
 
 			// Fetching collection to display
 
 			try {
 
-				$timeout(function() { if (!fetched) { that.loader.start(); } }, 100);
+				that.loader.start(false, function() {
 
-				that.fetchData(that.createFetchQuery()).then(function(res) {
+					that.fetchData(that.createFetchQuery()).then(function(res) {
 
-					fetched = true;
+						// Initializing pager ctrl
 
-					// Initializing pager ctrl
+						if (that.noPager) { that.meta.count = that.collection.length; }
+						that.refresher = {};
 
-					if (that.noPager) { that.meta.count = that.collection.length; }
-					that.refresher = {};
+						if (that.meta.count > 0) {
 
-					if (that.meta.count > 0) {
+							var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
+							var pagerSwitchers = [];
 
-						var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
-						var pagerSwitchers = [];
+							for (var i = 0; i < numOfPages; i++) {
+								pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
+							}
 
-						for (var i = 0; i < numOfPages; i++) {
-							pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
+							var currentPage;
+
+							if (that.pager) {
+								currentPage = that.pager.activeSwitcherId;
+							}
+
+							that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
+
+							if (currentPage) {
+								that.pager.activateSwitcher(currentPage);
+							}
+
+						} else { that.pager = undefined; }
+
+						// Binding choose event for all ctrls
+
+						var exec = function(switcher) {
+							switcher.onClick = function() { that.onChoose(switcher); };
+						};
+
+						for (var j in that.ctrls) {
+							if (that[that.ctrls[j].name]) {
+								angular.forEach(that[that.ctrls[j].name].switchers, exec);
+							}
 						}
 
-						var currentPage;
+						// Finishing
+						that.loader.stop(function() { if (cb) { cb(true); } });
 
-						if (that.pager) {
-							currentPage = that.pager.activeSwitcherId;
-						}
+					}, function(res) {
 
-						that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
-
-						if (currentPage) {
-							that.pager.activateSwitcher(currentPage);
-						}
-
-					} else { that.pager = undefined; }
-
-					// Binding choose event for all ctrls
-
-					var exec = function(switcher) {
-						switcher.onClick = function() { that.onChoose(switcher); };
-					};
-
-					for (var j in that.ctrls) {
-						if (that[that.ctrls[j].name]) {
-							angular.forEach(that[that.ctrls[j].name].switchers, exec);
-						}
-					}
-
-					// Finishing
-					that.loader.stop(function() { if (cb) { cb(true); } });
-
-				}, function(res) {
-
-					that.flush();
-					that.loader.stop(function() { if (cb) { cb(false); } });
+						that.flush();
+						that.loader.stop(function() { if (cb) { cb(false); } });
+					});
 				});
 
 			} catch (ex) {
@@ -3175,7 +3181,7 @@
 		return MyCollectionBrowser;
 	};
 
-	MyCollectionBrowser.$inject = ['hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader', '$timeout'];
+	MyCollectionBrowser.$inject = ['hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader'];
 	angular.module('appModule').factory('MyCollectionBrowser', MyCollectionBrowser);
 
 })();
@@ -3481,6 +3487,7 @@
 					that.model.trimValues(that.scope.ctrlId, function() {
 
 						var args = {};
+						console.log(that.ctrlId);
 						args.captchaResponse = grecaptchaService.getResponse(that.scope.captcha);
 
 						// Calling external submit action, usually making http request
@@ -3564,7 +3571,7 @@
 			this.isLoading = false;
 		};
 
-		MyLoader.prototype.minLoadTime = 0;
+		MyLoader.prototype.minLoadTime = 150;
 
 		MyLoader.prototype.start = function(stopAutomagically, callback) {
 
@@ -4571,7 +4578,7 @@
 					reload: true,
 					submitAction: function(args) {
 
-						var copy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
+						var copy = Restangular.copy($rootScope.apiData.appConfig);
 						AppConfigsRest.appConfigModel.assignTo(copy);
 						return copy.put();
 					}
@@ -4751,11 +4758,7 @@
 					model: UsersRest.passwordModel,
 					submitAction: function(args) {
 
-						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						var values = UsersRest.passwordModel.getValues();
-						copy.currentPassword = values.currentPassword;
-						copy.password = values.password;
-						return copy.put();
+						return UsersRest.post(UsersRest.passwordModel.getValues(), { action: 'updatePass' });
 					},
 					submitSuccessCb: function(res) {
 
@@ -4869,7 +4872,7 @@
 					reload: true,
 					submitAction: function(args) {
 
-						var copy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
+						var copy = Restangular.copy($rootScope.apiData.appConfig);
 						AppConfigsRest.appConfigModel.assignTo(copy);
 						return copy.put();
 					}
@@ -5196,7 +5199,7 @@
 					},
 					submitErrorCb: function(res) {
 
-						console.log(res);
+
 					}
 				});
 			},
@@ -6468,6 +6471,31 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('mySelectsGroup', function(hardDataService) {
+
+		var mySelectsGroup = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
+			transclude: true,
+			scope: {
+				collection: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return mySelectsGroup;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('mySrc', function($timeout, MySwitchable) {
 
 		var mySrc = {
@@ -6514,31 +6542,6 @@
 		};
 
 		return mySrc;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('mySelectsGroup', function(hardDataService) {
-
-		var mySelectsGroup = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
-			transclude: true,
-			scope: {
-				collection: '=',
-				model: '=',
-				hardData: '='
-			}
-		};
-
-		return mySelectsGroup;
 	});
 
 })();
@@ -7507,37 +7510,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('userBadge', function($rootScope, $state, authService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.status[0];
-
-				$scope.onLogoutClick = function() {
-					$rootScope.logout();
-				};
-
-				$scope.onContinueClick = function() {
-					$state.go('app.home');
-				};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
 
 		var userAvatar = {
@@ -7728,6 +7700,37 @@
 
 	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
 	angular.module('appModule').service('userAvatarService', userAvatarService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('userBadge', function($rootScope, $state, authService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.authState = authService.state;
+				$scope.label1 = $rootScope.hardData.status[0];
+
+				$scope.onLogoutClick = function() {
+					$rootScope.logout();
+				};
+
+				$scope.onContinueClick = function() {
+					$state.go('app.home');
+				};
+			}
+		};
+	});
 
 })();
 (function() {

@@ -12,6 +12,7 @@
 
 		$rootScope.apiData = {
 			loggedInUser: undefined,
+			appConfig: undefined,
 			profileUser: undefined,
 			reportUser: undefined,
 			report: undefined,

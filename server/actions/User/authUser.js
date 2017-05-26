@@ -20,7 +20,10 @@ module.exports = function(req, res, next) {
 							req.session.theme = appConfig.theme;
 							req.session.language = appConfig.language;
 
-							resolve({ user: user, appConfig: appConfig });
+							resolve({
+								user: user,
+								appConfig: appConfig
+							});
 
 						} else { reject(err); }
 					});

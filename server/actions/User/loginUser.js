@@ -13,7 +13,7 @@ module.exports = function(req, res, next) {
 
 	new r.Promise(function(resolve, reject) {
 
-		r.modules.captchaModule.verify(action).then(function() {
+		r.modules.authorize.captcha(action).then(function() {
 
 			r.User.findOne({ username: req.body.username }, function(err, user) {
 
@@ -30,10 +30,11 @@ module.exports = function(req, res, next) {
 									req.session.theme = appConfig.theme;
 									req.session.language = appConfig.language;
 
-									var body = { user: user, appConfig: appConfig };
-									body.authToken = r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') });
-
-									resolve(body);
+									resolve({
+										user: user,
+										appConfig: appConfig,
+										authToken: r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') })
+									});
 
 								} else { reject(err); }
 							});

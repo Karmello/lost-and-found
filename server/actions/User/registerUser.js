@@ -7,9 +7,16 @@ module.exports = function(req, res, next) {
 
 	new r.Promise(function(resolve, reject) {
 
-		r.modules.captchaModule.verify(action).then(function() {
+		r.modules.authorize.captcha(action).then(function() {
 
-			var user = new r.User(req.body);
+			var user = new r.User({
+				email: req.body.email,
+				username: req.body.username,
+				password: req.body.password,
+				firstname: req.body.firstname,
+				lastname: req.body.lastname,
+				country: req.body.country
+			});
 
 			user.save(function(err) {
 
@@ -25,17 +32,22 @@ module.exports = function(req, res, next) {
 
 						if (!err) {
 
-							var body = { user: user, appConfig: appConfig };
-							body.authToken = r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') });
+							resolve({
+								user: user,
+								appConfig: appConfig,
+								authToken: r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
+								msg: {
+									title: r.hardData[req.session.language].msgs.titles[0],
+									info: r.hardData[req.session.language].msgs.infos[0]
+								}
+							});
 
-							body.msg = {
-								title: r.hardData[req.session.language].msgs.titles[0],
-								info: r.hardData[req.session.language].msgs.infos[0]
-							};
+						} else {
 
-							resolve(body);
-
-						} else { resolve(err); }
+							user.remove(function() {
+								reject(err);
+							});
+						}
 					});
 
 				} else {

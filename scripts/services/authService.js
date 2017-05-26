@@ -60,7 +60,7 @@
 
 				// Checking if logged in user's appConfig and current session settings defer or not
 
-				var appConfig = $rootScope.apiData.loggedInUser.appConfig;
+				var appConfig = $rootScope.apiData.appConfig;
 
 				if (appConfig.language != sessionConst.language || appConfig.theme != sessionConst.theme) {
 					$window.location.reload();

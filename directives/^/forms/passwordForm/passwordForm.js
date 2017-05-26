@@ -19,11 +19,7 @@
 					model: UsersRest.passwordModel,
 					submitAction: function(args) {
 
-						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
-						var values = UsersRest.passwordModel.getValues();
-						copy.currentPassword = values.currentPassword;
-						copy.password = values.password;
-						return copy.put();
+						return UsersRest.post(UsersRest.passwordModel.getValues(), { action: 'updatePass' });
 					},
 					submitSuccessCb: function(res) {
 

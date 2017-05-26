@@ -18,7 +18,7 @@
 					reload: true,
 					submitAction: function(args) {
 
-						var copy = Restangular.copy($rootScope.apiData.loggedInUser.appConfig);
+						var copy = Restangular.copy($rootScope.apiData.appConfig);
 						AppConfigsRest.appConfigModel.assignTo(copy);
 						return copy.put();
 					}

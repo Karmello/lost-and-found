@@ -3,87 +3,50 @@ var r = require(global.paths._requires);
 module.exports = {
 	before: function(req, res, next) {
 
-		console.log(req.body);
-
-		var isUpdatingPassword = function() {
-			return req.body.currentPassword !== undefined && req.body.password !== undefined;
-		};
-
 		var action = new r.prototypes.Action(arguments);
-		var selector;
-		if (isUpdatingPassword()) { selector = 'password'; } else { selector = '-username -password -registration_date'; }
-
-
 
 		new r.Promise(function(resolve, reject) {
 
-			r.User.findOne({ _id: req.params.id }, selector, function(err, user) {
+			r.User.findOne({ _id: req.params.id }, 'email firstname lastname country photos', function(err, user) {
 
 				if (!err && user) {
 
-					var password;
+					user.email = req.body.email;
+					user.firstname = req.body.firstname;
+					user.lastname = req.body.lastname;
+					user.country = req.body.country;
+					user.photos = req.body.photos.slice(0, 1);
 
 					new r.Promise(function(resolve) {
 
-						if (isUpdatingPassword()) {
+							user.validate(function(err) {
 
-							// Creating password instance
-							password = new r.Password({
-								userId: req.params.id,
-								currentPassword: req.body.currentPassword,
-								password: req.body.password
-							});
+							if (!err) {
+								resolve();
 
-							password.validate(function(err) {
-								if (!err) { resolve(); } else { reject(err); }
-							});
+							} else if (err) {
 
-						} else { resolve(); }
+								if (err.errors.email && err.errors.email.kind == 'not_unique' && req.body.email == req.decoded._doc.email) {
+									delete err.errors.email;
+									if (Object.keys(err.errors).length === 0) { return resolve(); }
+								}
+
+								reject(err);
+							}
+						});
 
 					}).then(function() {
 
-						if (isUpdatingPassword()) {
-							user.password = password.password;
+						user.save({ validateBeforeSave: false }, function(err) {
 
-						} else {
-							user.email = req.body.email;
-							user.firstname = req.body.firstname;
-							user.lastname = req.body.lastname;
-							user.country = req.body.country;
-							user.photos = req.body.photos.slice(0, 1);
-						}
+							if (!err) {
 
-						new r.Promise(function(resolve) {
+								// Getting updated user to send back to the client
+								r.User.findOne({ _id: req.params.id }, function(err, user) {
+									if (!err && user) { resolve(user); } else { reject(err); }
+								});
 
-								user.validate(function(err) {
-
-								if (!err) {
-									resolve();
-
-								} else if (err) {
-
-									if (err.errors.email && err.errors.email.kind == 'not_unique' && req.body.email == req.decoded._doc.email) {
-										delete err.errors.email;
-										if (Object.keys(err.errors).length === 0) { return resolve(); }
-									}
-
-									reject(err);
-								}
-							});
-
-						}).then(function() {
-
-							user.save({ validateBeforeSave: false }, function(err) {
-
-								if (!err) {
-
-									// Getting updated user to send back to the client
-									r.User.findOne({ _id: req.params.id }, function(err, user) {
-										if (!err && user) { resolve(user); } else { reject(err); }
-									});
-
-								} else { reject(err); }
-							});
+							} else { reject(err); }
 						});
 					});
 

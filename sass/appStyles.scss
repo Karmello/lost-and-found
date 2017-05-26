@@ -1169,43 +1169,6 @@ $avatarSize: 240px;
 
 
 }
-.userAvatar {
-
-	display: table;
-	margin: 0 auto;
-
-	.mySrc {
-		.srcLabel {
-			margin-top: 3px;
-		}
-	}
-}
-
-.defaultAvatarSize {
-	width: 200px;
-	height: 200px;
-}
-
-.smallAvatarSize {
-	width: 150px;
-	height: 150px;
-}
-
-.tinyAvatarSize {
-	width: 60px;
-	height: 60px;
-}
-@import '_vars';
-
-.userBadge {
-
-	position: relative;
-	display: table;
-	margin: 0 auto;
-	padding: 15px;
-
-	.mySrc { img { @extend .defaultAvatarSize; } }
-}
 .reportAvatar {
 
 	.mySrc {
@@ -1256,6 +1219,43 @@ $avatarSize: 240px;
 			background-color: $brand-info;
 		}
 	}
+}
+.userAvatar {
+
+	display: table;
+	margin: 0 auto;
+
+	.mySrc {
+		.srcLabel {
+			margin-top: 3px;
+		}
+	}
+}
+
+.defaultAvatarSize {
+	width: 200px;
+	height: 200px;
+}
+
+.smallAvatarSize {
+	width: 150px;
+	height: 150px;
+}
+
+.tinyAvatarSize {
+	width: 60px;
+	height: 60px;
+}
+@import '_vars';
+
+.userBadge {
+
+	position: relative;
+	display: table;
+	margin: 0 auto;
+	padding: 15px;
+
+	.mySrc { img { @extend .defaultAvatarSize; } }
 }
 #singleFileInput, #multipleFilesInput {
 

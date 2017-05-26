@@ -793,30 +793,6 @@ body .gm-style-iw + div {
   margin-left: 10px;
   margin-right: 10px; }
 
-.userAvatar {
-  display: table;
-  margin: 0 auto; }
-  .userAvatar .mySrc .srcLabel {
-    margin-top: 3px; }
-
-.defaultAvatarSize, .userBadge .mySrc img {
-  width: 200px;
-  height: 200px; }
-
-.smallAvatarSize, #lost-and-found-app-profile #userSection .userAvatar .mySrc img {
-  width: 150px;
-  height: 150px; }
-
-.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .comments .userAvatar > div .mySrc img {
-  width: 60px;
-  height: 60px; }
-
-.userBadge {
-  position: relative;
-  display: table;
-  margin: 0 auto;
-  padding: 15px; }
-
 .reportAvatar .mySrc img {
   width: 200px;
   object-fit: cover; }
@@ -851,6 +827,30 @@ body .gm-style-iw + div {
 
 .reports .isFound .myCollectionElem {
   background-color: #5bc0de; }
+
+.userAvatar {
+  display: table;
+  margin: 0 auto; }
+  .userAvatar .mySrc .srcLabel {
+    margin-top: 3px; }
+
+.defaultAvatarSize, .userBadge .mySrc img {
+  width: 200px;
+  height: 200px; }
+
+.smallAvatarSize, #lost-and-found-app-profile #userSection .userAvatar .mySrc img {
+  width: 150px;
+  height: 150px; }
+
+.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .comments .userAvatar > div .mySrc img {
+  width: 60px;
+  height: 60px; }
+
+.userBadge {
+  position: relative;
+  display: table;
+  margin: 0 auto;
+  padding: 15px; }
 
 #singleFileInput, #multipleFilesInput {
   display: none; }

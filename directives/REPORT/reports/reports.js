@@ -50,7 +50,7 @@
 
 							if (!$rootScope.$$listeners.initSearchReports) {
 								$rootScope.$on('initSearchReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+									scope.collectionBrowser = reportsConf.searchReports;
 									scope.collectionBrowser.init();
 								});
 							}
@@ -59,7 +59,7 @@
 								$rootScope.$$listeners.initSearchReports = null;
 							});
 
-							scope.collectionBrowser = reportsConf.searchCollectionBrowser;
+							scope.collectionBrowser = reportsConf.searchReports;
 							scope.collectionBrowser.init();
 							break;
 
@@ -67,7 +67,7 @@
 
 							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
 								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+									scope.collectionBrowser = reportsConf.viewedReports;
 									scope.collectionBrowser.init();
 								});
 							}
@@ -76,13 +76,13 @@
 								$rootScope.$$listeners.initRecentlyViewedReports = null;
 							});
 
-							scope.collectionBrowser = reportsConf.recentlyViewedCollectionBrowser;
+							scope.collectionBrowser = reportsConf.viewedReports;
 							scope.collectionBrowser.init();
 							break;
 
 						case 'NewReports':
 
-							scope.collectionBrowser = reportsConf.recentlyReportedCollectionBrowser;
+							scope.collectionBrowser = reportsConf.recentReports;
 							scope.collectionBrowser.init();
 							break;
 					}

@@ -38,7 +38,7 @@
 
 		service.initUserReports = function(scope, userId) {
 
-			scope.collectionBrowser = reportsConf.profileCollectionBrowser;
+			scope.collectionBrowser = reportsConf.userReports;
 
 			if (userId == $rootScope.apiData.loggedInUser._id) {
 				scope.elemContextMenuConf = scope.reportContextMenuConf;

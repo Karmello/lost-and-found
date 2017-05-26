@@ -34,7 +34,7 @@
 					label: $rootScope.hardData.imperatives[30],
 					onClick: function() {
 
-						reportsConf.profileCollectionBrowser.selectAll();
+						reportsConf.userReports.selectAll();
 					}
 				},
 				{
@@ -42,7 +42,7 @@
 					label: $rootScope.hardData.imperatives[29],
 					onClick: function() {
 
-						reportsConf.profileCollectionBrowser.deselectAll();
+						reportsConf.userReports.deselectAll();
 					}
 				},
 				{
@@ -50,7 +50,7 @@
 					label: $rootScope.hardData.imperatives[31],
 					onClick: function() {
 
-						var selectedReports = reportsConf.profileCollectionBrowser.getSelectedCollection();
+						var selectedReports = reportsConf.userReports.getSelectedCollection();
 						if (selectedReports.length > 0) { reportsService.deleteReports(selectedReports); }
 					}
 				}

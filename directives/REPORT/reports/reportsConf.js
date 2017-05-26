@@ -6,7 +6,7 @@
 
 		var hardData = hardDataService.get();
 
-		this.searchCollectionBrowser = new myClass.MyCollectionBrowser({
+		this.searchReports = new myClass.MyCollectionBrowser({
 			singlePageSize: 25,
 			filterer: {
 				switchers: [
@@ -40,7 +40,7 @@
 
 				var model = ReportsRest.reportSearchModel.getValues();
 
-				query.subject = 'reports';
+				query.subject = 'searchReports';
 				query.title = model.title;
 				query.categoryId = model.categoryId;
 				query.subcategoryId = model.subcategoryId;
@@ -49,7 +49,7 @@
 			}
 		});
 
-		this.profileCollectionBrowser = new myClass.MyCollectionBrowser({
+		this.userReports = new myClass.MyCollectionBrowser({
 			singlePageSize: 25,
 			filterer: {
 				switchers: [
@@ -81,18 +81,18 @@
 			},
 			fetchData: function(query) {
 
-				query.subject = 'user_reports';
+				query.subject = 'userReports';
 				query.userId = $rootScope.apiData.profileUser._id;
 				return ReportsRest.getList(query);
 			}
 		});
 
-		this.recentlyReportedCollectionBrowser = new myClass.MyCollectionBrowser({
+		this.recentReports = new myClass.MyCollectionBrowser({
 			singlePageSize: 5,
 			noPager: true,
 			fetchData: function(query) {
 
-				query.subject = 'new_reports';
+				query.subject = 'recentReports';
 				query.sort='-dateAdded';
 				query.limit = 5;
 
@@ -100,12 +100,12 @@
 			}
 		});
 
-		this.recentlyViewedCollectionBrowser = new myClass.MyCollectionBrowser({
+		this.viewedReports = new myClass.MyCollectionBrowser({
 			singlePageSize: 5,
 			hideRefresher: true,
 			fetchData: function(query) {
 
-				query.subject = 'recently_viewed_reports';
+				query.subject = 'viewedReports';
 				query.limit = 5;
 
 				return ReportsRest.getList(query);
@@ -114,8 +114,6 @@
 
 		return this;
 	};
-
-
 
 	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
 	angular.module('appModule').service('reportsConf', reportsConf);

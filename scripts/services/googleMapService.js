@@ -84,7 +84,7 @@
 						service.geo.allowed = conf.geoAllowed;
 
 						if (!service.searchReportsMap.markers) {
-							service.searchReportsMap.addMarkers(reportsConf.searchCollectionBrowser.collection);
+							service.searchReportsMap.addMarkers(reportsConf.searchReports.collection);
 						}
 					});
 

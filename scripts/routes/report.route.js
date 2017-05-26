@@ -17,7 +17,7 @@
 							var promises = [];
 
 							promises.push(UsersRest.getList({ reportId: $stateParams.id }));
-							promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'report' }));
+							promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
 
 							$q.all(promises).then(function(results) {
 								$timeout(function() { resolve(true); });

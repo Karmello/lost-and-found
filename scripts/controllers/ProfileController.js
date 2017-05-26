@@ -4,7 +4,7 @@
 
 	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf, MySwitchable) {
 
-		$scope.profileCollectionBrowser = reportsConf.profileCollectionBrowser;
+		$scope.userReports = reportsConf.userReports;
 		$scope.profileReportsContextMenu = new MySwitchable(contextMenuConf.profileReportsContextMenu);
 
 

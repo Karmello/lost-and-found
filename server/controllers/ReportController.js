@@ -12,21 +12,21 @@ module.exports = function(app, route) {
 
 		switch (req.query.subject) {
 
-			case 'report':
-				authorize.userToken(req, res, function() {
-					r.actions.report.getById(req, res, next);
-				});
-				break;
-
-			case 'reports':
-			case 'new_reports':
-			case 'user_reports':
+			case 'searchReports':
+			case 'recentReports':
+			case 'userReports':
 				r.actions.report.getByQuery(req, res, next);
 				break;
 
-			case 'recently_viewed_reports':
+			case 'viewedReports':
 				authorize.userToken(req, res, function() {
 					r.actions.report.getByIds(req, res, next);
+				});
+				break;
+
+			case 'singleReport':
+				authorize.userToken(req, res, function() {
+					r.actions.report.getById(req, res, next);
 				});
 				break;
 		}

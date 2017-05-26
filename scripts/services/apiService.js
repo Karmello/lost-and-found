@@ -35,94 +35,86 @@
 
 
 
-				if (operation == 'getList') {
+				if (what == 'users') {
 
-					if (what == 'users') {
+					if (operation == 'getList') {
 
-						if (res.config.params) {
+						if (res.config.params._id) {
+							$rootScope.apiData.profileUser = data[0];
 
-							if (res.config.params._id) {
-								$rootScope.apiData.profileUser = data[0];
-
-							} else if (res.config.params.reportId) {
-								$rootScope.apiData.reportUser = data[0];
-							}
+						} else if (res.config.params.reportId) {
+							$rootScope.apiData.reportUser = data[0];
 						}
 
-					} else if (what == 'reports') {
+					} else if (operation == 'post') {
 
-						if (res.config.params) {
-
-							switch (res.config.params.subject) {
-
-								case 'reports':
-									reportsConf.searchCollectionBrowser.setData(data);
-									googleMapService.searchReportsMap.addMarkers(data.collection);
-									return data.collection;
-
-								case 'new_reports':
-									reportsConf.recentlyReportedCollectionBrowser.setData(data);
-									return data.collection;
-
-								case 'user_reports':
-									reportsConf.profileCollectionBrowser.setData(data);
-									return data.collection;
-
-								case 'recently_viewed_reports':
-									reportsConf.recentlyViewedCollectionBrowser.setData(data);
-									return data.collection;
-
-								case 'report':
-									$rootScope.apiData.report = data.report;
-									$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
-									return [data.report];
-							}
-						}
-
-					} else if (what == 'comments') {
-
-						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
-						commentsConf.reportCommentsBrowser.setData(data);
-						return data.collection;
-					}
-
-				} else if (operation == 'post') {
-
-					if (what == 'users') {
+						$rootScope.apiData.loggedInUser = data.user;
 
 						if (res.config.params.action == 'updatePass') {
-
-							$rootScope.apiData.loggedInUser = data.user;
 							return data.user;
 
 						} else {
 
-							$rootScope.apiData.loggedInUser = data.user;
+							Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
 							$rootScope.apiData.appConfig = data.appConfig;
-							Restangular.restangularizeElement(undefined, $rootScope.apiData.appConfig, 'app_configs');
 							return Restangular.restangularizeCollection(undefined, [data.user], 'users');
 						}
 
-					} else if (what == 'reports') {
-
-						return Restangular.restangularizeElement(undefined, data, 'reports');
-					}
-
-				} else if (operation == 'put') {
-
-					if (what == 'users') {
+					} else if (operation == 'put') {
 
 						$rootScope.apiData.loggedInUser = data.user;
 						return data.user;
+					}
+				}
 
-					} else if (what == 'app_configs') {
+				if (what == 'reports') {
+
+					if (operation == 'getList') {
+
+						switch (res.config.params.subject) {
+
+							case 'searchReports':
+							case 'recentReports':
+							case 'userReports':
+							case 'viewedReports':
+
+								reportsConf[res.config.params.subject].setData(data);
+
+								if (res.config.params.subject == 'searchReports') {
+									googleMapService.searchReportsMap.addMarkers(data.collection);
+								}
+
+								return data.collection;
+
+							case 'singleReport':
+
+								$rootScope.apiData.report = data.report;
+								$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
+								return [data.report];
+						}
+
+					} else if (operation == 'post') {
+
+						return Restangular.restangularizeElement(undefined, data, 'reports');
+					}
+				}
+
+				if (what == 'app_configs') {
+
+					if (operation == 'put') {
 
 						var appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
 						$rootScope.apiData.appConfig = appConfig;
+					}
+				}
 
-					} else if (what == 'reports') {
+				if (what == 'comments') {
 
-						return data;
+					if (operation == 'getList') {
+
+						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
+						commentsConf.reportCommentsBrowser.setData(data);
+						return data.collection;
 					}
 				}
 

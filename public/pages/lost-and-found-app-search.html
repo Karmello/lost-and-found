@@ -18,12 +18,12 @@
 			<my-panel trans-heading="true">
 				<title-section>
 					<span class="glyphicon glyphicon-list"></span>
-					<span ng-if="searchCollectionBrowser.meta.count == 0">&nbsp;&nbsp;&nbsp;{{ hardData.sections[13] }} (0)</span>
-					<span ng-if="searchCollectionBrowser.meta.count > 0">
+					<span ng-if="searchReports.meta.count == 0">&nbsp;&nbsp;&nbsp;{{ hardData.sections[13] }} (0)</span>
+					<span ng-if="searchReports.meta.count > 0">
 						<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[13] }} ({{ hardData.count[11] }}:</span>
-						<span class="text-info">{{ searchCollectionBrowser.meta.count }}</span>,
+						<span class="text-info">{{ searchReports.meta.count }}</span>,
 						<span>{{ hardData.count[10] }}:</span>
-						<span class="text-info">{{ searchCollectionBrowser.collection.length }}</span>)
+						<span class="text-info">{{ searchReports.collection.length }}</span>)
 					</span>
 				</title-section>
 				<body-section>

@@ -4,7 +4,7 @@
 
 	var SearchController = function($rootScope, $scope, $timeout, reportsConf, googleMapService) {
 
-		$scope.searchCollectionBrowser = reportsConf.searchCollectionBrowser;
+		$scope.searchReports = reportsConf.searchReports;
 		$scope.showMap = true;
 
 		$scope.toggleMap = function() {

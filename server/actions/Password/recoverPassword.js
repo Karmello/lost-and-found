@@ -24,7 +24,7 @@ module.exports = function(req, res, next) {
 						action.end(400, {
 							name: 'ValidationError',
 							message: 'user validation failed',
-							errors: { email: { kind: 'not_found', properties: { msgIndex: 11 } } }
+							errors: { email: { kind: 'not_found' } }
 						});
 					}
 				});

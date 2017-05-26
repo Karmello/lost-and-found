@@ -1,22 +1,75 @@
 {
 	"_id": "en",
-	"app": {
-		"name": "LostAndFoundApp",
-		"description": "welcomes You !"
-	},
 	"accountTypes": {
 		"basic": "Basic",
 		"full": "Full"
 	},
+	"app": {
+		"name": "LostAndFoundApp",
+		"description": "welcomes You !"
+	},
+	"count": [
+		"on", "Registered for", "Users", "Reports", "Reported as lost", "Reported as found", "By", "Submitted", "ago", "Approximately",
+		"visible", "all together"
+	],
+	"declaratives": [
+		"I found it !"
+	],
+	"description": [
+		"Log in to your account and take advantage of our services.",
+		"Register if you're not yet part of our community.",
+		"Couldn't log in ? Request new password.",
+		"Change your personal details.",
+		"Change your current password.",
+		"Application regional settings."
+	],
+	"imperatives": [
+		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
+		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Search", "Choose", "Refresh",
+		"Move left", "Move right", "Rotate", "Zoom in", "Zoom out", "Scroll to top", "Delete account", "Choose an image", "Set as avatar", "Deselect all",
+		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay", "Hide map", "Show map"
+	],
+	"information": [
+		"Below is verification link for resetting password. It will be active for the next 24 hours.",
+		"You can change it again anytime under password tab in account settings.",
+		"Your new password have been emailed to you. Check spam folder in case you don't receive it in your inbox.",
+		"This is your new password",
+		"LostAndFoundApp - password reset link",
+		"LostAndFoundApp - new password",
+		"You have just deactivated your account !",
+		"If it's not you who have made the request just ignore this email.",
+		"Currently logged in as"
+	],
+	"labels": [
+		"Email", "Username", "Password", "Current password", "New password", "First name", "Last name", "Title", "Country", "Language",
+		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Type", "Location", "ID", "Details",
+		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
+		"Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
+		"Transaction ID", "Expiration date", "Payer ID"
+	],
 	"languages": [
 		{ "value": "en", "label": "English" },
 		{ "value": "pl", "label": "Polish" }
 	],
+	"msgs": {
+		"titles": [
+			"Welcome !",
+			"Updating settings",
+			"Requesting new password"
+		],
+		"infos": [
+			"You are a part of are community now ! Thanks for joining :)",
+			"You have successfully updated your settings !",
+			"You have successfully updated your settings ! The app will be reloaded now.",
+			"Verification email with link to change the password have been sent. Check spam folder in case you don't receive it in your inbox.",
+			"Thank you for your message. We'll take it into account and try to respond as soon as possible."
+		]
+	},
+	"other": [
+		"Hello",
+		"Enjoy using LostAndFoundApp application !"
+	],
 	"payment": {
-		"methods": {
-			"credit_card": "Credit card",
-			"paypal": "Paypal"
-		},
 		"creditCardTypes": {
 			"visa": "Visa",
 			"master_card": "Mastercard",
@@ -28,11 +81,25 @@
 			{ "value": "USD", "label": "Dollar" },
 			{ "value": "EUR", "label": "Euro" },
 			{ "value": "GBP", "label": "Pound" }
-		]
+		],
+		"methods": {
+			"credit_card": "Credit card",
+			"paypal": "Paypal"
+		}
 	},
-	"reportGroups": [
-		{ "value": "lost", "label": "Loss", "label2": "Lost" },
-		{ "value": "found", "label": "Finding", "label2": "Found" }
+	"questions": [
+		"Why leaving us ?"
+	],
+	"rejections": [
+		"You need to log in in order to gain access to this page.",
+		"Something went wrong :( Try again later.",
+		"You are trying to upload file with the wrong type.",
+		"You are trying to upload too large file. Max size is ",
+		"You have already reached maximum number of uploaded files allowed.",
+		"You are trying to upload too many files.",
+		"You cannot upload file with the same name again.",
+		"Something went wrong :( Try to refresh the page.",
+		"You need to select some files."
 	],
 	"reportCategories": [
 		{
@@ -95,6 +162,18 @@
 			]
 		}
 	],
+	"reportGroups": [
+		{ "value": "lost", "label": "Loss", "label2": "Lost" },
+		{ "value": "found", "label": "Finding", "label2": "Found" }
+	],
+	"sections": [
+		"Home", "Settings", "About", "Help", "Contact", "Photos", "Comments", "Application", "Account", "Regional",
+		"Appearance", "Reports", "Personal details", "Results", "Statistics", "Event", "Subject", "Login", "Register", "Profile picture",
+		"New report", "Recently viewed", "Recently reported", "Status", "Danger zone", "Full account"
+	],
+	"status": [
+		"Logged out", "All", "Nothing to show", "Ascending", "Descending", "No access", "Error", "By title", "By date"
+	],
 	"themes": [
 		{ "value": "standard", "label": "Standard" },
 		{ "value": "darkly", "label": "Dark" },
@@ -103,107 +182,25 @@
 		{ "value": "cosmo", "label": "Cosmo" },
 		{ "value": "raw", "label": "Raw" }
 	],
-	"sections": [
-		"Home", "Settings", "About", "Help", "Contact", "Photos", "Comments", "Application", "Account", "Regional",
-		"Appearance", "Reports", "Personal details", "Results", "Statistics", "Event", "Subject", "Login", "Register", "Profile picture",
-		"New report", "Recently viewed", "Recently reported", "Status", "Danger zone", "Full account"
-	],
-	"labels": [
-		"Email", "Username", "Password", "Current password", "New password", "First name", "Last name", "Title", "Country", "Language",
-		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Type", "Location", "ID", "Details",
-		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
-		"Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
-		"Transaction ID", "Expiration date", "Payer ID"
-	],
-	"description": [
-		"Log in to your account and take advantage of our services.",
-		"Register if you're not yet part of our community.",
-		"Couldn't log in ? Request new password.",
-		"Change your personal details.",
-		"Change your current password.",
-		"Application regional settings."
-	],
-	"imperatives": [
-		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
-		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Search", "Choose", "Refresh",
-		"Move left", "Move right", "Rotate", "Zoom in", "Zoom out", "Scroll to top", "Delete account", "Choose an image", "Set as avatar", "Deselect all",
-		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay", "Hide map", "Show map"
-	],
-	"declaratives": [
-		"I found it !"
-	],
-	"status": [
-		"Logged out", "All", "Nothing to show", "Ascending", "Descending", "No access", "Error", "By title", "By date"
-	],
-	"count": [
-		"on", "Registered for", "Users", "Reports", "Reported as lost", "Reported as found", "By", "Submitted", "ago", "Approximately",
-		"visible", "all together"
-	],
+	"validation": {
+		"digits_found": "must not contain digits",
+		"incorrect": "is incorrect",
+		"multiple_words_found": "must be a single word",
+		"negative": "must not be a negative number",
+		"not_found": "not found in database",
+		"not_integer": "must be an integer",
+		"not_positive": "must be a positive number",
+		"not_unique": "is already taken",
+		"required": "is required",
+		"special_chars_found": "must not contain any special characters",
+		"wrong_credentials": "Wrong credentials",
+		"wrong_length": ["must not be longer than", "must have length of"]
+	},
 	"warnings": [
 		"Sure you want to continue ?",
 		"You are going to remove your account totally and loose all the data ! Are you sure you really wanna do that ?",
 		"You'll lose all the data associated with this report. Are you sure you want to delete it ?",
 		"This is your last chance ! If you continue your account will be gone !",
 		"This action will completely delete your account and all the files and other information associated with it. You won't be able to restore it anytime later."
-	],
-	"information": [
-		"Below is verification link for resetting password. It will be active for the next 24 hours.",
-		"You can change it again anytime under password tab in account settings.",
-		"Your new password have been emailed to you. Check spam folder in case you don't receive it in your inbox.",
-		"This is your new password",
-		"LostAndFoundApp - password reset link",
-		"LostAndFoundApp - new password",
-		"You have just deactivated your account !",
-		"If it's not you who have made the request just ignore this email.",
-		"Currently logged in as"
-	],
-	"rejections": [
-		"You need to log in in order to gain access to this page.",
-		"Something went wrong :( Try again later.",
-		"You are trying to upload file with the wrong type.",
-		"You are trying to upload too large file. Max size is ",
-		"You have already reached maximum number of uploaded files allowed.",
-		"You are trying to upload too many files.",
-		"You cannot upload file with the same name again.",
-		"Something went wrong :( Try to refresh the page.",
-		"You need to select some files."
-	],
-	"questions": [
-		"Why leaving us ?"
-	],
-	"other": [
-		"Hello",
-		"Enjoy using LostAndFoundApp application !"
-	],
-	"validation": [
-		"is required",
-		"is invalid",
-		"is incorrect",
-		"is already taken",
-		"Wrong credentials",
-		"must not contain any special characters",
-		"must not contain digits",
-		"must be a single word",
-		"must be an integer",
-		"must be a positive number",
-		"must not be a negative number",
-		"not found in database",
-		"must be greater than initial value",
-		"must not be longer than",
-		"must have length of"
-	],
-	"msgs": {
-		"titles": [
-			"Welcome !",
-			"Updating settings",
-			"Requesting new password"
-		],
-		"infos": [
-			"You are a part of are community now ! Thanks for joining :)",
-			"You have successfully updated your settings !",
-			"You have successfully updated your settings ! The app will be reloaded now.",
-			"Verification email with link to change the password have been sent. Check spam folder in case you don't receive it in your inbox.",
-			"Thank you for your message. We'll take it into account and try to respond as soon as possible."
-		]
-	}
+	]
 }

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var MyDataModel = function() {
+	var MyDataModel = function(serverMsgService) {
 
 		var MyDataModelValue = function() {
 
@@ -121,8 +121,9 @@
 						if (obj.hasOwnProperty(prop) && toBeSetObj.hasOwnProperty(prop)) {
 
 							if (toBeSetObj[prop] instanceof MyDataModelValue) {
+
 								toBeSetObj[prop].error.kind = obj[prop].kind;
-								toBeSetObj[prop].error.message = obj[prop].message;
+								toBeSetObj[prop].error.message = serverMsgService.getValidationErrMsg(obj[prop]);
 
 							} else {
 								goThrough(obj[prop], toBeSetObj[prop]);
@@ -222,7 +223,7 @@
 		return MyDataModel;
 	};
 
-	MyDataModel.$inject = [];
+	MyDataModel.$inject = ['serverMsgService'];
 	angular.module('appModule').factory('MyDataModel', MyDataModel);
 
 })();

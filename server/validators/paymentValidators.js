@@ -4,7 +4,6 @@ module.exports = {
     method: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function (method) {
 
                 var methods = Object.keys(r.hardData.en.payment.methods);
@@ -22,7 +21,6 @@ module.exports = {
     currency: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function (currency) {
 
                 for (var i = 0; i < r.hardData.en.payment.currencies.length; i++) {
@@ -38,7 +36,6 @@ module.exports = {
     creditCardType: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function (creditCardType) {
 
                 var creditCardTypes = Object.keys(r.hardData.en.payment.creditCardTypes);
@@ -56,7 +53,6 @@ module.exports = {
     creditCardNumber: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function(creditCardNumber) {
 
                 return /^[0-9]{12,19}$/.test(creditCardNumber);
@@ -66,7 +62,6 @@ module.exports = {
     creditCardExpireMonth: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function(creditCardExpireMonth) {
 
                 return /^(0?[1-9]|1[012])$/.test(creditCardExpireMonth);
@@ -76,7 +71,6 @@ module.exports = {
     creditCardExpireYear: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function(creditCardExpireYear) {
 
                 return /^[0-9]{4}$/.test(creditCardExpireYear);
@@ -86,7 +80,6 @@ module.exports = {
     cvv2: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function(cvv2) {
 
                 return /^[0-9]{3,4}$/.test(cvv2);

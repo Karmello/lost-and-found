@@ -9,7 +9,7 @@ module.exports = {
 		var wrongCredentialsErr = {
 			name: 'ValidationError',
 			message: 'user validation failed',
-			errors: { username: { kind: 'incorrect', properties: { msgIndex: 4 } } }
+			errors: { username: { kind: 'wrong_credentials' } }
 		};
 
 

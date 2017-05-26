@@ -40,12 +40,6 @@
 										<span ng-bind="apiData.profileUser.email"></span>
 									</td>
 								</tr>
-								<tr>
-									<td>
-										<span class="text-info">{{ hardData.count[1] }}</span>
-										<span ng-bind="apiData.profileUser.userSince"></span>
-									</td>
-								</tr>
 								<tr ng-if="apiData.loggedInUser._isTheOneLoggedIn()">
 									<td>
 										<span class="text-info">{{ hardData.sections[8] }}</span> -
@@ -56,6 +50,12 @@
 												ng-bind="hardData.accountTypes[apiData.profileUser.paymentId ? 'full' : 'basic']"
 											></span>
 										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="text-info">{{ hardData.count[1] }}</span>
+										<span ng-bind="apiData.profileUser.userSince"></span>
 									</td>
 								</tr>
 							</table>

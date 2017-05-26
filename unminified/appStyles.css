@@ -112,6 +112,38 @@ body .gm-style-iw + div {
 .absCentered {
   position: absolute !important; }
 
+.main-with-aside-1 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px; }
+  @media only screen and (min-width: 992px) {
+    .main-with-aside-1 {
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap; } }
+  .main-with-aside-1 > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-preferred-size: 30%;
+    flex-basis: 30%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    margin-bottom: 25px; }
+    .main-with-aside-1 > div:first-child > div {
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      padding: 0 15px 0 15px; }
+  .main-with-aside-1 > div:last-child {
+    -ms-flex-preferred-size: 650px;
+    flex-basis: 650px; }
+
 #lost-and-found-app-home .myCollectionBrowser .ctrls {
   -ms-flex-pack: end;
   justify-content: flex-end; }
@@ -314,38 +346,6 @@ body .gm-style-iw + div {
     margin-top: 15px; }
     #lost-and-found-app-upgrade #whenPaidSection > #section2 img {
       width: 100px; }
-
-.main-with-aside-1 {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: column wrap;
-  flex-flow: column wrap;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 25px; }
-  @media only screen and (min-width: 992px) {
-    .main-with-aside-1 {
-      -ms-flex-flow: row nowrap;
-      flex-flow: row nowrap; } }
-  .main-with-aside-1 > div:first-child {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -ms-flex-preferred-size: 30%;
-    flex-basis: 30%;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-    margin-bottom: 25px; }
-    .main-with-aside-1 > div:first-child > div {
-      -ms-flex-positive: 1;
-      flex-grow: 1;
-      padding: 0 15px 0 15px; }
-  .main-with-aside-1 > div:last-child {
-    -ms-flex-preferred-size: 650px;
-    flex-basis: 650px; }
 
 #auctionNumBox {
   display: -ms-flexbox;
@@ -793,6 +793,30 @@ body .gm-style-iw + div {
   margin-left: 10px;
   margin-right: 10px; }
 
+.userAvatar {
+  display: table;
+  margin: 0 auto; }
+  .userAvatar .mySrc .srcLabel {
+    margin-top: 3px; }
+
+.defaultAvatarSize, .userBadge .mySrc img {
+  width: 200px;
+  height: 200px; }
+
+.smallAvatarSize, #lost-and-found-app-profile #userSection .userAvatar .mySrc img {
+  width: 150px;
+  height: 150px; }
+
+.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .comments .userAvatar > div .mySrc img {
+  width: 60px;
+  height: 60px; }
+
+.userBadge {
+  position: relative;
+  display: table;
+  margin: 0 auto;
+  padding: 15px; }
+
 .reportAvatar .mySrc img {
   width: 200px;
   object-fit: cover; }
@@ -827,30 +851,6 @@ body .gm-style-iw + div {
 
 .reports .isFound .myCollectionElem {
   background-color: #5bc0de; }
-
-.userAvatar {
-  display: table;
-  margin: 0 auto; }
-  .userAvatar .mySrc .srcLabel {
-    margin-top: 3px; }
-
-.defaultAvatarSize, .userBadge .mySrc img {
-  width: 200px;
-  height: 200px; }
-
-.smallAvatarSize, #lost-and-found-app-profile #userSection .userAvatar .mySrc img {
-  width: 150px;
-  height: 150px; }
-
-.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .comments .userAvatar > div .mySrc img {
-  width: 60px;
-  height: 60px; }
-
-.userBadge {
-  position: relative;
-  display: table;
-  margin: 0 auto;
-  padding: 15px; }
 
 #singleFileInput, #multipleFilesInput {
   display: none; }

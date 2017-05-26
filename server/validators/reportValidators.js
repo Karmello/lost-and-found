@@ -4,7 +4,6 @@ module.exports = {
     categoryId: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function(categoryId) {
 
                 for (var i = 0; i < r.hardData.en.reportCategories.length; i++) {
@@ -20,7 +19,6 @@ module.exports = {
     subcategoryId: {
         correctness: {
             type: 'incorrect',
-            msgIndex: 2,
             validator: function (subcategoryId) {
 
                 var i, subcategories;
@@ -50,9 +48,9 @@ module.exports = {
     title: {
         length: {
             type: 'wrong_length',
-            msgIndex: 14,
-            getIntervalMsg: function() {
-                return global.app.get('REPORT_TITLE_MIN_LENGTH') + '-' + global.app.get('REPORT_TITLE_MAX_LENGTH');
+            limits: {
+                min: global.app.get('REPORT_TITLE_MIN_LENGTH'),
+                max: global.app.get('REPORT_TITLE_MAX_LENGTH')
             },
             validator: function(title) {
 
@@ -63,9 +61,9 @@ module.exports = {
     description: {
         length: {
             type: 'wrong_length',
-            msgIndex: 14,
-            getIntervalMsg: function() {
-                return global.app.get('REPORT_DESCRIPTION_MIN_LENGTH') + '-' + global.app.get('REPORT_DESCRIPTION_MAX_LENGTH');
+            limits: {
+                min: global.app.get('REPORT_DESCRIPTION_MIN_LENGTH'),
+                max: global.app.get('REPORT_DESCRIPTION_MAX_LENGTH')
             },
             validator: function(description) {
 

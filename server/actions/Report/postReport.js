@@ -24,7 +24,7 @@ module.exports = {
 
 				} else {
 
-					var err = { errors: {} };
+					var err = { name: 'ValidationError', errors: {} };
 
 					if (err1) {
 						Object.assign(err.errors, err1.errors);

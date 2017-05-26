@@ -47,6 +47,10 @@
 		{
 			"follow_symlinks": true,
 			"path": "D:\\Workspace\\laf\\dev\\public\\pages"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\server\\validators"
 		}
 	]
 }

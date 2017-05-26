@@ -2453,6 +2453,43 @@
 
 	'use strict';
 
+	var serverMsgService = function(hardDataService) {
+
+		var service = {};
+		var hardData = hardDataService.get();
+
+		service.getValidationErrMsg = function(error) {
+
+			if (typeof hardData.validation[error.kind] == 'string') {
+				return hardData.validation[error.kind];
+
+			} else if (Array.isArray(hardData.validation[error.kind])) {
+
+				var limits = error.properties.limits;
+
+				if (limits) {
+
+					if (limits.min && limits.max) {
+						return hardData.validation[error.kind][1] + ' ' + limits.min + '-' + limits.max;
+
+					} else {
+						return hardData.validation[error.kind][0] + ' ' + limits.max;
+					}
+				}
+			}
+		};
+
+		return service;
+	};
+
+	serverMsgService.$inject = ['hardDataService'];
+	angular.module('appModule').service('serverMsgService', serverMsgService);
+
+})();
+(function() {
+
+	'use strict';
+
 	var sessionService = function($http) {
 
 		var session = {
@@ -3013,7 +3050,7 @@
 
 	'use strict';
 
-	var MyDataModel = function() {
+	var MyDataModel = function(serverMsgService) {
 
 		var MyDataModelValue = function() {
 
@@ -3132,8 +3169,9 @@
 						if (obj.hasOwnProperty(prop) && toBeSetObj.hasOwnProperty(prop)) {
 
 							if (toBeSetObj[prop] instanceof MyDataModelValue) {
+
 								toBeSetObj[prop].error.kind = obj[prop].kind;
-								toBeSetObj[prop].error.message = obj[prop].message;
+								toBeSetObj[prop].error.message = serverMsgService.getValidationErrMsg(obj[prop]);
 
 							} else {
 								goThrough(obj[prop], toBeSetObj[prop]);
@@ -3233,7 +3271,7 @@
 		return MyDataModel;
 	};
 
-	MyDataModel.$inject = [];
+	MyDataModel.$inject = ['serverMsgService'];
 	angular.module('appModule').factory('MyDataModel', MyDataModel);
 
 })();
@@ -5247,35 +5285,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('appStats', function($rootScope) {
-
-		var appStats = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/tables/appStats/appStats.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-				};
-			}
-		};
-
-		return appStats;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('imgCropWindow', function($rootScope, $window, $timeout, MySrcAction, MyModal, MyLoader, NUMS) {
 
 		var imgId = '#cropImg';
@@ -5407,6 +5416,35 @@
 		};
 
 		return imgCropWindow;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('appStats', function($rootScope) {
+
+		var appStats = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/tables/appStats/appStats.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return appStats;
 	});
 
 })();

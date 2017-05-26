@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var MyCollectionBrowser = function(hardDataService, MyCollectionSelector, MySwitchable, MyLoader) {
+	var MyCollectionBrowser = function(hardDataService, MyCollectionSelector, MySwitchable, MyLoader, $timeout) {
 
 		var hardData = hardDataService.get();
 
@@ -52,70 +52,72 @@
 		MyCollectionBrowser.prototype.init = function(cb) {
 
 			var that = this;
+			var fetched = false;
 
-			that.loader.start(false, function() {
+			// Fetching collection to display
 
-				// Fetching collection to display
+			try {
 
-				try {
+				$timeout(function() { if (!fetched) { that.loader.start(); } }, 100);
 
-					that.fetchData(that.createFetchQuery()).then(function(res) {
+				that.fetchData(that.createFetchQuery()).then(function(res) {
 
-						// Initializing pager ctrl
+					fetched = true;
 
-						if (that.noPager) { that.meta.count = that.collection.length; }
-						that.refresher = {};
+					// Initializing pager ctrl
 
-						if (that.meta.count > 0) {
+					if (that.noPager) { that.meta.count = that.collection.length; }
+					that.refresher = {};
 
-							var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
-							var pagerSwitchers = [];
+					if (that.meta.count > 0) {
 
-							for (var i = 0; i < numOfPages; i++) {
-								pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
-							}
+						var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
+						var pagerSwitchers = [];
 
-							var currentPage;
-
-							if (that.pager) {
-								currentPage = that.pager.activeSwitcherId;
-							}
-
-							that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
-
-							if (currentPage) {
-								that.pager.activateSwitcher(currentPage);
-							}
-
-						} else { that.pager = undefined; }
-
-						// Binding choose event for all ctrls
-
-						var exec = function(switcher) {
-							switcher.onClick = function() { that.onChoose(switcher); };
-						};
-
-						for (var j in that.ctrls) {
-							if (that[that.ctrls[j].name]) {
-								angular.forEach(that[that.ctrls[j].name].switchers, exec);
-							}
+						for (var i = 0; i < numOfPages; i++) {
+							pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
 						}
 
-						// Finishing
-						that.loader.stop(function() { if (cb) { cb(true); } });
+						var currentPage;
 
-					}, function(res) {
+						if (that.pager) {
+							currentPage = that.pager.activeSwitcherId;
+						}
 
-						that.flush();
-						that.loader.stop(function() { if (cb) { cb(false); } });
-					});
+						that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
 
-				} catch (ex) {
+						if (currentPage) {
+							that.pager.activateSwitcher(currentPage);
+						}
+
+					} else { that.pager = undefined; }
+
+					// Binding choose event for all ctrls
+
+					var exec = function(switcher) {
+						switcher.onClick = function() { that.onChoose(switcher); };
+					};
+
+					for (var j in that.ctrls) {
+						if (that[that.ctrls[j].name]) {
+							angular.forEach(that[that.ctrls[j].name].switchers, exec);
+						}
+					}
+
+					// Finishing
+					that.loader.stop(function() { if (cb) { cb(true); } });
+
+				}, function(res) {
 
 					that.flush();
 					that.loader.stop(function() { if (cb) { cb(false); } });
-				}
-			});
+				});
+
+			} catch (ex) {
+
+				that.flush();
+				that.loader.stop(function() { if (cb) { cb(false); } });
+			}
 		};
 
 		MyCollectionBrowser.prototype.setData = function(data) {
@@ -229,7 +231,7 @@
 		return MyCollectionBrowser;
 	};
 
-	MyCollectionBrowser.$inject = ['hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader'];
+	MyCollectionBrowser.$inject = ['hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader', '$timeout'];
 	angular.module('appModule').factory('MyCollectionBrowser', MyCollectionBrowser);
 
 })();

@@ -46,6 +46,7 @@
 						ui.menus.top.activateSwitcher();
 						ui.frames.main.activateSwitcher('report');
 						ui.frames.app.activateSwitcher('main');
+						ui.loaders.renderer.stop();
 					});
 				}
 			}

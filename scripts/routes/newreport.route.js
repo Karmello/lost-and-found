@@ -16,6 +16,7 @@
 				ui.menus.top.activateSwitcher('newreport');
 				ui.frames.main.activateSwitcher('newreport');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});

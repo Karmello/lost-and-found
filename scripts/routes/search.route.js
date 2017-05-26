@@ -14,6 +14,7 @@
 				ui.menus.top.activateSwitcher('search');
 				ui.frames.main.activateSwitcher('search');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 
 				var timeout = 0;
 				if (ui.loaders.renderer.isLoading) { timeout = 4000; }

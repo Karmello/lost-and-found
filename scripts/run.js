@@ -1,10 +1,16 @@
 (function() {
 
-	angular.module('appModule').run(function($rootScope, $location, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst) {
+	angular.module('appModule').run(function(
+		$rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, socketService
+	) {
+
+		ui.loaders.renderer.start();
+		uiThemeService.include(sessionConst.theme);
 
 		//logService.resetAll();
+		socketService.init();
 		apiService.setup();
-		uiThemeService.include(sessionConst.theme);
+
 		$moment.locale(sessionConst.language);
 
 		if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
@@ -13,14 +19,7 @@
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-			if (fromState.name.split('.')[0] != toState.name.split('.')[0]) {
-				ui.loaders.renderer.start();
-			}
-
-			if (fromState != toState) {
-				$('.modal').modal('hide');
-				$('.navbar-collapse').collapse('hide');
-			}
+			if (fromState != toState) { $('.modal').modal('hide'); }
 		});
 
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -61,8 +60,6 @@
 
 				$('html, body').animate({ scrollTop: newScrollY }, 'fast');
 			});
-
-			$timeout(function() { ui.loaders.renderer.stop(); }, 1000);
 		});
 	});
 

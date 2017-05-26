@@ -3,11 +3,8 @@
 	'use strict';
 
 	var AppController = function(
-		$rootScope, $scope, $window, $timeout, $moment, $state, storageService, authService, hardDataService, ui,
-		uiSetupService, socketService, myClass, Restangular
+		$rootScope, $scope, $window, $state, storageService, authService, hardDataService, ui, uiSetupService, Restangular
 	) {
-
-		socketService.init();
 
 		$rootScope.ui = ui;
 		$rootScope.hardData = hardDataService.get();
@@ -61,8 +58,8 @@
 	};
 
 	AppController.$inject = [
-		'$rootScope', '$scope', '$window', '$timeout', '$moment', '$state', 'storageService', 'authService',
-		'hardDataService', 'ui', 'uiSetupService', 'socketService', 'myClass', 'Restangular'
+		'$rootScope', '$scope', '$window', '$state', 'storageService', 'authService', 'hardDataService', 'ui', 'uiSetupService',
+		'Restangular'
 	];
 
 	angular.module('appModule').controller('AppController', AppController);

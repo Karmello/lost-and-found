@@ -53,6 +53,7 @@
 				ui.menus.top.activateSwitcher();
 				ui.frames.main.activateSwitcher('upgrade');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});

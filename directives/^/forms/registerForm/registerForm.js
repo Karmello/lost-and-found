@@ -26,6 +26,8 @@
 					},
 					submitSuccessCb: function(res) {
 
+						UsersRest.registerModel.reset(true, true);
+
 						authService.setAsLoggedIn(function() {
 							$timeout(function() {
 								$state.go('app.start', { tab: 'status' });

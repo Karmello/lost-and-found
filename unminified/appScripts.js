@@ -98,11 +98,17 @@
 })();
 (function() {
 
-	angular.module('appModule').run(function($rootScope, $location, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst) {
+	angular.module('appModule').run(function(
+		$rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, socketService
+	) {
+
+		ui.loaders.renderer.start();
+		uiThemeService.include(sessionConst.theme);
 
 		//logService.resetAll();
+		socketService.init();
 		apiService.setup();
-		uiThemeService.include(sessionConst.theme);
+
 		$moment.locale(sessionConst.language);
 
 		if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
@@ -111,14 +117,7 @@
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-			if (fromState.name.split('.')[0] != toState.name.split('.')[0]) {
-				ui.loaders.renderer.start();
-			}
-
-			if (fromState != toState) {
-				$('.modal').modal('hide');
-				$('.navbar-collapse').collapse('hide');
-			}
+			if (fromState != toState) { $('.modal').modal('hide'); }
 		});
 
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -159,8 +158,6 @@
 
 				$('html, body').animate({ scrollTop: newScrollY }, 'fast');
 			});
-
-			$timeout(function() { ui.loaders.renderer.stop(); }, 1000);
 		});
 	});
 
@@ -687,11 +684,8 @@
 	'use strict';
 
 	var AppController = function(
-		$rootScope, $scope, $window, $timeout, $moment, $state, storageService, authService, hardDataService, ui,
-		uiSetupService, socketService, myClass, Restangular
+		$rootScope, $scope, $window, $state, storageService, authService, hardDataService, ui, uiSetupService, Restangular
 	) {
-
-		socketService.init();
 
 		$rootScope.ui = ui;
 		$rootScope.hardData = hardDataService.get();
@@ -745,8 +739,8 @@
 	};
 
 	AppController.$inject = [
-		'$rootScope', '$scope', '$window', '$timeout', '$moment', '$state', 'storageService', 'authService',
-		'hardDataService', 'ui', 'uiSetupService', 'socketService', 'myClass', 'Restangular'
+		'$rootScope', '$scope', '$window', '$state', 'storageService', 'authService', 'hardDataService', 'ui', 'uiSetupService',
+		'Restangular'
 	];
 
 	angular.module('appModule').controller('AppController', AppController);
@@ -888,6 +882,7 @@
 				ui.frames.main.activateSwitcher('about');
 				ui.menus.top.activateSwitcher('about');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -1044,6 +1039,7 @@
 				ui.frames.main.activateSwitcher('contact');
 				ui.menus.top.activateSwitcher('contact');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -1065,6 +1061,7 @@
 				ui.frames.main.activateSwitcher('help');
 				ui.menus.top.activateSwitcher('help');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -1088,6 +1085,7 @@
 				ui.menus.top.activateSwitcher('home');
 				ui.frames.main.activateSwitcher('home');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -1111,6 +1109,7 @@
 				ui.menus.top.activateSwitcher('newreport');
 				ui.frames.main.activateSwitcher('newreport');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -1152,6 +1151,7 @@
 				ui.menus.top.activateSwitcher();
 				ui.frames.main.activateSwitcher('profile');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -1205,6 +1205,7 @@
 						ui.menus.top.activateSwitcher();
 						ui.frames.main.activateSwitcher('report');
 						ui.frames.app.activateSwitcher('main');
+						ui.loaders.renderer.stop();
 					});
 				}
 			}
@@ -1242,6 +1243,7 @@
 				ui.menus.top.activateSwitcher('search');
 				ui.frames.main.activateSwitcher('search');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 
 				var timeout = 0;
 				if (ui.loaders.renderer.isLoading) { timeout = 4000; }
@@ -1372,6 +1374,7 @@
 
 				ui.frames.main.activateSwitcher('settings');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -1404,20 +1407,7 @@
 						// Invalid tab
 						} else { reject('login'); }
 
-	    			}).then(function() {
-
-	    				// Resolve
-
-	    				ui.tabs.start.activateSwitcher($stateParams.tab);
-						ui.frames.main.activateSwitcher();
-						ui.frames.app.activateSwitcher('start');
-	    				ui.listGroups.settings.getFirstSwitcher().activate();
-
-						angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-							ui.tabs[switcher._id].getFirstSwitcher().activate();
-						});
-
-	    			}, function(redirectTab) {
+	    			}).then(undefined, function(redirectTab) {
 
 	    				// Reject
 	    				$timeout(function() {
@@ -1427,6 +1417,19 @@
 				}
 			},
 			onEnter: function($rootScope, $stateParams, $timeout, ui) {
+
+				ui.tabs.start.activateSwitcher($stateParams.tab);
+				ui.frames.main.activateSwitcher();
+				ui.frames.app.activateSwitcher('start');
+				ui.listGroups.settings.getFirstSwitcher().activate();
+
+				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+					ui.tabs[switcher._id].getFirstSwitcher().activate();
+				});
+
+				ui.loaders.renderer.stop();
+
+
 
 				switch ($stateParams.action) {
 
@@ -1503,6 +1506,7 @@
 				ui.menus.top.activateSwitcher();
 				ui.frames.main.activateSwitcher('upgrade');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});
@@ -2744,6 +2748,172 @@
 
 	'use strict';
 
+	var AppConfigsRest = function(Restangular, MyDataModel) {
+
+		var appConfigs = Restangular.service('app_configs');
+
+		appConfigs.appConfigModel = new MyDataModel({
+			language: {},
+			theme: {}
+		});
+
+		return appConfigs;
+	};
+
+	AppConfigsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('AppConfigsRest', AppConfigsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var CommentsRest = function(Restangular, MyDataModel) {
+
+		var comments = Restangular.service('comments');
+
+		comments.commentModel = new MyDataModel({
+			userId: {},
+			content: {}
+		});
+
+		return comments;
+	};
+
+	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('CommentsRest', CommentsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ContactTypesRest = function(Restangular, MyDataModel) {
+
+		var contactTypes = Restangular.service('contact_types');
+
+		contactTypes.contactTypeModel = new MyDataModel({
+			contactType: {},
+			contactMsg: {}
+		});
+
+		return contactTypes;
+	};
+
+	ContactTypesRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var DeactivationReasonsRest = function(Restangular, MyDataModel) {
+
+		var deactivationReasons = Restangular.service('deactivation_reasons')
+
+		deactivationReasons.deactivationReasonModel = new MyDataModel({
+			deactivationReasonId: {}
+		});
+
+		return deactivationReasons;
+	};
+
+	DeactivationReasonsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var PaymentsRest = function(Restangular, MyDataModel) {
+
+		var payments = Restangular.service('payments');
+
+		payments.myDataModel = new MyDataModel({
+			paymentMethod: {},
+			creditCardType: {},
+			creditCardNumber: {},
+			creditCardExpireMonth: {},
+			creditCardExpireYear: {},
+			cvv2: {},
+			firstname: {},
+			lastname: {},
+			amount: {},
+			currency: {}
+		});
+
+		return payments;
+	};
+
+	PaymentsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('PaymentsRest', PaymentsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var UsersRest = function($rootScope, Restangular, MyDataModel) {
+
+		var users = Restangular.service('users');
+
+		users.loginModel = new MyDataModel({
+			username: {},
+			password: {}
+		});
+
+		users.registerModel = new MyDataModel({
+			email: {},
+			username: {},
+			password: {},
+			firstname: {},
+			lastname: {},
+			countryFirstLetter: {},
+			country: {}
+		});
+
+		users.recoverModel = new MyDataModel({
+			email: {}
+		});
+
+		users.personalDetailsModel = new MyDataModel({
+			email: {},
+			firstname: {},
+			lastname: {},
+			countryFirstLetter: {},
+			country: {}
+		});
+
+		users.passwordModel = new MyDataModel({
+			currentPassword: {},
+			password: {}
+		});
+
+		Restangular.extendModel('users', function(user) {
+
+			user._isTheOneLoggedIn = function() {
+
+				if ($rootScope.apiData.loggedInUser) {
+					return user._id == $rootScope.apiData.loggedInUser._id;
+				}
+			};
+
+			return user;
+		});
+
+		return users;
+	};
+
+	UsersRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('UsersRest', UsersRest);
+
+})();
+(function() {
+
+	'use strict';
+
 	var myClass = function(
 		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyDataModel, MyCollectionBrowser, MySrcCollection,
 		MyForm, MySrcAction
@@ -2776,7 +2946,7 @@
 
 	'use strict';
 
-	var MyCollectionBrowser = function(hardDataService, MyCollectionSelector, MySwitchable, MyLoader) {
+	var MyCollectionBrowser = function(hardDataService, MyCollectionSelector, MySwitchable, MyLoader, $timeout) {
 
 		var hardData = hardDataService.get();
 
@@ -2826,70 +2996,72 @@
 		MyCollectionBrowser.prototype.init = function(cb) {
 
 			var that = this;
+			var fetched = false;
 
-			that.loader.start(false, function() {
+			// Fetching collection to display
 
-				// Fetching collection to display
+			try {
 
-				try {
+				$timeout(function() { if (!fetched) { that.loader.start(); } }, 100);
 
-					that.fetchData(that.createFetchQuery()).then(function(res) {
+				that.fetchData(that.createFetchQuery()).then(function(res) {
 
-						// Initializing pager ctrl
+					fetched = true;
 
-						if (that.noPager) { that.meta.count = that.collection.length; }
-						that.refresher = {};
+					// Initializing pager ctrl
 
-						if (that.meta.count > 0) {
+					if (that.noPager) { that.meta.count = that.collection.length; }
+					that.refresher = {};
 
-							var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
-							var pagerSwitchers = [];
+					if (that.meta.count > 0) {
 
-							for (var i = 0; i < numOfPages; i++) {
-								pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
-							}
+						var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
+						var pagerSwitchers = [];
 
-							var currentPage;
-
-							if (that.pager) {
-								currentPage = that.pager.activeSwitcherId;
-							}
-
-							that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
-
-							if (currentPage) {
-								that.pager.activateSwitcher(currentPage);
-							}
-
-						} else { that.pager = undefined; }
-
-						// Binding choose event for all ctrls
-
-						var exec = function(switcher) {
-							switcher.onClick = function() { that.onChoose(switcher); };
-						};
-
-						for (var j in that.ctrls) {
-							if (that[that.ctrls[j].name]) {
-								angular.forEach(that[that.ctrls[j].name].switchers, exec);
-							}
+						for (var i = 0; i < numOfPages; i++) {
+							pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
 						}
 
-						// Finishing
-						that.loader.stop(function() { if (cb) { cb(true); } });
+						var currentPage;
 
-					}, function(res) {
+						if (that.pager) {
+							currentPage = that.pager.activeSwitcherId;
+						}
 
-						that.flush();
-						that.loader.stop(function() { if (cb) { cb(false); } });
-					});
+						that.pager = new MySwitchable({ _id: 'pager', switchers: pagerSwitchers });
 
-				} catch (ex) {
+						if (currentPage) {
+							that.pager.activateSwitcher(currentPage);
+						}
+
+					} else { that.pager = undefined; }
+
+					// Binding choose event for all ctrls
+
+					var exec = function(switcher) {
+						switcher.onClick = function() { that.onChoose(switcher); };
+					};
+
+					for (var j in that.ctrls) {
+						if (that[that.ctrls[j].name]) {
+							angular.forEach(that[that.ctrls[j].name].switchers, exec);
+						}
+					}
+
+					// Finishing
+					that.loader.stop(function() { if (cb) { cb(true); } });
+
+				}, function(res) {
 
 					that.flush();
 					that.loader.stop(function() { if (cb) { cb(false); } });
-				}
-			});
+				});
+
+			} catch (ex) {
+
+				that.flush();
+				that.loader.stop(function() { if (cb) { cb(false); } });
+			}
 		};
 
 		MyCollectionBrowser.prototype.setData = function(data) {
@@ -3003,7 +3175,7 @@
 		return MyCollectionBrowser;
 	};
 
-	MyCollectionBrowser.$inject = ['hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader'];
+	MyCollectionBrowser.$inject = ['hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader', '$timeout'];
 	angular.module('appModule').factory('MyCollectionBrowser', MyCollectionBrowser);
 
 })();
@@ -4274,172 +4446,6 @@
 
 	'use strict';
 
-	var AppConfigsRest = function(Restangular, MyDataModel) {
-
-		var appConfigs = Restangular.service('app_configs');
-
-		appConfigs.appConfigModel = new MyDataModel({
-			language: {},
-			theme: {}
-		});
-
-		return appConfigs;
-	};
-
-	AppConfigsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('AppConfigsRest', AppConfigsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var CommentsRest = function(Restangular, MyDataModel) {
-
-		var comments = Restangular.service('comments');
-
-		comments.commentModel = new MyDataModel({
-			userId: {},
-			content: {}
-		});
-
-		return comments;
-	};
-
-	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('CommentsRest', CommentsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ContactTypesRest = function(Restangular, MyDataModel) {
-
-		var contactTypes = Restangular.service('contact_types');
-
-		contactTypes.contactTypeModel = new MyDataModel({
-			contactType: {},
-			contactMsg: {}
-		});
-
-		return contactTypes;
-	};
-
-	ContactTypesRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var DeactivationReasonsRest = function(Restangular, MyDataModel) {
-
-		var deactivationReasons = Restangular.service('deactivation_reasons')
-
-		deactivationReasons.deactivationReasonModel = new MyDataModel({
-			deactivationReasonId: {}
-		});
-
-		return deactivationReasons;
-	};
-
-	DeactivationReasonsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var PaymentsRest = function(Restangular, MyDataModel) {
-
-		var payments = Restangular.service('payments');
-
-		payments.myDataModel = new MyDataModel({
-			paymentMethod: {},
-			creditCardType: {},
-			creditCardNumber: {},
-			creditCardExpireMonth: {},
-			creditCardExpireYear: {},
-			cvv2: {},
-			firstname: {},
-			lastname: {},
-			amount: {},
-			currency: {}
-		});
-
-		return payments;
-	};
-
-	PaymentsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('PaymentsRest', PaymentsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var UsersRest = function($rootScope, Restangular, MyDataModel) {
-
-		var users = Restangular.service('users');
-
-		users.loginModel = new MyDataModel({
-			username: {},
-			password: {}
-		});
-
-		users.registerModel = new MyDataModel({
-			email: {},
-			username: {},
-			password: {},
-			firstname: {},
-			lastname: {},
-			countryFirstLetter: {},
-			country: {}
-		});
-
-		users.recoverModel = new MyDataModel({
-			email: {}
-		});
-
-		users.personalDetailsModel = new MyDataModel({
-			email: {},
-			firstname: {},
-			lastname: {},
-			countryFirstLetter: {},
-			country: {}
-		});
-
-		users.passwordModel = new MyDataModel({
-			currentPassword: {},
-			password: {}
-		});
-
-		Restangular.extendModel('users', function(user) {
-
-			user._isTheOneLoggedIn = function() {
-
-				if ($rootScope.apiData.loggedInUser) {
-					return user._id == $rootScope.apiData.loggedInUser._id;
-				}
-			};
-
-			return user;
-		});
-
-		return users;
-	};
-
-	UsersRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('UsersRest', UsersRest);
-
-})();
-(function() {
-
-	'use strict';
-
 	var appModule = angular.module('appModule');
 
 	appModule.directive('formActionBtns', function() {
@@ -4902,6 +4908,8 @@
 						return UsersRest.post(body, { action: 'register' }, { captcha_response: args.captchaResponse });
 					},
 					submitSuccessCb: function(res) {
+
+						UsersRest.registerModel.reset(true, true);
 
 						authService.setAsLoggedIn(function() {
 							$timeout(function() {
@@ -6460,31 +6468,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('mySelectsGroup', function(hardDataService) {
-
-		var mySelectsGroup = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
-			transclude: true,
-			scope: {
-				collection: '=',
-				model: '=',
-				hardData: '='
-			}
-		};
-
-		return mySelectsGroup;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('mySrc', function($timeout, MySwitchable) {
 
 		var mySrc = {
@@ -6531,6 +6514,31 @@
 		};
 
 		return mySrc;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('mySelectsGroup', function(hardDataService) {
+
+		var mySelectsGroup = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/mySelectsGroup/mySelectsGroup.html',
+			transclude: true,
+			scope: {
+				collection: '=',
+				model: '=',
+				hardData: '='
+			}
+		};
+
+		return mySelectsGroup;
 	});
 
 })();
@@ -6705,235 +6713,6 @@
 		};
 
 		return myTextArea;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
-
-		var userAvatar = {
-			restrict: 'E',
-			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
-			scope: {
-				user: '=',
-				editable: '=',
-				noLink: '&',
-				withLabel: '='
-			},
-			controller: function($scope) {
-
-				$scope.src = new MySrc({
-					defaultUrl: userAvatarConf.defaultUrl,
-					uploadRequest: userAvatarService.uploadRequest,
-					removeRequest: userAvatarService.removeRequest
-				});
-
-				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					scope.$watch(function() { return scope.user; }, function(user) {
-
-						if (user) {
-							if (scope.withLabel) { scope.src.label = scope.user.truncatedUsername; }
-							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
-							userAvatarService.loadPhoto(scope);
-						}
-					});
-				};
-			}
-		};
-
-		return userAvatar;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var userAvatarConf = function($rootScope, userAvatarService, utilService) {
-
-		var conf = {
-			defaultUrl: 'public/imgs/avatar.png',
-			getSrcContextMenuConf: function(scope) {
-
-				return {
-					icon: 'glyphicon glyphicon-option-horizontal',
-					switchers: [
-						{
-							_id: 'update',
-							label: $rootScope.hardData.imperatives[5],
-							onClick: function() {
-
-								$rootScope.$broadcast('displayImgCropWindow', {
-									acceptCb: function(dataURI) {
-
-										scope.src.update({ file: utilService.dataURItoBlob(dataURI) }, true).then(function(success) {
-											if (success) { userAvatarService.loadPhoto(scope, true); }
-										});
-									}
-								});
-							}
-						},
-						{
-							_id: 'delete',
-							label: $rootScope.hardData.imperatives[14],
-							onClick: function() {
-
-								scope.src.remove(undefined, true);
-							},
-							isHidden: function() { return scope.src.isDefaultUrlLoaded(); }
-						},
-						{
-							_id: 'refresh',
-							label: $rootScope.hardData.imperatives[19],
-							onClick: function() {
-
-								userAvatarService.loadPhoto(scope, true);
-							}
-						}
-					]
-				};
-			}
-		};
-
-		return conf;
-	};
-
-	userAvatarConf.$inject = ['$rootScope', 'userAvatarService', 'utilService'];
-	angular.module('appModule').service('userAvatarConf', userAvatarConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var userAvatarService = function($rootScope, $q, aws3Service, MySrcAction, Restangular, URLS) {
-
-		var service = {
-			loadPhoto: function(scope, force) {
-
-				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
-
-					if (!success) {
-						scope.src.load(service.constructPhotoUrl(scope, false), force);
-					}
-				});
-			},
-			constructPhotoUrl: function(scope, useThumb) {
-
-				if (scope.user.photos.length === 0) { return scope.src.defaultUrl; }
-
-				if (!useThumb) {
-					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.user._id + '/' + scope.user.photos[0].filename;
-
-				} else {
-					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.user._id + '/' + scope.user.photos[0].filename;
-				}
-			},
-			uploadRequest: function(args) {
-
-				var src = this;
-
-				return $q(function(resolve) {
-
-					aws3Service.getCredentials('user_avatar', { fileTypes: [args.file.type] }).then(function(res1) {
-
-						var formData = MySrcAction.createFormDataObject(res1.data[0].awsFormData, args.file);
-
-						aws3Service.makeRequest(res1.data[0].awsUrl, formData).success(function(res2) {
-
-							$rootScope.apiData.profileUser.photos[0] = {
-								filename: res1.data[0].awsFilename,
-								size: args.file.size
-							};
-
-							$rootScope.apiData.profileUser.put().then(function(res3) {
-
-								$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
-
-								resolve({
-									success: true,
-									url: service.constructPhotoUrl({
-										src: src,
-										user: $rootScope.apiData.profileUser
-									}, true)
-								});
-
-							}, function(res3) {
-								resolve({ success: false });
-							});
-
-						}).error(function(res2) {
-							resolve({ success: false });
-						});
-
-					}, function(res1) {
-						resolve({ success: false });
-					});
-				});
-			},
-			removeRequest: function() {
-
-				return $q(function(resolve) {
-
-					$rootScope.apiData.profileUser.photos = [];
-
-					$rootScope.apiData.profileUser.put().then(function() {
-
-						$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
-						resolve(true);
-
-					}, function() {
-						resolve(false);
-					});
-				});
-			}
-		};
-
-		return service;
-	};
-
-	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
-	angular.module('appModule').service('userAvatarService', userAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('userBadge', function($rootScope, $state, authService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.status[0];
-
-				$scope.onLogoutClick = function() {
-					$rootScope.logout();
-				};
-
-				$scope.onContinueClick = function() {
-					$state.go('app.home');
-				};
-			}
-		};
 	});
 
 })();
@@ -7720,6 +7499,235 @@
 
 	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf'];
 	angular.module('appModule').service('reportsService', reportsService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('userBadge', function($rootScope, $state, authService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.authState = authService.state;
+				$scope.label1 = $rootScope.hardData.status[0];
+
+				$scope.onLogoutClick = function() {
+					$rootScope.logout();
+				};
+
+				$scope.onContinueClick = function() {
+					$state.go('app.home');
+				};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
+
+		var userAvatar = {
+			restrict: 'E',
+			templateUrl: 'public/directives/USER/userAvatar/userAvatar.html',
+			scope: {
+				user: '=',
+				editable: '=',
+				noLink: '&',
+				withLabel: '='
+			},
+			controller: function($scope) {
+
+				$scope.src = new MySrc({
+					defaultUrl: userAvatarConf.defaultUrl,
+					uploadRequest: userAvatarService.uploadRequest,
+					removeRequest: userAvatarService.removeRequest
+				});
+
+				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.user; }, function(user) {
+
+						if (user) {
+							if (scope.withLabel) { scope.src.label = scope.user.truncatedUsername; }
+							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
+							userAvatarService.loadPhoto(scope);
+						}
+					});
+				};
+			}
+		};
+
+		return userAvatar;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var userAvatarConf = function($rootScope, userAvatarService, utilService) {
+
+		var conf = {
+			defaultUrl: 'public/imgs/avatar.png',
+			getSrcContextMenuConf: function(scope) {
+
+				return {
+					icon: 'glyphicon glyphicon-option-horizontal',
+					switchers: [
+						{
+							_id: 'update',
+							label: $rootScope.hardData.imperatives[5],
+							onClick: function() {
+
+								$rootScope.$broadcast('displayImgCropWindow', {
+									acceptCb: function(dataURI) {
+
+										scope.src.update({ file: utilService.dataURItoBlob(dataURI) }, true).then(function(success) {
+											if (success) { userAvatarService.loadPhoto(scope, true); }
+										});
+									}
+								});
+							}
+						},
+						{
+							_id: 'delete',
+							label: $rootScope.hardData.imperatives[14],
+							onClick: function() {
+
+								scope.src.remove(undefined, true);
+							},
+							isHidden: function() { return scope.src.isDefaultUrlLoaded(); }
+						},
+						{
+							_id: 'refresh',
+							label: $rootScope.hardData.imperatives[19],
+							onClick: function() {
+
+								userAvatarService.loadPhoto(scope, true);
+							}
+						}
+					]
+				};
+			}
+		};
+
+		return conf;
+	};
+
+	userAvatarConf.$inject = ['$rootScope', 'userAvatarService', 'utilService'];
+	angular.module('appModule').service('userAvatarConf', userAvatarConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var userAvatarService = function($rootScope, $q, aws3Service, MySrcAction, Restangular, URLS) {
+
+		var service = {
+			loadPhoto: function(scope, force) {
+
+				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
+
+					if (!success) {
+						scope.src.load(service.constructPhotoUrl(scope, false), force);
+					}
+				});
+			},
+			constructPhotoUrl: function(scope, useThumb) {
+
+				if (scope.user.photos.length === 0) { return scope.src.defaultUrl; }
+
+				if (!useThumb) {
+					return URLS.AWS3_UPLOADS_BUCKET_URL + scope.user._id + '/' + scope.user.photos[0].filename;
+
+				} else {
+					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + scope.user._id + '/' + scope.user.photos[0].filename;
+				}
+			},
+			uploadRequest: function(args) {
+
+				var src = this;
+
+				return $q(function(resolve) {
+
+					aws3Service.getCredentials('user_avatar', { fileTypes: [args.file.type] }).then(function(res1) {
+
+						var formData = MySrcAction.createFormDataObject(res1.data[0].awsFormData, args.file);
+
+						aws3Service.makeRequest(res1.data[0].awsUrl, formData).success(function(res2) {
+
+							$rootScope.apiData.profileUser.photos[0] = {
+								filename: res1.data[0].awsFilename,
+								size: args.file.size
+							};
+
+							$rootScope.apiData.profileUser.put().then(function(res3) {
+
+								$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
+
+								resolve({
+									success: true,
+									url: service.constructPhotoUrl({
+										src: src,
+										user: $rootScope.apiData.profileUser
+									}, true)
+								});
+
+							}, function(res3) {
+								resolve({ success: false });
+							});
+
+						}).error(function(res2) {
+							resolve({ success: false });
+						});
+
+					}, function(res1) {
+						resolve({ success: false });
+					});
+				});
+			},
+			removeRequest: function() {
+
+				return $q(function(resolve) {
+
+					$rootScope.apiData.profileUser.photos = [];
+
+					$rootScope.apiData.profileUser.put().then(function() {
+
+						$rootScope.apiData.loggedInUser = Restangular.copy($rootScope.apiData.profileUser);
+						resolve(true);
+
+					}, function() {
+						resolve(false);
+					});
+				});
+			}
+		};
+
+		return service;
+	};
+
+	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
+	angular.module('appModule').service('userAvatarService', userAvatarService);
 
 })();
 (function() {

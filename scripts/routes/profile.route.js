@@ -34,6 +34,7 @@
 				ui.menus.top.activateSwitcher();
 				ui.frames.main.activateSwitcher('profile');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});

@@ -14,6 +14,7 @@
 				ui.frames.main.activateSwitcher('about');
 				ui.menus.top.activateSwitcher('about');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});

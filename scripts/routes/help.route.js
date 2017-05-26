@@ -14,6 +14,7 @@
 				ui.frames.main.activateSwitcher('help');
 				ui.menus.top.activateSwitcher('help');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});

@@ -47,6 +47,7 @@
 
 				ui.frames.main.activateSwitcher('settings');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});

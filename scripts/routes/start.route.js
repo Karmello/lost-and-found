@@ -25,20 +25,7 @@
 						// Invalid tab
 						} else { reject('login'); }
 
-	    			}).then(function() {
-
-	    				// Resolve
-
-	    				ui.tabs.start.activateSwitcher($stateParams.tab);
-						ui.frames.main.activateSwitcher();
-						ui.frames.app.activateSwitcher('start');
-	    				ui.listGroups.settings.getFirstSwitcher().activate();
-
-						angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
-							ui.tabs[switcher._id].getFirstSwitcher().activate();
-						});
-
-	    			}, function(redirectTab) {
+	    			}).then(undefined, function(redirectTab) {
 
 	    				// Reject
 	    				$timeout(function() {
@@ -48,6 +35,19 @@
 				}
 			},
 			onEnter: function($rootScope, $stateParams, $timeout, ui) {
+
+				ui.tabs.start.activateSwitcher($stateParams.tab);
+				ui.frames.main.activateSwitcher();
+				ui.frames.app.activateSwitcher('start');
+				ui.listGroups.settings.getFirstSwitcher().activate();
+
+				angular.forEach(ui.listGroups.settings.switchers, function(switcher) {
+					ui.tabs[switcher._id].getFirstSwitcher().activate();
+				});
+
+				ui.loaders.renderer.stop();
+
+
 
 				switch ($stateParams.action) {
 

@@ -1,0 +1,2 @@
+// Collapse top nav bar programmatically
+$('.navbar-collapse').collapse('hide');

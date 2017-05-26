@@ -14,6 +14,7 @@
 				ui.frames.main.activateSwitcher('contact');
 				ui.menus.top.activateSwitcher('contact');
 				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			}
 		});
 	});

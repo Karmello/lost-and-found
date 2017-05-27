@@ -1138,11 +1138,12 @@
 				isAuthenticated: function(authentication, resolveService) {
 					return resolveService.isAuthenticated();
 				},
-				getUser: function(isAuthenticated, $state, $stateParams, $q, UsersRest, ui) {
+				getUser: function(isAuthenticated, $rootScope, $state, $stateParams, $q, UsersRest, ui) {
 
 					return $q(function(resolve, reject) {
 
 						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
+							$rootScope.apiData.profileUser = res.data[0];
 							resolve(true);
 
 						}, function() {
@@ -1180,47 +1181,41 @@
 				isAuthenticated: function(authentication, resolveService, $state) {
 					return resolveService.isAuthenticated($state.current.name);
 				},
-				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
+				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, UsersRest, ReportsRest) {
 
 					return $q(function(resolve, reject) {
 
-						if (authService.state.authenticated) {
+						var promises = [];
 
-							var promises = [];
+						promises.push(UsersRest.getList({ reportId: $stateParams.id }));
+						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
 
-							promises.push(UsersRest.getList({ reportId: $stateParams.id }));
-							promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
+						$q.all(promises).then(function(results) {
+							$rootScope.apiData.reportUser = results[0].data[0];
+							resolve();
 
-							$q.all(promises).then(function(results) {
-								$timeout(function() { resolve(true); });
-
-							}, function() {
-								reject();
-								$state.go('app.home');
-							});
-
-						} else { reject(); }
-					});
+						}, function() {
+							reject();
+							$state.go('app.home', undefined, { location: 'replace' });
+						});
+				});
 				}
 			},
-			onEnter: function(apiData, $rootScope, $timeout, $stateParams, googleMapService, ui) {
+			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, ui) {
 
-				if (apiData) {
+				if ($stateParams.edit === '1') {
+					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
-					if ($stateParams.edit === '1') {
-						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
-
-					} else {
-						googleMapService.singleReportMap.init($rootScope.apiData.report);
-					}
-
-					$timeout(function() {
-						ui.menus.top.activateSwitcher();
-						ui.frames.main.activateSwitcher('report');
-						ui.frames.app.activateSwitcher('main');
-						ui.loaders.renderer.stop();
-					});
+				} else {
+					googleMapService.singleReportMap.init($rootScope.apiData.report);
 				}
+
+				$timeout(function() {
+					ui.menus.top.activateSwitcher();
+					ui.frames.main.activateSwitcher('report');
+					ui.frames.app.activateSwitcher('main');
+					ui.loaders.renderer.stop();
+				});
 			}
 		});
 	});
@@ -1359,11 +1354,15 @@
 
 							if (!results[0]) {
 
+								reject();
+
 								$timeout(function() {
 									$state.go('app.settings1', {}, { location: 'replace' });
 								});
 
 							} else if (!results[1]) {
+
+								reject();
 
 								$timeout(function() {
 									$state.go('app.settings2', { catId: $stateParams.catId }, { location: 'replace' });
@@ -1476,14 +1475,16 @@
 				},
 				id: function(isAuthenticated, $q, $rootScope, $state, $stateParams, authService) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
 						if (!$stateParams.id) {
 
 							if (authService.state.authenticated) {
+								reject();
 								$state.go('app.upgrade', { id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
 
 							} else {
+								reject();
 								$state.go('app.start', { tab: 'status' }, { location: 'replace' });
 							}
 
@@ -1529,7 +1530,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, $moment, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -1564,33 +1565,18 @@
 
 				if (what == 'users') {
 
-					if (operation == 'getList') {
+					if (operation == 'post') {
 
-						if (res.config.params._id) {
-							$rootScope.apiData.profileUser = data[0];
+						switch (res.config.params.action) {
 
-						} else if (res.config.params.reportId) {
-							$rootScope.apiData.reportUser = data[0];
+							case 'auth':
+							case 'login':
+							case 'register':
+
+								$rootScope.apiData.loggedInUser = Restangular.restangularizeElement(undefined, data.user, 'users');
+								$rootScope.apiData.appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
+								break;
 						}
-
-					} else if (operation == 'post') {
-
-						$rootScope.apiData.loggedInUser = data.user;
-
-						if (res.config.params.action == 'updatePass') {
-							return data.user;
-
-						} else {
-
-							Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
-							$rootScope.apiData.appConfig = data.appConfig;
-							return Restangular.restangularizeCollection(undefined, [data.user], 'users');
-						}
-
-					} else if (operation == 'put') {
-
-						$rootScope.apiData.loggedInUser = data.user;
-						return data.user;
 					}
 				}
 
@@ -1630,8 +1616,8 @@
 
 					if (operation == 'put') {
 
-						var appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
-						$rootScope.apiData.appConfig = appConfig;
+						$rootScope.apiData.appConfig.language = res.config.data.language;
+						$rootScope.apiData.appConfig.theme = res.config.data.theme;
 					}
 				}
 
@@ -1652,7 +1638,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();
@@ -3269,6 +3255,8 @@
 
 							promise.then(function(res) {
 
+								console.log(res);
+
 								if (!that.redirectOnSuccess) {
 									that.model.clearErrors(function() {
 										$timeout(function() {
@@ -4477,6 +4465,31 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('scrollTopBtn', function() {
+
+		var scrollTopBtn = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
+			controller: function($scope) {
+
+				$scope.scroll = function() {
+					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				};
+			}
+		};
+
+		return scrollTopBtn;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('appearanceForm', function($rootScope, MyForm, AppConfigsRest, Restangular) {
 
 		var appearanceForm = {
@@ -4500,31 +4513,6 @@
 		};
 
 		return appearanceForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('scrollTopBtn', function() {
-
-		var scrollTopBtn = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
-			controller: function($scope) {
-
-				$scope.scroll = function() {
-					$('html, body').animate({ scrollTop: 0 }, 'fast');
-				};
-			}
-		};
-
-		return scrollTopBtn;
 	});
 
 })();
@@ -4736,6 +4724,17 @@
 						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
 						$scope.myForm.model.assignTo(copy);
 						return copy.put();
+					},
+					submitSuccessCb: function(res) {
+
+						var user = $rootScope.apiData.loggedInUser;
+						var updated = res.config.data;
+
+						user.email = updated.email;
+						user.firstname = updated.firstname;
+						user.lastname = updated.lastname;
+						user.country = updated.country;
+						user.photos = updated.photos;
 					}
 				});
 			},
@@ -5580,6 +5579,29 @@
 
 
 
+	appModule.directive('myAlert', function() {
+
+		var myAlert = {
+			restrict: 'E',
+			template: '<div class="myAlert alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
+			scope: {
+				ctrlClass: "=",
+				hardData: '='
+			}
+		};
+
+		return myAlert;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('myBtn', function($rootScope) {
 
 		return {
@@ -5621,29 +5643,6 @@
 				};
 			}
 		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myAlert', function() {
-
-		var myAlert = {
-			restrict: 'E',
-			template: '<div class="myAlert alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
-			scope: {
-				ctrlClass: "=",
-				hardData: '='
-			}
-		};
-
-		return myAlert;
 	});
 
 })();

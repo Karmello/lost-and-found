@@ -11,13 +11,17 @@ module.exports = {
 
                 if (!err && appConfig) {
 
-                    appConfig.update(req.body, function(err) {
+                    appConfig.language = req.body.language;
+                    appConfig.theme = req.body.theme;
+
+                    appConfig.save(function(err) {
 
                         if (!err) {
 
-                            r.AppConfig.findOne({ _id: req.params.id }, function(err, appConfig) {
-                                if (!err) { resolve(appConfig); } else { reject(err); }
-                            });
+                            req.session.theme = appConfig.theme;
+                            req.session.language = appConfig.language;
+
+                            resolve();
 
                         } else { reject(err); }
                     });
@@ -25,18 +29,12 @@ module.exports = {
                 } else { reject(err); }
             });
 
-        }).then(function(appConfig) {
-
-            var currentLang = req.session.language;
-
-            req.session.theme = req.body.theme;
-            req.session.language = req.body.language;
+        }).then(function() {
 
             action.end(200, {
-                appConfig: appConfig,
                 msg: {
-                    title: r.hardData[currentLang].msgs.titles[1],
-                    info: r.hardData[currentLang].msgs.infos[2],
+                    title: r.hardData[req.session.language].msgs.titles[1],
+                    info: r.hardData[req.session.language].msgs.infos[2],
                     reload: true
                 }
             });

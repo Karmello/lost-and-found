@@ -33,7 +33,7 @@ module.exports = function(req, res, next) {
 									resolve({
 										user: user,
 										appConfig: appConfig,
-										authToken: r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') })
+										authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') })
 									});
 
 								} else { reject(err); }

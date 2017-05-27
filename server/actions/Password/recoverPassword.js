@@ -38,8 +38,7 @@ module.exports = function(req, res, next) {
 
 	}).then(function(user) {
 
-		var body = { _doc: { email: user.email, username: user.username } };
-		var token = r.jwt.sign(body, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') });
+		var token = r.jwt.sign({ email: user.email }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') });
 
 		var mail = r.modules.mailModule.create('new_pass_link', req.session.language, user.email, {
 			username: user.username,

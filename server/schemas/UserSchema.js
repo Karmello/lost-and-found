@@ -123,7 +123,7 @@ UserSchema.methods = {
 UserSchema.statics = {
 	isCurrentRequester: function(req, userId) {
 
-		return req.decoded._doc._id.toString() == userId.toString();
+		return req.decoded._id.toString() == userId.toString();
 	}
 };
 

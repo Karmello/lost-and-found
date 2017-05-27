@@ -14,7 +14,7 @@ module.exports = {
 						'total': newPayment.amount,
 						'currency': newPayment.currency
 					},
-					'description': action.req.decoded._doc._id
+					'description': action.req.decoded._id
 				}
 			]
 		};
@@ -77,7 +77,7 @@ module.exports = {
 		return new r.Promise(function(resolve, reject) {
 
 			// Getting user by query userId
-			r.User.findOne({ _id: req.decoded._doc._id }, function(err, user) {
+			r.User.findOne({ _id: req.decoded._id }, function(err, user) {
 
 				if (!err && user) {
 

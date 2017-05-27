@@ -56,8 +56,8 @@ describe('userDetailsUpdateSpec\n', function() {
 
 			that.req.query.action = 'update_details';
 
-			that.req.decoded._doc._id = that.user1Id;
-			that.req.decoded._doc.email = r.helpers.users.user1.email;
+			that.req.decoded._id = that.user1Id;
+			that.req.decoded.email = r.helpers.users.user1.email;
 
 			that.req.body._id = that.user1Id;
 			that.req.body.email = r.helpers.users.user1.email;
@@ -79,8 +79,8 @@ describe('userDetailsUpdateSpec\n', function() {
 
 			that.req.query.action = 'update_details';
 
-			that.req.decoded._doc._id = that.user1Id;
-			that.req.decoded._doc.email = r.helpers.users.user1.email;
+			that.req.decoded._id = that.user1Id;
+			that.req.decoded.email = r.helpers.users.user1.email;
 
 			that.req.body._id = that.user1Id;
 			that.req.body.email = r.helpers.users.user2.email;

@@ -40,7 +40,7 @@ describe('passwordUpdateSpec\n', function() {
 
 			that.req.query.action = 'update_password';
 			that.req.params.id = that.userId;
-			that.req.decoded._doc._id = that.userId;
+			that.req.decoded._id = that.userId;
 			that.req.body.currentPassword = 'password';
 			that.req.body.password = 'newpassword';
 

@@ -10,11 +10,11 @@ module.exports = function(req, res, next) {
 
 			if (!err && report) {
 
-				r.User.update({ _id: req.decoded._doc._id }, { $addToSet: { reportsRecentlyViewed: report._id } }, function(err, user) {
+				r.User.update({ _id: req.decoded._id }, { $addToSet: { reportsRecentlyViewed: report._id } }, function(err) {
 
 					if (!err) {
 
-						r.User.findOne({ _id: req.decoded._doc._id }, function(err, user) {
+						r.User.findOne({ _id: req.decoded._id }, 'reportsRecentlyViewed', function(err, user) {
 
 							if (!err) {
 

@@ -24,6 +24,17 @@
 						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
 						$scope.myForm.model.assignTo(copy);
 						return copy.put();
+					},
+					submitSuccessCb: function(res) {
+
+						var user = $rootScope.apiData.loggedInUser;
+						var updated = res.config.data;
+
+						user.email = updated.email;
+						user.firstname = updated.firstname;
+						user.lastname = updated.lastname;
+						user.country = updated.country;
+						user.photos = updated.photos;
 					}
 				});
 			},

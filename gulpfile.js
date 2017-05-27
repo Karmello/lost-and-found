@@ -76,7 +76,6 @@ gulp.task('js', function(done) {
     gulp.src(paths.js)
     .pipe(concat('appScripts.js'))
     .pipe(gulp.dest(paths.dest.unminified.js))
-    .pipe(browserSync.stream())
     .pipe(ngAnnotate())
     .pipe(babel({ presets: ['es2015'], compact: false }))
     .pipe(uglify().on('error', gulpUtil.log))

@@ -41,6 +41,8 @@
 
 							promise.then(function(res) {
 
+								console.log(res);
+
 								if (!that.redirectOnSuccess) {
 									that.model.clearErrors(function() {
 										$timeout(function() {

@@ -8,47 +8,41 @@
 				isAuthenticated: function(authentication, resolveService, $state) {
 					return resolveService.isAuthenticated($state.current.name);
 				},
-				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, $timeout, UsersRest, ReportsRest, authService, ui) {
+				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, UsersRest, ReportsRest) {
 
 					return $q(function(resolve, reject) {
 
-						if (authService.state.authenticated) {
+						var promises = [];
 
-							var promises = [];
+						promises.push(UsersRest.getList({ reportId: $stateParams.id }));
+						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
 
-							promises.push(UsersRest.getList({ reportId: $stateParams.id }));
-							promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
+						$q.all(promises).then(function(results) {
+							$rootScope.apiData.reportUser = results[0].data[0];
+							resolve();
 
-							$q.all(promises).then(function(results) {
-								$timeout(function() { resolve(true); });
-
-							}, function() {
-								reject();
-								$state.go('app.home');
-							});
-
-						} else { reject(); }
-					});
+						}, function() {
+							reject();
+							$state.go('app.home', undefined, { location: 'replace' });
+						});
+				});
 				}
 			},
-			onEnter: function(apiData, $rootScope, $timeout, $stateParams, googleMapService, ui) {
+			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, ui) {
 
-				if (apiData) {
+				if ($stateParams.edit === '1') {
+					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
-					if ($stateParams.edit === '1') {
-						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
-
-					} else {
-						googleMapService.singleReportMap.init($rootScope.apiData.report);
-					}
-
-					$timeout(function() {
-						ui.menus.top.activateSwitcher();
-						ui.frames.main.activateSwitcher('report');
-						ui.frames.app.activateSwitcher('main');
-						ui.loaders.renderer.stop();
-					});
+				} else {
+					googleMapService.singleReportMap.init($rootScope.apiData.report);
 				}
+
+				$timeout(function() {
+					ui.menus.top.activateSwitcher();
+					ui.frames.main.activateSwitcher('report');
+					ui.frames.app.activateSwitcher('main');
+					ui.loaders.renderer.stop();
+				});
 			}
 		});
 	});

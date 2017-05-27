@@ -7,7 +7,7 @@ module.exports = {
 
 		new r.Promise(function(resolve, reject) {
 
-			action.req.body.userId = action.req.decoded._doc._id;
+			action.req.body.userId = action.req.decoded._id;
 			var newPayment = new r.Payment(action.req.body);
 
 			// Validating form data

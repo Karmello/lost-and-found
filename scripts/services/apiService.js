@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, $moment, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -37,33 +37,18 @@
 
 				if (what == 'users') {
 
-					if (operation == 'getList') {
+					if (operation == 'post') {
 
-						if (res.config.params._id) {
-							$rootScope.apiData.profileUser = data[0];
+						switch (res.config.params.action) {
 
-						} else if (res.config.params.reportId) {
-							$rootScope.apiData.reportUser = data[0];
+							case 'auth':
+							case 'login':
+							case 'register':
+
+								$rootScope.apiData.loggedInUser = Restangular.restangularizeElement(undefined, data.user, 'users');
+								$rootScope.apiData.appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
+								break;
 						}
-
-					} else if (operation == 'post') {
-
-						$rootScope.apiData.loggedInUser = data.user;
-
-						if (res.config.params.action == 'updatePass') {
-							return data.user;
-
-						} else {
-
-							Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
-							$rootScope.apiData.appConfig = data.appConfig;
-							return Restangular.restangularizeCollection(undefined, [data.user], 'users');
-						}
-
-					} else if (operation == 'put') {
-
-						$rootScope.apiData.loggedInUser = data.user;
-						return data.user;
 					}
 				}
 
@@ -103,8 +88,8 @@
 
 					if (operation == 'put') {
 
-						var appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
-						$rootScope.apiData.appConfig = appConfig;
+						$rootScope.apiData.appConfig.language = res.config.data.language;
+						$rootScope.apiData.appConfig.theme = res.config.data.theme;
 					}
 				}
 
@@ -125,7 +110,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', '$moment', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();

@@ -122,10 +122,10 @@ module.exports = {
                 dates.push(new Date().getTime() + i);
 
                 if (action.req.headers.subject == 'user_avatar') {
-                    awsKey = action.req.decoded._doc._id + '/avatar_' + dates[i] + '.' + extensions[i];
+                    awsKey = action.req.decoded._id + '/avatar_' + dates[i] + '.' + extensions[i];
 
                 } else if (action.req.headers.subject == 'report_photos') {
-                    awsKey = action.req.decoded._doc._id + '/reports/' + action.req.body.reportId + '/report_photo_' + dates[i] + '.' + extensions[i];
+                    awsKey = action.req.decoded._id + '/reports/' + action.req.body.reportId + '/report_photo_' + dates[i] + '.' + extensions[i];
                 }
 
                 promises.push(r.modules.aws3Module.getUploadParams(awsKey, action.req.body.fileTypes[i]));

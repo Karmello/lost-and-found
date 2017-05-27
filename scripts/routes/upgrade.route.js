@@ -10,14 +10,16 @@
 				},
 				id: function(isAuthenticated, $q, $rootScope, $state, $stateParams, authService) {
 
-					return $q(function(resolve) {
+					return $q(function(resolve, reject) {
 
 						if (!$stateParams.id) {
 
 							if (authService.state.authenticated) {
+								reject();
 								$state.go('app.upgrade', { id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
 
 							} else {
+								reject();
 								$state.go('app.start', { tab: 'status' }, { location: 'replace' });
 							}
 

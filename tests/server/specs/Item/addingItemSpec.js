@@ -39,7 +39,7 @@ describe('addingReportSpec\n', function() {
 		it('should return status 201', function(done) {
 
 			Object.assign(that.req.body, r.helpers.reports.report1);
-			that.req.decoded._doc._id = that.userId;
+			that.req.decoded._id = that.userId;
 
 			r.actions.addReport(that.req, that.res, function() {
 

@@ -3,32 +3,29 @@ var r = require(global.paths._requires);
 module.exports = {
 	before: function(req, res, next) {
 
-		// By reportId
-		if (req.query.reportId) {
+		var action = new r.prototypes.Action(arguments);
 
-			r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
+		new r.Promise(function(resolve, reject) {
 
-				if (!err && report) {
-					r.User.findOne({ _id: report.userId }, function(err, user) {
+			if (req.query.reportId) {
 
-						if (!err && user) {
-							res.status(200).send([user]);
+				r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
-						} else { res.status(400).send(err); }
-					});
+					if (!err && report) {
+						r.User.findOne({ _id: report.userId }, function(err, user) {
+							if (!err && user) { resolve([user]); } else { reject(err); }
+						});
 
-				} else { res.status(400).send(err); }
-			});
+					} else { reject(err); }
+				});
 
-		} else {
+			} else { next(); }
 
-			r.User.findOne({ _id: req.query._id }, function(err, user) {
+		}).then(function(data) {
+			action.end(200, data);
 
-				if (!err && user) {
-					res.status(200).send([user]);
-
-				} else { res.status(400).send(err); }
-			});
-		}
+		}, function(err) {
+			action.end(400, err);
+		});
 	}
 };

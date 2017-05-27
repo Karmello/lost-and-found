@@ -29,8 +29,8 @@ module.exports = {
 		}).then(function(contactType) {
 
 			var mail = r.modules.mailModule.create('contact_msg', 'en', process.env.GMAIL_USER, {
-				userId: req.decoded._doc._id,
-				username: req.decoded._doc.username,
+				userId: req.decoded._id,
+				username: req.decoded.username,
 				contactType: contactType.label.en,
 				number: contactType.count + 1,
 				contactMsg: req.body.contactMsg
@@ -45,7 +45,7 @@ module.exports = {
 
 					action.end(200, {
 						msg: {
-							title: req.decoded._doc.username,
+							title: req.decoded.username,
 							info: r.hardData[req.session.language].msgs.infos[4]
 						}
 					});

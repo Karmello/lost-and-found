@@ -9,14 +9,11 @@ module.exports = function(req, res, next) {
 
 		new r.Promise(function(resolve, reject) {
 
-			r.User.findOne({ _id: req.decoded._doc._id }, 'password', function(err, user) {
+			r.User.findOne({ _id: req.decoded._id }, 'password', function(err, user) {
 
 				if (!err && user) {
 
-					var password;
-
-					// Creating password instance
-					password = new r.Password({
+					var password = new r.Password({
 						userId: user._id,
 						currentPassword: req.body.currentPassword,
 						password: req.body.password
@@ -28,35 +25,8 @@ module.exports = function(req, res, next) {
 
 							user.password = password.password;
 
-							user.validate(function(err) {
-
-								if (!err) {
-
-									user.save({ validateBeforeSave: false }, function(err) {
-
-										if (!err) {
-
-											// Getting updated user to send back to the client
-											r.User.findOne({ _id: user._id }, function(err, user) {
-												if (!err && user) { resolve(user); } else { reject(err); }
-											});
-
-										} else { reject(err); }
-									});
-
-								} else if (err) {
-
-									if (err.errors.email && err.errors.email.kind == 'not_unique' && req.body.email == req.decoded._doc.email) {
-
-										delete err.errors.email;
-
-										if (Object.keys(err.errors).length === 0) {
-											return resolve();
-										}
-									}
-
-									reject(err);
-								}
+							user.save(function(err) {
+								if (!err) { resolve(user._id); } else { reject(err); }
 							});
 
 						} else { reject(err); }
@@ -65,11 +35,10 @@ module.exports = function(req, res, next) {
 				} else { reject(err); }
 			});
 
-		}).then(function(user) {
+		}).then(function(userId) {
 
 			action.end(200, {
-				user: user,
-				authToken: r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
+				authToken: r.jwt.sign({ _id: userId }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
 				msg: {
 					title: r.hardData[req.session.language].msgs.titles[1],
 					info: r.hardData[req.session.language].msgs.infos[1]

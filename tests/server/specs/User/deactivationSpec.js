@@ -22,7 +22,7 @@ describe('deactivationSpec\n', function() {
 
 		it('should return 400 USER_NOT_FOUND error', function(done) {
 
-			that.req.decoded._doc._id = '111122223333444455556666';
+			that.req.decoded._id = '111122223333444455556666';
 			that.req.params.id = '111122223333444455556666';
 
 			r.actions.deactivateAccount(that.req, that.res, function() {
@@ -54,7 +54,7 @@ describe('deactivationSpec\n', function() {
 
 		it('should delete user, appConfig and all user\'s reports', function(done) {
 
-			that.req.decoded._doc._id = that.userId;
+			that.req.decoded._id = that.userId;
 			that.req.params.id = that.userId;
 
 			r.actions.deactivateAccount(that.req, that.res, function() {

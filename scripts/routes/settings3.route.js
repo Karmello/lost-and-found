@@ -19,11 +19,15 @@
 
 							if (!results[0]) {
 
+								reject();
+
 								$timeout(function() {
 									$state.go('app.settings1', {}, { location: 'replace' });
 								});
 
 							} else if (!results[1]) {
+
+								reject();
 
 								$timeout(function() {
 									$state.go('app.settings2', { catId: $stateParams.catId }, { location: 'replace' });

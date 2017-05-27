@@ -24,31 +24,18 @@ module.exports = {
 
                         var query;
 
-                        if (decoded._doc._id) { query = { _id: decoded._doc._id }; }
-                        else if (decoded._doc.username) { query = { username: decoded._doc.username }; }
-                        else if (decoded._doc.email) { query = { email: decoded._doc.email }; }
+                        if (decoded._id) { query = { _id: decoded._id }; }
+                        else if (decoded.username) { query = { username: decoded.username }; }
+                        else if (decoded.email) { query = { email: decoded.email }; }
 
                         // Looking for user with token credentials
-                        r.User.findOne(query, function(err, user) {
+                        r.User.count(query, function(err, count) {
 
                             // User found
-                            if (!err && user) {
+                            if (!err && count == 1) {
 
-                                // Getting user's app config
-                                r.AppConfig.findOne({ userId: user.id }, function(err, appConfig) {
-
-                                    // Token veryfication successful
-                                    if (!err && appConfig) {
-
-                                        delete decoded._doc.password;
-
-                                        req.decoded = decoded;
-                                        req.session.language = appConfig.language;
-                                        req.session.theme = appConfig.theme;
-                                        next();
-
-                                    } else { action.end(500, err); }
-                                });
+                                req.decoded = decoded;
+                                next();
 
                             // No user found
                             } else { action.end(400, 'USER_NOT_FOUND'); }
@@ -68,7 +55,7 @@ module.exports = {
             case 'PUT':
             case 'DELETE':
 
-                if (req.params.id != req.decoded._doc._id) {
+                if (req.params.id != req.decoded._id) {
                     return res.status(401).send('USER_' + req.method + '_NOT_ALLOWED');
                 }
 
@@ -84,7 +71,7 @@ module.exports = {
             case 'POST':
             case 'PUT':
 
-                if (req.body.userId != req.decoded._doc._id) {
+                if (req.body.userId != req.decoded._id) {
                     return res.status(401).send('REPORT_' + req.method + '_NOT_ALLOWED');
                 }
 
@@ -92,7 +79,7 @@ module.exports = {
 
             case 'DELETE':
 
-                if (req.query.userId != req.decoded._doc._id) {
+                if (req.query.userId != req.decoded._id) {
                     return res.status(401).send('REPORT_' + req.method + '_NOT_ALLOWED');
                 }
 
@@ -107,7 +94,7 @@ module.exports = {
 
             case 'GET':
 
-                if (req.query.userId != req.decoded._doc._id) {
+                if (req.query.userId != req.decoded._id) {
                     return res.status(401).send('PAYMENT_' + req.method + '_NOT_ALLOWED');
                 }
 

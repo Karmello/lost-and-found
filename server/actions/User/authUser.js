@@ -9,7 +9,7 @@ module.exports = function(req, res, next) {
 
 		new r.Promise(function(resolve, reject) {
 
-			r.User.findOne({ _id: req.decoded._doc._id }, '-password', function(err, user) {
+			r.User.findOne({ _id: req.decoded._id }, function(err, user) {
 
 				if (!err && user) {
 

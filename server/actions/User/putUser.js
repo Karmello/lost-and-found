@@ -19,14 +19,14 @@ module.exports = {
 
 					new r.Promise(function(resolve) {
 
-							user.validate(function(err) {
+						user.validate(function(err) {
 
 							if (!err) {
 								resolve();
 
 							} else if (err) {
 
-								if (err.errors.email && err.errors.email.kind == 'not_unique' && req.body.email == req.decoded._doc.email) {
+								if (err.errors.email && err.errors.email.kind == 'not_unique' && user.email == req.body.email) {
 									delete err.errors.email;
 									if (Object.keys(err.errors).length === 0) { return resolve(); }
 								}
@@ -38,26 +38,17 @@ module.exports = {
 					}).then(function() {
 
 						user.save({ validateBeforeSave: false }, function(err) {
-
-							if (!err) {
-
-								// Getting updated user to send back to the client
-								r.User.findOne({ _id: req.params.id }, function(err, user) {
-									if (!err && user) { resolve(user); } else { reject(err); }
-								});
-
-							} else { reject(err); }
+							if (!err) { resolve(user._id); } else { reject(err); }
 						});
 					});
 
 				} else { reject(err); }
 			});
 
-		}).then(function(user) {
+		}).then(function(userId) {
 
 			action.end(200, {
-				user: user,
-				authToken: r.jwt.sign(user, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
+				authToken: r.jwt.sign({ _id: userId }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
 				msg: {
 					title: r.hardData[req.session.language].msgs.titles[1],
 					info: r.hardData[req.session.language].msgs.infos[1]

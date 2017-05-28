@@ -68,18 +68,9 @@ module.exports = {
 
         switch (req.method) {
 
-            case 'POST':
             case 'PUT':
 
                 if (req.body.userId != req.decoded._id) {
-                    return res.status(401).send('REPORT_' + req.method + '_NOT_ALLOWED');
-                }
-
-                break;
-
-            case 'DELETE':
-
-                if (req.query.userId != req.decoded._id) {
                     return res.status(401).send('REPORT_' + req.method + '_NOT_ALLOWED');
                 }
 

@@ -12,7 +12,7 @@ module.exports = {
 				if (!err && report) {
 
 					r.Comment.find({ _id: { '$in': report.comments } })
-					.skip(Number(action.req.query.skip))
+					.skip(Number(req.query.skip))
 					.limit(global.app.get('COMMENTS_MAX_GET'))
 					.sort('-dateAdded')
 					.exec(function(err, comments) {

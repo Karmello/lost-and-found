@@ -33,7 +33,6 @@ module.exports = function(app, route) {
 	}]);
 
 	rest.before('put', [authorize.userToken, authorize.reportAction, r.actions.report.put.before]);
-	rest.after('put', r.actions.report.put.after);
 	rest.before('delete', [authorize.userToken, authorize.reportAction, r.actions.report.delete.before]);
 
 	rest.register(app, route);

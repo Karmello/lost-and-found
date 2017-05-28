@@ -2,11 +2,11 @@
 
 	'use strict';
 
-	var reportFormService = function($rootScope, $state, ReportsRest, Restangular) {
+	var reportFormService = function($rootScope, $state, $timeout, ReportsRest, Restangular, MyForm) {
 
 		var service = this;
 
-		service.getFormSubmitAction = function(scope) {
+		var getFormSubmitAction = function(scope) {
 
 			switch (scope.action) {
 
@@ -22,7 +22,6 @@
 						service.setModelWithGooglePlaceObj(scope);
 
 						var modelValues = scope.myForm.model.getValues();
-						modelValues.userId = $rootScope.apiData.loggedInUser._id;
 						return ReportsRest.post(modelValues);
 					};
 
@@ -31,6 +30,9 @@
 					return function(args) {
 
 						scope.myForm.submitSuccessCb = function(res) {
+
+							console.log(res);
+
 							$rootScope.apiData.report = res.data;
 							$state.go('app.report', { id: res.data._id, edit: undefined });
 						};
@@ -46,6 +48,24 @@
 						return copy.put();
 					};
 			}
+		};
+
+
+
+		service.createFormIns = function(scope) {
+
+			service.ins = new MyForm({
+				ctrlId: scope.action + 'Form',
+				model: ReportsRest[scope.action + 'Model'],
+				submitAction: getFormSubmitAction(scope),
+				onCancel: function() {
+
+					$timeout(function() { scope.myForm.reset(); });
+					window.history.back();
+				}
+			});
+
+			return service.ins;
 		};
 
 		service.setModelWithGooglePlaceObj = function(scope) {
@@ -68,7 +88,7 @@
 		return service;
 	};
 
-	reportFormService.$inject = ['$rootScope', '$state', 'ReportsRest', 'Restangular'];
+	reportFormService.$inject = ['$rootScope', '$state', '$timeout', 'ReportsRest', 'Restangular', 'MyForm'];
 	angular.module('appModule').service('reportFormService', reportFormService);
 
 })();

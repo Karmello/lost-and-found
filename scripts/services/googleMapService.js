@@ -34,7 +34,8 @@
 
 						var marker = new google.maps.Marker({
 							map: map,
-							position: latLng
+							position: latLng,
+							icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
 						});
 
 						marker.addListener('mouseover', function() {
@@ -95,7 +96,7 @@
 			},
 			addMarkers: function(collection) {
 
-				if (angular.isDefined(service.geo.allowed)) {
+				if (collection && angular.isDefined(service.geo.allowed)) {
 
 					var i;
 

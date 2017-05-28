@@ -50,9 +50,8 @@
 								break;
 						}
 					}
-				}
 
-				if (what == 'reports') {
+				} else if (what == 'reports') {
 
 					if (operation == 'getList') {
 
@@ -73,7 +72,6 @@
 
 							case 'singleReport':
 
-								$rootScope.apiData.report = data.report;
 								$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
 								return [data.report];
 						}
@@ -82,18 +80,16 @@
 
 						return Restangular.restangularizeElement(undefined, data, 'reports');
 					}
-				}
 
-				if (what == 'app_configs') {
+				} else if (what == 'app_configs') {
 
 					if (operation == 'put') {
 
 						$rootScope.apiData.appConfig.language = res.config.data.language;
 						$rootScope.apiData.appConfig.theme = res.config.data.theme;
 					}
-				}
 
-				if (what == 'comments') {
+				} else if (what == 'comments') {
 
 					if (operation == 'getList') {
 

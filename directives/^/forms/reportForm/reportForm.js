@@ -21,16 +21,7 @@
 				$scope.autocomplete = {};
 				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: $scope.action + 'Form',
-					model: ReportsRest[$scope.action + 'Model'],
-					submitAction: reportFormService.getFormSubmitAction($scope),
-					onCancel: function() {
-
-						$timeout(function() { $scope.myForm.reset(); });
-						window.history.back();
-					}
-				});
+				$scope.myForm = reportFormService.createFormIns($scope);
 			},
 			compile: function(elem, attrs) {
 
@@ -46,12 +37,12 @@
 
 									if (args.report) {
 
-										ReportsRest.editReportModel.set(args.report.plain(), true);
-
 										var geocoder = new google.maps.Geocoder();
 
 										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
+											ReportsRest.editReportModel.set(args.report.plain(), true);
 											ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
+											scope.myForm.scope.loader.stop();
 										});
 									}
 								});

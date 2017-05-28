@@ -14,6 +14,15 @@
 					<action-section>
 						<my-context-menu ng-if="reportContextMenu" ins="reportContextMenu"></my-context-menu>
 					</action-section>
+					<body-section>
+						<div id="section3" class="myBtnsGroupRight">
+							<my-btn
+								ng-if="apiData.report.startEvent.group == 'lost' && apiData.report.userId != apiData.loggedInUser._id"
+								ctrl-class="'btn-primary'"
+								hard-data="{ label: ['declaratives', 0] }"
+							></my-btn>
+						</div>
+					</body-section>
 				</my-panel>
 				<my-panel trans-heading="true">
 					<title-section>
@@ -82,13 +91,6 @@
 						</div>
 					</body-section>
 				</my-panel>
-				<div id="section3" class="myBtnsGroupCenter">
-					<my-btn
-						ng-if="apiData.report.startEvent.group == 'lost' && apiData.report.userId != apiData.loggedInUser._id"
-						ctrl-class="'btn-primary'"
-						hard-data="{ label: ['declaratives', 0] }"
-					></my-btn>
-				</div>
 				<div id="section4">
 					<my-tabs ins="ui.tabs.report"></my-tabs>
 					<ng-include src="'public/pages/lost-and-found-app-report-tabs.html'"></ng-include>

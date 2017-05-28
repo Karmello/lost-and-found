@@ -22,6 +22,14 @@
 
 						reportsService.deleteReports([this.parent.data]);
 					}
+				},
+				{
+					_id: 'refresh',
+					label: $rootScope.hardData.imperatives[19],
+					onClick: function() {
+
+
+					}
 				}
 			]
 		};

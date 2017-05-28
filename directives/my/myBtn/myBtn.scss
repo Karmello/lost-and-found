@@ -6,18 +6,16 @@
 
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: center;
 }
 
 .myBtnsGroupCenter {
 
 	@extend .myBtnsGroup;
-	margin: 0 auto;
+	justify-content: center;
 }
 
 .myBtnsGroupRight {
 
 	@extend .myBtnsGroup;
-	margin-left: auto;
-	margin-right: 0;
+	justify-content: flex-end;
 }

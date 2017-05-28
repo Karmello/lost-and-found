@@ -16,7 +16,7 @@
 					acceptCb: function() {
 
 						var promises = [];
-						for (var report of reports) { promises.push(report.remove({ userId: report.userId })); }
+						for (var report of reports) { promises.push(report.remove()); }
 
 						$q.all(promises).then(function(results) {
 

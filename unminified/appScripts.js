@@ -186,6 +186,14 @@
 
 						reportsService.deleteReports([this.parent.data]);
 					}
+				},
+				{
+					_id: 'refresh',
+					label: $rootScope.hardData.imperatives[19],
+					onClick: function() {
+
+
+					}
 				}
 			]
 		};
@@ -1192,6 +1200,7 @@
 
 						$q.all(promises).then(function(results) {
 							$rootScope.apiData.reportUser = results[0].data[0];
+							$rootScope.apiData.report = results[1].data[0];
 							resolve();
 
 						}, function() {
@@ -1201,7 +1210,7 @@
 				});
 				}
 			},
-			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, ui) {
+			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, reportFormService, ui) {
 
 				if ($stateParams.edit === '1') {
 					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
@@ -1209,6 +1218,8 @@
 				} else {
 					googleMapService.singleReportMap.init($rootScope.apiData.report);
 				}
+
+				if (reportFormService.ins.scope) { reportFormService.ins.scope.loader.start(); }
 
 				$timeout(function() {
 					ui.menus.top.activateSwitcher();
@@ -1578,9 +1589,8 @@
 								break;
 						}
 					}
-				}
 
-				if (what == 'reports') {
+				} else if (what == 'reports') {
 
 					if (operation == 'getList') {
 
@@ -1601,7 +1611,6 @@
 
 							case 'singleReport':
 
-								$rootScope.apiData.report = data.report;
 								$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
 								return [data.report];
 						}
@@ -1610,18 +1619,16 @@
 
 						return Restangular.restangularizeElement(undefined, data, 'reports');
 					}
-				}
 
-				if (what == 'app_configs') {
+				} else if (what == 'app_configs') {
 
 					if (operation == 'put') {
 
 						$rootScope.apiData.appConfig.language = res.config.data.language;
 						$rootScope.apiData.appConfig.theme = res.config.data.theme;
 					}
-				}
 
-				if (what == 'comments') {
+				} else if (what == 'comments') {
 
 					if (operation == 'getList') {
 
@@ -1862,7 +1869,8 @@
 
 						var marker = new google.maps.Marker({
 							map: map,
-							position: latLng
+							position: latLng,
+							icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
 						});
 
 						marker.addListener('mouseover', function() {
@@ -1923,7 +1931,7 @@
 			},
 			addMarkers: function(collection) {
 
-				if (angular.isDefined(service.geo.allowed)) {
+				if (collection && angular.isDefined(service.geo.allowed)) {
 
 					var i;
 
@@ -4892,16 +4900,7 @@
 				$scope.autocomplete = {};
 				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: $scope.action + 'Form',
-					model: ReportsRest[$scope.action + 'Model'],
-					submitAction: reportFormService.getFormSubmitAction($scope),
-					onCancel: function() {
-
-						$timeout(function() { $scope.myForm.reset(); });
-						window.history.back();
-					}
-				});
+				$scope.myForm = reportFormService.createFormIns($scope);
 			},
 			compile: function(elem, attrs) {
 
@@ -4917,12 +4916,12 @@
 
 									if (args.report) {
 
-										ReportsRest.editReportModel.set(args.report.plain(), true);
-
 										var geocoder = new google.maps.Geocoder();
 
 										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
+											ReportsRest.editReportModel.set(args.report.plain(), true);
 											ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
+											scope.myForm.scope.loader.stop();
 										});
 									}
 								});
@@ -4966,11 +4965,11 @@
 
 	'use strict';
 
-	var reportFormService = function($rootScope, $state, ReportsRest, Restangular) {
+	var reportFormService = function($rootScope, $state, $timeout, ReportsRest, Restangular, MyForm) {
 
 		var service = this;
 
-		service.getFormSubmitAction = function(scope) {
+		var getFormSubmitAction = function(scope) {
 
 			switch (scope.action) {
 
@@ -4986,7 +4985,6 @@
 						service.setModelWithGooglePlaceObj(scope);
 
 						var modelValues = scope.myForm.model.getValues();
-						modelValues.userId = $rootScope.apiData.loggedInUser._id;
 						return ReportsRest.post(modelValues);
 					};
 
@@ -4995,6 +4993,9 @@
 					return function(args) {
 
 						scope.myForm.submitSuccessCb = function(res) {
+
+							console.log(res);
+
 							$rootScope.apiData.report = res.data;
 							$state.go('app.report', { id: res.data._id, edit: undefined });
 						};
@@ -5010,6 +5011,24 @@
 						return copy.put();
 					};
 			}
+		};
+
+
+
+		service.createFormIns = function(scope) {
+
+			service.ins = new MyForm({
+				ctrlId: scope.action + 'Form',
+				model: ReportsRest[scope.action + 'Model'],
+				submitAction: getFormSubmitAction(scope),
+				onCancel: function() {
+
+					$timeout(function() { scope.myForm.reset(); });
+					window.history.back();
+				}
+			});
+
+			return service.ins;
 		};
 
 		service.setModelWithGooglePlaceObj = function(scope) {
@@ -5032,7 +5051,7 @@
 		return service;
 	};
 
-	reportFormService.$inject = ['$rootScope', '$state', 'ReportsRest', 'Restangular'];
+	reportFormService.$inject = ['$rootScope', '$state', '$timeout', 'ReportsRest', 'Restangular', 'MyForm'];
 	angular.module('appModule').service('reportFormService', reportFormService);
 
 })();
@@ -7412,7 +7431,7 @@
 					acceptCb: function() {
 
 						var promises = [];
-						for (var report of reports) { promises.push(report.remove({ userId: report.userId })); }
+						for (var report of reports) { promises.push(report.remove()); }
 
 						$q.all(promises).then(function(results) {
 

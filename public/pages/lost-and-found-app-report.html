@@ -15,12 +15,16 @@
 						<my-context-menu ng-if="reportContextMenu" ins="reportContextMenu"></my-context-menu>
 					</action-section>
 					<body-section>
-						<div id="section3" class="myBtnsGroupRight">
-							<my-btn
-								ng-if="apiData.report.startEvent.group == 'lost' && apiData.report.userId != apiData.loggedInUser._id"
-								ctrl-class="'btn-primary'"
-								hard-data="{ label: ['declaratives', 0] }"
-							></my-btn>
+						<div id="endEventSection">
+							<div class="myBtnsGroupRight">
+								<my-btn
+									ng-if="apiData.report.startEvent.group == 'lost' && apiData.report.userId != apiData.loggedInUser._id"
+									ctrl-class="'btn-primary'"
+									click-action="showRespondToReportForm"
+									hard-data="{ label: ['declaratives', 0] }"
+								></my-btn>
+							</div>
+							<report-form ng-show="isRespondToReportFormVisible" action="respondToReport"></report-form>
 						</div>
 					</body-section>
 				</my-panel>
@@ -29,7 +33,7 @@
 						<span ng-bind="hardData.sections[16]"></span>
 					</title-section>
 					<body-section>
-						<div id="section1">
+						<div id="subjectSection">
 							<div>
 								<div>
 									<div>
@@ -75,7 +79,7 @@
 						<span>{{ $moment(apiData.report.startEvent.date).format('DD-MM-YYYY') }}</span>
 					</title-section>
 					<body-section>
-						<div id="section2">
+						<div id="startEventSection">
 							<div>
 								<div style="text-align: justify;">
 									<span class="text-info">{{ hardData.labels[19] }}</span><br>
@@ -91,7 +95,7 @@
 						</div>
 					</body-section>
 				</my-panel>
-				<div id="section4">
+				<div id="tabsSection">
 					<my-tabs ins="ui.tabs.report"></my-tabs>
 					<ng-include src="'public/pages/lost-and-found-app-report-tabs.html'"></ng-include>
 				</div>

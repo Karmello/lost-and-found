@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportFormService, ReportsRest) {
+	appModule.directive('reportForm', function($rootScope, reportFormService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -28,6 +28,21 @@
 				return function(scope, elem, attrs) {
 
 					switch (scope.action) {
+
+						case 'addReport':
+
+							reportFormService.setMaxDate(scope);
+							ReportsRest.addReportModel.set({ startEvent: { date: scope.maxDate } }, true);
+
+							if (!$rootScope.$$listeners.addReport) {
+								$rootScope.$on('addReport', function(e, args) { reportFormService.setMaxDate(scope); });
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.addReport = null;
+							});
+
+							break;
 
 						case 'editReport':
 
@@ -54,22 +69,17 @@
 
 							break;
 
-						case 'newReport':
+						case 'respondToReport':
 
-							var setMaxDate = function(scope) {
-								var date = new Date();
-								scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
-							};
+							reportFormService.setMaxDate(scope);
+							ReportsRest.respondToReportModel.set({ group: 'lost', date: scope.maxDate }, true);
 
-							setMaxDate(scope);
-							ReportsRest.newReportModel.set({ startEvent: { date: scope.maxDate } }, true);
-
-							if (!$rootScope.$$listeners.newReport) {
-								$rootScope.$on('newReport', function(e, args) { setMaxDate(scope); });
+							if (!$rootScope.$$listeners.respondToReport) {
+								$rootScope.$on('respondToReport', function(e, args) { reportFormService.setMaxDate(scope); });
 							}
 
 							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.newReport = null;
+								$rootScope.$$listeners.respondToReport = null;
 							});
 
 							break;

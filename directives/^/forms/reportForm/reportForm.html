@@ -1,6 +1,6 @@
 <div id="reportForm">
-	<my-form ins="myForm">
-		<my-panel trans-heading="true">
+	<my-form ins="myForm" ng-if="action != 'respondToReport'">
+		<my-panel trans-heading="true" >
 			<title-section>
 				<span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;
 				<span ng-bind="hardData.sections[16]"></span>
@@ -98,6 +98,44 @@
 							ctrl-id="'startEvent_details'"
 							ctrl-max-length="1000"
 							model="myForm.model.startEvent.details"
+							hard-data="{ label: ['labels', 19] }"
+						></my-text-area>
+					</div>
+				</div>
+			</body-section>
+		</my-panel>
+		<br>
+		<form-action-btns my-form="myForm"></form-action-btns>
+	</my-form>
+	<my-form ins="myForm" ng-if="action == 'respondToReport'">
+		<my-panel trans-heading="true">
+			<title-section>
+				<span class="glyphicon glyphicon-flash"></span>&nbsp;&nbsp;&nbsp;
+				<span ng-bind="hardData.sections[15]"></span>
+			</title-section>
+			<body-section>
+				<div class="formCtrls">
+					<div>
+						<my-date-input
+							ctrl-id="'endEvent_date'"
+							ctrl-min-value="minDate"
+							ctrl-max-value="maxDate"
+							model="myForm.model.date"
+							hard-data="{ label: ['labels', 15] }"
+							is-required="true"
+						></my-date-input>
+						<my-google-place-auto-complete
+							ctrl-id="'endEvent_geolocation'"
+							model="myForm.model.geolocation"
+							hard-data="{ label: ['labels', 17] }"
+							autocomplete="autocomplete"
+						></my-google-place-auto-complete>
+					</div>
+					<div>
+						<my-text-area
+							ctrl-id="'endEvent_details'"
+							ctrl-max-length="1000"
+							model="myForm.model.details"
 							hard-data="{ label: ['labels', 19] }"
 						></my-text-area>
 					</div>

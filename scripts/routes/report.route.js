@@ -6,6 +6,7 @@
 			url: '/report?id&edit',
 			resolve: {
 				isAuthenticated: function(authentication, resolveService, $state) {
+
 					return resolveService.isAuthenticated($state.current.name);
 				},
 				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, UsersRest, ReportsRest) {
@@ -32,13 +33,12 @@
 			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, reportFormService, ui) {
 
 				if ($stateParams.edit === '1') {
+					if (reportFormService.editReportForm) { reportFormService.editReportForm.scope.loader.start(); }
 					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 				} else {
 					googleMapService.singleReportMap.init($rootScope.apiData.report);
 				}
-
-				if (reportFormService.ins.scope) { reportFormService.ins.scope.loader.start(); }
 
 				$timeout(function() {
 					ui.menus.top.activateSwitcher();
@@ -46,6 +46,10 @@
 					ui.frames.app.activateSwitcher('main');
 					ui.loaders.renderer.stop();
 				});
+			},
+			onExit: function($rootScope) {
+
+				$rootScope.$broadcast('toggleRespondToReportForm', { visible: false });
 			}
 		});
 	});

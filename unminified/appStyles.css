@@ -81,6 +81,9 @@ body .gm-style-iw + div {
 .transparent {
   visibility: hidden; }
 
+.halfTransparent {
+  opacity: 0.5; }
+
 .dimmed {
   opacity: 0.5; }
 
@@ -187,68 +190,71 @@ body .gm-style-iw + div {
   #lost-and-found-app-profile #userSection > div {
     padding: 10px 10px 0 10px; }
 
-#lost-and-found-app-report #section1, #lost-and-found-app-report #section2 {
+#lost-and-found-app-report #subjectSection, #lost-and-found-app-report #startEventSection {
   margin-bottom: 50px; }
-  #lost-and-found-app-report #section1 .text-info, #lost-and-found-app-report #section1 .text-warning, #lost-and-found-app-report #section2 .text-info, #lost-and-found-app-report #section2 .text-warning {
+  #lost-and-found-app-report #subjectSection .text-info, #lost-and-found-app-report #subjectSection .text-warning, #lost-and-found-app-report #startEventSection .text-info, #lost-and-found-app-report #startEventSection .text-warning {
     font-weight: bold; }
 
-#lost-and-found-app-report #section1 {
+#lost-and-found-app-report #endEventSection .myBtnsGroupRight {
+  margin-bottom: 15px; }
+
+#lost-and-found-app-report #subjectSection {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -ms-flex-align: start;
   align-items: flex-start; }
-  #lost-and-found-app-report #section1 > div {
+  #lost-and-found-app-report #subjectSection > div {
     -ms-flex-positive: 1;
     flex-grow: 1; }
-  #lost-and-found-app-report #section1 > div:first-child {
+  #lost-and-found-app-report #subjectSection > div:first-child {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
     -ms-flex-pack: center;
     justify-content: center; }
-    #lost-and-found-app-report #section1 > div:first-child > div {
+    #lost-and-found-app-report #subjectSection > div:first-child > div {
       margin: 10px; }
-  #lost-and-found-app-report #section1 > div:last-child > div {
+  #lost-and-found-app-report #subjectSection > div:last-child > div {
     margin: 10px; }
   @media only screen and (min-width: 768px) {
-    #lost-and-found-app-report #section1 > div:first-child {
-      -ms-flex-preferred-size: 30%;
-      flex-basis: 30%; }
-    #lost-and-found-app-report #section1 > div:last-child {
-      -ms-flex-preferred-size: 70%;
-      flex-basis: 70%; } }
+    #lost-and-found-app-report #subjectSection > div:first-child {
+      -ms-flex-preferred-size: 35%;
+      flex-basis: 35%; }
+    #lost-and-found-app-report #subjectSection > div:last-child {
+      -ms-flex-preferred-size: 65%;
+      flex-basis: 65%; } }
 
-#lost-and-found-app-report #section2 {
+#lost-and-found-app-report #startEventSection {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -ms-flex-align: start;
   align-items: flex-start; }
-  #lost-and-found-app-report #section2 > div {
+  #lost-and-found-app-report #startEventSection > div {
     -ms-flex-positive: 1;
     flex-grow: 1; }
-    #lost-and-found-app-report #section2 > div > div {
+    #lost-and-found-app-report #startEventSection > div > div {
       margin: 10px; }
   @media only screen and (min-width: 768px) {
-    #lost-and-found-app-report #section2 > div:first-child {
+    #lost-and-found-app-report #startEventSection > div:first-child {
       -ms-flex-preferred-size: 60%;
       flex-basis: 60%; }
-    #lost-and-found-app-report #section2 > div:last-child {
+    #lost-and-found-app-report #startEventSection > div:last-child {
       -ms-flex-preferred-size: 40%;
       flex-basis: 40%; } }
-  #lost-and-found-app-report #section2 #mapContainer {
+  #lost-and-found-app-report #startEventSection #mapContainer {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
     justify-content: center; }
-    #lost-and-found-app-report #section2 #mapContainer > div {
+    #lost-and-found-app-report #startEventSection #mapContainer > div {
       width: 200px; }
       @media only screen and (min-width: 400px) {
-        #lost-and-found-app-report #section2 #mapContainer > div {
+        #lost-and-found-app-report #startEventSection #mapContainer > div {
           width: 300px; } }
 
 #lost-and-found-app-search #mapSection > div:first-child {
@@ -492,7 +498,10 @@ body .gm-style-iw + div {
 .myFormContainer {
   position: relative; }
   .myFormContainer .myForm {
-    position: relative; }
+    position: relative;
+    background-color: #eeeeee;
+    padding: 10px;
+    border-radius: 5px; }
     .myFormContainer .myForm input, .myFormContainer .myForm select {
       max-width: 300px; }
     .myFormContainer .myForm input, .myFormContainer .myForm textarea {
@@ -526,62 +535,12 @@ body .gm-style-iw + div {
 .myLabel {
   padding: 1px; }
 
-.myModal {
-  text-align: left; }
-  .myModal .modal-dialog {
-    display: table;
-    margin: 15px auto; }
-  .myModal .modal-header h4 {
-    font-weight: bold;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-all;
-    word-break: break-word;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto; }
-  .myModal .modal-body {
-    max-height: calc(100vh - 180px);
-    overflow-y: auto; }
-    .myModal .modal-body img {
-      width: 150px; }
-  .myModal .modal-footer .btn {
-    margin: 0; }
-  .myModal.modalSlideInFromLeft.modal.fade:not(.in) .modal-dialog {
-    transform: translate3d(-25%, 0, 0); }
-  .myModal .myForm {
-    margin: 0 auto; }
-
-@media only screen and (min-width: 768px) {
-  .wideModal .modal-dialog {
-    width: 720px; } }
-
-@media only screen and (min-width: 900px) {
-  .wideModal .modal-dialog {
-    width: 850px; } }
-
-.responsiveImgAndDesc {
-  display: table;
-  width: 100%; }
-  .responsiveImgAndDesc img {
-    max-width: 200px; }
-  .responsiveImgAndDesc > div {
-    display: table-cell;
-    vertical-align: top; }
-    .responsiveImgAndDesc > div p {
-      margin: 25px;
-      text-align: justify; }
-  .responsiveImgAndDesc > div:first-child {
-    text-align: center; }
-  @media only screen and (max-width: 600px) {
-    .responsiveImgAndDesc > div {
-      display: block; } }
-
 .myLoader {
   position: relative;
   left: 0;
   right: 0;
-  padding: 50px; }
+  padding: 50px;
+  z-index: 5000; }
   .myLoader .sk-circle {
     position: relative;
     margin: 0 auto;
@@ -652,6 +611,57 @@ body .gm-style-iw + div {
     transform: scale(0); }
   40% {
     transform: scale(1); } }
+
+.myModal {
+  text-align: left; }
+  .myModal .modal-dialog {
+    display: table;
+    margin: 15px auto; }
+  .myModal .modal-header h4 {
+    font-weight: bold;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto; }
+  .myModal .modal-body {
+    max-height: calc(100vh - 180px);
+    overflow-y: auto; }
+    .myModal .modal-body img {
+      width: 150px; }
+  .myModal .modal-footer .btn {
+    margin: 0; }
+  .myModal.modalSlideInFromLeft.modal.fade:not(.in) .modal-dialog {
+    transform: translate3d(-25%, 0, 0); }
+  .myModal .myForm {
+    margin: 0 auto; }
+
+@media only screen and (min-width: 768px) {
+  .wideModal .modal-dialog {
+    width: 720px; } }
+
+@media only screen and (min-width: 900px) {
+  .wideModal .modal-dialog {
+    width: 850px; } }
+
+.responsiveImgAndDesc {
+  display: table;
+  width: 100%; }
+  .responsiveImgAndDesc img {
+    max-width: 200px; }
+  .responsiveImgAndDesc > div {
+    display: table-cell;
+    vertical-align: top; }
+    .responsiveImgAndDesc > div p {
+      margin: 25px;
+      text-align: justify; }
+  .responsiveImgAndDesc > div:first-child {
+    text-align: center; }
+  @media only screen and (max-width: 600px) {
+    .responsiveImgAndDesc > div {
+      display: block; } }
 
 .myPanel .panel-heading {
   display: -ms-flexbox;

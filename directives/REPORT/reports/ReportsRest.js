@@ -4,6 +4,16 @@
 
 	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
 
+		var getReportEventModelConf = function() {
+			return {
+				group: {},
+				date: {},
+				placeId: {},
+				geolocation: {},
+				details: {}
+			};
+		};
+
 		var getReportModelConf = function() {
 			return {
 				categoryId: {},
@@ -12,20 +22,15 @@
 				title: {},
 				serialNo: {},
 				description: {},
-				startEvent: {
-					group: {},
-					date: {},
-					placeId: {},
-					geolocation: {},
-					details: {}
-				}
+				startEvent: getReportEventModelConf()
 			};
 		};
 
 		var reports = Restangular.service('reports');
 
-		reports.newReportModel = new MyDataModel(getReportModelConf());
+		reports.addReportModel = new MyDataModel(getReportModelConf());
 		reports.editReportModel = new MyDataModel(getReportModelConf());
+		reports.respondToReportModel = new MyDataModel(getReportEventModelConf());
 
 		reports.reportSearchModel = new MyDataModel({
 			title: {},
@@ -36,6 +41,7 @@
 		Restangular.extendModel('reports', function(report) {
 
 			report._isOwn = function() {
+
 				return this.userId == $rootScope.apiData.loggedInUser._id;
 			};
 

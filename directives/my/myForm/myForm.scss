@@ -5,6 +5,9 @@
 	.myForm {
 
 		position: relative;
+		background-color: $gray-lighter;
+		padding: 10px;
+		border-radius: 5px;
 
 		input, select {
 			max-width: 300px;

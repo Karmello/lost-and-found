@@ -3,7 +3,7 @@
 	<form
 		id="{{ ins.ctrlId }}"
 		class="myForm no_selection"
-		ng-class="{ transparent: !ins.noLoader && loader.isLoading }"
+		ng-class="{ halfTransparent: !ins.noLoader && loader.isLoading }"
 		my-directive
 	>
 		<div ng-transclude></div>

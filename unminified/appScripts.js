@@ -795,7 +795,7 @@
 
 	'use strict';
 
-	var ReportController = function($scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
+	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
 
 		$scope.params = $stateParams;
 		$scope.$moment = $moment;
@@ -813,9 +813,18 @@
 
 		$scope.reportsService = reportsService;
 		$scope.commentsBrowser = commentsConf.reportCommentsBrowser;
+
+		$scope.showRespondToReportForm = function() {
+			$scope.isRespondToReportFormVisible = true;
+			$scope.$broadcast('respondToReport');
+		};
+
+		$rootScope.$on('toggleRespondToReportForm', function(e, args) {
+			$scope.isRespondToReportFormVisible = args.visible;
+		});
 	};
 
-	ReportController.$inject = ['$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();
@@ -1187,6 +1196,7 @@
 			url: '/report?id&edit',
 			resolve: {
 				isAuthenticated: function(authentication, resolveService, $state) {
+
 					return resolveService.isAuthenticated($state.current.name);
 				},
 				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, UsersRest, ReportsRest) {
@@ -1213,13 +1223,12 @@
 			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, reportFormService, ui) {
 
 				if ($stateParams.edit === '1') {
+					if (reportFormService.editReportForm) { reportFormService.editReportForm.scope.loader.start(); }
 					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 				} else {
 					googleMapService.singleReportMap.init($rootScope.apiData.report);
 				}
-
-				if (reportFormService.ins.scope) { reportFormService.ins.scope.loader.start(); }
 
 				$timeout(function() {
 					ui.menus.top.activateSwitcher();
@@ -1227,6 +1236,10 @@
 					ui.frames.app.activateSwitcher('main');
 					ui.loaders.renderer.stop();
 				});
+			},
+			onExit: function($rootScope) {
+
+				$rootScope.$broadcast('toggleRespondToReportForm', { visible: false });
 			}
 		});
 	});
@@ -4402,12 +4415,12 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'reportSearchForm',
-					'contactForm', 'editReportForm', 'newReportForm', 'commentForm', 'upgradeForm'
+					'contactForm', 'editReportForm', 'commentForm', 'upgradeForm'
 				];
 
-				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'newReportForm', 'upgradeForm'];
+				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];
 
-				var cancelBtnForms = ['editReportForm', 'newReportForm'];
+				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm'];
 
 				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
 				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;
@@ -4415,8 +4428,9 @@
 
 				switch ($scope.myForm.ctrlId) {
 
+					case 'addReportForm':
 					case 'editReportForm':
-					case 'newReportForm':
+					case 'respondToReportForm':
 						$scope.myForm.submitBtnPhraseIndex = 4;
 						break;
 
@@ -4883,7 +4897,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $timeout, myClass, reportFormService, ReportsRest) {
+	appModule.directive('reportForm', function($rootScope, reportFormService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -4907,6 +4921,21 @@
 				return function(scope, elem, attrs) {
 
 					switch (scope.action) {
+
+						case 'addReport':
+
+							reportFormService.setMaxDate(scope);
+							ReportsRest.addReportModel.set({ startEvent: { date: scope.maxDate } }, true);
+
+							if (!$rootScope.$$listeners.addReport) {
+								$rootScope.$on('addReport', function(e, args) { reportFormService.setMaxDate(scope); });
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.addReport = null;
+							});
+
+							break;
 
 						case 'editReport':
 
@@ -4933,22 +4962,17 @@
 
 							break;
 
-						case 'newReport':
+						case 'respondToReport':
 
-							var setMaxDate = function(scope) {
-								var date = new Date();
-								scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
-							};
+							reportFormService.setMaxDate(scope);
+							ReportsRest.respondToReportModel.set({ group: 'lost', date: scope.maxDate }, true);
 
-							setMaxDate(scope);
-							ReportsRest.newReportModel.set({ startEvent: { date: scope.maxDate } }, true);
-
-							if (!$rootScope.$$listeners.newReport) {
-								$rootScope.$on('newReport', function(e, args) { setMaxDate(scope); });
+							if (!$rootScope.$$listeners.respondToReport) {
+								$rootScope.$on('respondToReport', function(e, args) { reportFormService.setMaxDate(scope); });
 							}
 
 							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.newReport = null;
+								$rootScope.$$listeners.respondToReport = null;
 							});
 
 							break;
@@ -4973,7 +4997,7 @@
 
 			switch (scope.action) {
 
-				case 'newReport':
+				case 'addReport':
 
 					return function(args) {
 
@@ -4994,8 +5018,6 @@
 
 						scope.myForm.submitSuccessCb = function(res) {
 
-							console.log(res);
-
 							$rootScope.apiData.report = res.data;
 							$state.go('app.report', { id: res.data._id, edit: undefined });
 						};
@@ -5010,6 +5032,13 @@
 						scope.myForm.model.assignTo(copy);
 						return copy.put();
 					};
+
+				case 'respondToReport':
+
+					return function(args) {
+
+
+					};
 			}
 		};
 
@@ -5017,18 +5046,23 @@
 
 		service.createFormIns = function(scope) {
 
-			service.ins = new MyForm({
+			service[scope.action + 'Form'] = new MyForm({
 				ctrlId: scope.action + 'Form',
 				model: ReportsRest[scope.action + 'Model'],
 				submitAction: getFormSubmitAction(scope),
 				onCancel: function() {
 
-					$timeout(function() { scope.myForm.reset(); });
-					window.history.back();
+					if (scope.action != 'respondToReport') {
+						$timeout(function() { scope.myForm.reset(); });
+						window.history.back();
+
+					} else {
+						$rootScope.$broadcast('toggleRespondToReportForm', { visible: false });
+					}
 				}
 			});
 
-			return service.ins;
+			return service[scope.action + 'Form'];
 		};
 
 		service.setModelWithGooglePlaceObj = function(scope) {
@@ -5046,6 +5080,12 @@
 			} else {
 				scope.myForm.model.setValue('startEvent.geolocation', undefined);
 			}
+		};
+
+		service.setMaxDate = function(scope) {
+
+			var date = new Date();
+			scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 		};
 
 		return service;
@@ -7355,6 +7395,16 @@
 
 	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
 
+		var getReportEventModelConf = function() {
+			return {
+				group: {},
+				date: {},
+				placeId: {},
+				geolocation: {},
+				details: {}
+			};
+		};
+
 		var getReportModelConf = function() {
 			return {
 				categoryId: {},
@@ -7363,20 +7413,15 @@
 				title: {},
 				serialNo: {},
 				description: {},
-				startEvent: {
-					group: {},
-					date: {},
-					placeId: {},
-					geolocation: {},
-					details: {}
-				}
+				startEvent: getReportEventModelConf()
 			};
 		};
 
 		var reports = Restangular.service('reports');
 
-		reports.newReportModel = new MyDataModel(getReportModelConf());
+		reports.addReportModel = new MyDataModel(getReportModelConf());
 		reports.editReportModel = new MyDataModel(getReportModelConf());
+		reports.respondToReportModel = new MyDataModel(getReportEventModelConf());
 
 		reports.reportSearchModel = new MyDataModel({
 			title: {},
@@ -7387,6 +7432,7 @@
 		Restangular.extendModel('reports', function(report) {
 
 			report._isOwn = function() {
+
 				return this.userId == $rootScope.apiData.loggedInUser._id;
 			};
 

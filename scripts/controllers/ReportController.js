@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var ReportController = function($scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
+	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
 
 		$scope.params = $stateParams;
 		$scope.$moment = $moment;
@@ -20,9 +20,18 @@
 
 		$scope.reportsService = reportsService;
 		$scope.commentsBrowser = commentsConf.reportCommentsBrowser;
+
+		$scope.showRespondToReportForm = function() {
+			$scope.isRespondToReportFormVisible = true;
+			$scope.$broadcast('respondToReport');
+		};
+
+		$rootScope.$on('toggleRespondToReportForm', function(e, args) {
+			$scope.isRespondToReportFormVisible = args.visible;
+		});
 	};
 
-	ReportController.$inject = ['$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();

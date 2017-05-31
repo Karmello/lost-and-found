@@ -8,7 +8,7 @@
 
 		service.init = function() {
 
-			service.socket = io('http://localhost:8080');
+			service.socket = io('https://localhost:8080');
 			service.socket.on('UpdateAppStats', service.onUpdateAppStats);
 		};
 

@@ -42,7 +42,7 @@ module.exports = function(req, res, next) {
 
 		var mail = r.modules.mailModule.create('new_pass_link', req.session.language, user.email, {
 			username: user.username,
-            link: 'http://' + req.headers.host + '/reset_password?authToken=' + token
+            link: 'https://' + req.headers.host + '/reset_password?authToken=' + token
 		});
 
         r.modules.mailModule.send(mail, function(err, info) {

@@ -42,8 +42,8 @@ module.exports = {
 			case 'paypal':
 
 				config.redirect_urls = {
-					'return_url': 'http://' + action.req.headers.host + '/paypal/execute',
-					'cancel_url': 'http://' + action.req.headers.host + '/paypal/cancel'
+					'return_url': 'https://' + action.req.headers.host + '/paypal/execute',
+					'cancel_url': 'https://' + action.req.headers.host + '/paypal/cancel'
 				};
 
 				break;
@@ -147,7 +147,7 @@ module.exports = {
 	        if (!err) {
 
 	        	r.modules.paypalModule.finalizePayment(payment).then(function() {
-	        		res.redirect('http://' + req.headers.host + '/#/upgrade?id=' + payment.transactions[0].description);
+	        		res.redirect('https://' + req.headers.host + '/#/upgrade?id=' + payment.transactions[0].description);
 
 	        	}, function() {
 	        		res.send('Error occured.');

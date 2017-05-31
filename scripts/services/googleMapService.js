@@ -35,7 +35,7 @@
 						var marker = new google.maps.Marker({
 							map: map,
 							position: latLng,
-							icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+							icon: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
 						});
 
 						marker.addListener('mouseover', function() {
@@ -134,7 +134,7 @@
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,
 					position: new google.maps.LatLng(collection[i].startEvent.geolocation.lat, collection[i].startEvent.geolocation.lng),
-					icon: 'http://maps.google.com/mapfiles/ms/icons/' + iconName
+					icon: 'https://maps.google.com/mapfiles/ms/icons/' + iconName
 				});
 
 				newMarker.addListener('mouseover', function() {

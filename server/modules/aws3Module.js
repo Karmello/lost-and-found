@@ -71,7 +71,7 @@ module.exports = {
             config.policy = that.createBase64Policy(config);
 
             resolve({
-                awsUrl: 'http://' + process.env.AWS3_UPLOADS_BUCKET_URL + '.s3.amazonaws.com',
+                awsUrl: 'https://' + process.env.AWS3_UPLOADS_BUCKET_URL + '.s3.amazonaws.com',
                 awsFormData: {
                     key: config.filename,
                     acl: config.acl,

@@ -5,6 +5,7 @@ var _requires = {
 	bodyParser: require('body-parser'),
 	crypto: require('crypto'),
 	express: require('express'),
+	fs: require('fs'),
 	http: require('http'),
 	https: require('https'),
 	socketIO: require('socket.io'),

@@ -46,9 +46,13 @@ gulp.task('compile', ['html_directives', 'sass', 'js'], function() {
 
     browserSync.init({
         snippetOptions: { ignorePaths: 'public/pages/*.html' },
-        proxy: 'http://localhost:8080',
+        proxy: 'https://localhost:8080',
         ghostMode: false,
-        browser: 'chrome'
+        browser: 'chrome',
+        https: {
+            key: 'ssl/server.key',
+            cert: 'ssl/server.crt'
+        }
     });
 });
 

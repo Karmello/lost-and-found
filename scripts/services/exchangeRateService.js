@@ -5,7 +5,7 @@
 	var exchangeRateService = function() {
 
 		var config = {
-			api: 'http://api.fixer.io/latest?base=',
+			api: 'https://api.fixer.io/latest?base=',
 			availableRates: {
 				'USD': { sign: '$' },
 				'EUR': { sign: '€' },

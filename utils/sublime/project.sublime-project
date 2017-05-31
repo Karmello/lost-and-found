@@ -59,6 +59,10 @@
 		{
 			"follow_symlinks": true,
 			"path": "D:\\Workspace\\laf\\dev\\server\\modules"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\ssl"
 		}
 	]
 }

@@ -73,7 +73,12 @@ r.setups.setupConstants(app, function() {
 					r.ReportEvent = r.mongoose.model('report_event', require(global.paths.schemas + 'ReportEventSchema'));
 					r.User = r.mongoose.model('user');
 
-					var server = r.http.createServer(app);
+					var server = r.https.createServer({
+						key: r.fs.readFileSync('ssl/server.key'),
+    					cert: r.fs.readFileSync('ssl/server.crt'),
+    					passphrase: process.env.HTTPS_PASSPHRASE
+					}, app);
+
 					r.io = r.socketIO(server);
 
 					server.listen(process.env.PORT, function () {

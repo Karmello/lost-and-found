@@ -4402,6 +4402,31 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('scrollTopBtn', function() {
+
+		var scrollTopBtn = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
+			controller: function($scope) {
+
+				$scope.scroll = function() {
+					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				};
+			}
+		};
+
+		return scrollTopBtn;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('formActionBtns', function() {
 
 		var formActionBtns = {
@@ -4478,31 +4503,6 @@
 		};
 
 		return formActionBtns;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('scrollTopBtn', function() {
-
-		var scrollTopBtn = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/btns/scrollTopBtn/scrollTopBtn.html',
-			controller: function($scope) {
-
-				$scope.scroll = function() {
-					$('html, body').animate({ scrollTop: 0 }, 'fast');
-				};
-			}
-		};
-
-		return scrollTopBtn;
 	});
 
 })();
@@ -5253,26 +5253,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('infoModal', function() {
-
-		var infoModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return infoModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('confirmModal', function() {
 
 		var confirmModal = {
@@ -5284,6 +5264,26 @@
 		};
 
 		return confirmModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('infoModal', function() {
+
+		var infoModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return infoModal;
 	});
 
 })();
@@ -7312,8 +7312,8 @@
 
 				query.subject = 'searchReports';
 				query.title = model.title;
-				query.categoryId = model.categoryId;
-				query.subcategoryId = model.subcategoryId;
+				query.category1 = model.category1;
+				query.category2 = model.category2;
 
 				return ReportsRest.getList(query);
 			}
@@ -7407,9 +7407,9 @@
 
 		var getReportModelConf = function() {
 			return {
-				categoryId: {},
-				subcategoryId: {},
-				subsubcategoryId: {},
+				category1: {},
+				category2: {},
+				category3: {},
 				title: {},
 				serialNo: {},
 				description: {},
@@ -7425,8 +7425,8 @@
 
 		reports.reportSearchModel = new MyDataModel({
 			title: {},
-			categoryId: {},
-			subcategoryId: {}
+			category1: {},
+			category2: {}
 		});
 
 		Restangular.extendModel('reports', function(report) {
@@ -7438,15 +7438,37 @@
 
 			report.getFullCategory = function() {
 
-				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
-					return obj._id == report.categoryId;
-				});
+				var category1, category2, category3;
+				var labels = [];
 
-				var subcategory = _.find(category.subcategories, function(obj) {
-					return obj._id == report.subcategoryId;
-				});
+				if (report.category1) {
 
-				return category.label + ' / ' + subcategory.label;
+					category1 = _.find($rootScope.hardData.reportCategories, function(obj) {
+						return obj._id == report.category1;
+					});
+
+					labels.push(category1.label);
+				}
+
+				if (report.category2) {
+
+					category2 = _.find(category1.subcategories, function(obj) {
+						return obj._id == report.category2;
+					});
+
+					labels.push(category2.label);
+				}
+
+				if (report.category3) {
+
+					category3 = _.find(category2.subcategories, function(obj) {
+						return obj._id == report.category3;
+					});
+
+					labels.push(category3.label);
+				}
+
+				return labels.join(' / ');
 			};
 
 			return report;

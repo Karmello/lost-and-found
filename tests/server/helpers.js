@@ -75,8 +75,8 @@ var mongoose = require('mongoose');
     	},
         reports: {
             undefinedReport: {
-                categoryId: undefined,
-                subcategoryId: undefined,
+                category1: undefined,
+                category2: undefined,
                 title: undefined,
                 description: undefined,
                 currency: undefined,
@@ -86,8 +86,8 @@ var mongoose = require('mongoose');
                 amount: undefined
             },
             emptyReport: {
-                categoryId: '',
-                subcategoryId: '',
+                category1: '',
+                category2: '',
                 title: '',
                 description: '',
                 currency: '',
@@ -97,8 +97,8 @@ var mongoose = require('mongoose');
                 amount: ''
             },
             spaceReport: {
-                categoryId: '     ',
-                subcategoryId: '     ',
+                category1: '     ',
+                category2: '     ',
                 title: '     ',
                 description: '     ',
                 currency: '     ',
@@ -108,8 +108,8 @@ var mongoose = require('mongoose');
                 amount: '     '
             },
             report1: {
-                categoryId: 'electronics',
-                subcategoryId: 'smartphones',
+                category1: 'electronics',
+                category2: 'smartphones',
                 title: 'Sony Xperia S smartphoneeeeeeeeee',
                 description: 'This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone This is Sony Xperia S smartphone',
                 currency: 'USD',

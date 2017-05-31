@@ -42,8 +42,8 @@
 
 				query.subject = 'searchReports';
 				query.title = model.title;
-				query.categoryId = model.categoryId;
-				query.subcategoryId = model.subcategoryId;
+				query.category1 = model.category1;
+				query.category2 = model.category2;
 
 				return ReportsRest.getList(query);
 			}

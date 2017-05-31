@@ -16,9 +16,9 @@
 
 		var getReportModelConf = function() {
 			return {
-				categoryId: {},
-				subcategoryId: {},
-				subsubcategoryId: {},
+				category1: {},
+				category2: {},
+				category3: {},
 				title: {},
 				serialNo: {},
 				description: {},
@@ -34,8 +34,8 @@
 
 		reports.reportSearchModel = new MyDataModel({
 			title: {},
-			categoryId: {},
-			subcategoryId: {}
+			category1: {},
+			category2: {}
 		});
 
 		Restangular.extendModel('reports', function(report) {
@@ -47,15 +47,37 @@
 
 			report.getFullCategory = function() {
 
-				var category = _.find($rootScope.hardData.reportCategories, function(obj) {
-					return obj._id == report.categoryId;
-				});
+				var category1, category2, category3;
+				var labels = [];
 
-				var subcategory = _.find(category.subcategories, function(obj) {
-					return obj._id == report.subcategoryId;
-				});
+				if (report.category1) {
 
-				return category.label + ' / ' + subcategory.label;
+					category1 = _.find($rootScope.hardData.reportCategories, function(obj) {
+						return obj._id == report.category1;
+					});
+
+					labels.push(category1.label);
+				}
+
+				if (report.category2) {
+
+					category2 = _.find(category1.subcategories, function(obj) {
+						return obj._id == report.category2;
+					});
+
+					labels.push(category2.label);
+				}
+
+				if (report.category3) {
+
+					category3 = _.find(category2.subcategories, function(obj) {
+						return obj._id == report.category3;
+					});
+
+					labels.push(category3.label);
+				}
+
+				return labels.join(' / ');
 			};
 
 			return report;

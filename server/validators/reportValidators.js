@@ -1,49 +1,70 @@
 var r = require(global.paths._requires);
 
 module.exports = {
-    categoryId: {
+    category1: {
         correctness: {
             type: 'incorrect',
-            validator: function(categoryId) {
+            validator: function(category1) {
 
-                for (var i = 0; i < r.hardData.en.reportCategories.length; i++) {
-                    if (r.hardData.en.reportCategories[i]._id == categoryId) {
-                        return true;
-                    }
-                }
-
-                return false;
+                return Boolean(r._.find(r.hardData.en.reportCategories, function(obj) {
+                    return obj._id == category1;
+                }));
             }
         }
     },
-    subcategoryId: {
+    category2: {
         correctness: {
             type: 'incorrect',
-            validator: function (subcategoryId) {
+            validator: function (category2) {
 
-                var i, subcategories;
+                var doc = this;
 
-                for (i = 0; i < r.hardData.en.reportCategories.length; i++) {
-                    if (r.hardData.en.reportCategories[i]._id == this.categoryId) {
-                        subcategories = r.hardData.en.reportCategories[i].subcategories;
-                    }
-                }
+                if (!doc.category1) { return false; }
 
-                if (subcategories) {
+                var category1 = r._.find(r.hardData.en.reportCategories, function(obj) {
+                    return obj._id == doc.category1;
+                });
 
-                    for (i = 0; i < subcategories.length; i++) {
-                        if (subcategories[i]._id == subcategoryId) {
-                            return true;
-                        }
-                    }
+                if (category1) {
 
-                    return false;
+                    return Boolean(r._.find(category1.subcategories, function(obj) {
+                        return obj._id == category2;
+                    }));
 
-                } else {
-                    return false;
-                }
+                } else { return false; }
             }
-        },
+        }
+    },
+    category3: {
+        correctness: {
+            type: 'incorrect',
+            validator: function (category3) {
+
+                var doc = this;
+
+                if (!doc.category1 || !doc.category2) { return false; }
+
+                var category1 = r._.find(r.hardData.en.reportCategories, function(obj) {
+                    return obj._id == doc.category1;
+                });
+
+                if (category1) {
+
+                    var category2 = r._.find(category1.subcategories, function(obj) {
+                        return obj._id == doc.category2;
+                    });
+
+                    if (category2) {
+
+                        return Boolean(r._.find(category2.subcategories, function(obj) {
+                            return obj._id == category3;
+                        }));
+
+                    } else { return false; }
+
+                } else { return false; }
+            }
+        }
     },
     title: {
         length: {

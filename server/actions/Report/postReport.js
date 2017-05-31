@@ -5,10 +5,13 @@ module.exports = {
 
 		var action = new r.prototypes.Action(arguments);
 
+		console.log(req.body);
+
 		var report = new r.Report({
 			userId: req.decoded._id,
-			categoryId: req.body.categoryId,
-			subcategoryId: req.body.subcategoryId,
+			category1: req.body.category1,
+			category2: req.body.category2,
+			category3: req.body.category3,
 			title: req.body.title,
 			description: req.body.description,
 			serialNo: req.body.serialNo

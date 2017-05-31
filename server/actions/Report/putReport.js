@@ -9,8 +9,9 @@ module.exports = {
 
 			if (err) { return action.end(400, err); }
 
-			report.categoryId = req.body.categoryId;
-			report.subcategoryId = req.body.subcategoryId;
+			report.category1 = req.body.category1;
+			report.category2 = req.body.category2;
+			report.category3 = req.body.category3;
 			report.title = req.body.title;
 			report.description = req.body.description;
 			report.serialNo = req.body.serialNo;

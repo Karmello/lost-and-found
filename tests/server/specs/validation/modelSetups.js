@@ -63,7 +63,7 @@ module.exports = {
 		}
 	},
 	Report: {
-		categoryId: {
+		category1: {
 			inputCases: [
 				ic.value.undefined,
 				ic.string.empty,
@@ -71,7 +71,7 @@ module.exports = {
 				ic.string.default
 			]
 		},
-		subcategoryId: {
+		category2: {
 			inputCases: [
 				ic.value.undefined,
 				ic.string.empty,

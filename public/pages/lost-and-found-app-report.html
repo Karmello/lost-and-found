@@ -15,13 +15,19 @@
 						<my-context-menu ng-if="reportContextMenu" ins="reportContextMenu"></my-context-menu>
 					</action-section>
 					<body-section>
-						<div id="endEventSection">
+						<div id="endEventSection" ng-if="!apiData.report._isOwn()">
 							<div class="myBtnsGroupRight">
 								<my-btn
-									ng-if="apiData.report.startEvent.group == 'lost' && apiData.report.userId != apiData.loggedInUser._id"
+									ng-if="apiData.report.startEvent.group == 'lost'"
 									ctrl-class="'btn-primary'"
 									click-action="showRespondToReportForm"
 									hard-data="{ label: ['declaratives', 0] }"
+								></my-btn>
+								<my-btn
+									ng-if="apiData.report.startEvent.group == 'found'"
+									ctrl-class="'btn-primary'"
+									click-action="showRespondToReportForm"
+									hard-data="{ label: ['declaratives', 1] }"
 								></my-btn>
 							</div>
 							<report-form ng-show="isRespondToReportFormVisible" action="respondToReport"></report-form>
@@ -41,10 +47,6 @@
 										<span ng-bind="apiData.report._id"></span>
 									</div>
 									<div>
-										<span class="text-info">{{ hardData.labels[12] }}</span> -
-										<span ng-bind="apiData.report.getFullCategory()"></span>
-									</div>
-									<div>
 										<span class="text-info">{{ hardData.count[7] }}</span>
 										<span>{{ $moment.duration($moment(Date()).diff($moment(apiData.report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
 										<span style="white-space: nowrap;">({{ $moment(apiData.report.dateAdded).format('DD-MM-YYYY HH:mm') }})</span>
@@ -61,6 +63,10 @@
 								</div>
 							</div>
 							<div>
+								<div>
+									<span class="text-info">{{ hardData.labels[12] }}</span> -
+									<span ng-bind="apiData.report.getFullCategory()"></span>
+								</div>
 								<div style="text-align: justify;">
 									<span class="text-info">{{ hardData.labels[10] }}</span><br>
 									<span ng-bind="apiData.report.description"></span>

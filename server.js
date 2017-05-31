@@ -74,8 +74,8 @@ r.setups.setupConstants(app, function() {
 					r.User = r.mongoose.model('user');
 
 					var server = r.https.createServer({
-						key: r.fs.readFileSync('ssl/server.key'),
-    					cert: r.fs.readFileSync('ssl/server.crt'),
+						key: r.fs.readFileSync('https/server.key'),
+    					cert: r.fs.readFileSync('https/server.crt'),
     					passphrase: process.env.HTTPS_PASSPHRASE
 					}, app);
 

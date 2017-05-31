@@ -42,7 +42,9 @@
 
 			report._isOwn = function() {
 
-				return this.userId == $rootScope.apiData.loggedInUser._id;
+				if ($rootScope.apiData.loggedInUser) {
+					return this.userId == $rootScope.apiData.loggedInUser._id;
+				}
 			};
 
 			report.getFullCategory = function() {

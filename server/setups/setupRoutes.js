@@ -21,7 +21,7 @@ module.exports = function(app, dirname, cb) {
 
     // Paypal
     app.get('/paypal/execute', r.modules.paypalModule.makePaypalPayment);
-    app.get('/paypal/cancel', function(req, res) { res.redirect('http://' + req.headers.host + '/#/upgrade'); });
+    app.get('/paypal/cancel', function(req, res) { res.redirect('https://' + req.headers.host + '/#/upgrade'); });
     app.get('/paypal/payment', [r.modules.authorize.userToken, r.modules.paypalModule.getPaymentDetails]);
 
     // Get stats route

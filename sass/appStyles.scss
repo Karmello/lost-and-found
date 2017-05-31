@@ -862,6 +862,7 @@ $avatarSize: 240px;
 .myModal {
 
 	text-align: left;
+	z-index: 6000;
 
 	.modal-dialog {
 		display: table;
@@ -937,6 +938,42 @@ $avatarSize: 240px;
 
 
 }
+.myPopOverIcon {
+
+	display: table;
+	border-radius: 3px;
+
+	> div {
+
+		display: table-cell;
+		vertical-align: middle;
+
+		> span {
+
+			display: table;
+			margin: 0 auto;
+			text-align: center;
+
+			&.glyphicon {
+
+				display: table;
+				width: 28px;
+				height: 28px;
+				position: relative;
+				padding-top: 7px;
+				padding-left: 1px;
+				font-size: 15px;
+				color: $gray-lighter;
+			}
+		}
+	}
+
+	.popover-content {}
+
+	.glyphicon-play {
+		top: 0 !important;
+	}
+}
 .myPanel {
 
 	.panel-default {}
@@ -972,42 +1009,6 @@ $avatarSize: 240px;
 
 	.trasparentHeading {
 		background-color: transparent;
-	}
-}
-.myPopOverIcon {
-
-	display: table;
-	border-radius: 3px;
-
-	> div {
-
-		display: table-cell;
-		vertical-align: middle;
-
-		> span {
-
-			display: table;
-			margin: 0 auto;
-			text-align: center;
-
-			&.glyphicon {
-
-				display: table;
-				width: 28px;
-				height: 28px;
-				position: relative;
-				padding-top: 7px;
-				padding-left: 1px;
-				font-size: 15px;
-				color: $gray-lighter;
-			}
-		}
-	}
-
-	.popover-content {}
-
-	.glyphicon-play {
-		top: 0 !important;
 	}
 }
 .mySelect {

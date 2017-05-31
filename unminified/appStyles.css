@@ -613,7 +613,8 @@ body .gm-style-iw + div {
     transform: scale(1); } }
 
 .myModal {
-  text-align: left; }
+  text-align: left;
+  z-index: 6000; }
   .myModal .modal-dialog {
     display: table;
     margin: 15px auto; }
@@ -663,6 +664,28 @@ body .gm-style-iw + div {
     .responsiveImgAndDesc > div {
       display: block; } }
 
+.myPopOverIcon {
+  display: table;
+  border-radius: 3px; }
+  .myPopOverIcon > div {
+    display: table-cell;
+    vertical-align: middle; }
+    .myPopOverIcon > div > span {
+      display: table;
+      margin: 0 auto;
+      text-align: center; }
+      .myPopOverIcon > div > span.glyphicon {
+        display: table;
+        width: 28px;
+        height: 28px;
+        position: relative;
+        padding-top: 7px;
+        padding-left: 1px;
+        font-size: 15px;
+        color: #eeeeee; }
+  .myPopOverIcon .glyphicon-play {
+    top: 0 !important; }
+
 .myPanel .panel-heading {
   display: -ms-flexbox;
   display: flex;
@@ -694,28 +717,6 @@ body .gm-style-iw + div {
 
 .myPanel .trasparentHeading {
   background-color: transparent; }
-
-.myPopOverIcon {
-  display: table;
-  border-radius: 3px; }
-  .myPopOverIcon > div {
-    display: table-cell;
-    vertical-align: middle; }
-    .myPopOverIcon > div > span {
-      display: table;
-      margin: 0 auto;
-      text-align: center; }
-      .myPopOverIcon > div > span.glyphicon {
-        display: table;
-        width: 28px;
-        height: 28px;
-        position: relative;
-        padding-top: 7px;
-        padding-left: 1px;
-        font-size: 15px;
-        color: #eeeeee; }
-  .myPopOverIcon .glyphicon-play {
-    top: 0 !important; }
 
 .mySrc {
   position: relative;

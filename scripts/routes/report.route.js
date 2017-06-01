@@ -19,8 +19,10 @@
 						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
 
 						$q.all(promises).then(function(results) {
+
 							$rootScope.apiData.reportUser = results[0].data[0];
 							$rootScope.apiData.report = results[1].data[0];
+
 							resolve();
 
 						}, function() {
@@ -30,10 +32,9 @@
 				});
 				}
 			},
-			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, reportFormService, ui) {
+			onEnter: function($rootScope, $stateParams, $timeout, ui, googleMapService) {
 
 				if ($stateParams.edit === '1') {
-					if (reportFormService.editReportForm) { reportFormService.editReportForm.scope.loader.start(); }
 					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 				} else {
@@ -47,9 +48,12 @@
 					ui.loaders.renderer.stop();
 				});
 			},
-			onExit: function($rootScope) {
+			onExit: function($rootScope, ReportsRest, reportFormService) {
 
 				$rootScope.$broadcast('toggleRespondToReportForm', { visible: false });
+
+				ReportsRest.editReportModel.reset(true, true);
+				reportFormService.editReportForm.scope.loader.start();
 			}
 		});
 	});

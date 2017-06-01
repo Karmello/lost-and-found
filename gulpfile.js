@@ -50,8 +50,8 @@ gulp.task('compile', ['html_directives', 'sass', 'js'], function() {
         ghostMode: false,
         browser: 'chrome',
         https: {
-            key: 'ssl/server.key',
-            cert: 'ssl/server.crt'
+            key: 'https/server.key',
+            cert: 'https/server.crt'
         }
     });
 });

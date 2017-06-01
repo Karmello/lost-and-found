@@ -35,7 +35,8 @@
 		reports.reportSearchModel = new MyDataModel({
 			title: {},
 			category1: {},
-			category2: {}
+			category2: {},
+			category3: {}
 		});
 
 		Restangular.extendModel('reports', function(report) {

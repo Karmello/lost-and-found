@@ -938,42 +938,6 @@ $avatarSize: 240px;
 
 
 }
-.myPopOverIcon {
-
-	display: table;
-	border-radius: 3px;
-
-	> div {
-
-		display: table-cell;
-		vertical-align: middle;
-
-		> span {
-
-			display: table;
-			margin: 0 auto;
-			text-align: center;
-
-			&.glyphicon {
-
-				display: table;
-				width: 28px;
-				height: 28px;
-				position: relative;
-				padding-top: 7px;
-				padding-left: 1px;
-				font-size: 15px;
-				color: $gray-lighter;
-			}
-		}
-	}
-
-	.popover-content {}
-
-	.glyphicon-play {
-		top: 0 !important;
-	}
-}
 .myPanel {
 
 	.panel-default {}
@@ -1009,6 +973,42 @@ $avatarSize: 240px;
 
 	.trasparentHeading {
 		background-color: transparent;
+	}
+}
+.myPopOverIcon {
+
+	display: table;
+	border-radius: 3px;
+
+	> div {
+
+		display: table-cell;
+		vertical-align: middle;
+
+		> span {
+
+			display: table;
+			margin: 0 auto;
+			text-align: center;
+
+			&.glyphicon {
+
+				display: table;
+				width: 28px;
+				height: 28px;
+				position: relative;
+				padding-top: 7px;
+				padding-left: 1px;
+				font-size: 15px;
+				color: $gray-lighter;
+			}
+		}
+	}
+
+	.popover-content {}
+
+	.glyphicon-play {
+		top: 0 !important;
 	}
 }
 .mySelect {
@@ -1313,32 +1313,18 @@ $avatarSize: 240px;
 
 	.myForm {
 
-		.myBtnsGroup {
-			margin-left: 25px;
-			margin-right: 25px;
-		}
-
 		> div {
-			display: table;
-			margin: 0 auto;
-		}
 
-		@media only screen and (min-width: 450px) {
+			> div {
 
-			> div, .mySelectsGroup > div {
 				display: flex;
 				flex-flow: row wrap;
 
-				> * {
+				> div {
 					flex-grow: 1;
+					margin: 5px;
 				}
 			}
-
-			select { min-width: 125px; }
-		}
-
-		@media only screen and (min-width: 992px) {
-			margin: 0 25px 0 25px;
 		}
 	}
 }

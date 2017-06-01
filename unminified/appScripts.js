@@ -186,14 +186,6 @@
 
 						reportsService.deleteReports([this.parent.data]);
 					}
-				},
-				{
-					_id: 'refresh',
-					label: $rootScope.hardData.imperatives[19],
-					onClick: function() {
-
-
-					}
 				}
 			]
 		};
@@ -1209,8 +1201,10 @@
 						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
 
 						$q.all(promises).then(function(results) {
+
 							$rootScope.apiData.reportUser = results[0].data[0];
 							$rootScope.apiData.report = results[1].data[0];
+
 							resolve();
 
 						}, function() {
@@ -1220,10 +1214,9 @@
 				});
 				}
 			},
-			onEnter: function($rootScope, $timeout, $stateParams, googleMapService, reportFormService, ui) {
+			onEnter: function($rootScope, $stateParams, $timeout, ui, googleMapService) {
 
 				if ($stateParams.edit === '1') {
-					if (reportFormService.editReportForm) { reportFormService.editReportForm.scope.loader.start(); }
 					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
 
 				} else {
@@ -1237,9 +1230,12 @@
 					ui.loaders.renderer.stop();
 				});
 			},
-			onExit: function($rootScope) {
+			onExit: function($rootScope, ReportsRest, reportFormService) {
 
 				$rootScope.$broadcast('toggleRespondToReportForm', { visible: false });
+
+				ReportsRest.editReportModel.reset(true, true);
+				reportFormService.editReportForm.scope.loader.start();
 			}
 		});
 	});
@@ -4402,6 +4398,91 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('formActionBtns', function() {
+
+		var formActionBtns = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/btns/formActionBtns/formActionBtns.html',
+			transclude: true,
+			scope: {
+				myForm: '='
+			},
+			controller: function($scope) {
+
+				var clearBtnForms = [
+					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'reportSearchForm',
+					'contactForm', 'editReportForm', 'commentForm', 'upgradeForm'
+				];
+
+				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];
+
+				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm'];
+
+				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
+				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;
+				$scope.myForm.showCancelBtn = cancelBtnForms.indexOf($scope.myForm.ctrlId) > -1;
+
+				switch ($scope.myForm.ctrlId) {
+
+					case 'addReportForm':
+					case 'editReportForm':
+					case 'respondToReportForm':
+						$scope.myForm.submitBtnPhraseIndex = 4;
+						break;
+
+					case 'loginForm':
+					case 'registerForm':
+					case 'recoverForm':
+					case 'commentForm':
+						$scope.myForm.submitBtnPhraseIndex = 3;
+						break;
+
+					case 'contactForm':
+						$scope.myForm.submitBtnPhraseIndex = 4;
+						break;
+
+					case 'regionalForm':
+					case 'appearanceForm':
+					case 'personalDetailsForm':
+					case 'passwordForm':
+						$scope.myForm.submitBtnPhraseIndex = 5;
+						break;
+
+					case 'reportSearchForm':
+						$scope.myForm.submitBtnPhraseIndex = 17;
+						break;
+
+					case 'upgradeForm':
+						$scope.myForm.submitBtnPhraseIndex = 36;
+						break;
+				}
+
+
+
+				$scope.onSubmit = function() { $scope.myForm.submit(); };
+				$scope.onClear = function() { $scope.myForm.clear(); };
+				$scope.onReset = function() { $scope.myForm.reset(); };
+				$scope.onCancel = function() { $scope.myForm.onCancel(); };
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+
+				};
+			}
+		};
+
+		return formActionBtns;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 
 
 	appModule.directive('scrollTopBtn', function() {
@@ -4597,91 +4678,6 @@
 		};
 
 		return loginForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('formActionBtns', function() {
-
-		var formActionBtns = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/btns/formActionBtns/formActionBtns.html',
-			transclude: true,
-			scope: {
-				myForm: '='
-			},
-			controller: function($scope) {
-
-				var clearBtnForms = [
-					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'reportSearchForm',
-					'contactForm', 'editReportForm', 'commentForm', 'upgradeForm'
-				];
-
-				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];
-
-				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm'];
-
-				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
-				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;
-				$scope.myForm.showCancelBtn = cancelBtnForms.indexOf($scope.myForm.ctrlId) > -1;
-
-				switch ($scope.myForm.ctrlId) {
-
-					case 'addReportForm':
-					case 'editReportForm':
-					case 'respondToReportForm':
-						$scope.myForm.submitBtnPhraseIndex = 4;
-						break;
-
-					case 'loginForm':
-					case 'registerForm':
-					case 'recoverForm':
-					case 'commentForm':
-						$scope.myForm.submitBtnPhraseIndex = 3;
-						break;
-
-					case 'contactForm':
-						$scope.myForm.submitBtnPhraseIndex = 4;
-						break;
-
-					case 'regionalForm':
-					case 'appearanceForm':
-					case 'personalDetailsForm':
-					case 'passwordForm':
-						$scope.myForm.submitBtnPhraseIndex = 5;
-						break;
-
-					case 'reportSearchForm':
-						$scope.myForm.submitBtnPhraseIndex = 17;
-						break;
-
-					case 'upgradeForm':
-						$scope.myForm.submitBtnPhraseIndex = 36;
-						break;
-				}
-
-
-
-				$scope.onSubmit = function() { $scope.myForm.submit(); };
-				$scope.onClear = function() { $scope.myForm.clear(); };
-				$scope.onReset = function() { $scope.myForm.reset(); };
-				$scope.onCancel = function() { $scope.myForm.onCancel(); };
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-
-				};
-			}
-		};
-
-		return formActionBtns;
 	});
 
 })();
@@ -4897,7 +4893,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, reportFormService, ReportsRest) {
+	appModule.directive('reportForm', function($rootScope, $timeout, reportFormService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -4948,9 +4944,15 @@
 										var geocoder = new google.maps.Geocoder();
 
 										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
-											ReportsRest.editReportModel.set(args.report.plain(), true);
-											ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
-											scope.myForm.scope.loader.stop();
+
+											$timeout(function() {
+
+												ReportsRest.editReportModel.set(args.report.plain(), true);
+												ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
+
+												scope.myForm.scope.loader.stop();
+												scope.$apply();
+											});
 										});
 									}
 								});
@@ -5101,40 +5103,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('reportSearchForm', function($rootScope, myClass, ReportsRest) {
-
-		var reportSearchForm = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/forms/reportSearchForm/reportSearchForm.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.reportCategories = $rootScope.hardData.reportCategories;
-
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'reportSearchForm',
-					noLoader: true,
-					model: ReportsRest.reportSearchModel,
-					submitAction: function(args) {
-
-						$rootScope.$broadcast('initSearchReports');
-					}
-				});
-			}
-		};
-
-		return reportSearchForm;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('upgradeForm', function($http, $window, hardDataService, exchangeRateService, PaymentsRest, myClass) {
 
 		var DEFAULT_CURRENCY = 'USD';
@@ -5224,6 +5192,40 @@
 		};
 
 		return upgradeForm;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('reportSearchForm', function($rootScope, myClass, ReportsRest) {
+
+		var reportSearchForm = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/forms/reportSearchForm/reportSearchForm.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.reportCategories = $rootScope.hardData.reportCategories;
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: 'reportSearchForm',
+					noLoader: true,
+					model: ReportsRest.reportSearchModel,
+					submitAction: function(args) {
+
+						$rootScope.$broadcast('initSearchReports');
+					}
+				});
+			}
+		};
+
+		return reportSearchForm;
 	});
 
 })();
@@ -6045,6 +6047,42 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('myInput', function() {
+
+		var myInput = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/myInput/myInput.html',
+			scope: {
+				ctrlId: '=',
+				ctrlType: '=',
+				ctrlMaxLength: '=',
+				ctrlMinValue: '=',
+				ctrlMaxValue: '=',
+				model: '=',
+				hardData: '=',
+				hideErrors: '=',
+				isDisabled: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+
+				};
+			}
+		};
+
+		return myInput;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('myGooglePlaceAutoComplete', function() {
 
 		var myGooglePlaceAutoComplete = {
@@ -6099,42 +6137,6 @@
 		};
 
 		return myGooglePlaceAutoComplete;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myInput', function() {
-
-		var myInput = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/myInput/myInput.html',
-			scope: {
-				ctrlId: '=',
-				ctrlType: '=',
-				ctrlMaxLength: '=',
-				ctrlMinValue: '=',
-				ctrlMaxValue: '=',
-				model: '=',
-				hardData: '=',
-				hideErrors: '=',
-				isDisabled: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-
-				};
-			}
-		};
-
-		return myInput;
 	});
 
 })();
@@ -7308,12 +7310,10 @@
 			},
 			fetchData: function(query) {
 
-				var model = ReportsRest.reportSearchModel.getValues();
-
 				query.subject = 'searchReports';
-				query.title = model.title;
-				query.category1 = model.category1;
-				query.category2 = model.category2;
+
+				var model = ReportsRest.reportSearchModel.getValues();
+				Object.assign(query, model);
 
 				return ReportsRest.getList(query);
 			}
@@ -7426,7 +7426,8 @@
 		reports.reportSearchModel = new MyDataModel({
 			title: {},
 			category1: {},
-			category2: {}
+			category2: {},
+			category3: {}
 		});
 
 		Restangular.extendModel('reports', function(report) {
@@ -7542,6 +7543,37 @@
 
 	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf'];
 	angular.module('appModule').service('reportsService', reportsService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('userBadge', function($rootScope, $state, authService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.authState = authService.state;
+				$scope.label1 = $rootScope.hardData.status[0];
+
+				$scope.onLogoutClick = function() {
+					$rootScope.logout();
+				};
+
+				$scope.onContinueClick = function() {
+					$state.go('app.home');
+				};
+			}
+		};
+	});
 
 })();
 (function() {
@@ -7740,37 +7772,6 @@
 
 	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
 	angular.module('appModule').service('userAvatarService', userAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('userBadge', function($rootScope, $state, authService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/USER/userBadge/userBadge.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.status[0];
-
-				$scope.onLogoutClick = function() {
-					$rootScope.logout();
-				};
-
-				$scope.onContinueClick = function() {
-					$state.go('app.home');
-				};
-			}
-		};
-	});
 
 })();
 (function() {

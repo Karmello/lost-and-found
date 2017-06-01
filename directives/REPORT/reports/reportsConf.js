@@ -38,12 +38,10 @@
 			},
 			fetchData: function(query) {
 
-				var model = ReportsRest.reportSearchModel.getValues();
-
 				query.subject = 'searchReports';
-				query.title = model.title;
-				query.category1 = model.category1;
-				query.category2 = model.category2;
+
+				var model = ReportsRest.reportSearchModel.getValues();
+				Object.assign(query, model);
 
 				return ReportsRest.getList(query);
 			}

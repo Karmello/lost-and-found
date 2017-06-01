@@ -11,6 +11,7 @@ module.exports = function(req, res, next) {
 		if (action.req.query.title) { query.title = { '$regex': action.req.query.title, '$options': 'i' }; }
 		if (action.req.query.category1) { query.category1 = action.req.query.category1; }
 		if (action.req.query.category2) { query.category2 = action.req.query.category2; }
+		if (action.req.query.category3) { query.category3 = action.req.query.category3; }
 		if (action.req.query.userId) { query.userId = action.req.query.userId; }
 
 		// Getting requested reports count

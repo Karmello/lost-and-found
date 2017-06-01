@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, reportFormService, ReportsRest) {
+	appModule.directive('reportForm', function($rootScope, $timeout, reportFormService, ReportsRest) {
 
 		var reportForm = {
 			restrict: 'E',
@@ -55,9 +55,15 @@
 										var geocoder = new google.maps.Geocoder();
 
 										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
-											ReportsRest.editReportModel.set(args.report.plain(), true);
-											ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
-											scope.myForm.scope.loader.stop();
+
+											$timeout(function() {
+
+												ReportsRest.editReportModel.set(args.report.plain(), true);
+												ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
+
+												scope.myForm.scope.loader.stop();
+												scope.$apply();
+											});
 										});
 									}
 								});

@@ -2,32 +2,18 @@
 
 	.myForm {
 
-		.myBtnsGroup {
-			margin-left: 25px;
-			margin-right: 25px;
-		}
-
 		> div {
-			display: table;
-			margin: 0 auto;
-		}
 
-		@media only screen and (min-width: 450px) {
+			> div {
 
-			> div, .mySelectsGroup > div {
 				display: flex;
 				flex-flow: row wrap;
 
-				> * {
+				> div {
 					flex-grow: 1;
+					margin: 5px;
 				}
 			}
-
-			select { min-width: 125px; }
-		}
-
-		@media only screen and (min-width: 992px) {
-			margin: 0 25px 0 25px;
 		}
 	}
 }

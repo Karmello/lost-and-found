@@ -5,8 +5,6 @@ module.exports = {
 
 		var action = new r.prototypes.Action(arguments);
 
-		console.log(req.body);
-
 		var report = new r.Report({
 			userId: req.decoded._id,
 			category1: req.body.category1,
@@ -33,6 +31,7 @@ module.exports = {
 			});
 
 		}, function(err) {
+			console.log(err);
 			action.end(400, err);
 		});
 	}

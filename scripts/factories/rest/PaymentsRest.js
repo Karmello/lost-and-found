@@ -6,7 +6,7 @@
 
 		var payments = Restangular.service('payments');
 
-		payments.myDataModel = new MyDataModel({
+		payments.paymentModel = new MyDataModel({
 			paymentMethod: {},
 			creditCardType: {},
 			creditCardNumber: {},

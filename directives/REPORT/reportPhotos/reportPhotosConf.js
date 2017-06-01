@@ -137,7 +137,7 @@
 							label: $rootScope.hardData.imperatives[28],
 							onClick: function() {
 
-								scope.report.avatarFileName = this.parent.data.filename;
+								scope.report.avatar = this.parent.data.filename;
 								reportPhotosService.afterUpdateSync(scope);
 							}
 						}

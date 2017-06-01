@@ -17,7 +17,7 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'reportSearchForm',
-					'contactForm', 'editReportForm', 'commentForm', 'upgradeForm'
+					'contactForm', 'editReportForm', 'commentForm'
 				];
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];

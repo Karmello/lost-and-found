@@ -79,10 +79,12 @@ body .gm-style-iw + div {
   text-overflow: ellipsis; }
 
 .transparent {
-  visibility: hidden; }
+  visibility: hidden;
+  pointer-events: none; }
 
 .halfTransparent {
-  opacity: 0.5; }
+  opacity: 0.5;
+  pointer-events: none; }
 
 .dimmed {
   opacity: 0.5; }
@@ -375,12 +377,6 @@ body .gm-style-iw + div {
   max-width: 700px;
   margin: 0 auto; }
 
-.myAlert {
-  display: table;
-  margin: 0 auto;
-  text-align: center;
-  padding: 15px; }
-
 .myBtn {
   padding: 7px 15px 7px 14px; }
 
@@ -398,8 +394,15 @@ body .gm-style-iw + div {
   -ms-flex-pack: end;
   justify-content: flex-end; }
 
+.myAlert {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  padding: 15px; }
+
 .myCollectionBrowser {
-  position: relative; }
+  position: relative;
+  min-height: 300px; }
   .myCollectionBrowser .ctrls {
     display: -ms-flexbox;
     display: flex;
@@ -449,18 +452,18 @@ body .gm-style-iw + div {
       align-items: center;
       -ms-flex-flow: row wrap;
       flex-flow: row wrap; }
-      .myCollectionElem #bodySection #mainSection > div {
-        margin: 5px 10px 5px 10px; }
       .myCollectionElem #bodySection #mainSection #infoSection {
         text-align: center;
         font-size: 14px;
-        margin-bottom: 10px; }
+        margin: 5px 10px 5px 10px; }
         .myCollectionElem #bodySection #mainSection #infoSection p {
           margin: 0; }
-      .myCollectionElem #bodySection #mainSection #avatarSection .mySrc img {
-        width: 150px;
-        height: 100px;
-        object-fit: cover; }
+      .myCollectionElem #bodySection #mainSection #avatarSection .mySrc {
+        margin: 5px 10px 5px 10px; }
+        .myCollectionElem #bodySection #mainSection #avatarSection .mySrc img {
+          width: 150px;
+          height: 100px;
+          object-fit: cover; }
 
 .myContextMenu {
   position: relative; }
@@ -539,8 +542,7 @@ body .gm-style-iw + div {
   position: relative;
   left: 0;
   right: 0;
-  padding: 50px;
-  z-index: 5000; }
+  padding: 50px; }
   .myLoader .sk-circle {
     position: relative;
     margin: 0 auto;
@@ -613,8 +615,7 @@ body .gm-style-iw + div {
     transform: scale(1); } }
 
 .myModal {
-  text-align: left;
-  z-index: 6000; }
+  text-align: left; }
   .myModal .modal-dialog {
     display: table;
     margin: 15px auto; }
@@ -820,9 +821,7 @@ body .gm-style-iw + div {
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-align: end;
-  align-items: flex-end; }
+  justify-content: center; }
   .reports .myCollectionBrowser .collection > div > * > * {
     -ms-flex-preferred-size: 33.3%;
     flex-basis: 33.3%;
@@ -833,7 +832,8 @@ body .gm-style-iw + div {
     margin: 5px; }
 
 .reports .myCollectionElem {
-  background-color: #d9534f; }
+  background-color: #d9534f;
+  min-width: 250px; }
 
 .reports .isFound .myCollectionElem {
   background-color: #5bc0de; }

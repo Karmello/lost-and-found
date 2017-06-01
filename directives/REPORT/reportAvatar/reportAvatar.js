@@ -4,18 +4,19 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportAvatar', function(reportAvatarService, reportAvatarConf, MySrc) {
+	appModule.directive('reportAvatar', function(reportAvatarService, MySrc) {
 
 		var reportAvatar = {
 			restrict: 'E',
 			templateUrl: 'public/directives/REPORT/reportAvatar/reportAvatar.html',
 			scope: {
 				report: '=',
-				noLink: '&'
+				noLink: '&',
+				hideDefaultSrc: '='
 			},
 			controller: function($scope) {
 
-				$scope.src = new MySrc({ defaultUrl: reportAvatarConf.defaultUrl });
+				$scope.src = new MySrc({ defaultUrl: 'public/imgs/item.png' });
 			},
 			compile: function(elem, attrs) {
 

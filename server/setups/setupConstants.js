@@ -28,6 +28,10 @@ module.exports = function(app, cb) {
 	app.set('REPORT_MAX_PHOTOS', 15);
 	app.set('PHOTO_MAX_SIZE', 1048576);
 
+	// Report event
+	app.set('REPORT_EVENT_DETAILS_MIN_LENGTH', 50);
+	app.set('REPORT_EVENT_DETAILS_MAX_LENGTH', 1000);
+
 	// Max gets
 	app.set('REPORTS_MAX_GET', 25);
 	app.set('COMMENTS_MAX_GET', 10);

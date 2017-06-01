@@ -94,5 +94,39 @@ module.exports = {
                 } else { return false; }
             }
         }
+    },
+    avatar: {
+        correctness: {
+            type: 'incorrect',
+            validator: function(avatar, cb) {
+
+                if (!this.photos || this.photos.length === 0) {
+                    cb(avatar === undefined);
+
+                } else {
+                    cb(Boolean(r._.find(this.photos, function(obj) { return obj.filename == avatar; })));
+                }
+            }
+        }
+    },
+    photos: {
+        type: 'incorrect',
+        validator: function(photos, cb) {
+
+            var getSinglePromise = function(i) {
+
+                return new r.Promise(function(resolve) {
+                    new r.ReportPhoto(photos[i]).validate(function(err) { resolve(err); });
+                });
+            };
+
+            var promises = [];
+            for (var i = 0; i < photos.length; i++) { promises.push(getSinglePromise(i)); }
+
+            r.Promise.all(promises).then(function(results) {
+                cb(!Boolean(r._.find(results, function(elem) { return elem; })));
+            });
+
+        }
     }
 };

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $q, reportsConf) {
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf) {
 
 		var service = this;
 
@@ -27,7 +27,8 @@
 									break;
 
 								case 'app.report':
-									window.history.back();
+									$state.go('app.profile', { _id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
+									$timeout(function() { $rootScope.$broadcast('initUserReports', { userId: $stateParams.id }); });
 									break;
 							}
 						});
@@ -44,7 +45,7 @@
 				scope.elemContextMenuConf = scope.reportContextMenuConf;
 
 			} else {
-				$scope.elemContextMenuConf = undefined;
+				scope.elemContextMenuConf = undefined;
 			}
 
 			scope.collectionBrowser.onRefreshClick();
@@ -55,7 +56,7 @@
 
 
 
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$q', 'reportsConf'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();

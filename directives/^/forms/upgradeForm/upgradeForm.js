@@ -19,7 +19,7 @@
 				$scope.hardData = hardDataService.get();
 				$scope.currentYear = CURRENT_YEAR;
 
-				$scope.myModel = PaymentsRest.myDataModel;
+				$scope.myModel = PaymentsRest.paymentModel;
 
 				$scope.myModel.set({
 					paymentMethod: 'credit_card',
@@ -27,7 +27,7 @@
 					amount: DEFAULT_AMOUNT,
 					creditCardExpireMonth: 1,
 					creditCardExpireYear: CURRENT_YEAR
-				});
+				}, true);
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: 'upgradeForm',

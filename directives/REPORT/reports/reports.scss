@@ -10,7 +10,6 @@
 					display: flex;
 					flex-flow: row wrap;
 					justify-content: center;
-					align-items: flex-end;
 
 					> * {
 						flex-basis: 33.3%;
@@ -28,6 +27,7 @@
 
 	.myCollectionElem {
 		background-color: $brand-danger;
+		min-width: 250px;
 	}
 
 	.isFound {

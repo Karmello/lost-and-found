@@ -34,14 +34,15 @@
 			},
 			onEnter: function($rootScope, $stateParams, $timeout, ui, googleMapService) {
 
-				if ($stateParams.edit === '1') {
-					$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
-
-				} else {
-					googleMapService.singleReportMap.init($rootScope.apiData.report);
-				}
-
 				$timeout(function() {
+
+					if ($stateParams.edit === '1') {
+						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
+
+					} else {
+						googleMapService.singleReportMap.init($rootScope.apiData.report);
+					}
+
 					ui.menus.top.activateSwitcher();
 					ui.frames.main.activateSwitcher('report');
 					ui.frames.app.activateSwitcher('main');

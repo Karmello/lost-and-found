@@ -12,11 +12,21 @@ module.exports = {
 			report.category1 = req.body.category1;
 			report.category2 = req.body.category2;
 			report.category3 = req.body.category3;
+
 			report.title = req.body.title;
 			report.description = req.body.description;
 			report.serialNo = req.body.serialNo;
 
+			report.avatar = req.body.avatar;
+			report.photos = req.body.photos;
+
+			if (!report.avatar && report.photos.length > 0) {
+				report.avatar = report.photos[0].filename;
+			}
+
 			report.startEvent = new r.ReportEvent(req.body.startEvent);
+
+
 
 			r.actions.report.runValidation(report).then(function() {
 
@@ -29,21 +39,5 @@ module.exports = {
 				action.end(400, err);
 			});
 		});
-
-
-
-		// When avatarFileName not found among photos filenames
-		// if (!r._.find(req.body.photos, function(obj) { return obj.filename == req.body.avatarFileName; })) {
-
-		// 	// When photos array empty
-		// 	if (req.body.photos.length === 0) {
-		// 		req.body.avatarFileName = '';
-
-		// 	} else {
-
-		// 		// Setting first available photo filename as avatarFileName
-		// 		req.body.avatarFileName = req.body.photos[0].filename;
-		// 	}
-		// }
 	}
 };

@@ -15,8 +15,13 @@
 					return function(args) {
 
 						scope.myForm.submitSuccessCb = function(res) {
-							scope.myForm.reset();
+
 							$state.go('app.report', { id: res.data._id });
+
+							$timeout(function() {
+								scope.myForm.reset();
+								scope.myForm.scope.loader.stop();
+							}, 500);
 						};
 
 						service.setModelWithGooglePlaceObj(scope);
@@ -61,6 +66,7 @@
 
 			service[scope.action + 'Form'] = new MyForm({
 				ctrlId: scope.action + 'Form',
+				redirectOnSuccess: true,
 				model: ReportsRest[scope.action + 'Model'],
 				submitAction: getFormSubmitAction(scope),
 				onCancel: function() {

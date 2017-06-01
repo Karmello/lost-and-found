@@ -29,12 +29,12 @@
 		<div ng-transclude="endctrls"></div>
 	</div>
 	<div ng-transclude="extractrls"></div>
-	<div class="collection" ng-if="!ins.loader.isLoading" ng-show="ins.collection.length > 0">
+	<div class="collection" ng-class="{ halfTransparent: ins.loader.isLoading }" ng-show="ins.collection.length > 0">
 		<br />
 		<div ng-transclude="elems"></div>
 		<br />
 		<scroll-top-btn ng-if="!noScrollTopBtn && ins.collection.length >= 5" ng-show="ins.pager"></scroll-top-btn>
 		<br />
 	</div>
-	<my-loader ng-show="ins.loader.isLoading"></my-loader>
+	<my-loader ng-show="ins.loader.isLoading" abs-centered="true"></my-loader>
 </div>

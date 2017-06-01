@@ -5,6 +5,7 @@ module.exports = function(report) {
 	return new r.Promise(function(resolve, reject) {
 
 		report.validate(function(err1) {
+
 			report.startEvent.validate(function(err2) {
 
 				if (!err1 && !err2) {

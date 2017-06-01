@@ -1,9 +1,11 @@
 var r = require(global.paths._requires);
+var reportEventVal = r.validators.reportEventValidators;
 
 module.exports = new r.mongoose.Schema({
 	group: {
 		type: String,
-		required: true
+		required: true,
+		validate: [reportEventVal.group.correctness]
 	},
 	date: {
 		type: Date,
@@ -19,6 +21,7 @@ module.exports = new r.mongoose.Schema({
 	},
 	details: {
 		type: String,
-		required: true
+		required: true,
+		validate: [reportEventVal.details.length]
 	}
 });

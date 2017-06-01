@@ -29,10 +29,12 @@
 
 .transparent {
 	visibility: hidden;
+	pointer-events: none;
 }
 
 .halfTransparent {
 	opacity: 0.5;
+	pointer-events: none;
 }
 
 .dimmed {

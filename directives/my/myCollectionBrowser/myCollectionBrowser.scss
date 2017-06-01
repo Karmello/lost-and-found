@@ -1,6 +1,7 @@
 .myCollectionBrowser {
 
 	position: relative;
+	min-height: 300px;
 
 	.ctrls {
 
@@ -22,8 +23,5 @@
 		}
 	}
 
-	.collection {
-
-
-	}
+	.collection {}
 }

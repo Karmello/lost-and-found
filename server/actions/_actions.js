@@ -31,7 +31,7 @@ module.exports = {
 		getByQuery: require('./Report/getReportBySearchQuery'),
 		put: require('./Report/putReport'),
 		delete: require('./Report/deleteReport'),
-		runValidation: require('./Report/runValidation')
+		runValidation: require('./Report/runReportValidation')
 	},
 	user: {
 		post: {

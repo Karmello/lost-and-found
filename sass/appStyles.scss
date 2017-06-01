@@ -98,10 +98,12 @@ body {
 
 .transparent {
 	visibility: hidden;
+	pointer-events: none;
 }
 
 .halfTransparent {
 	opacity: 0.5;
+	pointer-events: none;
 }
 
 .dimmed {
@@ -466,12 +468,6 @@ $avatarSize: 240px;
 		}
 	}
 }
-.myAlert {
-	display: table;
-	margin: 0 auto;
-	text-align: center;
-	padding: 15px;
-}
 .myBtn {
 	padding: 7px 15px 7px 14px;
 }
@@ -493,9 +489,16 @@ $avatarSize: 240px;
 	@extend .myBtnsGroup;
 	justify-content: flex-end;
 }
+.myAlert {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+	padding: 15px;
+}
 .myCollectionBrowser {
 
 	position: relative;
+	min-height: 300px;
 
 	.ctrls {
 
@@ -517,10 +520,7 @@ $avatarSize: 240px;
 		}
 	}
 
-	.collection {
-
-
-	}
+	.collection {}
 }
 .myCollectionElem {
 
@@ -554,19 +554,16 @@ $avatarSize: 240px;
 			align-items: center;
 			flex-flow: row wrap;
 
-			> div {
-				margin: 5px 10px 5px 10px;
-			}
-
 			#infoSection {
 				text-align: center;
 				font-size: 14px;
-				margin-bottom: 10px;
+				margin: 5px 10px 5px 10px;
 				p { margin: 0; }
 			}
 
 			#avatarSection {
 				.mySrc {
+					margin: 5px 10px 5px 10px;
 					img { width: 150px; height: 100px; object-fit: cover; }
 				}
 			}
@@ -711,7 +708,6 @@ $avatarSize: 240px;
 	left: 0;
 	right: 0;
 	padding: 50px;
-	z-index: 5000;
 
 	.sk-circle {
 		position: relative;
@@ -862,7 +858,6 @@ $avatarSize: 240px;
 .myModal {
 
 	text-align: left;
-	z-index: 6000;
 
 	.modal-dialog {
 		display: table;
@@ -1204,7 +1199,6 @@ $avatarSize: 240px;
 					display: flex;
 					flex-flow: row wrap;
 					justify-content: center;
-					align-items: flex-end;
 
 					> * {
 						flex-basis: 33.3%;
@@ -1222,6 +1216,7 @@ $avatarSize: 240px;
 
 	.myCollectionElem {
 		background-color: $brand-danger;
+		min-width: 250px;
 	}
 
 	.isFound {

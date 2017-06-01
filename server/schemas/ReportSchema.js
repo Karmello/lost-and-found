@@ -39,9 +39,9 @@ var ReportSchema = new r.mongoose.Schema({
 	serialNo: {
 		type: String
 	},
-	avatarFileName: {
+	avatar: {
 		type: String,
-		default: ''
+		validate: [reportVal.avatar.correctness]
 	},
 	photos: [global.paths.schemas + 'ReportPhotoSchema'],
 	comments: [global.paths.schemas + 'CommentSchema'],
@@ -55,6 +55,8 @@ var ReportSchema = new r.mongoose.Schema({
 		ref: 'report_event'
 	}
 }, { versionKey: false });
+
+ReportSchema.path('photos').validate(reportVal.photos.validator, undefined, reportVal.photos.type);
 
 
 

@@ -71,6 +71,7 @@ r.setups.setupConstants(app, function() {
 					r.Payment = r.mongoose.model('payment');
 					r.Report = r.mongoose.model('report');
 					r.ReportEvent = r.mongoose.model('report_event', require(global.paths.schemas + 'ReportEventSchema'));
+					r.ReportPhoto = r.mongoose.model('report_photo', require(global.paths.schemas + 'ReportPhotoSchema'));
 					r.User = r.mongoose.model('user');
 
 					var server = r.https.createServer({

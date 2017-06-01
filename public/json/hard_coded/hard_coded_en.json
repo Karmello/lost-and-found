@@ -27,7 +27,7 @@
 		"OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
 		"Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Search", "Choose", "Refresh",
 		"Move left", "Move right", "Rotate", "Zoom in", "Zoom out", "Scroll to top", "Delete account", "Choose an image", "Set as avatar", "Deselect all",
-		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay", "Hide map", "Show map"
+		"Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay", "Hide map", "Show map", "Close"
 	],
 	"information": [
 		"Below is verification link for resetting password. It will be active for the next 24 hours.",

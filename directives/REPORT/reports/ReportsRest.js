@@ -9,7 +9,9 @@
 				group: {},
 				date: {},
 				placeId: {},
-				geolocation: {},
+				address: {},
+				lat: {},
+				lng: {},
 				details: {}
 			};
 		};

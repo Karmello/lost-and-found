@@ -1,7 +1,7 @@
 var r = require(global.paths._requires);
 var reportEventVal = r.validators.reportEventValidators;
 
-module.exports = new r.mongoose.Schema({
+var ReportEventSchema = new r.mongoose.Schema({
 	group: {
 		type: String,
 		required: true,
@@ -15,8 +15,16 @@ module.exports = new r.mongoose.Schema({
 		type: String,
 		required: true
 	},
-	geolocation: {
-		type: r.mongoose.Schema.Types.Mixed,
+	address: {
+		type: String,
+		required: true
+	},
+	lat: {
+		type: Number,
+		required: true
+	},
+	lng: {
+		type: Number,
 		required: true
 	},
 	details: {
@@ -25,3 +33,5 @@ module.exports = new r.mongoose.Schema({
 		validate: [reportEventVal.details.length]
 	}
 });
+
+module.exports = ReportEventSchema;

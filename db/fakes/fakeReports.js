@@ -26,7 +26,7 @@ for (var i = 0; i < 100; i++) {
         "comments": [],
         "avatar": "",
         "photos": [],
-        "geolocation": {
+        "location": {
             "lat": getRandomInRange(-180, 180, 3),
             "lng": getRandomInRange(-180, 180, 3)
         }

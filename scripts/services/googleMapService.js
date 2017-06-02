@@ -17,7 +17,8 @@
 
 				var geocoder = new google.maps.Geocoder();
 				var map = new google.maps.Map(document.getElementById('reportMap'));
-				var latLng = new google.maps.LatLng(report.startEvent.geolocation.lat, report.startEvent.geolocation.lng);
+
+				var latLng = new google.maps.LatLng(report.startEvent.lat, report.startEvent.lng);
 
 				google.maps.event.addListener(map, 'idle', function() {
 					google.maps.event.trigger(map, 'resize');
@@ -133,7 +134,7 @@
 
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,
-					position: new google.maps.LatLng(collection[i].startEvent.geolocation.lat, collection[i].startEvent.geolocation.lng),
+					position: new google.maps.LatLng(collection[i].startEvent.lat, collection[i].startEvent.lng),
 					icon: 'https://maps.google.com/mapfiles/ms/icons/' + iconName
 				});
 

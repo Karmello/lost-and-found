@@ -11,7 +11,7 @@
 			},
 			onEnter: function($rootScope, ui) {
 
-				$rootScope.$broadcast('newReport');
+				$rootScope.$broadcast('onAddReportFormShow');
 
 				ui.menus.top.activateSwitcher('newreport');
 				ui.frames.main.activateSwitcher('newreport');

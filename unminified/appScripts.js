@@ -807,8 +807,10 @@
 		$scope.commentsBrowser = commentsConf.reportCommentsBrowser;
 
 		$scope.showRespondToReportForm = function() {
-			$scope.isRespondToReportFormVisible = true;
-			$scope.$broadcast('respondToReport');
+			if (!$scope.isRespondToReportFormVisible) {
+				$scope.isRespondToReportFormVisible = true;
+				$rootScope.$broadcast('onRespondToReportFormShow');
+			}
 		};
 
 		$rootScope.$on('toggleRespondToReportForm', function(e, args) {
@@ -1126,7 +1128,7 @@
 			},
 			onEnter: function($rootScope, ui) {
 
-				$rootScope.$broadcast('newReport');
+				$rootScope.$broadcast('onAddReportFormShow');
 
 				ui.menus.top.activateSwitcher('newreport');
 				ui.frames.main.activateSwitcher('newreport');
@@ -1219,7 +1221,7 @@
 				$timeout(function() {
 
 					if ($stateParams.edit === '1') {
-						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
+						$rootScope.$broadcast('onEditReportFormShow');
 
 					} else {
 						googleMapService.singleReportMap.init($rootScope.apiData.report);
@@ -1862,7 +1864,8 @@
 
 				var geocoder = new google.maps.Geocoder();
 				var map = new google.maps.Map(document.getElementById('reportMap'));
-				var latLng = new google.maps.LatLng(report.startEvent.geolocation.lat, report.startEvent.geolocation.lng);
+
+				var latLng = new google.maps.LatLng(report.startEvent.lat, report.startEvent.lng);
 
 				google.maps.event.addListener(map, 'idle', function() {
 					google.maps.event.trigger(map, 'resize');
@@ -1978,7 +1981,7 @@
 
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,
-					position: new google.maps.LatLng(collection[i].startEvent.geolocation.lat, collection[i].startEvent.geolocation.lng),
+					position: new google.maps.LatLng(collection[i].startEvent.lat, collection[i].startEvent.lng),
 					icon: 'https://maps.google.com/mapfiles/ms/icons/' + iconName
 				});
 
@@ -4909,7 +4912,7 @@
 				$scope.autocomplete = {};
 				$scope.minDate = new Date(2000, 0, 1);
 
-				$scope.myForm = reportFormService.createFormIns($scope);
+				$scope.myForm = reportFormService.getForm($scope);
 			},
 			compile: function(elem, attrs) {
 
@@ -4919,62 +4922,40 @@
 
 						case 'addReport':
 
-							reportFormService.setMaxDate(scope);
-							ReportsRest.addReportModel.set({ startEvent: { date: scope.maxDate } }, true);
+							if (!$rootScope.$$listeners.onAddReportFormShow) {
 
-							if (!$rootScope.$$listeners.addReport) {
-								$rootScope.$on('addReport', function(e, args) { reportFormService.setMaxDate(scope); });
-							}
+								$rootScope.$on('onAddReportFormShow', function(e, args) {
 
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.addReport = null;
-							});
-
-							break;
-
-						case 'editReport':
-
-							if (!$rootScope.$$listeners.editReport) {
-
-								$rootScope.$on('editReport', function(e, args) {
-
-									if (args.report) {
-
-										var geocoder = new google.maps.Geocoder();
-
-										geocoder.geocode({ 'placeId': args.report.startEvent.placeId }, function(results, status) {
-
-											$timeout(function() {
-
-												ReportsRest.editReportModel.set(args.report.plain(), true);
-												ReportsRest.editReportModel.setValue('startEvent.geolocation', results[0].formatted_address, true);
-
-												scope.myForm.scope.loader.stop();
-												scope.$apply();
-											});
-										});
-									}
+									var date = reportFormService.getCurrentDateWithNoTime();
+									ReportsRest.addReportModel.set({ startEvent: { date: date } }, true);
 								});
 							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.editReport = null;
-							});
 
 							break;
 
 						case 'respondToReport':
 
-							reportFormService.setMaxDate(scope);
-							ReportsRest.respondToReportModel.set({ group: 'lost', date: scope.maxDate }, true);
+							if (!$rootScope.$$listeners.onRespondToReportFormShow) {
 
-							if (!$rootScope.$$listeners.respondToReport) {
-								$rootScope.$on('respondToReport', function(e, args) { reportFormService.setMaxDate(scope); });
+								$rootScope.$on('onRespondToReportFormShow', function(e, args) {
+
+									var date = reportFormService.getCurrentDateWithNoTime();
+									ReportsRest.respondToReportModel.set({ date: date }, true);
+								});
 							}
 
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.respondToReport = null;
-							});
+							break;
+
+						case 'editReport':
+
+							if (!$rootScope.$$listeners.onEditReportFormShow) {
+
+								$rootScope.$on('onEditReportFormShow', function(e, args) {
+
+									ReportsRest.editReportModel.set($rootScope.apiData.report.plain(), true);
+									$timeout(function() { scope.myForm.scope.loader.stop(); });
+								});
+							}
 
 							break;
 					}
@@ -5012,8 +4993,7 @@
 							}, 500);
 						};
 
-						service.setModelWithGooglePlaceObj(scope);
-
+						inspectAutoComplete(scope);
 						var modelValues = scope.myForm.model.getValues();
 						return ReportsRest.post(modelValues);
 					};
@@ -5029,11 +5009,11 @@
 						};
 
 						scope.myForm.submitErrorCb = function(res) {
+
 							$rootScope.apiData.report = copy;
 						};
 
-						service.setModelWithGooglePlaceObj(scope);
-
+						inspectAutoComplete(scope);
 						var copy = Restangular.copy($rootScope.apiData.report);
 						scope.myForm.model.assignTo(copy);
 						return copy.put();
@@ -5048,9 +5028,39 @@
 			}
 		};
 
+		var inspectAutoComplete = function(scope) {
 
+			var place = scope.autocomplete.ins.getPlace();
+			var myForm = service[scope.action + 'Form'];
 
-		service.createFormIns = function(scope) {
+			if (place) {
+
+				myForm.model.set({
+					startEvent: {
+						address: place.formatted_address,
+						placeId: place.place_id,
+						lat: place.geometry.location.lat(),
+						lng: place.geometry.location.lng()
+					}
+				});
+
+			} else {
+
+				myForm.model.setValue('startEvent.address');
+				myForm.model.setValue('startEvent.placeId');
+				myForm.model.setValue('startEvent.lat');
+				myForm.model.setValue('startEvent.lng');
+			}
+		};
+
+		service.getCurrentDateWithNoTime = function() {
+
+			// Setting max date to current date for all reportForm instances
+			var date = new Date();
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+		};
+
+		service.getForm = function(scope) {
 
 			service[scope.action + 'Form'] = new MyForm({
 				ctrlId: scope.action + 'Form',
@@ -5060,7 +5070,7 @@
 				onCancel: function() {
 
 					if (scope.action != 'respondToReport') {
-						$timeout(function() { scope.myForm.reset(); });
+						$timeout(function() { service[scope.action + 'Form'].reset(); });
 						window.history.back();
 
 					} else {
@@ -5070,29 +5080,6 @@
 			});
 
 			return service[scope.action + 'Form'];
-		};
-
-		service.setModelWithGooglePlaceObj = function(scope) {
-
-			var place = scope.autocomplete.ins.getPlace();
-
-			if (place) {
-				scope.myForm.model.set({
-					startEvent: {
-						geolocation: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() },
-						placeId: place.place_id
-					}
-				});
-
-			} else {
-				scope.myForm.model.setValue('startEvent.geolocation', undefined);
-			}
-		};
-
-		service.setMaxDate = function(scope) {
-
-			var date = new Date();
-			scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 		};
 
 		return service;
@@ -5260,26 +5247,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('appStats', function($rootScope) {
 
 		var appStats = {
@@ -5309,17 +5276,17 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('infoModal', function() {
+	appModule.directive('confirmModal', function() {
 
-		var infoModal = {
+		var confirmModal = {
 			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
 			scope: {
 				ins: '='
 			}
 		};
 
-		return infoModal;
+		return confirmModal;
 	});
 
 })();
@@ -5460,6 +5427,26 @@
 		};
 
 		return imgCropWindow;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('infoModal', function() {
+
+		var infoModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return infoModal;
 	});
 
 })();
@@ -6081,6 +6068,7 @@
 							var place = scope.autocomplete.ins.getPlace();
 
 							if (place) {
+								console.log(place);
 								scope.autocomplete.label = place.formatted_address;
 								scope.$apply();
 							}
@@ -6089,15 +6077,22 @@
 
 					scope.$watch('model.value.active', function(newValue, oldValue) {
 
-						if (newValue) {
+						if (!newValue) {
+							initAutoComplete();
+
+						} else {
 
 							var geocoder = new google.maps.Geocoder();
 
 							geocoder.geocode({ 'address': newValue }, function(results, status) {
-								if (status == 'OK') { scope.autocomplete.ins.set('place', results[0]); }
-							});
 
-						} else { scope.autocomplete.label = null; }
+								if (status == 'OK' && results) {
+									if (newValue == results[0].formatted_address) {
+										scope.autocomplete.ins.set('place', results[0]);
+									}
+								}
+							});
+						}
 					});
 
 					initAutoComplete();
@@ -7387,7 +7382,9 @@
 				group: {},
 				date: {},
 				placeId: {},
-				geolocation: {},
+				address: {},
+				lat: {},
+				lng: {},
 				details: {}
 			};
 		};

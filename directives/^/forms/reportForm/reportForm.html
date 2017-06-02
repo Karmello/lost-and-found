@@ -83,14 +83,14 @@
 						<my-date-input
 							ctrl-id="'startEvent_date'"
 							ctrl-min-value="minDate"
-							ctrl-max-value="maxDate"
+							ctrl-max-value="myForm.model.startEvent.date.value.default"
 							model="myForm.model.startEvent.date"
 							hard-data="{ label: ['labels', 15] }"
 							is-required="true"
 						></my-date-input>
 						<my-google-place-auto-complete
-							ctrl-id="'startEvent_geolocation'"
-							model="myForm.model.startEvent.geolocation"
+							ctrl-id="'startEvent_address'"
+							model="myForm.model.startEvent.address"
 							hard-data="{ label: ['labels', 17] }"
 							autocomplete="autocomplete"
 						></my-google-place-auto-complete>
@@ -121,14 +121,14 @@
 						<my-date-input
 							ctrl-id="'endEvent_date'"
 							ctrl-min-value="minDate"
-							ctrl-max-value="maxDate"
+							ctrl-max-value="myForm.model.date.value.default"
 							model="myForm.model.date"
 							hard-data="{ label: ['labels', 15] }"
 							is-required="true"
 						></my-date-input>
 						<my-google-place-auto-complete
-							ctrl-id="'endEvent_geolocation'"
-							model="myForm.model.geolocation"
+							ctrl-id="'endEvent_address'"
+							model="myForm.model.address"
 							hard-data="{ label: ['labels', 17] }"
 							autocomplete="autocomplete"
 						></my-google-place-auto-complete>

@@ -37,7 +37,7 @@
 				$timeout(function() {
 
 					if ($stateParams.edit === '1') {
-						$rootScope.$broadcast('editReport', { report: $rootScope.apiData.report });
+						$rootScope.$broadcast('onEditReportFormShow');
 
 					} else {
 						googleMapService.singleReportMap.init($rootScope.apiData.report);

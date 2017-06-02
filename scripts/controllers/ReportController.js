@@ -22,8 +22,10 @@
 		$scope.commentsBrowser = commentsConf.reportCommentsBrowser;
 
 		$scope.showRespondToReportForm = function() {
-			$scope.isRespondToReportFormVisible = true;
-			$scope.$broadcast('respondToReport');
+			if (!$scope.isRespondToReportFormVisible) {
+				$scope.isRespondToReportFormVisible = true;
+				$rootScope.$broadcast('onRespondToReportFormShow');
+			}
 		};
 
 		$rootScope.$on('toggleRespondToReportForm', function(e, args) {

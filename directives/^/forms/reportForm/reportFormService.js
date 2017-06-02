@@ -24,8 +24,7 @@
 							}, 500);
 						};
 
-						service.setModelWithGooglePlaceObj(scope);
-
+						inspectAutoComplete(scope);
 						var modelValues = scope.myForm.model.getValues();
 						return ReportsRest.post(modelValues);
 					};
@@ -41,11 +40,11 @@
 						};
 
 						scope.myForm.submitErrorCb = function(res) {
+
 							$rootScope.apiData.report = copy;
 						};
 
-						service.setModelWithGooglePlaceObj(scope);
-
+						inspectAutoComplete(scope);
 						var copy = Restangular.copy($rootScope.apiData.report);
 						scope.myForm.model.assignTo(copy);
 						return copy.put();
@@ -60,9 +59,39 @@
 			}
 		};
 
+		var inspectAutoComplete = function(scope) {
 
+			var place = scope.autocomplete.ins.getPlace();
+			var myForm = service[scope.action + 'Form'];
 
-		service.createFormIns = function(scope) {
+			if (place) {
+
+				myForm.model.set({
+					startEvent: {
+						address: place.formatted_address,
+						placeId: place.place_id,
+						lat: place.geometry.location.lat(),
+						lng: place.geometry.location.lng()
+					}
+				});
+
+			} else {
+
+				myForm.model.setValue('startEvent.address');
+				myForm.model.setValue('startEvent.placeId');
+				myForm.model.setValue('startEvent.lat');
+				myForm.model.setValue('startEvent.lng');
+			}
+		};
+
+		service.getCurrentDateWithNoTime = function() {
+
+			// Setting max date to current date for all reportForm instances
+			var date = new Date();
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+		};
+
+		service.getForm = function(scope) {
 
 			service[scope.action + 'Form'] = new MyForm({
 				ctrlId: scope.action + 'Form',
@@ -72,7 +101,7 @@
 				onCancel: function() {
 
 					if (scope.action != 'respondToReport') {
-						$timeout(function() { scope.myForm.reset(); });
+						$timeout(function() { service[scope.action + 'Form'].reset(); });
 						window.history.back();
 
 					} else {
@@ -82,29 +111,6 @@
 			});
 
 			return service[scope.action + 'Form'];
-		};
-
-		service.setModelWithGooglePlaceObj = function(scope) {
-
-			var place = scope.autocomplete.ins.getPlace();
-
-			if (place) {
-				scope.myForm.model.set({
-					startEvent: {
-						geolocation: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() },
-						placeId: place.place_id
-					}
-				});
-
-			} else {
-				scope.myForm.model.setValue('startEvent.geolocation', undefined);
-			}
-		};
-
-		service.setMaxDate = function(scope) {
-
-			var date = new Date();
-			scope.maxDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 		};
 
 		return service;

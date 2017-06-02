@@ -31,7 +31,6 @@ module.exports = {
 			});
 
 		}, function(err) {
-			console.log(err);
 			action.end(400, err);
 		});
 	}

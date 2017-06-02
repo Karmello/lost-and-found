@@ -33,6 +33,7 @@
 							var place = scope.autocomplete.ins.getPlace();
 
 							if (place) {
+								console.log(place);
 								scope.autocomplete.label = place.formatted_address;
 								scope.$apply();
 							}
@@ -41,15 +42,22 @@
 
 					scope.$watch('model.value.active', function(newValue, oldValue) {
 
-						if (newValue) {
+						if (!newValue) {
+							initAutoComplete();
+
+						} else {
 
 							var geocoder = new google.maps.Geocoder();
 
 							geocoder.geocode({ 'address': newValue }, function(results, status) {
-								if (status == 'OK') { scope.autocomplete.ins.set('place', results[0]); }
-							});
 
-						} else { scope.autocomplete.label = null; }
+								if (status == 'OK' && results) {
+									if (newValue == results[0].formatted_address) {
+										scope.autocomplete.ins.set('place', results[0]);
+									}
+								}
+							});
+						}
 					});
 
 					initAutoComplete();

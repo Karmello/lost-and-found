@@ -108,7 +108,7 @@ ReportSchema.post('remove', function(doc) {
 	// Removing photos from S3
 	for (var photo of doc.photos) { doc.removePhotoFromS3(photo.filename); }
 
-	r.modules.socketModule.emitReportsCount(doc.startEvent.group);
+	r.modules.socketModule.emitReportsCount(doc.startEvent.type);
 });
 
 

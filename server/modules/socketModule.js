@@ -10,14 +10,14 @@ module.exports = {
 			}
 		});
 	},
-	emitReportsCount: function(group) {
+	emitReportsCount: function(type) {
 
 		r.Report.count({}, function(err1, reportsCount) {
-			r.Report.count({ 'startEvent.group': group }, function(err2, groupReportsCount) {
+			r.Report.count({ 'startEvent.type': type }, function(err2, typeReportsCount) {
 
 				if (!err1 && !err2) {
 					var data = { reportsCount: reportsCount };
-					data[group + 'ReportsCount'] = groupReportsCount;
+					data[type + 'ReportsCount'] = typeReportsCount;
 					r.io.emit('UpdateAppStats', data);
 				}
 			});

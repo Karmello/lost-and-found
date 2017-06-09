@@ -377,6 +377,12 @@ body .gm-style-iw + div {
   max-width: 700px;
   margin: 0 auto; }
 
+.myAlert {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  padding: 15px; }
+
 .myBtn {
   padding: 7px 15px 7px 14px; }
 
@@ -393,12 +399,6 @@ body .gm-style-iw + div {
 .myBtnsGroupRight {
   -ms-flex-pack: end;
   justify-content: flex-end; }
-
-.myAlert {
-  display: table;
-  margin: 0 auto;
-  text-align: center;
-  padding: 15px; }
 
 .myCollectionBrowser {
   position: relative;
@@ -616,9 +616,6 @@ body .gm-style-iw + div {
 
 .myModal {
   text-align: left; }
-  .myModal .modal-dialog {
-    display: table;
-    margin: 15px auto; }
   .myModal .modal-header h4 {
     font-weight: bold;
     overflow-wrap: break-word;
@@ -628,25 +625,10 @@ body .gm-style-iw + div {
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto; }
-  .myModal .modal-body {
-    max-height: calc(100vh - 180px);
-    overflow-y: auto; }
-    .myModal .modal-body img {
-      width: 150px; }
   .myModal .modal-footer .btn {
     margin: 0; }
   .myModal.modalSlideInFromLeft.modal.fade:not(.in) .modal-dialog {
     transform: translate3d(-25%, 0, 0); }
-  .myModal .myForm {
-    margin: 0 auto; }
-
-@media only screen and (min-width: 768px) {
-  .wideModal .modal-dialog {
-    width: 720px; } }
-
-@media only screen and (min-width: 900px) {
-  .wideModal .modal-dialog {
-    width: 850px; } }
 
 .responsiveImgAndDesc {
   display: table;

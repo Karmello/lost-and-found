@@ -130,7 +130,7 @@
 			addSingleMarker: function(collection, i) {
 
 				var infowindow = new google.maps.InfoWindow();
-				var iconName = collection[i].startEvent.group == 'lost' ? 'red-dot.png' : 'blue-dot.png';
+				var iconName = collection[i].startEvent.type == 'lost' ? 'red-dot.png' : 'blue-dot.png';
 
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,

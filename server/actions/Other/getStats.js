@@ -22,14 +22,14 @@ module.exports = function(req, res, next) {
 						data.reportsCount = count;
 
 						// Getting lost reports count
-						r.Report.count({ 'startEvent.group': 'lost' }, function(err, count) {
+						r.Report.count({ 'startEvent.type': 'lost' }, function(err, count) {
 
 							if (!err) {
 
 								data.lostReportsCount = count;
 
 								// Getting found reports count
-								r.Report.count({ 'startEvent.group': 'found' }, function(err, count) {
+								r.Report.count({ 'startEvent.type': 'found' }, function(err, count) {
 
 									if (!err) {
 

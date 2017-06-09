@@ -162,7 +162,7 @@
 			]
 		}
 	],
-	"reportGroups": [
+	"reportTypes": [
 		{ "value": "lost", "label": "Loss", "label2": "Lost" },
 		{ "value": "found", "label": "Finding", "label2": "Found" }
 	],

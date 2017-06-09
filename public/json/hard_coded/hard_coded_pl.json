@@ -162,7 +162,7 @@
 			]
 		}
 	],
-	"reportGroups": [
+	"reportTypes": [
 		{ "value": "lost", "label": "Strata", "label2": "Stracono" },
 		{ "value": "found", "label": "Znalezienie", "label2": "Znaleziono" }
 	],

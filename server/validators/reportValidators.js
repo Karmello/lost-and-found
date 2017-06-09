@@ -126,7 +126,6 @@ module.exports = {
             r.Promise.all(promises).then(function(results) {
                 cb(!Boolean(r._.find(results, function(elem) { return elem; })));
             });
-
         }
     }
 };

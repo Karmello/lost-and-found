@@ -24,7 +24,7 @@ module.exports = {
 			report.save({ validateBeforeSave: false }, function(err) {
 
 				if (!err) {
-					r.modules.socketModule.emitReportsCount(report.startEvent.group);
+					r.modules.socketModule.emitReportsCount(report.startEvent.type);
 					action.end(201, report);
 
 				} else { action.end(400, err); }

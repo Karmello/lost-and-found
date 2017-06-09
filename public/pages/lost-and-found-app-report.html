@@ -18,13 +18,13 @@
 						<div id="endEventSection" ng-if="!apiData.report._isOwn()">
 							<div class="myBtnsGroupRight">
 								<my-btn
-									ng-if="apiData.report.startEvent.group == 'lost'"
+									ng-if="apiData.report.startEvent.type == 'lost'"
 									ctrl-class="'btn-primary'"
 									click-action="showRespondToReportForm"
 									hard-data="{ label: ['declaratives', 0] }"
 								></my-btn>
 								<my-btn
-									ng-if="apiData.report.startEvent.group == 'found'"
+									ng-if="apiData.report.startEvent.type == 'found'"
 									ctrl-class="'btn-primary'"
 									click-action="showRespondToReportForm"
 									hard-data="{ label: ['declaratives', 1] }"
@@ -81,7 +81,7 @@
 				</my-panel>
 				<my-panel trans-heading="true">
 					<title-section>
-						<span>{{ hardData.reportGroups[apiData.report.startEvent.group == 'lost' ? 0 : 1].label2 }} {{ hardData.count[0] }}</span>
+						<span>{{ hardData.reportTypes[apiData.report.startEvent.type == 'lost' ? 0 : 1].label2 }} {{ hardData.count[0] }}</span>
 						<span>{{ $moment(apiData.report.startEvent.date).format('DD-MM-YYYY') }}</span>
 					</title-section>
 					<body-section>

@@ -25,41 +25,7 @@
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 
 			fromState.scrollY = window.scrollY;
-
-			$timeout(function() {
-
-				var newScrollY;
-
-				switch (toState.name) {
-
-					case 'app.profile':
-					case 'app.report':
-
-						if (toState.id == toParams.id) {
-							newScrollY = $state.current.scrollY;
-
-						} else {
-							newScrollY = 0;
-						}
-
-						toState.id = toParams.id;
-						break;
-
-					case 'app.search':
-						newScrollY = $state.current.scrollY;
-						break;
-
-					case 'app.start':
-					case 'app.report.tabs':
-						return;
-
-					default:
-						newScrollY = 0;
-						break;
-				}
-
-				$('html, body').animate({ scrollTop: newScrollY }, 'fast');
-			});
+			$('html, body').animate({ scrollTop: $state.current.scrollY }, 'fast');
 		});
 	});
 

@@ -6,7 +6,7 @@
 
 		var getReportEventModelConf = function() {
 			return {
-				group: {},
+				type: {},
 				date: {},
 				placeId: {},
 				address: {},

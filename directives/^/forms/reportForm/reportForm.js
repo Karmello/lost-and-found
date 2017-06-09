@@ -40,6 +40,8 @@
 								});
 							}
 
+							$rootScope.$broadcast('onAddReportFormShow');
+
 							break;
 
 						case 'respondToReport':

@@ -16,11 +16,11 @@
 					},
 					{
 						_id: 'lost',
-						label: hardData.reportGroups[0].label2
+						label: hardData.reportTypes[0].label2
 					},
 					{
 						_id: 'found',
-						label: hardData.reportGroups[1].label2
+						label: hardData.reportTypes[1].label2
 					}
 				]
 			},
@@ -57,11 +57,11 @@
 					},
 					{
 						_id: 'lost',
-						label: hardData.reportGroups[0].label2
+						label: hardData.reportTypes[0].label2
 					},
 					{
 						_id: 'found',
-						label: hardData.reportGroups[1].label2
+						label: hardData.reportTypes[1].label2
 					}
 				]
 			},

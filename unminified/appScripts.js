@@ -123,41 +123,7 @@
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 
 			fromState.scrollY = window.scrollY;
-
-			$timeout(function() {
-
-				var newScrollY;
-
-				switch (toState.name) {
-
-					case 'app.profile':
-					case 'app.report':
-
-						if (toState.id == toParams.id) {
-							newScrollY = $state.current.scrollY;
-
-						} else {
-							newScrollY = 0;
-						}
-
-						toState.id = toParams.id;
-						break;
-
-					case 'app.search':
-						newScrollY = $state.current.scrollY;
-						break;
-
-					case 'app.start':
-					case 'app.report.tabs':
-						return;
-
-					default:
-						newScrollY = 0;
-						break;
-				}
-
-				$('html, body').animate({ scrollTop: newScrollY }, 'fast');
-			});
+			$('html, body').animate({ scrollTop: $state.current.scrollY }, 'fast');
 		});
 	});
 
@@ -1977,7 +1943,7 @@
 			addSingleMarker: function(collection, i) {
 
 				var infowindow = new google.maps.InfoWindow();
-				var iconName = collection[i].startEvent.group == 'lost' ? 'red-dot.png' : 'blue-dot.png';
+				var iconName = collection[i].startEvent.type == 'lost' ? 'red-dot.png' : 'blue-dot.png';
 
 				var newMarker = new google.maps.Marker({
 					map: service.searchReportsMap.ins,
@@ -4931,6 +4897,8 @@
 								});
 							}
 
+							$rootScope.$broadcast('onAddReportFormShow');
+
 							break;
 
 						case 'respondToReport':
@@ -5247,6 +5215,46 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('confirmModal', function() {
+
+		var confirmModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return confirmModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('infoModal', function() {
+
+		var infoModal = {
+			restrict: 'E',
+			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
+			scope: {
+				ins: '='
+			}
+		};
+
+		return infoModal;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('appStats', function($rootScope) {
 
 		var appStats = {
@@ -5267,26 +5275,6 @@
 		};
 
 		return appStats;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('confirmModal', function() {
-
-		var confirmModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/confirmModal/confirmModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return confirmModal;
 	});
 
 })();
@@ -5427,26 +5415,6 @@
 		};
 
 		return imgCropWindow;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('infoModal', function() {
-
-		var infoModal = {
-			restrict: 'E',
-			templateUrl: 'public/directives/^/modals/infoModal/infoModal.html',
-			scope: {
-				ins: '='
-			}
-		};
-
-		return infoModal;
 	});
 
 })();
@@ -7270,11 +7238,11 @@
 					},
 					{
 						_id: 'lost',
-						label: hardData.reportGroups[0].label2
+						label: hardData.reportTypes[0].label2
 					},
 					{
 						_id: 'found',
-						label: hardData.reportGroups[1].label2
+						label: hardData.reportTypes[1].label2
 					}
 				]
 			},
@@ -7311,11 +7279,11 @@
 					},
 					{
 						_id: 'lost',
-						label: hardData.reportGroups[0].label2
+						label: hardData.reportTypes[0].label2
 					},
 					{
 						_id: 'found',
-						label: hardData.reportGroups[1].label2
+						label: hardData.reportTypes[1].label2
 					}
 				]
 			},
@@ -7379,7 +7347,7 @@
 
 		var getReportEventModelConf = function() {
 			return {
-				group: {},
+				type: {},
 				date: {},
 				placeId: {},
 				address: {},

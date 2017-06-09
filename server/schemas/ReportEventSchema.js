@@ -2,10 +2,10 @@ var r = require(global.paths._requires);
 var reportEventVal = r.validators.reportEventValidators;
 
 var ReportEventSchema = new r.mongoose.Schema({
-	group: {
+	type: {
 		type: String,
 		required: true,
-		validate: [reportEventVal.group.correctness]
+		validate: [reportEventVal.type.correctness]
 	},
 	date: {
 		type: Date,
@@ -17,7 +17,8 @@ var ReportEventSchema = new r.mongoose.Schema({
 	},
 	address: {
 		type: String,
-		required: true
+		required: true,
+		validate: [reportEventVal.location.correctness]
 	},
 	lat: {
 		type: Number,

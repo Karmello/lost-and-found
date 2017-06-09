@@ -468,6 +468,12 @@ $avatarSize: 240px;
 		}
 	}
 }
+.myAlert {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+	padding: 15px;
+}
 .myBtn {
 	padding: 7px 15px 7px 14px;
 }
@@ -488,12 +494,6 @@ $avatarSize: 240px;
 
 	@extend .myBtnsGroup;
 	justify-content: flex-end;
-}
-.myAlert {
-	display: table;
-	margin: 0 auto;
-	text-align: center;
-	padding: 15px;
 }
 .myCollectionBrowser {
 
@@ -859,10 +859,7 @@ $avatarSize: 240px;
 
 	text-align: left;
 
-	.modal-dialog {
-		display: table;
-		margin: 15px auto;
-	}
+	.modal-dialog {}
 
 	.modal-header {
 		h4 {
@@ -877,11 +874,7 @@ $avatarSize: 240px;
 
 	.modal-title {}
 
-	.modal-body {
-	    max-height: calc(100vh - 180px);
-	    overflow-y: auto;
-	    img { width: 150px; }
-	}
+	.modal-body {}
 
 	.modal-footer {
 		.btn { margin: 0; }
@@ -892,19 +885,6 @@ $avatarSize: 240px;
 		    -webkit-transform: translate3d(-25%, 0, 0);
 		    transform: translate3d(-25%, 0, 0);
 		}
-	}
-
-	.myForm {
-		margin: 0 auto;
-	}
-}
-
-
-
-.wideModal {
-	.modal-dialog {
-		@media only screen and (min-width: 768px) { width: 720px; }
-		@media only screen and (min-width: 900px) { width: 850px; }
 	}
 }
 

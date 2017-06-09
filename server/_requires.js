@@ -6,6 +6,7 @@ var _requires = {
 	crypto: require('crypto'),
 	express: require('express'),
 	fs: require('fs'),
+	googleMaps: require('@google/maps'),
 	http: require('http'),
 	https: require('https'),
 	socketIO: require('socket.io'),

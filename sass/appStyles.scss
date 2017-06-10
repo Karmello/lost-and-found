@@ -377,34 +377,36 @@ $avatarSize: 240px;
 
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: center;
 
 		> div {
 			flex-grow: 1;
-			flex-basis: 100%;
 			margin: 15px;
 		}
 
-		@media only screen and (min-width: 992px) {
+		#statsSection {
 
-			direction: rtl;
-
-			> div {
-				direction: ltr;
-				flex-basis: 45%;
-			}
+			flex-basis: 24%;
+			padding-top: 2px;
 		}
+
+		#formsSection {
+
+			flex-basis: 70%;
+			.myForm { max-width: 300px; margin: 50px auto; }
+			.userBadge { margin-bottom: 50px; }
+		}
+	}
+
+	#section3 {
+
+		display: block;
+		width: 100%;
 
 		.myCollectionBrowser {
 			.ctrls {
 				justify-content: flex-end;
 			}
 		}
-
-		.myTabs { max-width: 450px; }
-		.myForm { max-width: 300px; }
-		.myTabs, .myForm { margin: 50px auto; }
-		.userBadge { margin-bottom: 50px; }
 	}
 }
 #lost-and-found-app-upgrade {
@@ -728,7 +730,7 @@ $avatarSize: 240px;
 		margin: 0 auto;
 		width: 16%;
 		height: 16%;
-		background-color: $brand-primary;
+		background-color: $gray;
 		border-radius: 100%;
 		-webkit-animation: sk-circleBounceDelay 1s infinite ease-in-out both;
 		animation: sk-circleBounceDelay 1s infinite ease-in-out both;
@@ -1179,6 +1181,7 @@ $avatarSize: 240px;
 					display: flex;
 					flex-flow: row wrap;
 					justify-content: center;
+					align-items: flex-end;
 
 					> * {
 						flex-basis: 33.3%;
@@ -1231,6 +1234,10 @@ $avatarSize: 240px;
 	width: 60px;
 	height: 60px;
 }
+#singleFileInput, #multipleFilesInput {
+
+	display: none;
+}
 @import '_vars';
 
 .userBadge {
@@ -1241,10 +1248,6 @@ $avatarSize: 240px;
 	padding: 15px;
 
 	.mySrc { img { @extend .defaultAvatarSize; } }
-}
-#singleFileInput, #multipleFilesInput {
-
-	display: none;
 }
 #contactForm {
 
@@ -1313,7 +1316,7 @@ $avatarSize: 240px;
 
 				display: flex;
 				flex-flow: row wrap;
-				justify-content: center;
+				justify-content: space-around;
 
 				> div {
 

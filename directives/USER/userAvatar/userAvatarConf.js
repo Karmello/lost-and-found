@@ -10,6 +10,9 @@
 
 				return {
 					icon: 'glyphicon glyphicon-option-horizontal',
+					isHidden: function() {
+						return !scope.user._isTheOneLoggedIn();
+					},
 					switchers: [
 						{
 							_id: 'update',

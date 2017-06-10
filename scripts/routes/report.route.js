@@ -34,20 +34,17 @@
 			},
 			onEnter: function($rootScope, $stateParams, $timeout, ui, googleMapService) {
 
-				$timeout(function() {
+				if ($stateParams.edit === '1') {
+					$rootScope.$broadcast('onEditReportFormShow');
 
-					if ($stateParams.edit === '1') {
-						$rootScope.$broadcast('onEditReportFormShow');
+				} else {
+					googleMapService.singleReportMap.init($rootScope.apiData.report);
+				}
 
-					} else {
-						googleMapService.singleReportMap.init($rootScope.apiData.report);
-					}
-
-					ui.menus.top.activateSwitcher();
-					ui.frames.main.activateSwitcher('report');
-					ui.frames.app.activateSwitcher('main');
-					ui.loaders.renderer.stop();
-				});
+				ui.menus.top.activateSwitcher();
+				ui.frames.main.activateSwitcher('report');
+				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			},
 			onExit: function($rootScope, ReportsRest, reportFormService) {
 

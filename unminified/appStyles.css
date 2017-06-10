@@ -310,33 +310,30 @@ body .gm-style-iw + div {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-pack: center;
-  justify-content: center; }
+  flex-flow: row wrap; }
   #lost-and-found-app-start #section2 > div {
     -ms-flex-positive: 1;
     flex-grow: 1;
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
     margin: 15px; }
-  @media only screen and (min-width: 992px) {
-    #lost-and-found-app-start #section2 {
-      direction: rtl; }
-      #lost-and-found-app-start #section2 > div {
-        direction: ltr;
-        -ms-flex-preferred-size: 45%;
-        flex-basis: 45%; } }
-  #lost-and-found-app-start #section2 .myCollectionBrowser .ctrls {
+  #lost-and-found-app-start #section2 #statsSection {
+    -ms-flex-preferred-size: 24%;
+    flex-basis: 24%;
+    padding-top: 2px; }
+  #lost-and-found-app-start #section2 #formsSection {
+    -ms-flex-preferred-size: 70%;
+    flex-basis: 70%; }
+    #lost-and-found-app-start #section2 #formsSection .myForm {
+      max-width: 300px;
+      margin: 50px auto; }
+    #lost-and-found-app-start #section2 #formsSection .userBadge {
+      margin-bottom: 50px; }
+
+#lost-and-found-app-start #section3 {
+  display: block;
+  width: 100%; }
+  #lost-and-found-app-start #section3 .myCollectionBrowser .ctrls {
     -ms-flex-pack: end;
     justify-content: flex-end; }
-  #lost-and-found-app-start #section2 .myTabs {
-    max-width: 450px; }
-  #lost-and-found-app-start #section2 .myForm {
-    max-width: 300px; }
-  #lost-and-found-app-start #section2 .myTabs, #lost-and-found-app-start #section2 .myForm {
-    margin: 50px auto; }
-  #lost-and-found-app-start #section2 .userBadge {
-    margin-bottom: 50px; }
 
 #lost-and-found-app-upgrade #whenPaidSection {
   margin: 0 auto; }
@@ -560,7 +557,7 @@ body .gm-style-iw + div {
     margin: 0 auto;
     width: 16%;
     height: 16%;
-    background-color: #337ab7;
+    background-color: #555555;
     border-radius: 100%;
     animation: sk-circleBounceDelay 1s infinite ease-in-out both; }
   .myLoader .sk-circle .sk-circle2 {
@@ -803,7 +800,9 @@ body .gm-style-iw + div {
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -ms-flex-pack: center;
-  justify-content: center; }
+  justify-content: center;
+  -ms-flex-align: end;
+  align-items: flex-end; }
   .reports .myCollectionBrowser .collection > div > * > * {
     -ms-flex-preferred-size: 33.3%;
     flex-basis: 33.3%;
@@ -838,14 +837,14 @@ body .gm-style-iw + div {
   width: 60px;
   height: 60px; }
 
+#singleFileInput, #multipleFilesInput {
+  display: none; }
+
 .userBadge {
   position: relative;
   display: table;
   margin: 0 auto;
   padding: 15px; }
-
-#singleFileInput, #multipleFilesInput {
-  display: none; }
 
 #contactForm .myForm {
   margin: 0 auto;
@@ -893,8 +892,8 @@ body .gm-style-iw + div {
   display: flex;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
-  -ms-flex-pack: center;
-  justify-content: center; }
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
   .upgradeForm .myForm > div #formSection > div {
     -ms-flex-positive: 1;
     flex-grow: 1;

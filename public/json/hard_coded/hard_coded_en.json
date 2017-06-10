@@ -199,7 +199,7 @@
 	"warnings": [
 		"Sure you want to continue ?",
 		"You are going to remove your account totally and loose all the data ! Are you sure you really wanna do that ?",
-		"You'll lose all the data associated with this report. Are you sure you want to delete it ?",
+		"You'll lose all the data (photos etc.) associated with the reports you're about to delete. Are you sure you want to continue ?",
 		"This is your last chance ! If you continue your account will be gone !",
 		"This action will completely delete your account and all the files and other information associated with it. You won't be able to restore it anytime later."
 	]

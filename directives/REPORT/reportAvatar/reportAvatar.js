@@ -26,8 +26,10 @@
 
 						if (report) {
 
-							if (!scope.noLink()) { scope.src.href = '/#/report/photos?id=' + report._id; }
-							scope.src.load(reportAvatarService.constructPhotoUrl(scope, true));
+							if (!scope.noLink()) { scope.src.href = '/#/report?id=' + report._id; }
+
+							var url = reportAvatarService.constructPhotoUrl(scope, true);
+							if (!scope.hideDefaultSrc || url != scope.src.defaultUrl) { scope.src.load(url); }
 						}
 					});
 				};

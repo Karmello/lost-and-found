@@ -7,7 +7,7 @@ module.exports = {
             validator: function(type) {
 
                 for (var i = 0; i < r.hardData.en.reportTypes.length; i++) {
-                    if (r.hardData.en.reportTypes[0].value == type) {
+                    if (r.hardData.en.reportTypes[i].value == type) {
                         return true;
                     }
                 }
@@ -45,10 +45,10 @@ module.exports = {
                     if (!err && res.json.status === 'OK') {
 
                         var place = res.json.results[0];
-                        var lat = place.geometry.location.lat.toString();
-                        var lng = place.geometry.location.lng.toString();
+                        var lat = place.geometry.location.lat;
+                        var lng = place.geometry.location.lng;
 
-                        cb(doc.placeId == place.place_id && doc.lat.toString().substring(0, lat.length) == lat && doc.lng.toString().substring(0, lng.length) == lng);
+                        cb(doc.placeId == place.place_id && doc.lat.toFixed(7) == lat.toFixed(7) && doc.lng.toFixed(7) == lng.toFixed(7));
 
                     } else { cb(false); }
                 });

@@ -12,33 +12,35 @@
 
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: center;
 
 		> div {
 			flex-grow: 1;
-			flex-basis: 100%;
 			margin: 15px;
 		}
 
-		@media only screen and (min-width: 992px) {
+		#statsSection {
 
-			direction: rtl;
-
-			> div {
-				direction: ltr;
-				flex-basis: 45%;
-			}
+			flex-basis: 24%;
+			padding-top: 2px;
 		}
+
+		#formsSection {
+
+			flex-basis: 70%;
+			.myForm { max-width: 300px; margin: 50px auto; }
+			.userBadge { margin-bottom: 50px; }
+		}
+	}
+
+	#section3 {
+
+		display: block;
+		width: 100%;
 
 		.myCollectionBrowser {
 			.ctrls {
 				justify-content: flex-end;
 			}
 		}
-
-		.myTabs { max-width: 450px; }
-		.myForm { max-width: 300px; }
-		.myTabs, .myForm { margin: 50px auto; }
-		.userBadge { margin-bottom: 50px; }
 	}
 }

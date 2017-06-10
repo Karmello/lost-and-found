@@ -122,8 +122,50 @@
 
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 
-			fromState.scrollY = window.scrollY;
-			$('html, body').animate({ scrollTop: $state.current.scrollY }, 'fast');
+			switch (toState.name) {
+
+				case 'app.start':
+				case 'app.settings3':
+
+					if (toState.name == fromState.name) { return; } else {
+						fromState.scrollY = window.scrollY;
+						window.scrollTo(0, 0);
+					}
+
+					break;
+
+				case 'app.profile':
+				case 'app.report':
+
+					if (toParams.edit === '1') {
+						window.scrollTo(0, 0);
+						return;
+
+					} else {
+
+						let lastId = toState.lastId;
+						toState.lastId = toParams.id;
+						fromState.scrollY = window.scrollY;
+						window.scrollTo(0, 0);
+						if (lastId != toParams.id || fromParams.edit === '1') { return; }
+					}
+
+					break;
+
+				case 'app.report.tabs':
+					return;
+
+				default:
+					fromState.scrollY = window.scrollY;
+					window.scrollTo(0, 0);
+					break;
+			}
+
+			if (toState.scrollY) {
+				$timeout(function() {
+					$('html, body').animate({ scrollTop: toState.scrollY }, 'fast');
+				}, 500);
+			}
 		});
 	});
 
@@ -1184,20 +1226,17 @@
 			},
 			onEnter: function($rootScope, $stateParams, $timeout, ui, googleMapService) {
 
-				$timeout(function() {
+				if ($stateParams.edit === '1') {
+					$rootScope.$broadcast('onEditReportFormShow');
 
-					if ($stateParams.edit === '1') {
-						$rootScope.$broadcast('onEditReportFormShow');
+				} else {
+					googleMapService.singleReportMap.init($rootScope.apiData.report);
+				}
 
-					} else {
-						googleMapService.singleReportMap.init($rootScope.apiData.report);
-					}
-
-					ui.menus.top.activateSwitcher();
-					ui.frames.main.activateSwitcher('report');
-					ui.frames.app.activateSwitcher('main');
-					ui.loaders.renderer.stop();
-				});
+				ui.menus.top.activateSwitcher();
+				ui.frames.main.activateSwitcher('report');
+				ui.frames.app.activateSwitcher('main');
+				ui.loaders.renderer.stop();
 			},
 			onExit: function($rootScope, ReportsRest, reportFormService) {
 
@@ -6714,8 +6753,10 @@
 
 						if (report) {
 
-							if (!scope.noLink()) { scope.src.href = '/#/report/photos?id=' + report._id; }
-							scope.src.load(reportAvatarService.constructPhotoUrl(scope, true));
+							if (!scope.noLink()) { scope.src.href = '/#/report?id=' + report._id; }
+
+							var url = reportAvatarService.constructPhotoUrl(scope, true);
+							if (!scope.hideDefaultSrc || url != scope.src.defaultUrl) { scope.src.load(url); }
 						}
 					});
 				};
@@ -7450,7 +7491,8 @@
 
 				// Showing confirm modal
 				$rootScope.ui.modals.deleteReportModal.show({
-					message: (function() { return $rootScope.hardData.warnings[2]; })(),
+					title: $rootScope.ui.modals.deleteReportModal.title + ' (' + reports.length + ')',
+					message: $rootScope.hardData.warnings[2],
 					acceptCb: function() {
 
 						var promises = [];
@@ -7557,6 +7599,9 @@
 
 				return {
 					icon: 'glyphicon glyphicon-option-horizontal',
+					isHidden: function() {
+						return !scope.user._isTheOneLoggedIn();
+					},
 					switchers: [
 						{
 							_id: 'update',

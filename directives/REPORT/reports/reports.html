@@ -23,7 +23,7 @@
 						<span>{{ $moment.duration($moment(Date()).diff($moment(report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
 					</p>
 				</info-section>
-				<avatar-section ng-if="!noAvatar">
+				<avatar-section ng-if="!noAvatar && report.avatar">
 					<report-avatar report="report" hide-default-src="true"></report-avatar>
 				</avatar-section>
 			</my-collection-elem>

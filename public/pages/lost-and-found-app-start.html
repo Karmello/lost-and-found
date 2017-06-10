@@ -11,25 +11,27 @@
 				</div>
 			</div>
 			<div id="section2">
-				<div>
+				<div id="statsSection">
+					<app-stats></app-stats>
+				</div>
+				<div id="formsSection">
 					<my-tabs ins="ui.tabs.start"></my-tabs>
 					<login-form ng-show="ui.tabs.start.activeSwitcherId == 'login'"></login-form>
 					<register-form ng-show="ui.tabs.start.activeSwitcherId == 'register'"></register-form>
 					<recover-form ng-show="ui.tabs.start.activeSwitcherId == 'recover'"></recover-form>
-					<user-badge ng-if="ui.tabs.start.activeSwitcherId == 'status'"></user-badge>
+					<user-badge ng-show="ui.tabs.start.activeSwitcherId == 'status'"></user-badge>
 				</div>
-				<div>
-					<app-stats></app-stats>
-					<my-panel trans-heading="true">
-						<title-section>
-							<span ng-class="ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
-							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[22] }}</span>
-						</title-section>
-						<body-section>
-							<reports ctrl-id="NewReports"></reports>
-						</body-section>
-					</my-panel>
-				</div>
+			</div>
+			<div id="section3">
+				<my-panel trans-heading="true">
+					<title-section>
+						<span ng-class="ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
+						<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[22] }}</span>
+					</title-section>
+					<body-section>
+						<reports ctrl-id="NewReports"></reports>
+					</body-section>
+				</my-panel>
 			</div>
 		</div>
 	</body>

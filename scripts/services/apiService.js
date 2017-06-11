@@ -30,7 +30,7 @@
 						var body = { title: data.msg.title, message: data.msg.info };
 						if (data.msg.reload) { body.hideCb = function() { $window.location.reload(); }; }
 						$rootScope.ui.modals.infoModal.show(body);
-					}, 100);
+					}, 250);
 				}
 
 

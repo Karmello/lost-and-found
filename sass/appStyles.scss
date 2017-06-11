@@ -1001,20 +1001,15 @@ $avatarSize: 240px;
 	$srcCtrlsMargin: 10px;
 
 	position: relative;
-	display: table;
-	margin: 0 auto;
 
 	a.linkDisabled {
 		cursor: default !important;
 	}
 
-	img {
-		margin: 0;
-	}
-
 	.imgContainer {
 		border-radius: 3px;
 		overflow: hidden;
+		img { margin: 0; }
 	}
 
 	.srcLabel {
@@ -1110,6 +1105,7 @@ $avatarSize: 240px;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: center;
+		align-items: center;
 
 		div.singleSrcContainer {
 			margin: 3px;
@@ -1164,9 +1160,15 @@ $avatarSize: 240px;
 }
 .reportPhotos {
 
-	img {
-		max-width: 200px;
-		max-height: 200px;
+	.mySrc {
+
+		min-width: 100px;
+		min-height: 100px;
+
+		img {
+			max-width: 200px;
+			max-height: 200px;
+		}
 	}
 }
 .reports {
@@ -1234,10 +1236,6 @@ $avatarSize: 240px;
 	width: 60px;
 	height: 60px;
 }
-#singleFileInput, #multipleFilesInput {
-
-	display: none;
-}
 @import '_vars';
 
 .userBadge {
@@ -1248,6 +1246,10 @@ $avatarSize: 240px;
 	padding: 15px;
 
 	.mySrc { img { @extend .defaultAvatarSize; } }
+}
+#singleFileInput, #multipleFilesInput {
+
+	display: none;
 }
 #contactForm {
 

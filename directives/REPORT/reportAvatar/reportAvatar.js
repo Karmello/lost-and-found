@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportAvatar', function(reportAvatarService, MySrc) {
+	appModule.directive('reportAvatar', function(reportAvatarService, MySrc, URLS) {
 
 		var reportAvatar = {
 			restrict: 'E',
@@ -16,17 +16,20 @@
 			},
 			controller: function($scope) {
 
-				$scope.src = new MySrc({ defaultUrl: 'public/imgs/item.png' });
+				$scope.src = new MySrc({ defaultUrl: URLS.itemImg });
 			},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
-					scope.$watch(function() { return scope.report; }, function(report) {
+					scope.$watch(function() {
+						if (scope.report) { return scope.report.avatar; } else { return false; }
 
-						if (report) {
+					}, function(avatar) {
 
-							if (!scope.noLink()) { scope.src.href = '/#/report?id=' + report._id; }
+						if (scope.report) {
+
+							if (!scope.noLink()) { scope.src.href = '/#/report?id=' + scope.report._id; }
 
 							var url = reportAvatarService.constructPhotoUrl(scope, true);
 							if (!scope.hideDefaultSrc || url != scope.src.defaultUrl) { scope.src.load(url); }

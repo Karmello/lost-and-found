@@ -1,4 +1,4 @@
-<div class="mySrcThumbs">
+<div class="mySrcThumbs no_selection">
 	<div id="contextMenuContainer">
 		<my-context-menu
 			ng-show="mainContextMenu"
@@ -23,13 +23,10 @@
 			<my-alert ctrl-class="'alert-warning'" hard-data="{ message: ['status', 2] }"></my-alert>
 		</div>
 	</div>
-	<my-loader ng-show="srcThumbsCollection.loader.isLoading"></my-loader>
+	<my-loader abs-centered="true" ng-show="srcThumbsCollection.loader.isLoading"></my-loader>
 	<my-modal ins="srcSlidesModal" slide-in-from-left="true">
 		<my-modal-body>
-			<my-src-slides
-				my-src-collection="srcSlidesCollection"
-				src-type="{{ srcType }}"
-			></my-src-slides>
+			<my-src-slides my-src-collection="srcSlidesCollection" src-type="{{ srcType }}"></my-src-slides>
 		</my-modal-body>
 		<my-modal-footer>
 			<div class="myBtnsGroupCenter">

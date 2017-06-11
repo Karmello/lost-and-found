@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"min",
+				"min-width\t(reportPhotos.scss)"
+			],
+			[
+				"min-",
+				"min-width"
+			],
+			[
+				"just",
+				"justify-content"
+			],
+			[
+				"src",
+				"srcConf"
+			],
+			[
+				"def",
+				"defaultUrl"
+			],
+			[
+				"rep",
+				"reports"
+			],
+			[
+				"kont",
+				"kontynuować"
+			],
+			[
+				"to",
+				"toState"
+			],
+			[
+				"scrol",
+				"scrollTop"
+			],
+			[
+				"scr",
+				"scrollY"
+			],
+			[
 				"place",
 				"place_id"
 			],
@@ -348,10 +388,6 @@
 				"propPath"
 			],
 			[
-				"to",
-				"toEqual"
-			],
-			[
 				"ex",
 				"exampleData"
 			],
@@ -478,47 +514,55 @@
 			[
 				"resol",
 				"resolveService"
-			],
-			[
-				"conte",
-				"contextMenuConf"
-			],
-			[
-				"rep",
-				"reportsService"
-			],
-			[
-				"co",
-				"content"
-			],
-			[
-				"placeid",
-				"placeIds"
-			],
-			[
-				"marke",
-				"markerData"
-			],
-			[
-				"sea",
-				"searchCollectionBrowser\t(apiService.js)"
-			],
-			[
-				"searchRepor",
-				"searchReportsMap"
-			],
-			[
-				"sear",
-				"searchReportsMap\t(search.route.js)"
-			],
-			[
-				"goo",
-				"googleMapService\t(search.route.js)"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosConf.js",
+			"settings":
+			{
+				"buffer_size": 3869,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.js",
+			"settings":
+			{
+				"buffer_size": 2394,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosService.js",
+			"settings":
+			{
+				"buffer_size": 3424,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/scripts/factories/class/MySrcCollection.js",
+			"settings":
+			{
+				"buffer_size": 5221,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/scripts/factories/class/MySrc.js",
+			"settings":
+			{
+				"buffer_size": 2675,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -602,96 +646,121 @@
 	},
 	"expanded_folders":
 	[
+		"/D/Workspace/laf/dev/directives",
+		"/D/Workspace/laf/dev/directives/REPORT",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/directives/my/myModal/myModal.scss",
-		"/D/Workspace/laf/dev/scripts/run.js",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarConf.js",
+		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.scss",
+		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.scss",
+		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.scss",
+		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.scss",
+		"/D/Workspace/laf/dev/sass/_index.scss",
+		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.js",
+		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.html",
+		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-profile.scss",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.scss",
+		"/D/Workspace/laf/dev/scripts/factories/class/MySrc.js",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
+		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
+		"/D/Workspace/laf/dev/scripts/factories/class/MySrcCollection.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MySrcAction.js",
+		"/D/Workspace/laf/dev/scripts/factories/rest/UsersRest.js",
+		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
+		"/D/Workspace/laf/dev/scripts/services/apiService.js",
+		"/D/Workspace/laf/dev/server/actions/Report/putReport.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyModal.js",
+		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
+		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
+		"/D/Workspace/laf/dev/directives/^/forms/upgradeForm/upgradeForm.scss",
+		"/D/Workspace/laf/dev/directives/my/myForm/myForm.scss",
+		"/D/Workspace/laf/dev/directives/my/myForm/myForm.html",
+		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-start.scss",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-start.html",
+		"/D/Workspace/laf/dev/directives/^/tables/appStats/appStats.scss",
+		"/D/Workspace/laf/dev/directives/^/tables/appStats/appStats.html",
+		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.scss",
+		"/D/Workspace/laf/dev/node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss",
+		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatar.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatar.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatarService.js",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
+		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
+		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.js",
+		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
+		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.html",
 		"/D/Workspace/laf/dev/scripts/configuration/contextMenuConf.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
+		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
+		"/D/Workspace/laf/dev/scripts/configuration/modalsConf.js",
+		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-upgrade.scss",
+		"/D/Workspace/laf/dev/scripts/run.js",
+		"/D/Workspace/laf/dev/server/validators/reportEventValidators.js",
+		"/D/Workspace/laf/dev/scripts/routes/search.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/report.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/profile.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/start.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/settings1.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/report.tabs.route.js",
+		"/D/Workspace/laf/dev/directives/my/myModal/myModal.scss",
 		"/D/Workspace/laf/dev/db/fakes/fakeReports.js",
 		"/D/Workspace/laf/dev/server/modules/socketModule.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/ReportsRest.js",
-		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
-		"/D/Workspace/laf/dev/server/actions/Report/postReport.js",
 		"/D/Workspace/laf/dev/server/actions/Report/getReportBySearchQuery.js",
 		"/D/Workspace/laf/dev/server/actions/Other/getStats.js",
 		"/D/Workspace/laf/dev/scripts/services/googleMapService.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.html",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsConf.js",
 		"/D/Workspace/laf/dev/server/schemas/ReportEventSchema.js",
-		"/D/Workspace/laf/dev/server/validators/reportEventValidators.js",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportForm.js",
 		"/D/Workspace/laf/dev/directives/^/forms/reportForm/reportFormService.js",
 		"/D/Workspace/laf/dev/.env",
 		"/D/Workspace/laf/dev/server/_requires.js",
 		"/D/Workspace/laf/dev/directives/my/myDateInput/myDateInput.html",
-		"/D/Workspace/laf/dev/server/validators/reportValidators.js",
-		"/D/Workspace/laf/dev/server/actions/Report/putReport.js",
 		"/D/Workspace/laf/dev/scripts/configuration/framesConf.js",
 		"/D/Workspace/laf/dev/scripts/configuration/mainFrameNavConf.js",
-		"/D/Workspace/laf/dev/scripts/configuration/modalsConf.js",
 		"/D/Workspace/laf/dev/scripts/configuration/myStorageConf.js",
 		"/D/Workspace/laf/dev/scripts/configuration/settingsListGroupConf.js",
 		"/D/Workspace/laf/dev/directives/my/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.js",
-		"/D/Workspace/laf/dev/scripts/routes/report.route.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyDataModel.js",
 		"/D/Workspace/laf/dev/directives/my/myForm/myForm.js",
 		"/D/Workspace/laf/dev/scripts/routes/newreport.route.js",
 		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/unminified/appScripts.js",
-		"/D/Workspace/laf/dev/directives/my/myForm/myForm.html",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reportsService.js",
 		"/D/Workspace/laf/dev/server/actions/Report/runReportValidation.js",
-		"/D/Workspace/laf/dev/scripts/services/apiService.js",
-		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
 		"/D/Workspace/laf/dev/server.js",
 		"/D/Workspace/laf/dev/server/validators/_validators.js",
 		"/D/Workspace/laf/dev/server/schemas/ReportPhotoSchema.js",
 		"/D/Workspace/laf/dev/sass/_myClasses.scss",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatar.html",
-		"/D/Workspace/laf/dev/sass/_index.scss",
 		"/D/Workspace/laf/dev/directives/my/myContextMenu/myContextMenu.scss",
-		"/D/Workspace/laf/dev/directives/my/myLoader/myLoader.scss",
 		"/D/Workspace/laf/dev/directives/^/forms/upgradeForm/upgradeForm.js",
 		"/D/Workspace/laf/dev/directives/^/btns/formActionBtns/formActionBtns.js",
 		"/D/Workspace/laf/dev/scripts/factories/rest/PaymentsRest.js",
-		"/D/Workspace/laf/dev/scripts/factories/rest/UsersRest.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosConf.js",
 		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyForm.js",
 		"/D/Workspace/laf/dev/directives/^/forms/upgradeForm/upgradeForm.html",
 		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.js",
-		"/D/Workspace/laf/dev/scripts/routes/profile.route.js",
 		"/D/Workspace/laf/dev/server/modules/modelDataModule.js",
-		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.scss",
 		"/D/Workspace/laf/dev/server/actions/_actions.js",
 		"/D/Workspace/laf/dev/server/validators/userValidators.js",
 		"/D/Workspace/laf/dev/db/dump/laf-dev/reports.bson",
-		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatarService.js",
 		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
 		"/D/Workspace/laf/dev/server/modules/authorize.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatar.js",
-		"/D/Workspace/laf/dev/directives/my/mySrcThumbs/mySrcThumbs.html",
 		"/D/Workspace/laf/dev/directives/my/mySrcSlides/mySrcSlides.html",
 		"/D/Workspace/laf/dev/directives/my/myModal/myModal.html",
 		"/D/Workspace/laf/dev/directives/my/myModal/myModal.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.html",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyModal.js",
-		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatar.html",
-		"/D/Workspace/laf/dev/scripts/factories/class/MySrc.js",
-		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.html",
-		"/D/Workspace/laf/dev/directives/REPORT/reports/reports.scss",
-		"/D/Workspace/laf/dev/directives/my/myCollectionElem/myCollectionElem.scss",
 		"/D/Workspace/laf/dev/scripts/routes/home.route.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/MySrcCollection.js",
-		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.js",
 		"/D/Workspace/laf/dev/directives/REPORT/reportAvatar/reportAvatarConf.js",
 		"/D/Workspace/laf/dev/directives/my/myCollectionBrowser/myCollectionBrowser.html",
-		"/D/Workspace/laf/dev/directives/my/mySrc/mySrc.scss",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
 		"/D/Workspace/laf/dev/scripts/factories/class/MyLoader.js",
 		"/D/Workspace/laf/dev/directives/^/forms/reportSearchForm/reportSearchForm.js",
@@ -707,36 +776,14 @@
 		"/D/Workspace/laf/dev/gulpfile.js",
 		"/D/Workspace/laf/dev/public/index.html",
 		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
-		"/D/Workspace/laf/dev/directives/USER/userAvatar/userAvatarConf.js",
 		"/D/Workspace/laf/dev/directives/my/myInput/myInput.js",
 		"/D/Workspace/laf/dev/server/schemas/UserSchema.js",
 		"/D/Workspace/laf/dev/tests/server/specs/validation/modelSetups.js",
-		"/D/Workspace/laf/dev/tests/server/helpers.js",
-		"/D/Workspace/laf/dev/scripts/filters.js",
-		"/D/Workspace/laf/dev/.gitignore",
-		"/D/Workspace/laf/dev/https/conf/.srl",
-		"/D/Workspace/laf/dev/https/conf/createselfsignedcertificate.sh",
-		"/D/Workspace/laf/dev/https/conf/createRootCA.sh",
-		"/D/Workspace/laf/dev/https/conf/v3.ext",
-		"/D/Workspace/laf/dev/https/conf/server.csr.cnf",
-		"/D/Workspace/laf/dev/ssl/conf/createselfsignedcertificate.sh",
-		"/D/Workspace/laf/dev/ssl/conf/createRootCA.sh",
-		"/D/Workspace/laf/dev/ssl/conf/v3.ext",
-		"/D/Workspace/laf/dev/ssl/conf/server.csr.cnf",
-		"/C/OpenSSL-Win64/bin/openssl.cfg",
-		"/D/Workspace/laf/dev/ssl/conf/rootConf.ext",
-		"/D/Workspace/laf/dev/ssl/conf/.srl",
-		"/D/Workspace/laf/dev/ssl/rootCA.pem",
-		"/D/Workspace/laf/dev/ssl/rootCA.key",
-		"/D/Workspace/laf/dev/ssl/createRootCA.sh",
-		"/D/Workspace/laf/dev/ssl/createselfsignedcertificate.sh",
-		"/D/Workspace/laf/dev/ssl/v3.ext",
-		"/D/Workspace/laf/dev/ssl/server.csr",
-		"/D/Workspace/laf/dev/ssl/server.csr.cnf"
+		"/D/Workspace/laf/dev/tests/server/helpers.js"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -808,9 +855,18 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			".update(",
+			"getFilesCount",
+			"removeFromSet",
+			"hideCb",
+			"dismissCb",
+			"ReportsRest.getList",
+			".myCollectionElem",
+			"report-ava",
+			"hide-default",
 			"responsiveImgAndDesc",
 			"wideModal",
 			"responsiveImgAndDesc",
@@ -929,16 +985,7 @@
 			"myLoader",
 			"<report-f",
 			"createFormIns",
-			"service.ins",
-			"border-radius",
-			"toggleRespondToReportForm",
-			"isHidden",
-			"newReportForm",
-			"respondToReport",
-			"newReportModel",
-			"<report-f",
-			"<report-",
-			"newReport"
+			"service.ins"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1078,14 +1125,230 @@
 		"reverse": false,
 		"show_context": false,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": false
 	},
 	"groups":
 	[
 		{
+			"selected": 4,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosConf.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3869,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								145,
+								145
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "2218ae26",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotos.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2394,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1230,
+								1230
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "efaf7cd7",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 336.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/Workspace/laf/dev/directives/REPORT/reportPhotos/reportPhotosService.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3424,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2855,
+								2855
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "413bf821",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/D/Workspace/laf/dev/scripts/factories/class/MySrcCollection.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2614,
+								2614
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "9dad2d53",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 168.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/Workspace/laf/dev/scripts/factories/class/MySrc.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2675,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1780,
+								1780
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "1f047ab2",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1150,20 +1413,232 @@
 		"selected_items":
 		[
 			[
-				"mymodal",
-				"directives\\my\\myModal\\myModal.scss"
+				"reportval",
+				"validators\\reportValidators.js"
 			],
 			[
-				"run",
-				"laf\\dev\\scripts\\run.js"
+				"musrct",
+				"directives\\my\\mySrcThumbs\\mySrcThumbs.scss"
+			],
+			[
+				"mysrc.ht",
+				"directives\\my\\mySrc\\mySrc.html"
+			],
+			[
+				"reportp",
+				"directives\\REPORT\\reportPhotos\\reportPhotos.scss"
+			],
+			[
+				"reports.scs",
+				"directives\\REPORT\\reports\\reports.scss"
+			],
+			[
+				"mysrc.h",
+				"directives\\my\\mySrc\\mySrc.html"
+			],
+			[
+				"_ind",
+				"sass\\_index.scss"
+			],
+			[
+				"mysrc.scs",
+				"directives\\my\\mySrc\\mySrc.scss"
+			],
+			[
+				"mysrc.",
+				"directives\\my\\mySrc\\mySrc.js"
+			],
+			[
+				"mysrc.js",
+				"directives\\my\\mySrc\\mySrc.js"
+			],
+			[
+				"mysrc.htm",
+				"directives\\my\\mySrc\\mySrc.html"
+			],
+			[
+				"mysrcth",
+				"laf\\dev\\directives\\my\\mySrcThumbs\\mySrcThumbs.html"
+			],
+			[
+				"mysrcthu",
+				"directives\\my\\mySrcThumbs\\mySrcThumbs.scss"
+			],
+			[
+				"reportph",
+				"directives\\REPORT\\reportPhotos\\reportPhotos.scss"
+			],
+			[
+				"report.scss",
+				"directives\\REPORT\\reports\\reports.scss"
+			],
+			[
+				"profile.scs",
+				"sass\\pages\\lost-and-found-app-profile.scss"
+			],
+			[
+				"usera",
+				"directives\\USER\\userAvatar\\userAvatar.scss"
+			],
+			[
+				"mysrc",
+				"factories\\class\\MySrc.js"
+			],
+			[
+				"mysrcc",
+				"factories\\class\\MySrcCollection.js"
 			],
 			[
 				"hardd",
-				"laf\\dev\\public\\json\\hard_coded\\hard_coded_pl.json"
+				"laf\\dev\\public\\json\\hard_coded\\hard_coded_en.json"
+			],
+			[
+				"usersr",
+				"factories\\rest\\UsersRest.js"
+			],
+			[
+				"mysrca",
+				"factories\\class\\MySrcAction.js"
+			],
+			[
+				"setupc",
+				"server\\setups\\setupConstants.js"
+			],
+			[
+				"apis",
+				"laf\\dev\\scripts\\services\\apiService.js"
+			],
+			[
+				"putre",
+				"actions\\Report\\putReport.js"
+			],
+			[
+				"mymodal",
+				"factories\\class\\MyModal.js"
+			],
+			[
+				"mysrccolle",
+				"factories\\class\\MySrcCollection.js"
+			],
+			[
+				"postre",
+				"actions\\Report\\postReport.js"
+			],
+			[
+				"putr",
+				"actions\\Report\\putReport.js"
+			],
+			[
+				"reportv",
+				"validators\\reportValidators.js"
+			],
+			[
+				"upgrade",
+				"directives\\^\\forms\\upgradeForm\\upgradeForm.scss"
+			],
+			[
+				"myform",
+				"directives\\my\\myForm\\myForm.html"
+			],
+			[
+				"start.htm",
+				"pages\\lost-and-found-app-start.html"
+			],
+			[
+				"start.css",
+				"sass\\pages\\lost-and-found-app-start.scss"
+			],
+			[
+				"appstats.scss",
+				"directives\\^\\tables\\appStats\\appStats.scss"
+			],
+			[
+				"apps",
+				"directives\\^\\tables\\appStats\\appStats.html"
+			],
+			[
+				"start.scs",
+				"sass\\pages\\lost-and-found-app-start.scss"
+			],
+			[
+				"myload",
+				"directives\\my\\myLoader\\myLoader.scss"
+			],
+			[
+				"_varia",
+				"laf\\dev\\node_modules\\bootstrap-sass\\assets\\stylesheets\\bootstrap\\_variables.scss"
+			],
+			[
+				"mycolle",
+				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
+			],
+			[
+				"reporta",
+				"directives\\REPORT\\reportAvatar\\reportAvatar.html"
+			],
+			[
+				"mycont",
+				"directives\\my\\myContextMenu\\myContextMenu.html"
+			],
+			[
+				"contextm",
+				"directives\\my\\myContextMenu\\myContextMenu.html"
+			],
+			[
+				"main.html",
+				"pages\\lost-and-found-app-main.html"
+			],
+			[
+				"profile.htm",
+				"pages\\lost-and-found-app-profile.html"
+			],
+			[
+				"modals",
+				"configuration\\modalsConf.js"
+			],
+			[
+				"reportss",
+				"directives\\REPORT\\reports\\reportsService.js"
+			],
+			[
+				"upgradeform.scs",
+				"directives\\^\\forms\\upgradeForm\\upgradeForm.scss"
+			],
+			[
+				"upgrade.scss",
+				"sass\\pages\\lost-and-found-app-upgrade.scss"
+			],
+			[
+				"reports",
+				"server\\schemas\\ReportSchema.js"
+			],
+			[
+				"profile.",
+				"routes\\profile.route.js"
 			],
 			[
 				"reporte",
 				"validators\\reportEventValidators.js"
+			],
+			[
+				"start.r",
+				"routes\\start.route.js"
+			],
+			[
+				"settings.r",
+				"routes\\settings1.route.js"
+			],
+			[
+				"search.r",
+				"routes\\search.route.js"
+			],
+			[
+				"report.r",
+				"routes\\report.route.js"
+			],
+			[
+				"run",
+				"laf\\dev\\scripts\\run.js"
 			],
 			[
 				"_req",
@@ -1194,20 +1669,8 @@
 				"directives\\^\\forms\\reportForm\\reportForm.js"
 			],
 			[
-				"putre",
-				"actions\\Report\\putReport.js"
-			],
-			[
 				"postreport",
 				"actions\\Report\\postReport.js"
-			],
-			[
-				"reportval",
-				"validators\\reportValidators.js"
-			],
-			[
-				"report.r",
-				"routes\\report.route.js"
 			],
 			[
 				"myform.js",
@@ -1226,16 +1689,8 @@
 				"controllers\\ReportController.js"
 			],
 			[
-				"apps",
-				"laf\\dev\\unminified\\appScripts.js"
-			],
-			[
 				"newrepor",
 				"routes\\newreport.route.js"
-			],
-			[
-				"myform",
-				"directives\\my\\myForm\\myForm.html"
 			],
 			[
 				"reportsr",
@@ -1246,24 +1701,12 @@
 				"factories\\class\\MyDataModel.js"
 			],
 			[
-				"reportss",
-				"directives\\REPORT\\reports\\reportsService.js"
-			],
-			[
 				"mygoogle",
 				"directives\\my\\myGooglePlaceAutoComplete\\myGooglePlaceAutoComplete.js"
 			],
 			[
 				"postr",
 				"actions\\Report\\postReport.js"
-			],
-			[
-				"apis",
-				"laf\\dev\\scripts\\services\\apiService.js"
-			],
-			[
-				"reports",
-				"server\\schemas\\ReportSchema.js"
 			],
 			[
 				"mydatam",
@@ -1274,20 +1717,12 @@
 				"directives\\^\\forms\\reportForm\\reportFormService.js"
 			],
 			[
-				"setupc",
-				"server\\setups\\setupConstants.js"
-			],
-			[
 				"reportva",
 				"validators\\reportValidators.js"
 			],
 			[
 				"server",
 				"laf\\dev\\server.js"
-			],
-			[
-				"usera",
-				"directives\\USER\\userAvatar\\userAvatar.html"
 			],
 			[
 				"_my",
@@ -1306,16 +1741,8 @@
 				"directives\\^\\forms\\upgradeForm\\upgradeForm.js"
 			],
 			[
-				"usersr",
-				"factories\\rest\\UsersRest.js"
-			],
-			[
 				"paymentr",
 				"factories\\rest\\PaymentsRest.js"
-			],
-			[
-				"reportp",
-				"directives\\REPORT\\reportPhotos\\reportPhotosConf.js"
 			],
 			[
 				"mysrct",
@@ -1324,10 +1751,6 @@
 			[
 				"context",
 				"configuration\\contextMenuConf.js"
-			],
-			[
-				"mycont",
-				"directives\\my\\myContextMenu\\myContextMenu.scss"
 			],
 			[
 				"reportforms",
@@ -1374,10 +1797,6 @@
 				"actions\\Report\\runValidation.js"
 			],
 			[
-				"reportv",
-				"validators\\reportValidators.js"
-			],
-			[
 				"author",
 				"modules\\authorize.js"
 			],
@@ -1386,60 +1805,24 @@
 				"server\\controllers\\ReportController.js"
 			],
 			[
-				"mysrcthu",
-				"directives\\my\\mySrcThumbs\\mySrcThumbs.js"
-			],
-			[
 				"home.r",
 				"routes\\home.route.js"
-			],
-			[
-				"putr",
-				"actions\\Report\\putReport.js"
 			],
 			[
 				"mycole",
 				"directives\\my\\myCollectionElem\\myCollectionElem.scss"
 			],
 			[
-				"mysrc",
-				"factories\\class\\MySrc.js"
-			],
-			[
 				"mysrccol",
 				"factories\\class\\MySrcCollection.js"
-			],
-			[
-				"reports.scs",
-				"directives\\REPORT\\reports\\reports.scss"
 			],
 			[
 				"mycollectionb",
 				"directives\\my\\myCollectionBrowser\\myCollectionBrowser.scss"
 			],
 			[
-				"reporta",
-				"directives\\REPORT\\reportAvatar\\reportAvatar.html"
-			],
-			[
 				"mycollec",
 				"directives\\my\\myCollectionBrowser\\myCollectionBrowser.scss"
-			],
-			[
-				"mycolle",
-				"factories\\class\\MyCollectionBrowser.js"
-			],
-			[
-				"mysrc.js",
-				"factories\\class\\MySrc.js"
-			],
-			[
-				"mysrc.ht",
-				"directives\\my\\mySrc\\mySrc.html"
-			],
-			[
-				"myload",
-				"factories\\class\\MyLoader.js"
 			],
 			[
 				"contex",
@@ -1540,126 +1923,6 @@
 			[
 				".gi",
 				"laf\\dev\\.gitignore"
-			],
-			[
-				"gulp",
-				"laf\\dev\\gulpfile.js"
-			],
-			[
-				"ser",
-				"laf\\dev\\server.js"
-			],
-			[
-				".en",
-				"laf\\dev\\.env"
-			],
-			[
-				"createself",
-				"laf\\dev\\ssl\\createselfsignedcertificate.sh"
-			],
-			[
-				"cmd",
-				"laf\\dev\\ssl\\cmd.txt"
-			],
-			[
-				"open",
-				"laf\\dev\\ssl\\openssl.conf"
-			],
-			[
-				"opens",
-				"laf\\dev\\ssl\\openssl.conf"
-			],
-			[
-				"v3",
-				"laf\\dev\\ssl\\v3.ext"
-			],
-			[
-				"v3.e",
-				"laf\\dev\\ssl\\v3.ext"
-			],
-			[
-				"setupr",
-				"server\\setups\\setupRoutes.js"
-			],
-			[
-				".git",
-				"laf\\dev\\.gitignore"
-			],
-			[
-				"forms",
-				"directives\\^\\forms\\reportForm\\reportFormService.js"
-			],
-			[
-				"reportform.scs",
-				"directives\\^\\forms\\reportForm\\reportForm.scss"
-			],
-			[
-				"_mycla",
-				"sass\\_myClasses.scss"
-			],
-			[
-				"_myclas",
-				"sass\\_myClasses.scss"
-			],
-			[
-				"myd",
-				"factories\\class\\MyDataModel.js"
-			],
-			[
-				"mypanel",
-				"directives\\my\\myPanel\\myPanel.scss"
-			],
-			[
-				"_variables",
-				"laf\\dev\\node_modules\\bootstrap-sass\\assets\\stylesheets\\bootstrap\\_variables.scss"
-			],
-			[
-				"report.ht",
-				"pages\\lost-and-found-app-report.html"
-			],
-			[
-				"myform.h",
-				"directives\\my\\myForm\\myForm.html"
-			],
-			[
-				"myform.scs",
-				"directives\\my\\myForm\\myForm.scss"
-			],
-			[
-				"report.scs",
-				"sass\\pages\\lost-and-found-app-report.scss"
-			],
-			[
-				"mybtn",
-				"directives\\my\\myBtn\\myBtn.js"
-			],
-			[
-				"myfor",
-				"directives\\my\\myForm\\myForm.html"
-			],
-			[
-				"myform.",
-				"directives\\my\\myForm\\myForm.html"
-			],
-			[
-				"formb",
-				"directives\\^\\btns\\formActionBtns\\formActionBtns.js"
-			],
-			[
-				"reportservice",
-				"directives\\REPORT\\reports\\reportsService.js"
-			],
-			[
-				"reportform.js",
-				"directives\\^\\forms\\reportForm\\reportForm.js"
-			],
-			[
-				"report.scss",
-				"sass\\pages\\lost-and-found-app-report.scss"
-			],
-			[
-				"reportform.h",
-				"directives\\^\\forms\\reportForm\\reportForm.html"
 			]
 		],
 		"width": 0.0
@@ -1698,7 +1961,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 290.0,
 	"status_bar_visible": true,
 	"template_settings":

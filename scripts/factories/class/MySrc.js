@@ -4,8 +4,6 @@
 
 	var MySrc = function($rootScope, $q, $timeout, MyLoader) {
 
-		var minLoadTime = 500;
-
 		var MySrc = function(conf) {
 
 			if (conf) {
@@ -16,7 +14,7 @@
 				this.removeRequest = conf.removeRequest;
 			}
 
-			this.loader = new MyLoader();
+			this.loader = new MyLoader(250);
 		};
 
 		MySrc.prototype.load = function(url, force, cb) {
@@ -52,7 +50,7 @@
 				});
 
 				// Settings new url
-				$timeout(function() { that.url = url; }, minLoadTime);
+				$timeout(function() { that.url = url; }, that.loader.minLoadTime);
 
 				return that.deferred.promise;
 			}
@@ -72,7 +70,7 @@
 			}
 		};
 
-		MySrc.prototype.update = function(args, preventReload, i) {
+		MySrc.prototype.update = function(args, i) {
 
 			var that = this;
 
@@ -81,23 +79,28 @@
 				that.loader.start(false, function() {
 
 					// Running external procedure
-					that.uploadRequest(args, i).then(function(result) {
+					that.uploadRequest(args, i).then(function(res) {
 
-						if (result.success) {
+						if (res.success) {
 
-							if (!preventReload) {
-								that.load(result.url, true);
+							if (args.doReload) {
 
-							} else {
-								that.loader.stop();
-							}
+								that.load(that.url, true, function() {
+									resolve(res.success);
+								});
 
-							resolve(true);
+							} else if (args.getReloadUrl) {
+
+								that.load(args.getReloadUrl(i), true, function() {
+									resolve(res.success);
+								});
+
+							} else { resolve(res.success); }
 
 						} else {
 
 							that.loader.stop();
-							resolve(false);
+							resolve(res.success);
 						}
 					});
 				});
@@ -111,24 +114,28 @@
 
 			return $q(function(resolve) {
 
-				that.loader.start(false, function() {
+				var finish = function(success) {
 
-					args._id = that._id;
-
-					// Running external procedure
-					that.removeRequest(args).then(function(success) {
-
-						if (success) {
-							if (doLoadSecondary) {
-								that.loadSecondary();
-							}
-
-						} else {
-							that.loader.stop();
+					if (success) {
+						if (doLoadSecondary) {
+							that.loadSecondary();
 						}
 
-						resolve(success);
-					});
+					} else {
+						that.loader.stop();
+					}
+
+					resolve(success);
+				};
+
+				that.loader.start(false, function() {
+
+					if (that.removeRequest) {
+
+						// Running external procedure
+						that.removeRequest(args).then(function(success) { finish(success); });
+
+					} else { finish(true); }
 				});
 			});
 		};

@@ -4,12 +4,11 @@
 
 	var MyLoader = function($timeout) {
 
-		var MyLoader = function() {
+		var MyLoader = function(_minLoadTime) {
 
+			if (_minLoadTime) { this.minLoadTime = _minLoadTime; } else { this.minLoadTime = 150; }
 			this.isLoading = false;
 		};
-
-		MyLoader.prototype.minLoadTime = 150;
 
 		MyLoader.prototype.start = function(stopAutomagically, callback) {
 

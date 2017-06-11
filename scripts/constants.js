@@ -4,11 +4,13 @@
 
 	var urls = {
 		AWS3_UPLOADS_BUCKET_URL: 'https://s3.amazonaws.com/laf.useruploads/',
-		AWS3_RESIZED_UPLOADS_BUCKET_URL: 'https://s3.amazonaws.com/laf.useruploadsresized/'
+		AWS3_RESIZED_UPLOADS_BUCKET_URL: 'https://s3.amazonaws.com/laf.useruploadsresized/',
+		itemImg: 'public/imgs/item.png',
+		okImg: 'public/imgs/ok.png'
 	};
 
 	var nums = {
-		reportMaxPhotos: 15,
+		reportMaxPhotos: 10,
 		photoMaxSize: 1048576
 	};
 

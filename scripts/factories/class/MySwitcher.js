@@ -12,10 +12,10 @@
 
 
 
-		MySwitcher.prototype.activate = function(skipOnActivatedCb) {
+		MySwitcher.prototype.activate = function(args) {
 
 			this.parent.activeSwitcherId = this._id;
-			if (!skipOnActivatedCb && this.onActivate) { this.onActivate(); }
+			if (this.onActivate) { this.onActivate(args); }
 		};
 
 

@@ -8,6 +8,7 @@
 			getCredentials: function(subject, body) {
 
 				body.authToken = storageService.authToken.getValue();
+
 				return $http.post('/get_aws3_upload_credentials', body, {
 					headers: {
 						subject: subject

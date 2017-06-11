@@ -52,7 +52,7 @@
 									$scope.mode = 'crop';
 									$scope.$apply();
 									$(imgId).cropper('replace', URL.createObjectURL(e.target.files[0]));
-									$timeout(function() { $scope.loader.stop(); }, MyLoader.prototype.minLoadTime);
+									$timeout(function() { $scope.loader.stop(); }, $scope.loader.minLoadTime);
 								});
 
 							} else { srcAction.displayModalMessage(result.msgId); }

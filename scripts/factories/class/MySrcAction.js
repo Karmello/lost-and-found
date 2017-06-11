@@ -114,7 +114,7 @@
 
 		MySrcAction.prototype.displayModalMessage = function(msgId, acceptCb) {
 
-			var username = UsersRest.personalDetailsModel.getValue('username');
+			var username = $rootScope.apiData.loggedInUser.username;
 
 			var settings;
 

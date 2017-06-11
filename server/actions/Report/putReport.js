@@ -17,13 +17,18 @@ module.exports = {
 			report.description = req.body.description;
 			report.serialNo = req.body.serialNo;
 
-			report.avatar = req.body.avatar;
+			if (req.body.photos.length > 0) {
+
+				if (req.body.avatar) {
+					report.avatar = req.body.avatar;
+
+				} else {
+					report.avatar = req.body.photos[0].filename;
+				}
+
+			} else { report.avatar = undefined; }
+
 			report.photos = req.body.photos;
-
-			if (!report.avatar && report.photos.length > 0) {
-				report.avatar = report.photos[0].filename;
-			}
-
 			report.startEvent = new r.ReportEvent(req.body.startEvent);
 
 

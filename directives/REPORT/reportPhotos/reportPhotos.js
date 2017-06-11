@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reportPhotos', function($rootScope, reportPhotosService, reportPhotosConf, MySrcCollection, MySrcAction, NUMS) {
+	appModule.directive('reportPhotos', function($rootScope, reportPhotosService, reportPhotosConf, MySrcCollection, MySrcAction, NUMS, URLS) {
 
 		var reportPhotos = {
 			restrict: 'E',
@@ -19,58 +19,43 @@
 					acceptedFiles: 'image/png,image/jpg,image/jpeg',
 					maxFiles: NUMS.reportMaxPhotos,
 					maxFileSize: NUMS.photoMaxSize,
-					getFilesCount: function() {
-						return $rootScope.apiData.report.photos.length;
+					getFilesCount: function() { return $rootScope.apiData.report.photos.length; }
+				});
+
+				$scope.mainContextMenuConf = reportPhotosConf.getMainContextMenuConf($scope);
+				$scope.srcContextMenuConf = reportPhotosConf.getSrcContextMenuConf($scope);
+
+				$scope.srcThumbsCollection = new MySrcCollection({
+					defaultUrl: URLS.itemImg,
+					uploadRequest: reportPhotosService.makeSingleAws3UploadReq,
+					constructUrl: function(i) {
+
+						return reportPhotosService.constructPhotoUrl($scope.report.userId, $scope.report._id, $scope.report.photos[i].filename, true);
 					}
 				});
 
-				// Initializing context menus
-				$scope.mainContextMenuConf = reportPhotosConf.getMainContextMenuConf($scope);
-				$scope.srcContextMenuConf = reportPhotosConf.getSrcContextMenuConf($scope);
+				$scope.srcSlidesCollection = new MySrcCollection({
+					defaultUrl: URLS.itemImg,
+					constructUrl: function(i) {
+
+						return reportPhotosService.constructPhotoUrl($scope.report.userId, $scope.report._id, $scope.report.photos[i].filename, false);
+					}
+				});
 			},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
-					// Watching current report
-					scope.$watch(function() { return scope.report; }, function(report) {
+					var firstLoad = true;
+
+					scope.$watch(function() { return scope.report; }, function(report, oldReport) {
+
+						if (oldReport && oldReport._id == report._id && !firstLoad) { return; }
 
 						if (report) {
-
-							// Instantiating
-
-							scope.srcThumbsCollection = new MySrcCollection({
-								defaultUrl: reportPhotosConf.defaultUrl,
-								constructUrl: function(i) {
-									return reportPhotosService.constructPhotoUrl(scope.report.userId, scope.report._id, scope.report.photos[i].filename, true);
-								},
-								uploadRequest: reportPhotosService.uploadRequest,
-								remove: function(indexes) {
-
-									for (var i = indexes.length - 1; i >= 0; i--) {
-										scope.report.photos.splice(indexes[i], 1);
-									}
-
-									return scope.report.put();
-								}
-							});
-
-							scope.srcSlidesCollection = new MySrcCollection({
-								defaultUrl: reportPhotosConf.defaultUrl,
-								constructUrl: function(i) {
-									return reportPhotosService.constructPhotoUrl(scope.report.userId, scope.report._id, scope.report.photos[i].filename, false);
-								}
-							});
-
-							// Initializing
-
 							scope.srcThumbsCollection.init(scope.report.photos);
-
-							scope.srcSlidesCollection.init(scope.report.photos, function() {
-								for (var i in scope.srcSlidesCollection.collection) {
-									scope.srcSlidesCollection.collection[i].href = scope.srcSlidesCollection.collection[i].url;
-								}
-							});
+							reportPhotosService.initSlidesCollection(scope);
+							firstLoad = false;
 						}
 					});
 				};

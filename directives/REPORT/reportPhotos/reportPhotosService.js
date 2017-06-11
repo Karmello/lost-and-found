@@ -5,16 +5,99 @@
 	var reportPhotosService = function($rootScope, $q, aws3Service, MySrcAction, ReportsRest, Restangular, URLS) {
 
 		var self = {
-			constructPhotoUrl: function(userId, reportId, filename, useThumb) {
+			initSlidesCollection: function(scope) {
 
-				if (!useThumb) {
-					return URLS.AWS3_UPLOADS_BUCKET_URL + userId + '/reports/' + reportId + '/' + filename;
-
-				} else {
-					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + userId + '/reports/' + reportId + '/' + filename;
-				}
+				scope.srcSlidesCollection.init(scope.report.photos, undefined, { doNotLoad: true });
 			},
-			uploadRequest: function(args, i) {
+			uploadPhotos: function(actionId, scope, inputData, src) {
+
+				// Validating input after choose
+				scope.srcAction.validate(actionId, inputData).then(function(res) {
+
+					// When action valid
+					if (res.success) {
+
+						// Preparing fileTypes array
+						var fileTypes = [];
+
+						for (var i in inputData) {
+							if (inputData[i] instanceof File) { fileTypes.push(inputData[i].type); }
+						}
+
+						// Asking server for upload credentials for all files
+						aws3Service.getCredentials('report_photos', { reportId: $rootScope.apiData.report._id, 'fileTypes': fileTypes }).then(function(res) {
+
+							var args = {
+								inputData: inputData,
+								credentials: res.data,
+								src: src,
+								getReloadUrl: function(i) {
+									return self.constructPhotoUrl($rootScope.apiData.loggedInUser._id, $rootScope.apiData.report._id, res.data[i].awsFilename, true);
+								}
+							};
+
+							switch (actionId) {
+
+								case 'addToSet':
+
+									scope.srcThumbsCollection.addToSet(args, function(results) {
+										self.syncDb(scope, function() {
+											self.initSlidesCollection(scope);
+										});
+									});
+
+									break;
+
+								case 'updateSingle':
+
+									scope.srcThumbsCollection.updateSingle(args, function(success) {
+
+										if (!success) { return; }
+
+										if ($rootScope.apiData.report.avatar == args.src.filename) {
+											$rootScope.apiData.report.avatar = res.data[0].awsFilename;
+										}
+
+										self.syncDb(scope, function() {
+											self.initSlidesCollection(scope);
+										});
+									});
+
+									break;
+							}
+
+						}, function(res) { $rootScope.ui.modals.tryAgainLaterModal.show(); });
+
+					// When action invalid
+					} else { scope.srcAction.displayModalMessage(res.msgId); }
+				});
+			},
+			deletePhotos: function(flag, scope, src) {
+
+				var collection;
+
+				switch (flag) {
+
+					case 'single':
+						collection = [src];
+						break;
+
+					case 'multiple':
+						collection = scope.srcThumbsCollection.getSelectedCollection();
+						break;
+				}
+
+				scope.srcThumbsCollection.removeFromSet({ collection: collection }, function(results) {
+
+					if (results.indexOf(true) > -1) {
+
+						self.syncDb(scope, function() {
+							self.initSlidesCollection(scope);
+						});
+					}
+				});
+			},
+			makeSingleAws3UploadReq: function(args, i) {
 
 				var src = this;
 
@@ -46,81 +129,51 @@
 					});
 				});
 			},
-			update: function(actionId, scope, inputData, src) {
+			syncDb: function(scope, cb, args) {
 
-				// Validating input after choose
-				scope.srcAction.validate(actionId, inputData).then(function(res) {
-
-					// When action valid
-					if (res.success) {
-
-						// Preparing fileTypes array
-						var fileTypes = [];
-
-						for (var i in inputData) {
-							if (inputData[i] instanceof File) { fileTypes.push(inputData[i].type); }
-						}
-
-						// Asking server for upload credentials for all files
-						aws3Service.getCredentials('report_photos', { reportId: $rootScope.apiData.report._id, 'fileTypes': fileTypes }).then(function(res) {
-
-							var args = {
-								inputData: inputData,
-								credentials: res.data,
-								src: src
-							};
-
-							scope.srcThumbsCollection[actionId](args, function(result) {
-								self.afterUpdateSync(scope);
-							});
-						});
-
-					// When action invalid
-					} else { scope.srcAction.displayModalMessage(res.msgId); }
-				});
-			},
-			delete: function(flag, scope, src, cb) {
-
-				var collection;
-
-				switch (flag) {
-
-					case 'single':
-						collection = [src];
-						break;
-
-					case 'multiple':
-						collection = scope.srcThumbsCollection.getSelectedCollection();
-						break;
-				}
-
-				scope.srcThumbsCollection.removeFromSet({ collection: collection }, function(success, results) {
-
-					if (success) {
-						ReportsRest.getList({ _id: $rootScope.apiData.report._id });
-					}
-				});
-			},
-			afterUpdateSync: function(scope, cb) {
-
-				var copy = Restangular.copy($rootScope.apiData.report);
-
+				var isAvatarOk = false;
+				var copy = Restangular.copy(scope.report);
 				copy.photos = [];
 
+				if (args && args.newAvatar) { copy.avatar = args.newAvatar; }
+
 				for (var i in scope.srcThumbsCollection.collection) {
+
 					copy.photos[i] = {
 						filename: scope.srcThumbsCollection.collection[i].filename,
 						size: scope.srcThumbsCollection.collection[i].size
 					};
+
+					if (copy.photos[i].filename == copy.avatar) { isAvatarOk = true; }
 				}
 
+				if (!isAvatarOk) { copy.avatar = undefined; }
+
 				copy.put().then(function(res) {
-					$rootScope.apiData.report = res.data;
+
+					scope.report.avatar = res.data.avatar;
+					scope.report.photos = res.data.photos;
 					if (cb) { cb(true); }
 
 				}, function(res) {
-					if (cb) { cb(false); }
+
+					$rootScope.ui.modals.tryAgainLaterModal.hideCb = function() {
+						scope.srcThumbsCollection.init(scope.report.photos);
+						self.initSlidesCollection(scope);
+						$rootScope.ui.modals.tryAgainLaterModal.hideCb = undefined;
+					};
+
+					$rootScope.ui.modals.tryAgainLaterModal.show();
 				});
+			},
+			constructPhotoUrl: function(userId, reportId, filename, useThumb) {
+
+				if (!useThumb) {
+					return URLS.AWS3_UPLOADS_BUCKET_URL + userId + '/reports/' + reportId + '/' + filename;
+
+				} else {
+					return URLS.AWS3_RESIZED_UPLOADS_BUCKET_URL + 'resized-' + userId + '/reports/' + reportId + '/' + filename;
+				}
 			}
 		};
 

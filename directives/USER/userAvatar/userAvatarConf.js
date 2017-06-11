@@ -22,7 +22,7 @@
 								$rootScope.$broadcast('displayImgCropWindow', {
 									acceptCb: function(dataURI) {
 
-										scope.src.update({ file: utilService.dataURItoBlob(dataURI) }, true).then(function(success) {
+										scope.src.update({ file: utilService.dataURItoBlob(dataURI), doReload: true }).then(function(success) {
 											if (success) { userAvatarService.loadPhoto(scope, true); }
 										});
 									}

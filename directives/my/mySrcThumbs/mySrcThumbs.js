@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('mySrcThumbs', function($rootScope, MySwitchable, MyModal) {
+	appModule.directive('mySrcThumbs', function($rootScope, $timeout, MySwitchable, MyModal) {
 
 		var mySrcThumbs = {
 			restrict: 'E',
@@ -35,6 +35,13 @@
 					// When collection browsing window available
 					if (scope.browsingWindowId) {
 
+						var loadSingleSrc = function(index) {
+
+							scope.srcSlidesCollection.collection[index].load(undefined, undefined, function() {
+								scope.srcSlidesCollection.collection[index].href = scope.srcSlidesCollection.collection[index].url;
+							});
+						};
+
 						// Watching thumbs collection srcs
 						scope.$watchCollection('srcThumbsCollection.collection', function(collection) {
 
@@ -44,11 +51,16 @@
 
 									if (scope.srcSlidesCollection.switchable) {
 
+										var index = this.index;
+
 										// Changing active slides switchable
-										scope.srcSlidesCollection.switchable.switchers[this.index].activate();
+										scope.srcSlidesCollection.switchable.switchers[index].activate({ doNotLoad: true });
 
 										// Displaying modal
 										scope.srcSlidesModal.show();
+
+										// Starting loading src
+										$timeout(function() { loadSingleSrc(index); }, 500);
 									}
 								};
 
@@ -64,8 +76,11 @@
 
 							if (switchable) {
 
-								var onActivate = function() {
-									scope.srcSlidesModal.title = scope.srcSlidesCollection.collection[this.index].filename;
+								var onActivate = function(args) {
+
+									var index = this.index;
+									scope.srcSlidesModal.title = scope.srcSlidesCollection.collection[index].filename + ' (' + (index + 1) + '/' + scope.srcSlidesCollection.collection.length + ')';
+									if (!args || !args.doNotLoad) { loadSingleSrc(index); }
 								};
 
 								for (var i in switchable.switchers) {

@@ -3,20 +3,15 @@
 	$srcCtrlsMargin: 10px;
 
 	position: relative;
-	display: table;
-	margin: 0 auto;
 
 	a.linkDisabled {
 		cursor: default !important;
 	}
 
-	img {
-		margin: 0;
-	}
-
 	.imgContainer {
 		border-radius: 3px;
 		overflow: hidden;
+		img { margin: 0; }
 	}
 
 	.srcLabel {

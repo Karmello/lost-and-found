@@ -5,7 +5,6 @@
 	var reportPhotosConf = function($rootScope, reportPhotosService) {
 
 		var conf = {
-			defaultUrl: 'public/imgs/item.png',
 			getMainContextMenuConf: function(scope) {
 
 				var isHidden = function() {
@@ -19,13 +18,13 @@
 					switchers: [
 						{
 							_id: 'update',
-							label: $rootScope.hardData.imperatives[16],
+							label: $rootScope.hardData.imperatives[6],
 							onClick: function() {
 
 								if (scope.srcAction.getFilesCount() < scope.srcAction.maxFiles) {
 									$rootScope.$broadcast('displayMultipleFilesInput', {
 										cb: function(files) {
-											reportPhotosService.update('addToSet', scope, files);
+											reportPhotosService.uploadPhotos('addToSet', scope, files);
 										}
 									});
 
@@ -35,20 +34,12 @@
 							}
 						},
 						{
-							_id: 'delete',
-							label: $rootScope.hardData.imperatives[14],
-							onClick: function() {
-								reportPhotosService.delete('multiple', scope);
-							},
-							isHidden: isHidden
-						},
-						{
 							_id: 'refresh',
 							label: $rootScope.hardData.imperatives[19],
 							onClick: function() {
 								scope.srcThumbsCollection.init(scope.report.photos);
-							},
-							isHidden: isHidden
+								reportPhotosService.initSlidesCollection(scope);
+							}
 						},
 						{
 							_id: 'select_all',
@@ -65,6 +56,14 @@
 								scope.srcThumbsCollection.deselectAll();
 							},
 							isHidden: isHidden
+						},
+						{
+							_id: 'delete',
+							label: $rootScope.hardData.imperatives[31],
+							onClick: function() {
+								reportPhotosService.deletePhotos('multiple', scope);
+							},
+							isHidden: isHidden
 						}
 					]
 				};
@@ -73,7 +72,9 @@
 
 				var move = function(that) {
 					scope.srcThumbsCollection.moveSingle(that._id, that.parent.data, function() {
-						reportPhotosService.afterUpdateSync(scope);
+						reportPhotosService.syncDb(scope, function() {
+							reportPhotosService.initSlidesCollection(scope);
+						});
 					});
 				};
 
@@ -89,7 +90,7 @@
 
 								$rootScope.$broadcast('displaySingleFileInput', {
 									cb: function(files) {
-										reportPhotosService.update('updateSingle', scope, files, that.parent.data);
+										reportPhotosService.uploadPhotos('updateSingle', scope, files, that.parent.data);
 									}
 								});
 							}
@@ -98,7 +99,7 @@
 							_id: 'delete',
 							label: $rootScope.hardData.imperatives[14],
 							onClick: function() {
-								reportPhotosService.delete('single', scope, this.parent.data);
+								reportPhotosService.deletePhotos('single', scope, this.parent.data);
 							}
 						},
 						{
@@ -137,8 +138,11 @@
 							label: $rootScope.hardData.imperatives[28],
 							onClick: function() {
 
-								scope.report.avatar = this.parent.data.filename;
-								reportPhotosService.afterUpdateSync(scope);
+								var newAvatar = this.parent.data.filename;
+
+								this.parent.data.load(undefined, true, function() {
+									reportPhotosService.syncDb(scope, undefined, { newAvatar: newAvatar });
+								});
 							}
 						}
 					]

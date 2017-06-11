@@ -699,16 +699,14 @@ body .gm-style-iw + div {
     top: 0 !important; }
 
 .mySrc {
-  position: relative;
-  display: table;
-  margin: 0 auto; }
+  position: relative; }
   .mySrc a.linkDisabled {
     cursor: default !important; }
-  .mySrc img {
-    margin: 0; }
   .mySrc .imgContainer {
     border-radius: 3px;
     overflow: hidden; }
+    .mySrc .imgContainer img {
+      margin: 0; }
   .mySrc .srcLabel {
     text-align: center;
     font-size: 14px;
@@ -768,7 +766,9 @@ body .gm-style-iw + div {
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
     -ms-flex-pack: center;
-    justify-content: center; }
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center; }
     .mySrcThumbs #allSrcsContainer div.singleSrcContainer {
       margin: 3px; }
   .mySrcThumbs .myModal img {
@@ -787,9 +787,12 @@ body .gm-style-iw + div {
   width: 200px;
   object-fit: cover; }
 
-.reportPhotos img {
-  max-width: 200px;
-  max-height: 200px; }
+.reportPhotos .mySrc {
+  min-width: 100px;
+  min-height: 100px; }
+  .reportPhotos .mySrc img {
+    max-width: 200px;
+    max-height: 200px; }
 
 .reports #actionBtns {
   margin-bottom: 25px; }
@@ -837,14 +840,14 @@ body .gm-style-iw + div {
   width: 60px;
   height: 60px; }
 
-#singleFileInput, #multipleFilesInput {
-  display: none; }
-
 .userBadge {
   position: relative;
   display: table;
   margin: 0 auto;
   padding: 15px; }
+
+#singleFileInput, #multipleFilesInput {
+  display: none; }
 
 #contactForm .myForm {
   margin: 0 auto;

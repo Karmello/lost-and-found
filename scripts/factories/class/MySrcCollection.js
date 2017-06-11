@@ -10,8 +10,6 @@
 
 			if (conf) {
 
-				this.remove = conf.remove;
-
 				this.srcArgs = {
 					defaultUrl: conf.defaultUrl,
 					constructUrl: conf.constructUrl,
@@ -21,17 +19,17 @@
 			}
 
 			this.collection = [];
-			this.loader = new MyLoader();
+			this.loader = new MyLoader(250);
 		};
 
-		MySrcCollection.prototype.init = function(collection, cb) {
+		MySrcCollection.prototype.init = function(collection, cb, args) {
 
 			var that = this;
 
-			// When there is some init data
-			if (collection.length > 0) {
+			that.loader.start(false, function() {
 
-				that.loader.start(false, function() {
+				// When there is some init data
+				if (collection.length > 0) {
 
 					// Emptying collection array
 					that.collection.length = 0;
@@ -52,23 +50,35 @@
 						that.collection.push(src);
 
 						// Loading
-						loadPromises.push(that.collection[i].load(src.constructUrl(i)));
+						if (!args || !args.doNotLoad) {
+							loadPromises.push(that.collection[i].load(src.constructUrl(i)));
+						}
 					}
 
-					// Returning all loading finished promises
-					$q.all(loadPromises).then(function(results) {
+					if (!args || !args.doNotLoad) {
+
+						// Returning all loading finished promises
+						$q.all(loadPromises).then(function(results) {
+
+							that.loader.stop();
+							if (cb) { cb(results); }
+						});
+
+					} else {
+
 						that.loader.stop();
-						if (cb) { cb(results); }
-					});
-				});
+						if (cb) { cb(); }
+					}
 
-			} else {
+				} else {
 
-				// Emptying collection array
-				that.collection.length = 0;
+					// Emptying collection array
+					that.collection.length = 0;
 
-				if (cb) { cb(); }
-			}
+					that.loader.stop();
+					if (cb) { cb(); }
+				}
+			});
 		};
 
 		MySrcCollection.prototype.updateSingle = function(args, cb) {
@@ -83,62 +93,65 @@
 			that.collection[newSrc.index] = newSrc;
 
 			// Updating
-			newSrc.uploadRequest(args, undefined, 0).then(function(result) {
+			newSrc.update(args, 0).then(function(success) {
 
 				// If error while updating
-				if (!result) {
+				if (!success) {
 
 					// Setting new src back to old one
-					that.collection[src.index] = src;
+					that.collection[args.src.index] = args.src;
+
+					// Showing modal
+					$rootScope.ui.modals.tryAgainLaterModal.show();
 				}
 
-				if (cb) { cb(result); }
+				if (cb) { cb(success); }
 			});
 		};
 
 		MySrcCollection.prototype.addToSet = function(args, cb) {
 
 			var that = this;
+			var updatePromises = [];
 
-			that.loader.start(false, function() {
+			// Getting current collection count
+			var count = that.collection.length;
 
-				var updatePromises = [];
+			// For all input files
+			for (var i in args.inputData) {
 
-				// Getting current collection count
-				var count = that.collection.length;
+				// If inputData element is of File class
+				if (args.inputData[i] instanceof File) {
 
-				// For all input files
-				for (var i in args.inputData) {
+					// Creating src
+					var src = new MySrc(that.srcArgs);
+					src.index = Number(i) + count;
+					that.collection.push(src);
 
-					// If inputData element is of File class
-					if (args.inputData[i] instanceof File) {
+					// Updating src
+					updatePromises.push(src.update(args, i));
+				}
+			}
 
-						// Creating src
-						var src = new MySrc(that.srcArgs);
-						src.index = Number(i) + count;
-						that.collection.push(src);
+			// When all updates done
+			$q.all(updatePromises).then(function(results) {
 
-						// Updating src
-						updatePromises.push(src.uploadRequest(args, i, Number(i)));
+				// For all results backwards
+				for (var i = results.length - 1; i >= 0; i--) {
+
+					// If unsuccessfull update
+					if (!results[i]) {
+
+						// Removing src from array
+						that.collection.splice(Number(i) + count, 1);
 					}
 				}
 
-				// When all updates done
-				$q.all(updatePromises).then(function(results) {
+				if (results.length > that.collection.length) {
+					that.resetIndexes();
+				}
 
-					// For all results backwards
-					for (var i = results.length - 1; i >= 0; i--) {
-
-						// If unsuccessfull update
-						if (!results[i]) {
-
-							// Removing src from array
-							that.collection.splice(Number(i) + count, 1);
-						}
-					}
-
-					if (cb) { cb(results); }
-				});
+				if (cb) { cb(results); }
 			});
 		};
 
@@ -159,32 +172,34 @@
 
 				// Showing confirmation modal
 				$rootScope.ui.modals.confirmProceedModal.show({
-					title: $rootScope.hardData.labels[28],
+					title: $rootScope.hardData.labels[28] + ' (' + args.collection.length + ')',
 					acceptCb: function() {
 
-						that.loader.start(false, function() {
+						var promises = [];
 
-							var indexes = [];
+						for (var i = 0; i < args.collection.length; i++) {
+							promises.push(args.collection[i].remove());
+						}
 
-							// For all srcs to delete
-							for (var i in args.collection) {
-								indexes.push(args.collection[i].index);
+						$q.all(promises).then(function(results) {
+
+							// For all results backwards
+							for (var i = results.length - 1; i >= 0; i--) {
+
+								// If successfull delete
+								if (results[i]) {
+
+									// Removing src from array
+									that.collection.splice(args.collection[i].index, 1);
+								}
 							}
 
-							// Running external procedure
-							that.remove(indexes).then(function(res) {
-
-								// When success
-								if (cb) { cb(true, res.data); }
-
-							}, function(res) {
-
-								// When failure
-								if (cb) { cb(false, res.data); }
-							});
+							that.resetIndexes();
+							cb(results);
 						});
 					},
-					hideCb: function() {
+					dismissCb: function() {
+
 						if (cb) { cb(); }
 					}
 				});
@@ -197,41 +212,43 @@
 
 			if (that.collection.length > 1) {
 
-				that.loader.start(false, function() {
+				src = that.collection.splice(src.index, 1)[0];
 
-					src = that.collection.splice(src.index, 1)[0];
+				switch (direction) {
 
-					switch (direction) {
+					case 'moveLeft':
 
-						case 'moveLeft':
+						if (src.index > 0) {
+							that.collection.splice(src.index - 1, 0, src);
 
-							if (src.index > 0) {
-								that.collection.splice(src.index - 1, 0, src);
+						} else {
+							that.collection.splice(that.collection.length, 0, src);
+						}
 
-							} else {
-								that.collection.splice(that.collection.length, 0, src);
-							}
+						break;
 
-							break;
+					case 'moveRight':
 
-						case 'moveRight':
+						if (src.index < that.collection.length) {
+							that.collection.splice(src.index + 1, 0, src);
 
-							if (src.index < that.collection.length) {
-								that.collection.splice(src.index + 1, 0, src);
+						} else {
+							that.collection.splice(0, 0, src);
+						}
 
-							} else {
-								that.collection.splice(0, 0, src);
-							}
+						break;
+				}
 
-							break;
-					}
+				that.resetIndexes();
 
-					for (var i in that.collection) {
-						that.collection[i].index = Number(i);
-					}
+				if (cb) { cb(); }
+			}
+		};
 
-					if (cb) { cb(); }
-				});
+		MySrcCollection.prototype.resetIndexes = function() {
+
+			for (var i in this.collection) {
+				this.collection[i].index = Number(i);
 			}
 		};
 

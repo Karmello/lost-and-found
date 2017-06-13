@@ -8,6 +8,10 @@
 
 		var service = this;
 
+		service.ins = {
+			singleReportMap: undefined
+		};
+
 		service.geo = {
 			allowed: undefined
 		};
@@ -15,20 +19,25 @@
 		service.singleReportMap = {
 			init: function(report) {
 
+				var map;
+
+				if (!service.ins.singleReportMap) {
+
+					map = service.ins.singleReportMap = new google.maps.Map(document.getElementById('reportMap'));
+					google.maps.event.addListener(map, 'idle', function() { google.maps.event.trigger(map, 'resize'); });
+
+				} else {
+
+					map = service.ins.singleReportMap;
+				}
+
 				var geocoder = new google.maps.Geocoder();
-				var map = new google.maps.Map(document.getElementById('reportMap'));
-
-				var latLng = new google.maps.LatLng(report.startEvent.lat, report.startEvent.lng);
-
-				google.maps.event.addListener(map, 'idle', function() {
-					google.maps.event.trigger(map, 'resize');
-				});
 
 				geocoder.geocode({ 'placeId': report.startEvent.placeId }, function(results, status) {
 
 					$timeout(function() {
 
-						var infowindow = new google.maps.InfoWindow();
+						var latLng = new google.maps.LatLng(report.startEvent.lat, report.startEvent.lng);
 
 						map.setCenter(latLng);
 						map.setZoom(13);
@@ -39,6 +48,8 @@
 							icon: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
 						});
 
+						var infowindow = new google.maps.InfoWindow();
+
 						marker.addListener('mouseover', function() {
 							infowindow.setContent(results[0].formatted_address);
 							infowindow.open(map, marker);
@@ -48,7 +59,7 @@
 							infowindow.close();
 						});
 
-					}, 1000);
+					});
 				});
 			}
 		};

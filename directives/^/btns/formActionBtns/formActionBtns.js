@@ -17,12 +17,12 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'reportSearchForm',
-					'contactForm', 'editReportForm', 'commentForm'
+					'contactForm', 'editReportForm', 'commentForm', 'commentReplyForm'
 				];
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];
 
-				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm'];
+				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm', 'commentReplyForm'];
 
 				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
 				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;
@@ -39,11 +39,12 @@
 					case 'loginForm':
 					case 'registerForm':
 					case 'recoverForm':
-					case 'commentForm':
 						$scope.myForm.submitBtnPhraseIndex = 3;
 						break;
 
 					case 'contactForm':
+					case 'commentForm':
+					case 'commentReplyForm':
 						$scope.myForm.submitBtnPhraseIndex = 4;
 						break;
 

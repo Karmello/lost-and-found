@@ -32,6 +32,9 @@ module.exports = function(app, cb) {
 	app.set('REPORT_EVENT_DETAILS_MIN_LENGTH', 50);
 	app.set('REPORT_EVENT_DETAILS_MAX_LENGTH', 1000);
 
+	// Comments
+	app.set('COMMENT_MAX_LENGTH', 1000);
+
 	// Max gets
 	app.set('REPORTS_MAX_GET', 25);
 	app.set('COMMENTS_MAX_GET', 10);

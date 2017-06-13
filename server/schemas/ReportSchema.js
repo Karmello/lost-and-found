@@ -44,7 +44,10 @@ var ReportSchema = new r.mongoose.Schema({
 		validate: [reportVal.avatar.correctness]
 	},
 	photos: [global.paths.schemas + 'ReportPhotoSchema'],
-	comments: [global.paths.schemas + 'CommentSchema'],
+	comments: [{
+		type: r.mongoose.Schema.Types.ObjectId,
+		ref: 'comment'
+	}],
 	startEvent: {
 		type: r.mongoose.Schema.Types.Mixed,
 		ref: 'report_event',

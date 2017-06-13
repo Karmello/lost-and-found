@@ -27,7 +27,8 @@
 		"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Szukaj", "Wybierz", "Odśwież",
 		"Przesuń w lewo", "Przesuń w prawo", "Obróć", "Zbliż", "Oddal", "Przewiń do góry", "Usuń konto", "Wybierz zdjęcie", "Ustaw jako avatar", "Odznacz wszystkie",
-		"Zaznacz wszystkie", "Usuń zaznaczone", "Zgłoś", "Edytuj", "Dostosuj wygląd.", "Przejdź na konto bez limitu", "Zapłać", "Ukryj mapę", "Pokaż mapę", "Zamknij"
+		"Zaznacz wszystkie", "Usuń zaznaczone", "Zgłoś", "Edytuj", "Dostosuj wygląd.", "Przejdź na konto bez limitu", "Zapłać", "Ukryj mapę", "Pokaż mapę", "Zamknij",
+		"Odpowiedź", "Wyświetl odpowiedzi"
 	],
 	"information": [
 		"Klikając w link poniżej potwierdzisz zmianę hasła. Będzie on aktywny przez najbliższe 24 godziny.",
@@ -45,7 +46,7 @@
 		"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Rodzaj", "Lokalizacja", "ID", "Szczegóły",
 		"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie", "",
 		"Metoda", "Rodzaj", "Numer", "Ważna do (miesiąc)", "Ważna do (rok)", "Waluta", "Kwota", "Płatność", "Cvv2", "Data i czas",
-		"ID transakcji", "Data ważności", "ID płatnika"
+		"ID transakcji", "Data ważności", "ID płatnika", "Komentarz"
 	],
 	"languages": [
 		{ "value": "en", "label": "Angielski" },

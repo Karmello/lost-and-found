@@ -6,7 +6,9 @@
 
 		var hardData = hardDataService.get();
 
-		this.commentContextMenuConf = {
+		var service = this;
+
+		service.commentContextMenuConf = {
 			icon: 'glyphicon glyphicon-option-horizontal',
 			switchers: [
 				{
@@ -29,7 +31,8 @@
 			]
 		};
 
-		this.reportCommentsBrowser = new myClass.MyCollectionBrowser({
+		service.reportCommentsBrowser = new myClass.MyCollectionBrowser({
+			ctrlId: 'reportCommentsBrowser',
 			singlePageSize: 10,
 			fetchData: function(query) {
 
@@ -40,7 +43,7 @@
 			}
 		});
 
-		return this;
+		return service;
 	};
 
 	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];

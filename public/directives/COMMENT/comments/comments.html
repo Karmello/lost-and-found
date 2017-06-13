@@ -1,26 +1,12 @@
 <div class="comments">
-	<my-form ins="myForm">
-		<my-text-area model="myForm.model.content.value.active"></my-text-area>
-		<form-action-btns my-form="myForm"></form-action-btns>
+	<my-form ins="commentForm">
+		<my-text-area
+			ctrl-max-length="1000"
+			model="commentForm.model.content"
+			hard-data="{ label: ['labels', 43] }"
+		></my-text-area>
+		<form-action-btns my-form="commentForm"></form-action-btns>
 	</my-form>
 	<br />
-	<my-collection-browser ins="collectionBrowser" no-scroll-top-btn="true">
-		<elems>
-			<my-collection-elem
-				ng-repeat="comment in collectionBrowser.collection"
-				data="comment"
-				context-menu-conf="comment.userId == apiData.loggedInUser._id ? commentContextMenuConf : undefined"
-			>
-				<title-section>
-					{{ comment.user.username }} | {{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}
-				</title-section>
-				<avatar-section>
-					<user-avatar user="comment.user"></user-avatar>
-				</avatar-section>
-				<info-section>
-					<span ng-bind="comment.content"></span>
-				</info-section>
-			</my-collection-elem>
-		</elems>
-	</my-collection-browser>
+	<comments-list collection-browser="collectionBrowser" nesting-level="0"></comments-list>
 </div>

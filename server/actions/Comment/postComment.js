@@ -4,33 +4,68 @@ module.exports = {
 	before: function(req, res, next) {
 
 		var action = new r.prototypes.Action(arguments);
+		var newComment;
 
 		new r.Promise(function(resolve, reject) {
 
-			if (!req.query.reportId) { reject(); }
+			if (req.query.reportId) {
 
-			new r.Comment(req.body).save(function(err, comment) {
+				// Getting report
+				r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
-				if (!err) {
+					if (!err && report) {
 
-					r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
+						// Creating new comment instance
+						newComment = new r.Comment(req.body);
 
-						if (!err) {
+						// Saving comment
+						newComment.save(function(err) {
 
-							report.comments.push(comment._id);
-							report.save();
-							resolve();
+							if (!err) {
 
-						} else { reject(err); }
-					});
+								// Updating report comments array
+								report.comments.push(newComment._id);
 
-				} else { reject(err); }
-			});
+								// Saving updated report
+								report.save(function(err) {
+									if (!err) { resolve(); } else { newComment.remove(); reject(err); }
+								});
 
-		}).then(function(data) {
+							} else { reject(err); }
+						});
+
+					} else { reject(err); }
+				});
+
+			} else if (req.query.commentId) {
+
+				r.Comment.findOne({ _id: req.query.commentId }, function(err, comment) {
+
+					if (!err && comment) {
+
+						// Creating new subcomment
+						newComment = new r.Comment(req.body);
+						newComment.comments = undefined;
+
+						// Pushing new subcomment to comments array
+						comment.comments.push(newComment);
+
+						// Saving updated comment
+						comment.save(function(err) {
+							if (!err) { resolve(); } else { reject(err); }
+						});
+
+					} else { reject(err); }
+				});
+
+			} else { reject('NO_REPORT_OR_COMMENT_ID'); }
+
+		}).then(function() {
+
 			action.end(200);
 
 		}, function(err) {
+
 			action.end(400, err);
 		});
 	}

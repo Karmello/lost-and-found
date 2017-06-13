@@ -7,32 +7,57 @@ module.exports = {
 
 		new r.Promise(function(resolve, reject) {
 
-			if (!req.query.reportId) { reject(); }
+			if (!req.query.reportId) { reject('NO_REPORT_ID'); }
 
-			r.Comment.remove({ _id: req.params.id }, function(err) {
+			// Getting comment
+			r.Comment.findOne({ _id: req.params.id }, function(err, comment) {
 
-				if (!err) {
+				// Got comment
+				if (!err && comment) {
 
-					r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
+					// Comment belongs to the requester
+					if (comment.userId == req.decoded._id) {
 
-						if (!err && report) {
+						// Getting report
+						r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
-							report.comments.splice(report.comments.indexOf(req.params.id), 1);
+							// Got report
+							if (!err && report) {
 
-							report.save(function(err) {
-								if (!err) { resolve(); } else { reject(err); }
-							});
+								// Comment belongs to the report
+								if (report.comments.indexOf(comment._id) > -1) {
+									resolve({ comment: comment, report: report });
 
-						} else { reject(err); }
-					});
+								} else {
+									reject('COMMENT_NOT_RELATED_TO_REPORT');
+								}
+
+							} else { reject(err); }
+						});
+
+					} else { reject('DELETE_COMMENT_NOT_ALLOWED'); }
 
 				} else { reject(err); }
 			});
 
-		}).then(function() {
-			action.end(204);
+		}).then(function(args) {
+
+			// Removing comment id from report comments array
+			args.report.comments.splice(args.report.comments.indexOf(req.params.id), 1);
+
+			// Saving updated report
+			args.report.save(function(err) {
+
+				if (!err) {
+
+					// Removing comment
+					args.comment.remove(function(err) { action.end(204); });
+
+				} else { reject(err); }
+			});
 
 		}, function(err) {
+
 			action.end(400, err);
 		});
 	}

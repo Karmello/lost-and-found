@@ -45,8 +45,11 @@
 				this.orderer._id = 'orderer';
 			}
 
+			// Refresher
+			this.refresher = {};
+
 			// Creating loader
-			this.loader = new MyLoader();
+			this.loader = new MyLoader(250);
 		};
 
 		MyCollectionBrowser.prototype.init = function(cb) {
@@ -59,12 +62,13 @@
 
 				that.loader.start(false, function() {
 
+					if (that.beforeInit) { that.beforeInit(); }
+
 					that.fetchData(that.createFetchQuery()).then(function(res) {
 
 						// Initializing pager ctrl
 
 						if (that.noPager) { that.meta.count = that.collection.length; }
-						that.refresher = {};
 
 						if (that.meta.count > 0) {
 

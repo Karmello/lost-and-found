@@ -1,0 +1,47 @@
+<div class="commentsList">
+	<my-collection-browser ins="collectionBrowser" no-scroll-top-btn="true">
+		<elems>
+			<my-collection-elem
+				ng-repeat="comment in collectionBrowser.collection"
+				ctrl-id="'comment_' + comment._id"
+				data="comment"
+				context-menu-conf="comment.userId == apiData.loggedInUser._id ? commentContextMenuConf : undefined"
+			>
+				<title-section>
+					{{ comment.user.username }} | {{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}
+				</title-section>
+				<avatar-section>
+					<user-avatar user="comment.user"></user-avatar>
+				</avatar-section>
+				<info-section>
+					<span ng-bind="comment.content"></span>
+				</info-section>
+				<bottom-section ng-if="nestingLevel == 0">
+					<div class="myBtnsGroupRight">
+						<my-btn
+							ctrl-class="'btn-default'"
+							click-action="onViewRepliesClick"
+							click-context="comment"
+							hard-data="{ label: ['imperatives', 41] }"
+						></my-btn>
+					</div>
+					<br>
+					<div ng-show="comment.showReplies" id="nestedCollectionSection">
+						<my-form ins="commentReplyForm">
+							<my-text-area
+								ctrl-max-length="1000"
+								model="commentReplyForm.model.content"
+								hard-data="{ label: ['labels', 43] }"
+							></my-text-area>
+							<form-action-btns my-form="commentReplyForm"></form-action-btns>
+						</my-form>
+						<div ng-if="nestedCollectionBrowser">
+							<br>
+							<comments-list collection-browser="nestedCollectionBrowser" nesting-level="1"></comments-list>
+						</div>
+					</div>
+				</bottom-section>
+			</my-collection-elem>
+		</elems>
+	</my-collection-browser>
+</div>

@@ -1,17 +1,18 @@
-<div class="myCollectionElem" ng-class="{ isSelected: data.isSelected }">
+<div class="myCollectionElem" ng-class="{ isSelected: data.isSelected }" id="{{ ctrlId }}">
 	<my-panel>
 		<title-section>
 			<div ng-transclude="titleSection"></div>
 		</title-section>
+		<action-section>
+			<my-elem-selector ng-if="isSelectable" is-selected="data.isSelected"></my-elem-selector>
+			<my-context-menu ng-if="contextMenu" ins="contextMenu"></my-context-menu>
+		</action-section>
 		<body-section>
-			<div id="actionSection">
-				<my-elem-selector ng-if="isSelectable" is-selected="data.isSelected"></my-elem-selector>
-				<my-context-menu ng-if="contextMenu" ins="contextMenu"></my-context-menu>
-			</div>
 			<div id="mainSection">
 				<div id="infoSection" ng-transclude="infoSection"></div>
 				<div id="avatarSection" ng-transclude="avatarSection"></div>
 			</div>
+			<div id="bottomSection" ng-transclude="bottomSection"></div>
 		</body-section>
 	</my-panel>
 </div>

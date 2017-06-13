@@ -11,6 +11,11 @@
 			content: {}
 		});
 
+		comments.commentReplyModel = new MyDataModel({
+			userId: {},
+			content: {}
+		});
+
 		return comments;
 	};
 

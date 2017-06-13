@@ -1,4 +1,5 @@
 module.exports = {
+	commentValidators: require('./commentValidators'),
 	globalValidators: require('./globalValidators'),
 	passwordValidators: require('./passwordValidators'),
 	paymentValidators: require('./paymentValidators'),

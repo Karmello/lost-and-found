@@ -374,6 +374,28 @@ body .gm-style-iw + div {
   max-width: 700px;
   margin: 0 auto; }
 
+.comments .myCollectionBrowser .ctrls {
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+
+.comments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+  @media only screen and (min-width: 600px) {
+    .comments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
+      -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse; } }
+  .comments .myCollectionBrowser .myCollectionElem #bodySection #mainSection > div {
+    margin: 5px; }
+  .comments .myCollectionBrowser .myCollectionElem #bodySection #mainSection #infoSection {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    text-align: justify; }
+
 .myAlert {
   display: table;
   margin: 0 auto;
@@ -422,45 +444,6 @@ body .gm-style-iw + div {
     border: 2px solid; }
   .myCollectionElem .panel-default {
     border: 0 !important; }
-  .myCollectionElem #bodySection {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-    justify-content: center; }
-    @media only screen and (max-width: 599px) {
-      .myCollectionElem #bodySection {
-        -ms-flex-flow: row wrap;
-        flex-flow: row wrap; } }
-    .myCollectionElem #bodySection #actionSection {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-flow: row wrap;
-      flex-flow: row wrap;
-      -ms-flex-pack: center;
-      justify-content: center; }
-      .myCollectionElem #bodySection #actionSection > * {
-        margin: 0 0 10px 0; }
-    .myCollectionElem #bodySection #mainSection {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-pack: center;
-      justify-content: center;
-      -ms-flex-align: center;
-      align-items: center;
-      -ms-flex-flow: row wrap;
-      flex-flow: row wrap; }
-      .myCollectionElem #bodySection #mainSection #infoSection {
-        text-align: center;
-        font-size: 14px;
-        margin: 5px 10px 5px 10px; }
-        .myCollectionElem #bodySection #mainSection #infoSection p {
-          margin: 0; }
-      .myCollectionElem #bodySection #mainSection #avatarSection .mySrc {
-        margin: 5px 10px 5px 10px; }
-        .myCollectionElem #bodySection #mainSection #avatarSection .mySrc img {
-          width: 150px;
-          height: 100px;
-          object-fit: cover; }
 
 .myContextMenu {
   position: relative; }
@@ -818,6 +801,36 @@ body .gm-style-iw + div {
 .reports .myCollectionElem {
   background-color: #d9534f;
   min-width: 250px; }
+  .reports .myCollectionElem #bodySection {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center; }
+    @media only screen and (max-width: 599px) {
+      .reports .myCollectionElem #bodySection {
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap; } }
+    .reports .myCollectionElem #bodySection #mainSection {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap; }
+      .reports .myCollectionElem #bodySection #mainSection #infoSection {
+        text-align: center;
+        font-size: 14px;
+        margin: 5px 10px 5px 10px; }
+        .reports .myCollectionElem #bodySection #mainSection #infoSection p {
+          margin: 0; }
+      .reports .myCollectionElem #bodySection #mainSection #avatarSection .mySrc {
+        margin: 5px 10px 5px 10px; }
+        .reports .myCollectionElem #bodySection #mainSection #avatarSection .mySrc img {
+          width: 150px;
+          height: 100px;
+          object-fit: cover; }
 
 .reports .isFound .myCollectionElem {
   background-color: #5bc0de; }
@@ -836,7 +849,7 @@ body .gm-style-iw + div {
   width: 150px;
   height: 150px; }
 
-.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .comments .userAvatar > div .mySrc img {
+.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .comments .myCollectionBrowser .myCollectionElem #bodySection #mainSection #avatarSection .userAvatar > div .mySrc img {
   width: 60px;
   height: 60px; }
 
@@ -848,6 +861,13 @@ body .gm-style-iw + div {
 
 #singleFileInput, #multipleFilesInput {
   display: none; }
+
+.commentsList .myCollectionBrowser {
+  min-height: 200px; }
+
+.commentsList #nestedCollectionSection {
+  max-width: 650px;
+  margin: 0 auto; }
 
 #contactForm .myForm {
   margin: 0 auto;

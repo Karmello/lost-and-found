@@ -1560,7 +1560,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, CommentsRest, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -1652,7 +1652,7 @@
 					if (operation == 'getList') {
 
 						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
-						commentsConf.reportCommentsBrowser.setData(data);
+						CommentsRest.activeCollectionBrowser.setData(data);
 						return data.collection;
 					}
 				}
@@ -1664,7 +1664,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'CommentsRest','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();
@@ -2795,8 +2795,11 @@
 				this.orderer._id = 'orderer';
 			}
 
+			// Refresher
+			this.refresher = {};
+
 			// Creating loader
-			this.loader = new MyLoader();
+			this.loader = new MyLoader(250);
 		};
 
 		MyCollectionBrowser.prototype.init = function(cb) {
@@ -2809,12 +2812,13 @@
 
 				that.loader.start(false, function() {
 
+					if (that.beforeInit) { that.beforeInit(); }
+
 					that.fetchData(that.createFetchQuery()).then(function(res) {
 
 						// Initializing pager ctrl
 
 						if (that.noPager) { that.meta.count = that.collection.length; }
-						that.refresher = {};
 
 						if (that.meta.count > 0) {
 
@@ -4294,26 +4298,6 @@
 
 	'use strict';
 
-	var CommentsRest = function(Restangular, MyDataModel) {
-
-		var comments = Restangular.service('comments');
-
-		comments.commentModel = new MyDataModel({
-			userId: {},
-			content: {}
-		});
-
-		return comments;
-	};
-
-	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('CommentsRest', CommentsRest);
-
-})();
-(function() {
-
-	'use strict';
-
 	var ContactTypesRest = function(Restangular, MyDataModel) {
 
 		var contactTypes = Restangular.service('contact_types');
@@ -4442,6 +4426,105 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('commentsList', function($rootScope, $timeout, $moment, commentsConf, CommentsRest, myClass) {
+
+		var commentsList = {
+			restrict: 'E',
+			templateUrl: 'public/directives/COMMENT/comments/commentsList/commentsList.html',
+			scope: {
+				collectionBrowser: '=',
+				nestingLevel: '<'
+			},
+			controller: function($scope) {
+
+				$scope.apiData = $rootScope.apiData;
+				$scope.hardData = $rootScope.hardData;
+				$scope.$moment = $moment;
+
+				$scope.commentContextMenuConf = commentsConf.commentContextMenuConf;
+
+				$scope.commentReplyForm = new myClass.MyForm({
+					ctrlId: 'commentReplyForm',
+					model: CommentsRest.commentReplyModel,
+					submitAction: function(args) {
+
+						$scope.commentReplyForm.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
+
+						return CommentsRest.post($scope.commentReplyForm.model.getValues(), {
+							commentId: $scope.commentReplyForm.activeComment._id
+						});
+					},
+					submitSuccessCb: function(res) {
+
+						$scope.commentReplyForm.model.reset(true, true);
+						//$rootScope.$broadcast('initReportComments');
+					},
+					onCancel: function() {
+
+						$scope.commentReplyForm.activeComment.showReplies = false;
+						$scope.commentReplyForm.activeComment = undefined;
+					}
+				});
+
+				$scope.onViewRepliesClick = function() {
+
+					var comment = this;
+
+					// Showing replies
+					if (!comment.showReplies) {
+
+						// Clearing model
+						$scope.commentReplyForm.model.reset(true, true);
+
+						// Hiding comment reply section if shown
+						if ($scope.commentReplyForm.activeComment) { $scope.commentReplyForm.activeComment.showReplies = false; }
+
+						// Instantiating new collection browser
+						$scope.nestedCollectionBrowser = new myClass.MyCollectionBrowser({
+							ctrlId: 'nestedCollectionBrowser',
+							singlePageSize: 10,
+							fetchData: function(query) {
+
+								query.commentId = comment._id;
+								return CommentsRest.getList(query);
+							}
+						});
+
+						// Setting before init method
+						$scope.nestedCollectionBrowser.beforeInit = function() {
+							delete CommentsRest.activeCollectionBrowser;
+							CommentsRest.activeCollectionBrowser = $scope.nestedCollectionBrowser;
+						};
+
+						// Setting new comment as active and showing reply section
+						$scope.commentReplyForm.activeComment = comment;
+						$scope.commentReplyForm.activeComment.showReplies = true;
+
+						$timeout(function() {
+							$('html, body').animate({ scrollTop: $('#comment_' + comment._id).offset().top }, 'fast');
+							$timeout(function() { $scope.nestedCollectionBrowser.init(); }, 250);
+						});
+					}
+				};
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return commentsList;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('formActionBtns', function() {
 
 		var formActionBtns = {
@@ -4455,12 +4538,12 @@
 
 				var clearBtnForms = [
 					'loginForm', 'registerForm', 'recoverForm', 'passwordForm', 'deactivationForm', 'reportSearchForm',
-					'contactForm', 'editReportForm', 'commentForm'
+					'contactForm', 'editReportForm', 'commentForm', 'commentReplyForm'
 				];
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];
 
-				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm'];
+				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm', 'commentReplyForm'];
 
 				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
 				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;
@@ -4477,11 +4560,12 @@
 					case 'loginForm':
 					case 'registerForm':
 					case 'recoverForm':
-					case 'commentForm':
 						$scope.myForm.submitBtnPhraseIndex = 3;
 						break;
 
 					case 'contactForm':
+					case 'commentForm':
+					case 'commentReplyForm':
 						$scope.myForm.submitBtnPhraseIndex = 4;
 						break;
 
@@ -5558,32 +5642,28 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('comments', function($rootScope, $moment, commentsConf, myClass, CommentsRest, UsersRest) {
+	appModule.directive('comments', function($rootScope, commentsConf, MyForm, CommentsRest) {
 
 		var comments = {
 			restrict: 'E',
 			templateUrl: 'public/directives/COMMENT/comments/comments.html',
 			scope: {
-				ctrlId: '@'
+				ctrlId: '@',
+				report: '='
 			},
 			controller: function($scope) {
 
-				$scope.apiData = $rootScope.apiData;
-				$scope.hardData = $rootScope.hardData;
-				$scope.$moment = $moment;
-
-				$scope.myForm = new myClass.MyForm({
+				$scope.commentForm = new MyForm({
 					ctrlId: 'commentForm',
 					model: CommentsRest.commentModel,
 					submitAction: function(args) {
 
-						var userId = UsersRest.personalDetailsModel.getValue('_id');
-						$scope.myForm.model.set({ 'userId': userId });
-						return CommentsRest.post($scope.myForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
+						$scope.commentForm.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
+						return CommentsRest.post($scope.commentForm.model.getValues(), { reportId: $rootScope.apiData.report._id });
 					},
 					submitSuccessCb: function(res) {
 
-						$scope.myForm.model.clear();
+						$scope.commentForm.model.reset(true, true);
 						$rootScope.$broadcast('initReportComments');
 					}
 				});
@@ -5591,12 +5671,14 @@
 				$scope.init = function() {
 
 					$scope.collectionBrowser = commentsConf.reportCommentsBrowser;
-					$scope.commentContextMenuConf = commentsConf.commentContextMenuConf;
+
+					$scope.collectionBrowser.beforeInit = function() {
+						delete CommentsRest.activeCollectionBrowser;
+						CommentsRest.activeCollectionBrowser = $scope.collectionBrowser;
+					};
 
 					$scope.collectionBrowser.init();
 				};
-
-				if (!$scope.collectionBrowser && $rootScope.apiData.report) { $scope.init(); }
 			},
 			compile: function(elem, attrs) {
 
@@ -5610,6 +5692,10 @@
 
 					scope.$on('$destroy', function() {
 						$rootScope.$$listeners['init' + scope.ctrlId] = null;
+					});
+
+					scope.$watch(function() { return scope.report; }, function(newReport, oldReport) {
+						if (newReport) { scope.init(); }
 					});
 				};
 			}
@@ -5627,7 +5713,9 @@
 
 		var hardData = hardDataService.get();
 
-		this.commentContextMenuConf = {
+		var service = this;
+
+		service.commentContextMenuConf = {
 			icon: 'glyphicon glyphicon-option-horizontal',
 			switchers: [
 				{
@@ -5650,7 +5738,8 @@
 			]
 		};
 
-		this.reportCommentsBrowser = new myClass.MyCollectionBrowser({
+		service.reportCommentsBrowser = new myClass.MyCollectionBrowser({
+			ctrlId: 'reportCommentsBrowser',
 			singlePageSize: 10,
 			fetchData: function(query) {
 
@@ -5661,11 +5750,36 @@
 			}
 		});
 
-		return this;
+		return service;
 	};
 
 	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
 	angular.module('appModule').service('commentsConf', commentsConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var CommentsRest = function(Restangular, MyDataModel) {
+
+		var comments = Restangular.service('comments');
+
+		comments.commentModel = new MyDataModel({
+			userId: {},
+			content: {}
+		});
+
+		comments.commentReplyModel = new MyDataModel({
+			userId: {},
+			content: {}
+		});
+
+		return comments;
+	};
+
+	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('CommentsRest', CommentsRest);
 
 })();
 (function() {
@@ -5849,9 +5963,11 @@
 			transclude: {
 				titleSection: '?titleSection',
 				avatarSection: '?avatarSection',
-				infoSection: '?infoSection'
+				infoSection: '?infoSection',
+				bottomSection: '?bottomSection'
 			},
 			scope: {
+				ctrlId: '=',
 				data: '=',
 				contextMenuConf: '=',
 				isSelectable: '='

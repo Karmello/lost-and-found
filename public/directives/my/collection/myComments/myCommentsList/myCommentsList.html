@@ -1,5 +1,8 @@
 <div class="myCommentsList">
 	<my-collection-browser ins="collectionBrowser" no-scroll-top-btn="true">
+		<frontctrls>
+			<form-action-btns my-form="parentForm"></form-action-btns>
+		</frontctrls>
 		<elems>
 			<my-collection-elem
 				ng-repeat="comment in collectionBrowser.collection"
@@ -7,37 +10,35 @@
 				data="comment"
 				context-menu-conf="comment.userId == apiData.loggedInUser._id ? commentContextMenuConf : undefined"
 			>
-				<title-section>
-					{{ comment.user.username }} | {{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}
-				</title-section>
 				<avatar-section>
 					<user-avatar user="comment.user"></user-avatar>
 				</avatar-section>
 				<info-section>
-					<span ng-bind="comment.content"></span>
+					<div><b>{{ comment.user.username }} | {{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}</b></div>
+					<div ng-bind="comment.content"></div>
+					<div class="myBtnsGroupRight" ng-if="nestingLevel == 0">
+						<my-btn ng-show="!comment.showReplies" ctrl-class="'btn-default'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 41] }"></my-btn>
+						<my-btn ng-show="comment.showReplies" ctrl-class="'btn-warning'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 42] }"></my-btn>
+					</div>
 				</info-section>
 				<bottom-section ng-if="nestingLevel == 0">
-					<div class="myBtnsGroupRight">
-						<my-btn
-							ctrl-class="'btn-default'"
-							click-action="onViewRepliesClick"
-							click-context="comment"
-							hard-data="{ label: ['imperatives', 41] }"
-						></my-btn>
-					</div>
-					<br>
 					<div ng-show="comment.showReplies" id="nestedCollectionSection">
 						<my-form ins="commentReplyForm">
 							<my-text-area
 								ctrl-max-length="1000"
 								model="commentReplyForm.model.content"
+								auto-resizable="true"
 								hard-data="{ label: ['labels', 43] }"
 							></my-text-area>
-							<form-action-btns my-form="commentReplyForm"></form-action-btns>
 						</my-form>
 						<div ng-if="nestedCollectionBrowser">
 							<br>
-							<my-comments-list nesting-level="1" collection-browser="nestedCollectionBrowser" conf="conf"></my-comments-list>
+							<my-comments-list
+								nesting-level="1"
+								collection-browser="nestedCollectionBrowser"
+								parent-form="commentReplyForm"
+								conf="conf"
+							></my-comments-list>
 						</div>
 					</div>
 				</bottom-section>

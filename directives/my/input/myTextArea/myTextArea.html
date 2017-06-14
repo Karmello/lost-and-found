@@ -8,5 +8,6 @@
 		placeholder="{{ placeholder || '...' }}"
 		maxlength="{{ ctrlMaxLength }}"
 		ng-model="model.value.active"
+		ng-keyup="resize()"
 	></textarea>
 </div>

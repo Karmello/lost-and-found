@@ -1,17 +1,24 @@
 .myComments {
 
-	.myTextArea {
-		max-width: 700px;
-		margin: 0 auto;
+	.myForm {
+		.myLabel.text-info {
+			margin-top: 0 !important;
+		}
 	}
 
 	.myCollectionBrowser {
 
-		.ctrls {
-			justify-content: flex-end;
-		}
+		.ctrls { justify-content: flex-end; }
 
 		.myCollectionElem {
+
+			font-size: 14px;
+
+			.myPanel {
+				.panel-heading {
+					display: none ;
+				}
+			}
 
 			#bodySection {
 

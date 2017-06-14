@@ -12,6 +12,7 @@
 			scope: {
 				nestingLevel: '<',
 				collectionBrowser: '=',
+				parentForm: '=',
 				conf: '='
 			},
 			controller: function($scope) {
@@ -46,15 +47,11 @@
 					submitSuccessCb: function(res) {
 
 						this.model.reset(true, true);
-					},
-					onCancel: function() {
-
-						$scope.conf.activeComment.showReplies = false;
-						$scope.conf.activeComment = undefined;
+						$scope.nestedCollectionBrowser.init();
 					}
 				});
 
-				$scope.onViewRepliesClick = function() {
+				$scope.onToggleRepliesClick = function() {
 
 					var comment = this;
 
@@ -88,9 +85,17 @@
 						$scope.conf.activeComment.showReplies = true;
 
 						$timeout(function() {
-							$('html, body').animate({ scrollTop: $('#comment_' + comment._id).offset().top }, 'fast');
-							$timeout(function() { $scope.nestedCollectionBrowser.init(); }, 250);
+							$scope.nestedCollectionBrowser.init(function() {
+								$('html, body').animate({ scrollTop: $('#comment_' + comment._id).offset().top }, 'fast');
+							});
 						});
+
+					// Hiding replies
+					} else {
+
+						$scope.conf.activeComment.showReplies = false;
+						$scope.conf.activeComment = undefined;
+						$scope.nestedCollectionBrowser = undefined;
 					}
 				};
 			},

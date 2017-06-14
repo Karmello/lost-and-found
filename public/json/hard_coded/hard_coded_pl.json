@@ -28,7 +28,7 @@
 		"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Szukaj", "Wybierz", "Odśwież",
 		"Przesuń w lewo", "Przesuń w prawo", "Obróć", "Zbliż", "Oddal", "Przewiń do góry", "Usuń konto", "Wybierz zdjęcie", "Ustaw jako avatar", "Odznacz wszystkie",
 		"Zaznacz wszystkie", "Usuń zaznaczone", "Zgłoś", "Edytuj", "Dostosuj wygląd.", "Przejdź na konto bez limitu", "Zapłać", "Ukryj mapę", "Pokaż mapę", "Zamknij",
-		"Odpowiedź", "Wyświetl odpowiedzi"
+		"Odpowiedź", "Pokaż odpowiedzi", "Schowaj odpowiedzi"
 	],
 	"information": [
 		"Klikając w link poniżej potwierdzisz zmianę hasła. Będzie on aktywny przez najbliższe 24 godziny.",

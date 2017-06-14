@@ -17,6 +17,7 @@
 				$scope.conf.collectionBrowser.beforeInit = function() {
 					delete commentsConf.activeCollectionBrowser;
 					commentsConf.activeCollectionBrowser = this;
+					if ($scope.conf.activeComment) { $scope.conf.activeComment.showReplies = false; }
 				};
 
 				$scope.commentForm = new myClass.MyForm({

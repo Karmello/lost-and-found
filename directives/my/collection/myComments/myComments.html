@@ -3,10 +3,15 @@
 		<my-text-area
 			ctrl-max-length="1000"
 			model="commentForm.model.content"
+			auto-resizable="true"
 			hard-data="{ label: ['labels', 43] }"
 		></my-text-area>
-		<form-action-btns my-form="commentForm"></form-action-btns>
 	</my-form>
 	<br />
-	<my-comments-list nesting-level="0" collection-browser="conf.collectionBrowser" conf="conf"></my-comments-list>
+	<my-comments-list
+		nesting-level="0"
+		collection-browser="conf.collectionBrowser"
+		parent-form="commentForm"
+		conf="conf"
+	></my-comments-list>
 </div>

@@ -22,7 +22,7 @@
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];
 
-				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm', 'commentsReplyForm'];
+				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm'];
 
 				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
 				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;

@@ -44,13 +44,6 @@ body {
 		&.empty { color: #C0C0C0; }
 	}
 
-	textarea.form-control {
-		resize: none;
-		height: 100px !important;
-		min-height: 100px !important;
-		max-height: 100px !important;
-	}
-
 	.form-group {
 		margin: 5px;
 	}
@@ -668,7 +661,6 @@ $avatarSize: 240px;
 .myCollectionBrowser {
 
 	position: relative;
-	min-height: 300px;
 
 	.ctrls {
 
@@ -701,21 +693,41 @@ $avatarSize: 240px;
 
 	.panel-default { border: 0 !important; }
 	.panel-heading {}
+
+	#bodySection {
+
+		#actionSection {}
+
+		#mainSection {
+
+			#infoSection {}
+			#avatarSection {}
+		}
+
+		#bottomSection {}
+	}
 }
 .myComments {
 
-	.myTextArea {
-		max-width: 700px;
-		margin: 0 auto;
+	.myForm {
+		.myLabel.text-info {
+			margin-top: 0 !important;
+		}
 	}
 
 	.myCollectionBrowser {
 
-		.ctrls {
-			justify-content: flex-end;
-		}
+		.ctrls { justify-content: flex-end; }
 
 		.myCollectionElem {
+
+			font-size: 14px;
+
+			.myPanel {
+				.panel-heading {
+					display: none ;
+				}
+			}
 
 			#bodySection {
 
@@ -992,10 +1004,6 @@ $avatarSize: 240px;
 		top: 0 !important;
 	}
 }
-.myFormErrorIcon {
-	margin-left: 3px;
-	font-size: 20px;
-}
 .myFormContainer {
 
 	position: relative;
@@ -1028,7 +1036,7 @@ $avatarSize: 240px;
 		}
 
 		.myLabel.text-info {
-			margin-top: 10px;
+			margin-top: 5px;
 			margin-bottom: 0;
 		}
 
@@ -1036,6 +1044,10 @@ $avatarSize: 240px;
 			margin-top: 25px;
 		}
 	}
+}
+.myFormErrorIcon {
+	margin-left: 3px;
+	font-size: 20px;
 }
 #mySingleFileInput, #myMultipleFilesInput {
 
@@ -1064,7 +1076,10 @@ $avatarSize: 240px;
 }
 .myTextArea {
 
-
+	textarea.form-control {
+		resize: none;
+		min-height: 65px;
+	}
 }
 .myContextMenu {
 
@@ -1188,7 +1203,7 @@ $avatarSize: 240px;
 	.modal-dialog {}
 
 	.modal-header {
-		h4 {
+		p {
 			font-weight: bold;
 			overflow-wrap: break-word;
 			word-wrap: break-word;
@@ -1383,13 +1398,9 @@ $avatarSize: 240px;
 }
 .myCommentsList {
 
-	.myCollectionBrowser {
-		min-height: 200px;
-	}
-
 	#nestedCollectionSection {
 
 		max-width: 650px;
-		margin: 0 auto;
+		margin: 25px auto;
 	}
 }

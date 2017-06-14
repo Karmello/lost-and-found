@@ -4490,6 +4490,381 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('reports', function($rootScope, $moment, reportsConf, reportsService, contextMenuConf) {
+
+		var reports = {
+			restrict: 'E',
+			templateUrl: 'public/directives/app/collection/reports/reports.html',
+			scope: {
+				ctrlId: '@',
+				noAvatar: '=',
+				noInfo: '='
+			},
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+				$scope.$moment = $moment;
+
+				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					switch (scope.ctrlId) {
+
+						case 'UserReports':
+
+							if (!$rootScope.$$listeners.initUserReports) {
+								$rootScope.$on('initUserReports', function(e, args) {
+									reportsService.initUserReports(scope, args.userId);
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initUserReports = null;
+							});
+
+							scope.$watch('apiData.profileUser._id', function(userId) {
+								if (angular.isDefined(userId)) { reportsService.initUserReports(scope, userId); }
+							});
+
+							break;
+
+						case 'SearchReports':
+
+							if (!$rootScope.$$listeners.initSearchReports) {
+								$rootScope.$on('initSearchReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.searchReports;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initSearchReports = null;
+							});
+
+							scope.collectionBrowser = reportsConf.searchReports;
+							scope.collectionBrowser.init();
+							break;
+
+						case 'RecentlyViewedReports':
+
+							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
+								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
+									scope.collectionBrowser = reportsConf.viewedReports;
+									scope.collectionBrowser.init();
+								});
+							}
+
+							scope.$on('$destroy', function() {
+								$rootScope.$$listeners.initRecentlyViewedReports = null;
+							});
+
+							scope.collectionBrowser = reportsConf.viewedReports;
+							scope.collectionBrowser.init();
+							break;
+
+						case 'NewReports':
+
+							scope.collectionBrowser = reportsConf.recentReports;
+							scope.collectionBrowser.init();
+							break;
+					}
+				};
+			}
+		};
+
+		return reports;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
+
+		var hardData = hardDataService.get();
+
+		this.searchReports = new myClass.MyCollectionBrowser({
+			singlePageSize: 25,
+			filterer: {
+				switchers: [
+					{
+						_id: 'all',
+						label: hardData.status[1]
+					},
+					{
+						_id: 'lost',
+						label: hardData.reportTypes[0].label2
+					},
+					{
+						_id: 'found',
+						label: hardData.reportTypes[1].label2
+					}
+				]
+			},
+			sorter: {
+				switchers: [
+					{
+						_id: 'title',
+						label: hardData.status[7]
+					},
+					{
+						_id: 'date',
+						label: hardData.status[8]
+					}
+				]
+			},
+			fetchData: function(query) {
+
+				query.subject = 'searchReports';
+
+				var model = ReportsRest.reportSearchModel.getValues();
+				Object.assign(query, model);
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.userReports = new myClass.MyCollectionBrowser({
+			singlePageSize: 25,
+			filterer: {
+				switchers: [
+					{
+						_id: 'all',
+						label: hardData.status[1]
+					},
+					{
+						_id: 'lost',
+						label: hardData.reportTypes[0].label2
+					},
+					{
+						_id: 'found',
+						label: hardData.reportTypes[1].label2
+					}
+				]
+			},
+			sorter: {
+				switchers: [
+					{
+						_id: 'title',
+						label: hardData.status[7]
+					},
+					{
+						_id: 'date',
+						label: hardData.status[8]
+					}
+				]
+			},
+			fetchData: function(query) {
+
+				query.subject = 'userReports';
+				query.userId = $rootScope.apiData.profileUser._id;
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.recentReports = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			noPager: true,
+			fetchData: function(query) {
+
+				query.subject = 'recentReports';
+				query.sort='-dateAdded';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		this.viewedReports = new myClass.MyCollectionBrowser({
+			singlePageSize: 5,
+			hideRefresher: true,
+			fetchData: function(query) {
+
+				query.subject = 'viewedReports';
+				query.limit = 5;
+
+				return ReportsRest.getList(query);
+			}
+		});
+
+		return this;
+	};
+
+	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
+	angular.module('appModule').service('reportsConf', reportsConf);
+
+})();
+(function() {
+
+	'use strict';
+
+	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
+
+		var getReportEventModelConf = function() {
+			return {
+				type: {},
+				date: {},
+				placeId: {},
+				address: {},
+				lat: {},
+				lng: {},
+				details: {}
+			};
+		};
+
+		var getReportModelConf = function() {
+			return {
+				category1: {},
+				category2: {},
+				category3: {},
+				title: {},
+				serialNo: {},
+				description: {},
+				startEvent: getReportEventModelConf()
+			};
+		};
+
+		var reports = Restangular.service('reports');
+
+		reports.addReportModel = new MyDataModel(getReportModelConf());
+		reports.editReportModel = new MyDataModel(getReportModelConf());
+		reports.respondToReportModel = new MyDataModel(getReportEventModelConf());
+
+		reports.reportSearchModel = new MyDataModel({
+			title: {},
+			category1: {},
+			category2: {},
+			category3: {}
+		});
+
+		Restangular.extendModel('reports', function(report) {
+
+			report._isOwn = function() {
+
+				if ($rootScope.apiData.loggedInUser) {
+					return this.userId == $rootScope.apiData.loggedInUser._id;
+				}
+			};
+
+			report.getFullCategory = function() {
+
+				var category1, category2, category3;
+				var labels = [];
+
+				if (report.category1) {
+
+					category1 = _.find($rootScope.hardData.reportCategories, function(obj) {
+						return obj._id == report.category1;
+					});
+
+					labels.push(category1.label);
+				}
+
+				if (report.category2) {
+
+					category2 = _.find(category1.subcategories, function(obj) {
+						return obj._id == report.category2;
+					});
+
+					labels.push(category2.label);
+				}
+
+				if (report.category3) {
+
+					category3 = _.find(category2.subcategories, function(obj) {
+						return obj._id == report.category3;
+					});
+
+					labels.push(category3.label);
+				}
+
+				return labels.join(' / ');
+			};
+
+			return report;
+		});
+
+		return reports;
+	};
+
+	ReportsRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
+	angular.module('appModule').factory('ReportsRest', ReportsRest);
+
+})();
+(function() {
+
+	'use strict';
+
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf) {
+
+		var service = this;
+
+		service.deleteReports = function(reports) {
+
+			if (reports && reports.length > 0) {
+
+				// Showing confirm modal
+				$rootScope.ui.modals.deleteReportModal.show({
+					title: $rootScope.ui.modals.deleteReportModal.title + ' (' + reports.length + ')',
+					message: $rootScope.hardData.warnings[2],
+					acceptCb: function() {
+
+						var promises = [];
+						for (var report of reports) { promises.push(report.remove()); }
+
+						$q.all(promises).then(function(results) {
+
+							switch ($state.current.name) {
+
+								case 'app.profile':
+									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
+									break;
+
+								case 'app.report':
+									$state.go('app.profile', { _id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
+									$timeout(function() { $rootScope.$broadcast('initUserReports', { userId: $stateParams.id }); });
+									break;
+							}
+						});
+					}
+				});
+			}
+		};
+
+		service.initUserReports = function(scope, userId) {
+
+			scope.collectionBrowser = reportsConf.userReports;
+
+			if (userId == $rootScope.apiData.loggedInUser._id) {
+				scope.elemContextMenuConf = scope.reportContextMenuConf;
+
+			} else {
+				scope.elemContextMenuConf = undefined;
+			}
+
+			scope.collectionBrowser.onRefreshClick();
+		};
+
+		return service;
+	};
+
+
+
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf'];
+	angular.module('appModule').service('reportsService', reportsService);
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('appearanceForm', function($rootScope, MyForm, AppConfigsRest, Restangular) {
 
 		var appearanceForm = {
@@ -4643,7 +5018,7 @@
 
 				var resetBtnForms = ['regionalForm', 'appearanceForm', 'personalDetailsForm', 'editReportForm', 'addReportForm', 'upgradeForm', 'respondToReportForm'];
 
-				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm', 'commentsReplyForm'];
+				var cancelBtnForms = ['editReportForm', 'addReportForm', 'respondToReportForm'];
 
 				$scope.myForm.showClearBtn = clearBtnForms.indexOf($scope.myForm.ctrlId) > -1;
 				$scope.myForm.showResetBtn = resetBtnForms.indexOf($scope.myForm.ctrlId) > -1;
@@ -5287,381 +5662,6 @@
 
 		return upgradeForm;
 	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('reports', function($rootScope, $moment, reportsConf, reportsService, contextMenuConf) {
-
-		var reports = {
-			restrict: 'E',
-			templateUrl: 'public/directives/app/collection/reports/reports.html',
-			scope: {
-				ctrlId: '@',
-				noAvatar: '=',
-				noInfo: '='
-			},
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-				$scope.$moment = $moment;
-
-				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					switch (scope.ctrlId) {
-
-						case 'UserReports':
-
-							if (!$rootScope.$$listeners.initUserReports) {
-								$rootScope.$on('initUserReports', function(e, args) {
-									reportsService.initUserReports(scope, args.userId);
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initUserReports = null;
-							});
-
-							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) { reportsService.initUserReports(scope, userId); }
-							});
-
-							break;
-
-						case 'SearchReports':
-
-							if (!$rootScope.$$listeners.initSearchReports) {
-								$rootScope.$on('initSearchReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.searchReports;
-									scope.collectionBrowser.init();
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initSearchReports = null;
-							});
-
-							scope.collectionBrowser = reportsConf.searchReports;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'RecentlyViewedReports':
-
-							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
-								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.viewedReports;
-									scope.collectionBrowser.init();
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initRecentlyViewedReports = null;
-							});
-
-							scope.collectionBrowser = reportsConf.viewedReports;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'NewReports':
-
-							scope.collectionBrowser = reportsConf.recentReports;
-							scope.collectionBrowser.init();
-							break;
-					}
-				};
-			}
-		};
-
-		return reports;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
-
-		var hardData = hardDataService.get();
-
-		this.searchReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'lost',
-						label: hardData.reportTypes[0].label2
-					},
-					{
-						_id: 'found',
-						label: hardData.reportTypes[1].label2
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.subject = 'searchReports';
-
-				var model = ReportsRest.reportSearchModel.getValues();
-				Object.assign(query, model);
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.userReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'lost',
-						label: hardData.reportTypes[0].label2
-					},
-					{
-						_id: 'found',
-						label: hardData.reportTypes[1].label2
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.subject = 'userReports';
-				query.userId = $rootScope.apiData.profileUser._id;
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.recentReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			noPager: true,
-			fetchData: function(query) {
-
-				query.subject = 'recentReports';
-				query.sort='-dateAdded';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.viewedReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			hideRefresher: true,
-			fetchData: function(query) {
-
-				query.subject = 'viewedReports';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		return this;
-	};
-
-	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
-	angular.module('appModule').service('reportsConf', reportsConf);
-
-})();
-(function() {
-
-	'use strict';
-
-	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
-
-		var getReportEventModelConf = function() {
-			return {
-				type: {},
-				date: {},
-				placeId: {},
-				address: {},
-				lat: {},
-				lng: {},
-				details: {}
-			};
-		};
-
-		var getReportModelConf = function() {
-			return {
-				category1: {},
-				category2: {},
-				category3: {},
-				title: {},
-				serialNo: {},
-				description: {},
-				startEvent: getReportEventModelConf()
-			};
-		};
-
-		var reports = Restangular.service('reports');
-
-		reports.addReportModel = new MyDataModel(getReportModelConf());
-		reports.editReportModel = new MyDataModel(getReportModelConf());
-		reports.respondToReportModel = new MyDataModel(getReportEventModelConf());
-
-		reports.reportSearchModel = new MyDataModel({
-			title: {},
-			category1: {},
-			category2: {},
-			category3: {}
-		});
-
-		Restangular.extendModel('reports', function(report) {
-
-			report._isOwn = function() {
-
-				if ($rootScope.apiData.loggedInUser) {
-					return this.userId == $rootScope.apiData.loggedInUser._id;
-				}
-			};
-
-			report.getFullCategory = function() {
-
-				var category1, category2, category3;
-				var labels = [];
-
-				if (report.category1) {
-
-					category1 = _.find($rootScope.hardData.reportCategories, function(obj) {
-						return obj._id == report.category1;
-					});
-
-					labels.push(category1.label);
-				}
-
-				if (report.category2) {
-
-					category2 = _.find(category1.subcategories, function(obj) {
-						return obj._id == report.category2;
-					});
-
-					labels.push(category2.label);
-				}
-
-				if (report.category3) {
-
-					category3 = _.find(category2.subcategories, function(obj) {
-						return obj._id == report.category3;
-					});
-
-					labels.push(category3.label);
-				}
-
-				return labels.join(' / ');
-			};
-
-			return report;
-		});
-
-		return reports;
-	};
-
-	ReportsRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('ReportsRest', ReportsRest);
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf) {
-
-		var service = this;
-
-		service.deleteReports = function(reports) {
-
-			if (reports && reports.length > 0) {
-
-				// Showing confirm modal
-				$rootScope.ui.modals.deleteReportModal.show({
-					title: $rootScope.ui.modals.deleteReportModal.title + ' (' + reports.length + ')',
-					message: $rootScope.hardData.warnings[2],
-					acceptCb: function() {
-
-						var promises = [];
-						for (var report of reports) { promises.push(report.remove()); }
-
-						$q.all(promises).then(function(results) {
-
-							switch ($state.current.name) {
-
-								case 'app.profile':
-									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
-									break;
-
-								case 'app.report':
-									$state.go('app.profile', { _id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
-									$timeout(function() { $rootScope.$broadcast('initUserReports', { userId: $stateParams.id }); });
-									break;
-							}
-						});
-					}
-				});
-			}
-		};
-
-		service.initUserReports = function(scope, userId) {
-
-			scope.collectionBrowser = reportsConf.userReports;
-
-			if (userId == $rootScope.apiData.loggedInUser._id) {
-				scope.elemContextMenuConf = scope.reportContextMenuConf;
-
-			} else {
-				scope.elemContextMenuConf = undefined;
-			}
-
-			scope.collectionBrowser.onRefreshClick();
-		};
-
-		return service;
-	};
-
-
-
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf'];
-	angular.module('appModule').service('reportsService', reportsService);
 
 })();
 (function() {
@@ -6606,6 +6606,7 @@
 				$scope.conf.collectionBrowser.beforeInit = function() {
 					delete commentsConf.activeCollectionBrowser;
 					commentsConf.activeCollectionBrowser = this;
+					if ($scope.conf.activeComment) { $scope.conf.activeComment.showReplies = false; }
 				};
 
 				$scope.commentForm = new myClass.MyForm({
@@ -7092,7 +7093,25 @@
 				ctrlId: '=',
 				ctrlMaxLength: '=',
 				model: '=',
+				autoResizable: '<',
 				hardData: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					if (scope.autoResizable) {
+
+						var textarea = $(elem).find('textarea').get()[0];
+						$(textarea).css('overflow', 'hidden');
+
+						scope.resize = function() {
+							$(textarea).css('height', 'auto');
+							$(textarea).css('height', $(textarea).prop('scrollHeight') + 4 +'px');
+						};
+					}
+				};
 			}
 		};
 
@@ -7851,6 +7870,7 @@
 			scope: {
 				nestingLevel: '<',
 				collectionBrowser: '=',
+				parentForm: '=',
 				conf: '='
 			},
 			controller: function($scope) {
@@ -7885,15 +7905,11 @@
 					submitSuccessCb: function(res) {
 
 						this.model.reset(true, true);
-					},
-					onCancel: function() {
-
-						$scope.conf.activeComment.showReplies = false;
-						$scope.conf.activeComment = undefined;
+						$scope.nestedCollectionBrowser.init();
 					}
 				});
 
-				$scope.onViewRepliesClick = function() {
+				$scope.onToggleRepliesClick = function() {
 
 					var comment = this;
 
@@ -7927,9 +7943,17 @@
 						$scope.conf.activeComment.showReplies = true;
 
 						$timeout(function() {
-							$('html, body').animate({ scrollTop: $('#comment_' + comment._id).offset().top }, 'fast');
-							$timeout(function() { $scope.nestedCollectionBrowser.init(); }, 250);
+							$scope.nestedCollectionBrowser.init(function() {
+								$('html, body').animate({ scrollTop: $('#comment_' + comment._id).offset().top }, 'fast');
+							});
 						});
+
+					// Hiding replies
+					} else {
+
+						$scope.conf.activeComment.showReplies = false;
+						$scope.conf.activeComment = undefined;
+						$scope.nestedCollectionBrowser = undefined;
 					}
 				};
 			},

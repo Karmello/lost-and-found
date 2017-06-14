@@ -37,12 +37,6 @@ body select option:empty {
 body select.empty {
   color: #C0C0C0; }
 
-body textarea.form-control {
-  resize: none;
-  height: 100px !important;
-  min-height: 100px !important;
-  max-height: 100px !important; }
-
 body .form-group {
   margin: 5px; }
 
@@ -517,8 +511,7 @@ body .gm-style-iw + div {
   justify-content: flex-end; }
 
 .myCollectionBrowser {
-  position: relative;
-  min-height: 300px; }
+  position: relative; }
   .myCollectionBrowser .ctrls {
     display: -ms-flexbox;
     display: flex;
@@ -542,31 +535,34 @@ body .gm-style-iw + div {
   .myCollectionElem .panel-default {
     border: 0 !important; }
 
-.myComments .myTextArea {
-  max-width: 700px;
-  margin: 0 auto; }
+.myComments .myForm .myLabel.text-info {
+  margin-top: 0 !important; }
 
 .myComments .myCollectionBrowser .ctrls {
   -ms-flex-pack: end;
   justify-content: flex-end; }
 
-.myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  -ms-flex-pack: end;
-  justify-content: flex-end; }
-  @media only screen and (min-width: 600px) {
-    .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
-      -ms-flex-direction: row-reverse;
-      flex-direction: row-reverse; } }
-  .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection > div {
-    margin: 5px; }
-  .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection #infoSection {
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    text-align: justify; }
+.myComments .myCollectionBrowser .myCollectionElem {
+  font-size: 14px; }
+  .myComments .myCollectionBrowser .myCollectionElem .myPanel .panel-heading {
+    display: none; }
+  .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    -ms-flex-pack: end;
+    justify-content: flex-end; }
+    @media only screen and (min-width: 600px) {
+      .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse; } }
+    .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection > div {
+      margin: 5px; }
+    .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection #infoSection {
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      text-align: justify; }
 
 .myElemSelector button {
   width: 28px;
@@ -708,10 +704,6 @@ body .gm-style-iw + div {
   .myPopOverIcon .glyphicon-play {
     top: 0 !important; }
 
-.myFormErrorIcon {
-  margin-left: 3px;
-  font-size: 20px; }
-
 .myFormContainer {
   position: relative; }
   .myFormContainer .myForm {
@@ -730,10 +722,14 @@ body .gm-style-iw + div {
     .myFormContainer .myForm textarea {
       min-height: 200px; }
     .myFormContainer .myForm .myLabel.text-info {
-      margin-top: 10px;
+      margin-top: 5px;
       margin-bottom: 0; }
     .myFormContainer .myForm .myBtnsGroup, .myFormContainer .myForm .myBtnsGroupCenter, .myFormContainer .myForm .myBtnsGroupRight {
       margin-top: 25px; }
+
+.myFormErrorIcon {
+  margin-left: 3px;
+  font-size: 20px; }
 
 #mySingleFileInput, #myMultipleFilesInput {
   display: none; }
@@ -747,6 +743,10 @@ body .gm-style-iw + div {
     max-height: 20px; }
   .myGooglePlaceAutoComplete #activePlaceSection span {
     padding-top: 2px; }
+
+.myTextArea textarea.form-control {
+  resize: none;
+  min-height: 65px; }
 
 .myContextMenu {
   position: relative; }
@@ -815,7 +815,7 @@ body .gm-style-iw + div {
 
 .myModal {
   text-align: left; }
-  .myModal .modal-header h4 {
+  .myModal .modal-header p {
     font-weight: bold;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -936,9 +936,6 @@ body .gm-style-iw + div {
 .myLabel {
   padding: 1px; }
 
-.myCommentsList .myCollectionBrowser {
-  min-height: 200px; }
-
 .myCommentsList #nestedCollectionSection {
   max-width: 650px;
-  margin: 0 auto; }
+  margin: 25px auto; }

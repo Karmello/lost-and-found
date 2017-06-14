@@ -44,13 +44,6 @@ body {
 		&.empty { color: #C0C0C0; }
 	}
 
-	textarea.form-control {
-		resize: none;
-		height: 100px !important;
-		min-height: 100px !important;
-		max-height: 100px !important;
-	}
-
 	.form-group {
 		margin: 5px;
 	}

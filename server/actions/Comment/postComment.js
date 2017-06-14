@@ -48,7 +48,7 @@ module.exports = {
 						newComment.comments = undefined;
 
 						// Pushing new subcomment to comments array
-						comment.comments.push(newComment);
+						comment.comments.unshift(newComment);
 
 						// Saving updated comment
 						comment.save(function(err) {

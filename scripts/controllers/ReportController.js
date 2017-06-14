@@ -19,7 +19,7 @@
 		});
 
 		$scope.reportsService = reportsService;
-		$scope.commentsBrowser = commentsConf.reportCommentsBrowser;
+		$scope.reportCommentsConf = commentsConf.reportCommentsConf;
 
 		$scope.showRespondToReportForm = function() {
 			if (!$scope.isRespondToReportFormVisible) {

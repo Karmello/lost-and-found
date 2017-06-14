@@ -1,0 +1,52 @@
+.myComments {
+
+	.myTextArea {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.myCollectionBrowser {
+
+		.ctrls {
+			justify-content: flex-end;
+		}
+
+		.myCollectionElem {
+
+			#bodySection {
+
+				#actionSection {}
+
+				#mainSection {
+
+					display: flex;
+					flex-direction: column-reverse;
+					justify-content: flex-end;
+
+					@media only screen and (min-width: 600px) {
+						flex-direction: row-reverse;
+					}
+
+					> div {
+						margin: 5px;
+					}
+
+					#infoSection {
+
+						flex-grow: 1;
+						text-align: justify;
+					}
+
+					#avatarSection {
+
+						.userAvatar {
+							> div { .mySrc { img { @extend .tinyAvatarSize; } } }
+						}
+					}
+				}
+
+				#bottomSection {}
+			}
+		}
+	}
+}

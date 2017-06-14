@@ -34,10 +34,10 @@
 			<my-loader fixed-centered="true"></my-loader>
 		</div>
 
-		<info-modal ins="ui.modals.infoModal"></info-modal>
-		<confirm-modal ins="ui.modals.confirmModal"></confirm-modal>
-		<confirm-danger-modal ins="ui.modals.confirmDangerModal"></confirm-danger-modal>
-		<img-crop-window></img-crop-window>
+		<my-standard-modal ins="ui.modals.infoModal" type="info"></my-standard-modal>
+		<my-standard-modal ins="ui.modals.confirmModal" type="confirm"></my-standard-modal>
+		<my-standard-modal ins="ui.modals.confirmDangerModal" type="confirmDanger"></my-standard-modal>
+		<my-img-crop-modal max-file-size="NUMS.photoMaxSize" win-title="hardData.sections[19]"></my-img-crop-modal>
 
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

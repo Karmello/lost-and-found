@@ -1,0 +1,38 @@
+<my-modal ins="ins">
+	<my-modal-body class="responsiveImgAndDesc">
+		<div ng-show="ins.img"><img ng-src="{{ ins.img }}" /></div>
+    	<div><p ng-bind="ins.message"></p></div>
+	</my-modal-body>
+	<my-modal-footer>
+		<div class="myBtnsGroupCenter">
+            <my-btn
+                ng-if="['info'].indexOf(type) > -1"
+                ctrl-class="'btn-info'"
+                click-action="ins.accept"
+                click-context="ins"
+                hard-data="{ label: ['imperatives', 0] }"
+            ></my-btn>
+            <my-btn
+                ng-if="['confirm'].indexOf(type) > -1"
+                ctrl-class="'btn-primary'"
+                click-action="ins.accept"
+                click-context="ins"
+                hard-data="{ label: ['imperatives', 7] }"
+            ></my-btn>
+            <my-btn
+                ng-if="['confirmDanger'].indexOf(type) > -1"
+                ctrl-class="'btn-danger'"
+                click-action="ins.accept"
+                click-context="ins"
+                hard-data="{ label: ['imperatives', 7] }"
+            ></my-btn>
+            <my-btn
+                ng-if="['confirm', 'confirmDanger'].indexOf(type) > -1"
+                ctrl-class="'btn-default'"
+                click-action="ins.dismiss"
+                click-context="ins"
+                hard-data="{ label: ['imperatives', 2] }"
+            ></my-btn>
+        </div>
+	</my-modal-footer>
+</my-modal>

@@ -3,12 +3,13 @@
 	'use strict';
 
 	var AppController = function(
-		$rootScope, $scope, $window, $state, storageService, authService, hardDataService, ui, uiSetupService, Restangular
+		$rootScope, $scope, $window, $state, storageService, authService, hardDataService, ui, uiSetupService, Restangular, NUMS
 	) {
 
 		$rootScope.ui = ui;
 		$rootScope.hardData = hardDataService.get();
 		$rootScope.Math = window.Math;
+		$rootScope.NUMS = NUMS;
 
 		$rootScope.apiData = {
 			loggedInUser: undefined,
@@ -60,7 +61,7 @@
 
 	AppController.$inject = [
 		'$rootScope', '$scope', '$window', '$state', 'storageService', 'authService', 'hardDataService', 'ui', 'uiSetupService',
-		'Restangular'
+		'Restangular', 'NUMS'
 	];
 
 	angular.module('appModule').controller('AppController', AppController);

@@ -13,10 +13,10 @@
 	<my-panel>
 		<title-section>
 			<span class="glyphicon glyphicon-comment"></span>
-			<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[6] }} ({{ commentsBrowser.meta.count }})</span>
+			<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[6] }} ({{ reportCommentsConf.collectionBrowser.meta.count }})</span>
 		</title-section>
 		<body-section>
-			<comments ctrl-id="ReportComments" report="apiData.report"></comments>
+			<my-comments conf="reportCommentsConf"></my-comments>
 		</body-section>
 	</my-panel>
 </div>

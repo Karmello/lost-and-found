@@ -14,12 +14,6 @@
 			"path": "D:\\Workspace\\laf\\dev\\scripts\\routes"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\scripts\\factories"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\directives"
-		},
-		{
 			"path": "D:\\Workspace\\laf\\dev\\scripts\\services"
 		},
 		{
@@ -45,6 +39,12 @@
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\server\\modules"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\scripts\\factories"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\directives"
 		}
 	]
 }

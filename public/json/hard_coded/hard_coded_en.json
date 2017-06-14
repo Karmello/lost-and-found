@@ -10,7 +10,7 @@
 	},
 	"count": [
 		"on", "Registered for", "Users", "Reports", "Reported as lost", "Reported as found", "By", "Submitted", "ago", "Approximately",
-		"visible", "all together"
+		"visible", "all together", "Replies", "Likes"
 	],
 	"declaratives": [
 		"I found it !", "I am the owner !"
@@ -46,7 +46,7 @@
 		"Description", "Message", "Category", "Subcategory", "Theme", "Date", "Type", "Location", "ID", "Details",
 		"Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
 		"Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
-		"Transaction ID", "Expiration date", "Payer ID", "Comment"
+		"Transaction ID", "Expiration date", "Payer ID", "Comment", "Like", "Unlike"
 	],
 	"languages": [
 		{ "value": "en", "label": "English" },

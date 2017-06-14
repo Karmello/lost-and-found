@@ -176,55 +176,6 @@
 
 	'use strict';
 
-	var commentsConf = function($rootScope, hardDataService, CommentsRest, myClass) {
-
-		var hardData = hardDataService.get();
-
-		var service = this;
-
-		service.reportCommentsConf = {
-			ctrlId: 'reportComments',
-			collectionBrowser: new myClass.MyCollectionBrowser({
-				ctrlId: 'reportCommentsBrowser',
-				singlePageSize: 10,
-				fetchData: function(query) {
-
-					if ($rootScope.apiData.report) {
-						query.reportId = $rootScope.apiData.report._id;
-						return CommentsRest.getList(query);
-					}
-				}
-			}),
-			apiObjWatch: function() { return $rootScope.apiData.report; },
-			submitAction: function() {
-
-				this.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
-				return CommentsRest.post(this.model.getValues(), { reportId: $rootScope.apiData.report._id });
-			},
-			replySubmitAction: function() {
-
-				this.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
-				return CommentsRest.post(this.model.getValues(), { commentId: service.reportCommentsConf.activeComment._id });
-			},
-			onDelete: function() {
-
-				this.parent.data.remove({ reportId: $rootScope.apiData.report._id }).then(function() {
-					$rootScope.$broadcast('reportCommentsInit');
-				});
-			}
-		};
-
-		return service;
-	};
-
-	commentsConf.$inject = ['$rootScope', 'hardDataService', 'CommentsRest', 'myClass'];
-	angular.module('appModule').service('commentsConf', commentsConf);
-
-})();
-(function() {
-
-	'use strict';
-
 	var contextMenuConf = function($rootScope, $state, reportsConf, reportsService) {
 
 		this.reportContextMenuConf = {
@@ -847,7 +798,7 @@
 
 	'use strict';
 
-	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf) {
+	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf) {
 
 		$scope.params = $stateParams;
 		$scope.$moment = $moment;
@@ -855,15 +806,15 @@
 		$scope.$watch('apiData.report', function(report) {
 
 			if (report && report._isOwn()) {
-				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
+				$scope.contextMenuConf = contextMenuConf.reportContextMenuConf;
 
 			} else {
-				$scope.reportContextMenuConf = null;
+				$scope.contextMenuConf = null;
 			}
 		});
 
 		$scope.reportsService = reportsService;
-		$scope.reportCommentsConf = commentsConf.reportCommentsConf;
+		$scope.commentsOutData = {};
 
 		$scope.showRespondToReportForm = function() {
 			if (!$scope.isRespondToReportFormVisible) {
@@ -877,7 +828,7 @@
 		});
 	};
 
-	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf'];
+	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();
@@ -1609,7 +1560,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, CommentsRest, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -1701,7 +1652,7 @@
 					if (operation == 'getList') {
 
 						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
-						commentsConf.activeCollectionBrowser.setData(data);
+						CommentsRest.activeCollectionBrowser.setData(data);
 						return data.collection;
 					}
 				}
@@ -1713,7 +1664,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'CommentsRest','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();
@@ -2844,10 +2795,8 @@
 				this.orderer._id = 'orderer';
 			}
 
-			// Refresher
+			// Other
 			this.refresher = {};
-
-			// Creating loader
 			this.loader = new MyLoader(250);
 		};
 
@@ -2905,19 +2854,21 @@
 						}
 
 						// Finishing
-						that.loader.stop(function() { if (cb) { cb(true); } });
+						that.loader.stop(function() {
+							if (cb) { cb.call(that, true); }
+						});
 
 					}, function(res) {
 
 						that.flush();
-						that.loader.stop(function() { if (cb) { cb(false); } });
+						that.loader.stop(function() { if (cb) { cb.call(that, false); } });
 					});
 				});
 
 			} catch (ex) {
 
 				that.flush();
-				that.loader.stop(function() { if (cb) { cb(false); } });
+				that.loader.stop(function() { if (cb) { cb.call(that, false); } });
 			}
 		};
 
@@ -2946,6 +2897,8 @@
 						that.onRefreshClick();
 					}
 				}
+
+				if (that.refreshCb) { that.refreshCb(); }
 			});
 		};
 
@@ -5669,6 +5622,66 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('appStats', function($rootScope) {
+
+		var appStats = {
+			restrict: 'E',
+			templateUrl: 'public/directives/app/other/appStats/appStats.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return appStats;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('userBadge', function($rootScope, $state, authService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/app/other/userBadge/userBadge.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.authState = authService.state;
+				$scope.label1 = $rootScope.hardData.status[0];
+
+				$scope.onLogoutClick = function() {
+					$rootScope.logout();
+				};
+
+				$scope.onContinueClick = function() {
+					$state.go('app.home');
+				};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('reportAvatar', function(reportAvatarService, MySrc, URLS) {
 
 		var reportAvatar = {
@@ -6264,7 +6277,7 @@
 		var service = {
 			loadPhoto: function(scope, force) {
 
-				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
+				scope.src.load(service.constructPhotoUrl(scope, false), force, function(success) {
 
 					if (!success) {
 						scope.src.load(service.constructPhotoUrl(scope, false), force);
@@ -6347,66 +6360,6 @@
 
 	userAvatarService.$inject = ['$rootScope', '$q', 'aws3Service', 'MySrcAction', 'Restangular', 'URLS'];
 	angular.module('appModule').service('userAvatarService', userAvatarService);
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('appStats', function($rootScope) {
-
-		var appStats = {
-			restrict: 'E',
-			templateUrl: 'public/directives/app/other/appStats/appStats.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-				};
-			}
-		};
-
-		return appStats;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('userBadge', function($rootScope, $state, authService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/app/other/userBadge/userBadge.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.status[0];
-
-				$scope.onLogoutClick = function() {
-					$rootScope.logout();
-				};
-
-				$scope.onContinueClick = function() {
-					$state.go('app.home');
-				};
-			}
-		};
-	});
 
 })();
 (function() {
@@ -6548,41 +6501,93 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('myCollectionElem', function($rootScope, MySwitchable) {
+	appModule.directive('myComments', function($rootScope, $timeout, $moment, myCommentsService, CommentsRest, myClass) {
 
-		var myCollectionElem = {
+		var myComments = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/collection/myCollectionElem/myCollectionElem.html',
-			transclude: {
-				titleSection: '?titleSection',
-				avatarSection: '?avatarSection',
-				infoSection: '?infoSection',
-				bottomSection: '?bottomSection'
-			},
+			templateUrl: 'public/directives/my/collection/myComments/myComments.html',
 			scope: {
-				ctrlId: '=',
-				data: '=',
-				contextMenuConf: '=',
-				isSelectable: '='
+				nestingLevel: '<',
+				apiObj: '=',
+				out: '='
 			},
 			controller: function($scope) {
 
-				if ($scope.contextMenuConf) {
+				$scope.apiData = $rootScope.apiData;
+				$scope.hardData = $rootScope.hardData;
+				$scope.$moment = $moment;
 
-					// Creating context menu
-					$scope.contextMenu = new MySwitchable($scope.contextMenuConf);
-					$scope.contextMenu.data = $scope.data;
-				}
+				$scope.onToggleRepliesClick = function() { myCommentsService.toggle.call(this, $scope); };
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: $scope.nestingLevel === 0 ? 'commentsForm' : 'commentsReplyForm',
+					model: new myClass.MyDataModel({ userId: {}, content: {} }),
+					submitAction: function(args) {
+
+						this.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
+						return CommentsRest.post(this.model.getValues(), myCommentsService.getReqQuery($scope));
+					},
+					submitSuccessCb: function(res) {
+
+						$timeout(function() {
+							$scope.myForm.model.reset(true, true);
+							myCommentsService.init($scope);
+						});
+					}
+				});
+
+				$scope.commentContextMenuConf = {
+					icon: 'glyphicon glyphicon-option-horizontal',
+					switchers: [
+						{
+							_id: 'edit',
+							label: $scope.hardData.imperatives[33],
+							onClick: function() {}
+						},
+						{
+							_id: 'delete',
+							label: $scope.hardData.imperatives[14],
+							onClick: function() {
+
+								this.parent.data.remove(myCommentsService.getReqQuery($scope)).then(function() {
+									myCommentsService.init($scope, true);
+
+								}, function() {
+									myCommentsService.init($scope, true);
+								});
+							}
+						}
+					]
+				};
 			},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
+					switch (scope.nestingLevel) {
+
+						case 0:
+
+							scope.$watch(function() { return scope.apiObj; }, function(newApiObj) {
+
+								if (newApiObj) {
+									myCommentsService.init(scope, true);
+									scope.out.topCollectionBrowser = scope.collectionBrowser;
+								}
+							});
+
+							break;
+
+						case 1:
+
+							myCommentsService.init(scope);
+							break;
+					}
 				};
 			}
 		};
 
-		return myCollectionElem;
+		return myComments;
 	});
 
 })();
@@ -6590,61 +6595,98 @@
 
 	'use strict';
 
-	var appModule = angular.module('appModule');
+	var myCommentsService = function($timeout, MyCollectionBrowser, CommentsRest) {
 
-	appModule.directive('myComments', function($rootScope, commentsConf, myClass) {
+		var service = this;
 
-		var myComments = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/collection/myComments/myComments.html',
-			scope: {
-				conf: '='
-			},
-			controller: function($scope) {
+		service.init = function(scope, doNotScroll) {
 
-				$scope.conf.collectionBrowser.beforeInit = function() {
-					delete commentsConf.activeCollectionBrowser;
-					commentsConf.activeCollectionBrowser = this;
-					if ($scope.conf.activeComment) { $scope.conf.activeComment.showReplies = false; }
-				};
+			if (!scope.collectionBrowser) {
 
-				$scope.commentForm = new myClass.MyForm({
-					ctrlId: 'commentsForm',
-					model: new myClass.MyDataModel({ userId: {}, content: {} }),
-					submitAction: function(args) {
-
-						return $scope.conf.submitAction.call(this);
-					},
-					submitSuccessCb: function(res) {
-
-						this.model.reset(true, true);
-						$rootScope.$broadcast($scope.conf.ctrlId + 'Init');
+				scope.collectionBrowser = new MyCollectionBrowser({
+					singlePageSize: 10,
+					fetchData: function(query) {
+						return CommentsRest.getList(service.getReqQuery(scope));
 					}
 				});
-			},
-			compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
-
-					if (!$rootScope.$$listeners[scope.conf.ctrlId + 'Init']) {
-						$rootScope.$on(scope.conf.ctrlId + 'Init', function(e, args) {
-							scope.conf.collectionBrowser.init();
-						});
-					}
-
-					scope.$on('$destroy', function() {
-						$rootScope.$$listeners[scope.conf.ctrlId + 'Init'] = null;
-					});
-
-					scope.$watch(scope.conf.apiObjWatch, function(newApiObj) {
-						if (newApiObj) { scope.conf.collectionBrowser.init(); }
-					});
+				scope.collectionBrowser.beforeInit = function() {
+					delete CommentsRest.activeCollectionBrowser;
+					CommentsRest.activeCollectionBrowser = this;
+					if (scope.nestingLevel === 0 && service.activeComment) { service.activeComment.showReplies = false; }
 				};
+
+				scope.collectionBrowser.refreshCb = function() {
+					service.fixScrollPos(scope);
+				};
+			}
+
+			scope.collectionBrowser.init(function() {
+				if (!doNotScroll) { service.fixScrollPos(scope); }
+			});
+		};
+
+		service.getReqQuery = function(scope) {
+
+			var query = {};
+
+			if (scope.nestingLevel === 0) {
+				query[scope.apiObj.route.substring(0, scope.apiObj.route.length - 1) + 'Id'] = scope.apiObj._id;
+
+			} else {
+				query.parentId = service.activeComment._id;
+			}
+
+			return query;
+		};
+
+		service.toggle = function(scope) {
+
+			var comment = this;
+
+			// Showing replies
+			if (scope.nestingLevel === 0 && !comment.showReplies) {
+
+				// Clearing model
+				scope.myForm.model.reset(true, true);
+
+				// Hiding comment reply section if shown
+				if (service.activeComment) { service.activeComment.showReplies = false; }
+
+				// Setting new comment as active and showing reply section
+				service.activeComment = comment;
+				service.activeComment.showReplies = true;
+
+			// Hiding replies
+			} else {
+
+				comment.showReplies = false;
+				$('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
+				service.activeComment = undefined;
 			}
 		};
 
-		return myComments;
-	});
+		service.fixScrollPos = function(scope) {
+
+			if (scope.nestingLevel === 0) {
+
+				$timeout(function() {
+					$('html, body').animate({ scrollTop: $('#myComments_' + scope.nestingLevel).offset().top - 5 }, 'fast');
+				});
+
+			} else {
+
+				$timeout(function() {
+					$('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
+				});
+			}
+		};
+
+		return service;
+	};
+
+	myCommentsService.$inject = ['$timeout', 'MyCollectionBrowser', 'CommentsRest'];
+	angular.module('appModule').service('myCommentsService', myCommentsService);
 
 })();
 (function() {
@@ -6720,6 +6762,7 @@
 			transclude: {
 				headingImg: '?headingImg',
 				headingText: '?headingText',
+				headingMenu: '?headingMenu',
 				bodySection: '?bodySection'
 			},
 			scope: {
@@ -7126,10 +7169,14 @@
 						var textarea = $(elem).find('textarea').get()[0];
 						$(textarea).css('overflow', 'hidden');
 
-						scope.resize = function() {
+						scope.resize = function(height) {
 							$(textarea).css('height', 'auto');
-							$(textarea).css('height', $(textarea).prop('scrollHeight') + 4 +'px');
+							$(textarea).css('height', height || $(textarea).prop('scrollHeight') + 'px');
 						};
+
+						scope.$watch('model.value.active', function(newValue, oldValue) {
+							if (!newValue) { scope.resize(65); }
+						});
 					}
 				};
 			}
@@ -7873,117 +7920,6 @@
 		};
 
 		return myLabel;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('myCommentsList', function($rootScope, $timeout, $moment, commentsConf, CommentsRest, myClass) {
-
-		var myCommentsList = {
-			restrict: 'E',
-			templateUrl: 'public/directives/my/collection/myComments/myCommentsList/myCommentsList.html',
-			scope: {
-				nestingLevel: '<',
-				collectionBrowser: '=',
-				parentForm: '=',
-				conf: '='
-			},
-			controller: function($scope) {
-
-				$scope.apiData = $rootScope.apiData;
-				$scope.hardData = $rootScope.hardData;
-				$scope.$moment = $moment;
-
-				$scope.commentContextMenuConf = {
-					icon: 'glyphicon glyphicon-option-horizontal',
-					switchers: [
-						{
-							_id: 'edit',
-							label: $scope.hardData.imperatives[33],
-							onClick: function() {}
-						},
-						{
-							_id: 'delete',
-							label: $scope.hardData.imperatives[14],
-							onClick: function() { $scope.conf.onDelete.call(this); }
-						}
-					]
-				};
-
-				$scope.commentReplyForm = new myClass.MyForm({
-					ctrlId: 'commentsReplyForm',
-					model: new myClass.MyDataModel({ userId: {}, content: {} }),
-					submitAction: function(args) {
-
-						return $scope.conf.replySubmitAction.call(this);
-					},
-					submitSuccessCb: function(res) {
-
-						this.model.reset(true, true);
-						$scope.nestedCollectionBrowser.init();
-					}
-				});
-
-				$scope.onToggleRepliesClick = function() {
-
-					var comment = this;
-
-					// Showing replies
-					if (!comment.showReplies) {
-
-						// Clearing model
-						$scope.commentReplyForm.model.reset(true, true);
-
-						// Hiding comment reply section if shown
-						if ($scope.conf.activeComment) { $scope.conf.activeComment.showReplies = false; }
-
-						// Instantiating new collection browser
-						$scope.nestedCollectionBrowser = new myClass.MyCollectionBrowser({
-							singlePageSize: 10,
-							fetchData: function(query) {
-
-								query.commentId = comment._id;
-								return CommentsRest.getList(query);
-							}
-						});
-
-						// Setting before init method
-						$scope.nestedCollectionBrowser.beforeInit = function() {
-							delete commentsConf.activeCollectionBrowser;
-							commentsConf.activeCollectionBrowser = this;
-						};
-
-						// Setting new comment as active and showing reply section
-						$scope.conf.activeComment = comment;
-						$scope.conf.activeComment.showReplies = true;
-
-						$timeout(function() {
-							$scope.nestedCollectionBrowser.init(function() {
-								$('html, body').animate({ scrollTop: $('#comment_' + comment._id).offset().top }, 'fast');
-							});
-						});
-
-					// Hiding replies
-					} else {
-
-						$scope.conf.activeComment.showReplies = false;
-						$scope.conf.activeComment = undefined;
-						$scope.nestedCollectionBrowser = undefined;
-					}
-				};
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {};
-			}
-		};
-
-		return myCommentsList;
 	});
 
 })();

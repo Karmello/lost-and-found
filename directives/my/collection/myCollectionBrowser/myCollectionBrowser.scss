@@ -2,7 +2,7 @@
 
 	position: relative;
 
-	.ctrls {
+	#basicCtrls {
 
 		display: flex;
 		flex-flow: row wrap;
@@ -22,5 +22,14 @@
 		}
 	}
 
-	.collection {}
+	#collectionContainer {
+
+		position: relative;
+		min-height: 75px;
+
+		.myLoader {
+			position: absolute;
+			top: 0;
+		}
+	}
 }

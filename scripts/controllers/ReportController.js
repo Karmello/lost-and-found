@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf) {
+	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf) {
 
 		$scope.params = $stateParams;
 		$scope.$moment = $moment;
@@ -10,15 +10,15 @@
 		$scope.$watch('apiData.report', function(report) {
 
 			if (report && report._isOwn()) {
-				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
+				$scope.contextMenuConf = contextMenuConf.reportContextMenuConf;
 
 			} else {
-				$scope.reportContextMenuConf = null;
+				$scope.contextMenuConf = null;
 			}
 		});
 
 		$scope.reportsService = reportsService;
-		$scope.reportCommentsConf = commentsConf.reportCommentsConf;
+		$scope.commentsOutData = {};
 
 		$scope.showRespondToReportForm = function() {
 			if (!$scope.isRespondToReportFormVisible) {
@@ -32,7 +32,7 @@
 		});
 	};
 
-	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf'];
+	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();

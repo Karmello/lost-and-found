@@ -37,22 +37,30 @@ module.exports = {
 					} else { reject(err); }
 				});
 
-			} else if (req.query.commentId) {
+			} else if (req.query.parentId) {
 
-				r.Comment.findOne({ _id: req.query.commentId }, function(err, comment) {
+				r.Comment.findOne({ _id: req.query.parentId }, function(err, comment) {
 
 					if (!err && comment) {
 
 						// Creating new subcomment
 						newComment = new r.Comment(req.body);
+						newComment.parentId = comment._id;
 						newComment.comments = undefined;
 
-						// Pushing new subcomment to comments array
-						comment.comments.unshift(newComment);
+						newComment.validate(function(err) {
 
-						// Saving updated comment
-						comment.save(function(err) {
-							if (!err) { resolve(); } else { reject(err); }
+							if (!err) {
+
+								// Pushing new subcomment to comments array
+								comment.comments.unshift(newComment);
+
+								// Saving updated comment
+								comment.save({ validateBeforeSave: false }, function(err) {
+									if (!err) { resolve(); } else { reject(err); }
+								});
+
+							} else { reject(err); }
 						});
 
 					} else { reject(err); }

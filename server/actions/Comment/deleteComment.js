@@ -7,54 +7,67 @@ module.exports = {
 
 		new r.Promise(function(resolve, reject) {
 
-			if (!req.query.reportId) { reject('NO_REPORT_ID'); }
+			// Deleting first level comment
+			if (req.query.reportId) {
 
-			// Getting comment
-			r.Comment.findOne({ _id: req.params.id }, function(err, comment) {
+				// Getting comment
+				r.Comment.findOne({ _id: req.params.id }, function(err, comment) {
 
-				// Got comment
-				if (!err && comment) {
+					// Got comment
+					if (!err && comment) {
 
-					// Comment belongs to the requester
-					if (comment.userId == req.decoded._id) {
+						// Comment belongs to the requester
+						if (comment.userId == req.decoded._id) {
 
-						// Getting report
-						r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
+							// Getting report
+							r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
 
-							// Got report
-							if (!err && report) {
+								// Got report
+								if (!err && report) {
 
-								// Comment belongs to the report
-								if (report.comments.indexOf(comment._id) > -1) {
-									resolve({ comment: comment, report: report });
+									// Comment belongs to the report
+									if (report.comments.indexOf(comment._id) > -1) {
 
-								} else {
-									reject('COMMENT_NOT_RELATED_TO_REPORT');
-								}
+										// Removing comment id from report comments array
+										report.comments.splice(report.comments.indexOf(req.params.id), 1);
 
-							} else { reject(err); }
-						});
+										// Saving updated report
+										report.save(function(err) {
 
-					} else { reject('DELETE_COMMENT_NOT_ALLOWED'); }
+											if (!err) {
 
-				} else { reject(err); }
-			});
+												// Removing comment and resolving
+												comment.remove(function(err) { resolve(); });
 
-		}).then(function(args) {
+											} else { reject(err); }
+										});
 
-			// Removing comment id from report comments array
-			args.report.comments.splice(args.report.comments.indexOf(req.params.id), 1);
+									} else { reject('COMMENT_NOT_RELATED_TO_REPORT'); }
 
-			// Saving updated report
-			args.report.save(function(err) {
+								} else { reject(err); }
+							});
 
-				if (!err) {
+						} else { reject('DELETE_COMMENT_NOT_ALLOWED'); }
 
-					// Removing comment
-					args.comment.remove(function(err) { action.end(204); });
+					} else { reject(err); }
+				});
 
-				} else { reject(err); }
-			});
+			// Deleting nested comment
+			} else if (req.query.parentId) {
+
+				r.Comment.findOneAndUpdate(
+					{ _id: req.query.parentId },
+					{ $pull: { comments: { _id: req.params.id } } },
+					function(err, comment) {
+						if (!err) { resolve(); } else { reject(err); }
+					}
+				);
+
+			} else { reject('NO_REPORT_OR_PARENT_ID'); }
+
+		}).then(function() {
+
+			action.end(204);
 
 		}, function(err) {
 

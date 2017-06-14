@@ -12,6 +12,7 @@
 			transclude: {
 				headingImg: '?headingImg',
 				headingText: '?headingText',
+				headingMenu: '?headingMenu',
 				bodySection: '?bodySection'
 			},
 			scope: {

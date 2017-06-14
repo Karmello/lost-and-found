@@ -40,4 +40,14 @@
 			background-color: black;
 		}
 	}
+
+	.myLoader {
+		margin-top: 50px;
+	}
+
+	.mySrc {
+		.myLoader {
+			margin-top: 0;
+		}
+	}
 }

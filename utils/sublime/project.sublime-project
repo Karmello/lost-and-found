@@ -23,9 +23,6 @@
 			"path": "D:\\Workspace\\laf\\dev\\tests"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\scripts\\configuration"
-		},
-		{
 			"path": "D:\\Workspace\\laf\\dev\\sass"
 		},
 		{
@@ -42,6 +39,9 @@
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\scripts\\factories"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\scripts\\configuration"
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\directives"

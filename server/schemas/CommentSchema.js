@@ -2,6 +2,10 @@ var r = require(global.paths._requires);
 var commentVal = r.validators.commentValidators;
 
 var CommentSchema = new r.mongoose.Schema({
+	parentId: {
+		type: r.mongoose.Schema.Types.ObjectId,
+		ref: 'comment'
+	},
 	userId: {
 		type: r.mongoose.Schema.Types.ObjectId,
 		ref: 'user',
@@ -15,8 +19,11 @@ var CommentSchema = new r.mongoose.Schema({
 	dateAdded: {
 		type: Date,
 		default: Date.now
-	},
-	comments: [global.paths.schemas + 'CommentSchema']
+	}
 }, { versionKey: false });
+
+CommentSchema.add({
+	comments: [CommentSchema]
+});
 
 module.exports = CommentSchema;

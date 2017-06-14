@@ -2,6 +2,7 @@ var r = require(global.paths._requires);
 
 module.exports = function(cb) {
 
+    //r.mongoose.set('debug', true);
     r.mongoose.Promise = global.Promise;
 
     r.mongoose.connection.once('open', function() {

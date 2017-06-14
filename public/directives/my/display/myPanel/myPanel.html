@@ -4,6 +4,7 @@
 			<div id="headingImg" ng-transclude="headingImg"></div>
 			<div id="headingText" ng-transclude="headingText"></div>
 			<div id="headingMenu">
+				<div ng-transclude="headingMenu"></div>
 				<my-elem-selector ng-if="isSelectable" is-selected="data.isSelected"></my-elem-selector>
 				<my-context-menu ng-if="contextMenu" ins="contextMenu"></my-context-menu>
 			</div>

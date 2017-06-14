@@ -13,11 +13,22 @@ module.exports = {
 
 					if (!err && report) {
 
-						r.Comment.find({ _id: { '$in': report.comments } }, '-comments')
-						.skip(Number(req.query.skip))
-						.limit(global.app.get('COMMENTS_MAX_GET'))
-						.sort('-dateAdded')
-						.exec(function(err, comments) {
+						r.Comment.aggregate([
+							{ $match: { _id: { $in: report.comments } } },
+							{ $skip: req.query.skip || 0 },
+							{ $limit: global.app.get('COMMENTS_MAX_GET') },
+							{ $sort: { dateAdded: -1 } },
+							{
+								$project: {
+									parentId: '$parentId',
+									userId: '$userId',
+									content: '$content',
+									dateAdded: '$dateAdded',
+									commentsCount: { $size: '$comments' }
+								}
+							}
+
+						], function(err, comments) {
 
 							if (!err && comments) {
 
@@ -32,9 +43,9 @@ module.exports = {
 					} else { reject(err); }
 				});
 
-			} else if (req.query.commentId) {
+			} else if (req.query.parentId) {
 
-				r.Comment.findOne({ _id: req.query.commentId }, function(err, comment) {
+				r.Comment.findOne({ _id: req.query.parentId }, function(err, comment) {
 
 					if (!err && comment) {
 

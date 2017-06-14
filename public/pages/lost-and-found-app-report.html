@@ -6,7 +6,7 @@
 	<body-section>
 		<div id="lost-and-found-app-report" ng-controller="ReportController">
 			<div ng-show="params.edit !== '1'">
-				<my-panel context-menu-conf="reportContextMenuConf" data="apiData.report">
+				<my-panel context-menu-conf="contextMenuConf" data="apiData.report">
 					<heading-text>
 						<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>&nbsp;&nbsp;&nbsp;
 						<span ng-bind="apiData.report.title" class="text-info"></span>

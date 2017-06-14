@@ -2,6 +2,14 @@
 
 	<div ng-transclude></div>
 
+	<!-- Cancel button -->
+	<my-btn
+		ng-show="myForm.showCancelBtn"
+		ctrl-class="'btn-warning'"
+		click-action="onCancel"
+		hard-data="{ label: ['imperatives', 2] }"
+	></my-btn>
+
 	<!-- Reset button -->
 	<my-btn
 		ng-show="myForm.showResetBtn"
@@ -24,14 +32,6 @@
 		ctrl-class="'btn-primary'"
 		click-action="onSubmit"
 		hard-data="{ label: ['imperatives', myForm.submitBtnPhraseIndex] }"
-	></my-btn>
-
-	<!-- Cancel button -->
-	<my-btn
-		ng-show="myForm.showCancelBtn"
-		ctrl-class="'btn-warning'"
-		click-action="onCancel"
-		hard-data="{ label: ['imperatives', 2] }"
 	></my-btn>
 
 </div>

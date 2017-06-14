@@ -4,53 +4,88 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('myComments', function($rootScope, commentsConf, myClass) {
+	appModule.directive('myComments', function($rootScope, $timeout, $moment, myCommentsService, CommentsRest, myClass) {
 
 		var myComments = {
 			restrict: 'E',
 			templateUrl: 'public/directives/my/collection/myComments/myComments.html',
 			scope: {
-				conf: '='
+				nestingLevel: '<',
+				apiObj: '=',
+				out: '='
 			},
 			controller: function($scope) {
 
-				$scope.conf.collectionBrowser.beforeInit = function() {
-					delete commentsConf.activeCollectionBrowser;
-					commentsConf.activeCollectionBrowser = this;
-					if ($scope.conf.activeComment) { $scope.conf.activeComment.showReplies = false; }
-				};
+				$scope.apiData = $rootScope.apiData;
+				$scope.hardData = $rootScope.hardData;
+				$scope.$moment = $moment;
 
-				$scope.commentForm = new myClass.MyForm({
-					ctrlId: 'commentsForm',
+				$scope.onToggleRepliesClick = function() { myCommentsService.toggle.call(this, $scope); };
+
+				$scope.myForm = new myClass.MyForm({
+					ctrlId: $scope.nestingLevel === 0 ? 'commentsForm' : 'commentsReplyForm',
 					model: new myClass.MyDataModel({ userId: {}, content: {} }),
 					submitAction: function(args) {
 
-						return $scope.conf.submitAction.call(this);
+						this.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
+						return CommentsRest.post(this.model.getValues(), myCommentsService.getReqQuery($scope));
 					},
 					submitSuccessCb: function(res) {
 
-						this.model.reset(true, true);
-						$rootScope.$broadcast($scope.conf.ctrlId + 'Init');
+						$timeout(function() {
+							$scope.myForm.model.reset(true, true);
+							myCommentsService.init($scope);
+						});
 					}
 				});
+
+				$scope.commentContextMenuConf = {
+					icon: 'glyphicon glyphicon-option-horizontal',
+					switchers: [
+						{
+							_id: 'edit',
+							label: $scope.hardData.imperatives[33],
+							onClick: function() {}
+						},
+						{
+							_id: 'delete',
+							label: $scope.hardData.imperatives[14],
+							onClick: function() {
+
+								this.parent.data.remove(myCommentsService.getReqQuery($scope)).then(function() {
+									myCommentsService.init($scope, true);
+
+								}, function() {
+									myCommentsService.init($scope, true);
+								});
+							}
+						}
+					]
+				};
 			},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
-					if (!$rootScope.$$listeners[scope.conf.ctrlId + 'Init']) {
-						$rootScope.$on(scope.conf.ctrlId + 'Init', function(e, args) {
-							scope.conf.collectionBrowser.init();
-						});
+					switch (scope.nestingLevel) {
+
+						case 0:
+
+							scope.$watch(function() { return scope.apiObj; }, function(newApiObj) {
+
+								if (newApiObj) {
+									myCommentsService.init(scope, true);
+									scope.out.topCollectionBrowser = scope.collectionBrowser;
+								}
+							});
+
+							break;
+
+						case 1:
+
+							myCommentsService.init(scope);
+							break;
 					}
-
-					scope.$on('$destroy', function() {
-						$rootScope.$$listeners[scope.conf.ctrlId + 'Init'] = null;
-					});
-
-					scope.$watch(scope.conf.apiObjWatch, function(newApiObj) {
-						if (newApiObj) { scope.conf.collectionBrowser.init(); }
-					});
 				};
 			}
 		};

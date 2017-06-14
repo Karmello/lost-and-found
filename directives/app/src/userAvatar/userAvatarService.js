@@ -7,7 +7,7 @@
 		var service = {
 			loadPhoto: function(scope, force) {
 
-				scope.src.load(service.constructPhotoUrl(scope, true), force, function(success) {
+				scope.src.load(service.constructPhotoUrl(scope, false), force, function(success) {
 
 					if (!success) {
 						scope.src.load(service.constructPhotoUrl(scope, false), force);

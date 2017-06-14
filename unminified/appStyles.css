@@ -143,7 +143,7 @@ body .gm-style-iw + div {
     -ms-flex-preferred-size: 650px;
     flex-basis: 650px; }
 
-#lost-and-found-app-home .myCollectionBrowser .ctrls {
+#lost-and-found-app-home .myCollectionBrowser #basicCtrls {
   -ms-flex-pack: end;
   justify-content: flex-end; }
 
@@ -253,6 +253,9 @@ body .gm-style-iw + div {
         #lost-and-found-app-report #startEventSection #mapContainer > div {
           width: 300px; } }
 
+#lost-and-found-app-report #tabsSection {
+  min-height: 400px; }
+
 #lost-and-found-app-search #mapSection > div:first-child {
   text-align: right;
   margin-bottom: 5px; }
@@ -325,7 +328,7 @@ body .gm-style-iw + div {
 #lost-and-found-app-start #section3 {
   display: block;
   width: 100%; }
-  #lost-and-found-app-start #section3 .myCollectionBrowser .ctrls {
+  #lost-and-found-app-start #section3 .myCollectionBrowser #basicCtrls {
     -ms-flex-pack: end;
     justify-content: flex-end; }
 
@@ -349,7 +352,7 @@ body .gm-style-iw + div {
 .reports #actionBtns {
   margin-bottom: 25px; }
 
-.reports .myCollectionBrowser .collection > div > * {
+.reports .myCollectionBrowser #collectionContainer > div > div > * {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
@@ -358,7 +361,7 @@ body .gm-style-iw + div {
   justify-content: center;
   -ms-flex-align: end;
   align-items: flex-end; }
-  .reports .myCollectionBrowser .collection > div > * > * {
+  .reports .myCollectionBrowser #collectionContainer > div > div > * > * {
     -ms-flex-preferred-size: 33.3%;
     flex-basis: 33.3%;
     -ms-flex-positive: 1;
@@ -482,7 +485,7 @@ body .gm-style-iw + div {
   height: 60px; }
 
 .myBtn {
-  padding: 7px 15px 7px 14px; }
+  padding: 7px 14px 7px 14px; }
 
 .myBtnsGroup, .myBtnsGroupCenter, .myBtnsGroupRight {
   display: -ms-flexbox;
@@ -500,7 +503,7 @@ body .gm-style-iw + div {
 
 .myCollectionBrowser {
   position: relative; }
-  .myCollectionBrowser .ctrls {
+  .myCollectionBrowser #basicCtrls {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
@@ -511,11 +514,38 @@ body .gm-style-iw + div {
     align-content: flex-start;
     width: 100%;
     padding: 0 15px 15px 15px; }
-    .myCollectionBrowser .ctrls > div.refresher .glyphicon-refresh {
+    .myCollectionBrowser #basicCtrls > div.refresher .glyphicon-refresh {
       top: 2px; }
+  .myCollectionBrowser #collectionContainer {
+    position: relative;
+    min-height: 75px; }
+    .myCollectionBrowser #collectionContainer .myLoader {
+      position: absolute;
+      top: 0; }
+
+.myComments .myBtn {
+  font-size: 14px;
+  padding: 3px 9px 3px 9px; }
 
 .myComments .myForm .myLabel.text-info {
   margin-top: 0 !important; }
+
+.myComments .myCollectionBrowser #frontCtrls {
+  -ms-flex-positive: 1;
+  flex-grow: 1; }
+
+.myComments .myCollectionBrowser .myPanel {
+  font-size: 14px;
+  margin-top: 10px; }
+  .myComments .myCollectionBrowser .myPanel #headingImg img {
+    width: 50px;
+    height: 50px; }
+  .myComments .myCollectionBrowser .myPanel #bodySection {
+    text-align: justify; }
+
+.myComments #nestedCollectionSection {
+  max-width: 650px;
+  margin: 25px auto; }
 
 .myElemSelector button {
   width: 28px;
@@ -531,7 +561,7 @@ body .gm-style-iw + div {
   position: relative;
   left: 0;
   right: 0;
-  padding: 50px; }
+  padding: 10px; }
   .myLoader .sk-circle {
     position: relative;
     margin: 0 auto;
@@ -619,8 +649,8 @@ body .gm-style-iw + div {
     align-items: center;
     min-height: 41px;
     padding: 5px 15px 5px 15px; }
-    .myPanel .panel-heading #headingImg div {
-      margin-right: 3px; }
+    .myPanel .panel-heading #headingImg .mySrc {
+      margin-right: 15px; }
     .myPanel .panel-heading #headingText {
       -ms-flex-positive: 1;
       flex-grow: 1;
@@ -830,8 +860,8 @@ body .gm-style-iw + div {
   .mySrc .myLoader {
     padding: 0; }
     .mySrc .myLoader .sk-circle {
-      width: 40px;
-      height: 40px; }
+      width: 30px;
+      height: 30px; }
 
 .mySrcSlides .carousel .carousel-inner > div {
   display: table;
@@ -882,6 +912,10 @@ body .gm-style-iw + div {
   .mySrcThumbs .myModal .modal-content {
     color: #eeeeee;
     background-color: black; }
+  .mySrcThumbs .myLoader {
+    margin-top: 50px; }
+  .mySrcThumbs .mySrc .myLoader {
+    margin-top: 0; }
 
 .myAlert {
   display: table;
@@ -891,20 +925,3 @@ body .gm-style-iw + div {
 
 .myLabel {
   padding: 1px; }
-
-.myCommentsList .myCollectionBrowser .ctrls {
-  -ms-flex-pack: end;
-  justify-content: flex-end; }
-
-.myCommentsList .myCollectionBrowser .myPanel {
-  font-size: 14px; }
-  .myCommentsList .myCollectionBrowser .myPanel #headingImg img {
-    width: 50px;
-    height: 50px; }
-  .myCommentsList .myCollectionBrowser .myPanel #bodySection #repliesBtns .myBtn {
-    font-size: 13px;
-    padding: 5px 10px 5px 10px; }
-
-.myCommentsList #nestedCollectionSection {
-  max-width: 650px;
-  margin: 25px auto; }

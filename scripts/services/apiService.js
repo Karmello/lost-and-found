@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, commentsConf, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, CommentsRest, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -94,7 +94,7 @@
 					if (operation == 'getList') {
 
 						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
-						commentsConf.activeCollectionBrowser.setData(data);
+						CommentsRest.activeCollectionBrowser.setData(data);
 						return data.collection;
 					}
 				}
@@ -106,7 +106,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'commentsConf','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'CommentsRest','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();

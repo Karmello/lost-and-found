@@ -4,20 +4,22 @@
 
 	.myCollectionBrowser {
 
-		.collection {
+		#collectionContainer {
 			> div {
-				> * {
-
-					display: flex;
-					flex-flow: row wrap;
-					justify-content: center;
-					align-items: flex-end;
-
+				> div {
 					> * {
 
-						flex-basis: 33.3%;
-						flex-grow: 1;
-						max-width: 400px;
+						display: flex;
+						flex-flow: row wrap;
+						justify-content: center;
+						align-items: flex-end;
+
+						> * {
+
+							flex-basis: 33.3%;
+							flex-grow: 1;
+							max-width: 400px;
+						}
 					}
 				}
 			}

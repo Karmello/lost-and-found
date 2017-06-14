@@ -45,10 +45,8 @@
 				this.orderer._id = 'orderer';
 			}
 
-			// Refresher
+			// Other
 			this.refresher = {};
-
-			// Creating loader
 			this.loader = new MyLoader(250);
 		};
 
@@ -106,19 +104,21 @@
 						}
 
 						// Finishing
-						that.loader.stop(function() { if (cb) { cb(true); } });
+						that.loader.stop(function() {
+							if (cb) { cb.call(that, true); }
+						});
 
 					}, function(res) {
 
 						that.flush();
-						that.loader.stop(function() { if (cb) { cb(false); } });
+						that.loader.stop(function() { if (cb) { cb.call(that, false); } });
 					});
 				});
 
 			} catch (ex) {
 
 				that.flush();
-				that.loader.stop(function() { if (cb) { cb(false); } });
+				that.loader.stop(function() { if (cb) { cb.call(that, false); } });
 			}
 		};
 
@@ -147,6 +147,8 @@
 						that.onRefreshClick();
 					}
 				}
+
+				if (that.refreshCb) { that.refreshCb(); }
 			});
 		};
 

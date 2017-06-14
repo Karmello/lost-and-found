@@ -28,10 +28,14 @@
 						var textarea = $(elem).find('textarea').get()[0];
 						$(textarea).css('overflow', 'hidden');
 
-						scope.resize = function() {
+						scope.resize = function(height) {
 							$(textarea).css('height', 'auto');
-							$(textarea).css('height', $(textarea).prop('scrollHeight') + 4 +'px');
+							$(textarea).css('height', height || $(textarea).prop('scrollHeight') + 'px');
 						};
+
+						scope.$watch('model.value.active', function(newValue, oldValue) {
+							if (!newValue) { scope.resize(65); }
+						});
 					}
 				};
 			}

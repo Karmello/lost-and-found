@@ -169,7 +169,7 @@ $avatarSize: 240px;
 #lost-and-found-app-home {
 
 	.myCollectionBrowser {
-		.ctrls {
+		#basicCtrls {
 			justify-content: flex-end;
 		}
 	}
@@ -308,7 +308,7 @@ $avatarSize: 240px;
 	}
 
 	#tabsSection {
-
+		min-height: 400px;
 	}
 }
 #lost-and-found-app-search {
@@ -396,7 +396,7 @@ $avatarSize: 240px;
 		width: 100%;
 
 		.myCollectionBrowser {
-			.ctrls {
+			#basicCtrls {
 				justify-content: flex-end;
 			}
 		}
@@ -431,20 +431,22 @@ $avatarSize: 240px;
 
 	.myCollectionBrowser {
 
-		.collection {
+		#collectionContainer {
 			> div {
-				> * {
-
-					display: flex;
-					flex-flow: row wrap;
-					justify-content: center;
-					align-items: flex-end;
-
+				> div {
 					> * {
 
-						flex-basis: 33.3%;
-						flex-grow: 1;
-						max-width: 400px;
+						display: flex;
+						flex-flow: row wrap;
+						justify-content: center;
+						align-items: flex-end;
+
+						> * {
+
+							flex-basis: 33.3%;
+							flex-grow: 1;
+							max-width: 400px;
+						}
 					}
 				}
 			}
@@ -627,7 +629,7 @@ $avatarSize: 240px;
 	height: 60px;
 }
 .myBtn {
-	padding: 7px 15px 7px 14px;
+	padding: 7px 14px 7px 14px;
 }
 
 .myBtnsGroup {
@@ -651,7 +653,7 @@ $avatarSize: 240px;
 
 	position: relative;
 
-	.ctrls {
+	#basicCtrls {
 
 		display: flex;
 		flex-flow: row wrap;
@@ -671,14 +673,59 @@ $avatarSize: 240px;
 		}
 	}
 
-	.collection {}
+	#collectionContainer {
+
+		position: relative;
+		min-height: 75px;
+
+		.myLoader {
+			position: absolute;
+			top: 0;
+		}
+	}
 }
 .myComments {
+
+	.myBtn {
+
+		font-size: 14px;
+		padding: 3px 9px 3px 9px;
+	}
 
 	.myForm {
 		.myLabel.text-info {
 			margin-top: 0 !important;
 		}
+	}
+
+	.myCollectionBrowser {
+
+		#frontCtrls {
+			flex-grow: 1;
+		}
+
+		.myPanel {
+
+			font-size: 14px;
+
+			#headingImg {
+				img { width: 50px; height: 50px; }
+			}
+
+			#bodySection {
+				text-align: justify;
+			}
+
+			//border: 1px solid;
+			//border-radius: 0;
+			margin-top: 10px;
+		}
+	}
+
+	#nestedCollectionSection {
+
+		max-width: 650px;
+		margin: 25px auto;
 	}
 }
 .myElemSelector {
@@ -700,7 +747,7 @@ $avatarSize: 240px;
 	position: relative;
 	left: 0;
 	right: 0;
-	padding: 50px;
+	padding: 10px;
 
 	.sk-circle {
 		position: relative;
@@ -863,7 +910,7 @@ $avatarSize: 240px;
 		padding: 5px 15px 5px 15px;
 
 		#headingImg {
-			div { margin-right: 3px; }
+			.mySrc { margin-right: 15px; }
 		}
 
 		#headingText {
@@ -1211,7 +1258,7 @@ $avatarSize: 240px;
 
 	.myLoader {
 		padding: 0;
-		.sk-circle { width: 40px; height: 40px; }
+		.sk-circle { width: 30px; height: 30px; }
 	}
 }
 .mySrcSlides {
@@ -1305,6 +1352,16 @@ $avatarSize: 240px;
 			background-color: black;
 		}
 	}
+
+	.myLoader {
+		margin-top: 50px;
+	}
+
+	.mySrc {
+		.myLoader {
+			margin-top: 0;
+		}
+	}
 }
 .myAlert {
 	display: table;
@@ -1315,33 +1372,4 @@ $avatarSize: 240px;
 .myLabel {
 
 	padding: 1px;
-}
-.myCommentsList {
-
-	.myCollectionBrowser {
-
-		.ctrls { justify-content: flex-end; }
-
-		.myPanel {
-
-			font-size: 14px;
-
-			#headingImg {
-				img { width: 50px; height: 50px; }
-			}
-
-			#bodySection {
-
-				#repliesBtns {
-					.myBtn { font-size: 13px; padding: 5px 10px 5px 10px; }
-				}
-			}
-		}
-	}
-
-	#nestedCollectionSection {
-
-		max-width: 650px;
-		margin: 25px auto;
-	}
 }

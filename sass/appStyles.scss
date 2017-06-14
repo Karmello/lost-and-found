@@ -135,6 +135,33 @@ body {
 	position: absolute !important;
 }
 $avatarSize: 240px;
+.main-with-aside-1 {
+
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	margin-top: 25px;
+
+	@media only screen and (min-width: 992px) { flex-flow: row nowrap; }
+
+	> div:first-child {
+
+		display: flex;
+		flex-flow: row wrap;
+		flex-basis: 30%;
+		justify-content: center;
+		align-content: flex-start;
+
+		margin-bottom: 25px;
+
+		> div { flex-grow: 1; padding: 0 15px 0 15px; }
+	}
+
+	> div:last-child {
+
+		flex-basis: 650px;
+	}
+}
 #lost-and-found-app-contact {
 
 
@@ -398,101 +425,63 @@ $avatarSize: 240px;
 		}
 	}
 }
-.main-with-aside-1 {
-
-	display: flex;
-	flex-flow: column wrap;
-	justify-content: center;
-	margin-top: 25px;
-
-	@media only screen and (min-width: 992px) { flex-flow: row nowrap; }
-
-	> div:first-child {
-
-		display: flex;
-		flex-flow: row wrap;
-		flex-basis: 30%;
-		justify-content: center;
-		align-content: flex-start;
-
-		margin-bottom: 25px;
-
-		> div { flex-grow: 1; padding: 0 15px 0 15px; }
-	}
-
-	> div:last-child {
-
-		flex-basis: 650px;
-	}
-}
 .reports {
 
 	#actionBtns { margin-bottom: 25px; }
 
 	.myCollectionBrowser {
-		.collection {
 
+		.collection {
 			> div {
 				> * {
+
 					display: flex;
 					flex-flow: row wrap;
 					justify-content: center;
 					align-items: flex-end;
 
 					> * {
+
 						flex-basis: 33.3%;
 						flex-grow: 1;
 						max-width: 400px;
 					}
-
-					.myCollectionElem {
-						margin: 5px;
-					}
 				}
 			}
 		}
-	}
 
-	.myCollectionElem {
+		.myPanel {
 
-		background-color: $brand-danger;
-		min-width: 250px;
+			background-color: $brand-danger;
+			min-width: 250px;
+			margin: 5px;
 
-		#bodySection {
+			#bodySection {
 
-			display: flex;
-			justify-content: center;
+				> * {
 
-			@media only screen and (max-width: 599px) { flex-flow: row wrap; }
+					display: flex;
+					justify-content: center;
+					flex-flow: row wrap;
 
-			#mainSection {
-
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				flex-flow: row wrap;
-
-				#infoSection {
-					text-align: center;
-					font-size: 14px;
-					margin: 5px 10px 5px 10px;
-					p { margin: 0; }
-				}
-
-				#avatarSection {
-					.mySrc {
+					#infoSection {
+						text-align: center;
+						font-size: 14px;
 						margin: 5px 10px 5px 10px;
-						img { width: 150px; height: 100px; object-fit: cover; }
+						p { margin: 0; }
+					}
+
+					#avatarSection {
+						.mySrc {
+							margin: 5px 10px 5px 10px;
+							img { width: 150px; height: 100px; object-fit: cover; }
+						}
 					}
 				}
 			}
 		}
-	}
 
-	.isFound {
-		.myCollectionElem {
-			background-color: $brand-info;
-		}
+		.isFound { .myPanel { background-color: $brand-info; } }
 	}
 }
 #contactForm {
@@ -684,85 +673,11 @@ $avatarSize: 240px;
 
 	.collection {}
 }
-.myCollectionElem {
-
-	margin: 10px auto;
-	border: 2px solid transparent;
-	border-radius: 5px;
-	&.isSelected { border: 2px solid; }
-
-	.panel-default { border: 0 !important; }
-	.panel-heading {}
-
-	#bodySection {
-
-		#actionSection {}
-
-		#mainSection {
-
-			#infoSection {}
-			#avatarSection {}
-		}
-
-		#bottomSection {}
-	}
-}
 .myComments {
 
 	.myForm {
 		.myLabel.text-info {
 			margin-top: 0 !important;
-		}
-	}
-
-	.myCollectionBrowser {
-
-		.ctrls { justify-content: flex-end; }
-
-		.myCollectionElem {
-
-			font-size: 14px;
-
-			.myPanel {
-				.panel-heading {
-					display: none ;
-				}
-			}
-
-			#bodySection {
-
-				#actionSection {}
-
-				#mainSection {
-
-					display: flex;
-					flex-direction: column-reverse;
-					justify-content: flex-end;
-
-					@media only screen and (min-width: 600px) {
-						flex-direction: row-reverse;
-					}
-
-					> div {
-						margin: 5px;
-					}
-
-					#infoSection {
-
-						flex-grow: 1;
-						text-align: justify;
-					}
-
-					#avatarSection {
-
-						.userAvatar {
-							> div { .mySrc { img { @extend .tinyAvatarSize; } } }
-						}
-					}
-				}
-
-				#bottomSection {}
-			}
 		}
 	}
 }
@@ -933,15 +848,26 @@ $avatarSize: 240px;
 }
 .myPanel {
 
-	.panel-default {}
+	&.isSelected { border: 2px solid; }
+	.trasparentHeading { background-color: transparent; }
+
+	border: 2px solid transparent;
+	border-radius: 5px;
+	.panel-default { border: 0 !important; }
 
 	.panel-heading {
+
 		display: flex;
 		align-items: center;
 		min-height: 41px;
 		padding: 5px 15px 5px 15px;
 
-		#titleSection {
+		#headingImg {
+			div { margin-right: 3px; }
+		}
+
+		#headingText {
+
 			flex-grow: 1;
 			font-weight: bold;
 			line-height: 18px;
@@ -950,22 +876,16 @@ $avatarSize: 240px;
   			.glyphicon { top: 2px; }
 		}
 
-		#actionSection {
-			> * {
-				display: flex;
-				justify-content: flex-end;
-				align-items: center;
-			}
+		#headingMenu {
+
+			display: flex;
 		}
 	}
 
 	.panel-body {
+
 		position: relative;
 		margin: 0 auto;
-	}
-
-	.trasparentHeading {
-		background-color: transparent;
 	}
 }
 .myPopOverIcon {
@@ -1397,6 +1317,27 @@ $avatarSize: 240px;
 	padding: 1px;
 }
 .myCommentsList {
+
+	.myCollectionBrowser {
+
+		.ctrls { justify-content: flex-end; }
+
+		.myPanel {
+
+			font-size: 14px;
+
+			#headingImg {
+				img { width: 50px; height: 50px; }
+			}
+
+			#bodySection {
+
+				#repliesBtns {
+					.myBtn { font-size: 13px; padding: 5px 10px 5px 10px; }
+				}
+			}
+		}
+	}
 
 	#nestedCollectionSection {
 

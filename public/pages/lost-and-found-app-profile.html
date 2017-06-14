@@ -3,13 +3,13 @@
 	<head>
 		<meta name="fragment" content="!" />
 	</head>
-	<body>
+	<body-section>
 		<div id="lost-and-found-app-profile" ng-controller="ProfileController">
 			<my-panel>
-				<title-section>
+				<heading-text>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
 					<span class="text-info">&nbsp;&nbsp;&nbsp;{{ apiData.profileUser.username }}</span>
-				</title-section>
+				</heading-text>
 				<body-section>
 					<div id="userSection">
 						<div>
@@ -62,14 +62,11 @@
 						</div>
 					</div>
 					<div style="height: 50px;"></div>
-					<my-panel>
-						<title-section>
+					<my-panel context-menu-conf="apiData.profileUser._isTheOneLoggedIn() ? profileReportsContextMenuConf : undefined">
+						<heading-text>
 							<span class="glyphicon glyphicon-list"></span>
 							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[11] }} ({{ userReports.meta.count }})</span>
-						</title-section>
-						<action-section>
-							<my-context-menu ng-if="apiData.profileUser._isTheOneLoggedIn()" ins="profileReportsContextMenu"></my-context-menu>
-						</action-section>
+						</heading-text>
 						<body-section>
 							<reports ctrl-id="UserReports"></reports>
 						</body-section>
@@ -77,5 +74,5 @@
 				</body-section>
 			</my-panel>
 		</div>
-	</body>
+	</body-section>
 </html>

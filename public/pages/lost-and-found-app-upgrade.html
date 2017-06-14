@@ -3,13 +3,13 @@
 	<head>
 		<meta name="fragment" content="!" />
 	</head>
-	<body>
+	<body-section>
 		<div id="lost-and-found-app-upgrade">
 			<my-panel>
-				<title-section>
+				<heading-text>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
 					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
-				</title-section>
+				</heading-text>
 				<body-section>
 					<div ng-show="!apiData.loggedInUser.paymentId && !apiData.payment">
 						<upgrade-form></upgrade-form>
@@ -18,10 +18,10 @@
 						<my-loader abs-centered="true" ng-show="!apiData.payment"></my-loader>
 						<div id="section1" ng-class="{ transparent: !apiData.payment }">
 							<div>
-								<my-panel trans-heading="true">
-									<title-section>
+								<my-panel transparent-heading="true">
+									<heading-text>
 										<span>&nbsp;&nbsp;&nbsp;{{ hardData.labels[37] }}</span>
-									</title-section>
+									</heading-text>
 									<body-section>
 										<table class="table">
 											<tr>
@@ -53,10 +53,10 @@
 								</my-panel>
 							</div>
 							<div ng-if="apiData.payment.payer.payment_method == 'credit_card'">
-								<my-panel trans-heading="true">
-									<title-section>
+								<my-panel transparent-heading="true">
+									<heading-text>
 										<span>&nbsp;&nbsp;&nbsp;{{ hardData.payment.methods[apiData.payment.payer.payment_method] }}</span>
-									</title-section>
+									</heading-text>
 									<body-section>
 										<table class="table">
 											<tr>
@@ -88,10 +88,10 @@
 								</my-panel>
 							</div>
 							<div ng-if="apiData.payment.payer.payment_method == 'paypal'">
-								<my-panel trans-heading="true">
-									<title-section>
+								<my-panel transparent-heading="true">
+									<heading-text>
 										<span>&nbsp;&nbsp;&nbsp;{{ hardData.payment.methods.paypal }}</span>
-									</title-section>
+									</heading-text>
 									<body-section>
 										<table class="table">
 											<tr>
@@ -126,5 +126,5 @@
 				</body-section>
 			</my-panel>
 		</div>
-	</body>
+	</body-section>
 </html>

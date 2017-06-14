@@ -4,25 +4,28 @@
 			<form-action-btns my-form="parentForm"></form-action-btns>
 		</frontctrls>
 		<elems>
-			<my-collection-elem
+			<my-panel
 				ng-repeat="comment in collectionBrowser.collection"
 				ctrl-id="'comment_' + comment._id"
-				data="comment"
+				transparent-heading="true"
 				context-menu-conf="comment.userId == apiData.loggedInUser._id ? commentContextMenuConf : undefined"
+				data="comment"
 			>
-				<avatar-section>
+				<heading-img>
 					<user-avatar user="comment.user"></user-avatar>
-				</avatar-section>
-				<info-section>
-					<div><b>{{ comment.user.username }} | {{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}</b></div>
-					<div ng-bind="comment.content"></div>
-					<div class="myBtnsGroupRight" ng-if="nestingLevel == 0">
-						<my-btn ng-show="!comment.showReplies" ctrl-class="'btn-default'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 41] }"></my-btn>
-						<my-btn ng-show="comment.showReplies" ctrl-class="'btn-warning'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 42] }"></my-btn>
+				</heading-img>
+				<heading-text>
+					<span>{{ comment.user.username }} | {{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
+				</heading-text>
+				<body-section>
+					<div>
+						<div ng-bind="comment.content"></div>
+						<div id="repliesBtns" class="myBtnsGroupRight" ng-if="nestingLevel == 0">
+							<my-btn ng-show="!comment.showReplies" ctrl-class="'btn-default'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 41] }"></my-btn>
+							<my-btn ng-show="comment.showReplies" ctrl-class="'btn-warning'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 42] }"></my-btn>
+						</div>
 					</div>
-				</info-section>
-				<bottom-section ng-if="nestingLevel == 0">
-					<div ng-show="comment.showReplies" id="nestedCollectionSection">
+					<div id="nestedCollectionSection" ng-if="nestingLevel == 0" ng-show="comment.showReplies">
 						<my-form ins="commentReplyForm">
 							<my-text-area
 								ctrl-max-length="1000"
@@ -41,8 +44,8 @@
 							></my-comments-list>
 						</div>
 					</div>
-				</bottom-section>
-			</my-collection-elem>
+				</body-section>
+			</my-panel>
 		</elems>
 	</my-collection-browser>
 </div>

@@ -26,7 +26,7 @@
 			]
 		};
 
-		this.profileReportsContextMenu = {
+		this.profileReportsContextMenuConf = {
 			icon: 'glyphicon glyphicon-option-horizontal',
 			switchers: [
 				{

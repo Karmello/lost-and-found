@@ -1,32 +1,34 @@
 <div class="reports">
 	<my-collection-browser ins="collectionBrowser" no-scroll-top-btn="ctrlId == 'RecentlyViewedReports' || ctrlId == 'NewReports'">
 		<elems>
-			<my-collection-elem
+			<my-panel
 				ng-repeat="report in collectionBrowser.collection"
-				data="report"
-				context-menu-conf="elemContextMenuConf"
-				is-selectable="ctrlId == 'UserReports' && apiData.profileUser._isTheOneLoggedIn()"
 				ng-class="report.startEvent.type == 'found' ? 'isFound' : ''"
+				is-selectable="ctrlId == 'UserReports' && apiData.profileUser._isTheOneLoggedIn()"
+				context-menu-conf="elemContextMenuConf"
+				data="report"
 			>
-				<title-section>
+				<heading-text>
 					<a ui-sref="app.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.title.truncate(25) }}</a>
-				</title-section>
-				<info-section ng-if="!noInfo">
-					<p>{{ report.getFullCategory() }}</p>
-					<p>
-						<span>{{ hardData.reportTypes[report.startEvent.type == 'lost' ? 0 : 1].label2 }}</span>
-						<span ng-bind="hardData.count[0]"></span>
-						<span>{{ $moment(report.startEvent.date).format('DD-MM-YYYY') }}</span>
-					</p>
-					<p>
-						<span ng-bind="hardData.count[7]"></span>
-						<span>{{ $moment.duration($moment(Date()).diff($moment(report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
-					</p>
-				</info-section>
-				<avatar-section ng-if="!noAvatar && report.avatar">
-					<report-avatar report="report" hide-default-src="true"></report-avatar>
-				</avatar-section>
-			</my-collection-elem>
+				</heading-text>
+				<body-section>
+					<div id="infoSection" ng-if="!noInfo">
+						<p>{{ report.getFullCategory() }}</p>
+						<p>
+							<span>{{ hardData.reportTypes[report.startEvent.type == 'lost' ? 0 : 1].label2 }}</span>
+							<span ng-bind="hardData.count[0]"></span>
+							<span>{{ $moment(report.startEvent.date).format('DD-MM-YYYY') }}</span>
+						</p>
+						<p>
+							<span ng-bind="hardData.count[7]"></span>
+							<span>{{ $moment.duration($moment(Date()).diff($moment(report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
+						</p>
+					</div>
+					<div id="avatarSection" ng-if="!noAvatar && report.avatar">
+						<report-avatar report="report" hide-default-src="true"></report-avatar>
+					</div>
+				</body-section>
+			</my-panel>
 		</elems>
 	</my-collection-browser>
 </div>

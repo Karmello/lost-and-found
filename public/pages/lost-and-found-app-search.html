@@ -3,20 +3,20 @@
 	<head>
 		<meta name="fragment" content="!" />
 	</head>
-	<body>
+	<body-section>
 		<div id="lost-and-found-app-search" ng-controller="SearchController">
 			<my-panel>
-				<title-section>
+				<heading-text>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
 					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
-				</title-section>
+				</heading-text>
 				<body-section>
 					<report-search-form></report-search-form>
 				</body-section>
 			</my-panel>
 			<div style="height: 50px;"></div>
-			<my-panel trans-heading="true">
-				<title-section>
+			<my-panel transparent-heading="true">
+				<heading-text>
 					<span class="glyphicon glyphicon-list"></span>
 					<span ng-if="searchReports.meta.count == 0">&nbsp;&nbsp;&nbsp;{{ hardData.sections[13] }} (0)</span>
 					<span ng-if="searchReports.meta.count > 0">
@@ -25,7 +25,7 @@
 						<span>{{ hardData.count[10] }}:</span>
 						<span class="text-info">{{ searchReports.collection.length }}</span>)
 					</span>
-				</title-section>
+				</heading-text>
 				<body-section>
 					<div id="mapSection">
 						<div>
@@ -37,5 +37,5 @@
 				</body-section>
 			</my-panel>
 		</div>
-	</body>
+	</body-section>
 </html>

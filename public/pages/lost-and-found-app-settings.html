@@ -3,13 +3,13 @@
 	<head>
 		<meta name="fragment" content="!" />
 	</head>
-	<body>
+	<body-section>
 		<div id="lost-and-found-app-settings" ng-controller="SettingsController">
 			<my-panel>
-				<title-section>
+				<heading-text>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
 					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
-				</title-section>
+				</heading-text>
 				<body-section>
 					<div id="dropdownSection" class="myBtnsGroupRight marginBottomSmall">
 						<my-drop-down ins="ui.dropdowns.settingsCategories"></my-drop-down>
@@ -30,5 +30,5 @@
 				</body-section>
 			</my-panel>
 		</div>
-	</body>
+	</body-section>
 </html>

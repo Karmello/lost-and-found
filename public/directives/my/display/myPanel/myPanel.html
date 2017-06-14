@@ -1,8 +1,12 @@
-<div class="myPanel">
+<div id="{{ ctrlId }}" class="myPanel" ng-class="{ isSelected: data.isSelected }">
 	<div class="panel-default">
-		<div class="panel-heading" ng-class="transHeading ? 'trasparentHeading' : ''">
-			<div id="titleSection" ng-transclude="titleSection"></div>
-			<div id="actionSection" ng-transclude="actionSection"></div>
+		<div class="panel-heading" ng-class="transparentHeading ? 'trasparentHeading' : ''">
+			<div id="headingImg" ng-transclude="headingImg"></div>
+			<div id="headingText" ng-transclude="headingText"></div>
+			<div id="headingMenu">
+				<my-elem-selector ng-if="isSelectable" is-selected="data.isSelected"></my-elem-selector>
+				<my-context-menu ng-if="contextMenu" ins="contextMenu"></my-context-menu>
+			</div>
 		</div>
 		<div class="panel-body">
 			<div id="bodySection" ng-transclude="bodySection"></div>

@@ -1,10 +1,10 @@
 <div id="reportForm">
 	<my-form ins="myForm" ng-if="action != 'respondToReport'">
-		<my-panel trans-heading="true" >
-			<title-section>
+		<my-panel transparent-heading="true" >
+			<heading-text>
 				<span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;
 				<span ng-bind="hardData.sections[16]"></span>
-			</title-section>
+			</heading-text>
 			<body-section>
 				<div class="formCtrls">
 					<div>
@@ -64,11 +64,11 @@
 				</div>
 			</body-section>
 		</my-panel>
-		<my-panel trans-heading="true">
-			<title-section>
+		<my-panel transparent-heading="true">
+			<heading-text>
 				<span class="glyphicon glyphicon-flash"></span>&nbsp;&nbsp;&nbsp;
 				<span ng-bind="hardData.sections[15]"></span>
-			</title-section>
+			</heading-text>
 			<body-section>
 				<div class="formCtrls">
 					<div>
@@ -110,11 +110,11 @@
 		<form-action-btns my-form="myForm"></form-action-btns>
 	</my-form>
 	<my-form ins="myForm" ng-if="action == 'respondToReport'">
-		<my-panel trans-heading="true">
-			<title-section>
+		<my-panel transparent-heading="true">
+			<heading-text>
 				<span class="glyphicon glyphicon-flash"></span>&nbsp;&nbsp;&nbsp;
 				<span ng-bind="hardData.sections[15]"></span>
-			</title-section>
+			</heading-text>
 			<body-section>
 				<div class="formCtrls">
 					<div>

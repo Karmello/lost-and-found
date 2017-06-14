@@ -4,18 +4,39 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('myPanel', function(ui) {
+	appModule.directive('myPanel', function(MySwitchable) {
 
 		var myPanel = {
 			restrict: 'E',
 			templateUrl: 'public/directives/my/display/myPanel/myPanel.html',
 			transclude: {
-				titleSection: '?titleSection',
-				actionSection: '?actionSection',
+				headingImg: '?headingImg',
+				headingText: '?headingText',
 				bodySection: '?bodySection'
 			},
 			scope: {
-				transHeading: '='
+				ctrlId: '<',
+				isSelectable: '<',
+				transparentHeading: '<',
+				contextMenuConf: '=',
+				data: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.contextMenuConf; }, function(contextMenuConf) {
+
+						if (contextMenuConf) {
+							scope.contextMenu = new MySwitchable(contextMenuConf);
+							if (scope.data) { scope.contextMenu.data = scope.data; }
+
+						} else {
+							scope.contextMenu = undefined;
+						}
+					});
+				};
 			}
 		};
 

@@ -1,7 +1,7 @@
 <div class="myCollectionElem" ng-class="{ isSelected: data.isSelected }" id="{{ ctrlId }}">
 	<my-panel>
 		<title-section>
-			<div ng-transclude="titleSection"></div>
+			<div id="titleSection" ng-transclude="titleSection"></div>
 		</title-section>
 		<action-section>
 			<my-elem-selector ng-if="isSelectable" is-selected="data.isSelected"></my-elem-selector>

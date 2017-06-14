@@ -3,17 +3,14 @@
 	<head>
 		<meta name="fragment" content="!" />
 	</head>
-	<body>
+	<body-section>
 		<div id="lost-and-found-app-report" ng-controller="ReportController">
 			<div ng-show="params.edit !== '1'">
-				<my-panel>
-					<title-section>
+				<my-panel context-menu-conf="reportContextMenuConf" data="apiData.report">
+					<heading-text>
 						<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>&nbsp;&nbsp;&nbsp;
 						<span ng-bind="apiData.report.title" class="text-info"></span>
-					</title-section>
-					<action-section>
-						<my-context-menu ng-if="reportContextMenu" ins="reportContextMenu"></my-context-menu>
-					</action-section>
+					</heading-text>
 					<body-section>
 						<div id="endEventSection" ng-if="!apiData.report._isOwn()">
 							<div class="myBtnsGroupRight">
@@ -34,10 +31,10 @@
 						</div>
 					</body-section>
 				</my-panel>
-				<my-panel trans-heading="true">
-					<title-section>
+				<my-panel transparent-heading="true">
+					<heading-text>
 						<span ng-bind="hardData.sections[16]"></span>
-					</title-section>
+					</heading-text>
 					<body-section>
 						<div id="subjectSection">
 							<div>
@@ -79,11 +76,11 @@
 						</div>
 					</body-section>
 				</my-panel>
-				<my-panel trans-heading="true">
-					<title-section>
+				<my-panel transparent-heading="true">
+					<heading-text>
 						<span>{{ hardData.reportTypes[apiData.report.startEvent.type == 'lost' ? 0 : 1].label2 }} {{ hardData.count[0] }}</span>
 						<span>{{ $moment(apiData.report.startEvent.date).format('DD-MM-YYYY') }}</span>
-					</title-section>
+					</heading-text>
 					<body-section>
 						<div id="startEventSection">
 							<div>
@@ -108,16 +105,16 @@
 			</div>
 			<div ng-show="params.edit === '1'">
 				<my-panel>
-					<title-section>
+					<heading-text>
 						<span class="glyphicon glyphicon-edit"></span>
 						<span>&nbsp;&nbsp;&nbsp;{{ hardData.labels[27] }}</span>
 						<span class="text-info">{{ apiData.report._id }}</span>
-					</title-section>
+					</heading-text>
 					<body-section>
 						<report-form action="editReport"></report-form>
 					</body-section>
 				</my-panel>
 			</div>
 		</div>
-	</body>
+	</body-section>
 </html>

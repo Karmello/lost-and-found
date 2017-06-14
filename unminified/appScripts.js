@@ -249,7 +249,7 @@
 			]
 		};
 
-		this.profileReportsContextMenu = {
+		this.profileReportsContextMenuConf = {
 			icon: 'glyphicon glyphicon-option-horizontal',
 			switchers: [
 				{
@@ -824,10 +824,10 @@
 
 	'use strict';
 
-	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf, MySwitchable) {
+	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf) {
 
 		$scope.userReports = reportsConf.userReports;
-		$scope.profileReportsContextMenu = new MySwitchable(contextMenuConf.profileReportsContextMenu);
+		$scope.profileReportsContextMenuConf = contextMenuConf.profileReportsContextMenuConf;
 
 
 
@@ -839,7 +839,7 @@
 		});
 	};
 
-	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsConf', 'MySwitchable'];
+	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsConf'];
 	angular.module('appModule').controller('ProfileController', ProfileController);
 
 })();
@@ -847,7 +847,7 @@
 
 	'use strict';
 
-	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
+	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf) {
 
 		$scope.params = $stateParams;
 		$scope.$moment = $moment;
@@ -855,11 +855,10 @@
 		$scope.$watch('apiData.report', function(report) {
 
 			if (report && report._isOwn()) {
-				$scope.reportContextMenu = new MySwitchable(contextMenuConf.reportContextMenuConf);
-				$scope.reportContextMenu.data = report;
+				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
 
 			} else {
-				$scope.reportContextMenu = null;
+				$scope.reportContextMenuConf = null;
 			}
 		});
 
@@ -878,7 +877,7 @@
 		});
 	};
 
-	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();
@@ -5670,66 +5669,6 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('appStats', function($rootScope) {
-
-		var appStats = {
-			restrict: 'E',
-			templateUrl: 'public/directives/app/other/appStats/appStats.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.hardData = $rootScope.hardData;
-				$scope.apiData = $rootScope.apiData;
-			},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-				};
-			}
-		};
-
-		return appStats;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('userBadge', function($rootScope, $state, authService) {
-
-		return {
-			restrict: 'E',
-			templateUrl: 'public/directives/app/other/userBadge/userBadge.html',
-			scope: true,
-			controller: function($scope) {
-
-				$scope.authState = authService.state;
-				$scope.label1 = $rootScope.hardData.status[0];
-
-				$scope.onLogoutClick = function() {
-					$rootScope.logout();
-				};
-
-				$scope.onContinueClick = function() {
-					$state.go('app.home');
-				};
-			}
-		};
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('reportAvatar', function(reportAvatarService, MySrc, URLS) {
 
 		var reportAvatar = {
@@ -6416,6 +6355,66 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('appStats', function($rootScope) {
+
+		var appStats = {
+			restrict: 'E',
+			templateUrl: 'public/directives/app/other/appStats/appStats.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.hardData = $rootScope.hardData;
+				$scope.apiData = $rootScope.apiData;
+			},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+				};
+			}
+		};
+
+		return appStats;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('userBadge', function($rootScope, $state, authService) {
+
+		return {
+			restrict: 'E',
+			templateUrl: 'public/directives/app/other/userBadge/userBadge.html',
+			scope: true,
+			controller: function($scope) {
+
+				$scope.authState = authService.state;
+				$scope.label1 = $rootScope.hardData.status[0];
+
+				$scope.onLogoutClick = function() {
+					$rootScope.logout();
+				};
+
+				$scope.onContinueClick = function() {
+					$state.go('app.home');
+				};
+			}
+		};
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 
 
 	appModule.directive('myDirective', function(hardDataService) {
@@ -6713,18 +6712,39 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('myPanel', function(ui) {
+	appModule.directive('myPanel', function(MySwitchable) {
 
 		var myPanel = {
 			restrict: 'E',
 			templateUrl: 'public/directives/my/display/myPanel/myPanel.html',
 			transclude: {
-				titleSection: '?titleSection',
-				actionSection: '?actionSection',
+				headingImg: '?headingImg',
+				headingText: '?headingText',
 				bodySection: '?bodySection'
 			},
 			scope: {
-				transHeading: '='
+				ctrlId: '<',
+				isSelectable: '<',
+				transparentHeading: '<',
+				contextMenuConf: '=',
+				data: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					scope.$watch(function() { return scope.contextMenuConf; }, function(contextMenuConf) {
+
+						if (contextMenuConf) {
+							scope.contextMenu = new MySwitchable(contextMenuConf);
+							if (scope.data) { scope.contextMenu.data = scope.data; }
+
+						} else {
+							scope.contextMenu = undefined;
+						}
+					});
+				};
 			}
 		};
 

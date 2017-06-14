@@ -2,10 +2,10 @@
 
 	'use strict';
 
-	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf, MySwitchable) {
+	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf) {
 
 		$scope.userReports = reportsConf.userReports;
-		$scope.profileReportsContextMenu = new MySwitchable(contextMenuConf.profileReportsContextMenu);
+		$scope.profileReportsContextMenuConf = contextMenuConf.profileReportsContextMenuConf;
 
 
 
@@ -17,7 +17,7 @@
 		});
 	};
 
-	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsConf', 'MySwitchable'];
+	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsConf'];
 	angular.module('appModule').controller('ProfileController', ProfileController);
 
 })();

@@ -3,7 +3,7 @@
 	<head>
 		<meta name="fragment" content="!" />
 	</head>
-	<body>
+	<body-section>
 		<div id="lost-and-found-app-start" class="container" ng-controller="StartController">
 			<div id="section1">
 				<div class="page-header jumbotron">
@@ -23,16 +23,16 @@
 				</div>
 			</div>
 			<div id="section3">
-				<my-panel trans-heading="true">
-					<title-section>
+				<my-panel transparent-heading="true">
+					<heading-text>
 						<span ng-class="ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
 						<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[22] }}</span>
-					</title-section>
+					</heading-text>
 					<body-section>
 						<reports ctrl-id="NewReports"></reports>
 					</body-section>
 				</my-panel>
 			</div>
 		</div>
-	</body>
+	</body-section>
 </html>

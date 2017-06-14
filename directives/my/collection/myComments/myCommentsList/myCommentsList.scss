@@ -1,5 +1,26 @@
 .myCommentsList {
 
+	.myCollectionBrowser {
+
+		.ctrls { justify-content: flex-end; }
+
+		.myPanel {
+
+			font-size: 14px;
+
+			#headingImg {
+				img { width: 50px; height: 50px; }
+			}
+
+			#bodySection {
+
+				#repliesBtns {
+					.myBtn { font-size: 13px; padding: 5px 10px 5px 10px; }
+				}
+			}
+		}
+	}
+
 	#nestedCollectionSection {
 
 		max-width: 650px;

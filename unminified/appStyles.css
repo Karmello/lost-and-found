@@ -111,6 +111,38 @@ body .gm-style-iw + div {
 .absCentered {
   position: absolute !important; }
 
+.main-with-aside-1 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px; }
+  @media only screen and (min-width: 992px) {
+    .main-with-aside-1 {
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap; } }
+  .main-with-aside-1 > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-preferred-size: 30%;
+    flex-basis: 30%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    margin-bottom: 25px; }
+    .main-with-aside-1 > div:first-child > div {
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      padding: 0 15px 0 15px; }
+  .main-with-aside-1 > div:last-child {
+    -ms-flex-preferred-size: 650px;
+    flex-basis: 650px; }
+
 #lost-and-found-app-home .myCollectionBrowser .ctrls {
   -ms-flex-pack: end;
   justify-content: flex-end; }
@@ -314,38 +346,6 @@ body .gm-style-iw + div {
     #lost-and-found-app-upgrade #whenPaidSection > #section2 img {
       width: 100px; }
 
-.main-with-aside-1 {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: column wrap;
-  flex-flow: column wrap;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 25px; }
-  @media only screen and (min-width: 992px) {
-    .main-with-aside-1 {
-      -ms-flex-flow: row nowrap;
-      flex-flow: row nowrap; } }
-  .main-with-aside-1 > div:first-child {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -ms-flex-preferred-size: 30%;
-    flex-basis: 30%;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-    margin-bottom: 25px; }
-    .main-with-aside-1 > div:first-child > div {
-      -ms-flex-positive: 1;
-      flex-grow: 1;
-      padding: 0 15px 0 15px; }
-  .main-with-aside-1 > div:last-child {
-    -ms-flex-preferred-size: 650px;
-    flex-basis: 650px; }
-
 .reports #actionBtns {
   margin-bottom: 25px; }
 
@@ -364,44 +364,32 @@ body .gm-style-iw + div {
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 400px; }
-  .reports .myCollectionBrowser .collection > div > * .myCollectionElem {
-    margin: 5px; }
 
-.reports .myCollectionElem {
+.reports .myCollectionBrowser .myPanel {
   background-color: #d9534f;
-  min-width: 250px; }
-  .reports .myCollectionElem #bodySection {
+  min-width: 250px;
+  margin: 5px; }
+  .reports .myCollectionBrowser .myPanel #bodySection > * {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
-    justify-content: center; }
-    @media only screen and (max-width: 599px) {
-      .reports .myCollectionElem #bodySection {
-        -ms-flex-flow: row wrap;
-        flex-flow: row wrap; } }
-    .reports .myCollectionElem #bodySection #mainSection {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-pack: center;
-      justify-content: center;
-      -ms-flex-align: center;
-      align-items: center;
-      -ms-flex-flow: row wrap;
-      flex-flow: row wrap; }
-      .reports .myCollectionElem #bodySection #mainSection #infoSection {
-        text-align: center;
-        font-size: 14px;
-        margin: 5px 10px 5px 10px; }
-        .reports .myCollectionElem #bodySection #mainSection #infoSection p {
-          margin: 0; }
-      .reports .myCollectionElem #bodySection #mainSection #avatarSection .mySrc {
-        margin: 5px 10px 5px 10px; }
-        .reports .myCollectionElem #bodySection #mainSection #avatarSection .mySrc img {
-          width: 150px;
-          height: 100px;
-          object-fit: cover; }
+    justify-content: center;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap; }
+    .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection {
+      text-align: center;
+      font-size: 14px;
+      margin: 5px 10px 5px 10px; }
+      .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection p {
+        margin: 0; }
+    .reports .myCollectionBrowser .myPanel #bodySection > * #avatarSection .mySrc {
+      margin: 5px 10px 5px 10px; }
+      .reports .myCollectionBrowser .myPanel #bodySection > * #avatarSection .mySrc img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover; }
 
-.reports .isFound .myCollectionElem {
+.reports .myCollectionBrowser .isFound .myPanel {
   background-color: #5bc0de; }
 
 #contactForm .myForm {
@@ -489,7 +477,7 @@ body .gm-style-iw + div {
   width: 150px;
   height: 150px; }
 
-.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img, .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection #avatarSection .userAvatar > div .mySrc img {
+.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img {
   width: 60px;
   height: 60px; }
 
@@ -526,43 +514,8 @@ body .gm-style-iw + div {
     .myCollectionBrowser .ctrls > div.refresher .glyphicon-refresh {
       top: 2px; }
 
-.myCollectionElem {
-  margin: 10px auto;
-  border: 2px solid transparent;
-  border-radius: 5px; }
-  .myCollectionElem.isSelected {
-    border: 2px solid; }
-  .myCollectionElem .panel-default {
-    border: 0 !important; }
-
 .myComments .myForm .myLabel.text-info {
   margin-top: 0 !important; }
-
-.myComments .myCollectionBrowser .ctrls {
-  -ms-flex-pack: end;
-  justify-content: flex-end; }
-
-.myComments .myCollectionBrowser .myCollectionElem {
-  font-size: 14px; }
-  .myComments .myCollectionBrowser .myCollectionElem .myPanel .panel-heading {
-    display: none; }
-  .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column-reverse;
-    flex-direction: column-reverse;
-    -ms-flex-pack: end;
-    justify-content: flex-end; }
-    @media only screen and (min-width: 600px) {
-      .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection {
-        -ms-flex-direction: row-reverse;
-        flex-direction: row-reverse; } }
-    .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection > div {
-      margin: 5px; }
-    .myComments .myCollectionBrowser .myCollectionElem #bodySection #mainSection #infoSection {
-      -ms-flex-positive: 1;
-      flex-grow: 1;
-      text-align: justify; }
 
 .myElemSelector button {
   width: 28px;
@@ -650,37 +603,40 @@ body .gm-style-iw + div {
   40% {
     transform: scale(1); } }
 
-.myPanel .panel-heading {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  min-height: 41px;
-  padding: 5px 15px 5px 15px; }
-  .myPanel .panel-heading #titleSection {
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    font-weight: bold;
-    line-height: 18px;
-    padding-right: 15px; }
-    .myPanel .panel-heading #titleSection a {
-      color: #337ab7; }
-    .myPanel .panel-heading #titleSection .glyphicon {
-      top: 2px; }
-  .myPanel .panel-heading #actionSection > * {
+.myPanel {
+  border: 2px solid transparent;
+  border-radius: 5px; }
+  .myPanel.isSelected {
+    border: 2px solid; }
+  .myPanel .trasparentHeading {
+    background-color: transparent; }
+  .myPanel .panel-default {
+    border: 0 !important; }
+  .myPanel .panel-heading {
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
     -ms-flex-align: center;
-    align-items: center; }
-
-.myPanel .panel-body {
-  position: relative;
-  margin: 0 auto; }
-
-.myPanel .trasparentHeading {
-  background-color: transparent; }
+    align-items: center;
+    min-height: 41px;
+    padding: 5px 15px 5px 15px; }
+    .myPanel .panel-heading #headingImg div {
+      margin-right: 3px; }
+    .myPanel .panel-heading #headingText {
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      font-weight: bold;
+      line-height: 18px;
+      padding-right: 15px; }
+      .myPanel .panel-heading #headingText a {
+        color: #337ab7; }
+      .myPanel .panel-heading #headingText .glyphicon {
+        top: 2px; }
+    .myPanel .panel-heading #headingMenu {
+      display: -ms-flexbox;
+      display: flex; }
+  .myPanel .panel-body {
+    position: relative;
+    margin: 0 auto; }
 
 .myPopOverIcon {
   display: table;
@@ -935,6 +891,19 @@ body .gm-style-iw + div {
 
 .myLabel {
   padding: 1px; }
+
+.myCommentsList .myCollectionBrowser .ctrls {
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+
+.myCommentsList .myCollectionBrowser .myPanel {
+  font-size: 14px; }
+  .myCommentsList .myCollectionBrowser .myPanel #headingImg img {
+    width: 50px;
+    height: 50px; }
+  .myCommentsList .myCollectionBrowser .myPanel #bodySection #repliesBtns .myBtn {
+    font-size: 13px;
+    padding: 5px 10px 5px 10px; }
 
 .myCommentsList #nestedCollectionSection {
   max-width: 650px;

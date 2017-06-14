@@ -1,9 +1,9 @@
 <div id="photosSection" ng-show="ui.tabs.report.activeSwitcherId == 'photos'">
 	<my-panel>
-		<title-section>
+		<heading-text>
 			<span class="glyphicon glyphicon-picture"></span>
 			<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[5] }} ({{ apiData.report.photos.length }})</span>
-		</title-section>
+		</heading-text>
 		<body-section>
 			<report-photos report="apiData.report" editable="apiData.reportUser._isTheOneLoggedIn()"></report-photos>
 		</body-section>
@@ -11,10 +11,10 @@
 	</div>
 	<div id="commentsSection" ng-show="ui.tabs.report.activeSwitcherId == 'comments'">
 	<my-panel>
-		<title-section>
+		<heading-text>
 			<span class="glyphicon glyphicon-comment"></span>
 			<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[6] }} ({{ reportCommentsConf.collectionBrowser.meta.count }})</span>
-		</title-section>
+		</heading-text>
 		<body-section>
 			<my-comments conf="reportCommentsConf"></my-comments>
 		</body-section>

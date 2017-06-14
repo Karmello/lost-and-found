@@ -3,31 +3,31 @@
 	<head>
 		<meta name="fragment" content="!" />
 	</head>
-	<body>
+	<body-section>
 		<div id="lost-and-found-app-home" class="myPage">
 			<my-panel>
-				<title-section>
+				<heading-text>
 					<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
 					<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
-				</title-section>
+				</heading-text>
 				<body-section>
 					<br>
 					<app-stats></app-stats>
 					<br>
-					<my-panel trans-heading="true">
-						<title-section>
+					<my-panel transparent-heading="true">
+						<heading-text>
 							<span ng-class="ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
 							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[22] }}</span>
-						</title-section>
+						</heading-text>
 						<body-section>
 							<reports ctrl-id="NewReports"></reports>
 						</body-section>
 					</my-panel>
-					<my-panel trans-heading="true">
-						<title-section>
+					<my-panel transparent-heading="true">
+						<heading-text>
 							<span class="glyphicon glyphicon-eye-open"></span>
 							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[21] }}</span>
-						</title-section>
+						</heading-text>
 						<body-section>
 							<reports ctrl-id="RecentlyViewedReports"></reports>
 						</body-section>
@@ -35,5 +35,5 @@
 				</body-section>
 			</my-panel>
 		</div>
-	</body>
+	</body-section>
 </html>

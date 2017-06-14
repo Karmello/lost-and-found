@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf, MySwitchable) {
+	var ReportController = function($rootScope, $scope, $moment, $stateParams, reportsService, contextMenuConf, commentsConf) {
 
 		$scope.params = $stateParams;
 		$scope.$moment = $moment;
@@ -10,11 +10,10 @@
 		$scope.$watch('apiData.report', function(report) {
 
 			if (report && report._isOwn()) {
-				$scope.reportContextMenu = new MySwitchable(contextMenuConf.reportContextMenuConf);
-				$scope.reportContextMenu.data = report;
+				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
 
 			} else {
-				$scope.reportContextMenu = null;
+				$scope.reportContextMenuConf = null;
 			}
 		});
 
@@ -33,7 +32,7 @@
 		});
 	};
 
-	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf', 'MySwitchable'];
+	ReportController.$inject = ['$rootScope', '$scope', '$moment', '$stateParams', 'reportsService', 'contextMenuConf', 'commentsConf'];
 	angular.module('appModule').controller('ReportController', ReportController);
 
 })();

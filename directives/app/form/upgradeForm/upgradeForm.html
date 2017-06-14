@@ -3,12 +3,12 @@
 	<my-form ins="myForm">
 		<div id="formSection">
 			<div>
-				<my-panel trans-heading="true">
-					<title-section>
+				<my-panel transparent-heading="true">
+					<heading-text>
 						<span>&nbsp;&nbsp;&nbsp;{{ hardData.labels[37] }}</span>
 						<span ng-show="myModel.currency.value.active">-</span>
 						<span class="text-warning">{{ myModel.amount.value.active }} {{ myModel.currency.value.active }}</span>
-					</title-section>
+					</heading-text>
 					<body-section>
 						<my-select
 							ctrl-id="'paymentMethod'"
@@ -29,10 +29,10 @@
 				</my-panel>
 			</div>
 			<div ng-show="myModel.getValue('paymentMethod') == 'credit_card'">
-				<my-panel trans-heading="true">
-					<title-section>
+				<my-panel transparent-heading="true">
+					<heading-text>
 						<span>&nbsp;&nbsp;&nbsp;{{ hardData.payment.methods.credit_card }}</span>
-					</title-section>
+					</heading-text>
 					<body-section>
 						<my-select
 							ctrl-id="'creditCardType'"

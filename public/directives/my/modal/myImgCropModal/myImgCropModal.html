@@ -5,12 +5,12 @@
 			<div id="modalHeader" ng-show="selectedFile">
 				<div>
 					<div class="myBtnsGroupCenter">
-						<my-btn ctrl-class="'btn-info'" click-action="onZoomInClick" hard-data="{ label: ['imperatives', 23] }"></my-btn>
-						<my-btn ctrl-class="'btn-info'" click-action="onZoomOutClick" hard-data="{ label: ['imperatives', 24] }"></my-btn>
-						<my-btn ctrl-class="'btn-info'" click-action="onRotateClick" hard-data="{ label: ['imperatives', 22] }"></my-btn>
-						<my-btn ctrl-class="'btn-info'" click-action="onResetClick" hard-data="{ label: ['imperatives', 10] }"></my-btn>
-						<my-btn ng-if="mode == 'crop'" ctrl-class="'btn-default'" click-action="onSwitchModeClick" hard-data="{ label: ['labels', 25] }"></my-btn>
-						<my-btn ng-if="mode == 'move'" ctrl-class="'btn-default'" click-action="onSwitchModeClick" hard-data="{ label: ['labels', 26] }"></my-btn>
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 23] }" on-click="onZoomInClick()"></my-btn>
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 24] }" on-click="onZoomOutClick()"></my-btn>
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 22] }" on-click="onRotateClick()"></my-btn>
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 10] }" on-click="onResetClick()"></my-btn>
+						<my-btn ng-if="mode == 'crop'" btn-class="[['btn-default']]" hard-data="{ label_0_0: ['labels', 25] }" on-click="onSwitchModeClick()"></my-btn>
+						<my-btn ng-if="mode == 'move'" btn-class="[['btn-default']]" hard-data="{ label_0_0: ['labels', 26] }" on-click="onSwitchModeClick()"></my-btn>
 					</div>
 				</div>
 			</div>
@@ -25,21 +25,19 @@
 		<my-modal-footer>
 			<div class="myBtnsGroupCenter">
 				<my-btn
-					ctrl-class="'btn-info'"
-					click-action="onBrowseClick"
-					hard-data="{ label: ['imperatives', 9] }"
+					btn-class="[['btn-info']]"
+					hard-data="{ label_0_0: ['imperatives', 9] }"
+					on-click="onBrowseClick()"
 				></my-btn>
 	        	<my-btn
-	        		ctrl-class="'btn-primary'"
-	        		click-action="myModal.accept"
-	        		click-context="myModal"
-	        		hard-data="{ label: ['imperatives', 6] }"
+	        		btn-class="[['btn-primary']]"
+	        		hard-data="{ label_0_0: ['imperatives', 6] }"
+	        		on-click="myModal.accept()"
 	        	></my-btn>
 	        	<my-btn
-	        		ctrl-class="'btn-default'"
-	        		click-action="myModal.dismiss"
-	        		click-context="myModal"
-	        		hard-data="{ label: ['imperatives', 2] }"
+	        		btn-class="[['btn-default']]"
+	        		hard-data="{ label_0_0: ['imperatives', 2] }"
+	        		on-click="myModal.dismiss()"
 	        	></my-btn>
 			</div>
 		</my-modal-footer>

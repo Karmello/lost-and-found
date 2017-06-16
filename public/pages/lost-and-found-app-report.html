@@ -16,15 +16,15 @@
 							<div class="myBtnsGroupRight">
 								<my-btn
 									ng-if="apiData.report.startEvent.type == 'lost'"
-									ctrl-class="'btn-primary'"
-									click-action="showRespondToReportForm"
-									hard-data="{ label: ['declaratives', 0] }"
+									btn-class="[['btn-primary']]"
+									hard-data="{ label_0_0: ['declaratives', 0] }"
+									on-click="showRespondToReportForm()"
 								></my-btn>
 								<my-btn
 									ng-if="apiData.report.startEvent.type == 'found'"
-									ctrl-class="'btn-primary'"
-									click-action="showRespondToReportForm"
-									hard-data="{ label: ['declaratives', 1] }"
+									btn-class="[['btn-primary']]"
+									hard-data="{ label_0_0: ['declaratives', 1] }"
+									on-click="showRespondToReportForm()"
 								></my-btn>
 							</div>
 							<report-form ng-show="isRespondToReportFormVisible" action="respondToReport"></report-form>

@@ -27,13 +27,13 @@
 						</a>
 					</p>
 					<p>({{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}), </p>
-					<p>
-						<span class="text-info">{{ hardData.count[13] + ': ' }}</span>
-						<span>, </span>
-					</p>
 					<p ng-if="nestingLevel == 0">
 						<span class="text-info">{{ hardData.count[12] + ': ' }}</span>
-						<span>{{ comment.commentsCount }}</span>
+						<span>{{ comment.commentsCount }}, </span>
+					</p>
+					<p>
+						<span class="text-info">{{ hardData.count[13] + ': ' }}</span>
+						<span>{{ comment.likes.length }}</span>
 					</p>
 				</heading-text>
 				<body-section>
@@ -42,9 +42,17 @@
 						<p ng-text-truncate="comment.content" ng-tt-chars-threshold="250"></p>
 					</div>
 					<div id="actionBtns" class="myBtnsGroupRight">
-						<my-btn ctrl-class="'btn-info'" hard-data="{ label: ['labels', 44] }"></my-btn>
-						<my-btn ng-if="nestingLevel == 0" ng-show="!comment.showReplies" ctrl-class="'btn-default'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 41] }"></my-btn>
-						<my-btn ng-if="nestingLevel == 0" ng-show="comment.showReplies" ctrl-class="'btn-warning'" click-action="onToggleRepliesClick" click-context="comment" hard-data="{ label: ['imperatives', 42] }"></my-btn>
+						<my-state-btn
+							type="like"
+							state="comment.likes.indexOf(apiData.loggedInUser._id) > -1"
+							on-click="makeLikeReq(this, comment)"
+						></my-state-btn>
+						<my-state-btn
+							ng-if="nestingLevel == 0"
+							type="expand"
+							state="comment.showReplies"
+							on-click="toggleReplies(this, comment)"
+						></my-state-btn>
 					</div>
 					<div id="nestedCollectionSection" ng-if="nestingLevel == 0" ng-show="comment.showReplies">
 						<div ng-if="comment.showReplies">

@@ -14,18 +14,13 @@
 			<div class="myPager" ng-show="ins.pager.switchers.length > 1">
 				<my-drop-down ins="ins.pager" open-direction="'down'" ctrl-class="'btn-warning'"></my-drop-down>
 			</div>
-			<div class="refresher" ng-hide="ins.hideRefresher">
-				<div>
-					<button
-						type="button"
-						class="myBtn btn btn-info"
-						ng-click="ins.onRefreshClick()"
-						ng-show="ins.refresher"
-					>
-						<span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;
-						<span ng-bind="hardData.imperatives[19]"></span>
-					</button>
-				</div>
+			<div class="refresher" ng-hide="ins.hideRefresher || !ins.refresher">
+				<my-btn
+					btn-class="[['btn-info']]"
+					icon-class="[['glyphicon glyphicon-refresh']]"
+					hard-data="{ label_0_0: ['imperatives', 19] }"
+					on-click="ins.onRefreshClick()"
+				></my-btn>
 			</div>
 			<div id="endCtrls" ng-transclude="endctrls"></div>
 		</div>

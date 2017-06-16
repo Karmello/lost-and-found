@@ -367,16 +367,19 @@ body .ngTruncateToggleText {
   -ms-flex-align: end;
   align-items: flex-end; }
   .reports .myCollectionBrowser #collectionContainer > div > div > * > * {
-    -ms-flex-preferred-size: 33.3%;
-    flex-basis: 33.3%;
+    -ms-flex-preferred-size: 31%;
+    flex-basis: 31%;
     -ms-flex-positive: 1;
     flex-grow: 1;
-    max-width: 400px; }
+    max-width: 400px;
+    margin: 5px; }
+    @media only screen and (min-width: 600px) {
+      .reports .myCollectionBrowser #collectionContainer > div > div > * > * {
+        max-width: 250px; } }
 
 .reports .myCollectionBrowser .myPanel {
   background-color: #d9534f;
-  min-width: 250px;
-  margin: 5px; }
+  min-width: 200px; }
   .reports .myCollectionBrowser .myPanel #bodySection > * {
     display: -ms-flexbox;
     display: flex;
@@ -392,6 +395,8 @@ body .ngTruncateToggleText {
       margin: 5px 10px 5px 10px; }
       .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection p {
         margin: 0; }
+      .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection span {
+        white-space: nowrap; }
     .reports .myCollectionBrowser .myPanel #bodySection > * #avatarSection .mySrc {
       margin: 5px 10px 5px 10px; }
       .reports .myCollectionBrowser .myPanel #bodySection > * #avatarSection .mySrc img {
@@ -491,10 +496,13 @@ body .ngTruncateToggleText {
   width: 60px;
   height: 60px; }
 
-.myBtn {
+.myBtn button {
   font-size: 14px;
   padding: 5px 10px 5px 10px;
   min-width: 80px; }
+
+.myBtn .icon {
+  top: 2px; }
 
 .myBtnsGroup, .myBtnsGroupCenter, .myBtnsGroupRight {
   display: -ms-flexbox;
@@ -725,7 +733,7 @@ body .ngTruncateToggleText {
 
 .myFormErrorIcon {
   margin-left: 3px;
-  font-size: 20px; }
+  font-size: 16px; }
 
 #mySingleFileInput, #myMultipleFilesInput {
   display: none; }
@@ -759,8 +767,14 @@ body .ngTruncateToggleText {
     right: 50%;
     transform: translate(16px, -31px); }
 
+.myDropDown button {
+  font-size: 14px;
+  padding: 5px 10px 5px 10px;
+  min-width: 80px; }
+
 .myDropDown .dropdown-menu {
   overflow-y: auto;
+  font-size: 14px;
   min-width: 100px;
   max-height: 282px;
   left: 50%;

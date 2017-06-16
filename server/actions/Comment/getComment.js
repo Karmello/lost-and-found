@@ -23,6 +23,7 @@ module.exports = {
 									parentId: '$parentId',
 									userId: '$userId',
 									content: '$content',
+									likes: '$likes',
 									dateAdded: '$dateAdded',
 									commentsCount: { $size: '$comments' }
 								}
@@ -51,18 +52,24 @@ module.exports = {
 
 						r.Comment.aggregate([
 							{ $match: { _id: comment._id } },
-							{ $unwind: '$comments' },
+							{ $unwind: { path: '$comments', preserveNullAndEmptyArrays: true } },
 							{ $sort: { 'comments.dateAdded': -1 } },
 							{ $skip: Number(req.query.skip) || 0 },
-							{ $limit: global.app.get('COMMENTS_MAX_GET') }
+							{ $limit: global.app.get('COMMENTS_MAX_GET') },
+							{
+								$group: {
+									_id: '$_id',
+									comments: { $push: '$comments' }
+								}
+							}
 
-						], function(err, comments) {
+						], function(err, results) {
 
-							if (!err && comments) {
+							if (!err && results) {
 
 								resolve({
 									meta: { count: comment.comments.length },
-									collection: comments
+									collection: results[0].comments
 								});
 
 							} else { reject(err); }

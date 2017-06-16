@@ -3,7 +3,7 @@ var r = require(global.paths._requires);
 module.exports = function(app, route) {
 
 	var authorize = r.modules.authorize;
-	var rest = r.restful.model('user', app.models.User).methods(['get', 'post', 'put', 'delete']);
+	var rest = r.restful.model('user', app.models.User).methods(['post', 'get', 'put', 'delete']);
 
 	rest.before('post', [authorize.userAction, function(req, res, next) {
 
@@ -13,7 +13,7 @@ module.exports = function(app, route) {
 		} else { res.send(400); }
 	}]);
 
-	rest.before('get', [authorize.userToken, authorize.userAction, r.actions.user.get.before]);
+	rest.before('get', [authorize.userAction, r.actions.user.get.before]);
 	rest.before('put', [authorize.userToken, authorize.userAction, r.actions.user.put.before]);
 	rest.before('delete', [authorize.userToken, authorize.userAction, r.actions.user.delete.before]);
 

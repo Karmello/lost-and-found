@@ -5,6 +5,7 @@ module.exports = {
 	comment: {
 		post: require('./Comment/postComment'),
 		get: require('./Comment/getComment'),
+		put: require('./Comment/putComment'),
 		delete: require('./Comment/deleteComment')
 	},
 	contact_type: {

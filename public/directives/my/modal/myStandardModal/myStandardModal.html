@@ -7,31 +7,27 @@
 		<div class="myBtnsGroupCenter">
             <my-btn
                 ng-if="['info'].indexOf(type) > -1"
-                ctrl-class="'btn-info'"
-                click-action="ins.accept"
-                click-context="ins"
-                hard-data="{ label: ['imperatives', 0] }"
+                btn-class="[['btn-info']]"
+                hard-data="{ label_0_0: ['imperatives', 0] }"
+                on-click="ins.accept()"
             ></my-btn>
             <my-btn
                 ng-if="['confirm'].indexOf(type) > -1"
-                ctrl-class="'btn-primary'"
-                click-action="ins.accept"
-                click-context="ins"
-                hard-data="{ label: ['imperatives', 7] }"
+                btn-class="[['btn-primary']]"
+                hard-data="{ label_0_0: ['imperatives', 7] }"
+                on-click="ins.accept()"
             ></my-btn>
             <my-btn
                 ng-if="['confirmDanger'].indexOf(type) > -1"
-                ctrl-class="'btn-danger'"
-                click-action="ins.accept"
-                click-context="ins"
-                hard-data="{ label: ['imperatives', 7] }"
+                btn-class="[['btn-danger']]"
+                hard-data="{ label_0_0: ['imperatives', 7] }"
+                on-click="ins.accept()"
             ></my-btn>
             <my-btn
                 ng-if="['confirm', 'confirmDanger'].indexOf(type) > -1"
-                ctrl-class="'btn-default'"
-                click-action="ins.dismiss"
-                click-context="ins"
-                hard-data="{ label: ['imperatives', 2] }"
+                btn-class="[['btn-default']]"
+                hard-data="{ label_0_0: ['imperatives', 2] }"
+                on-click="ins.dismiss()"
             ></my-btn>
         </div>
 	</my-modal-footer>

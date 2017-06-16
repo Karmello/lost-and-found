@@ -16,6 +16,10 @@ var CommentSchema = new r.mongoose.Schema({
 		required: true,
 		validate: [commentVal.content.length]
 	},
+	likes: [{
+		type: r.mongoose.Schema.Types.ObjectId,
+		ref: 'user'
+	}],
 	dateAdded: {
 		type: Date,
 		default: Date.now

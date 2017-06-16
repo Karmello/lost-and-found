@@ -1,8 +1,13 @@
-<button my-directive
-	class="myBtn btn"
-	ng-class="ctrlClass"
-	type="button"
-	ng-click="onClick()"
->
-	{{ explicitLabel || label }}
-</button>
+<div class="myBtn" my-directive>
+	<button
+		type="button"
+		class="btn"
+		ng-class="activeConfig.btnClass"
+		ng-mouseenter="onMouseEnter()"
+		ng-mouseleave="onMouseLeave()"
+		ng-click="onClick()"
+	>
+		<span ng-if="activeConfig.iconClass"><span class="icon" ng-class="activeConfig.iconClass"></span>&nbsp;&nbsp;</span>
+		<span ng-bind="activeConfig.label"></span>
+	</button>
+</div>

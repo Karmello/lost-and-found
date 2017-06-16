@@ -1,5 +1,7 @@
 .reports {
 
+	//max-width: 1000px;
+	//margin: 0 auto;
 	#actionBtns { margin-bottom: 25px; }
 
 	.myCollectionBrowser {
@@ -16,9 +18,14 @@
 
 						> * {
 
-							flex-basis: 33.3%;
+							flex-basis: 31%;
 							flex-grow: 1;
 							max-width: 400px;
+							margin: 5px;
+
+							@media only screen and (min-width: 600px) {
+								max-width: 250px;
+							}
 						}
 					}
 				}
@@ -28,8 +35,7 @@
 		.myPanel {
 
 			background-color: $brand-danger;
-			min-width: 250px;
-			margin: 5px;
+			min-width: 200px;
 
 			#bodySection {
 
@@ -45,6 +51,7 @@
 						font-size: 14px;
 						margin: 5px 10px 5px 10px;
 						p { margin: 0; }
+						span { white-space: nowrap; }
 					}
 
 					#avatarSection {

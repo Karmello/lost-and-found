@@ -1,1 +1,1 @@
-ConEmu64 /cmd {laf} & subl
+ConEmu64 /cmd {laf} & subl --project utils/sublime/laf-pro.sublime-project

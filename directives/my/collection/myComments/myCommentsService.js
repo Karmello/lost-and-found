@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var myCommentsService = function($timeout, MyCollectionBrowser, CommentsRest) {
+	var myCommentsService = function($rootScope, $timeout, MyCollectionBrowser, CommentsRest, Restangular) {
 
 		var service = this;
 
@@ -49,9 +49,7 @@
 			return query;
 		};
 
-		service.toggle = function(scope) {
-
-			var comment = this;
+		service.toggleReplies = function(scope, comment) {
 
 			// Showing replies
 			if (scope.nestingLevel === 0 && !comment.showReplies) {
@@ -75,26 +73,33 @@
 			}
 		};
 
+		service.makeLikeReq = function(scope, comment) {
+
+			comment.put(Object.assign(service.getIdParam(scope), { action: 'toggleLike' })).then(function(res) {
+				comment.likes = res.data.likes;
+			});
+		};
+
 		service.fixScrollPos = function(scope) {
 
 			if (scope.nestingLevel === 0) {
 
 				$timeout(function() {
 					$('html, body').animate({ scrollTop: $('#commentsSection').offset().top - 5 }, 'fast');
-				});
+				}, 100);
 
 			} else {
 
 				$timeout(function() {
 					$('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
-				});
+				}, 100);
 			}
 		};
 
 		return service;
 	};
 
-	myCommentsService.$inject = ['$timeout', 'MyCollectionBrowser', 'CommentsRest'];
+	myCommentsService.$inject = ['$rootScope', '$timeout', 'MyCollectionBrowser', 'CommentsRest', 'Restangular'];
 	angular.module('appModule').service('myCommentsService', myCommentsService);
 
 })();

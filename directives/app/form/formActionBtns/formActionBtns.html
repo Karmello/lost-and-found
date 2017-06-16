@@ -5,33 +5,33 @@
 	<!-- Cancel button -->
 	<my-btn
 		ng-show="myForm.showCancelBtn"
-		ctrl-class="'btn-warning'"
-		click-action="onCancel"
-		hard-data="{ label: ['imperatives', 2] }"
+		btn-class="[['btn-warning']]"
+		hard-data="{ label_0_0: ['imperatives', 2] }"
+		on-click="onCancel()"
 	></my-btn>
 
 	<!-- Reset button -->
 	<my-btn
 		ng-show="myForm.showResetBtn"
-		ctrl-class="'btn-default'"
-		click-action="onReset"
-		hard-data="{ label: ['imperatives', 10] }"
+		btn-class="[['btn-default']]"
+		hard-data="{ label_0_0: ['imperatives', 10] }"
+		on-click="onReset()"
 	></my-btn>
 
 	<!-- Clear button -->
 	<my-btn
 		ng-show="myForm.showClearBtn"
-		ctrl-class="'btn-default'"
-		click-action="onClear"
-		hard-data="{ label: ['imperatives', 11] }"
+		btn-class="[['btn-default']]"
+		hard-data="{ label_0_0: ['imperatives', 11] }"
+		on-click="onClear()"
 	></my-btn>
 
 	<!-- Submit button -->
 	<my-btn
 		ng-show="myForm.submitBtnPhraseIndex != undefined"
-		ctrl-class="'btn-primary'"
-		click-action="onSubmit"
-		hard-data="{ label: ['imperatives', myForm.submitBtnPhraseIndex] }"
+		btn-class="[['btn-primary']]"
+		hard-data="{ label_0_0: ['imperatives', myForm.submitBtnPhraseIndex] }"
+		on-click="onSubmit()"
 	></my-btn>
 
 </div>

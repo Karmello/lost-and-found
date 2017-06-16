@@ -433,6 +433,8 @@ $avatarSize: 240px;
 }
 .reports {
 
+	//max-width: 1000px;
+	//margin: 0 auto;
 	#actionBtns { margin-bottom: 25px; }
 
 	.myCollectionBrowser {
@@ -449,9 +451,14 @@ $avatarSize: 240px;
 
 						> * {
 
-							flex-basis: 33.3%;
+							flex-basis: 31%;
 							flex-grow: 1;
 							max-width: 400px;
+							margin: 5px;
+
+							@media only screen and (min-width: 600px) {
+								max-width: 250px;
+							}
 						}
 					}
 				}
@@ -461,8 +468,7 @@ $avatarSize: 240px;
 		.myPanel {
 
 			background-color: $brand-danger;
-			min-width: 250px;
-			margin: 5px;
+			min-width: 200px;
 
 			#bodySection {
 
@@ -478,6 +484,7 @@ $avatarSize: 240px;
 						font-size: 14px;
 						margin: 5px 10px 5px 10px;
 						p { margin: 0; }
+						span { white-space: nowrap; }
 					}
 
 					#avatarSection {
@@ -637,9 +644,15 @@ $avatarSize: 240px;
 }
 .myBtn {
 
-	font-size: 14px;
-	padding: 5px 10px 5px 10px;
-	min-width: 80px;
+	button {
+		font-size: 14px;
+		padding: 5px 10px 5px 10px;
+		min-width: 80px;
+	}
+
+	.icon {
+		top: 2px;
+	}
 }
 
 .myBtnsGroup {
@@ -1033,7 +1046,7 @@ $avatarSize: 240px;
 }
 .myFormErrorIcon {
 	margin-left: 3px;
-	font-size: 20px;
+	font-size: 16px;
 }
 #mySingleFileInput, #myMultipleFilesInput {
 
@@ -1091,9 +1104,17 @@ $avatarSize: 240px;
 }
 .myDropDown {
 
+	button {
+		font-size: 14px;
+		padding: 5px 10px 5px 10px;
+		min-width: 80px;
+	}
+
 	.dropdown-menu {
 
 		overflow-y: auto;
+		font-size: 14px;
+
 		min-width: 100px;
 		max-height: 282px;
 		left: 50%;

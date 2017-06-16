@@ -20,7 +20,8 @@
 				$scope.hardData = $rootScope.hardData;
 				$scope.$moment = $moment;
 
-				$scope.onToggleRepliesClick = function() { myCommentsService.toggle.call(this, $scope); };
+				$scope.toggleReplies = myCommentsService.toggleReplies;
+				$scope.makeLikeReq = myCommentsService.makeLikeReq;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: $scope.nestingLevel === 0 ? 'commentsForm' : 'commentsReplyForm',

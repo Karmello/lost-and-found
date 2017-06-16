@@ -31,7 +31,6 @@
 					that.model.trimValues(that.scope.ctrlId, function() {
 
 						var args = {};
-						console.log(that.ctrlId);
 						args.captchaResponse = grecaptchaService.getResponse(that.scope.captcha);
 
 						// Calling external submit action, usually making http request
@@ -55,10 +54,8 @@
 
 								// Binding errors if any
 								if (res && res.data && res.data.errors) {
-									that.model.setErrors(res.data.errors, function() {
-										$timeout(function() {
-											that.scope.loader.stop();
-										});
+									that.scope.loader.stop(function() {
+										$timeout(function() { that.model.setErrors(res.data.errors); });
 									});
 
 								// Showing error modal when no server errors to bind

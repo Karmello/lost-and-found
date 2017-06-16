@@ -46,7 +46,7 @@ module.exports = {
 						// Creating new subcomment
 						newComment = new r.Comment(req.body);
 						newComment.parentId = comment._id;
-						newComment.comments = undefined;
+						newComment.comments = null;
 
 						newComment.validate(function(err) {
 

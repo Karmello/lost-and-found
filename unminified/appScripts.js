@@ -3316,7 +3316,6 @@
 					that.model.trimValues(that.scope.ctrlId, function() {
 
 						var args = {};
-						console.log(that.ctrlId);
 						args.captchaResponse = grecaptchaService.getResponse(that.scope.captcha);
 
 						// Calling external submit action, usually making http request
@@ -3340,10 +3339,8 @@
 
 								// Binding errors if any
 								if (res && res.data && res.data.errors) {
-									that.model.setErrors(res.data.errors, function() {
-										$timeout(function() {
-											that.scope.loader.stop();
-										});
+									that.scope.loader.stop(function() {
+										$timeout(function() { that.model.setErrors(res.data.errors); });
 									});
 
 								// Showing error modal when no server errors to bind
@@ -6393,68 +6390,98 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('myBtn', function($rootScope) {
 
+		var Config = function(scope, mouseState) {
 
-	appModule.directive('myDirective', function(hardDataService) {
+			if (scope.isCreatingConfig) { return; }
+			scope.isCreatingConfig = true;
 
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
+			var btnState = scope.activeBtnState;
 
-				// Binding hard coded strings
-				hardDataService.bind($scope);
+			if (scope.hardData) {
+				this.label = getValue(scope, btnState, mouseState, 'label');
 			}
+
+			if (scope.btnClass) {
+				this.btnClass = getValue(scope, btnState, mouseState, 'btnClass');
+			}
+
+			if (scope.iconClass) {
+				this.iconClass = getValue(scope, btnState, mouseState, 'iconClass');
+			}
+
+			scope.activeMouseState = mouseState;
+			scope.isCreatingConfig = false;
 		};
 
-		return myDirective;
-	});
+		var getValue = function(scope, btnState, mouseState, propName) {
 
-})();
-(function() {
+			var value;
 
-	'use strict';
+			switch (propName) {
 
-	var appModule = angular.module('appModule');
+				case 'label':
+					value = scope[propName + '_' + btnState + '_' + mouseState];
+					break;
 
+				case 'btnClass':
+				case 'iconClass':
+					try { value = scope[propName][btnState][mouseState]; } catch (ex) { value = undefined; }
+					break;
+			}
 
+			if (!value) {
 
-	appModule.directive('myBtn', function($rootScope) {
+				if (mouseState == 1) {
+					return getValue(scope, btnState, 0, propName);
+
+				} else if (btnState == 1) {
+					return getValue(scope, 0, 0, propName);
+				}
+
+			} else { return value; }
+		};
 
 		return {
 			restrict: 'E',
 			replace: true,
 			templateUrl: 'public/directives/my/btn/myBtn/myBtn.html',
 			scope: {
-				ctrlClass: '=',
-				clickAction: '=',
-				clickArgs: '=',
-				clickContext: '=',
-				showModalId: '@',
-				explicitLabel: '=',
-				hardData: '='
+				btnClass: '<',
+				iconClass: '<',
+				hardData: '<',
+				onClick: '&',
+				state: '=',
+				showModalId: '@'
 			},
-			controller: function($scope) {},
+			controller: function($scope) {
+
+				$scope.onMouseEnter = function() {
+					$scope.activeConfig = new Config($scope, 1);
+				};
+
+				$scope.onMouseLeave = function() {
+					$scope.activeConfig = new Config($scope, 0);
+				};
+			},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
+					scope.isCreatingConfig = false;
+
+					scope.$watch('state', function(btnState) {
+						scope.activeBtnState = Number(btnState) || 0;
+						scope.activeConfig = new Config(scope, scope.activeMouseState || 0);
+					});
+
+					scope.$watch('label_0_0', function(label) {
+						scope.activeConfig = new Config(scope, scope.activeMouseState || 0);
+					});
+
 					if (scope.showModalId) {
-
-						scope.onClick = function() {
-							$rootScope.$broadcast(scope.showModalId);
-						};
-
-					} else if (typeof scope.clickAction == 'function') {
-
-						scope.onClick = function() {
-
-							if (scope.clickContext) {
-								scope.clickAction.call(scope.clickContext, scope.clickArgs);
-
-							} else {
-								scope.clickAction(scope.clickArgs);
-							}
-						};
+						scope.onClick = function() { $rootScope.$broadcast(scope.showModalId); };
 					}
 				};
 			}
@@ -6484,6 +6511,59 @@
 		};
 
 		return myScrollTopBtn;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+	appModule.directive('myStateBtn', function($rootScope) {
+
+		var myStateBtn = {
+			restrict: 'E',
+			templateUrl: 'public/directives/my/btn/myStateBtn/myStateBtn.html',
+			scope: {
+				type: '@',
+				onClick: '&',
+				state: '='
+			},
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+
+				};
+			}
+		};
+
+		return myStateBtn;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
+	appModule.directive('myDirective', function(hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
 	});
 
 })();
@@ -6542,7 +6622,8 @@
 				$scope.hardData = $rootScope.hardData;
 				$scope.$moment = $moment;
 
-				$scope.onToggleRepliesClick = function() { myCommentsService.toggle.call(this, $scope); };
+				$scope.toggleReplies = myCommentsService.toggleReplies;
+				$scope.makeLikeReq = myCommentsService.makeLikeReq;
 
 				$scope.myForm = new myClass.MyForm({
 					ctrlId: $scope.nestingLevel === 0 ? 'commentsForm' : 'commentsReplyForm',
@@ -6620,7 +6701,7 @@
 
 	'use strict';
 
-	var myCommentsService = function($timeout, MyCollectionBrowser, CommentsRest) {
+	var myCommentsService = function($rootScope, $timeout, MyCollectionBrowser, CommentsRest, Restangular) {
 
 		var service = this;
 
@@ -6667,9 +6748,7 @@
 			return query;
 		};
 
-		service.toggle = function(scope) {
-
-			var comment = this;
+		service.toggleReplies = function(scope, comment) {
 
 			// Showing replies
 			if (scope.nestingLevel === 0 && !comment.showReplies) {
@@ -6693,26 +6772,33 @@
 			}
 		};
 
+		service.makeLikeReq = function(scope, comment) {
+
+			comment.put(Object.assign(service.getIdParam(scope), { action: 'toggleLike' })).then(function(res) {
+				comment.likes = res.data.likes;
+			});
+		};
+
 		service.fixScrollPos = function(scope) {
 
 			if (scope.nestingLevel === 0) {
 
 				$timeout(function() {
 					$('html, body').animate({ scrollTop: $('#commentsSection').offset().top - 5 }, 'fast');
-				});
+				}, 100);
 
 			} else {
 
 				$timeout(function() {
 					$('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
-				});
+				}, 100);
 			}
 		};
 
 		return service;
 	};
 
-	myCommentsService.$inject = ['$timeout', 'MyCollectionBrowser', 'CommentsRest'];
+	myCommentsService.$inject = ['$rootScope', '$timeout', 'MyCollectionBrowser', 'CommentsRest', 'Restangular'];
 	angular.module('appModule').service('myCommentsService', myCommentsService);
 
 })();

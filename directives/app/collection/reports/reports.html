@@ -9,7 +9,11 @@
 				data="report"
 			>
 				<heading-text>
-					<a ui-sref="app.report({ id: report._id })">#{{ collectionBrowser.getElemNumber($index) }} | {{ report.title.truncate(25) }}</a>
+					<a ui-sref="app.report({ id: report._id })">
+						<span class="text-info">
+							#{{ collectionBrowser.getElemNumber($index) }} | {{ report.title.truncate(25) }}
+						</span>
+					</a>
 				</heading-text>
 				<body-section>
 					<div id="infoSection" ng-if="!noInfo">

@@ -11,7 +11,7 @@
 
 		String.prototype.truncate = function (maxLength) {
 			var that = this.toString();
-		    if (that.length > maxLength) { return that.substr(0, maxLength) + '...'; } else { return that; }
+		    if (that.length > maxLength) { return that.substr(0, maxLength) + ' ...'; } else { return that; }
 		};
 	});
 

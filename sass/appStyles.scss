@@ -59,6 +59,12 @@ body {
 	}
 
 	.gm-style-iw + div { display: none; }
+
+	.ngTruncateToggleText {
+		cursor: pointer;
+		text-decoration: none !important;
+		font-weight: bold;
+	}
 }
 @import '_vars';
 
@@ -464,6 +470,7 @@ $avatarSize: 240px;
 
 					display: flex;
 					justify-content: center;
+					align-items: center;
 					flex-flow: row wrap;
 
 					#infoSection {
@@ -629,7 +636,10 @@ $avatarSize: 240px;
 	height: 60px;
 }
 .myBtn {
-	padding: 7px 14px 7px 14px;
+
+	font-size: 14px;
+	padding: 5px 10px 5px 10px;
+	min-width: 80px;
 }
 
 .myBtnsGroup {
@@ -686,12 +696,6 @@ $avatarSize: 240px;
 }
 .myComments {
 
-	.myBtn {
-
-		font-size: 14px;
-		padding: 3px 9px 3px 9px;
-	}
-
 	.myForm {
 		.myLabel.text-info {
 			margin-top: 0 !important;
@@ -707,18 +711,28 @@ $avatarSize: 240px;
 		.myPanel {
 
 			font-size: 14px;
+			margin-top: 10px;
 
 			#headingImg {
-				img { width: 50px; height: 50px; }
+
 			}
 
 			#bodySection {
-				text-align: justify;
-			}
 
-			//border: 1px solid;
-			//border-radius: 0;
-			margin-top: 10px;
+				.userAvatar {
+					float: left;
+					margin-right: 12px;
+					margin-bottom: 10px;
+					img { width: 50px; height: 50px; }
+				}
+
+				#commentTextSection {
+
+					p {
+						text-align: justify;
+					}
+				}
+			}
 		}
 	}
 
@@ -910,7 +924,7 @@ $avatarSize: 240px;
 		padding: 5px 15px 5px 15px;
 
 		#headingImg {
-			.mySrc { margin-right: 15px; }
+			.mySrc { margin-right: 10px; }
 		}
 
 		#headingText {
@@ -919,7 +933,12 @@ $avatarSize: 240px;
 			font-weight: bold;
 			line-height: 18px;
   			padding-right: 15px;
-  			a { color: $link-color; }
+
+			p {
+				display: inline-block;
+				margin: 0;
+			}
+
   			.glyphicon { top: 2px; }
 		}
 

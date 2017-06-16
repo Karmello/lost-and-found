@@ -15,7 +15,7 @@
 		padding: 5px 15px 5px 15px;
 
 		#headingImg {
-			.mySrc { margin-right: 15px; }
+			.mySrc { margin-right: 10px; }
 		}
 
 		#headingText {
@@ -24,7 +24,12 @@
 			font-weight: bold;
 			line-height: 18px;
   			padding-right: 15px;
-  			a { color: $link-color; }
+
+			p {
+				display: inline-block;
+				margin: 0;
+			}
+
   			.glyphicon { top: 2px; }
 		}
 

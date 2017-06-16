@@ -11,7 +11,8 @@
 		'ngAnimate',
 		'restangular',
 		'LocalStorageModule',
-		'angular-momentjs'
+		'angular-momentjs',
+		'ngTextTruncate'
 	]);
 
 	$q.all([

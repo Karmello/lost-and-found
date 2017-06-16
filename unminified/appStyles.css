@@ -50,6 +50,11 @@ body table tr td {
 body .gm-style-iw + div {
   display: none; }
 
+body .ngTruncateToggleText {
+  cursor: pointer;
+  text-decoration: none !important;
+  font-weight: bold; }
+
 .defaultOverflow {
   overflow-y: scroll;
   overflow-x: hidden; }
@@ -377,6 +382,8 @@ body .gm-style-iw + div {
     display: flex;
     -ms-flex-pack: center;
     justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap; }
     .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection {
@@ -485,7 +492,9 @@ body .gm-style-iw + div {
   height: 60px; }
 
 .myBtn {
-  padding: 7px 14px 7px 14px; }
+  font-size: 14px;
+  padding: 5px 10px 5px 10px;
+  min-width: 80px; }
 
 .myBtnsGroup, .myBtnsGroupCenter, .myBtnsGroupRight {
   display: -ms-flexbox;
@@ -523,10 +532,6 @@ body .gm-style-iw + div {
       position: absolute;
       top: 0; }
 
-.myComments .myBtn {
-  font-size: 14px;
-  padding: 3px 9px 3px 9px; }
-
 .myComments .myForm .myLabel.text-info {
   margin-top: 0 !important; }
 
@@ -537,10 +542,14 @@ body .gm-style-iw + div {
 .myComments .myCollectionBrowser .myPanel {
   font-size: 14px;
   margin-top: 10px; }
-  .myComments .myCollectionBrowser .myPanel #headingImg img {
-    width: 50px;
-    height: 50px; }
-  .myComments .myCollectionBrowser .myPanel #bodySection {
+  .myComments .myCollectionBrowser .myPanel #bodySection .userAvatar {
+    float: left;
+    margin-right: 12px;
+    margin-bottom: 10px; }
+    .myComments .myCollectionBrowser .myPanel #bodySection .userAvatar img {
+      width: 50px;
+      height: 50px; }
+  .myComments .myCollectionBrowser .myPanel #bodySection #commentTextSection p {
     text-align: justify; }
 
 .myComments #nestedCollectionSection {
@@ -650,15 +659,16 @@ body .gm-style-iw + div {
     min-height: 41px;
     padding: 5px 15px 5px 15px; }
     .myPanel .panel-heading #headingImg .mySrc {
-      margin-right: 15px; }
+      margin-right: 10px; }
     .myPanel .panel-heading #headingText {
       -ms-flex-positive: 1;
       flex-grow: 1;
       font-weight: bold;
       line-height: 18px;
       padding-right: 15px; }
-      .myPanel .panel-heading #headingText a {
-        color: #337ab7; }
+      .myPanel .panel-heading #headingText p {
+        display: inline-block;
+        margin: 0; }
       .myPanel .panel-heading #headingText .glyphicon {
         top: 2px; }
     .myPanel .panel-heading #headingMenu {

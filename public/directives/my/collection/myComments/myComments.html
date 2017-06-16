@@ -19,24 +19,27 @@
 				context-menu-conf="comment.userId == apiData.loggedInUser._id ? commentContextMenuConf : undefined"
 				data="comment"
 			>
-				<heading-img>
-					<user-avatar user="comment.user"></user-avatar>
-				</heading-img>
 				<heading-text>
-					<div>
-						<span>{{ comment.user.username }}</span>
-						<span>({{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }})</span>
-					</div>
-					<div>
-						<span>{{ hardData.count[13] + ': ' }}</span>
-					</div>
-					<div ng-if="nestingLevel == 0">
-						<span>{{ hardData.count[12] + ': ' + comment.commentsCount }}</span>
-					</div>
+					<p>#{{ collectionBrowser.getElemNumber($index) }} |</p>
+					<p>
+						<a ui-sref="app.profile({ id: comment.userId })">
+							<span class="text-warning">{{ comment.user.username }}</span>
+						</a>
+					</p>
+					<p>({{ $moment.duration($moment(Date()).diff($moment(comment.dateAdded))).humanize() + ' ' + hardData.count[8] }}), </p>
+					<p>
+						<span class="text-info">{{ hardData.count[13] + ': ' }}</span>
+						<span>, </span>
+					</p>
+					<p ng-if="nestingLevel == 0">
+						<span class="text-info">{{ hardData.count[12] + ': ' }}</span>
+						<span>{{ comment.commentsCount }}</span>
+					</p>
 				</heading-text>
 				<body-section>
-					<div>
-						<div ng-bind="comment.content"></div><br>
+					<user-avatar user="comment.user"></user-avatar>
+					<div id="commentTextSection">
+						<p ng-text-truncate="comment.content" ng-tt-chars-threshold="250"></p>
 					</div>
 					<div id="actionBtns" class="myBtnsGroupRight">
 						<my-btn ctrl-class="'btn-info'" hard-data="{ label: ['labels', 44] }"></my-btn>

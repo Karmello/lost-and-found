@@ -59,4 +59,10 @@ body {
 	}
 
 	.gm-style-iw + div { display: none; }
+
+	.ngTruncateToggleText {
+		cursor: pointer;
+		text-decoration: none !important;
+		font-weight: bold;
+	}
 }

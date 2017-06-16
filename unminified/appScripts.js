@@ -2824,8 +2824,15 @@
 							var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
 							var pagerSwitchers = [];
 
-							for (var i = 0; i < numOfPages; i++) {
-								pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
+							if (!that.reverseOrder) {
+								for (var i = 0; i < numOfPages; i++) {
+									pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
+								}
+
+							} else {
+								for (var i = 0; i < numOfPages; i++) {
+									pagerSwitchers.push({ _id: i + 1, label: '#' + (numOfPages - i) });
+								}
 							}
 
 							var currentPage;
@@ -2841,6 +2848,14 @@
 							}
 
 						} else { that.pager = undefined; }
+
+
+
+						// Setting collection elems pos numbers
+
+						for (var i = 0; i < that.collection.length; i++) {
+							that.collection[i].elemPosition = that.getElemPosition(i);
+						}
 
 						// Binding choose event for all ctrls
 
@@ -2928,10 +2943,16 @@
 			return query;
 		};
 
-		MyCollectionBrowser.prototype.getElemNumber = function(index) {
+		MyCollectionBrowser.prototype.getElemPosition = function(index, reversed) {
 
 			if (this.pager && this.pager.activeSwitcherId) {
-				return (this.pager.activeSwitcherId - 1) * this.singlePageSize + index + 1;
+
+				if (!this.reverseOrder) {
+					return (this.pager.activeSwitcherId - 1) * this.singlePageSize + index + 1;
+
+				} else {
+					return this.meta.count - index - this.singlePageSize * (this.pager.activeSwitcherId - 1);
+				}
 			}
 		};
 
@@ -2976,6 +2997,9 @@
 			this.filterer = undefined;
 			this.sorter = undefined;
 			this.orderer = undefined;
+
+			this.meta = undefined;
+			this.collection = undefined;
 		};
 
 		MyCollectionBrowser.prototype.isReady = function() {
@@ -6168,29 +6192,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
-	appModule.directive('myDirective', function(hardDataService) {
-
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
-
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
-
-		return myDirective;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
 	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
 
 		var userAvatar = {
@@ -6394,6 +6395,29 @@
 
 
 
+	appModule.directive('myDirective', function(hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
+
+
 	appModule.directive('myBtn', function($rootScope) {
 
 		return {
@@ -6526,7 +6550,7 @@
 					submitAction: function(args) {
 
 						this.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
-						return CommentsRest.post(this.model.getValues(), myCommentsService.getReqQuery($scope));
+						return CommentsRest.post(this.model.getValues(), myCommentsService.getIdParam($scope));
 					},
 					submitSuccessCb: function(res) {
 
@@ -6550,7 +6574,7 @@
 							label: $scope.hardData.imperatives[14],
 							onClick: function() {
 
-								this.parent.data.remove(myCommentsService.getReqQuery($scope)).then(function() {
+								this.parent.data.remove(myCommentsService.getIdParam($scope)).then(function() {
 									myCommentsService.init($scope, true);
 
 								}, function() {
@@ -6606,8 +6630,10 @@
 
 				scope.collectionBrowser = new MyCollectionBrowser({
 					singlePageSize: 10,
+					reverseOrder: true,
 					fetchData: function(query) {
-						return CommentsRest.getList(service.getReqQuery(scope));
+
+						return CommentsRest.getList(Object.assign(query, service.getIdParam(scope)));
 					}
 				});
 
@@ -6627,7 +6653,7 @@
 			});
 		};
 
-		service.getReqQuery = function(scope) {
+		service.getIdParam = function(scope) {
 
 			var query = {};
 
@@ -6672,7 +6698,7 @@
 			if (scope.nestingLevel === 0) {
 
 				$timeout(function() {
-					$('html, body').animate({ scrollTop: $('#myComments_' + scope.nestingLevel).offset().top - 5 }, 'fast');
+					$('html, body').animate({ scrollTop: $('#commentsSection').offset().top - 5 }, 'fast');
 				});
 
 			} else {
@@ -6972,6 +6998,73 @@
 
 	var appModule = angular.module('appModule');
 
+	appModule.directive('mySingleFileInput', function() {
+
+		var mySingleFileInput = {
+			restrict: 'E',
+			template: '<input id="mySingleFileInput" name="file" type="file" />',
+			scope: true,
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var mySingleFileInput = $(elem).find('#mySingleFileInput').get()[0];
+					var onChangeCb;
+
+					scope.$on('displayMySingleFileInput', function(e, args) {
+						onChangeCb = args.cb;
+						$(mySingleFileInput).val(undefined);
+						$(mySingleFileInput).click();
+					});
+
+					$(mySingleFileInput).on('change', function(e) {
+						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
+					});
+				};
+			}
+		};
+
+		return mySingleFileInput;
+	});
+
+	appModule.directive('myMultipleFilesInput', function() {
+
+		var myMultipleFilesInput = {
+			restrict: 'E',
+			template: '<input id="myMultipleFilesInput" name="file" type="file" multiple />',
+			scope: true,
+			controller: function($scope) {},
+			compile: function(elem, attrs) {
+
+				return function(scope, elem, attrs) {
+
+					var myMultipleFilesInput = $(elem).find('#myMultipleFilesInput').get()[0];
+					var onChangeCb;
+
+					scope.$on('displayMyMultipleFilesInput', function(e, args) {
+						onChangeCb = args.cb;
+						$(myMultipleFilesInput).val(undefined);
+						$(myMultipleFilesInput).click();
+					});
+
+					$(myMultipleFilesInput).on('change', function(e) {
+						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
+					});
+				};
+			}
+		};
+
+		return myMultipleFilesInput;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('myGooglePlaceAutoComplete', function() {
 
 		var myGooglePlaceAutoComplete = {
@@ -7034,73 +7127,6 @@
 		};
 
 		return myGooglePlaceAutoComplete;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-	appModule.directive('mySingleFileInput', function() {
-
-		var mySingleFileInput = {
-			restrict: 'E',
-			template: '<input id="mySingleFileInput" name="file" type="file" />',
-			scope: true,
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var mySingleFileInput = $(elem).find('#mySingleFileInput').get()[0];
-					var onChangeCb;
-
-					scope.$on('displayMySingleFileInput', function(e, args) {
-						onChangeCb = args.cb;
-						$(mySingleFileInput).val(undefined);
-						$(mySingleFileInput).click();
-					});
-
-					$(mySingleFileInput).on('change', function(e) {
-						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
-					});
-				};
-			}
-		};
-
-		return mySingleFileInput;
-	});
-
-	appModule.directive('myMultipleFilesInput', function() {
-
-		var myMultipleFilesInput = {
-			restrict: 'E',
-			template: '<input id="myMultipleFilesInput" name="file" type="file" multiple />',
-			scope: true,
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
-
-				return function(scope, elem, attrs) {
-
-					var myMultipleFilesInput = $(elem).find('#myMultipleFilesInput').get()[0];
-					var onChangeCb;
-
-					scope.$on('displayMyMultipleFilesInput', function(e, args) {
-						onChangeCb = args.cb;
-						$(myMultipleFilesInput).val(undefined);
-						$(myMultipleFilesInput).click();
-					});
-
-					$(myMultipleFilesInput).on('change', function(e) {
-						if (e.target.files.length > 0) { onChangeCb(e.target.files); }
-					});
-				};
-			}
-		};
-
-		return myMultipleFilesInput;
 	});
 
 })();

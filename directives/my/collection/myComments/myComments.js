@@ -28,7 +28,7 @@
 					submitAction: function(args) {
 
 						this.model.set({ 'userId': $rootScope.apiData.loggedInUser._id });
-						return CommentsRest.post(this.model.getValues(), myCommentsService.getReqQuery($scope));
+						return CommentsRest.post(this.model.getValues(), myCommentsService.getIdParam($scope));
 					},
 					submitSuccessCb: function(res) {
 
@@ -52,7 +52,7 @@
 							label: $scope.hardData.imperatives[14],
 							onClick: function() {
 
-								this.parent.data.remove(myCommentsService.getReqQuery($scope)).then(function() {
+								this.parent.data.remove(myCommentsService.getIdParam($scope)).then(function() {
 									myCommentsService.init($scope, true);
 
 								}, function() {

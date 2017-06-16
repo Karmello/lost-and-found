@@ -15,9 +15,9 @@ module.exports = {
 
 						r.Comment.aggregate([
 							{ $match: { _id: { $in: report.comments } } },
-							{ $skip: req.query.skip || 0 },
-							{ $limit: global.app.get('COMMENTS_MAX_GET') },
 							{ $sort: { dateAdded: -1 } },
+							{ $skip: Number(req.query.skip) || 0 },
+							{ $limit: global.app.get('COMMENTS_MAX_GET') },
 							{
 								$project: {
 									parentId: '$parentId',
@@ -49,9 +49,23 @@ module.exports = {
 
 					if (!err && comment) {
 
-						resolve({
-							meta: { count: comment.comments.length },
-							collection: comment.comments
+						r.Comment.aggregate([
+							{ $match: { _id: comment._id } },
+							{ $unwind: '$comments' },
+							{ $sort: { 'comments.dateAdded': -1 } },
+							{ $skip: Number(req.query.skip) || 0 },
+							{ $limit: global.app.get('COMMENTS_MAX_GET') }
+
+						], function(err, comments) {
+
+							if (!err && comments) {
+
+								resolve({
+									meta: { count: comment.comments.length },
+									collection: comments
+								});
+
+							} else { reject(err); }
 						});
 
 					} else { reject(err); }

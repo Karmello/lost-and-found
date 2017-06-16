@@ -73,8 +73,15 @@
 							var numOfPages = Math.ceil(that.meta.count / that.singlePageSize);
 							var pagerSwitchers = [];
 
-							for (var i = 0; i < numOfPages; i++) {
-								pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
+							if (!that.reverseOrder) {
+								for (var i = 0; i < numOfPages; i++) {
+									pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
+								}
+
+							} else {
+								for (var i = 0; i < numOfPages; i++) {
+									pagerSwitchers.push({ _id: i + 1, label: '#' + (numOfPages - i) });
+								}
 							}
 
 							var currentPage;
@@ -90,6 +97,14 @@
 							}
 
 						} else { that.pager = undefined; }
+
+
+
+						// Setting collection elems pos numbers
+
+						for (var i = 0; i < that.collection.length; i++) {
+							that.collection[i].elemPosition = that.getElemPosition(i);
+						}
 
 						// Binding choose event for all ctrls
 
@@ -177,10 +192,16 @@
 			return query;
 		};
 
-		MyCollectionBrowser.prototype.getElemNumber = function(index) {
+		MyCollectionBrowser.prototype.getElemPosition = function(index, reversed) {
 
 			if (this.pager && this.pager.activeSwitcherId) {
-				return (this.pager.activeSwitcherId - 1) * this.singlePageSize + index + 1;
+
+				if (!this.reverseOrder) {
+					return (this.pager.activeSwitcherId - 1) * this.singlePageSize + index + 1;
+
+				} else {
+					return this.meta.count - index - this.singlePageSize * (this.pager.activeSwitcherId - 1);
+				}
 			}
 		};
 
@@ -225,6 +246,9 @@
 			this.filterer = undefined;
 			this.sorter = undefined;
 			this.orderer = undefined;
+
+			this.meta = undefined;
+			this.collection = undefined;
 		};
 
 		MyCollectionBrowser.prototype.isReady = function() {

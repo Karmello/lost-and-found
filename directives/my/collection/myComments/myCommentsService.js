@@ -12,8 +12,10 @@
 
 				scope.collectionBrowser = new MyCollectionBrowser({
 					singlePageSize: 10,
+					reverseOrder: true,
 					fetchData: function(query) {
-						return CommentsRest.getList(service.getReqQuery(scope));
+
+						return CommentsRest.getList(Object.assign(query, service.getIdParam(scope)));
 					}
 				});
 
@@ -33,7 +35,7 @@
 			});
 		};
 
-		service.getReqQuery = function(scope) {
+		service.getIdParam = function(scope) {
 
 			var query = {};
 
@@ -78,7 +80,7 @@
 			if (scope.nestingLevel === 0) {
 
 				$timeout(function() {
-					$('html, body').animate({ scrollTop: $('#myComments_' + scope.nestingLevel).offset().top - 5 }, 'fast');
+					$('html, body').animate({ scrollTop: $('#commentsSection').offset().top - 5 }, 'fast');
 				});
 
 			} else {

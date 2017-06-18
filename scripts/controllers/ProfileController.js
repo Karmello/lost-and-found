@@ -2,9 +2,9 @@
 
 	'use strict';
 
-	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf) {
+	var ProfileController = function($scope, $moment, contextMenuConf, reportsService) {
 
-		$scope.userReports = reportsConf.userReports;
+		$scope.collectionBrowser = reportsService.collectionBrowser.byUser;
 		$scope.profileReportsContextMenuConf = contextMenuConf.profileReportsContextMenuConf;
 
 
@@ -17,7 +17,7 @@
 		});
 	};
 
-	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsConf'];
+	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsService'];
 	angular.module('appModule').controller('ProfileController', ProfileController);
 
 })();

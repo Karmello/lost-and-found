@@ -111,6 +111,10 @@ ReportSchema.post('remove', function(doc) {
 	// Removing photos from S3
 	for (var photo of doc.photos) { doc.removePhotoFromS3(photo.filename); }
 
+	// Removing comments
+	r.Comment.remove({ _id: { $in: doc.comments } }, function(err) {});
+
+	// Emiting event to all clients
 	r.modules.socketModule.emitReportsCount(doc.startEvent.type);
 });
 

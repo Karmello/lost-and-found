@@ -10,7 +10,7 @@
 
 		var myNavDropDown = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myNavDropDown/myNavDropDown.html',
+			templateUrl: 'public/directives/myNavDropDown.html',
 			scope: {
 				ins: '='
 			}

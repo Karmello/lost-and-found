@@ -4,27 +4,41 @@
 
 	var MyLoader = function($timeout) {
 
-		var MyLoader = function(_minLoadTime) {
+		var MyLoader = function(_minLoadTime, _stopTimeOut) {
 
 			if (_minLoadTime) { this.minLoadTime = _minLoadTime; } else { this.minLoadTime = 150; }
+			this.stopTimeOut = _stopTimeOut;
+
 			this.isLoading = false;
 		};
 
-		MyLoader.prototype.start = function(stopAutomagically, callback) {
+		MyLoader.prototype.start = function(stopAutomagically, cb) {
 
 			var that = this;
 			that.isLoading = true;
 
 			$timeout(function() {
-				if (callback) { callback(); }
+				if (cb) { cb(); }
 				if (stopAutomagically) { that.stop(); }
 			}, that.minLoadTime);
 		};
 
-		MyLoader.prototype.stop = function(callback) {
+		MyLoader.prototype.stop = function(cb) {
 
-			this.isLoading = false;
-			if (callback) { callback(); }
+			var that = this;
+
+			if (that.stopTimeOut) {
+
+				$timeout(function() {
+					that.isLoading = false;
+					if (cb) { cb(); }
+				}, that.stopTimeOut);
+
+			} else {
+
+				that.isLoading = false;
+				if (cb) { cb(); }
+			}
 		};
 
 		return MyLoader;

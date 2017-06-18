@@ -4,7 +4,7 @@
 
 	var SAME_LOCATION_OFFSET = 0.000015;
 
-	var googleMapService = function($q, $timeout, $state, reportsConf) {
+	var googleMapService = function($q, $timeout, $state, reportsService) {
 
 		var service = this;
 
@@ -97,7 +97,7 @@
 						service.geo.allowed = conf.geoAllowed;
 
 						if (!service.searchReportsMap.markers) {
-							service.searchReportsMap.addMarkers(reportsConf.searchReports.collection);
+							service.searchReportsMap.addMarkers(reportsService.collectionBrowser.bySearchQuery.collection);
 						}
 					});
 
@@ -169,7 +169,7 @@
 		return service;
 	};
 
-	googleMapService.$inject = ['$q', '$timeout', '$state', 'reportsConf'];
+	googleMapService.$inject = ['$q', '$timeout', '$state', 'reportsService'];
 	angular.module('appModule').service('googleMapService', googleMapService);
 
 })();

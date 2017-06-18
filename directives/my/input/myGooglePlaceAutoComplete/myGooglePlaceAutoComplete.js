@@ -8,7 +8,7 @@
 
 		var myGooglePlaceAutoComplete = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/input/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.html',
+			templateUrl: 'public/directives/myGooglePlaceAutoComplete.html',
 			scope: {
 				ctrlId: '=',
 				model: '=',
@@ -33,7 +33,6 @@
 							var place = scope.autocomplete.ins.getPlace();
 
 							if (place) {
-								console.log(place);
 								scope.autocomplete.label = place.formatted_address;
 								scope.$apply();
 							}

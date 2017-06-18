@@ -17,8 +17,8 @@
 
 	$q.all([
 
-		$http.get('public/json/hard_coded/hard_coded_en.json'),
-		$http.get('public/json/hard_coded/hard_coded_pl.json'),
+		$http.get('public/json/hard_coded/hard_coded_en.json', { cache: true }),
+		$http.get('public/json/hard_coded/hard_coded_pl.json', { cache: true }),
 		$http.get('/session')
 
 	]).then(function(res) {
@@ -101,14 +101,16 @@
 })();
 (function() {
 
-	angular.module('appModule').run(function(
-		$rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, socketService
-	) {
+	angular.module('appModule')
+	.run(function($rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, socketService,
+					reportsService, uiSetupService) {
 
 		ui.loaders.renderer.start();
+
+		uiSetupService.preloadTemplates(ui);
+		uiSetupService.preloadImgs();
 		uiThemeService.include(sessionConst.theme);
 
-		//logService.resetAll();
 		socketService.init();
 		apiService.setup();
 
@@ -124,6 +126,10 @@
 		});
 
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+
+			reportsService.initReports(fromState, fromParams, toState, toParams);
+
+
 
 			switch (toState.name) {
 
@@ -177,7 +183,7 @@
 
 	'use strict';
 
-	var contextMenuConf = function($rootScope, $state, reportsConf, reportsService) {
+	var contextMenuConf = function($rootScope, $state, reportsService) {
 
 		this.reportContextMenuConf = {
 			icon: 'glyphicon glyphicon-option-horizontal',
@@ -185,18 +191,12 @@
 				{
 					_id: 'edit',
 					label: $rootScope.hardData.imperatives[33],
-					onClick: function() {
-
-						$state.go('app.report', { id: this.parent.data._id, edit: '1' });
-					}
+					onClick: function() { $state.go('app.report', { id: this.parent.data._id, edit: '1' }); }
 				},
 				{
 					_id: 'delete',
 					label: $rootScope.hardData.imperatives[14],
-					onClick: function() {
-
-						reportsService.deleteReports([this.parent.data]);
-					}
+					onClick: function() { reportsService.deleteReports([this.parent.data]); }
 				}
 			]
 		};
@@ -205,27 +205,26 @@
 			icon: 'glyphicon glyphicon-option-horizontal',
 			switchers: [
 				{
+					_id: 'add',
+					label: $rootScope.hardData.imperatives[16],
+					onClick: function() { $state.go('app.newreport'); }
+				},
+				{
 					_id: 'select_all',
 					label: $rootScope.hardData.imperatives[30],
-					onClick: function() {
-
-						reportsConf.userReports.selectAll();
-					}
+					onClick: function() { reportsService.collectionBrowser.byUser.selectAll(); }
 				},
 				{
 					_id: 'deselect_all',
 					label: $rootScope.hardData.imperatives[29],
-					onClick: function() {
-
-						reportsConf.userReports.deselectAll();
-					}
+					onClick: function() { reportsService.collectionBrowser.byUser.deselectAll(); }
 				},
 				{
 					_id: 'delete',
 					label: $rootScope.hardData.imperatives[31],
 					onClick: function() {
 
-						var selectedReports = reportsConf.userReports.getSelectedCollection();
+						var selectedReports = reportsService.collectionBrowser.byUser.getSelectedCollection();
 						if (selectedReports.length > 0) { reportsService.deleteReports(selectedReports); }
 					}
 				}
@@ -235,7 +234,7 @@
 		return this;
 	};
 
-	contextMenuConf.$inject = ['$rootScope', '$state', 'reportsConf', 'reportsService'];
+	contextMenuConf.$inject = ['$rootScope', '$state', 'reportsService'];
 	angular.module('appModule').service('contextMenuConf', contextMenuConf);
 
 })();
@@ -776,9 +775,9 @@
 
 	'use strict';
 
-	var ProfileController = function($scope, $moment, contextMenuConf, reportsConf) {
+	var ProfileController = function($scope, $moment, contextMenuConf, reportsService) {
 
-		$scope.userReports = reportsConf.userReports;
+		$scope.collectionBrowser = reportsService.collectionBrowser.byUser;
 		$scope.profileReportsContextMenuConf = contextMenuConf.profileReportsContextMenuConf;
 
 
@@ -791,7 +790,7 @@
 		});
 	};
 
-	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsConf'];
+	ProfileController.$inject = ['$scope', '$moment', 'contextMenuConf', 'reportsService'];
 	angular.module('appModule').controller('ProfileController', ProfileController);
 
 })();
@@ -837,9 +836,9 @@
 
 	'use strict';
 
-	var SearchController = function($rootScope, $scope, $timeout, reportsConf, googleMapService) {
+	var SearchController = function($rootScope, $scope, $timeout, reportsService, googleMapService) {
 
-		$scope.searchReports = reportsConf.searchReports;
+		$scope.collectionBrowser = reportsService.collectionBrowser.bySearchQuery;
 		$scope.showMap = true;
 
 		$scope.toggleMap = function() {
@@ -854,7 +853,7 @@
 		};
 	};
 
-	SearchController.$inject = ['$rootScope', '$scope', '$timeout', 'reportsConf', 'googleMapService'];
+	SearchController.$inject = ['$rootScope', '$scope', '$timeout', 'reportsService', 'googleMapService'];
 	angular.module('appModule').controller('SearchController', SearchController);
 
 })();
@@ -979,7 +978,7 @@
 
 					return $q(function(resolve) {
 
-						$http.get('public/json/countries.json').success(function(res) {
+						$http.get('public/json/countries.json', { cache: true }).success(function(res) {
 
 							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
 								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {
@@ -1115,8 +1114,6 @@
 			},
 			onEnter: function($rootScope, ui) {
 
-				$rootScope.$broadcast('initRecentlyViewedReports');
-
 				ui.menus.top.activateSwitcher('home');
 				ui.frames.main.activateSwitcher('home');
 				ui.frames.app.activateSwitcher('main');
@@ -1211,7 +1208,7 @@
 						var promises = [];
 
 						promises.push(UsersRest.getList({ reportId: $stateParams.id }));
-						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
+						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleOne' }));
 
 						$q.all(promises).then(function(results) {
 
@@ -1472,8 +1469,6 @@
 
 				ui.loaders.renderer.stop();
 
-
-
 				switch ($stateParams.action) {
 
 					case 'deactivation':
@@ -1561,7 +1556,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, CommentsRest, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsService, CommentsRest, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -1616,12 +1611,12 @@
 
 						switch (res.config.params.subject) {
 
-							case 'searchReports':
-							case 'recentReports':
-							case 'userReports':
-							case 'viewedReports':
+							case 'bySearchQuery':
+							case 'newlyAdded':
+							case 'byUser':
+							case 'lastViewed':
 
-								reportsConf[res.config.params.subject].setData(data);
+								reportsService.collectionBrowser[res.config.params.subject].setData(data);
 
 								if (res.config.params.subject == 'searchReports') {
 									googleMapService.searchReportsMap.addMarkers(data.collection);
@@ -1629,7 +1624,7 @@
 
 								return data.collection;
 
-							case 'singleReport':
+							case 'singleOne':
 
 								$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
 								return [data.report];
@@ -1665,7 +1660,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'CommentsRest','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsService', 'CommentsRest','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();
@@ -1860,7 +1855,7 @@
 
 	var SAME_LOCATION_OFFSET = 0.000015;
 
-	var googleMapService = function($q, $timeout, $state, reportsConf) {
+	var googleMapService = function($q, $timeout, $state, reportsService) {
 
 		var service = this;
 
@@ -1953,7 +1948,7 @@
 						service.geo.allowed = conf.geoAllowed;
 
 						if (!service.searchReportsMap.markers) {
-							service.searchReportsMap.addMarkers(reportsConf.searchReports.collection);
+							service.searchReportsMap.addMarkers(reportsService.collectionBrowser.bySearchQuery.collection);
 						}
 					});
 
@@ -2025,7 +2020,7 @@
 		return service;
 	};
 
-	googleMapService.$inject = ['$q', '$timeout', '$state', 'reportsConf'];
+	googleMapService.$inject = ['$q', '$timeout', '$state', 'reportsService'];
 	angular.module('appModule').service('googleMapService', googleMapService);
 
 })();
@@ -2584,7 +2579,7 @@
 			},
 			modals: modalsConf,
 			loaders: {
-				renderer: new myClass.MyLoader()
+				renderer: new myClass.MyLoader(undefined, 1)
 			}
 		};
 
@@ -2606,9 +2601,40 @@
 
 	'use strict';
 
-	var uiSetupService = function() {
+	var uiSetupService = function($state, $http, $templateCache) {
 
 		var actions = {
+			preloadTemplates: function(uiCtrls) {
+
+				var directives = [
+					"reports", "appearanceForm", "contactForm", "deactivationForm", "formActionBtns", "loginForm", "passwordForm",
+					"personalDetailsForm", "recoverForm", "regionalForm", "registerForm", "reportForm", "reportSearchForm", "upgradeForm",
+					"appStats", "userBadge", "reportAvatar", "reportPhotos", "userAvatar", "myBtn", "myScrollTopBtn", "myStateBtn",
+					"myCollectionBrowser", "myComments", "myElemSelector", "myLoader", "myPanel", "myPopOverIcon", "myForm",
+					"myFormErrorIcon", "myDateInput", "myGooglePlaceAutoComplete", "myInput", "myTextArea", "myContextMenu", "myDropDown",
+					"myListGroup", "myNavDropDown", "myNavMenu", "mySelect", "mySelectsGroup", "myTabs", "myImgCropModal", "myModal",
+					"myStandardModal", "mySrc", "mySrcSlides", "mySrcThumbs", "myLabel"
+				];
+
+				for (var directiveName of directives) {
+					$http.get('public/directives/' + directiveName + '.html', { cache: $templateCache });
+				}
+
+				for (var frameId of ['app', 'main']) {
+					for (var page of uiCtrls.frames[frameId].switchers) {
+						$http.get('public/pages/lost-and-found-app-' + page._id + '.html', { cache: $templateCache });
+					}
+				}
+			},
+			preloadImgs: function() {
+
+				var filenames = ['avatar.png', 'item.png', 'ok.png', 'paypal.png'];
+
+				for (var filename of filenames) {
+					var img = new Image();
+					img.src = 'public/imgs/' + filename;
+				}
+			},
 			bindGetRouteMethod: function(uiCtrls) {
 
 				var settingsSwitcher = uiCtrls.frames.main.getSwitcher('_id', 'settings');
@@ -2638,7 +2664,7 @@
 
 
 
-	uiSetupService.$inject = [];
+	uiSetupService.$inject = ['$state', '$http', '$templateCache'];
 	angular.module('appModule').service('uiSetupService', uiSetupService);
 
 })();
@@ -2804,6 +2830,7 @@
 		MyCollectionBrowser.prototype.init = function(cb) {
 
 			var that = this;
+			var i;
 
 			// Fetching collection to display
 
@@ -2825,12 +2852,12 @@
 							var pagerSwitchers = [];
 
 							if (!that.reverseOrder) {
-								for (var i = 0; i < numOfPages; i++) {
+								for (i = 0; i < numOfPages; i++) {
 									pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
 								}
 
 							} else {
-								for (var i = 0; i < numOfPages; i++) {
+								for (i = 0; i < numOfPages; i++) {
 									pagerSwitchers.push({ _id: i + 1, label: '#' + (numOfPages - i) });
 								}
 							}
@@ -2853,7 +2880,7 @@
 
 						// Setting collection elems pos numbers
 
-						for (var i = 0; i < that.collection.length; i++) {
+						for (i = 0; i < that.collection.length; i++) {
 							that.collection[i].elemPosition = that.getElemPosition(i);
 						}
 
@@ -3392,27 +3419,41 @@
 
 	var MyLoader = function($timeout) {
 
-		var MyLoader = function(_minLoadTime) {
+		var MyLoader = function(_minLoadTime, _stopTimeOut) {
 
 			if (_minLoadTime) { this.minLoadTime = _minLoadTime; } else { this.minLoadTime = 150; }
+			this.stopTimeOut = _stopTimeOut;
+
 			this.isLoading = false;
 		};
 
-		MyLoader.prototype.start = function(stopAutomagically, callback) {
+		MyLoader.prototype.start = function(stopAutomagically, cb) {
 
 			var that = this;
 			that.isLoading = true;
 
 			$timeout(function() {
-				if (callback) { callback(); }
+				if (cb) { cb(); }
 				if (stopAutomagically) { that.stop(); }
 			}, that.minLoadTime);
 		};
 
-		MyLoader.prototype.stop = function(callback) {
+		MyLoader.prototype.stop = function(cb) {
 
-			this.isLoading = false;
-			if (callback) { callback(); }
+			var that = this;
+
+			if (that.stopTimeOut) {
+
+				$timeout(function() {
+					that.isLoading = false;
+					if (cb) { cb(); }
+				}, that.stopTimeOut);
+
+			} else {
+
+				that.isLoading = false;
+				if (cb) { cb(); }
+			}
 		};
 
 		return MyLoader;
@@ -4464,11 +4505,11 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('reports', function($rootScope, $moment, reportsConf, reportsService, contextMenuConf) {
+	appModule.directive('reports', function($rootScope, $moment, reportsService, contextMenuConf) {
 
 		var reports = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/collection/reports/reports.html',
+			templateUrl: 'public/directives/reports.html',
 			scope: {
 				ctrlId: '@',
 				noAvatar: '=',
@@ -4479,198 +4520,19 @@
 				$scope.hardData = $rootScope.hardData;
 				$scope.apiData = $rootScope.apiData;
 				$scope.$moment = $moment;
-
-				$scope.reportContextMenuConf = contextMenuConf.reportContextMenuConf;
 			},
 			compile: function(elem, attrs) {
 
 				return function(scope, elem, attrs) {
 
-					switch (scope.ctrlId) {
-
-						case 'UserReports':
-
-							if (!$rootScope.$$listeners.initUserReports) {
-								$rootScope.$on('initUserReports', function(e, args) {
-									reportsService.initUserReports(scope, args.userId);
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initUserReports = null;
-							});
-
-							scope.$watch('apiData.profileUser._id', function(userId) {
-								if (angular.isDefined(userId)) { reportsService.initUserReports(scope, userId); }
-							});
-
-							break;
-
-						case 'SearchReports':
-
-							if (!$rootScope.$$listeners.initSearchReports) {
-								$rootScope.$on('initSearchReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.searchReports;
-									scope.collectionBrowser.init();
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initSearchReports = null;
-							});
-
-							scope.collectionBrowser = reportsConf.searchReports;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'RecentlyViewedReports':
-
-							if (!$rootScope.$$listeners.initRecentlyViewedReports) {
-								$rootScope.$on('initRecentlyViewedReports', function(e, args) {
-									scope.collectionBrowser = reportsConf.viewedReports;
-									scope.collectionBrowser.init();
-								});
-							}
-
-							scope.$on('$destroy', function() {
-								$rootScope.$$listeners.initRecentlyViewedReports = null;
-							});
-
-							scope.collectionBrowser = reportsConf.viewedReports;
-							scope.collectionBrowser.init();
-							break;
-
-						case 'NewReports':
-
-							scope.collectionBrowser = reportsConf.recentReports;
-							scope.collectionBrowser.init();
-							break;
-					}
+					scope.collectionBrowser = reportsService.collectionBrowser[scope.ctrlId];
+					scope.elemContextMenuConf = contextMenuConf.reportContextMenuConf;
 				};
 			}
 		};
 
 		return reports;
 	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var reportsConf = function($rootScope, hardDataService, myClass, ReportsRest) {
-
-		var hardData = hardDataService.get();
-
-		this.searchReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'lost',
-						label: hardData.reportTypes[0].label2
-					},
-					{
-						_id: 'found',
-						label: hardData.reportTypes[1].label2
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.subject = 'searchReports';
-
-				var model = ReportsRest.reportSearchModel.getValues();
-				Object.assign(query, model);
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.userReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 25,
-			filterer: {
-				switchers: [
-					{
-						_id: 'all',
-						label: hardData.status[1]
-					},
-					{
-						_id: 'lost',
-						label: hardData.reportTypes[0].label2
-					},
-					{
-						_id: 'found',
-						label: hardData.reportTypes[1].label2
-					}
-				]
-			},
-			sorter: {
-				switchers: [
-					{
-						_id: 'title',
-						label: hardData.status[7]
-					},
-					{
-						_id: 'date',
-						label: hardData.status[8]
-					}
-				]
-			},
-			fetchData: function(query) {
-
-				query.subject = 'userReports';
-				query.userId = $rootScope.apiData.profileUser._id;
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.recentReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			noPager: true,
-			fetchData: function(query) {
-
-				query.subject = 'recentReports';
-				query.sort='-dateAdded';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		this.viewedReports = new myClass.MyCollectionBrowser({
-			singlePageSize: 5,
-			hideRefresher: true,
-			fetchData: function(query) {
-
-				query.subject = 'viewedReports';
-				query.limit = 5;
-
-				return ReportsRest.getList(query);
-			}
-		});
-
-		return this;
-	};
-
-	reportsConf.$inject = ['$rootScope', 'hardDataService', 'myClass', 'ReportsRest'];
-	angular.module('appModule').service('reportsConf', reportsConf);
 
 })();
 (function() {
@@ -4774,9 +4636,115 @@
 
 	'use strict';
 
-	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, reportsConf) {
+	var reportsService = function($rootScope, $state, $stateParams, $timeout, $q, hardDataService, ReportsRest, MyCollectionBrowser) {
 
 		var service = this;
+		var hardData = hardDataService.get();
+
+		service.collectionBrowser = {
+			newlyAdded: new MyCollectionBrowser({
+				singlePageSize: 5,
+				noPager: true,
+				fetchData: function(query) {
+
+					query.subject = 'newlyAdded';
+					query.sort='-dateAdded';
+					query.limit = 5;
+					return ReportsRest.getList(query);
+				}
+			}),
+			lastViewed: new MyCollectionBrowser({
+				singlePageSize: 5,
+				hideRefresher: true,
+				fetchData: function(query) {
+
+					query.subject = 'lastViewed';
+					query.limit = 5;
+					return ReportsRest.getList(query);
+				}
+			}),
+			byUser: new MyCollectionBrowser({
+				singlePageSize: 25,
+				filterer: {
+					switchers: [
+						{ _id: 'all', label: hardData.status[1] },
+						{ _id: 'lost', label: hardData.reportTypes[0].label2 },
+						{ _id: 'found', label: hardData.reportTypes[1].label2 }
+					]
+				},
+				sorter: {
+					switchers: [
+						{ _id: 'title', label: hardData.status[7] },
+						{ _id: 'date', label: hardData.status[8] }
+					]
+				},
+				fetchData: function(query) {
+
+					query.subject = 'byUser';
+					query.userId = $rootScope.apiData.profileUser._id;
+					return ReportsRest.getList(query);
+				}
+			}),
+			bySearchQuery: new MyCollectionBrowser({
+				singlePageSize: 25,
+				filterer: {
+					switchers: [
+						{ _id: 'all', label: hardData.status[1] },
+						{ _id: 'lost', label: hardData.reportTypes[0].label2 },
+						{ _id: 'found', label: hardData.reportTypes[1].label2 }
+					]
+				},
+				sorter: {
+					switchers: [
+						{ _id: 'title', label: hardData.status[7] },
+						{ _id: 'date', label: hardData.status[8] }
+					]
+				},
+				fetchData: function(query) {
+
+					query.subject = 'bySearchQuery';
+					var model = ReportsRest.reportSearchModel.getValues();
+					Object.assign(query, model);
+					return ReportsRest.getList(query);
+				}
+			})
+		};
+
+		service.initReports = function(fromState, fromParams, toState, toParams) {
+
+			var collectionBrowsers = service.collectionBrowser;
+			var toStateName = toState.name.split('.')[1];
+
+			switch (toStateName) {
+
+				case 'start':
+
+					if (fromState.name.split('.')[1] != toStateName) { collectionBrowsers.newlyAdded.init(); }
+					break;
+
+				case 'home':
+
+					if (fromState.name.split('.')[1] != toStateName) {
+						collectionBrowsers.newlyAdded.init();
+						collectionBrowsers.lastViewed.init();
+					}
+
+					break;
+
+				case 'profile':
+
+					if (fromState.name.split('.')[1] != toStateName || fromParams.id != toParams.id) {
+						collectionBrowsers.byUser.init();
+					}
+
+					break;
+
+				case 'search':
+
+					if (fromState.name.split('.')[1] != toStateName) { collectionBrowsers.bySearchQuery.init(); }
+					break;
+			}
+		};
 
 		service.deleteReports = function(reports) {
 
@@ -4785,7 +4753,7 @@
 				// Showing confirm modal
 				$rootScope.ui.modals.deleteReportModal.show({
 					title: $rootScope.ui.modals.deleteReportModal.title + ' (' + reports.length + ')',
-					message: $rootScope.hardData.warnings[2],
+					message: hardData.warnings[2],
 					acceptCb: function() {
 
 						var promises = [];
@@ -4796,12 +4764,12 @@
 							switch ($state.current.name) {
 
 								case 'app.profile':
-									$rootScope.$broadcast('initUserReports', { userId: $stateParams.id });
+									service.collectionBrowser.byUser.init();
 									break;
 
 								case 'app.report':
 									$state.go('app.profile', { _id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
-									$timeout(function() { $rootScope.$broadcast('initUserReports', { userId: $stateParams.id }); });
+									$timeout(function() { service.collectionBrowser.byUser.init(); });
 									break;
 							}
 						});
@@ -4810,26 +4778,10 @@
 			}
 		};
 
-		service.initUserReports = function(scope, userId) {
-
-			scope.collectionBrowser = reportsConf.userReports;
-
-			if (userId == $rootScope.apiData.loggedInUser._id) {
-				scope.elemContextMenuConf = scope.reportContextMenuConf;
-
-			} else {
-				scope.elemContextMenuConf = undefined;
-			}
-
-			scope.collectionBrowser.onRefreshClick();
-		};
-
 		return service;
 	};
 
-
-
-	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'reportsConf'];
+	reportsService.$inject = ['$rootScope', '$state', '$stateParams', '$timeout', '$q', 'hardDataService', 'ReportsRest', 'MyCollectionBrowser'];
 	angular.module('appModule').service('reportsService', reportsService);
 
 })();
@@ -4843,7 +4795,7 @@
 
 		var appearanceForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/appearanceForm/appearanceForm.html',
+			templateUrl: 'public/directives/appearanceForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -4875,7 +4827,7 @@
 
 		var contactForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/contactForm/contactForm.html',
+			templateUrl: 'public/directives/contactForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -4919,7 +4871,7 @@
 
 		var deactivationForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/deactivationForm/deactivationForm.html',
+			templateUrl: 'public/directives/deactivationForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -4978,7 +4930,7 @@
 
 		var formActionBtns = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/formActionBtns/formActionBtns.html',
+			templateUrl: 'public/directives/formActionBtns.html',
 			transclude: true,
 			scope: {
 				myForm: '='
@@ -5066,7 +5018,7 @@
 
 		var loginForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/loginForm/loginForm.html',
+			templateUrl: 'public/directives/loginForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5110,7 +5062,7 @@
 
 		var passwordForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/passwordForm/passwordForm.html',
+			templateUrl: 'public/directives/passwordForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5145,7 +5097,7 @@
 
 		var personalDetailsForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/personalDetailsForm/personalDetailsForm.html',
+			templateUrl: 'public/directives/personalDetailsForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5195,7 +5147,7 @@
 
 		var recoverForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/recoverForm/recoverForm.html',
+			templateUrl: 'public/directives/recoverForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5234,7 +5186,7 @@
 
 		var regionalForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/regionalForm/regionalForm.html',
+			templateUrl: 'public/directives/regionalForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5268,7 +5220,7 @@
 
 		var registerForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/registerForm/registerForm.html',
+			templateUrl: 'public/directives/registerForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5314,7 +5266,7 @@
 
 		var reportForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/reportForm/reportForm.html',
+			templateUrl: 'public/directives/reportForm.html',
 			scope: {
 				action: '@'
 			},
@@ -5514,11 +5466,11 @@
 
 
 
-	appModule.directive('reportSearchForm', function($rootScope, myClass, ReportsRest) {
+	appModule.directive('reportSearchForm', function($rootScope, myClass, reportsService, ReportsRest) {
 
 		var reportSearchForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/reportSearchForm/reportSearchForm.html',
+			templateUrl: 'public/directives/reportSearchForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5530,7 +5482,7 @@
 					model: ReportsRest.reportSearchModel,
 					submitAction: function(args) {
 
-						$rootScope.$broadcast('initSearchReports');
+						reportsService.collectionBrowser.bySearchQuery.init();
 					}
 				});
 			}
@@ -5554,7 +5506,7 @@
 
 		var upgradeForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/upgradeForm/upgradeForm.html',
+			templateUrl: 'public/directives/upgradeForm.html',
 			scope: {},
 			controller: function($scope) {
 
@@ -5648,7 +5600,7 @@
 
 		var appStats = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/other/appStats/appStats.html',
+			templateUrl: 'public/directives/appStats.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5679,7 +5631,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/other/userBadge/userBadge.html',
+			templateUrl: 'public/directives/userBadge.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -5708,7 +5660,7 @@
 
 		var reportAvatar = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/src/reportAvatar/reportAvatar.html',
+			templateUrl: 'public/directives/reportAvatar.html',
 			scope: {
 				report: '=',
 				noLink: '&',
@@ -5780,7 +5732,7 @@
 
 		var reportPhotos = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/src/reportPhotos/reportPhotos.html',
+			templateUrl: 'public/directives/reportPhotos.html',
 			scope: {
 				report: '=',
 				editable: '&'
@@ -6193,7 +6145,7 @@
 
 		var userAvatar = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/src/userAvatar/userAvatar.html',
+			templateUrl: 'public/directives/userAvatar.html',
 			scope: {
 				user: '=',
 				editable: '=',
@@ -6390,6 +6342,29 @@
 
 	var appModule = angular.module('appModule');
 
+
+
+	appModule.directive('myDirective', function(hardDataService) {
+
+		var myDirective = {
+			restrict: 'A',
+			controller: function($scope) {
+
+				// Binding hard coded strings
+				hardDataService.bind($scope);
+			}
+		};
+
+		return myDirective;
+	});
+
+})();
+(function() {
+
+	'use strict';
+
+	var appModule = angular.module('appModule');
+
 	appModule.directive('myBtn', function($rootScope) {
 
 		var Config = function(scope, mouseState) {
@@ -6446,7 +6421,7 @@
 		return {
 			restrict: 'E',
 			replace: true,
-			templateUrl: 'public/directives/my/btn/myBtn/myBtn.html',
+			templateUrl: 'public/directives/myBtn.html',
 			scope: {
 				btnClass: '<',
 				iconClass: '<',
@@ -6501,7 +6476,7 @@
 
 		var myScrollTopBtn = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/btn/myScrollTopBtn/myScrollTopBtn.html',
+			templateUrl: 'public/directives/myScrollTopBtn.html',
 			controller: function($scope) {
 
 				$scope.scroll = function() {
@@ -6524,7 +6499,7 @@
 
 		var myStateBtn = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/btn/myStateBtn/myStateBtn.html',
+			templateUrl: 'public/directives/myStateBtn.html',
 			scope: {
 				type: '@',
 				onClick: '&',
@@ -6552,29 +6527,6 @@
 
 
 
-	appModule.directive('myDirective', function(hardDataService) {
-
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
-
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
-
-		return myDirective;
-	});
-
-})();
-(function() {
-
-	'use strict';
-
-	var appModule = angular.module('appModule');
-
-
-
 	appModule.directive('myCollectionBrowser', function($rootScope) {
 
 		var myCollectionBrowser = {
@@ -6585,7 +6537,7 @@
 				extractrls: '?extractrls',
 				elems: '?elems',
 			},
-			templateUrl: 'public/directives/my/collection/myCollectionBrowser/myCollectionBrowser.html',
+			templateUrl: 'public/directives/myCollectionBrowser.html',
 			scope: {
 				ins: '=',
 				noScrollTopBtn: '='
@@ -6610,7 +6562,7 @@
 
 		var myComments = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/collection/myComments/myComments.html',
+			templateUrl: 'public/directives/myComments.html',
 			scope: {
 				nestingLevel: '<',
 				apiObj: '=',
@@ -6814,7 +6766,7 @@
 
 		var myElemSelector = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/collection/myElemSelector/myElemSelector.html',
+			templateUrl: 'public/directives/myElemSelector.html',
 			scope: {
 				isSelected: '='
 			},
@@ -6850,7 +6802,7 @@
 
 		var myLoader = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/display/myLoader/myLoader.html',
+			templateUrl: 'public/directives/myLoader.html',
 			scope: {
 				fixedCentered: '=',
 				absCentered: '='
@@ -6871,7 +6823,7 @@
 
 		var myPanel = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/display/myPanel/myPanel.html',
+			templateUrl: 'public/directives/myPanel.html',
 			transclude: {
 				headingImg: '?headingImg',
 				headingText: '?headingText',
@@ -6923,7 +6875,7 @@
 			transclude: {
 				icon: 'span'
 			},
-			templateUrl: 'public/directives/my/display/myPopOverIcon/myPopOverIcon.html',
+			templateUrl: 'public/directives/myPopOverIcon.html',
 			scope: {
 				hardData: '='
 			}
@@ -7003,7 +6955,7 @@
 		return {
 			restrict: 'E',
 			transclude: true,
-			templateUrl: 'public/directives/my/form/myForm/myForm.html',
+			templateUrl: 'public/directives/myForm.html',
 			scope: {
 				ins: '=',
 				hardData: '='
@@ -7031,7 +6983,7 @@
 
 		var myFormErrorIcon = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/form/myFormErrorIcon/myFormErrorIcon.html',
+			templateUrl: 'public/directives/myFormErrorIcon.html',
 			scope: {
 				args: '='
 			}
@@ -7053,7 +7005,7 @@
 
 		var myDateInput = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/input/myDateInput/myDateInput.html',
+			templateUrl: 'public/directives/myDateInput.html',
 			scope: {
 				ctrlId: '=',
 				ctrlMaxLength: '=',
@@ -7155,7 +7107,7 @@
 
 		var myGooglePlaceAutoComplete = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/input/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.html',
+			templateUrl: 'public/directives/myGooglePlaceAutoComplete.html',
 			scope: {
 				ctrlId: '=',
 				model: '=',
@@ -7180,7 +7132,6 @@
 							var place = scope.autocomplete.ins.getPlace();
 
 							if (place) {
-								console.log(place);
 								scope.autocomplete.label = place.formatted_address;
 								scope.$apply();
 							}
@@ -7226,7 +7177,7 @@
 
 		var myInput = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/input/myInput/myInput.html',
+			templateUrl: 'public/directives/myInput.html',
 			scope: {
 				ctrlId: '=',
 				ctrlType: '=',
@@ -7264,7 +7215,7 @@
 
 		var myTextArea = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/input/myTextArea/myTextArea.html',
+			templateUrl: 'public/directives/myTextArea.html',
 			scope: {
 				ctrlId: '=',
 				ctrlMaxLength: '=',
@@ -7311,7 +7262,7 @@
 
 		var myContextMenu = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myContextMenu/myContextMenu.html',
+			templateUrl: 'public/directives/myContextMenu.html',
 			scope: {
 				ins: '='
 			},
@@ -7344,7 +7295,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myDropDown/myDropDown.html',
+			templateUrl: 'public/directives/myDropDown.html',
 			scope: {
 				ins: '=',
 				openDirection: '=',
@@ -7366,7 +7317,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myListGroup/myListGroup.html',
+			templateUrl: 'public/directives/myListGroup.html',
 			scope: {
 				ins: '='
 			}
@@ -7386,7 +7337,7 @@
 
 		var myNavDropDown = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myNavDropDown/myNavDropDown.html',
+			templateUrl: 'public/directives/myNavDropDown.html',
 			scope: {
 				ins: '='
 			}
@@ -7409,7 +7360,7 @@
 		var myNavMenu = {
 			restrict: 'E',
 			replace: true,
-			templateUrl: 'public/directives/my/list/myNavMenu/myNavMenu.html',
+			templateUrl: 'public/directives/myNavMenu.html',
 			scope: {
 				ins: '='
 			}
@@ -7431,7 +7382,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/mySelect/mySelect.html',
+			templateUrl: 'public/directives/mySelect.html',
 			scope: {
 				ctrlId: '=',
 				model: '=',
@@ -7547,7 +7498,7 @@
 
 		var mySelectsGroup = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/mySelectsGroup/mySelectsGroup.html',
+			templateUrl: 'public/directives/mySelectsGroup.html',
 			transclude: true,
 			scope: {
 				collection: '=',
@@ -7572,7 +7523,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myTabs/myTabs.html',
+			templateUrl: 'public/directives/myTabs.html',
 			scope: {
 				ins: '='
 			}
@@ -7601,7 +7552,7 @@
 
 		var myImgCropModal = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/modal/myImgCropModal/myImgCropModal.html',
+			templateUrl: 'public/directives/myImgCropModal.html',
 			scope: {
 				winTitle: '<',
 				maxFileSize: '<'
@@ -7735,7 +7686,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/modal/myModal/myModal.html',
+			templateUrl: 'public/directives/myModal.html',
 			transclude: {
 				header: '?myModalHeader',
 				body: '?myModalBody',
@@ -7780,7 +7731,7 @@
 
 		var myStandardModal = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/modal/myStandardModal/myStandardModal.html',
+			templateUrl: 'public/directives/myStandardModal.html',
 			scope: {
 				ins: '=',
 				type: '@'
@@ -7801,7 +7752,7 @@
 
 		var mySrc = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/src/mySrc/mySrc.html',
+			templateUrl: 'public/directives/mySrc.html',
 			scope: {
 				ins: '=',
 				type: '@',
@@ -7856,7 +7807,7 @@
 
 		var mySrcSlides = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/src/mySrcSlides/mySrcSlides.html',
+			templateUrl: 'public/directives/mySrcSlides.html',
 			scope: {
 				mySrcCollection: '=',
 				srcType: '@'
@@ -7901,7 +7852,7 @@
 
 		var mySrcThumbs = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/src/mySrcThumbs/mySrcThumbs.html',
+			templateUrl: 'public/directives/mySrcThumbs.html',
 			scope: {
 				srcThumbsCollection: '=',
 				srcSlidesCollection: '=',
@@ -8025,7 +7976,7 @@
 
 		var myLabel = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/text/myLabel/myLabel.html',
+			templateUrl: 'public/directives/myLabel.html',
 			scope: {
 				text: '=',
 				cssClass: '='

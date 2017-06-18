@@ -10,7 +10,7 @@
 
 		var myLoader = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/display/myLoader/myLoader.html',
+			templateUrl: 'public/directives/myLoader.html',
 			scope: {
 				fixedCentered: '=',
 				absCentered: '='

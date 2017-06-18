@@ -11,7 +11,7 @@
 		var myNavMenu = {
 			restrict: 'E',
 			replace: true,
-			templateUrl: 'public/directives/my/list/myNavMenu/myNavMenu.html',
+			templateUrl: 'public/directives/myNavMenu.html',
 			scope: {
 				ins: '='
 			}

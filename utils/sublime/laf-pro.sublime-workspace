@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"angu",
+				"angularDirective\tangularDirective"
+			],
+			[
 				"commentT",
 				"commentToBeEdited\t(?)"
 			],
@@ -14,10 +18,6 @@
 			[
 				"on",
 				"onToggleLikeClick\t(myComments.js)"
-			],
-			[
-				"angu",
-				"angularWatch\tangularWatch"
 			],
 			[
 				"valid",
@@ -602,26 +602,132 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/directives",
-		"/D/Workspace/laf/dev/directives/my",
-		"/D/Workspace/laf/dev/directives/my/btn",
-		"/D/Workspace/laf/dev/directives/my/btn/myBtn"
+		"/D/Workspace/laf",
+		"/D/Workspace/laf/dev",
+		"/D/Workspace/laf/dev/utils",
+		"/D/Workspace/laf/dev/utils/conemu",
+		"/D/Workspace/laf/dev/directives/app",
+		"/D/Workspace/laf/dev/directives/my/attributes/myDirective"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/public/index.html",
+		"/D/Workspace/laf/dev/gulpfile.js",
+		"/D/Workspace/laf/dev/utils/conemu/projectTask.txt",
+		"/D/Workspace/laf/dev/directives/my/collection/myCollectionBrowser/myCollectionBrowser.html",
+		"/D/Workspace/laf/dev/scripts/run.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyLoader.js",
+		"/D/Workspace/laf/dev/scripts/services/ui.js",
+		"/D/Workspace/laf/dev/scripts/routes/upgrade.route.js",
+		"/D/Workspace/laf/dev/scripts/appModule.js",
+		"/D/Workspace/laf/dev/public/directives/myCollectionBrowser.html",
+		"/D/Workspace/laf/dev/scripts/routes/start.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/home.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/settings3.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/search.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/report.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/profile.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/newreport.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/help.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/contact.route.js",
+		"/D/Workspace/laf/dev/scripts/routes/about.route.js",
+		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
+		"/D/Workspace/laf/dev/scripts/routes/app.route.js",
+		"/D/Workspace/laf/dev/scripts/services/uiSetupService.js",
+		"/D/Workspace/laf/dev/scripts/services/uiThemeService.js",
+		"/D/Workspace/laf/dev/directives/app/collection/reports/reports.js",
+		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/directives/my/list/myContextMenu/myContextMenu.js",
+		"/D/Workspace/laf/dev/directives/my/list/myDropDown/myDropDown.js",
+		"/D/Workspace/laf/dev/directives/my/list/myListGroup/myListGroup.js",
+		"/D/Workspace/laf/dev/directives/my/list/myNavDropDown/myNavDropDown.js",
+		"/D/Workspace/laf/dev/directives/my/list/myNavMenu/myNavMenu.js",
+		"/D/Workspace/laf/dev/directives/my/list/mySelect/mySelect.js",
+		"/D/Workspace/laf/dev/directives/my/list/mySelectsGroup/mySelectsGroup.js",
+		"/D/Workspace/laf/dev/directives/my/list/myTabs/myTabs.js",
+		"/D/Workspace/laf/dev/directives/my/modal/myImgCropModal/myImgCropModal.js",
+		"/D/Workspace/laf/dev/directives/my/modal/myModal/myModal.js",
+		"/D/Workspace/laf/dev/directives/my/modal/myStandardModal/myStandardModal.js",
+		"/D/Workspace/laf/dev/directives/my/src/mySrc/mySrc.js",
+		"/D/Workspace/laf/dev/directives/my/src/mySrcSlides/mySrcSlides.js",
+		"/D/Workspace/laf/dev/directives/my/src/mySrcThumbs/mySrcThumbs.js",
+		"/D/Workspace/laf/dev/directives/my/text/myLabel/myLabel.js",
+		"/D/Workspace/laf/dev/directives/my/text/myAlert/myAlert.js",
+		"/D/Workspace/laf/dev/directives/my/btn/myBtn/myBtn.js",
+		"/D/Workspace/laf/dev/directives/my/btn/myScrollTopBtn/myScrollTopBtn.js",
+		"/D/Workspace/laf/dev/directives/my/btn/myStateBtn/myStateBtn.js",
+		"/D/Workspace/laf/dev/directives/my/collection/myCollectionBrowser/myCollectionBrowser.js",
+		"/D/Workspace/laf/dev/directives/my/collection/myComments/myComments.js",
+		"/D/Workspace/laf/dev/directives/my/display/myLoader/myLoader.js",
+		"/D/Workspace/laf/dev/directives/my/collection/myElemSelector/myElemSelector.js",
+		"/D/Workspace/laf/dev/directives/my/display/myPanel/myPanel.js",
+		"/D/Workspace/laf/dev/directives/my/display/myPopOverIcon/myPopOverIcon.js",
+		"/D/Workspace/laf/dev/directives/my/form/myForm/myForm.js",
+		"/D/Workspace/laf/dev/directives/my/form/myFormErrorIcon/myFormErrorIcon.js",
+		"/D/Workspace/laf/dev/directives/my/input/myDateInput/myDateInput.js",
+		"/D/Workspace/laf/dev/directives/my/input/myGooglePlaceAutoComplete/myGooglePlaceAutoComplete.js",
+		"/D/Workspace/laf/dev/directives/my/input/myInput/myInput.js",
+		"/D/Workspace/laf/dev/directives/my/input/myTextArea/myTextArea.js",
+		"/D/Workspace/laf/dev/directives/my/input/myFileInputs/myFileInputs.js",
+		"/D/Workspace/laf/dev/directives/my/form/myCaptcha/myCaptcha.js",
+		"/D/Workspace/laf/dev/directives/my/attributes/myDirective/myDirective.js",
+		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/contactForm/contactForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/deactivationForm/deactivationForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/formActionBtns/formActionBtns.js",
+		"/D/Workspace/laf/dev/directives/app/form/loginForm/loginForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/passwordForm/passwordForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/recoverForm/recoverForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/personalDetailsForm/personalDetailsForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/regionalForm/regionalForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/registerForm/registerForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/reportForm/reportForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/reportSearchForm/reportSearchForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/upgradeForm/upgradeForm.js",
+		"/D/Workspace/laf/dev/directives/app/other/appStats/appStats.js",
+		"/D/Workspace/laf/dev/directives/app/other/userBadge/userBadge.js",
+		"/D/Workspace/laf/dev/directives/app/src/reportAvatar/reportAvatar.js",
+		"/D/Workspace/laf/dev/directives/app/src/reportPhotos/reportPhotos.js",
+		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatar.js",
+		"/D/Workspace/laf/dev/scripts/configuration/framesConf.js",
 		"/D/Workspace/laf/dev/directives/app/collection/reports/reports.html",
-		"/D/Workspace/laf/dev/directives/app/collection/reports/reports.scss",
+		"/D/Workspace/laf/dev/scripts/config.js",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
+		"/D/Workspace/laf/dev/scripts/services/googleMapService.js",
+		"/D/Workspace/laf/dev/directives/my/collection/myComments/myComments.html",
+		"/D/Workspace/laf/dev/directives/my/list/myDropDown/myDropDown.html",
+		"/D/Workspace/laf/dev/directives/my/list/myDropDown/myDropDown.scss",
 		"/D/Workspace/laf/dev/directives/my/btn/myBtn/myBtn.scss",
+		"/D/Workspace/laf/dev/directives/my/modal/myImgCropModal/myImgCropModal.html",
+		"/D/Workspace/laf/dev/directives/my/list/myContextMenu/myContextMenu.html",
+		"/D/Workspace/laf/dev/directives/my/collection/myElemSelector/myElemSelector.html",
+		"/D/Workspace/laf/dev/directives/my/modal/myModal/myModal.html",
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
+		"/D/Workspace/laf/dev/directives/my/src/mySrcThumbs/mySrcThumbs.html",
+		"/D/Workspace/laf/dev/directives/my/modal/myStandardModal/myStandardModal.html",
+		"/D/Workspace/laf/dev/directives/my/btn/myStateBtn/myStateBtn.html",
+		"/D/Workspace/laf/dev/directives/my/btn/myScrollTopBtn/myScrollTopBtn.html",
+		"/D/Workspace/laf/dev/directives/app/form/deactivationForm/deactivationForm.html",
+		"/D/Workspace/laf/dev/directives/my/collection/myComments/myCommentsService.js",
+		"/D/Workspace/laf/dev/directives/my/btn/myExpandBtn/myExpandBtn.html",
+		"/D/Workspace/laf/dev/directives/my/btn/myExpandBtn/myExpandBtn.js",
+		"/D/Workspace/laf/dev/directives/my/btn/myExpandBtn",
+		"/D/Workspace/laf/dev/directives/my/btn/myLikeBtn/myLikeBtn.html",
+		"/D/Workspace/laf/dev/directives/my/btn/myBtn/myBtn.html",
+		"/D/Workspace/laf/dev/directives/my/btn/myLikeBtn/myLikeBtn.js",
+		"/D/Workspace/laf/dev/directives/my/btn/myLikeBtn/myLikeBtn.scss",
+		"/D/Workspace/laf/dev/directives/app/other/userBadge/userBadge.html",
+		"/D/Workspace/laf/dev/directives/app/form/formActionBtns/formActionBtns.html",
+		"/D/Workspace/laf/dev/directives/app/collection/reports/reports.scss",
 		"/D/Workspace/start-pro/public/index.html",
 		"/D/Workspace/start-pro/.gitignore",
-		"/D/Workspace/laf/dev/server/setups/setupRoutes.js",
 		"/D/Workspace/start-pro/server.js",
 		"/D/Workspace/start-pro/gulpfile.js",
 		"/D/Workspace/laf/dev/server.js",
 		"/D/Workspace/start-pro/scripts/appModule.js",
 		"/D/Workspace/laf/dev/package.json",
 		"/D/Workspace/start-pro/package.json",
-		"/D/Workspace/laf/dev/gulpfile.js",
 		"/D/Workspace/start-pro/scripts/AppController.js",
 		"/D/Workspace/start-pro/scripts/run.js",
 		"/D/Workspace/start-pro/scripts/config.js",
@@ -632,111 +738,7 @@
 		"/D/Workspace/laf-starter/scripts/config.js",
 		"/D/Workspace/laf-starter/scripts/run.js",
 		"/D/Workspace/laf-starter/scripts/appModule.js",
-		"/D/Workspace/laf-starter/.env",
-		"/D/Workspace/start-project/scripts/appModule.js",
-		"/D/Workspace/start-project/public/index.html",
-		"/D/Workspace/start-project/scripts/routes/app.route.js",
-		"/D/Workspace/start-project/server/_requires.js",
-		"/D/Workspace/start-project/scripts/run.js",
-		"/D/Workspace/laf/dev/scripts/services/apiService.js",
-		"/D/Workspace/start-project/scripts/filters.js",
-		"/D/Workspace/start-project/scripts/constants.js",
-		"/D/Workspace/start-project/scripts/config.js",
-		"/D/Workspace/laf/dev/server/actions/Comment/putComment.js",
-		"/D/Workspace/laf/dev/directives/my/collection/myComments/myCommentsService.js",
-		"/D/Workspace/laf/dev/directives/my/collection/myComments/myComments.js",
-		"/D/Workspace/laf/dev/directives/my/collection/myComments/myComments.html",
-		"/D/Workspace/start-project/server.js",
-		"/D/Workspace/laf/dev/directives/my/btn/myLikeBtn/myLikeBtn.js",
-		"/D/Workspace/laf/dev/directives/my/btn/myBtn/myBtn.js",
-		"/D/Workspace/laf/dev/directives/my/btn/myLikeBtn/myLikeBtn.html",
-		"/D/Workspace/laf/dev/directives/my/btn/myLikeBtn/myLikeBtn.scss",
-		"/D/Workspace/start-project/sass/_vars.scss",
-		"/D/Workspace/start-project/utils/conemu/projectTask.txt",
-		"/D/Workspace/start-project/utils/important.txt",
-		"/D/Workspace/laf/dev/directives/my/collection/myCollectionBrowser/myCollectionBrowser.html",
-		"/D/Workspace/laf/dev/directives/my/btn/myBtn/myBtn.html",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyCollectionBrowser.js",
-		"/D/Workspace/laf/dev/directives/app/collection/reports/reportsConf.js",
-		"/D/Workspace/laf/dev/directives/my/collection/myCollectionBrowser/myCollectionBrowser.scss",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_en.json",
-		"/D/Workspace/laf/dev/public/json/hard_coded/hard_coded_pl.json",
-		"/D/Workspace/laf/dev/directives/my/form/myFormErrorIcon/myFormErrorIcon.scss",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyForm.js",
-		"/D/Workspace/laf/dev/server/schemas/CommentSchema.js",
-		"/D/Workspace/laf/dev/server/controllers/CommentController.js",
-		"/D/Workspace/laf/dev/server/actions/Comment/getComment.js",
-		"/D/Workspace/laf/dev/server/actions/_actions.js",
-		"/D/Workspace/laf/dev/server/actions/Comment/postComment.js",
-		"/D/Workspace/laf/dev/server/schemas/ReportSchema.js",
-		"/D/Workspace/laf/dev/server/schemas/UserSchema.js",
-		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.js",
-		"/D/Workspace/laf/dev/server/actions/Comment/deleteComment.js",
-		"/D/Workspace/laf/dev/server/controllers/ReportController.js",
-		"/D/Workspace/laf/dev/server/controllers/UserController.js",
-		"/D/Workspace/laf/dev/server/modules/authorize.js",
-		"/D/Workspace/laf/dev/server/actions/User/getUser.js",
-		"/D/Workspace/laf/dev/server/controllers/PaymentController.js",
-		"/D/Workspace/laf/dev/server/controllers/PasswordController.js",
-		"/D/Workspace/laf/dev/server/controllers/DeactivationReasonController.js",
-		"/D/Workspace/laf/dev/server/controllers/CounterController.js",
-		"/D/Workspace/laf/dev/server/controllers/ContactTypeController.js",
-		"/D/Workspace/laf/dev/server/controllers/AppConfigController.js",
-		"/D/Workspace/laf/dev/directives/my/collection/myComments/myComments.scss",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report-tabs.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
-		"/D/Workspace/laf/dev/sass/_index.scss",
-		"/D/Workspace/laf/dev/node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss",
-		"/D/Workspace/laf/dev/node_modules/cropper/src/scss/_variables.scss",
-		"/D/Workspace/laf/dev/scripts/appModule.js",
-		"/D/Workspace/laf/dev/scripts/run.js",
-		"/D/Workspace/laf/dev/public/index.html",
-		"/D/Workspace/laf/dev/directives/my/display/myPanel/myPanel.scss",
-		"/D/Workspace/laf/dev/scripts/config.js",
-		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarService.js",
-		"/D/Workspace/laf/dev/todos.txt",
-		"/D/Workspace/laf/dev/scripts/constants.js",
-		"/D/Workspace/laf/dev/server/actions/ContactType/getContactTypes.js",
-		"/D/Workspace/laf/dev/server/setups/setupConstants.js",
-		"/D/Workspace/laf/dev/directives/app/form/formActionBtns/formActionBtns.js",
-		"/D/Workspace/laf/dev/directives/app/form/formActionBtns/formActionBtns.html",
-		"/D/Workspace/laf/dev/directives/my/src/mySrcThumbs/mySrcThumbs.scss",
-		"/D/Workspace/laf/dev/directives/app/src/reportPhotos/reportPhotos.scss",
-		"/D/Workspace/laf/dev/directives/my/src/mySrcThumbs/mySrcThumbs.html",
-		"/D/Workspace/laf/dev/directives/app/src/reportPhotos/reportPhotos.html",
-		"/D/Workspace/laf/dev/sass/appStyles.scss",
-		"/D/Workspace/laf/dev/directives/my/collection/myCollectionBrowser/myCollectionBrowser.js",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-start.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-home.scss",
-		"/D/Workspace/laf/dev/sass/pages/lost-and-found-app-report.scss",
-		"/D/Workspace/laf/dev/server/actions/DeactivationReason/getDeactivationReasons.js",
-		"/D/Workspace/laf/dev/directives/my/display/myLoader/myLoader.scss",
-		"/D/Workspace/laf/dev/sass/_myClasses.scss",
-		"/D/Workspace/laf/dev/directives/my/display/myPanel/myPanel.html",
-		"/D/Workspace/laf/dev/directives/my/display/myPanel/myPanel.js",
-		"/D/Workspace/laf/dev/scripts/controllers/ReportController.js",
-		"/D/Workspace/laf/dev/scripts/configuration/commentsConf.js",
-		"/D/Workspace/laf/dev/directives/app/collection/reports/reports.js",
-		"/D/Workspace/laf/dev/scripts/configuration/framesConf.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/MySrc.js",
-		"/D/Workspace/laf/dev/directives/my/input/myTextArea/myTextArea.js",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyDataModel.js",
-		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarConf.js",
-		"/D/Workspace/laf/dev/directives/my/collection/myComments/myCommentsList/myCommentsList.scss",
-		"/D/Workspace/laf/dev/directives/my/collection/myComments/myCommentsList/myCommentsList.html",
-		"/D/Workspace/laf/dev/scripts/routes/report.route.js",
-		"/D/Workspace/laf/dev/directives/my/display/myLoader/myLoader.html",
-		"/D/Workspace/laf/dev/directives/my/display/myLoader/myLoader.js",
-		"/D/Workspace/laf/dev/directives/my/src/mySrc/mySrc.html",
-		"/D/Workspace/laf/dev/scripts/factories/class/MyLoader.js",
-		"/D/Workspace/laf/dev/directives/my/src/mySrc/mySrc.scss",
-		"/D/Workspace/laf/dev/server/setups/setupDb.js",
-		"/D/Workspace/laf/dev/server/_requires.js",
-		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatar.scss",
-		"/D/Workspace/laf/dev/directives/my/collection/myComments/myCommentsList/myCommentsList.js",
-		"/D/Workspace/laf/dev/directives/my/collection/myCollectionElem/myCollectionElem.scss",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
-		"/D/Workspace/laf/dev/scripts/controllers/ProfileController.js"
+		"/D/Workspace/laf-starter/.env"
 	],
 	"find":
 	{
@@ -815,6 +817,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ui.loaders.renderer.stop();",
+			"renderer.stop();",
+			"ui.loaders.renderer.stop();",
+			"renderer.stop",
+			"singleReportMap.init",
+			"singleReportMap.init()",
+			"searchReportsMap.init()",
+			"googleMapService.searchReportsMap.init()",
+			"googleMapService",
+			"myGoogleMap",
+			"googleMap",
+			"<button",
+			"<my-btn",
+			"onToggleLikeClick",
+			"<my-like-btn",
+			"<my-btn",
 			"querystring",
 			"hideRefresher",
 			"explicit-label",
@@ -926,23 +944,7 @@
 			"<my-label",
 			"<my-elem-sele",
 			"<my-form-error",
-			"my-alert",
-			"<my-alert>",
-			"commentsBrowser",
-			"reportCommentsBrowser",
-			"fast",
-			"slow",
-			"my-text",
-			"showNestedComments",
-			"onViewCommentsClick",
-			"isReplyModeOn",
-			"reportCommentsBrowser.init",
-			"setData",
-			"parentId",
-			"komentarze",
-			"meta",
-			"req.decoded",
-			"@media o"
+			"my-alert"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1154,6 +1156,114 @@
 		"selected_items":
 		[
 			[
+				"mycoll",
+				"directives\\my\\collection\\myCollectionBrowser\\myCollectionBrowser.html"
+			],
+			[
+				"gulp",
+				"laf\\dev\\gulpfile.js"
+			],
+			[
+				"run",
+				"laf\\dev\\scripts\\run.js"
+			],
+			[
+				"mycol",
+				"laf\\dev\\public\\directives\\myCollectionBrowser.html"
+			],
+			[
+				"myload",
+				"factories\\class\\MyLoader.js"
+			],
+			[
+				"ui.js",
+				"services\\ui.js"
+			],
+			[
+				"hom.r",
+				"routes\\home.route.js"
+			],
+			[
+				"uith",
+				"services\\uiThemeService.js"
+			],
+			[
+				"index",
+				"laf\\dev\\public\\index.html"
+			],
+			[
+				"app.r",
+				"routes\\app.route.js"
+			],
+			[
+				"appm",
+				"laf\\dev\\scripts\\appModule.js"
+			],
+			[
+				"ser",
+				"server\\setups\\setupRoutes.js"
+			],
+			[
+				"ui",
+				"services\\ui.js"
+			],
+			[
+				"home.r",
+				"routes\\home.route.js"
+			],
+			[
+				"uise",
+				"services\\uiSetupService.js"
+			],
+			[
+				"config",
+				"laf\\dev\\scripts\\config.js"
+			],
+			[
+				"google",
+				"services\\googleMapService.js"
+			],
+			[
+				"goo",
+				"services\\googleMapService.js"
+			],
+			[
+				"mycom",
+				"directives\\my\\collection\\myComments\\myComments.html"
+			],
+			[
+				"mydropd",
+				"directives\\my\\list\\myDropDown\\myDropDown.scss"
+			],
+			[
+				"mybtn",
+				"directives\\my\\btn\\myBtn\\myBtn.scss"
+			],
+			[
+				"imgc",
+				"directives\\my\\modal\\myImgCropModal\\myImgCropModal.html"
+			],
+			[
+				"mydropdown",
+				"directives\\my\\list\\myDropDown\\myDropDown.html"
+			],
+			[
+				"mybtn.scss",
+				"directives\\my\\btn\\myBtn\\myBtn.scss"
+			],
+			[
+				"mycomm",
+				"directives\\my\\collection\\myComments\\myComments.js"
+			],
+			[
+				"main.htm",
+				"pages\\lost-and-found-app-main.html"
+			],
+			[
+				"mycolle",
+				"factories\\class\\MyCollectionBrowser.js"
+			],
+			[
 				"reports.htm",
 				"directives\\app\\collection\\reports\\reports.html"
 			],
@@ -1172,14 +1282,6 @@
 			[
 				"putc",
 				"actions\\Comment\\putComment.js"
-			],
-			[
-				"mybtn",
-				"directives\\my\\btn\\myBtn\\myBtn.js"
-			],
-			[
-				"mycol",
-				"directives\\my\\collection\\myCollectionBrowser\\myCollectionBrowser.html"
 			],
 			[
 				"hardd",
@@ -1204,14 +1306,6 @@
 			[
 				"reports",
 				"server\\schemas\\ReportSchema.js"
-			],
-			[
-				"mycom",
-				"directives\\my\\collection\\myComments\\myCommentsService.js"
-			],
-			[
-				"mycomm",
-				"directives\\my\\collection\\myComments\\myComments.html"
 			],
 			[
 				"getus",
@@ -1246,10 +1340,6 @@
 				"laf\\dev\\public\\pages\\lost-and-found-app-report-tabs.html"
 			],
 			[
-				"mycolle",
-				"factories\\class\\MyCollectionBrowser.js"
-			],
-			[
 				"reportsc",
 				"laf\\dev\\directives\\app\\collection\\reports\\reportsConf.js"
 			],
@@ -1260,18 +1350,6 @@
 			[
 				"_index",
 				"sass\\_index.scss"
-			],
-			[
-				"appm",
-				"laf\\dev\\scripts\\appModule.js"
-			],
-			[
-				"run",
-				"laf\\dev\\scripts\\run.js"
-			],
-			[
-				"index",
-				"laf\\dev\\public\\index.html"
 			],
 			[
 				"conf",
@@ -1342,10 +1420,6 @@
 				"laf\\dev\\public\\json\\hard_coded\\hard_coded_en.json"
 			],
 			[
-				"mycoll",
-				"laf\\dev\\scripts\\factories\\class\\MyCollectionBrowser.js"
-			],
-			[
 				"mycollectionb",
 				"directives\\my\\collection\\myCollectionBrowser\\myCollectionBrowser.html"
 			],
@@ -1359,10 +1433,6 @@
 			],
 			[
 				"myloa",
-				"directives\\my\\display\\myLoader\\myLoader.scss"
-			],
-			[
-				"myload",
 				"directives\\my\\display\\myLoader\\myLoader.scss"
 			],
 			[
@@ -1384,10 +1454,6 @@
 			[
 				"mypanel",
 				"directives\\my\\display\\myPanel\\myPanel.html"
-			],
-			[
-				"gulp",
-				"laf\\dev\\gulpfile.js"
 			],
 			[
 				"_inde",
@@ -1600,70 +1666,6 @@
 			[
 				"usersr",
 				"factories\\rest\\UsersRest.js"
-			],
-			[
-				"start.scs",
-				"sass\\pages\\lost-and-found-app-start.scss"
-			],
-			[
-				"googlem",
-				"services\\googleMapService.js"
-			],
-			[
-				"mysrct",
-				"laf\\dev\\directives\\my\\mySrcThumbs\\mySrcThumbs.js"
-			],
-			[
-				"myswi",
-				"factories\\class\\MySwitcher.js"
-			],
-			[
-				"myswit",
-				"factories\\class\\MySwitchable.js"
-			],
-			[
-				"modalc",
-				"configuration\\modalsConf.js"
-			],
-			[
-				"reporta",
-				"directives\\REPORT\\reportAvatar\\reportAvatar.js"
-			],
-			[
-				"mysrcc",
-				"factories\\class\\MySrcCollection.js"
-			],
-			[
-				"aws3m",
-				"modules\\aws3Module.js"
-			],
-			[
-				"reportphotos",
-				"server\\schemas\\ReportPhotoSchema.js"
-			],
-			[
-				"app-re",
-				"pages\\lost-and-found-app-report-tabs.html"
-			],
-			[
-				"aws3s",
-				"services\\aws3Service.js"
-			],
-			[
-				"aws3ser",
-				"services\\aws3Service.js"
-			],
-			[
-				"reportphotos.scs",
-				"directives\\REPORT\\reportPhotos\\reportPhotos.scss"
-			],
-			[
-				"mysrc.ht",
-				"directives\\my\\mySrc\\mySrc.html"
-			],
-			[
-				"reportv",
-				"validators\\reportValidators.js"
 			]
 		],
 		"width": 0.0

@@ -12,7 +12,7 @@
 
 		var upgradeForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/upgradeForm/upgradeForm.html',
+			templateUrl: 'public/directives/upgradeForm.html',
 			scope: {},
 			controller: function($scope) {
 

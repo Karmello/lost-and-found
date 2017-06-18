@@ -10,7 +10,7 @@
 
 		var loginForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/loginForm/loginForm.html',
+			templateUrl: 'public/directives/loginForm.html',
 			scope: true,
 			controller: function($scope) {
 

@@ -2,9 +2,9 @@
 
 	'use strict';
 
-	var SearchController = function($rootScope, $scope, $timeout, reportsConf, googleMapService) {
+	var SearchController = function($rootScope, $scope, $timeout, reportsService, googleMapService) {
 
-		$scope.searchReports = reportsConf.searchReports;
+		$scope.collectionBrowser = reportsService.collectionBrowser.bySearchQuery;
 		$scope.showMap = true;
 
 		$scope.toggleMap = function() {
@@ -19,7 +19,7 @@
 		};
 	};
 
-	SearchController.$inject = ['$rootScope', '$scope', '$timeout', 'reportsConf', 'googleMapService'];
+	SearchController.$inject = ['$rootScope', '$scope', '$timeout', 'reportsService', 'googleMapService'];
 	angular.module('appModule').controller('SearchController', SearchController);
 
 })();

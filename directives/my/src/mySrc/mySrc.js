@@ -8,7 +8,7 @@
 
 		var mySrc = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/src/mySrc/mySrc.html',
+			templateUrl: 'public/directives/mySrc.html',
 			scope: {
 				ins: '=',
 				type: '@',

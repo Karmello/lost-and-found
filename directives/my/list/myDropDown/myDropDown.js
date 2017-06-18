@@ -10,7 +10,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myDropDown/myDropDown.html',
+			templateUrl: 'public/directives/myDropDown.html',
 			scope: {
 				ins: '=',
 				openDirection: '=',

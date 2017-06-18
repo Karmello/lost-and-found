@@ -8,7 +8,7 @@
 
 		var myComments = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/collection/myComments/myComments.html',
+			templateUrl: 'public/directives/myComments.html',
 			scope: {
 				nestingLevel: '<',
 				apiObj: '=',

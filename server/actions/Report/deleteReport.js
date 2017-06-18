@@ -3,21 +3,31 @@ var r = require(global.paths._requires);
 module.exports = {
 	before: function(req, res, next) {
 
-		r.Report.findOne({ _id: req.params.id }, function(err, report) {
+		var action = new r.prototypes.Action(arguments);
 
-			if (!err && report) {
+		new r.Promise(function(resolve, reject) {
 
-				report.remove(function(err) {
+			r.Report.findOne({ _id: req.params.id }, function(err, report) {
 
-					if (!err) {
-						res.status(204).send();
+				if (!err && report) {
+					if (report.userId == req.decoded._id) {
 
-					} else {
-						res.status(400).send(err);
-					}
-				});
+						report.remove(function(err) {
+							if (!err) { resolve(); } else { reject(err); }
+						});
 
-			} else { res.status(400).send(err); }
+					} else { reject('REPORT_DELETE_NOT_ALLOWED'); }
+
+				} else { reject(err); }
+			});
+
+		}).then(function() {
+
+			action.end(204);
+
+		}, function(err) {
+
+			action.end(400, err);
 		});
 	}
 };

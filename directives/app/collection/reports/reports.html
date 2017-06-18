@@ -1,11 +1,11 @@
 <div class="reports">
-	<my-collection-browser ins="collectionBrowser" no-scroll-top-btn="ctrlId == 'RecentlyViewedReports' || ctrlId == 'NewReports'">
+	<my-collection-browser ins="collectionBrowser" no-scroll-top-btn="ctrlId == 'lastViewed' || ctrlId == 'newlyAdded'">
 		<elems>
 			<my-panel
 				ng-repeat="report in collectionBrowser.collection"
 				ng-class="report.startEvent.type == 'found' ? 'isFound' : ''"
-				is-selectable="ctrlId == 'UserReports' && apiData.profileUser._isTheOneLoggedIn()"
-				context-menu-conf="elemContextMenuConf"
+				is-selectable="ctrlId == 'byUser' && apiData.profileUser._isTheOneLoggedIn()"
+				context-menu-conf="ctrlId == 'byUser' && apiData.profileUser._isTheOneLoggedIn() ? elemContextMenuConf : undefined"
 				data="report"
 			>
 				<heading-text>

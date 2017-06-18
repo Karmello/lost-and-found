@@ -65,10 +65,10 @@
 					<my-panel context-menu-conf="apiData.profileUser._isTheOneLoggedIn() ? profileReportsContextMenuConf : undefined">
 						<heading-text>
 							<span class="glyphicon glyphicon-list"></span>
-							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[11] }} ({{ userReports.meta.count }})</span>
+							<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[11] }} ({{ collectionBrowser.meta.count }})</span>
 						</heading-text>
 						<body-section>
-							<reports ctrl-id="UserReports"></reports>
+							<reports ctrl-id="byUser"></reports>
 						</body-section>
 					</my-panel>
 				</body-section>

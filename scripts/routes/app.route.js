@@ -54,7 +54,7 @@
 
 					return $q(function(resolve) {
 
-						$http.get('public/json/countries.json').success(function(res) {
+						$http.get('public/json/countries.json', { cache: true }).success(function(res) {
 
 							jsonService.sort.objectsByProperty(res, 'name', true, function(sorted) {
 								jsonService.group.sortedObjectsByPropFirstLetter(sorted, 'name', function(grouped) {

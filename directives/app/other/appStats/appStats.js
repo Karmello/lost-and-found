@@ -8,7 +8,7 @@
 
 		var appStats = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/other/appStats/appStats.html',
+			templateUrl: 'public/directives/appStats.html',
 			scope: true,
 			controller: function($scope) {
 

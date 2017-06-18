@@ -47,8 +47,6 @@
 
 				ui.loaders.renderer.stop();
 
-
-
 				switch ($stateParams.action) {
 
 					case 'deactivation':

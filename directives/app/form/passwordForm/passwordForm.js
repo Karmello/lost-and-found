@@ -10,7 +10,7 @@
 
 		var passwordForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/passwordForm/passwordForm.html',
+			templateUrl: 'public/directives/passwordForm.html',
 			scope: true,
 			controller: function($scope) {
 

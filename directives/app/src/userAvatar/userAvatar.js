@@ -8,7 +8,7 @@
 
 		var userAvatar = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/src/userAvatar/userAvatar.html',
+			templateUrl: 'public/directives/userAvatar.html',
 			scope: {
 				user: '=',
 				editable: '=',

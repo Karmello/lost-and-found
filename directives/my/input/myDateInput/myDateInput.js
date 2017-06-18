@@ -10,7 +10,7 @@
 
 		var myDateInput = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/input/myDateInput/myDateInput.html',
+			templateUrl: 'public/directives/myDateInput.html',
 			scope: {
 				ctrlId: '=',
 				ctrlMaxLength: '=',

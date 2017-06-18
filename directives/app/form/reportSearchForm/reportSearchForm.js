@@ -6,11 +6,11 @@
 
 
 
-	appModule.directive('reportSearchForm', function($rootScope, myClass, ReportsRest) {
+	appModule.directive('reportSearchForm', function($rootScope, myClass, reportsService, ReportsRest) {
 
 		var reportSearchForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/reportSearchForm/reportSearchForm.html',
+			templateUrl: 'public/directives/reportSearchForm.html',
 			scope: true,
 			controller: function($scope) {
 
@@ -22,7 +22,7 @@
 					model: ReportsRest.reportSearchModel,
 					submitAction: function(args) {
 
-						$rootScope.$broadcast('initSearchReports');
+						reportsService.collectionBrowser.bySearchQuery.init();
 					}
 				});
 			}

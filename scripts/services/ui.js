@@ -45,7 +45,7 @@
 			},
 			modals: modalsConf,
 			loaders: {
-				renderer: new myClass.MyLoader()
+				renderer: new myClass.MyLoader(undefined, 1)
 			}
 		};
 

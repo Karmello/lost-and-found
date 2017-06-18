@@ -8,7 +8,7 @@
 
 		var reportAvatar = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/src/reportAvatar/reportAvatar.html',
+			templateUrl: 'public/directives/reportAvatar.html',
 			scope: {
 				report: '=',
 				noLink: '&',

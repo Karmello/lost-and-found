@@ -9,7 +9,7 @@
 		return {
 			restrict: 'E',
 			transclude: true,
-			templateUrl: 'public/directives/my/form/myForm/myForm.html',
+			templateUrl: 'public/directives/myForm.html',
 			scope: {
 				ins: '=',
 				hardData: '='

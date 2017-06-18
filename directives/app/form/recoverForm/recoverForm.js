@@ -10,7 +10,7 @@
 
 		var recoverForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/recoverForm/recoverForm.html',
+			templateUrl: 'public/directives/recoverForm.html',
 			scope: true,
 			controller: function($scope) {
 

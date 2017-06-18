@@ -10,7 +10,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/other/userBadge/userBadge.html',
+			templateUrl: 'public/directives/userBadge.html',
 			scope: true,
 			controller: function($scope) {
 

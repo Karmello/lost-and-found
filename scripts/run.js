@@ -1,13 +1,15 @@
 (function() {
 
-	angular.module('appModule').run(function(
-		$rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, socketService
-	) {
+	angular.module('appModule')
+	.run(function($rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, socketService,
+					reportsService, uiSetupService) {
 
 		ui.loaders.renderer.start();
+
+		uiSetupService.preloadTemplates(ui);
+		uiSetupService.preloadImgs();
 		uiThemeService.include(sessionConst.theme);
 
-		//logService.resetAll();
 		socketService.init();
 		apiService.setup();
 
@@ -23,6 +25,10 @@
 		});
 
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+
+			reportsService.initReports(fromState, fromParams, toState, toParams);
+
+
 
 			switch (toState.name) {
 

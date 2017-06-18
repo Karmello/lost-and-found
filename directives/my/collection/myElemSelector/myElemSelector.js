@@ -10,7 +10,7 @@
 
 		var myElemSelector = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/collection/myElemSelector/myElemSelector.html',
+			templateUrl: 'public/directives/myElemSelector.html',
 			scope: {
 				isSelected: '='
 			},

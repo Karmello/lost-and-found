@@ -10,7 +10,7 @@
 
 		var myLabel = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/text/myLabel/myLabel.html',
+			templateUrl: 'public/directives/myLabel.html',
 			scope: {
 				text: '=',
 				cssClass: '='

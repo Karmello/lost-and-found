@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsConf, CommentsRest, Restangular) {
+	var apiService = function($rootScope, $window, $timeout, googleMapService, storageService, reportsService, CommentsRest, Restangular) {
 
 		var service = {
 			setup: function() {
@@ -57,12 +57,12 @@
 
 						switch (res.config.params.subject) {
 
-							case 'searchReports':
-							case 'recentReports':
-							case 'userReports':
-							case 'viewedReports':
+							case 'bySearchQuery':
+							case 'newlyAdded':
+							case 'byUser':
+							case 'lastViewed':
 
-								reportsConf[res.config.params.subject].setData(data);
+								reportsService.collectionBrowser[res.config.params.subject].setData(data);
 
 								if (res.config.params.subject == 'searchReports') {
 									googleMapService.searchReportsMap.addMarkers(data.collection);
@@ -70,7 +70,7 @@
 
 								return data.collection;
 
-							case 'singleReport':
+							case 'singleOne':
 
 								$rootScope.apiData.loggedInUser.reportsRecentlyViewed = data.reportsRecentlyViewed;
 								return [data.report];
@@ -106,7 +106,7 @@
 		return service;
 	};
 
-	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsConf', 'CommentsRest','Restangular'];
+	apiService.$inject = ['$rootScope', '$window', '$timeout', 'googleMapService', 'storageService', 'reportsService', 'CommentsRest','Restangular'];
 	angular.module('appModule').service('apiService', apiService);
 
 })();

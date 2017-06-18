@@ -10,7 +10,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/modal/myModal/myModal.html',
+			templateUrl: 'public/directives/myModal.html',
 			transclude: {
 				header: '?myModalHeader',
 				body: '?myModalBody',

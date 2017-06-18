@@ -8,7 +8,7 @@
 
 		var myStandardModal = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/modal/myStandardModal/myStandardModal.html',
+			templateUrl: 'public/directives/myStandardModal.html',
 			scope: {
 				ins: '=',
 				type: '@'

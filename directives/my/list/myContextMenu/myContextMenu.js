@@ -10,7 +10,7 @@
 
 		var myContextMenu = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myContextMenu/myContextMenu.html',
+			templateUrl: 'public/directives/myContextMenu.html',
 			scope: {
 				ins: '='
 			},

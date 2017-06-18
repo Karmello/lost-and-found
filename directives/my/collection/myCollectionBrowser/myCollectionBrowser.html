@@ -27,7 +27,7 @@
 		<div id="extraCtrls" ng-transclude="extractrls"></div>
 	</div>
 	<div id="collectionContainer">
-		<div ng-class="{ halfTransparent: ins.loader.isLoading }" ng-show="ins.collection.length > 0">
+		<div ng-show="ins.collection.length > 0" ng-class="ins.loader.isLoading ? 'halfTransparent' : ''">
 			<br />
 			<div ng-transclude="elems"></div>
 			<br />

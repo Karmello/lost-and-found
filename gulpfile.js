@@ -10,6 +10,7 @@ var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer');
 var ngAnnotate = require('gulp-ng-annotate');
 var babel = require('gulp-babel');
+var debug = require('gulp-debug');
 
 
 
@@ -59,6 +60,7 @@ gulp.task('compile', ['html_directives', 'sass', 'js'], function() {
 gulp.task('html_directives', function(done) {
     gulp.src(paths.html.directives.source)
     .pipe(browserSync.stream())
+    .pipe(rename({ dirname: '' }))
     .pipe(gulp.dest(paths.html.directives.dest))
     .on('end', done);
 });

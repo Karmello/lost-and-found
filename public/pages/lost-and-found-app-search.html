@@ -18,12 +18,12 @@
 			<my-panel transparent-heading="true">
 				<heading-text>
 					<span class="glyphicon glyphicon-list"></span>
-					<span ng-if="searchReports.meta.count == 0">&nbsp;&nbsp;&nbsp;{{ hardData.sections[13] }} (0)</span>
-					<span ng-if="searchReports.meta.count > 0">
+					<span ng-if="collectionBrowser.meta.count == 0">&nbsp;&nbsp;&nbsp;{{ hardData.sections[13] }} (0)</span>
+					<span ng-if="collectionBrowser.meta.count > 0">
 						<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[13] }} ({{ hardData.count[11] }}:</span>
-						<span class="text-info">{{ searchReports.meta.count }}</span>,
+						<span class="text-info">{{ collectionBrowser.meta.count }}</span>,
 						<span>{{ hardData.count[10] }}:</span>
-						<span class="text-info">{{ searchReports.collection.length }}</span>)
+						<span class="text-info">{{ collectionBrowser.collection.length }}</span>)
 					</span>
 				</heading-text>
 				<body-section>
@@ -33,7 +33,7 @@
 						</div>
 						<div id="reportsMap" class="myGoogleMap" ng-show="showMap"></div>
 					</div>
-					<reports ctrl-id="SearchReports"></reports>
+					<reports ctrl-id="bySearchQuery"></reports>
 				</body-section>
 			</my-panel>
 		</div>

@@ -10,7 +10,7 @@
 
 		var regionalForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/regionalForm/regionalForm.html',
+			templateUrl: 'public/directives/regionalForm.html',
 			scope: true,
 			controller: function($scope) {
 

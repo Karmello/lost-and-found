@@ -8,7 +8,7 @@
 
 		var appearanceForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/appearanceForm/appearanceForm.html',
+			templateUrl: 'public/directives/appearanceForm.html',
 			scope: true,
 			controller: function($scope) {
 

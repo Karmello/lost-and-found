@@ -53,6 +53,7 @@
 		MyCollectionBrowser.prototype.init = function(cb) {
 
 			var that = this;
+			var i;
 
 			// Fetching collection to display
 
@@ -74,12 +75,12 @@
 							var pagerSwitchers = [];
 
 							if (!that.reverseOrder) {
-								for (var i = 0; i < numOfPages; i++) {
+								for (i = 0; i < numOfPages; i++) {
 									pagerSwitchers.push({ _id: i + 1, label: '#' + (i + 1) });
 								}
 
 							} else {
-								for (var i = 0; i < numOfPages; i++) {
+								for (i = 0; i < numOfPages; i++) {
 									pagerSwitchers.push({ _id: i + 1, label: '#' + (numOfPages - i) });
 								}
 							}
@@ -102,7 +103,7 @@
 
 						// Setting collection elems pos numbers
 
-						for (var i = 0; i < that.collection.length; i++) {
+						for (i = 0; i < that.collection.length; i++) {
 							that.collection[i].elemPosition = that.getElemPosition(i);
 						}
 

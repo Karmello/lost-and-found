@@ -16,7 +16,7 @@
 						var promises = [];
 
 						promises.push(UsersRest.getList({ reportId: $stateParams.id }));
-						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleReport' }));
+						promises.push(ReportsRest.getList({ _id: $stateParams.id, subject: 'singleOne' }));
 
 						$q.all(promises).then(function(results) {
 

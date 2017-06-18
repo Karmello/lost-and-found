@@ -10,7 +10,7 @@
 
 		var deactivationForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/deactivationForm/deactivationForm.html',
+			templateUrl: 'public/directives/deactivationForm.html',
 			scope: true,
 			controller: function($scope) {
 

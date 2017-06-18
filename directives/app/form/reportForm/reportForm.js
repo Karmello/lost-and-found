@@ -8,7 +8,7 @@
 
 		var reportForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/form/reportForm/reportForm.html',
+			templateUrl: 'public/directives/reportForm.html',
 			scope: {
 				action: '@'
 			},

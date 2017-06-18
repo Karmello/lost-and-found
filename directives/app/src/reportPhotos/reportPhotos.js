@@ -8,7 +8,7 @@
 
 		var reportPhotos = {
 			restrict: 'E',
-			templateUrl: 'public/directives/app/src/reportPhotos/reportPhotos.html',
+			templateUrl: 'public/directives/reportPhotos.html',
 			scope: {
 				report: '=',
 				editable: '&'

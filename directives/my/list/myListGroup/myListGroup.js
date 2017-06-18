@@ -10,7 +10,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/list/myListGroup/myListGroup.html',
+			templateUrl: 'public/directives/myListGroup.html',
 			scope: {
 				ins: '='
 			}

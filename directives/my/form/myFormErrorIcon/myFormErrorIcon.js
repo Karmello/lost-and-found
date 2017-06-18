@@ -8,7 +8,7 @@
 
 		var myFormErrorIcon = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/form/myFormErrorIcon/myFormErrorIcon.html',
+			templateUrl: 'public/directives/myFormErrorIcon.html',
 			scope: {
 				args: '='
 			}

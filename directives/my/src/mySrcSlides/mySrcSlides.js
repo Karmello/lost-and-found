@@ -8,7 +8,7 @@
 
 		var mySrcSlides = {
 			restrict: 'E',
-			templateUrl: 'public/directives/my/src/mySrcSlides/mySrcSlides.html',
+			templateUrl: 'public/directives/mySrcSlides.html',
 			scope: {
 				mySrcCollection: '=',
 				srcType: '@'

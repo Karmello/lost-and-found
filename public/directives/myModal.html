@@ -1,25 +1,27 @@
-<div
-    id="{{ ins.id }}"
-    class="myModal modal fade"
-    ng-class="slideInFromLeft ? 'modalSlideInFromLeft' : ''"
-    tabindex="-1"
-    role="dialog"
-    my-directive
->
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <p class="modal-title">{{ ins.title + ' ...' }}</p>
-                <div ng-transclude="header"></div>
-            </div>
-            <div class="modal-body">
-                <div ng-transclude="body"></div>
-            </div>
-            <div class="modal-footer">
-                <div ng-transclude="footer"></div>
+<div id="myModal">
+    <div
+        id="{{ ins.id }}"
+        class="myModal modal fade"
+        ng-class="slideInFromLeft ? 'modalSlideInFromLeft' : ''"
+        tabindex="-1"
+        role="dialog"
+        my-directive
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p class="modal-title">{{ ins.title + ' ...' }}</p>
+                    <div ng-transclude="header"></div>
+                </div>
+                <div class="modal-body">
+                    <div ng-transclude="body"></div>
+                </div>
+                <div class="modal-footer">
+                    <div ng-transclude="footer"></div>
+                </div>
             </div>
         </div>
     </div>

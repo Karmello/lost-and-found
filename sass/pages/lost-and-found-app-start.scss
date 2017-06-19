@@ -27,8 +27,8 @@
 		#formsSection {
 
 			flex-basis: 70%;
-			.myForm { max-width: 300px; margin: 50px auto; }
-			.userBadge { margin-bottom: 50px; }
+			#myForm { max-width: 300px; margin: 50px auto; }
+			#userBadge { margin-bottom: 50px; }
 		}
 	}
 
@@ -37,7 +37,7 @@
 		display: block;
 		width: 100%;
 
-		.myCollectionBrowser {
+		#myCollectionBrowser {
 			#basicCtrls {
 				justify-content: flex-end;
 			}

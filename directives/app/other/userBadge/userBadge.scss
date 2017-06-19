@@ -1,11 +1,11 @@
 @import '_vars';
 
-.userBadge {
+#userBadge {
 
 	position: relative;
 	display: table;
 	margin: 0 auto;
 	padding: 15px;
 
-	.mySrc { img { @extend .defaultAvatarSize; } }
+	#mySrc { img { @extend .defaultAvatarSize; } }
 }

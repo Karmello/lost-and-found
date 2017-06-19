@@ -1,25 +1,28 @@
 #reportForm {
 
-	.myForm {
+	#myForm {
 
-		.formCtrls {
+		form {
 
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-around;
+			.formCtrls {
 
-			> div {
-				margin: 5px;
-				flex-basis: 100%;
-				@media only screen and (min-width: 700px) {
-					flex-basis: 48%;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+
+				> div {
+					margin: 5px;
+					flex-basis: 100%;
+					@media only screen and (min-width: 700px) {
+						flex-basis: 48%;
+					}
 				}
-			}
 
-			textarea {
-				max-width: 450px;
-				min-height: 150px !important;
-				text-align: justify;
+				textarea {
+					max-width: 450px;
+					min-height: 150px !important;
+					text-align: justify;
+				}
 			}
 		}
 	}

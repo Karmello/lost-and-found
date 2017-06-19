@@ -1,4 +1,4 @@
-.mySrc {
+#mySrc {
 
 	$srcCtrlsMargin: 10px;
 
@@ -23,13 +23,13 @@
 
 	.srcCtrls {
 
-		.myElemSelector, .myContextMenu {
+		#myElemSelector, #myContextMenu {
 			position: absolute;
 			top: $srcCtrlsMargin;
 		}
 
-		.myElemSelector { left: $srcCtrlsMargin; }
-		.myContextMenu { right: $srcCtrlsMargin; }
+		#myElemSelector { left: $srcCtrlsMargin; }
+		#myContextMenu { right: $srcCtrlsMargin; }
 	}
 
 	.isSelected {
@@ -37,7 +37,7 @@
 		img { opacity: 0.3; }
 	}
 
-	.myLoader {
+	#myLoader {
 		padding: 0;
 		.sk-circle { width: 30px; height: 30px; }
 	}

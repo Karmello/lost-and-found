@@ -1,18 +1,18 @@
-.myComments {
+#myComments {
 
-	.myForm {
+	#myForm {
 		.myLabel.text-info {
 			margin-top: 0 !important;
 		}
 	}
 
-	.myCollectionBrowser {
+	#myCollectionBrowser {
 
 		#frontCtrls {
 			flex-grow: 1;
 		}
 
-		.myPanel {
+		#myPanel {
 
 			font-size: 14px;
 			margin-top: 10px;
@@ -23,7 +23,7 @@
 
 			#bodySection {
 
-				.userAvatar {
+				#userAvatar {
 					float: left;
 					margin-right: 12px;
 					margin-bottom: 10px;

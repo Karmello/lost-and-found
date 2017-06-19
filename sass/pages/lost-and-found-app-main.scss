@@ -18,12 +18,12 @@
 
 			margin: 5px;
 
-			.userAvatar {
+			#userAvatar {
 				display: flex;
 				align-items: center;
 
 				> div {
-					.mySrc {
+					#mySrc {
 						img { @extend .tinyAvatarSize; }
 						.srcLabel {
 							width: 60px;

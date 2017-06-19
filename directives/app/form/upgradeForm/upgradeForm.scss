@@ -1,20 +1,23 @@
-.upgradeForm {
+#upgradeForm {
 
-	.myForm {
+	#myForm {
 
-		> div {
+		form {
 
-			#formSection {
+			> div {
 
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: space-around;
+				#formSection {
 
-				> div {
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: space-around;
 
-					flex-grow: 1;
-					max-width: 300px;
-					margin: 5px;
+					> div {
+
+						flex-grow: 1;
+						max-width: 300px;
+						margin: 5px;
+					}
 				}
 			}
 		}

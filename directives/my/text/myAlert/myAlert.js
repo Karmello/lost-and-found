@@ -10,7 +10,7 @@
 
 		var myAlert = {
 			restrict: 'E',
-			template: '<div class="myAlert alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
+			template: '<div id="myAlert" class="alert no_selection" ng-class="ctrlClass" role="alert" ng-bind="message" my-directive></div>',
 			scope: {
 				ctrlClass: '=',
 				hardData: '='

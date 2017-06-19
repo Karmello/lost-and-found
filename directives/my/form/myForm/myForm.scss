@@ -1,8 +1,8 @@
-.myFormContainer {
+#myForm {
 
 	position: relative;
 
-	.myForm {
+	form {
 
 		position: relative;
 		background-color: $gray-lighter;
@@ -29,7 +29,7 @@
 			min-height: 200px;
 		}
 
-		.myLabel.text-info {
+		#myLabel.text-info {
 			margin-top: 5px;
 			margin-bottom: 0;
 		}

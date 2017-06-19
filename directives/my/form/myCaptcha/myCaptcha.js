@@ -32,7 +32,7 @@
 				return function(scope, elem, attrs) {
 
 					// Getting parent form scope
-					var form = $(elem).parents('.myForm:first');
+					var form = $(elem).parents('#myForm:first');
 					var formScope = $(form).scope();
 
 					scope.$watch('visible', function(newValue) {

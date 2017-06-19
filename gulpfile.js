@@ -21,7 +21,8 @@ var paths = {
             dest: 'public/directives'
         },
         pages: {
-            source: 'public/pages/**/*.html'
+            source: 'public/pages/**/*.html',
+            dest: 'public/pages'
         }
     },
     sass: ['sass/**/*.scss', 'directives/**/*.scss', '!sass/appStyles.scss'],
@@ -38,7 +39,7 @@ gulp.task('server', function() {
     nodemon({ script: 'server.js', watch: ['server.js', 'server/**/*.js'] });
 });
 
-gulp.task('compile', ['html_directives', 'sass', 'js'], function() {
+gulp.task('compile', ['html_directives', 'html_directives_all', 'html_pages_all', 'sass', 'js'], function() {
 
     gulp.watch(paths.html.pages.source).on('change', browserSync.reload);
     gulp.watch(paths.html.directives.source, ['html_directives']);
@@ -62,6 +63,20 @@ gulp.task('html_directives', function(done) {
     .pipe(browserSync.stream())
     .pipe(rename({ dirname: '' }))
     .pipe(gulp.dest(paths.html.directives.dest))
+    .on('end', done);
+});
+
+gulp.task('html_directives_all', function(done) {
+    gulp.src(paths.html.directives.source)
+    .pipe(concat('all.html'))
+    .pipe(gulp.dest(paths.html.directives.dest))
+    .on('end', done);
+});
+
+gulp.task('html_pages_all', function(done) {
+    gulp.src(paths.html.pages.source)
+    .pipe(concat('all.html'))
+    .pipe(gulp.dest(paths.html.pages.dest))
     .on('end', done);
 });
 

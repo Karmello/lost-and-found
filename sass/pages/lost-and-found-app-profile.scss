@@ -11,8 +11,8 @@
 
 		> div { padding: 10px 10px 0 10px; }
 
-		.userAvatar {
-			.mySrc { img { @extend .smallAvatarSize; } }
+		#userAvatar {
+			#mySrc { img { @extend .smallAvatarSize; } }
 		}
 	}
 }

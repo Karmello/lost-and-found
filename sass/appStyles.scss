@@ -141,40 +141,13 @@ body {
 	position: absolute !important;
 }
 $avatarSize: 240px;
-.main-with-aside-1 {
-
-	display: flex;
-	flex-flow: column wrap;
-	justify-content: center;
-	margin-top: 25px;
-
-	@media only screen and (min-width: 992px) { flex-flow: row nowrap; }
-
-	> div:first-child {
-
-		display: flex;
-		flex-flow: row wrap;
-		flex-basis: 30%;
-		justify-content: center;
-		align-content: flex-start;
-
-		margin-bottom: 25px;
-
-		> div { flex-grow: 1; padding: 0 15px 0 15px; }
-	}
-
-	> div:last-child {
-
-		flex-basis: 650px;
-	}
-}
 #lost-and-found-app-contact {
 
 
 }
 #lost-and-found-app-home {
 
-	.myCollectionBrowser {
+	#myCollectionBrowser {
 		#basicCtrls {
 			justify-content: flex-end;
 		}
@@ -200,12 +173,12 @@ $avatarSize: 240px;
 
 			margin: 5px;
 
-			.userAvatar {
+			#userAvatar {
 				display: flex;
 				align-items: center;
 
 				> div {
-					.mySrc {
+					#mySrc {
 						img { @extend .tinyAvatarSize; }
 						.srcLabel {
 							width: 60px;
@@ -236,8 +209,8 @@ $avatarSize: 240px;
 
 		> div { padding: 10px 10px 0 10px; }
 
-		.userAvatar {
-			.mySrc { img { @extend .smallAvatarSize; } }
+		#userAvatar {
+			#mySrc { img { @extend .smallAvatarSize; } }
 		}
 	}
 }
@@ -358,9 +331,9 @@ $avatarSize: 240px;
 		}
 	}
 
-	.myTabs { margin-bottom: 50px; }
-	.myForm { max-width: 300px; }
-	.myForm, .mySrc { margin: 0 auto; }
+	#myTabs { margin-bottom: 50px; }
+	#myForm { max-width: 300px; }
+	#myForm, #mySrc { margin: 0 auto; }
 }
 #lost-and-found-app-start {
 
@@ -391,8 +364,8 @@ $avatarSize: 240px;
 		#formsSection {
 
 			flex-basis: 70%;
-			.myForm { max-width: 300px; margin: 50px auto; }
-			.userBadge { margin-bottom: 50px; }
+			#myForm { max-width: 300px; margin: 50px auto; }
+			#userBadge { margin-bottom: 50px; }
 		}
 	}
 
@@ -401,7 +374,7 @@ $avatarSize: 240px;
 		display: block;
 		width: 100%;
 
-		.myCollectionBrowser {
+		#myCollectionBrowser {
 			#basicCtrls {
 				justify-content: flex-end;
 			}
@@ -431,13 +404,38 @@ $avatarSize: 240px;
 		}
 	}
 }
-.reports {
+.main-with-aside-1 {
 
-	//max-width: 1000px;
-	//margin: 0 auto;
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	margin-top: 25px;
+
+	@media only screen and (min-width: 992px) { flex-flow: row nowrap; }
+
+	> div:first-child {
+
+		display: flex;
+		flex-flow: row wrap;
+		flex-basis: 30%;
+		justify-content: center;
+		align-content: flex-start;
+
+		margin-bottom: 25px;
+
+		> div { flex-grow: 1; padding: 0 15px 0 15px; }
+	}
+
+	> div:last-child {
+
+		flex-basis: 650px;
+	}
+}
+#reports {
+
 	#actionBtns { margin-bottom: 25px; }
 
-	.myCollectionBrowser {
+	#myCollectionBrowser {
 
 		#collectionContainer {
 			> div {
@@ -465,7 +463,7 @@ $avatarSize: 240px;
 			}
 		}
 
-		.myPanel {
+		#myPanel {
 
 			background-color: $brand-danger;
 			min-width: 200px;
@@ -488,7 +486,7 @@ $avatarSize: 240px;
 					}
 
 					#avatarSection {
-						.mySrc {
+						#mySrc {
 							margin: 5px 10px 5px 10px;
 							img { width: 150px; height: 100px; object-fit: cover; }
 						}
@@ -497,89 +495,100 @@ $avatarSize: 240px;
 			}
 		}
 
-		.isFound { .myPanel { background-color: $brand-info; } }
+		.isFound { #myPanel { background-color: $brand-info; } }
 	}
 }
 #contactForm {
 
-	.myForm {
+	#myForm {
 
-		margin: 0 auto;
-		max-width: 400px;
-		@media only screen and (min-width: 768px) { max-width: 600px; }
+		form {
+			margin: 0 auto;
+			max-width: 400px;
+			@media only screen and (min-width: 768px) { max-width: 600px; }
 
-		.mySelect { display: table; }
-		.myTextArea { textarea { min-height: 300px !important; } }
+			#mySelect { display: table; }
+			#myTextArea { textarea { min-height: 300px !important; } }
+		}
 	}
 }
 #reportForm {
 
-	.myForm {
+	#myForm {
 
-		.formCtrls {
+		form {
 
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-around;
-
-			> div {
-				margin: 5px;
-				flex-basis: 100%;
-				@media only screen and (min-width: 700px) {
-					flex-basis: 48%;
-				}
-			}
-
-			textarea {
-				max-width: 450px;
-				min-height: 150px !important;
-				text-align: justify;
-			}
-		}
-	}
-}
-#reportSearchForm {
-
-	.myForm {
-
-		> div {
-
-			> div {
-
-				display: flex;
-				flex-flow: row wrap;
-
-				> div {
-					flex-grow: 1;
-					margin: 5px;
-				}
-			}
-		}
-	}
-}
-.upgradeForm {
-
-	.myForm {
-
-		> div {
-
-			#formSection {
+			.formCtrls {
 
 				display: flex;
 				flex-flow: row wrap;
 				justify-content: space-around;
 
 				> div {
-
-					flex-grow: 1;
-					max-width: 300px;
 					margin: 5px;
+					flex-basis: 100%;
+					@media only screen and (min-width: 700px) {
+						flex-basis: 48%;
+					}
+				}
+
+				textarea {
+					max-width: 450px;
+					min-height: 150px !important;
+					text-align: justify;
 				}
 			}
 		}
 	}
 }
-.appStats {
+#reportSearchForm {
+
+	#myForm {
+
+		form {
+
+			> div {
+
+				> div {
+
+					display: flex;
+					flex-flow: row wrap;
+
+					> div {
+						flex-grow: 1;
+						margin: 5px;
+					}
+				}
+			}
+		}
+	}
+}
+#upgradeForm {
+
+	#myForm {
+
+		form {
+
+			> div {
+
+				#formSection {
+
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: space-around;
+
+					> div {
+
+						flex-grow: 1;
+						max-width: 300px;
+						margin: 5px;
+					}
+				}
+			}
+		}
+	}
+}
+#appStats {
 
 	#bodySection {
 
@@ -588,24 +597,24 @@ $avatarSize: 240px;
 }
 @import '_vars';
 
-.userBadge {
+#userBadge {
 
 	position: relative;
 	display: table;
 	margin: 0 auto;
 	padding: 15px;
 
-	.mySrc { img { @extend .defaultAvatarSize; } }
+	#mySrc { img { @extend .defaultAvatarSize; } }
 }
-.reportAvatar {
+#reportAvatar {
 
-	.mySrc {
+	#mySrc {
 		img { width: 200px; object-fit: cover; }
 	}
 }
-.reportPhotos {
+#reportPhotos {
 
-	.mySrc {
+	#mySrc {
 
 		min-width: 100px;
 		min-height: 100px;
@@ -616,12 +625,12 @@ $avatarSize: 240px;
 		}
 	}
 }
-.userAvatar {
+#userAvatar {
 
 	display: table;
 	margin: 0 auto;
 
-	.mySrc {
+	#mySrc {
 		.srcLabel {
 			margin-top: 3px;
 		}
@@ -642,7 +651,7 @@ $avatarSize: 240px;
 	width: 60px;
 	height: 60px;
 }
-.myBtn {
+#myBtn {
 
 	button {
 		font-size: 14px;
@@ -672,7 +681,7 @@ $avatarSize: 240px;
 	@extend .myBtnsGroup;
 	justify-content: flex-end;
 }
-.myCollectionBrowser {
+#myCollectionBrowser {
 
 	position: relative;
 
@@ -701,27 +710,27 @@ $avatarSize: 240px;
 		position: relative;
 		min-height: 75px;
 
-		.myLoader {
+		#myLoader {
 			position: absolute;
 			top: 0;
 		}
 	}
 }
-.myComments {
+#myComments {
 
-	.myForm {
+	#myForm {
 		.myLabel.text-info {
 			margin-top: 0 !important;
 		}
 	}
 
-	.myCollectionBrowser {
+	#myCollectionBrowser {
 
 		#frontCtrls {
 			flex-grow: 1;
 		}
 
-		.myPanel {
+		#myPanel {
 
 			font-size: 14px;
 			margin-top: 10px;
@@ -732,7 +741,7 @@ $avatarSize: 240px;
 
 			#bodySection {
 
-				.userAvatar {
+				#userAvatar {
 					float: left;
 					margin-right: 12px;
 					margin-bottom: 10px;
@@ -755,7 +764,7 @@ $avatarSize: 240px;
 		margin: 25px auto;
 	}
 }
-.myElemSelector {
+#myElemSelector {
 
 	button {
 		width: 28px;
@@ -769,7 +778,7 @@ $avatarSize: 240px;
 		color: $text-color;
 	}
 }
-.myLoader {
+#myLoader {
 
 	position: relative;
 	left: 0;
@@ -920,7 +929,7 @@ $avatarSize: 240px;
 		}
 	}
 }
-.myPanel {
+#myPanel {
 
 	&.isSelected { border: 2px solid; }
 	.trasparentHeading { background-color: transparent; }
@@ -937,7 +946,7 @@ $avatarSize: 240px;
 		padding: 5px 15px 5px 15px;
 
 		#headingImg {
-			.mySrc { margin-right: 10px; }
+			#mySrc { margin-right: 10px; }
 		}
 
 		#headingText {
@@ -967,7 +976,7 @@ $avatarSize: 240px;
 		margin: 0 auto;
 	}
 }
-.myPopOverIcon {
+#myPopOverIcon {
 
 	display: table;
 	border-radius: 3px;
@@ -1003,11 +1012,11 @@ $avatarSize: 240px;
 		top: 0 !important;
 	}
 }
-.myFormContainer {
+#myForm {
 
 	position: relative;
 
-	.myForm {
+	form {
 
 		position: relative;
 		background-color: $gray-lighter;
@@ -1034,7 +1043,7 @@ $avatarSize: 240px;
 			min-height: 200px;
 		}
 
-		.myLabel.text-info {
+		#myLabel.text-info {
 			margin-top: 5px;
 			margin-bottom: 0;
 		}
@@ -1044,7 +1053,7 @@ $avatarSize: 240px;
 		}
 	}
 }
-.myFormErrorIcon {
+#myFormErrorIcon {
 	margin-left: 3px;
 	font-size: 16px;
 }
@@ -1052,7 +1061,7 @@ $avatarSize: 240px;
 
 	display: none;
 }
-.myGooglePlaceAutoComplete {
+#myGooglePlaceAutoComplete {
 
 	#activePlaceSection {
 
@@ -1069,18 +1078,18 @@ $avatarSize: 240px;
 		}
 	}
 }
-.myInput {
+#myInput {
 
 
 }
-.myTextArea {
+#myTextArea {
 
 	textarea.form-control {
 		resize: none;
 		min-height: 65px;
 	}
 }
-.myContextMenu {
+#myContextMenu {
 
 	position: relative;
 
@@ -1102,7 +1111,7 @@ $avatarSize: 240px;
 		transform: translate(16px, -31px);
 	}
 }
-.myDropDown {
+#myDropDown {
 
 	button {
 		font-size: 14px;
@@ -1124,7 +1133,7 @@ $avatarSize: 240px;
 }
 @import '_vars';
 
-.myListGroup {
+#myListGroup {
 
 	.list-group-item.active {}
 
@@ -1136,19 +1145,19 @@ $avatarSize: 240px;
 		//background-color: $body-bg;
 	}
 }
-.myNavMenu {
+#myNavMenu {
 
 
 }
-.mySelect {
+#mySelect {
 
 
 }
-.mySelectsGroup {
+#mySelectsGroup {
 
 
 }
-.myTabs {
+#myTabs {
 
 	.nav-tabs {}
 	.tab-content {}
@@ -1170,7 +1179,6 @@ $avatarSize: 240px;
 	input { display: none; }
 
 	.modal-body { position: relative; max-height: calc(100vh - 275px); }
-	//.myLoader { background-color: white; }
 
 	#modalHeader {
 
@@ -1196,14 +1204,14 @@ $avatarSize: 240px;
 		left: 0;
 		right: 0;
 
-		.myAlert {
+		#myAlert {
 			margin: 50px auto;
 		}
 	}
 }
 @import '_vars';
 
-.myModal {
+#myModal {
 
 	text-align: left;
 
@@ -1257,7 +1265,7 @@ $avatarSize: 240px;
 	> div:first-child { text-align: center; }
 	@media only screen and (max-width: 600px) { > div { display: block; } }
 }
-.mySrc {
+#mySrc {
 
 	$srcCtrlsMargin: 10px;
 
@@ -1282,13 +1290,13 @@ $avatarSize: 240px;
 
 	.srcCtrls {
 
-		.myElemSelector, .myContextMenu {
+		#myElemSelector, #myContextMenu {
 			position: absolute;
 			top: $srcCtrlsMargin;
 		}
 
-		.myElemSelector { left: $srcCtrlsMargin; }
-		.myContextMenu { right: $srcCtrlsMargin; }
+		#myElemSelector { left: $srcCtrlsMargin; }
+		#myContextMenu { right: $srcCtrlsMargin; }
 	}
 
 	.isSelected {
@@ -1296,12 +1304,12 @@ $avatarSize: 240px;
 		img { opacity: 0.3; }
 	}
 
-	.myLoader {
+	#myLoader {
 		padding: 0;
 		.sk-circle { width: 30px; height: 30px; }
 	}
 }
-.mySrcSlides {
+#mySrcSlides {
 
 	.carousel {
 
@@ -1314,7 +1322,7 @@ $avatarSize: 240px;
 				display: table;
 				margin: 0 auto;
 
-				.mySrc {
+				#mySrc {
 
 					img {
 						max-width: 100%;
@@ -1350,7 +1358,7 @@ $avatarSize: 240px;
 		}
 	}
 }
-.mySrcThumbs {
+#mySrcThumbs {
 
 	position: relative;
 	padding: 15px 0 15px 0;
@@ -1373,7 +1381,7 @@ $avatarSize: 240px;
 		}
 	}
 
-	.myModal {
+	#myModal {
 
 		img {
 			width: auto;
@@ -1393,23 +1401,23 @@ $avatarSize: 240px;
 		}
 	}
 
-	.myLoader {
+	#myLoader {
 		margin-top: 50px;
 	}
 
-	.mySrc {
-		.myLoader {
+	#mySrc {
+		#myLoader {
 			margin-top: 0;
 		}
 	}
 }
-.myAlert {
+#myAlert {
 	display: table;
 	margin: 0 auto;
 	text-align: center;
 	padding: 15px;
 }
-.myLabel {
+#myLabel {
 
 	padding: 1px;
 }

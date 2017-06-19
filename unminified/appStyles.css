@@ -116,39 +116,7 @@ body .ngTruncateToggleText {
 .absCentered {
   position: absolute !important; }
 
-.main-with-aside-1 {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: column wrap;
-  flex-flow: column wrap;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 25px; }
-  @media only screen and (min-width: 992px) {
-    .main-with-aside-1 {
-      -ms-flex-flow: row nowrap;
-      flex-flow: row nowrap; } }
-  .main-with-aside-1 > div:first-child {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -ms-flex-preferred-size: 30%;
-    flex-basis: 30%;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-    margin-bottom: 25px; }
-    .main-with-aside-1 > div:first-child > div {
-      -ms-flex-positive: 1;
-      flex-grow: 1;
-      padding: 0 15px 0 15px; }
-  .main-with-aside-1 > div:last-child {
-    -ms-flex-preferred-size: 650px;
-    flex-basis: 650px; }
-
-#lost-and-found-app-home .myCollectionBrowser #basicCtrls {
+#lost-and-found-app-home #myCollectionBrowser #basicCtrls {
   -ms-flex-pack: end;
   justify-content: flex-end; }
 
@@ -166,12 +134,12 @@ body .ngTruncateToggleText {
     margin: 0 0 50px 0; }
     #lost-and-found-app-main #underNavbarPanel > div {
       margin: 5px; }
-      #lost-and-found-app-main #underNavbarPanel > div .userAvatar {
+      #lost-and-found-app-main #underNavbarPanel > div #userAvatar {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-align: center;
         align-items: center; }
-        #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc .srcLabel {
+        #lost-and-found-app-main #underNavbarPanel > div #userAvatar > div #mySrc .srcLabel {
           width: 60px; }
   #lost-and-found-app-main .myGoogleMap {
     border: 1px solid;
@@ -293,13 +261,13 @@ body .ngTruncateToggleText {
     -ms-flex-preferred-size: 65%;
     flex-basis: 65%; }
 
-#lost-and-found-app-settings .myTabs {
+#lost-and-found-app-settings #myTabs {
   margin-bottom: 50px; }
 
-#lost-and-found-app-settings .myForm {
+#lost-and-found-app-settings #myForm {
   max-width: 300px; }
 
-#lost-and-found-app-settings .myForm, #lost-and-found-app-settings .mySrc {
+#lost-and-found-app-settings #myForm, #lost-and-found-app-settings #mySrc {
   margin: 0 auto; }
 
 #lost-and-found-app-start #section1 .page-header {
@@ -324,16 +292,16 @@ body .ngTruncateToggleText {
   #lost-and-found-app-start #section2 #formsSection {
     -ms-flex-preferred-size: 70%;
     flex-basis: 70%; }
-    #lost-and-found-app-start #section2 #formsSection .myForm {
+    #lost-and-found-app-start #section2 #formsSection #myForm {
       max-width: 300px;
       margin: 50px auto; }
-    #lost-and-found-app-start #section2 #formsSection .userBadge {
+    #lost-and-found-app-start #section2 #formsSection #userBadge {
       margin-bottom: 50px; }
 
 #lost-and-found-app-start #section3 {
   display: block;
   width: 100%; }
-  #lost-and-found-app-start #section3 .myCollectionBrowser #basicCtrls {
+  #lost-and-found-app-start #section3 #myCollectionBrowser #basicCtrls {
     -ms-flex-pack: end;
     justify-content: flex-end; }
 
@@ -354,10 +322,42 @@ body .ngTruncateToggleText {
     #lost-and-found-app-upgrade #whenPaidSection > #section2 img {
       width: 100px; }
 
-.reports #actionBtns {
+.main-with-aside-1 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px; }
+  @media only screen and (min-width: 992px) {
+    .main-with-aside-1 {
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap; } }
+  .main-with-aside-1 > div:first-child {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-preferred-size: 30%;
+    flex-basis: 30%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    margin-bottom: 25px; }
+    .main-with-aside-1 > div:first-child > div {
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      padding: 0 15px 0 15px; }
+  .main-with-aside-1 > div:last-child {
+    -ms-flex-preferred-size: 650px;
+    flex-basis: 650px; }
+
+#reports #actionBtns {
   margin-bottom: 25px; }
 
-.reports .myCollectionBrowser #collectionContainer > div > div > * {
+#reports #myCollectionBrowser #collectionContainer > div > div > * {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
@@ -366,7 +366,7 @@ body .ngTruncateToggleText {
   justify-content: center;
   -ms-flex-align: end;
   align-items: flex-end; }
-  .reports .myCollectionBrowser #collectionContainer > div > div > * > * {
+  #reports #myCollectionBrowser #collectionContainer > div > div > * > * {
     -ms-flex-preferred-size: 31%;
     flex-basis: 31%;
     -ms-flex-positive: 1;
@@ -374,13 +374,13 @@ body .ngTruncateToggleText {
     max-width: 400px;
     margin: 5px; }
     @media only screen and (min-width: 600px) {
-      .reports .myCollectionBrowser #collectionContainer > div > div > * > * {
+      #reports #myCollectionBrowser #collectionContainer > div > div > * > * {
         max-width: 250px; } }
 
-.reports .myCollectionBrowser .myPanel {
+#reports #myCollectionBrowser #myPanel {
   background-color: #d9534f;
   min-width: 200px; }
-  .reports .myCollectionBrowser .myPanel #bodySection > * {
+  #reports #myCollectionBrowser #myPanel #bodySection > * {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
@@ -389,119 +389,119 @@ body .ngTruncateToggleText {
     align-items: center;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap; }
-    .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection {
+    #reports #myCollectionBrowser #myPanel #bodySection > * #infoSection {
       text-align: center;
       font-size: 14px;
       margin: 5px 10px 5px 10px; }
-      .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection p {
+      #reports #myCollectionBrowser #myPanel #bodySection > * #infoSection p {
         margin: 0; }
-      .reports .myCollectionBrowser .myPanel #bodySection > * #infoSection span {
+      #reports #myCollectionBrowser #myPanel #bodySection > * #infoSection span {
         white-space: nowrap; }
-    .reports .myCollectionBrowser .myPanel #bodySection > * #avatarSection .mySrc {
+    #reports #myCollectionBrowser #myPanel #bodySection > * #avatarSection #mySrc {
       margin: 5px 10px 5px 10px; }
-      .reports .myCollectionBrowser .myPanel #bodySection > * #avatarSection .mySrc img {
+      #reports #myCollectionBrowser #myPanel #bodySection > * #avatarSection #mySrc img {
         width: 150px;
         height: 100px;
         object-fit: cover; }
 
-.reports .myCollectionBrowser .isFound .myPanel {
+#reports #myCollectionBrowser .isFound #myPanel {
   background-color: #5bc0de; }
 
-#contactForm .myForm {
+#contactForm #myForm form {
   margin: 0 auto;
   max-width: 400px; }
   @media only screen and (min-width: 768px) {
-    #contactForm .myForm {
+    #contactForm #myForm form {
       max-width: 600px; } }
-  #contactForm .myForm .mySelect {
+  #contactForm #myForm form #mySelect {
     display: table; }
-  #contactForm .myForm .myTextArea textarea {
+  #contactForm #myForm form #myTextArea textarea {
     min-height: 300px !important; }
 
-#reportForm .myForm .formCtrls {
+#reportForm #myForm form .formCtrls {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -ms-flex-pack: distribute;
   justify-content: space-around; }
-  #reportForm .myForm .formCtrls > div {
+  #reportForm #myForm form .formCtrls > div {
     margin: 5px;
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%; }
     @media only screen and (min-width: 700px) {
-      #reportForm .myForm .formCtrls > div {
+      #reportForm #myForm form .formCtrls > div {
         -ms-flex-preferred-size: 48%;
         flex-basis: 48%; } }
-  #reportForm .myForm .formCtrls textarea {
+  #reportForm #myForm form .formCtrls textarea {
     max-width: 450px;
     min-height: 150px !important;
     text-align: justify; }
 
-#reportSearchForm .myForm > div > div {
+#reportSearchForm #myForm form > div > div {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap; }
-  #reportSearchForm .myForm > div > div > div {
+  #reportSearchForm #myForm form > div > div > div {
     -ms-flex-positive: 1;
     flex-grow: 1;
     margin: 5px; }
 
-.upgradeForm .myForm > div #formSection {
+#upgradeForm #myForm form > div #formSection {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -ms-flex-pack: distribute;
   justify-content: space-around; }
-  .upgradeForm .myForm > div #formSection > div {
+  #upgradeForm #myForm form > div #formSection > div {
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 300px;
     margin: 5px; }
 
-.userBadge {
+#userBadge {
   position: relative;
   display: table;
   margin: 0 auto;
   padding: 15px; }
 
-.reportAvatar .mySrc img {
+#reportAvatar #mySrc img {
   width: 200px;
   object-fit: cover; }
 
-.reportPhotos .mySrc {
+#reportPhotos #mySrc {
   min-width: 100px;
   min-height: 100px; }
-  .reportPhotos .mySrc img {
+  #reportPhotos #mySrc img {
     max-width: 200px;
     max-height: 200px; }
 
-.userAvatar {
+#userAvatar {
   display: table;
   margin: 0 auto; }
-  .userAvatar .mySrc .srcLabel {
+  #userAvatar #mySrc .srcLabel {
     margin-top: 3px; }
 
-.defaultAvatarSize, .userBadge .mySrc img {
+.defaultAvatarSize, #userBadge #mySrc img {
   width: 200px;
   height: 200px; }
 
-.smallAvatarSize, #lost-and-found-app-profile #userSection .userAvatar .mySrc img {
+.smallAvatarSize, #lost-and-found-app-profile #userSection #userAvatar #mySrc img {
   width: 150px;
   height: 150px; }
 
-.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div .userAvatar > div .mySrc img {
+.tinyAvatarSize, #lost-and-found-app-main #underNavbarPanel > div #userAvatar > div #mySrc img {
   width: 60px;
   height: 60px; }
 
-.myBtn button {
+#myBtn button {
   font-size: 14px;
   padding: 5px 10px 5px 10px;
   min-width: 80px; }
 
-.myBtn .icon {
+#myBtn .icon {
   top: 2px; }
 
 .myBtnsGroup, .myBtnsGroupCenter, .myBtnsGroupRight {
@@ -518,9 +518,9 @@ body .ngTruncateToggleText {
   -ms-flex-pack: end;
   justify-content: flex-end; }
 
-.myCollectionBrowser {
+#myCollectionBrowser {
   position: relative; }
-  .myCollectionBrowser #basicCtrls {
+  #myCollectionBrowser #basicCtrls {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
@@ -531,66 +531,66 @@ body .ngTruncateToggleText {
     align-content: flex-start;
     width: 100%;
     padding: 0 15px 15px 15px; }
-    .myCollectionBrowser #basicCtrls > div.refresher .glyphicon-refresh {
+    #myCollectionBrowser #basicCtrls > div.refresher .glyphicon-refresh {
       top: 2px; }
-  .myCollectionBrowser #collectionContainer {
+  #myCollectionBrowser #collectionContainer {
     position: relative;
     min-height: 75px; }
-    .myCollectionBrowser #collectionContainer .myLoader {
+    #myCollectionBrowser #collectionContainer #myLoader {
       position: absolute;
       top: 0; }
 
-.myComments .myForm .myLabel.text-info {
+#myComments #myForm .myLabel.text-info {
   margin-top: 0 !important; }
 
-.myComments .myCollectionBrowser #frontCtrls {
+#myComments #myCollectionBrowser #frontCtrls {
   -ms-flex-positive: 1;
   flex-grow: 1; }
 
-.myComments .myCollectionBrowser .myPanel {
+#myComments #myCollectionBrowser #myPanel {
   font-size: 14px;
   margin-top: 10px; }
-  .myComments .myCollectionBrowser .myPanel #bodySection .userAvatar {
+  #myComments #myCollectionBrowser #myPanel #bodySection #userAvatar {
     float: left;
     margin-right: 12px;
     margin-bottom: 10px; }
-    .myComments .myCollectionBrowser .myPanel #bodySection .userAvatar img {
+    #myComments #myCollectionBrowser #myPanel #bodySection #userAvatar img {
       width: 50px;
       height: 50px; }
-  .myComments .myCollectionBrowser .myPanel #bodySection #commentTextSection p {
+  #myComments #myCollectionBrowser #myPanel #bodySection #commentTextSection p {
     text-align: justify; }
 
-.myComments #nestedCollectionSection {
+#myComments #nestedCollectionSection {
   max-width: 650px;
   margin: 25px auto; }
 
-.myElemSelector button {
+#myElemSelector button {
   width: 28px;
   height: 28px;
   padding: 0;
   border: 0; }
 
-.myElemSelector .glyphicon-ok {
+#myElemSelector .glyphicon-ok {
   font-size: 13px;
   color: #333333; }
 
-.myLoader {
+#myLoader {
   position: relative;
   left: 0;
   right: 0;
   padding: 10px; }
-  .myLoader .sk-circle {
+  #myLoader .sk-circle {
     position: relative;
     margin: 0 auto;
     width: 65px;
     height: 65px; }
-  .myLoader .sk-circle .sk-child {
+  #myLoader .sk-circle .sk-child {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0; }
-  .myLoader .sk-circle .sk-child:before {
+  #myLoader .sk-circle .sk-child:before {
     content: '';
     display: block;
     margin: 0 auto;
@@ -599,49 +599,49 @@ body .ngTruncateToggleText {
     background-color: #555555;
     border-radius: 100%;
     animation: sk-circleBounceDelay 1s infinite ease-in-out both; }
-  .myLoader .sk-circle .sk-circle2 {
+  #myLoader .sk-circle .sk-circle2 {
     transform: rotate(30deg); }
-  .myLoader .sk-circle .sk-circle3 {
+  #myLoader .sk-circle .sk-circle3 {
     transform: rotate(60deg); }
-  .myLoader .sk-circle .sk-circle4 {
+  #myLoader .sk-circle .sk-circle4 {
     transform: rotate(90deg); }
-  .myLoader .sk-circle .sk-circle5 {
+  #myLoader .sk-circle .sk-circle5 {
     transform: rotate(120deg); }
-  .myLoader .sk-circle .sk-circle6 {
+  #myLoader .sk-circle .sk-circle6 {
     transform: rotate(150deg); }
-  .myLoader .sk-circle .sk-circle7 {
+  #myLoader .sk-circle .sk-circle7 {
     transform: rotate(180deg); }
-  .myLoader .sk-circle .sk-circle8 {
+  #myLoader .sk-circle .sk-circle8 {
     transform: rotate(210deg); }
-  .myLoader .sk-circle .sk-circle9 {
+  #myLoader .sk-circle .sk-circle9 {
     transform: rotate(240deg); }
-  .myLoader .sk-circle .sk-circle10 {
+  #myLoader .sk-circle .sk-circle10 {
     transform: rotate(270deg); }
-  .myLoader .sk-circle .sk-circle11 {
+  #myLoader .sk-circle .sk-circle11 {
     transform: rotate(300deg); }
-  .myLoader .sk-circle .sk-circle12 {
+  #myLoader .sk-circle .sk-circle12 {
     transform: rotate(330deg); }
-  .myLoader .sk-circle .sk-circle2:before {
+  #myLoader .sk-circle .sk-circle2:before {
     animation-delay: -1.1s; }
-  .myLoader .sk-circle .sk-circle3:before {
+  #myLoader .sk-circle .sk-circle3:before {
     animation-delay: -1s; }
-  .myLoader .sk-circle .sk-circle4:before {
+  #myLoader .sk-circle .sk-circle4:before {
     animation-delay: -0.9s; }
-  .myLoader .sk-circle .sk-circle5:before {
+  #myLoader .sk-circle .sk-circle5:before {
     animation-delay: -0.8s; }
-  .myLoader .sk-circle .sk-circle6:before {
+  #myLoader .sk-circle .sk-circle6:before {
     animation-delay: -0.7s; }
-  .myLoader .sk-circle .sk-circle7:before {
+  #myLoader .sk-circle .sk-circle7:before {
     animation-delay: -0.6s; }
-  .myLoader .sk-circle .sk-circle8:before {
+  #myLoader .sk-circle .sk-circle8:before {
     animation-delay: -0.5s; }
-  .myLoader .sk-circle .sk-circle9:before {
+  #myLoader .sk-circle .sk-circle9:before {
     animation-delay: -0.4s; }
-  .myLoader .sk-circle .sk-circle10:before {
+  #myLoader .sk-circle .sk-circle10:before {
     animation-delay: -0.3s; }
-  .myLoader .sk-circle .sk-circle11:before {
+  #myLoader .sk-circle .sk-circle11:before {
     animation-delay: -0.2s; }
-  .myLoader .sk-circle .sk-circle12:before {
+  #myLoader .sk-circle .sk-circle12:before {
     animation-delay: -0.1s; }
 
 @keyframes sk-circleBounceDelay {
@@ -650,53 +650,53 @@ body .ngTruncateToggleText {
   40% {
     transform: scale(1); } }
 
-.myPanel {
+#myPanel {
   border: 2px solid transparent;
   border-radius: 5px; }
-  .myPanel.isSelected {
+  #myPanel.isSelected {
     border: 2px solid; }
-  .myPanel .trasparentHeading {
+  #myPanel .trasparentHeading {
     background-color: transparent; }
-  .myPanel .panel-default {
+  #myPanel .panel-default {
     border: 0 !important; }
-  .myPanel .panel-heading {
+  #myPanel .panel-heading {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
     align-items: center;
     min-height: 41px;
     padding: 5px 15px 5px 15px; }
-    .myPanel .panel-heading #headingImg .mySrc {
+    #myPanel .panel-heading #headingImg #mySrc {
       margin-right: 10px; }
-    .myPanel .panel-heading #headingText {
+    #myPanel .panel-heading #headingText {
       -ms-flex-positive: 1;
       flex-grow: 1;
       font-weight: bold;
       line-height: 18px;
       padding-right: 15px; }
-      .myPanel .panel-heading #headingText p {
+      #myPanel .panel-heading #headingText p {
         display: inline-block;
         margin: 0; }
-      .myPanel .panel-heading #headingText .glyphicon {
+      #myPanel .panel-heading #headingText .glyphicon {
         top: 2px; }
-    .myPanel .panel-heading #headingMenu {
+    #myPanel .panel-heading #headingMenu {
       display: -ms-flexbox;
       display: flex; }
-  .myPanel .panel-body {
+  #myPanel .panel-body {
     position: relative;
     margin: 0 auto; }
 
-.myPopOverIcon {
+#myPopOverIcon {
   display: table;
   border-radius: 3px; }
-  .myPopOverIcon > div {
+  #myPopOverIcon > div {
     display: table-cell;
     vertical-align: middle; }
-    .myPopOverIcon > div > span {
+    #myPopOverIcon > div > span {
       display: table;
       margin: 0 auto;
       text-align: center; }
-      .myPopOverIcon > div > span.glyphicon {
+      #myPopOverIcon > div > span.glyphicon {
         display: table;
         width: 28px;
         height: 28px;
@@ -705,74 +705,74 @@ body .ngTruncateToggleText {
         padding-left: 1px;
         font-size: 15px;
         color: #eeeeee; }
-  .myPopOverIcon .glyphicon-play {
+  #myPopOverIcon .glyphicon-play {
     top: 0 !important; }
 
-.myFormContainer {
+#myForm {
   position: relative; }
-  .myFormContainer .myForm {
+  #myForm form {
     position: relative;
     background-color: #eeeeee;
     padding: 10px;
     border-radius: 5px; }
-    .myFormContainer .myForm input, .myFormContainer .myForm select {
+    #myForm form input, #myForm form select {
       max-width: 300px; }
-    .myFormContainer .myForm input, .myFormContainer .myForm textarea {
+    #myForm form input, #myForm form textarea {
       padding: 10px; }
-    .myFormContainer .myForm input, .myFormContainer .myForm select, .myFormContainer .myForm textarea {
+    #myForm form input, #myForm form select, #myForm form textarea {
       margin: 5px 0 5px 0; }
-    .myFormContainer .myForm select {
+    #myForm form select {
       padding: 5px; }
-    .myFormContainer .myForm textarea {
+    #myForm form textarea {
       min-height: 200px; }
-    .myFormContainer .myForm .myLabel.text-info {
+    #myForm form #myLabel.text-info {
       margin-top: 5px;
       margin-bottom: 0; }
-    .myFormContainer .myForm .myBtnsGroup, .myFormContainer .myForm .myBtnsGroupCenter, .myFormContainer .myForm .myBtnsGroupRight {
+    #myForm form .myBtnsGroup, #myForm form .myBtnsGroupCenter, #myForm form .myBtnsGroupRight {
       margin-top: 25px; }
 
-.myFormErrorIcon {
+#myFormErrorIcon {
   margin-left: 3px;
   font-size: 16px; }
 
 #mySingleFileInput, #myMultipleFilesInput {
   display: none; }
 
-.myGooglePlaceAutoComplete #activePlaceSection {
+#myGooglePlaceAutoComplete #activePlaceSection {
   display: -ms-flexbox;
   display: flex;
   padding-top: 2px; }
-  .myGooglePlaceAutoComplete #activePlaceSection img {
+  #myGooglePlaceAutoComplete #activePlaceSection img {
     max-width: 20px;
     max-height: 20px; }
-  .myGooglePlaceAutoComplete #activePlaceSection span {
+  #myGooglePlaceAutoComplete #activePlaceSection span {
     padding-top: 2px; }
 
-.myTextArea textarea.form-control {
+#myTextArea textarea.form-control {
   resize: none;
   min-height: 65px; }
 
-.myContextMenu {
+#myContextMenu {
   position: relative; }
-  .myContextMenu button {
+  #myContextMenu button {
     width: 28px;
     height: 28px;
     border: 0; }
-    .myContextMenu button span {
+    #myContextMenu button span {
       top: -4px;
       left: -8px; }
-  .myContextMenu .dropdown-menu {
+  #myContextMenu .dropdown-menu {
     min-width: 50px;
     left: auto;
     right: 50%;
     transform: translate(16px, -31px); }
 
-.myDropDown button {
+#myDropDown button {
   font-size: 14px;
   padding: 5px 10px 5px 10px;
   min-width: 80px; }
 
-.myDropDown .dropdown-menu {
+#myDropDown .dropdown-menu {
   overflow-y: auto;
   font-size: 14px;
   min-width: 100px;
@@ -781,7 +781,7 @@ body .ngTruncateToggleText {
   right: auto;
   transform: translate(-50%, 0); }
 
-.myTabs h5 {
+#myTabs h5 {
   margin-left: 10px;
   margin-right: 10px; }
 
@@ -820,12 +820,12 @@ body .ngTruncateToggleText {
   top: 120px;
   left: 0;
   right: 0; }
-  #myImgCropModal #alertContainer .myAlert {
+  #myImgCropModal #alertContainer #myAlert {
     margin: 50px auto; }
 
-.myModal {
+#myModal {
   text-align: left; }
-  .myModal .modal-header p {
+  #myModal .modal-header p {
     font-weight: bold;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -834,9 +834,9 @@ body .ngTruncateToggleText {
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto; }
-  .myModal .modal-footer .btn {
+  #myModal .modal-footer .btn {
     margin: 0; }
-  .myModal.modalSlideInFromLeft.modal.fade:not(.in) .modal-dialog {
+  #myModal.modalSlideInFromLeft.modal.fade:not(.in) .modal-dialog {
     transform: translate3d(-25%, 0, 0); }
 
 .responsiveImgAndDesc {
@@ -856,69 +856,69 @@ body .ngTruncateToggleText {
     .responsiveImgAndDesc > div {
       display: block; } }
 
-.mySrc {
+#mySrc {
   position: relative; }
-  .mySrc a.linkDisabled {
+  #mySrc a.linkDisabled {
     cursor: default !important; }
-  .mySrc .imgContainer {
+  #mySrc .imgContainer {
     border-radius: 3px;
     overflow: hidden; }
-    .mySrc .imgContainer img {
+    #mySrc .imgContainer img {
       margin: 0; }
-  .mySrc .srcLabel {
+  #mySrc .srcLabel {
     text-align: center;
     font-size: 14px;
     font-weight: bold;
     margin: 0; }
-  .mySrc .srcCtrls .myElemSelector, .mySrc .srcCtrls .myContextMenu {
+  #mySrc .srcCtrls #myElemSelector, #mySrc .srcCtrls #myContextMenu {
     position: absolute;
     top: 10px; }
-  .mySrc .srcCtrls .myElemSelector {
+  #mySrc .srcCtrls #myElemSelector {
     left: 10px; }
-  .mySrc .srcCtrls .myContextMenu {
+  #mySrc .srcCtrls #myContextMenu {
     right: 10px; }
-  .mySrc .isSelected {
+  #mySrc .isSelected {
     background-color: black; }
-    .mySrc .isSelected img {
+    #mySrc .isSelected img {
       opacity: 0.3; }
-  .mySrc .myLoader {
+  #mySrc #myLoader {
     padding: 0; }
-    .mySrc .myLoader .sk-circle {
+    #mySrc #myLoader .sk-circle {
       width: 30px;
       height: 30px; }
 
-.mySrcSlides .carousel .carousel-inner > div {
+#mySrcSlides .carousel .carousel-inner > div {
   display: table;
   margin: 0 auto; }
-  .mySrcSlides .carousel .carousel-inner > div .mySrc img {
+  #mySrcSlides .carousel .carousel-inner > div #mySrc img {
     max-width: 100%;
     max-height: calc(100vh - 300px);
     overflow-y: auto; }
-  .mySrcSlides .carousel .carousel-inner > div .mySrc .thumbnail {
+  #mySrcSlides .carousel .carousel-inner > div #mySrc .thumbnail {
     padding: 1px;
     border-radius: 0; }
 
-.mySrcSlides .carousel-indicators {
+#mySrcSlides .carousel-indicators {
   position: relative;
   top: 0; }
-  .mySrcSlides .carousel-indicators li {
+  #mySrcSlides .carousel-indicators li {
     margin-left: 1px;
     margin-right: 1px;
     border-radius: 1px;
     width: 15px;
     height: 15px; }
-  .mySrcSlides .carousel-indicators li.active {
+  #mySrcSlides .carousel-indicators li.active {
     position: relative;
     top: -1px; }
 
-.mySrcThumbs {
+#mySrcThumbs {
   position: relative;
   padding: 15px 0 15px 0; }
-  .mySrcThumbs #contextMenuContainer {
+  #mySrcThumbs #contextMenuContainer {
     position: absolute;
     top: -50px;
     right: 0; }
-  .mySrcThumbs #allSrcsContainer {
+  #mySrcThumbs #allSrcsContainer {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
@@ -927,25 +927,25 @@ body .ngTruncateToggleText {
     justify-content: center;
     -ms-flex-align: center;
     align-items: center; }
-    .mySrcThumbs #allSrcsContainer div.singleSrcContainer {
+    #mySrcThumbs #allSrcsContainer div.singleSrcContainer {
       margin: 3px; }
-  .mySrcThumbs .myModal img {
+  #mySrcThumbs #myModal img {
     width: auto; }
-  .mySrcThumbs .myModal .close {
+  #mySrcThumbs #myModal .close {
     color: #eeeeee; }
-  .mySrcThumbs .myModal .modal-content {
+  #mySrcThumbs #myModal .modal-content {
     color: #eeeeee;
     background-color: black; }
-  .mySrcThumbs .myLoader {
+  #mySrcThumbs #myLoader {
     margin-top: 50px; }
-  .mySrcThumbs .mySrc .myLoader {
+  #mySrcThumbs #mySrc #myLoader {
     margin-top: 0; }
 
-.myAlert {
+#myAlert {
   display: table;
   margin: 0 auto;
   text-align: center;
   padding: 15px; }
 
-.myLabel {
+#myLabel {
   padding: 1px; }

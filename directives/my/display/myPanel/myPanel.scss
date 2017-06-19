@@ -1,4 +1,4 @@
-.myPanel {
+#myPanel {
 
 	&.isSelected { border: 2px solid; }
 	.trasparentHeading { background-color: transparent; }
@@ -15,7 +15,7 @@
 		padding: 5px 15px 5px 15px;
 
 		#headingImg {
-			.mySrc { margin-right: 10px; }
+			#mySrc { margin-right: 10px; }
 		}
 
 		#headingText {

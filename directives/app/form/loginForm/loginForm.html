@@ -1,24 +1,26 @@
-<my-form ins="myForm">
-	<my-captcha
-		ctrl-id="'loginFormCaptcha'"
-		action-name="'login'"
-	></my-captcha>
-	<my-form-error-icon args="{ error: myForm.model.username.error.message, hideErrors: hideErrors }"></my-form-error-icon>
-	<my-input
-		ctrl-id="'username'"
-		ctrl-type="'text'"
-		ctrl-max-length="20"
-		model="myForm.model.username"
-		hard-data="{ label: ['labels', 1] }"
-		hide-errors="true"
-	></my-input>
-	<my-input
-		ctrl-id="'password'"
-		ctrl-type="'password'"
-		ctrl-max-length="25"
-		model="myForm.model.password"
-		hard-data="{ label: ['labels', 2] }"
-		hide-errors="true"
-	></my-input>
-	<form-action-btns my-form="myForm"></form-action-btns>
-</my-form>
+<div id="loginForm">
+	<my-form ins="myForm">
+		<my-captcha
+			ctrl-id="'loginFormCaptcha'"
+			action-name="'login'"
+		></my-captcha>
+		<my-form-error-icon args="{ error: myForm.model.username.error.message, hideErrors: hideErrors }"></my-form-error-icon>
+		<my-input
+			ctrl-id="'username'"
+			ctrl-type="'text'"
+			ctrl-max-length="20"
+			model="myForm.model.username"
+			hard-data="{ label: ['labels', 1] }"
+			hide-errors="true"
+		></my-input>
+		<my-input
+			ctrl-id="'password'"
+			ctrl-type="'password'"
+			ctrl-max-length="25"
+			model="myForm.model.password"
+			hard-data="{ label: ['labels', 2] }"
+			hide-errors="true"
+		></my-input>
+		<form-action-btns my-form="myForm"></form-action-btns>
+	</my-form>
+</div>

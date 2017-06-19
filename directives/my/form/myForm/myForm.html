@@ -1,8 +1,8 @@
-<div class="myFormContainer">
+<div id="myForm">
 	<my-loader ng-show="!ins.noLoader && loader.isLoading" abs-centered="true"></my-loader>
 	<form
 		id="{{ ins.ctrlId }}"
-		class="myForm no_selection"
+		class="no_selection"
 		ng-class="{ halfTransparent: !ins.noLoader && loader.isLoading }"
 		my-directive
 	>

@@ -1,10 +1,8 @@
-.reports {
+#reports {
 
-	//max-width: 1000px;
-	//margin: 0 auto;
 	#actionBtns { margin-bottom: 25px; }
 
-	.myCollectionBrowser {
+	#myCollectionBrowser {
 
 		#collectionContainer {
 			> div {
@@ -32,7 +30,7 @@
 			}
 		}
 
-		.myPanel {
+		#myPanel {
 
 			background-color: $brand-danger;
 			min-width: 200px;
@@ -55,7 +53,7 @@
 					}
 
 					#avatarSection {
-						.mySrc {
+						#mySrc {
 							margin: 5px 10px 5px 10px;
 							img { width: 150px; height: 100px; object-fit: cover; }
 						}
@@ -64,6 +62,6 @@
 			}
 		}
 
-		.isFound { .myPanel { background-color: $brand-info; } }
+		.isFound { #myPanel { background-color: $brand-info; } }
 	}
 }

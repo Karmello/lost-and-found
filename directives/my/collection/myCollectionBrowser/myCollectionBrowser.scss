@@ -1,4 +1,4 @@
-.myCollectionBrowser {
+#myCollectionBrowser {
 
 	position: relative;
 
@@ -27,7 +27,7 @@
 		position: relative;
 		min-height: 75px;
 
-		.myLoader {
+		#myLoader {
 			position: absolute;
 			top: 0;
 		}

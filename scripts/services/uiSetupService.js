@@ -7,25 +7,19 @@
 		var actions = {
 			preloadTemplates: function(uiCtrls) {
 
-				var directives = [
-					"reports", "appearanceForm", "contactForm", "deactivationForm", "formActionBtns", "loginForm", "passwordForm",
-					"personalDetailsForm", "recoverForm", "regionalForm", "registerForm", "reportForm", "reportSearchForm", "upgradeForm",
-					"appStats", "userBadge", "reportAvatar", "reportPhotos", "userAvatar", "myBtn", "myScrollTopBtn", "myStateBtn",
-					"myCollectionBrowser", "myComments", "myElemSelector", "myLoader", "myPanel", "myPopOverIcon", "myForm",
-					"myFormErrorIcon", "myDateInput", "myGooglePlaceAutoComplete", "myInput", "myTextArea", "myContextMenu", "myDropDown",
-					"myListGroup", "myNavDropDown", "myNavMenu", "mySelect", "mySelectsGroup", "myTabs", "myImgCropModal", "myModal",
-					"myStandardModal", "mySrc", "mySrcSlides", "mySrcThumbs", "myLabel"
-				];
+				var putInCache = function(res, what) {
 
-				for (var directiveName of directives) {
-					$http.get('public/directives/' + directiveName + '.html', { cache: $templateCache });
-				}
+					var template = $(res);
 
-				for (var frameId of ['app', 'main']) {
-					for (var page of uiCtrls.frames[frameId].switchers) {
-						$http.get('public/pages/lost-and-found-app-' + page._id + '.html', { cache: $templateCache });
+					for (var elem of template) {
+						if (elem.id) {
+							$templateCache.put('public/' + what + '/' + elem.id + '.html', elem.outerHTML);
+						}
 					}
-				}
+				};
+
+				$http.get('public/pages/all.html').success(function(res) { putInCache(res, 'pages'); });
+				$http.get('public/directives/all.html').success(function(res) { putInCache(res, 'directives'); });
 			},
 			preloadImgs: function() {
 

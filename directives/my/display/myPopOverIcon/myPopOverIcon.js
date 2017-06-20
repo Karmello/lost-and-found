@@ -13,7 +13,7 @@
 			transclude: {
 				icon: 'span'
 			},
-			templateUrl: 'public/directives/myPopOverIcon.html',
+			templateUrl: 'public/templates/myPopOverIcon.html',
 			scope: {
 				hardData: '='
 			}

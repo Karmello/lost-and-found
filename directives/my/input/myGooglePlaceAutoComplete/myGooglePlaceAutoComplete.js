@@ -8,7 +8,7 @@
 
 		var myGooglePlaceAutoComplete = {
 			restrict: 'E',
-			templateUrl: 'public/directives/myGooglePlaceAutoComplete.html',
+			templateUrl: 'public/templates/myGooglePlaceAutoComplete.html',
 			scope: {
 				ctrlId: '=',
 				model: '=',

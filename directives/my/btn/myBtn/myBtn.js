@@ -60,7 +60,7 @@
 		return {
 			restrict: 'E',
 			replace: true,
-			templateUrl: 'public/directives/myBtn.html',
+			templateUrl: 'public/templates/myBtn.html',
 			scope: {
 				btnClass: '<',
 				iconClass: '<',

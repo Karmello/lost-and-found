@@ -8,7 +8,7 @@
 
 		var myInput = {
 			restrict: 'E',
-			templateUrl: 'public/directives/myInput.html',
+			templateUrl: 'public/templates/myInput.html',
 			scope: {
 				ctrlId: '=',
 				ctrlType: '=',

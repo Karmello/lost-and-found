@@ -10,7 +10,7 @@
 
 		var myScrollTopBtn = {
 			restrict: 'E',
-			templateUrl: 'public/directives/myScrollTopBtn.html',
+			templateUrl: 'public/templates/myScrollTopBtn.html',
 			controller: function($scope) {
 
 				$scope.scroll = function() {

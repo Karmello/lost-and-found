@@ -1,0 +1,72 @@
+.defaultOverflow {
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.noOverflow {
+	overflow: hidden;
+}
+
+.no_selection {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.activeElemIcon {
+	margin-top: 3px;
+}
+
+.truncated {
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.transparent {
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.halfTransparent {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.dimmed {
+	opacity: 0.5;
+}
+
+.hideFrom992 {
+	@media only screen and (min-width: 992px) { display: none !important; }
+}
+
+.showFrom992 {
+	@media only screen and (max-width: 991px) { display: none !important; }
+}
+
+.marginBottomSmall {
+	margin-bottom: 10px;
+}
+
+.fixedCentered, .absCentered {
+
+	top: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	display: flex !important;
+	align-items: center !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.fixedCentered {
+	position: fixed !important;
+
+}
+
+.absCentered {
+	position: absolute !important;
+}

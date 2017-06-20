@@ -8,7 +8,7 @@
 
 		var contactForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/contactForm.html',
+			templateUrl: 'public/templates/contactForm.html',
 			scope: true,
 			controller: function($scope) {
 

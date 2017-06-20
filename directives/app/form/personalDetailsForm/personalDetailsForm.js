@@ -10,7 +10,7 @@
 
 		var personalDetailsForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/personalDetailsForm.html',
+			templateUrl: 'public/templates/personalDetailsForm.html',
 			scope: true,
 			controller: function($scope) {
 

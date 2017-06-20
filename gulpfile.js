@@ -1,110 +1,127 @@
-var nodemon = require('nodemon');
-var browserSync = require('browser-sync').create();
-var gulp = require('gulp');
-var gulpUtil = require('gulp-util');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var autoprefixer = require('gulp-autoprefixer');
-var ngAnnotate = require('gulp-ng-annotate');
-var babel = require('gulp-babel');
-var debug = require('gulp-debug');
-
-
-
-var paths = {
-    html: {
-        directives: {
-            source: 'directives/**/*.html',
-            dest: 'public/directives'
-        },
-        pages: {
-            source: 'public/pages/**/*.html',
-            dest: 'public/pages'
-        }
-    },
-    sass: ['sass/**/*.scss', 'directives/**/*.scss', '!sass/appStyles.scss'],
-    js: ['scripts/**/*.js', 'directives/**/*.js'],
-    dest: {
-        unminified: { sass: 'unminified/', js: 'unminified/' },
-        minified: { sass: 'minified/', js: 'minified/' }
-    }
+var r = {
+    autoprefixer : require('gulp-autoprefixer'),
+    babel: require('gulp-babel'),
+    browserSync: require('browser-sync').create(),
+    cleanCss: require('gulp-clean-css'),
+    concat: require('gulp-concat'),
+    debug: require('gulp-debug'),
+    gulp: require('gulp'),
+    util: require('gulp-util'),
+    merge: require('merge-stream'),
+    mergeJson: require('gulp-merge-json'),
+    ngAnnotate: require('gulp-ng-annotate'),
+    nodemon: require('nodemon'),
+    rename: require('gulp-rename'),
+    rimraf: require('gulp-rimraf'),
+    sass: require('gulp-sass'),
+    sprity: require('sprity'),
+    uglify: require('gulp-uglify')
 };
 
 
 
-gulp.task('server', function() {
-    nodemon({ script: 'server.js', watch: ['server.js', 'server/**/*.js'] });
+r.gulp.task('compile', ['all_in_one_templates', 'page_templates', 'directive_templates', 'client_js', 'styles', 'resources'], function() {
+
+    r.gulp.start('styles');
 });
 
-gulp.task('compile', ['html_directives', 'html_directives_all', 'html_pages_all', 'sass', 'js'], function() {
+r.gulp.task('page_templates', function() {
 
-    gulp.watch(paths.html.pages.source).on('change', browserSync.reload);
-    gulp.watch(paths.html.directives.source, ['html_directives']);
-    gulp.watch(paths.sass, ['sass']);
-    gulp.watch(paths.js, ['js']);
+    r.gulp.src('templates/*.html')
+        .pipe(r.rename({ dirname: '' }))
+        .pipe(r.gulp.dest('public/templates'))
+        .pipe(r.browserSync.stream());
+});
 
-    browserSync.init({
-        snippetOptions: { ignorePaths: 'public/pages/*.html' },
+r.gulp.task('directive_templates', function() {
+
+    r.gulp.src('directives/**/*.html')
+        .pipe(r.rename({ dirname: '' }))
+        .pipe(r.gulp.dest('public/templates'))
+        .pipe(r.browserSync.stream());
+});
+
+r.gulp.task('all_in_one_templates', function() {
+
+    r.gulp.src(['templates/*.html', '!templates/index.html', 'directives/**/*.html'])
+    .pipe(r.concat('all_in_one.html'))
+    .pipe(r.gulp.dest('public/templates'));
+});
+
+r.gulp.task('client_js', function() {
+
+    r.gulp.src(['js/client/**/*.js', 'directives/**/*.js'])
+    .pipe(r.concat('appScripts.js'))
+    .pipe(r.gulp.dest('public/unminified/'))
+    .pipe(r.ngAnnotate())
+    .pipe(r.babel({ presets: ['es2015'], compact: false }))
+    .pipe(r.uglify().on('error', r.util.log))
+    .pipe(r.gulp.dest('public/minified/'))
+    .pipe(r.browserSync.stream());
+});
+
+r.gulp.task('styles', function() {
+
+    r.gulp.src(['styles/**/*.scss', '!styles/appStyles.scss', 'directives/**/*.scss'], { 'base': 'styles/' })
+        .pipe(r.concat('appStyles.scss'))
+        .pipe(r.gulp.dest('styles/'))
+        .pipe(r.sass().on('error', r.sass.logError))
+        .pipe(r.autoprefixer({ browsers: ['last 2 versions'], cascade: false }))
+        .pipe(r.gulp.dest('public/unminified/'))
+        .pipe(r.cleanCss({ keepSpecialComments: 0 }).on('error', function(err) { console.log('css parsing error', err); this.emit( 'end' ); }))
+        .pipe(r.gulp.dest('public/minified/'))
+        .pipe(r.browserSync.stream());
+});
+
+r.gulp.task('resources', function() {
+
+    var singleJson = r.gulp.src('resources/json/*.json').pipe(r.gulp.dest('public/json'));
+
+    var multipleJson = r.gulp.src('resources/json/hardCoded/*.json')
+                        .pipe(r.mergeJson({ fileName: 'hardCodedData.json' }))
+                        .pipe(r.gulp.dest('public/json'));
+
+    var imgs = r.gulp.src('resources/imgs/*.*').pipe(r.gulp.dest('./public/imgs/'));
+
+    return r.merge(singleJson, multipleJson, imgs);
+});
+
+
+
+r.gulp.task('fireup', ['compile'], function() {
+
+    //r.gulp.watch('public/pages/**/*.html').on('change', r.browserSync.reload);
+
+    r.gulp.watch('templates/*.html', ['all_in_one_templates', 'page_templates']);
+    r.gulp.watch('directives/**/*.html', ['all_in_one_templates', 'directive_templates']);
+    r.gulp.watch(['styles/**/*.scss', '!styles/appStyles.scss', 'directives/**/*.scss'], ['styles']);
+    r.gulp.watch(['js/**/*.js', 'directives/**/*.js'], ['client_js']);
+    r.gulp.watch('resources/json/**/*.json', ['json']);
+
+    r.nodemon({ script: 'server.js', watch: ['server.js', 'server/**/*.js'] });
+
+    r.browserSync.init({
+        snippetOptions: { ignorePaths: 'public/templates/*.html' },
         proxy: 'https://localhost:8080',
         ghostMode: false,
         browser: 'chrome',
         https: {
-            key: 'https/server.key',
-            cert: 'https/server.crt'
+            key: 'utils/https/certs/server.key',
+            cert: 'utils/https/certs/server.crt'
         }
     });
 });
 
-gulp.task('html_directives', function(done) {
-    gulp.src(paths.html.directives.source)
-    .pipe(browserSync.stream())
-    .pipe(rename({ dirname: '' }))
-    .pipe(gulp.dest(paths.html.directives.dest))
-    .on('end', done);
-});
+r.gulp.task('build', function() {
 
-gulp.task('html_directives_all', function(done) {
-    gulp.src(paths.html.directives.source)
-    .pipe(concat('all.html'))
-    .pipe(gulp.dest(paths.html.directives.dest))
-    .on('end', done);
-});
+    var version = process.argv[3].substring(1, process.argv[3].length);
 
-gulp.task('html_pages_all', function(done) {
-    gulp.src(paths.html.pages.source)
-    .pipe(concat('all.html'))
-    .pipe(gulp.dest(paths.html.pages.dest))
-    .on('end', done);
-});
+    var singleFiles = r.gulp.src(['server.js', 'package.json', '../prod/setup/.env'])
+                    .pipe(r.rename({ dirname: '' }))
+                    .pipe(r.gulp.dest('../prod/build/' + version));
 
-gulp.task('sass', function(done) {
-    gulp.src(paths.sass, { 'base': 'sass/' })
-    .pipe(concat('appStyles.scss'))
-    .pipe(gulp.dest('sass/'))
-    .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer({ browsers: ['last 2 versions'], cascade: false }))
-    .pipe(gulp.dest(paths.dest.unminified.sass))
-    .pipe(browserSync.stream())
-    .pipe(minifyCss({ keepSpecialComments: 0 }).on('error', function(err) { console.log('css parsing error', err); this.emit( 'end' ); }))
-    .pipe(gulp.dest(paths.dest.minified.sass))
-    .on('end', done);
-});
+    var publicFolder = r.gulp.src('public/**/*').pipe(r.gulp.dest('../prod/build/' + version + '/public'));
+    var serverJs = r.gulp.src('js/server/**/*').pipe(r.gulp.dest('../prod/build/' + version + '/js/server'));
 
-gulp.task('js', function(done) {
-    gulp.src(paths.js)
-    .pipe(concat('appScripts.js'))
-    .pipe(gulp.dest(paths.dest.unminified.js))
-    .pipe(ngAnnotate())
-    .pipe(babel({ presets: ['es2015'], compact: false }))
-    .pipe(uglify().on('error', gulpUtil.log))
-    .pipe(gulp.dest(paths.dest.minified.js))
-    .on('end', done);
-});
-
-gulp.task('build', function(done) {
-    var src = ['server/**/*', 'public/**/*', 'minified/**/*', 'unminified/**/*', 'server.js', 'package.json'];
-    gulp.src(src, { base: './' }).pipe(gulp.dest('./../prod'));
+    return r.merge(singleFiles, publicFolder, serverJs);
 });

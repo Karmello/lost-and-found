@@ -8,7 +8,7 @@
 
 		var reports = {
 			restrict: 'E',
-			templateUrl: 'public/directives/reports.html',
+			templateUrl: 'public/templates/reports.html',
 			scope: {
 				ctrlId: '@',
 				noAvatar: '=',

@@ -5,46 +5,28 @@
 			"path": "D:\\Workspace\\laf"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\server"
-		},
-		{
 			"path": "D:\\Workspace\\laf\\dev\\db"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\scripts\\routes"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\scripts\\services"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\scripts\\controllers"
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\tests"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\sass"
+			"path": "D:\\Workspace\\laf\\dev\\public"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\public\\pages"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\server\\validators"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\server\\actions"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\server\\modules"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\scripts\\factories"
-		},
-		{
-			"path": "D:\\Workspace\\laf\\dev\\scripts\\configuration"
+			"path": "D:\\Workspace\\laf\\dev\\styles"
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\directives"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\templates"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\js\\server"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\js\\client"
 		}
 	]
 }

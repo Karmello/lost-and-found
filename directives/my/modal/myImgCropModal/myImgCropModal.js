@@ -19,7 +19,7 @@
 
 		var myImgCropModal = {
 			restrict: 'E',
-			templateUrl: 'public/directives/myImgCropModal.html',
+			templateUrl: 'public/templates/myImgCropModal.html',
 			scope: {
 				winTitle: '<',
 				maxFileSize: '<'

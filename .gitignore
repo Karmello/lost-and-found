@@ -1,6 +1,9 @@
 /bower_components/
+/db/dump/
+/utils/https/certs/
+/minified/
 /node_modules/
-/https/*.*
-/docs/
+/public/
 /tests/server/.env
+/unminified/
 .env

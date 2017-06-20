@@ -8,7 +8,7 @@
 
 		var formActionBtns = {
 			restrict: 'E',
-			templateUrl: 'public/directives/formActionBtns.html',
+			templateUrl: 'public/templates/formActionBtns.html',
 			transclude: true,
 			scope: {
 				myForm: '='

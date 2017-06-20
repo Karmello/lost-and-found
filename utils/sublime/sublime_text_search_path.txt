@@ -1,1 +1,0 @@
-D:\Workspace\laf\dev\utils,D:\Workspace\laf\dev\directives,D:\Workspace\laf\dev\sass,D:\Workspace\laf\dev\scripts,D:\Workspace\laf\dev\server,D:\Workspace\laf\dev\public\pages,D:\Workspace\laf\dev\tests,D:\Workspace\laf\dev\db

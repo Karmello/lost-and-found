@@ -10,7 +10,7 @@
 
 		var myTextArea = {
 			restrict: 'E',
-			templateUrl: 'public/directives/myTextArea.html',
+			templateUrl: 'public/templates/myTextArea.html',
 			scope: {
 				ctrlId: '=',
 				ctrlMaxLength: '=',

@@ -10,7 +10,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/myTabs.html',
+			templateUrl: 'public/templates/myTabs.html',
 			scope: {
 				ins: '='
 			}

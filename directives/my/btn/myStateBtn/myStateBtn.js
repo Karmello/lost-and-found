@@ -8,7 +8,7 @@
 
 		var myStateBtn = {
 			restrict: 'E',
-			templateUrl: 'public/directives/myStateBtn.html',
+			templateUrl: 'public/templates/myStateBtn.html',
 			scope: {
 				type: '@',
 				onClick: '&',

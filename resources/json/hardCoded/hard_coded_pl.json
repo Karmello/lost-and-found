@@ -1,0 +1,209 @@
+{
+	"pl": {
+		"_id": "pl",
+		"accountTypes": {
+			"basic": "Podstawowe",
+			"full": "Pełne"
+		},
+		"app": {
+			"name": "LostAndFoundApp",
+			"description": "wita Cię gorąco !"
+		},
+		"count": [
+			"dnia", "Zarejestrowany przez", "Użytkowników", "Zgłoszeń", "Zgłoszonych jako stracone", "Zgłoszonych jako znalezione", "Przez", "Zgłoszono", "temu", "W przybliżeniu",
+			"widocznych", "wszystkich", "Odpowiedzi", "Polubień"
+		],
+		"declaratives": [
+			"Znalazłem to !", "Jestem właścicielem !"
+		],
+		"description": [
+			"Zaloguj się i korzystaj z serwisu.",
+			"Zarejestruj się jeśli jeszcze tego nie zrobiłeś.",
+			"Problem z zalogowaniem ? Poproś o nowe hasło.",
+			"Zaaktualizuj swoje dane personalne.",
+			"Zmień swoje aktualne hasło.",
+			"Regionalne ustawienia aplikacji."
+		],
+		"imperatives": [
+			"OK", "Zapisz", "Anuluj", "Zatwierdź", "Wyślij", "Aktualizuj", "Prześlij", "Kontynuuj", "Wejdż", "Przeglądaj ...",
+			"Resetuj", "Wyczyść", "Wyloguj", "Skasuj", "Usuń", "Zmień", "Dodaj", "Szukaj", "Wybierz", "Odśwież",
+			"Przesuń w lewo", "Przesuń w prawo", "Obróć", "Zbliż", "Oddal", "Przewiń do góry", "Usuń konto", "Wybierz zdjęcie", "Ustaw jako avatar", "Odznacz wszystkie",
+			"Zaznacz wszystkie", "Usuń zaznaczone", "Zgłoś", "Edytuj", "Dostosuj wygląd.", "Przejdź na konto bez limitu", "Zapłać", "Ukryj mapę", "Pokaż mapę", "Zamknij",
+			"Odpowiedź", "Rozwiń", "Zwiń", "Polub"
+		],
+		"information": [
+			"Klikając w link poniżej potwierdzisz zmianę hasła. Będzie on aktywny przez najbliższe 24 godziny.",
+			"Możesz zmienić je w każdej chwili pod zakładką \"Hasło\" w ustawieniach konta.",
+			"Email z nowym hasłem został wysłany na podany przez ciebie adres. W razie problemów z jego znalezieniem sprawdź folder spam.",
+			"Oto twoje nowe hasło",
+			"LostAndFoundApp - link do zresetowania hasła",
+			"LostAndFoundApp - nowe hasło",
+			"Właśnie deaktywowałeś swoje konto !",
+			"Zignoruj tego maila jeśli nie wysyłałeś prośby o reset.",
+			"Korzystasz z aplikacji jako"
+		],
+		"labels": [
+			"Email", "Nazwa użytkownika", "Hasło", "Aktualne hasło", "Nowe hasło", "Imię", "Nazwisko", "Tytuł", "Kraj", "Język",
+			"Opis", "Wiadomość", "Kategoria", "Podkategoria", "Motyw", "Data", "Rodzaj", "Lokalizacja", "ID", "Szczegóły",
+			"Numer seryjny", "Temat", "Nazwa", "Imię i nazwisko", "Deaktywacja", "Przycinanie", "Przesuwanie", "Edycja zgłoszenia", "Usuwanie", "",
+			"Metoda", "Rodzaj", "Numer", "Ważna do (miesiąc)", "Ważna do (rok)", "Waluta", "Kwota", "Płatność", "Cvv2", "Data i czas",
+			"ID transakcji", "Data ważności", "ID płatnika", "Komentarz"
+		],
+		"languages": [
+			{ "value": "en", "label": "Angielski" },
+			{ "value": "pl", "label": "Polski" }
+		],
+		"msgs": {
+			"titles": [
+				"Witamy !",
+				"Aktualizacja ustawień",
+				"Zmiana hasła"
+			],
+			"infos": [
+				"Dziękujemy za rejestrację :) Życzymy udanego korzystania z serwisu :)",
+				"Ustawienia zostały pomyślnie zaktualizowane !",
+				"Ustawienia zostały pomyślnie zaktualizowane ! Teraz nastąpi odświeżenie aplikacji.",
+				"Email z linkiem do zmiany hasła został wysłany. W razie problemów z jego znalezieniem sprawdź folder spam.",
+				"Dziękujemy za twoją wiadomość. Weźmiemy ją pod uwagę i postaramy się jak najszybciej odpowiedzieć."
+			]
+		},
+		"other": [
+			"Cześć",
+			"Miłego korzystania z aplikacji LostAndFoundApp !"
+		],
+		"payment": {
+			"methods": {
+				"credit_card": "Karta kredytowa",
+				"paypal": "Paypal"
+			},
+			"creditCardTypes": {
+				"visa": "Visa",
+				"master_card": "Mastercard",
+				"amex": "Amex",
+				"discover": "Discover",
+				"maestro": "Maestro"
+			},
+			"currencies": [
+				{ "value": "USD", "label": "Dolar" },
+				{ "value": "EUR", "label": "Euro" },
+				{ "value": "GBP", "label": "Funt" }
+			]
+		},
+		"questions": [
+			"Dlaczego nas opuszczasz ?"
+		],
+		"rejections": [
+			"Musisz się zalogować, aby uzyskać dostęp do tej strony.",
+			"Nie udało się wykonać żądania. Spróbuj ponownie za kilka minut.",
+			"Próbujesz wrzucić plik w złym formacie.",
+			"Próbujesz wrzucić zbyt duży plik. Maksymalny rozmiar to ",
+			"Wrzuciłeś już maksymalną liczbę plików.",
+			"Próbujesz wrzucić zbyt dużo plików.",
+			"Nie możesz mieć dwóch plików z tą samą nazwą.",
+			"Wystąpił błąd. Spróbuj odświeżyć stronę.",
+			"Musisz zaznaczyć jakieś pliki."
+		],
+		"reportCategories": [
+			{
+				"_id": "electronics",
+				"label": "Elektronika",
+				"subcategories": [
+					{ "_id": "mobile_phone", "label": "Telefon komórkowy" },
+					{ "_id": "laptop", "label": "Laptop" },
+					{ "_id": "watch", "label": "Zegarek" }
+				]
+			},
+			{
+				"_id": "living_beings",
+				"label": "Żywe istoty",
+				"subcategories": [
+					{
+						"_id": "animals",
+						"label": "Zwierzęta",
+						"subcategories": [
+							{ "_id": "dog", "label": "Pies" },
+							{ "_id": "cat", "label": "Kot" }
+						]
+					},
+					{ "_id": "human", "label": "Człowiek" }
+				]
+			},
+			{
+				"_id": "personal_items",
+				"label": "Rzeczy osobiste",
+				"subcategories": [
+					{ "_id": "wallet", "label": "Portfel" },
+					{ "_id": "keys", "label": "Klucze" },
+					{
+						"_id": "documents",
+						"label": "Dokumenty",
+						"subcategories": [
+							{ "_id": "passport", "label": "Paszport" },
+							{ "_id": "driving_license", "label": "Prawo jazdy" },
+							{ "_id": "identity_card", "label": "Dowód osobisty" },
+							{ "_id": "payment_card", "label": "Karta płatnicza" }
+						]
+					}
+				]
+			},
+			{
+				"_id": "jewelry",
+				"label": "Biżuteria",
+				"subcategories": [
+					{ "_id": "earrings", "label": "Kolczyki" },
+					{ "_id": "bracelet", "label": "Bransoletka" },
+					{ "_id": "ring", "label": "Pierścień" }
+				]
+			},
+			{
+				"_id": "vehicles",
+				"label": "Pojazdy",
+				"subcategories": [
+					{ "_id": "car", "label": "Samochód" },
+					{ "_id": "bike", "label": "Rower" }
+				]
+			}
+		],
+		"reportTypes": [
+			{ "value": "lost", "label": "Strata", "label2": "Stracono" },
+			{ "value": "found", "label": "Znalezienie", "label2": "Znaleziono" }
+		],
+		"sections": [
+			"Strona główna", "Ustawienia", "O nas", "Pomoc", "Kontakt", "Zdjęcia", "Komentarze", "Aplikacja", "Konto", "Regionalne",
+			"Wygląd", "Zgłoszenia", "Dane personalne", "Rezultaty", "Statystyki", "Zdarzenie", "Przedmiot", "Logowanie", "Rejestracja", "Zdjęcie profilowe",
+			"Nowe zgłoszenie", "Ostatnio oglądane", "Ostatnio zgłoszone", "Status", "Uwaga !", "Konto bez limitu"
+		],
+		"status": [
+			"Wylogowany", "Wszystkie", "Pusto", "Rosnąco", "Malejąco", "Brak dostępu", "Błąd", "Według tytułu", "Według daty", "Lubisz"
+		],
+		"themes": [
+			{ "value": "standard", "label": "Standardowy" },
+			{ "value": "darkly", "label": "Ciemny" },
+			{ "value": "cerulean", "label": "Błękit" },
+			{ "value": "slate", "label": "Ciemnoszary" },
+			{ "value": "cosmo", "label": "Cosmo" },
+			{ "value": "raw", "label": "Czysty" }
+		],
+		"validation": {
+			"digits_found": "nie może składać się z cyfr",
+			"incorrect": "ma nieprawidłową wartość",
+			"multiple_words_found": "musi być pojedynczym słowem",
+			"negative": "nie może być liczbą ujemną",
+			"not_found": "nie znajduję sie w bazie",
+			"not_integer": "ma być liczbą całkowitą",
+			"not_positive": "musi być liczbą dodatnią",
+			"not_unique": "znajduje się juz w bazie",
+			"required": "jest polem wymaganym",
+			"special_chars_found": "nie może składać się ze specjalnych znaków",
+			"wrong_credentials": "Nieprawidłowe dane",
+			"wrong_length": ["może mieć długość maksymalnie", "musi mieć długość"]
+		},
+		"warnings": [
+			"Czy napewno chcesz kontynuować ?",
+			"Twoje konto, wszystkie pliki i ustawienia zostaną usunięte ! Czy napewno chcesz kontynuować ?",
+			"Stracisz wszystkie dane (zdjęcia itp.) związane ze zgłoszeniami, które masz zamiar usunąć. Czy napewno chcesz kontynuować ?",
+			"To twoja ostatnia szansa odwrotu ! Jeśli kontynuujesz twoje konto zostanie deaktywowane !",
+			"Tutaj możesz usunąć swoje konto. Pamiętaj, że nie będziesz w stanie odzyskać utraconych plików i ustawień !"
+		]
+	}
+}

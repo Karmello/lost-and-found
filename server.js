@@ -1,14 +1,14 @@
 global.paths = {
-	_requires: __dirname + '/server/_requires',
-	server: __dirname + '/server/',
-	schemas: __dirname + '/server/schemas/',
-	validators: __dirname + '/server/validators/_validators',
-	controllers: __dirname + '/server/controllers/',
-	prototypes: __dirname + '/server/prototypes/_prototypes',
-	setups: __dirname + '/server/setups/_setups',
-	modules: __dirname + '/server/modules/_modules',
-	actions: __dirname + '/server/actions/_actions',
-	guards: __dirname + '/server/guards/_guards',
+	_requires: __dirname + '/js/server/_requires',
+	server: __dirname + '/js/server/',
+	schemas: __dirname + '/js/server/schemas/',
+	validators: __dirname + '/js/server/validators/_validators',
+	controllers: __dirname + '/js/server/controllers/',
+	prototypes: __dirname + '/js/server/prototypes/_prototypes',
+	setups: __dirname + '/js/server/setups/_setups',
+	modules: __dirname + '/js/server/modules/_modules',
+	actions: __dirname + '/js/server/actions/_actions',
+	guards: __dirname + '/js/server/guards/_guards',
 	public: __dirname + '/public/',
 	json: __dirname + '/public/json/',
 	tests: __dirname + '/tests/'
@@ -20,7 +20,7 @@ if (!process.env.LOADED_MOCHA_OPTS) {
 	require('dotenv').config();
 
 } else {
-	require('dotenv').config({ path: global.paths.tests + '/server/.env' });
+	require('dotenv').config({ path: global.paths.tests + '/js/server/.env' });
 }
 
 
@@ -41,12 +41,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-
-r.hardData = {
-	en: require(global.paths.json + '/hard_coded/hard_coded_en.json'),
-	pl: require(global.paths.json + '/hard_coded/hard_coded_pl.json')
-};
+var hardCodedData = require(global.paths.json + '/hardCodedData.json');
+r.hardData = { en: hardCodedData.en, pl: hardCodedData.pl };
 
 r.setups = require(global.paths.setups);
 r.modules = require(global.paths.modules);
@@ -75,8 +71,8 @@ r.setups.setupConstants(app, function() {
 					r.User = r.mongoose.model('user');
 
 					var server = r.https.createServer({
-						key: r.fs.readFileSync('https/server.key'),
-    					cert: r.fs.readFileSync('https/server.crt'),
+						key: r.fs.readFileSync('utils/https/certs/server.key'),
+    					cert: r.fs.readFileSync('utils/https/certs/server.crt'),
     					passphrase: process.env.HTTPS_PASSPHRASE
 					}, app);
 

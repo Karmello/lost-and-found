@@ -10,7 +10,7 @@
 
 		var mySelectsGroup = {
 			restrict: 'E',
-			templateUrl: 'public/directives/mySelectsGroup.html',
+			templateUrl: 'public/templates/mySelectsGroup.html',
 			transclude: true,
 			scope: {
 				collection: '=',

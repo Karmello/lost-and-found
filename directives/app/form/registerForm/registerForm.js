@@ -10,7 +10,7 @@
 
 		var registerForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/registerForm.html',
+			templateUrl: 'public/templates/registerForm.html',
 			scope: true,
 			controller: function($scope) {
 

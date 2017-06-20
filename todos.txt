@@ -1,2 +1,0 @@
-- check pay scenarios with error
-- map with all markers

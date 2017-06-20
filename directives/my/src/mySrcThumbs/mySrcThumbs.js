@@ -8,7 +8,7 @@
 
 		var mySrcThumbs = {
 			restrict: 'E',
-			templateUrl: 'public/directives/mySrcThumbs.html',
+			templateUrl: 'public/templates/mySrcThumbs.html',
 			scope: {
 				srcThumbsCollection: '=',
 				srcSlidesCollection: '=',

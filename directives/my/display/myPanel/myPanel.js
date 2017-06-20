@@ -8,7 +8,7 @@
 
 		var myPanel = {
 			restrict: 'E',
-			templateUrl: 'public/directives/myPanel.html',
+			templateUrl: 'public/templates/myPanel.html',
 			transclude: {
 				headingImg: '?headingImg',
 				headingText: '?headingText',

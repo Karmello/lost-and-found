@@ -10,7 +10,7 @@
 
 		return {
 			restrict: 'E',
-			templateUrl: 'public/directives/mySelect.html',
+			templateUrl: 'public/templates/mySelect.html',
 			scope: {
 				ctrlId: '=',
 				model: '=',

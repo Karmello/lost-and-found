@@ -10,7 +10,7 @@
 
 		var reportSearchForm = {
 			restrict: 'E',
-			templateUrl: 'public/directives/reportSearchForm.html',
+			templateUrl: 'public/templates/reportSearchForm.html',
 			scope: true,
 			controller: function($scope) {
 

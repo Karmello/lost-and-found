@@ -1,5 +1,2 @@
-> cmd.exe /k timeout 5 & "%ConEmuBaseDir%\CmdInit.cmd" -new_console:d:D:\Workspace\laf\dev & gulp compile -new_console:t:client
-
-cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -new_console:d:D:\Workspace\laf\dev & gulp server -new_console:t:server
-
+> cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -new_console:d:D:\Workspace\laf\dev & gulp fireup -new_console:t:app
 cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -new_console & mongod -new_console:t:db

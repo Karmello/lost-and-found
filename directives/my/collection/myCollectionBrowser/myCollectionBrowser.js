@@ -16,7 +16,7 @@
 				extractrls: '?extractrls',
 				elems: '?elems',
 			},
-			templateUrl: 'public/directives/myCollectionBrowser.html',
+			templateUrl: 'public/templates/myCollectionBrowser.html',
 			scope: {
 				ins: '=',
 				noScrollTopBtn: '='

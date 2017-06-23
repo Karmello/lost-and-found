@@ -523,7 +523,7 @@
 			"file": "/D/Workspace/laf/dev/package.json",
 			"settings":
 			{
-				"buffer_size": 2497,
+				"buffer_size": 2465,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -532,7 +532,7 @@
 			"file": "/D/Workspace/laf/dev/karma.conf.js",
 			"settings":
 			{
-				"buffer_size": 2497,
+				"buffer_size": 2049,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -554,7 +554,7 @@
 	"command_palette":
 	{
 		"height": 127.0,
-		"last_filter": "vmen",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -628,6 +628,7 @@
 	},
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/templates/index.html",
 		"/D/Workspace/laf/dev/tests/client/dataModelSpec.js",
 		"/D/Workspace/laf/dev/gulpfile.js",
 		"/D/Workspace/laf/dev/styles/appStyles.scss",
@@ -672,7 +673,6 @@
 		"/D/Workspace/laf/dev/directives/my/collection/myCollectionBrowser/myCollectionBrowser.scss",
 		"/D/Workspace/laf/dev/js/client/appModule.js",
 		"/D/Workspace/laf/dev/templates/lost-and-found-app-report.html",
-		"/D/Workspace/laf/dev/templates/index.html",
 		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.js",
 		"/D/Workspace/laf/dev/directives/app/form/contactForm/contactForm.js",
 		"/D/Workspace/laf/dev/directives/app/form/deactivationForm/deactivationForm.js",
@@ -1118,15 +1118,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2497,
+						"buffer_size": 2465,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								938,
+								938
 							]
 						],
 						"settings":
@@ -1135,10 +1135,6 @@
 							[
 								{
 									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
 									"selector": "text.html"
 								},
 								{
@@ -1170,15 +1166,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2497,
+						"buffer_size": 2049,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								587,
-								587
+								1270,
+								1270
 							]
 						],
 						"settings":
@@ -1187,10 +1183,6 @@
 							[
 								{
 									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
 									"selector": "text.html"
 								},
 								{
@@ -1229,8 +1221,8 @@
 						"selection":
 						[
 							[
-								257,
-								257
+								576,
+								576
 							]
 						],
 						"settings":
@@ -1239,10 +1231,6 @@
 							[
 								{
 									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
 									"selector": "text.html"
 								},
 								{
@@ -1261,7 +1249,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 504.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

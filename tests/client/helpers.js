@@ -4,10 +4,10 @@ var initApp = function() {
 
 	module(function($provide) {
 
-		jasmine.getJSONFixtures().fixturesPath = 'public/json/hard_coded';
-		var hardData = getJSONFixture('hard_coded_en.json');
+		jasmine.getJSONFixtures().fixturesPath = 'public/json';
+		var hardData = getJSONFixture('hardCodedData.json');
 
-		$provide.constant('hardDataConst', { en: hardData });
+		$provide.constant('hardDataConst', hardData);
 		$provide.constant('sessionConst', { language: 'en' });
 	});
 };

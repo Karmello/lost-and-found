@@ -8,7 +8,7 @@
   },
   "main": "server.js",
   "scripts": {
-    "preinstall": "npm i -g gulp-cli node-gyp karma-cli",
+    "preinstall": "npm i -g gulp-cli node-gyp karma-cli jshint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kamil Noga",

@@ -1,6 +1,7 @@
 <div id="loginForm">
 	<my-form ins="myForm">
 		<my-captcha
+			ng-if="window.grecaptcha"
 			ctrl-id="'loginFormCaptcha'"
 			action-name="'login'"
 		></my-captcha>

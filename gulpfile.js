@@ -98,7 +98,7 @@ r.gulp.task('fireup', ['compile'], function() {
     r.gulp.watch(['js/**/*.js', 'directives/**/*.js'], ['client_js']);
     r.gulp.watch('resources/json/**/*.json', ['json']);
 
-    r.nodemon({ script: 'server.js', watch: ['server.js', 'server/**/*.js'] });
+    r.nodemon({ script: 'server.js', watch: ['server.js', 'js/server/**/*.js'] });
 
     r.browserSync.init({
         snippetOptions: { ignorePaths: 'public/templates/*.html' },

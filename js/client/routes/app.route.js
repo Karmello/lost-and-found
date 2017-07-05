@@ -84,7 +84,7 @@
 						};
 
 						$rootScope.hardData.reportCategories = sortByLabel($rootScope.hardData.reportCategories);
-						resolve();
+						resolve(true);
 					});
 				},
 				apiData: function($q, $http, $rootScope, $filter, DeactivationReasonsRest, ContactTypesRest) {
@@ -111,11 +111,11 @@
 						});
 					});
 				},
-				allResources: function($q, ui, googleRecaptcha, openExchangeRates, localData, hardData, apiData) {
+				allResources: function(googleRecaptcha, openExchangeRates, localData, hardData, apiData, $q, ui) {
 
 					return $q(function(resolve, reject) {
 
-						if (googleRecaptcha && openExchangeRates && localData && apiData) {
+						if (googleRecaptcha && openExchangeRates && localData && hardData && apiData) {
 							resolve(true);
 
 						} else {

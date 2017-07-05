@@ -523,25 +523,15 @@
 			"file": "/D/Workspace/laf/dev/package.json",
 			"settings":
 			{
-				"buffer_size": 2497,
-				"encoding": "UTF-8",
+				"buffer_size": 2504,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/karma.conf.js",
+			"file": "/D/Workspace/laf/dev/js/client/services/jsonService.js",
 			"settings":
 			{
-				"buffer_size": 2497,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/tests/client/dataModelSpec.js",
-			"settings":
-			{
-				"buffer_size": 4583,
+				"buffer_size": 2656,
 				"line_ending": "Windows"
 			}
 		}
@@ -553,10 +543,26 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 127.0,
-		"last_filter": "vmen",
+		"height": 392.0,
+		"last_filter": "Package Control: ",
 		"selected_items":
 		[
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"PACKAge co",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Install Package Control"
+			],
 			[
 				"vmen",
 				"View: Toggle Menu"
@@ -606,7 +612,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 472.0
+		"width": 416.0
 	},
 	"console":
 	{
@@ -626,17 +632,39 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/D/Workspace/laf/dev",
+		"/D/Workspace/laf/dev/js",
+		"/D/Workspace/laf/dev/js/client",
+		"/D/Workspace/laf/dev/js/client/services"
+	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/tests/client/dataModelSpec.js",
 		"/D/Workspace/laf/dev/gulpfile.js",
+		"/D/Workspace/laf/dev/utils/https/server.csr.cnf",
+		"/D/Workspace/laf/dev/js/client/controllers/StartController.js",
+		"/D/Workspace/laf/dev/js/client/controllers/AppController.js",
+		"/D/Workspace/laf/dev/js/server/actions/Report/getReportById.js",
+		"/D/Workspace/laf/dev/js/server/modules/testModule.js",
+		"/D/Workspace/laf/dev/js/server/validators/passwordValidators.js",
+		"/D/Workspace/laf/dev/js/server/validators/_validators.js",
+		"/D/Workspace/laf/dev/js/server/actions/Comment/getComment.js",
+		"/D/Workspace/laf/dev/js/server/actions/AppConfig/putAppConfig.js",
+		"/D/Workspace/laf/dev/js/server/_requires.js",
+		"/D/Workspace/laf/dev/js/client/constants.js",
+		"/D/Workspace/laf/dev/js/client/appModule.js",
+		"/D/Workspace/laf/dev/js/client/config.js",
+		"/D/Workspace/laf/dev/js/client/filters.js",
+		"/D/Workspace/laf/dev/js/client/run.js",
+		"/D/Workspace/laf/dev/karma.conf.js",
+		"/D/Workspace/laf/dev/package.json",
+		"/D/Workspace/laf/dev/tests/client/dataModelSpec.js",
 		"/D/Workspace/laf/dev/styles/appStyles.scss",
 		"/D/Workspace/laf/dev/js/client/services/uiSetupService.js",
 		"/D/Workspace/laf/dev/templates/lost-and-found-app-upgrade.html",
 		"/D/Workspace/laf/dev/directives/my/src/mySrc/mySrc.html",
-		"/D/Workspace/laf/dev/js/client/constants.js",
 		"/D/Workspace/laf/dev/public/sprites/sprites.css",
-		"/D/Workspace/laf/dev/js/client/run.js",
 		"/D/Workspace/laf/dev/public/unminified/appStyles.css",
 		"/D/Workspace/laf/dev/public/imgs/sprites.css",
 		"/D/Workspace/laf/dev/public/imgs/sprites.scss",
@@ -650,7 +678,6 @@
 		"/D/Workspace/laf/dev/public/minified/appScripts.js",
 		"/D/Workspace/laf/dev/public/minified/appStyles.css",
 		"/D/Workspace/laf/dev/package-lock.json",
-		"/D/Workspace/laf/dev/package.json",
 		"/C/GTK/include/autosprintf.h",
 		"/D/Workspace/laf/prod/build/v1.00/server.js",
 		"/D/Workspace/laf/prod/setup/.env",
@@ -659,7 +686,6 @@
 		"/D/Workspace/laf/dev/resources/json/hardCoded/hard_coded_en.json",
 		"/D/Workspace/laf/prod/db/deactivation_reasons.js",
 		"/D/Workspace/laf/prod/db/item_categories.js",
-		"/D/Workspace/laf/dev/js/client/controllers/AppController.js",
 		"/D/Workspace/laf/dev/js/client/configuration/myStorageConf.js",
 		"/D/Workspace/laf/dev/directives/app/collection/reports/reports.js",
 		"/D/Workspace/laf/dev/directives/my/btn/myBtn/myBtn.scss",
@@ -670,7 +696,6 @@
 		"/D/Workspace/laf/dev/utils/sublime/laf-pro.sublime-project",
 		"/D/Workspace/laf/dev/templates/lost-and-found-app-main.html",
 		"/D/Workspace/laf/dev/directives/my/collection/myCollectionBrowser/myCollectionBrowser.scss",
-		"/D/Workspace/laf/dev/js/client/appModule.js",
 		"/D/Workspace/laf/dev/templates/lost-and-found-app-report.html",
 		"/D/Workspace/laf/dev/templates/index.html",
 		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.js",
@@ -743,23 +768,11 @@
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-settings.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-search.html",
 		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-report.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-about.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-contact.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-help.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-home.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-main.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-newreport.html",
-		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-profile.html",
-		"/D/Workspace/laf/dev/public/index.html",
-		"/D/Workspace/laf/dev/scripts/run.js",
-		"/D/Workspace/laf/dev/scripts/controllers/AppController.js",
-		"/D/Workspace/laf/dev/scripts/config.js",
-		"/D/Workspace/laf/dev/directives/app/collection/reports/reports.scss",
-		"/D/Workspace/laf/dev/sass/appStyles.scss"
+		"/D/Workspace/laf/dev/public/pages/lost-and-found-app-about.html"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 24.0
 	},
 	"find_in_files":
 	{
@@ -1100,7 +1113,7 @@
 			"group4[4]",
 			"group4[3]"
 		],
-		"reverse": false,
+		"reverse": true,
 		"show_context": false,
 		"use_buffer2": true,
 		"whole_word": false,
@@ -1109,7 +1122,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1118,94 +1131,20 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2497,
+						"buffer_size": 2504,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								303,
+								303
 							]
 						],
 						"settings":
 						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "json",
-							"buffer_scroll_name": "79c7688f",
-							"spell_check": false,
 							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 84.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/karma.conf.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2497,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								587,
-								587
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "b7f1ecab",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -1217,51 +1156,29 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/tests/client/dataModelSpec.js",
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/js/client/services/jsonService.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4583,
+						"buffer_size": 2656,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								257,
-								257
+								452,
+								452
 							]
 						],
 						"settings":
 						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"bs_sintax": "javascript",
-							"buffer_scroll_name": "711e741e",
-							"spell_check": false,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 240.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1272,7 +1189,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 30.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -1321,7 +1238,7 @@
 	"project": "laf-pro.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 44.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1866,20 +1783,11 @@
 	"selected_group": 0,
 	"settings":
 	{
-		"last_automatic_layout":
-		[
-			[
-				0,
-				0,
-				1,
-				1
-			]
-		]
 	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 273.0,
 	"status_bar_visible": true,
 	"template_settings":

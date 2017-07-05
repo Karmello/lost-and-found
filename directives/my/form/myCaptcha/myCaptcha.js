@@ -13,7 +13,7 @@
 			template: '<div id="{{ ctrlId }}" ng-show="visible" style="margin-bottom: 20px;" my-directive></div>',
 			scope: {
 				ctrlId: '=',
-				actionName: '='
+				actionName: '=',
 			},
 			controller: function($scope, $timeout) {
 

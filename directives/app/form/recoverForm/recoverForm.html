@@ -1,6 +1,7 @@
 <div id="recoverForm">
 	<my-form ins="myForm">
 		<my-captcha
+			ng-if="window.grecaptcha"
 			ctrl-id="'recoverFormCaptcha'"
 			action-name="'recover'"
 		></my-captcha>

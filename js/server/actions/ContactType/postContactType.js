@@ -36,7 +36,11 @@ module.exports = {
 				contactMsg: req.body.contactMsg
 			});
 
+			console.log('before sending');
+
 			r.modules.mailModule.send(mail, function(err, info) {
+
+				console.log('sending cb', err, info);
 
 				if (!err) {
 

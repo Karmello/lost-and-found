@@ -7,7 +7,7 @@ var transporter = r.nodemailer.createTransport({ service: 'gmail', auth: { user:
 module.exports = {
 	create: function(id, language, receiverMail, data) {
 
-		var hardData = require(global.paths.json + '/hard_coded/hard_coded_' + language + '.json');
+		var hardData = require(global.paths.json + '/hardCodedData.json')[language];
 		var mail = { from: process.env.GMAIL_USER, to: receiverMail };
 
 		switch (id) {

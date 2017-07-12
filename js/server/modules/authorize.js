@@ -29,12 +29,13 @@ module.exports = {
                         else if (decoded.email) { query = { email: decoded.email }; }
 
                         // Looking for user with token credentials
-                        r.User.count(query, function(err, count) {
+                        r.User.findOne(query, function(err, user) {
 
                             // User found
-                            if (!err && count == 1) {
+                            if (!err && user) {
 
                                 req.decoded = decoded;
+                                req.decoded.username = user.username;
                                 next();
 
                             // No user found

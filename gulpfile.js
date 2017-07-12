@@ -95,7 +95,7 @@ r.gulp.task('fireup', ['compile'], function() {
     r.gulp.watch('templates/*.html', ['all_in_one_templates', 'page_templates']);
     r.gulp.watch('directives/**/*.html', ['all_in_one_templates', 'directive_templates']);
     r.gulp.watch(['styles/**/*.scss', '!styles/appStyles.scss', 'directives/**/*.scss'], ['styles']);
-    r.gulp.watch(['js/**/*.js', 'directives/**/*.js'], ['client_js']);
+    r.gulp.watch(['js/client/**/*.js', 'directives/**/*.js'], ['client_js']);
     r.gulp.watch('resources/json/**/*.json', ['json']);
 
     r.nodemon({ script: 'server.js', watch: ['server.js', 'js/server/**/*.js'] });

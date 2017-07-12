@@ -1,3 +1,5 @@
+// jshint esversion: 6
+
 (function() {
 
 	'use strict';
@@ -130,12 +132,18 @@
 							switch ($state.current.name) {
 
 								case 'app.profile':
+
 									service.collectionBrowser.byUser.init();
 									break;
 
 								case 'app.report':
-									$state.go('app.profile', { _id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
-									$timeout(function() { service.collectionBrowser.byUser.init(); });
+
+									service.collectionBrowser.byUser.init();
+
+									$timeout(function() {
+										$state.go('app.profile', { _id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
+									});
+
 									break;
 							}
 						});

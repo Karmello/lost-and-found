@@ -2,22 +2,21 @@
 
 	#myForm {
 
+		display: flex;
+		justify-content: center;
+
 		form {
+
+			background-color: transparent;
 
 			> div {
 
 				#formSection {
 
-					display: flex;
-					flex-flow: row wrap;
-					justify-content: space-around;
+					@media only screen and (min-width: 550px) { display: flex; }
+					@media only screen and (min-width: 768px) { width: 600px; }
 
-					> div {
-
-						flex-grow: 1;
-						max-width: 300px;
-						margin: 5px;
-					}
+					> div { margin: 5px auto; }
 				}
 			}
 		}

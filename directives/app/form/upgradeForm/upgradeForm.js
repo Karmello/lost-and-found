@@ -22,7 +22,7 @@
 				$scope.myModel = PaymentsRest.paymentModel;
 
 				$scope.myModel.set({
-					paymentMethod: 'credit_card',
+					paymentMethod: 'paypal',
 					currency: DEFAULT_CURRENCY,
 					amount: DEFAULT_AMOUNT,
 					creditCardExpireMonth: 1,

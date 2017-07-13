@@ -565,44 +565,25 @@ $avatarSize: 240px;
 
 	#myForm {
 
+		display: flex;
+		justify-content: center;
+
 		form {
+
+			background-color: transparent;
 
 			> div {
 
 				#formSection {
 
-					display: flex;
-					flex-flow: row wrap;
-					justify-content: space-around;
+					@media only screen and (min-width: 550px) { display: flex; }
+					@media only screen and (min-width: 768px) { width: 600px; }
 
-					> div {
-
-						flex-grow: 1;
-						max-width: 300px;
-						margin: 5px;
-					}
+					> div { margin: 5px auto; }
 				}
 			}
 		}
 	}
-}
-#appStats {
-
-	#bodySection {
-
-
-	}
-}
-@import '_vars';
-
-#userBadge {
-
-	position: relative;
-	display: table;
-	margin: 0 auto;
-	padding: 15px;
-
-	#mySrc { img { @extend .defaultAvatarSize; } }
 }
 #reportAvatar {
 
@@ -648,6 +629,24 @@ $avatarSize: 240px;
 .tinyAvatarSize {
 	width: 60px;
 	height: 60px;
+}
+#appStats {
+
+	#bodySection {
+
+
+	}
+}
+@import '_vars';
+
+#userBadge {
+
+	position: relative;
+	display: table;
+	margin: 0 auto;
+	padding: 15px;
+
+	#mySrc { img { @extend .defaultAvatarSize; } }
 }
 #myBtn {
 
@@ -1171,6 +1170,98 @@ $avatarSize: 240px;
 		margin-right: 10px;
 	}
 }
+#myImgCropModal {
+
+	img { max-width: 100%; }
+	input { display: none; }
+
+	.modal-body { position: relative; max-height: calc(100vh - 275px); }
+
+	#modalHeader {
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+
+		> div {
+			flex-grow: 1;
+			align-content: center;
+		}
+	}
+
+	#cropImgContainer {
+		height: 350px;
+		> * { margin: 0 auto; }
+	}
+
+	#alertContainer {
+		position: absolute;
+		top: 120px;
+		left: 0;
+		right: 0;
+
+		#myAlert {
+			margin: 50px auto;
+		}
+	}
+}
+@import '_vars';
+
+#myModal {
+
+	text-align: left;
+
+	.modal-dialog {}
+
+	.modal-header {
+		p {
+			font-weight: bold;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+			word-break: break-all;
+			word-break: break-word;
+			hyphens: auto;
+		}
+	}
+
+	.modal-title {}
+
+	.modal-body {}
+
+	.modal-footer {
+		.btn { margin: 0; }
+	}
+
+	&.modalSlideInFromLeft {
+		&.modal.fade:not(.in) .modal-dialog {
+		    -webkit-transform: translate3d(-25%, 0, 0);
+		    transform: translate3d(-25%, 0, 0);
+		}
+	}
+}
+
+.responsiveImgAndDesc {
+
+	display: table;
+	width: 100%;
+
+	img { max-width: 200px; }
+
+	> div {
+
+		display: table-cell;
+		vertical-align: top;
+
+		p {
+			margin: 25px;
+			text-align: justify;
+		}
+	}
+
+	> div:first-child { text-align: center; }
+	@media only screen and (max-width: 600px) { > div { display: block; } }
+}
 #mySrc {
 
 	$srcCtrlsMargin: 10px;
@@ -1316,98 +1407,6 @@ $avatarSize: 240px;
 			margin-top: 0;
 		}
 	}
-}
-#myImgCropModal {
-
-	img { max-width: 100%; }
-	input { display: none; }
-
-	.modal-body { position: relative; max-height: calc(100vh - 275px); }
-
-	#modalHeader {
-
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: center;
-		align-items: center;
-
-		> div {
-			flex-grow: 1;
-			align-content: center;
-		}
-	}
-
-	#cropImgContainer {
-		height: 350px;
-		> * { margin: 0 auto; }
-	}
-
-	#alertContainer {
-		position: absolute;
-		top: 120px;
-		left: 0;
-		right: 0;
-
-		#myAlert {
-			margin: 50px auto;
-		}
-	}
-}
-@import '_vars';
-
-#myModal {
-
-	text-align: left;
-
-	.modal-dialog {}
-
-	.modal-header {
-		p {
-			font-weight: bold;
-			overflow-wrap: break-word;
-			word-wrap: break-word;
-			word-break: break-all;
-			word-break: break-word;
-			hyphens: auto;
-		}
-	}
-
-	.modal-title {}
-
-	.modal-body {}
-
-	.modal-footer {
-		.btn { margin: 0; }
-	}
-
-	&.modalSlideInFromLeft {
-		&.modal.fade:not(.in) .modal-dialog {
-		    -webkit-transform: translate3d(-25%, 0, 0);
-		    transform: translate3d(-25%, 0, 0);
-		}
-	}
-}
-
-.responsiveImgAndDesc {
-
-	display: table;
-	width: 100%;
-
-	img { max-width: 200px; }
-
-	> div {
-
-		display: table-cell;
-		vertical-align: top;
-
-		p {
-			margin: 25px;
-			text-align: justify;
-		}
-	}
-
-	> div:first-child { text-align: center; }
-	@media only screen and (max-width: 600px) { > div { display: block; } }
 }
 #myAlert {
 	display: table;

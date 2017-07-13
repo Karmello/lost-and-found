@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"user",
+				"username"
+			],
+			[
+				"co",
+				"contactType\t(?)"
+			],
+			[
 				"fun",
 				"function"
 			],
@@ -35,23 +43,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/D/Workspace/laf/dev/gulpfile.js",
-			"settings":
-			{
-				"buffer_size": 4544,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/styles/_index.scss",
-			"settings":
-			{
-				"buffer_size": 1112,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -113,11 +104,27 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev",
-		"/D/Workspace/laf/dev/styles"
+		"/D/Workspace/laf/dev/directives/app/form"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/js/server/actions/ContactType/postContactType.js",
+		"/D/Workspace/laf/dev/js/server/modules/mailModule.js",
+		"/D/Workspace/laf/dev/js/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/server.js",
+		"/D/Workspace/laf/dev/public/json/hardCodedData.json",
+		"/D/Workspace/laf/dev/js/server/modules/_modules.js",
+		"/D/Workspace/laf/dev/js/server/controllers/ContactTypeController.js",
+		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/directives/app/form/contactForm/contactForm.html",
+		"/D/Workspace/laf/dev/js/client/factories/rest/ContactTypesRest.js",
+		"/D/Workspace/laf/dev/directives/app/form/contactForm/contactForm.js",
+		"/D/Workspace/laf/dev/js/server/actions/ContactType/getContactTypes.js",
+		"/D/Workspace/laf/dev/js/client/services/apiService.js",
+		"/D/Workspace/laf/dev/directives/app/collection/reports/reportsService.js",
+		"/D/Workspace/laf/dev/js/client/appModule.js",
+		"/D/Workspace/laf/dev/gulpfile.js",
+		"/D/Workspace/laf/dev/styles/_index.scss",
 		"/D/Workspace/laf/dev/js/client/routes/search.route.js",
 		"/D/Workspace/test/client.js",
 		"/D/Workspace/laf/dev/js/client/services/aws3Service.js",
@@ -163,6 +170,7 @@
 		"height": 90.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -170,6 +178,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"hard_coded",
 			"encoding"
 		],
 		"highlight": true,
@@ -188,68 +197,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/gulpfile.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4544,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2509,
-								2509
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 782.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/styles/_index.scss",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1112,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								108,
-								108
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -301,6 +250,26 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ser",
+				"dev\\server.js"
+			],
+			[
+				"authori",
+				"server\\modules\\authorize.js"
+			],
+			[
+				"serv",
+				"dev\\server.js"
+			],
+			[
+				"apis",
+				"client\\services\\apiService.js"
+			],
+			[
+				"contactt",
+				"client\\factories\\rest\\ContactTypesRest.js"
+			],
 			[
 				"gulp",
 				"dev\\gulpfile.js"

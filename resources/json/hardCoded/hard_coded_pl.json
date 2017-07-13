@@ -72,10 +72,6 @@
 			"Miłego korzystania z aplikacji LostAndFoundApp !"
 		],
 		"payment": {
-			"methods": {
-				"credit_card": "Karta kredytowa",
-				"paypal": "Paypal"
-			},
 			"creditCardTypes": {
 				"visa": "Visa",
 				"master_card": "Mastercard",
@@ -87,7 +83,11 @@
 				{ "value": "USD", "label": "Dolar" },
 				{ "value": "EUR", "label": "Euro" },
 				{ "value": "GBP", "label": "Funt" }
-			]
+			],
+			"methods": {
+				"paypal": "Paypal",
+				"credit_card": "Karta kredytowa"
+			}
 		},
 		"questions": [
 			"Dlaczego nas opuszczasz ?"

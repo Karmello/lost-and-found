@@ -2,12 +2,12 @@
 
 	'use strict';
 
-	var MainController = function($rootScope, $scope) {
+	var MainController = function($scope, exchangeRateService) {
 
-
+		$scope.exchangeRateService = exchangeRateService;
 	};
 
-	MainController.$inject = ['$rootScope', '$scope'];
+	MainController.$inject = ['$scope', 'exchangeRateService'];
 	angular.module('appModule').controller('MainController', MainController);
 
 })();

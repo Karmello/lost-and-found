@@ -6,7 +6,7 @@
 		</heading-text>
 		<body-section>
 			<div ng-show="!apiData.loggedInUser.paymentId && !apiData.payment">
-				<upgrade-form></upgrade-form>
+				<upgrade-form ng-if="exchangeRateService.data.USD"></upgrade-form>
 			</div>
 			<div ng-show="apiData.loggedInUser.paymentId" id="whenPaidSection">
 				<my-loader abs-centered="true" ng-show="!apiData.payment"></my-loader>

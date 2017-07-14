@@ -15,6 +15,13 @@ global.paths = {
 };
 
 var r = require(global.paths._requires);
+var serverResolve;
+
+global.$server = () => {
+	return new r.Promise((resolve) => {
+		serverResolve = resolve;
+	});
+};
 
 if (!process.env.LOADED_MOCHA_OPTS) {
 	require('dotenv').config();
@@ -81,6 +88,7 @@ r.setups.setupConstants(app, function() {
 					server.listen(process.env.PORT, function () {
 				    	var log = 'App server listening on port ' + process.env.PORT;
 				        r.modules.utilModule.printFormattedLog(log);
+				        if (serverResolve) { serverResolve(r); }
 				    });
 				});
 			});

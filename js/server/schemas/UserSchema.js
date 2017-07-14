@@ -63,6 +63,7 @@ UserSchema.methods = {
 
 		var user = this.toObject();
 		delete user.password;
+		delete user.paymentId;
 		return user;
 	},
 	comparePasswords: function(currentPassword, cb) {

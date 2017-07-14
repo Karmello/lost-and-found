@@ -15,6 +15,7 @@ var _requires = {
 	mongoose: require('mongoose'),
 	morgan: require('morgan'),
 	nodemailer: require('nodemailer'),
+	path: require('path'),
 	paypal: require('paypal-rest-sdk'),
 	Promise: require('promise'),
 	restful: require('node-restful'),

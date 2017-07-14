@@ -1,6 +1,8 @@
-var r = require(global.paths._requires);
+var r = require(global.paths.server + '/requires');
 
-module.exports = function(app, cb) {
+module.exports = function(cb) {
+
+    let app = global.app;
 
     var sessionStore = new r.MongoStore({ mongooseConnection: r.mongoose.connection });
 
@@ -11,9 +13,9 @@ module.exports = function(app, cb) {
         sessionStore.get(sid, function(err, session) {
 
             // Preparing session object
-            session.language = global.app.get('DEFAULT_LANG');
-            session.theme = global.app.get('DEFAULT_THEME');
-            session.badActionsCount = { login: 0, register: 0, recover: 0, max: global.app.get('CAPTCHA_MAX_BAD_ACTIONS') };
+            session.language = app.get('DEFAULT_LANG');
+            session.theme = app.get('DEFAULT_THEME');
+            session.badActionsCount = { login: 0, register: 0, recover: 0, max: app.get('CAPTCHA_MAX_BAD_ACTIONS') };
 
             sessionStore.set(sid, session);
         });

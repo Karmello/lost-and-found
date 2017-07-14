@@ -4,8 +4,24 @@
 		"selected_items":
 		[
 			[
+				"ser",
+				"serverResolve(bool)"
+			],
+			[
+				"res",
+				"result\t(bool)"
+			],
+			[
+				"r",
+				"registeUser\t(?)"
+			],
+			[
+				"re",
+				"registerUser\t(?)"
+			],
+			[
 				"req",
-				"request"
+				"require"
 			],
 			[
 				"new",
@@ -51,23 +67,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/D/Workspace/laf/dev/script.js",
-			"settings":
-			{
-				"buffer_size": 426,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/js/server/modules/authorize.js",
-			"settings":
-			{
-				"buffer_size": 4706,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -129,25 +128,44 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/js/server",
-		"/D/Workspace/laf/dev/js/server/modules"
+		"/D/Workspace/laf/dev",
+		"/D/Workspace/laf/dev/js"
 	],
 	"file_history":
 	[
+		"/D/Workspace/job_tests/call-page/index.html",
+		"/D/Workspace/laf/dev/server.js",
+		"/D/Workspace/laf/dev/setup.js",
+		"/D/Workspace/job_tests/call-page/templates/index.html",
+		"/D/Workspace/laf/dev/js/server/mockupData/users.js",
+		"/D/Workspace/laf/dev/db/setup.js",
+		"/D/Workspace/laf/dev/server+.js",
+		"/D/Workspace/laf/dev/db/init.js",
+		"/D/Workspace/laf/dev/js/server/mockUps",
+		"/D/Workspace/laf/dev/js/server/state/1.js",
+		"/D/Workspace/laf/dev/js/server/state/users.js",
 		"/D/Workspace/laf/dev/js/server/_requires.js",
-		"/D/Workspace/laf/dev/js/server/setups/setupSession.js",
-		"/D/Workspace/laf/dev/js/server/controllers/UserController.js",
+		"/D/Workspace/mean-start-off/db/insert.js",
+		"/D/Workspace/laf/dev/gulpfile.js",
+		"/D/Workspace/laf/dev/fireup.bat",
+		"/D/Workspace/laf/dev/js/server/actions/User/registerUser.js",
+		"/D/Workspace/laf/dev/js/server/prototypes/Action.js",
 		"/D/Workspace/laf/dev/js/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/js/server/modules/_modules.js",
+		"/D/Workspace/laf/dev/script.js",
+		"/D/Workspace/laf/dev/js/server/script.js",
 		"/D/Workspace/laf/dev/js/server/schemas/UserSchema.js",
+		"/D/Workspace/laf/dev/js/server/controllers/UserController.js",
+		"/D/Workspace/laf/dev/js/server/setups/setupSession.js",
+		"/D/Workspace/laf/dev/js/server/setups/setupDb.js",
 		"/D/Workspace/laf/dev/js/server/modules/paypalModule.js",
 		"/D/Workspace/laf/dev/js/server/modules/modelDataModule.js",
 		"/D/Workspace/laf/dev/js/server/modules/aws3Module.js",
 		"/D/Workspace/laf/dev/js/server/modules/mailModule.js",
 		"/D/Workspace/laf/dev/.jshintrc",
 		"/D/Workspace/laf/dev/directives/app/collection/reports/reportsService.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/registerUser.js",
 		"/D/Workspace/laf/dev/db/fakes/fakeUsers.js",
-		"/D/Workspace/mean-start-off/db/insert.js",
 		"/D/Workspace/laf/dev/db/fakes/fakeReports.js",
 		"/D/Workspace/laf/dev/db/clear.js",
 		"/D/Workspace/laf/dev/db/findOneAndUpdate.js",
@@ -175,17 +193,13 @@
 		"/D/Workspace/laf/dev/resources/json/hardCoded/hard_coded_en.json",
 		"/D/Workspace/laf/dev/resources/json/hardCoded/hard_coded_pl.json",
 		"/D/Workspace/laf/dev/js/server/actions/ContactType/postContactType.js",
-		"/D/Workspace/laf/dev/server.js",
-		"/D/Workspace/laf/dev/js/server/modules/_modules.js",
 		"/D/Workspace/laf/dev/js/server/controllers/ContactTypeController.js",
-		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
 		"/D/Workspace/laf/dev/directives/app/form/contactForm/contactForm.html",
 		"/D/Workspace/laf/dev/js/client/factories/rest/ContactTypesRest.js",
 		"/D/Workspace/laf/dev/directives/app/form/contactForm/contactForm.js",
 		"/D/Workspace/laf/dev/js/server/actions/ContactType/getContactTypes.js",
 		"/D/Workspace/laf/dev/js/client/services/apiService.js",
 		"/D/Workspace/laf/dev/js/client/appModule.js",
-		"/D/Workspace/laf/dev/gulpfile.js",
 		"/D/Workspace/laf/dev/styles/_index.scss",
 		"/D/Workspace/laf/dev/js/client/routes/search.route.js",
 		"/D/Workspace/test/client.js",
@@ -266,68 +280,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/script.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 426,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								426,
-								426
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/js/server/modules/authorize.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4706,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3084,
-								3084
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 51.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -380,11 +334,19 @@
 		"selected_items":
 		[
 			[
-				"srtups",
-				"server\\setups\\setupSession.js"
+				"ser",
+				"dev\\server.js"
 			],
 			[
-				"_req",
+				"_re",
+				"server\\_requires.js"
+			],
+			[
+				"fire",
+				"dev\\fireup.bat"
+			],
+			[
+				"_requ",
 				"server\\_requires.js"
 			],
 			[
@@ -392,8 +354,40 @@
 				"server\\modules\\authorize.js"
 			],
 			[
+				"action",
+				"server\\prototypes\\Action.js"
+			],
+			[
+				"regis",
+				"server\\actions\\User\\registerUser.js"
+			],
+			[
+				"users",
+				"server\\schemas\\UserSchema.js"
+			],
+			[
 				"userc",
 				"server\\controllers\\UserController.js"
+			],
+			[
+				"setus",
+				"server\\setups\\setupSession.js"
+			],
+			[
+				"setupd",
+				"server\\setups\\setupDb.js"
+			],
+			[
+				"setups",
+				"server\\setups\\setupSession.js"
+			],
+			[
+				"_req",
+				"server\\_requires.js"
+			],
+			[
+				"srtups",
+				"server\\setups\\setupSession.js"
 			],
 			[
 				"userss",
@@ -402,10 +396,6 @@
 			[
 				"registeruser",
 				"server\\actions\\User\\registerUser.js"
-			],
-			[
-				"users",
-				"server\\schemas\\UserSchema.js"
 			],
 			[
 				"myform",
@@ -450,10 +440,6 @@
 			[
 				"hard",
 				"dev\\resources\\json\\hardCoded\\hard_coded_pl.json"
-			],
-			[
-				"ser",
-				"dev\\server.js"
 			],
 			[
 				"authori",
@@ -503,7 +489,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 325.0,
 	"status_bar_visible": true,
 	"template_settings":

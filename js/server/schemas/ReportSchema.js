@@ -1,4 +1,4 @@
-var r = require(global.paths._requires);
+var r = require(global.paths.server + '/requires');
 var reportVal = r.validators.reportValidators;
 
 
@@ -43,7 +43,7 @@ var ReportSchema = new r.mongoose.Schema({
 		type: String,
 		validate: [reportVal.avatar.correctness]
 	},
-	photos: [global.paths.schemas + 'ReportPhotoSchema'],
+	photos: [global.paths.server + '/schemas/ReportPhotoSchema'],
 	comments: [{
 		type: r.mongoose.Schema.Types.ObjectId,
 		ref: 'comment'

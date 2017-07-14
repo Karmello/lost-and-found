@@ -1,4 +1,4 @@
-var r = {
+const r = {
     autoprefixer : require('gulp-autoprefixer'),
     babel: require('gulp-babel'),
     browserSync: require('browser-sync').create(),
@@ -20,7 +20,24 @@ var r = {
 
 
 
-r.gulp.task('compile', ['all_in_one_templates', 'page_templates', 'directive_templates', 'client_js', 'styles', 'resources'], function() {
+r.gulp.task('compile', ['all_in_one_templates', 'page_templates', 'directive_templates', 'client_js', 'resources'], function() {
+
+    r.gulp.watch('templates/*.html', ['all_in_one_templates', 'page_templates']);
+    r.gulp.watch('directives/**/*.html', ['all_in_one_templates', 'directive_templates']);
+    r.gulp.watch(['styles/**/*.scss', '!styles/appStyles.scss', 'directives/**/*.scss'], ['styles']);
+    r.gulp.watch(['js/client/**/*.js', 'directives/**/*.js'], ['client_js']);
+    r.gulp.watch('resources/json/**/*.json', ['json']);
+
+    r.browserSync.init({
+        snippetOptions: { ignorePaths: 'public/templates/*.html' },
+        proxy: 'https://localhost:8080',
+        ghostMode: false,
+        browser: 'chrome',
+        https: {
+            key: 'utils/https/certs/server.key',
+            cert: 'utils/https/certs/server.crt'
+        }
+    });
 
     r.gulp.start('styles');
 });
@@ -84,32 +101,6 @@ r.gulp.task('resources', function() {
     var imgs = r.gulp.src('resources/imgs/*.*').pipe(r.gulp.dest('./public/imgs/'));
 
     return r.merge(singleJson, multipleJson, imgs);
-});
-
-
-
-r.gulp.task('fireup', ['compile'], function() {
-
-    //r.gulp.watch('public/pages/**/*.html').on('change', r.browserSync.reload);
-
-    r.gulp.watch('templates/*.html', ['all_in_one_templates', 'page_templates']);
-    r.gulp.watch('directives/**/*.html', ['all_in_one_templates', 'directive_templates']);
-    r.gulp.watch(['styles/**/*.scss', '!styles/appStyles.scss', 'directives/**/*.scss'], ['styles']);
-    r.gulp.watch(['js/client/**/*.js', 'directives/**/*.js'], ['client_js']);
-    r.gulp.watch('resources/json/**/*.json', ['json']);
-
-    r.nodemon({ script: 'server.js', watch: ['server.js', 'js/server/**/*.js'] });
-
-    r.browserSync.init({
-        snippetOptions: { ignorePaths: 'public/templates/*.html' },
-        proxy: 'https://localhost:8080',
-        ghostMode: false,
-        browser: 'chrome',
-        https: {
-            key: 'utils/https/certs/server.key',
-            cert: 'utils/https/certs/server.crt'
-        }
-    });
 });
 
 r.gulp.task('build', function() {

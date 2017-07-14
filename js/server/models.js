@@ -1,4 +1,4 @@
-var path = global.paths.schemas;
+var path = global.paths.server + '/schemas/';
 
 module.exports = {
 	AppConfig: require(path + 'AppConfigSchema'),

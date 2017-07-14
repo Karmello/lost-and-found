@@ -1,4 +1,4 @@
-var r = require(global.paths._requires);
+var r = require(global.paths.server + '/requires');
 
 var s3 = new r.aws.S3({
     accessKeyId: process.env.AWS3_ACCESS_KEY_ID,

@@ -1,4 +1,6 @@
-module.exports = function(app, cb) {
+module.exports = function(cb) {
+
+	let app = global.app;
 
 	// Session
 	app.set('CAPTCHA_MAX_BAD_ACTIONS', 5);

@@ -1,4 +1,4 @@
-var r = require(global.paths._requires);
+var r = require(global.paths.server + '/requires');
 var glVal = r.validators.globalValidators;
 var payVal = r.validators.paymentValidators;
 

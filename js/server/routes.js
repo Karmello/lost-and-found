@@ -1,11 +1,13 @@
+let path = global.paths.server + '/controllers/';
+
 module.exports = {
-	'/app_configs': require(global.paths.controllers + 'AppConfigController'),
-	'/comments': require(global.paths.controllers + 'CommentController'),
-	'/contact_types': require(global.paths.controllers + 'ContactTypeController'),
-	'/counters': require(global.paths.controllers + 'CounterController'),
-	'/deactivation_reasons': require(global.paths.controllers + 'DeactivationReasonController'),
-	'/password': require(global.paths.controllers + 'PasswordController'),
-	'/payments': require(global.paths.controllers + 'PaymentController'),
-	'/reports': require(global.paths.controllers + 'ReportController'),
-	'/users': require(global.paths.controllers + 'UserController')
+	'/app_configs': require(path + 'AppConfigController'),
+	'/comments': require(path + 'CommentController'),
+	'/contact_types': require(path + 'ContactTypeController'),
+	'/counters': require(path + 'CounterController'),
+	'/deactivation_reasons': require(path + 'DeactivationReasonController'),
+	'/password': require(path + 'PasswordController'),
+	'/payments': require(path + 'PaymentController'),
+	'/reports': require(path + 'ReportController'),
+	'/users': require(path + 'UserController')
 };

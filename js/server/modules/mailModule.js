@@ -1,5 +1,5 @@
 // jshint multistr:true
-var r = require(global.paths._requires);
+var r = require(global.paths.server + '/requires');
 var transporter = r.nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_PASS } });
 
 
@@ -7,7 +7,7 @@ var transporter = r.nodemailer.createTransport({ service: 'gmail', auth: { user:
 module.exports = {
 	create: function(id, language, receiverMail, data) {
 
-		var hardData = require(global.paths.json + '/hardCodedData.json')[language];
+		var hardData = require(global.paths.root + '/public/json/hardCodedData.json')[language];
 		var mail = { from: process.env.GMAIL_USER, to: receiverMail };
 
 		switch (id) {

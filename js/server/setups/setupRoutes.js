@@ -1,16 +1,18 @@
-var r = require(global.paths._requires);
+var r = require(global.paths.server + '/requires');
 
-module.exports = function(app, dirname, cb) {
+module.exports = function(cb) {
+
+    let app = global.app;
 
     // Registering route models
-    app.models = require(global.paths.server + 'models');
+    app.models = require(global.paths.server + '/models');
     var apiRoutes = require('./../routes');
     r._.each(apiRoutes, function(controller, apiRoute) {
         app.use('/api' + apiRoute, controller(app, '/api' + apiRoute));
     });
 
     // Route serving main page
-    app.get('/', function(req, res, next) { res.sendFile(dirname + '/public/templates/index.html'); });
+    app.get('/', function(req, res, next) { res.sendFile(global.paths.root + '/public/templates/index.html'); });
 
     // Route returning session settings
     app.get('/session', function(req, res) { res.send(req.session); });
@@ -34,14 +36,14 @@ module.exports = function(app, dirname, cb) {
 
     // Static files
     if (process.env.NODE_ENV !== 'production') {
-        app.use('/public', r.express.static(dirname + '/public/unminified'));
+        app.use('/public', r.express.static(global.paths.root + '/public/unminified'));
 
     } else {
-        app.use('/public', r.express.static(dirname + '/public/minified'));
+        app.use('/public', r.express.static(global.paths.root + '/public/minified'));
     }
 
-    app.use('/public', r.express.static(dirname + '/public'));
-    app.use('/node_modules', r.express.static(dirname + '/node_modules'));
+    app.use('/public', r.express.static(global.paths.root + '/public'));
+    app.use('/node_modules', r.express.static(global.paths.root + '/node_modules'));
 
     cb();
 };

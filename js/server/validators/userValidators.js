@@ -1,5 +1,5 @@
-var r = require(global.paths._requires);
-var countries = require(global.paths.json + '/countries.json');
+var r = require(global.paths.server + '/requires');
+var countries = require(global.paths.root + '/public/json/countries.json');
 
 
 

@@ -1,1 +1,0 @@
-ConEmu64 /cmd {laf_test_server}

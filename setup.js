@@ -1,12 +1,23 @@
 const users = require('./js/server/mockupData/users');
+let done = () => console.log('Setup done');
 
-require('./server');
+require('./js/server/server');
 
 global.$server().then((r) => {
 
 	if (r) {
 
 		switch(process.argv[2]) {
+
+			case '-0':
+
+				r.User.remove({}, () => {
+					r.AppConfig.remove(() => {
+						done();
+					});
+				});
+
+				break;
 
 			case '-1':
 
@@ -26,7 +37,7 @@ global.$server().then((r) => {
 							});
 						}
 
-						console.log('Setup done');
+						done();
 					});
 				});
 

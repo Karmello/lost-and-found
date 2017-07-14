@@ -1,4 +1,4 @@
-var r = require(global.paths._requires);
+var r = require(global.paths.server + '/requires');
 
 var CounterSchema = new r.mongoose.Schema({
 	_id: {

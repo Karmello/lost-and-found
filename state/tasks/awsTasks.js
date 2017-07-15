@@ -15,6 +15,16 @@ const m = {
 			});
 		});
 	},
+	uploadAvatars: () => {
+
+		let tasks = [];
+
+		for (let i = 0; i < r.tasks.data.fs.userImgs.length; i++) {
+			tasks.push(m.singleImgToAws(i, r.tasks.data.fs.userImgs[i]));
+		}
+
+		return r.Promise.all(tasks);
+	},
 	singleImgToAws: (i, file) => {
 
 		return new r.Promise((resolve, reject) => {

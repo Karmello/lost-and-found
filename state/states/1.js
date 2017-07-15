@@ -13,28 +13,32 @@ module.exports = (cb) => {
 
 		let t = r.tasks;
 
+		// Resetting
 		r.Promise.all([t.db.clear(), t.aws.emptyBuckets()]).then(() => {
 
-			t.users.mockData().then(() => {
-				t.users.register().then(() => {
+			t.mock.users().then(() => {
+				t.fs.readImgs().then((files) => {
 
-					r.User.find({}, function(err, users) {
+					t.data.fs.userImgs = files;
 
-						t.data.db.users = users;
+					t.db.post.users().then(() => {
+						r.User.find({}, function(err, users) {
 
-						t.fs.readImgs().then((files) => {
+							t.data.db.users = users;
 
-							t.data.fs.userImgs = files;
-
-							t.users.uploadAvatars().then((filenames) => {
-								t.users.setAvatars(filenames).then(() => {
-									resolve();
+							t.mock.reports().then(() => {
+								t.aws.uploadAvatars().then((filenames) => {
+									t.db.setAvatars(filenames).then(() => {
+										t.db.post.reports().then(() => {
+											resolve();
+										});
+									});
 								});
 							});
-
-						}, reject);
+						});
 					});
-				});
+
+				}, reject);
 			});
 		});
 	});

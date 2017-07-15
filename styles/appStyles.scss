@@ -1009,6 +1009,10 @@ $avatarSize: 240px;
 		top: 0 !important;
 	}
 }
+#myFormErrorIcon {
+	margin-left: 3px;
+	font-size: 16px;
+}
 #myForm {
 
 	position: relative;
@@ -1049,10 +1053,6 @@ $avatarSize: 240px;
 			margin-top: 25px;
 		}
 	}
-}
-#myFormErrorIcon {
-	margin-left: 3px;
-	font-size: 16px;
 }
 #mySingleFileInput, #myMultipleFilesInput {
 

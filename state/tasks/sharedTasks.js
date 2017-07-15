@@ -6,6 +6,7 @@ const m = {
 		return {
 			query: { action: '' },
 			body: undefined,
+			decoded: { _id: undefined },
 			session: {
 				language: 'en',
 				theme: 'standard',

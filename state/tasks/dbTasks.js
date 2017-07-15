@@ -12,7 +12,7 @@ const m = {
 				r.Comment.remove()
 			])
 			.then(() => {
-				console.log('db cleared');
+				console.log('reset > db');
 				resolve();
 			});
 		});
@@ -32,7 +32,7 @@ const m = {
 
 					tasks.push(new r.Promise((resolve) => {
 						r.actions.user.post.register(req, undefined, (body) => {
-							console.log(user.username + ' registered');
+							console.log('registered > ' + user.username);
 							resolve();
 						});
 					}));
@@ -62,7 +62,7 @@ const m = {
 
 						tasks.push(new r.Promise((resolve) => {
 							r.actions.report.post.before(req, undefined, (body) => {
-								console.log(report.title + ' reported');
+								console.log('reported > ' + report.title);
 								resolve();
 							});
 						}));
@@ -75,22 +75,49 @@ const m = {
 			});
 		}
 	},
-	setAvatars: (filenames) => {
+	updateFileNames: (subject, files) => {
 
-		return new r.Promise((resolve) => {
+		return new r.Promise((resolve, reject) => {
 
 			let tasks = [];
 
-			for (var i = 0; i < filenames.length; i++) {
-				tasks.push(r.tasks.data.db.users[i].update({
-					photos: [{ filename: filenames[i], size: 100 }]
-				}));
+			if (subject == 'user_avatar') {
+
+				for (let file of files) {
+					tasks.push(new r.Promise((resolve, reject) => {
+						r.User.findOne({ _id: file.userId }, (err, user) => {
+							if (!err) { user.update({ photos: [{ filename: file.filename, size: 100 }] }, () => { resolve(); }); } else { reject(err); }
+						});
+					}));
+				}
+
+			} else if (subject == 'report_photos') {
+
+				let data = {};
+
+				for (let file of files) {
+
+					if (!data[file.reportId]) {
+						data[file.reportId] = [{ filename: file.filename, size: 100 }];
+
+					} else {
+						data[file.reportId].push({ filename: file.filename, size: 100 });
+					}
+				}
+
+				for (let reportId in data) {
+					tasks.push(new r.Promise((resolve, reject) => {
+						r.Report.findOne({ _id: reportId }, (err, report) => {
+							if (!err) { report.update({ photos: data[reportId] }, () => { resolve(); }); } else { reject(err); }
+						});
+					}));
+				}
 			}
 
 			r.Promise.all(tasks).then(() => {
-				console.log('user avatars set');
+				console.log('db updated > ' + subject);
 				resolve();
-			});
+			}, reject);
 		});
 	}
 };

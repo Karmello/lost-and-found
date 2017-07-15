@@ -1,31 +1,30 @@
 const r = require(global.paths.server + '/requires');
+const usersFolderPath = './state/users';
 
 const m = {
 	users: () => {
 
 		return new r.Promise((resolve) => {
 
-			r.fs.readdir('./state/mockupData/users', function(err, folderNames) {
+			r.fs.readdir(usersFolderPath, function(err, ids) {
 
-				for (var folderName of folderNames) {
+				for (var id of ids) {
 
-					var separated = folderName.split('-');
-					var firstname = separated[0];
-					var lastname = separated[1];
-					var country = separated[2];
+					var config = require('./../users/' + id + '/config');
 
 					r.tasks.data.mocks.users.push({
-						email: firstname.toLowerCase() + lastname.toLowerCase() + '@gmail.com',
-						username: firstname + lastname,
+						_id: id,
+						email: config.firstname.toLowerCase() + config.lastname.toLowerCase() + '@gmail.com',
+						username: config.firstname + config.lastname,
 						password: 'password',
-						firstname: firstname,
-						lastname: lastname,
-						country: country,
-						avatarPath: './state/mockupData/users/' + folderName + '/avatar.jpg'
+						firstname: config.firstname,
+						lastname: config.lastname,
+						country: config.country,
+						avatarPath: usersFolderPath + '/' + id + '/avatar.jpg'
 					});
 				}
 
-				console.log('users mocked data ready');
+				console.log('data mocked > users');
 				resolve();
 			});
 		});
@@ -44,13 +43,12 @@ const m = {
 					let dbUser = r.tasks.data.db.users[i];
 
 					mockedUser.reports = [];
-					let userFolderName = mockedUser.firstname + '-' + mockedUser.lastname + '-' + mockedUser.country;
-					let path = './state/mockupData/users/' + userFolderName + '/reports';
 
-					r.fs.readdir(path, (err, reportNames) => {
+					r.fs.readdir(usersFolderPath + '/' + mockedUser._id + '/reports', (err, reportIds) => {
 
-						for (let reportName of reportNames) {
-							mockedUser.reports.push(require('./../mockupData/users/' + userFolderName + '/reports/' + reportName + '/config'));
+						for (let reportId of reportIds) {
+							mockedUser.reports.push(require('./../users/' + mockedUser._id + '/reports/' + reportId + '/config'));
+							mockedUser.reports[mockedUser.reports.length - 1]._id = reportId;
 						}
 
 						resolve();
@@ -60,7 +58,7 @@ const m = {
 
 			r.Promise.all(tasks).then(() => {
 
-				console.log('user reports mocked data ready');
+				console.log('data mocked > reports');
 				resolve();
 			});
 		});

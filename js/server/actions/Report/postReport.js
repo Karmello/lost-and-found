@@ -15,6 +15,8 @@ module.exports = {
 			serialNo: req.body.serialNo
 		});
 
+		if (req.body._id) { report._id = req.body._id; }
+
 		report.startEvent = new r.ReportEvent(req.body.startEvent);
 
 

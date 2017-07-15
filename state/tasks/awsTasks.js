@@ -10,43 +10,46 @@ const m = {
 				r.modules.aws3Module.emptyBucket('laf.useruploadsresized')
 			])
 			.then(() => {
-				console.log('buckets emptied');
+				console.log('reset > s3 buckets');
 				resolve();
 			});
 		});
 	},
-	uploadAvatars: () => {
+	uploadImgs: (subject, files) => {
 
 		let tasks = [];
 
-		for (let i = 0; i < r.tasks.data.fs.userImgs.length; i++) {
-			tasks.push(m.singleImgToAws(i, r.tasks.data.fs.userImgs[i]));
+		for (let i = 0; i < files.length; i++) {
+			tasks.push(m.singleImgToAws(subject, files[i]));
 		}
 
 		return r.Promise.all(tasks);
 	},
-	singleImgToAws: (i, file) => {
+	singleImgToAws: (subject, file) => {
 
 		return new r.Promise((resolve, reject) => {
 
-			let avatarPath = r.tasks.data.mocks.users[i].avatarPath;
+			let body = { fileTypes: [file.fileType] };
+			if (file.reportId) { body.reportId = file.reportId; }
 
 			r.modules.aws3Module.get_upload_credentials({
-				headers: { subject: 'user_avatar' },
-				body: { fileTypes: ['img/' + avatarPath.substring(avatarPath.lastIndexOf('.') + 1, avatarPath.length)] },
-				decoded: { _id: r.tasks.data.db.users[i]._id }
+				headers: { subject: subject },
+				body: body,
+				decoded: { _id: file.userId }
 			}, undefined, (credentials) => {
+
+				file.filename = credentials[0].awsFilename;
 
 				r.modules.aws3Module.s3.putObject({
 					Bucket: 'laf.useruploads',
 					Key: credentials[0].awsFormData.key,
-					Body: file
+					Body: file.fileData
 
 				}, function(err, data) {
 
 					if (!err) {
-						console.log(credentials[0].awsFilename + ' uploaded');
-						resolve(credentials[0].awsFilename);
+						console.log('uploaded > ' + credentials[0].awsFilename);
+						resolve(file);
 
 					} else { reject(err); }
 				});

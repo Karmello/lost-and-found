@@ -4,8 +4,68 @@
 		"selected_items":
 		[
 			[
+				"user",
+				"userFolderName"
+			],
+			[
+				"moc",
+				"mockupData"
+			],
+			[
+				"mock",
+				"mockedUser"
+			],
+			[
+				"mocked",
+				"mockedUser"
+			],
+			[
+				"fo",
+				"folderNames"
+			],
+			[
 				"re",
-				"readFileCb"
+				"register"
+			],
+			[
+				"las",
+				"lastname"
+			],
+			[
+				"last",
+				"lastIndexOf"
+			],
+			[
+				"of",
+				"lastIndexOf"
+			],
+			[
+				"node",
+				"nodeModule\tnodeModule"
+			],
+			[
+				"regi",
+				"registerUsers"
+			],
+			[
+				"up",
+				"uploadImgsToAws\t(bool)"
+			],
+			[
+				"file",
+				"filenames\t(bool)"
+			],
+			[
+				"regis",
+				"registerUsers\t(bool)"
+			],
+			[
+				"reg",
+				"registerUsers\t(bool)"
+			],
+			[
+				"le",
+				"length"
 			],
 			[
 				"use",
@@ -38,10 +98,6 @@
 			[
 				"new",
 				"newCurrency\t(?)"
-			],
-			[
-				"user",
-				"username"
 			],
 			[
 				"co",
@@ -80,28 +136,10 @@
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/state/mockupData/users.js",
+			"file": "/D/Workspace/laf/dev/state/tasks/mockTasks.js",
 			"settings":
 			{
-				"buffer_size": 825,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/state/setup.js",
-			"settings":
-			{
-				"buffer_size": 1783,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/.jshintrc",
-			"settings":
-			{
-				"buffer_size": 38,
+				"buffer_size": 1708,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -167,24 +205,47 @@
 	},
 	"expanded_folders":
 	[
+		"/D/Workspace/laf/dev/state"
 	],
 	"file_history":
 	[
-		"/D/Workspace/laf/dev/setup.js",
+		"/D/Workspace/laf/dev/state/tasks/dbTasks.js",
+		"/D/Workspace/laf/dev/state/tasks/mockTasks.js",
+		"/D/Workspace/laf/dev/state/tasks/awsTasks.js",
+		"/D/Workspace/laf/dev/state/tasks/fsTasks.js",
+		"/D/Workspace/laf/dev/state/tasks/sharedTasks.js",
+		"/D/Workspace/laf/dev/state/mockupData/users/Bill-Gates-United States/reports/Windows 7/config.js",
+		"/D/Workspace/laf/dev/state/states/1.js",
+		"/D/Workspace/laf/dev/js/server/actions/Report/postReport.js",
+		"/D/Workspace/laf/dev/js/server/schemas/ReportEventSchema.js",
+		"/D/Workspace/laf/dev/js/server/validators/reportEventValidators.js",
+		"/D/Workspace/laf/dev/js/server/validators/reportValidators.js",
+		"/D/Workspace/laf/dev/public/json/hardCodedData.json",
+		"/D/Workspace/laf/dev/state/tasks/_tasks.js",
+		"/D/Workspace/laf/dev/state/tasks/reportTasks.js",
+		"/D/Workspace/laf/dev/state/tasks/userTasks.js",
+		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/js/server/server.js",
+		"/D/Workspace/laf/dev/js/server/schemas/ReportSchema.js",
+		"/D/Workspace/laf/dev/state/setup.js",
 		"/D/Workspace/laf/dev/run.cmd",
+		"/D/Workspace/laf/dev/state/mockupData/users.js",
+		"/D/Workspace/laf/dev/state/states/0.js",
+		"/D/Workspace/laf/dev/js/server/prototypes/Action.js",
+		"/D/Workspace/laf/dev/js/server/schemas/UserSchema.js",
+		"/D/Workspace/laf/dev/js/server/actions/User/putUser.js",
+		"/D/Workspace/laf/dev/js/server/controllers/UserController.js",
 		"/D/Workspace/laf/dev/js/server/modules/aws3Module.js",
+		"/D/Workspace/laf/dev/.jshintrc",
+		"/D/Workspace/laf/dev/setup.js",
 		"/D/Workspace/laf/dev/js/server/requires.js",
 		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarService.js",
 		"/D/Workspace/laf/dev/js/client/factories/class/MySrcAction.js",
 		"/D/Workspace/laf/dev/js/client/services/aws3Service.js",
 		"/D/Workspace/laf/dev/directives/my/modal/myImgCropModal/myImgCropModal.js",
-		"/D/Workspace/laf/dev/js/server/prototypes/Action.js",
 		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatar.js",
 		"/D/Workspace/laf/dev/js/server/setups/setupRoutes.js",
 		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarConf.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/putUser.js",
-		"/D/Workspace/laf/dev/js/server/controllers/UserController.js",
-		"/D/Workspace/laf/dev/js/server/server.js",
 		"/D/Workspace/laf/dev/js/server/setups/setupDb.js",
 		"/D/Workspace/laf/dev/js/server/setups/setupPaypal.js",
 		"/D/Workspace/laf/dev/js/server/setups/setupSession.js",
@@ -196,7 +257,6 @@
 		"/D/Workspace/laf/dev/js/server/setups/_setups.js",
 		"/D/Workspace/laf/dev/js/server/routes.js",
 		"/D/Workspace/laf/dev/js/server/validators/userValidators.js",
-		"/D/Workspace/laf/dev/js/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/js/server/modules/mailModule.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/postComment.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/putComment.js",
@@ -211,7 +271,6 @@
 		"/D/Workspace/laf/dev/js/server/actions/Report/getReportById.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/getReportByIds.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/getReportBySearchQuery.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/postReport.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/putReport.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/runReportValidation.js",
 		"/D/Workspace/laf/dev/js/server/actions/User/authUser.js",
@@ -238,15 +297,11 @@
 		"/D/Workspace/laf/dev/js/server/schemas/DeactivationReasonSchema.js",
 		"/D/Workspace/laf/dev/js/server/schemas/PasswordSchema.js",
 		"/D/Workspace/laf/dev/js/server/schemas/PaymentSchema.js",
-		"/D/Workspace/laf/dev/js/server/schemas/ReportEventSchema.js",
 		"/D/Workspace/laf/dev/js/server/schemas/ReportPhotoSchema.js",
-		"/D/Workspace/laf/dev/js/server/schemas/UserSchema.js",
 		"/D/Workspace/laf/dev/js/server/validators/commentValidators.js",
 		"/D/Workspace/laf/dev/js/server/validators/globalValidators.js",
 		"/D/Workspace/laf/dev/js/server/validators/passwordValidators.js",
 		"/D/Workspace/laf/dev/js/server/validators/paymentValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/reportEventValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/reportValidators.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/getComment.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/deleteComment.js",
 		"/D/Workspace/laf/dev/js/server/actions/AppConfig/putAppConfig.js",
@@ -267,12 +322,10 @@
 		"/D/Workspace/laf/dev/js/server/state/users.js",
 		"/D/Workspace/mean-start-off/db/insert.js",
 		"/D/Workspace/laf/dev/fireup.bat",
-		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
 		"/D/Workspace/laf/dev/js/server/modules/_modules.js",
 		"/D/Workspace/laf/dev/script.js",
 		"/D/Workspace/laf/dev/js/server/script.js",
 		"/D/Workspace/laf/dev/js/server/modules/modelDataModule.js",
-		"/D/Workspace/laf/dev/.jshintrc",
 		"/D/Workspace/laf/dev/directives/app/collection/reports/reportsService.js",
 		"/D/Workspace/laf/dev/db/fakes/fakeUsers.js",
 		"/D/Workspace/laf/dev/db/fakes/fakeReports.js",
@@ -283,21 +336,7 @@
 		"/D/Workspace/laf/dev/directives/my/text/myLabel/myLabel.scss",
 		"/D/Workspace/laf/dev/js/client/routes/app.route.js",
 		"/D/Workspace/laf/dev/directives/app/form/upgradeForm/upgradeForm.js",
-		"/D/Workspace/laf/dev/js/client/services/exchangeRateService.js",
-		"/D/Workspace/laf/dev/js/client/controllers/MainController.js",
-		"/D/Workspace/laf/dev/templates/lost-and-found-app-upgrade.html",
-		"/D/Workspace/laf/dev/templates/lost-and-found-app-main.html",
-		"/D/Workspace/laf/dev/public/templates/upgradeForm.html",
-		"/D/Workspace/laf/dev/public/json/hardCodedData.json",
-		"/D/Workspace/laf/dev/directives/app/form/upgradeForm/upgradeForm.scss",
-		"/D/Workspace/laf/dev/directives/app/form/upgradeForm/upgradeForm.html",
-		"/D/Workspace/laf/dev/styles/pages/lost-and-found-app-upgrade.scss",
-		"/D/Workspace/laf/dev/directives/app/form/passwordForm/passwordForm.html",
-		"/D/Workspace/laf/dev/styles/pages/lost-and-found-app-settings.scss",
-		"/D/Workspace/laf/dev/templates/lost-and-found-app-settings.html",
-		"/D/Workspace/laf/dev/directives/my/display/myPanel/myPanel.scss",
-		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.js",
-		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.html"
+		"/D/Workspace/laf/dev/js/client/services/exchangeRateService.js"
 	],
 	"find":
 	{
@@ -308,6 +347,7 @@
 		"height": 90.0,
 		"where_history":
 		[
+			"D:\\Workspace\\laf\\dev\\directives,D:\\Workspace\\laf\\dev\\js,D:\\Workspace\\laf\\dev\\styles,D:\\Workspace\\laf\\dev\\templates,D:\\Workspace\\laf\\dev\\tests,D:\\Workspace\\laf\\dev\\state",
 			"D:\\Workspace\\laf\\dev\\directives,D:\\Workspace\\laf\\dev\\js,D:\\Workspace\\laf\\dev\\styles,D:\\Workspace\\laf\\dev\\templates,D:\\Workspace\\laf\\dev\\tests",
 			""
 		]
@@ -317,6 +357,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"mockupData",
+			"mockedData",
+			"const t = require(global.paths.root + '/state/tasks/_tasks');",
+			"t.",
+			"laf.useruploads",
+			"console",
 			"loopfunc",
 			"displayMyImgCropModal",
 			"global.paths.server",
@@ -349,87 +395,30 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/state/mockupData/users.js",
+					"file": "/D/Workspace/laf/dev/state/tasks/mockTasks.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 825,
+						"buffer_size": 1708,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								228,
-								228
+								597,
+								597
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/state/setup.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1783,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1577,
-								1577
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 861.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/.jshintrc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 38,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								36,
-								36
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -490,8 +479,68 @@
 		"selected_items":
 		[
 			[
+				"repote",
+				"dev\\js\\server\\validators\\reportEventValidators.js"
+			],
+			[
+				"reportv",
+				"server\\validators\\reportValidators.js"
+			],
+			[
+				"hardd",
+				"public\\json\\hardCodedData.json"
+			],
+			[
+				"reporte",
+				"server\\schemas\\ReportEventSchema.js"
+			],
+			[
+				"_action",
+				"server\\actions\\_actions.js"
+			],
+			[
+				"postre",
+				"server\\actions\\Report\\postReport.js"
+			],
+			[
+				"serve",
+				"server\\server.js"
+			],
+			[
+				"serv",
+				"server\\server.js"
+			],
+			[
+				"ser",
+				"server\\server.js"
+			],
+			[
+				"reports",
+				"server\\schemas\\ReportSchema.js"
+			],
+			[
 				"run",
 				"dev\\run.cmd"
+			],
+			[
+				"action",
+				"server\\prototypes\\Action.js"
+			],
+			[
+				"users",
+				"server\\schemas\\UserSchema.js"
+			],
+			[
+				"puts",
+				"server\\actions\\User\\putUser.js"
+			],
+			[
+				"userco",
+				"server\\controllers\\UserController.js"
+			],
+			[
+				"aws3m",
+				"server\\modules\\aws3Module.js"
 			],
 			[
 				"users.js",
@@ -526,10 +575,6 @@
 				"server\\prototypes\\Action.js"
 			],
 			[
-				"action",
-				"server\\prototypes\\Action.js"
-			],
-			[
 				"setupr",
 				"server\\setups\\setupRoutes.js"
 			],
@@ -554,10 +599,6 @@
 				"server\\validators\\userValidators.js"
 			],
 			[
-				"ser",
-				"dev\\server.js"
-			],
-			[
 				"_re",
 				"server\\_requires.js"
 			],
@@ -576,10 +617,6 @@
 			[
 				"regis",
 				"server\\actions\\User\\registerUser.js"
-			],
-			[
-				"users",
-				"server\\schemas\\UserSchema.js"
 			],
 			[
 				"setus",
@@ -642,10 +679,6 @@
 				"client\\services\\exchangeRateService.js"
 			],
 			[
-				"hardd",
-				"public\\json\\hardCodedData.json"
-			],
-			[
 				"mypan",
 				"directives\\my\\display\\myPanel\\myPanel.scss"
 			],
@@ -656,10 +689,6 @@
 			[
 				"authori",
 				"server\\modules\\authorize.js"
-			],
-			[
-				"serv",
-				"dev\\server.js"
 			],
 			[
 				"apis",
@@ -701,8 +730,8 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 281.0,
+	"side_bar_visible": true,
+	"side_bar_width": 299.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

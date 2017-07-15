@@ -18,6 +18,8 @@ module.exports = function(req, res, next) {
 				country: req.body.country
 			});
 
+			if (req.body._id) { user._id = req.body._id; }
+
 			user.save(function(err) {
 
 				if (!err) {

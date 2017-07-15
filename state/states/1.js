@@ -1,9 +1,56 @@
 const r = require(global.paths.server + '/requires');
 r.tasks = require(global.paths.root + '/state/tasks/_tasks');
 
+let t = r.tasks;
+
+let createCollectionTask = (collectionName) => {
+
+	let modelName, imgSubject;
+
+	switch (collectionName) {
+
+		case 'users':
+			modelName = 'User';
+			imgSubject = 'user_avatar';
+			break;
+
+		case 'reports':
+			modelName = 'Report';
+			imgSubject = 'report_photos';
+			break;
+	}
+
+	return () => {
+
+		return new r.Promise((resolve, reject) => {
+
+			t.mock[collectionName]().then(() => {
+				t.db.post[collectionName]().then(() => {
+					r[modelName].find({}, (err, collection) => {
+
+						if (!err) {
+							t.data.db[collectionName] = collection;
+
+							t.fs['read' + modelName + 'Imgs']().then((files) => {
+								t.aws.uploadImgs(imgSubject, files).then((files) => {
+									t.db.updateFileNames(imgSubject, files).then(resolve, reject);
+								}, reject);
+
+							}, reject);
+
+						} else { reject(err); }
+					});
+				}, reject);
+			}, reject);
+		});
+	};
+};
+
+
+
 module.exports = (cb) => {
 
-	r.tasks.data = {
+	t.data = {
 		mocks: { users: [] },
 		db: { users: [] },
 		fs: { userImgs: [] }
@@ -11,35 +58,14 @@ module.exports = (cb) => {
 
 	let task = new r.Promise((resolve, reject) => {
 
-		let t = r.tasks;
-
-		// Resetting
 		r.Promise.all([t.db.clear(), t.aws.emptyBuckets()]).then(() => {
 
-			t.mock.users().then(() => {
-				t.fs.readImgs().then((files) => {
+			let usersTask = createCollectionTask('users');
+			let reportsTask = createCollectionTask('reports');
 
-					t.data.fs.userImgs = files;
-
-					t.db.post.users().then(() => {
-						r.User.find({}, function(err, users) {
-
-							t.data.db.users = users;
-
-							t.mock.reports().then(() => {
-								t.aws.uploadAvatars().then((filenames) => {
-									t.db.setAvatars(filenames).then(() => {
-										t.db.post.reports().then(() => {
-											resolve();
-										});
-									});
-								});
-							});
-						});
-					});
-
-				}, reject);
-			});
+			usersTask().then(() => {
+				reportsTask().then(resolve, reject);
+			}, reject);
 		});
 	});
 

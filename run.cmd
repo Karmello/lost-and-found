@@ -13,7 +13,7 @@ if "%1" == "setup" (
 
 	cmd /k "mongod" -new_console:t:mongod
 	timeout 5
-	cmd /k "node setup.js %2" -new_console:t:setup
+	cmd /k "nodemon state/setup.js %2 --watch state" -new_console:t:setup
 	echo. & echo Setup ran
 )
 

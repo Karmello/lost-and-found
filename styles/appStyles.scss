@@ -713,20 +713,6 @@ $avatarSize: 240px;
 		}
 	}
 }
-#myElemSelector {
-
-	button {
-		width: 28px;
-		height: 28px;
-		padding: 0;
-		border: 0;
-	}
-
-	.glyphicon-ok {
-		font-size: 13px;
-		color: $text-color;
-	}
-}
 #myComments {
 
 	#myForm {
@@ -773,6 +759,20 @@ $avatarSize: 240px;
 
 		max-width: 650px;
 		margin: 25px auto;
+	}
+}
+#myElemSelector {
+
+	button {
+		width: 28px;
+		height: 28px;
+		padding: 0;
+		border: 0;
+	}
+
+	.glyphicon-ok {
+		font-size: 13px;
+		color: $text-color;
 	}
 }
 #myLoader {

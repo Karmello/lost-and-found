@@ -11,6 +11,30 @@ var s3 = new r.aws.S3({
 
 module.exports = {
     s3: s3,
+    emptyBucket: function(bucketName) {
+
+        let tasks = [];
+
+        s3.listObjects({ Bucket: bucketName }, function (err, data) {
+
+            if (!err) {
+
+                let items = data.Contents;
+
+                for (var i = 0; i < items.length; i++) {
+
+                    tasks.push(new r.Promise((resolve, reject) => {
+                        s3.deleteObject({ Bucket: bucketName, Key: items[i].Key }, (err, data) => {
+                            if (!err) { resolve(data); } else { reject(err); }
+                        });
+                    }));
+                }
+
+            } else { console.log(err); }
+        });
+
+        return r.Promise.all(tasks);
+    },
     createCredentialString: function(date) {
 
         return [process.env.AWS3_ACCESS_KEY_ID, date, process.env.AWS3_REGION, 's3/aws4_request'].join('/');

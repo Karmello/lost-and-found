@@ -21,8 +21,9 @@ Action.prototype.end = function(status, body) {
 
 	var that = this;
 
-	that.res.status(status).send(body);
-	if (process.env.NODE_ENV == 'testing') { that.next(); }
+	try { that.res.status(status).send(body); } catch(ex) {} finally {
+		if (process.env.NODE_ENV == 'testing') { that.next(body); }
+	}
 };
 
 module.exports = Action;

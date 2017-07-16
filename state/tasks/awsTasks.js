@@ -43,6 +43,8 @@ const m = {
 				r.modules.aws3Module.s3.putObject({
 					Bucket: 'laf.useruploads',
 					Key: credentials[0].awsFormData.key,
+					ACL: credentials[0].awsFormData.acl,
+					ContentType: credentials[0].awsFormData['content-type'],
 					Body: file.fileData
 
 				}, function(err, data) {

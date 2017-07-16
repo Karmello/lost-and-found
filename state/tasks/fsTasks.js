@@ -18,7 +18,7 @@ const m = {
 
 							resolve({
 								userId: r.tasks.data.db.users[i]._id,
-								fileType: 'img/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
+								fileType: 'image/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
 								fileData: fileData
 							});
 
@@ -63,7 +63,7 @@ const m = {
 									resolve({
 										userId: userId,
 										reportId: reportId,
-										fileType: 'img/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
+										fileType: 'image/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
 										fileData: fileData
 									});
 

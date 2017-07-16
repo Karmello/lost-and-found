@@ -108,7 +108,11 @@ const m = {
 				for (let reportId in data) {
 					tasks.push(new r.Promise((resolve, reject) => {
 						r.Report.findOne({ _id: reportId }, (err, report) => {
-							if (!err) { report.update({ photos: data[reportId] }, () => { resolve(); }); } else { reject(err); }
+
+							if (!err) {
+								report.update({ avatar: data[reportId][0].filename, photos: data[reportId] }, () => { resolve(); });
+
+							} else { reject(err); }
 						});
 					}));
 				}

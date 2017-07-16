@@ -1,3 +1,6 @@
+const places = require(global.paths.root + '/state/hardcoded/places');
+const other = require(global.paths.root + '/state/hardcoded/other');
+
 module.exports = {
 	category1: 'electronics',
 	title: 'Windows 7 original dvd rom',
@@ -6,10 +9,10 @@ module.exports = {
 	startEvent: {
 		type: 'lost',
 		date: '2017-07-15T17:06:53.784Z',
-		details: 'These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened. These are details about what exactly happened.',
-		address: 'Krakowska, Tarnów, Poland',
-		placeId: 'ChIJ51xLab-EPUcRBFLHWJotkm8',
-		lat: 50.0002642,
-		lng: 20.9577455
+		details: other.startEvent.details,
+		address: places[0].address,
+		placeId: places[0].placeId,
+		lat: places[0].lat,
+		lng: places[0].lng
 	}
 };

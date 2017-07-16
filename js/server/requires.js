@@ -21,7 +21,8 @@ var _requires = {
 	restful: require('node-restful'),
 	request: require('request'),
 	session: require('express-session'),
-	querystring: require('querystring')
+	querystring: require('querystring'),
+	url: require('url').URL
 };
 
 _requires.MongoStore = require('connect-mongo')(_requires.session);

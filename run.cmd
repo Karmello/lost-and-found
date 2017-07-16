@@ -9,11 +9,11 @@ if "%1" == "app" (
 	echo. & echo App started
 )
 
-if "%1" == "setup" (
+if "%1" == "state" (
 
 	cmd /k "mongod" -new_console:t:mongod
 	timeout 5
-	cmd /k "nodemon state/setup.js %2 --watch state" -new_console:t:setup
+	cmd /k "nodemon state/main.js %2 --watch state" -new_console:t:setup
 	echo. & echo Setup ran
 )
 

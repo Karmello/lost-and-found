@@ -4,17 +4,15 @@ if "%1" == "app" (
 
 	cmd /k "mongod" -new_console:t:mongod
 	timeout 5
-	cmd /k "nodemon ./js/server/server.js --watch ./js/server" -new_console:t:nodemon
+	cmd /k "nodemon ./js/server/server.js --watch ./js/server --watch ./js/setup" -new_console:t:nodemon
 	cmd /k "gulp compile" -new_console:t:compile
 	echo. & echo App started
 )
 
-if "%1" == "state" (
+if "%1" == "setup" (
 
-	cmd /k "mongod" -new_console:t:mongod
-	timeout 5
-	cmd /k "nodemon state/main.js %2 --watch state" -new_console:t:setup
-	echo. & echo Setup ran
+	cmd /k "node js/setup/run.js %2 %3"
+	echo. & echo Done
 )
 
 if "%1" == "test" (

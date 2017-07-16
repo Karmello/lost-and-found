@@ -1,8 +1,11 @@
-var r = require(global.paths.server + '/requires');
+const r = require(global.paths.server + '/requires');
 
 module.exports = function(cb) {
 
     let app = global.app;
+
+    // Route for app setups
+    if (process.env.NODE_ENV === 'development') { app.post('/setup', require(global.paths.root + '/js/setup/main')); }
 
     // Registering route models
     app.models = require(global.paths.server + '/models');

@@ -30,4 +30,12 @@ CommentSchema.add({
 	comments: [CommentSchema]
 });
 
+CommentSchema.post('remove', function(doc) {
+
+	// Updating report
+	r.Report.findOneAndUpdate({ _id: doc.parentId }, { $pull: { comments: doc._id } }, function(err) {
+		if (err) { console.error(err); }
+	});
+});
+
 module.exports = CommentSchema;

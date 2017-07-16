@@ -15,39 +15,7 @@ module.exports = {
 
 					// Got comment
 					if (!err && comment) {
-
-						// Comment belongs to the requester
-						if (comment.userId == req.decoded._id) {
-
-							// Getting report
-							r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
-
-								// Got report
-								if (!err && report) {
-
-									// Comment belongs to the report
-									if (report.comments.indexOf(comment._id) > -1) {
-
-										// Removing comment id from report comments array
-										report.comments.splice(report.comments.indexOf(req.params.id), 1);
-
-										// Saving updated report
-										report.save(function(err) {
-
-											if (!err) {
-
-												// Removing comment and resolving
-												comment.remove(function(err) { resolve(); });
-
-											} else { reject(err); }
-										});
-
-									} else { reject('COMMENT_NOT_RELATED_TO_REPORT'); }
-
-								} else { reject(err); }
-							});
-
-						} else { reject('DELETE_COMMENT_NOT_ALLOWED'); }
+						comment.remove(function(err) { resolve(); });
 
 					} else { reject(err); }
 				});

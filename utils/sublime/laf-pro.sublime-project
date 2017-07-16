@@ -11,17 +11,16 @@
 			"path": "D:\\Workspace\\laf\\dev\\public"
 		},
 		{
+			"path": "D:\\Workspace\\laf\\dev\\directives"
+		},
+		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\server"
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\client"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\directives"
-		},
-		{
-			"follow_symlinks": true,
-			"path": "D:\\Workspace\\laf\\dev\\state"
+			"path": "D:\\Workspace\\laf\\dev\\js\\setup"
 		}
 	]
 }

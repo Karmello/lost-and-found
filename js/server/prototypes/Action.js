@@ -22,7 +22,7 @@ Action.prototype.end = function(status, body) {
 	var that = this;
 
 	try { that.res.status(status).send(body); } catch(ex) {} finally {
-		if (process.env.NODE_ENV == 'testing') { that.next(body); }
+		if (process.env.NODE_ENV == 'testing' || process.env.NODE_ENV == 'setup') { that.next(body); }
 	}
 };
 

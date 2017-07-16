@@ -17,6 +17,7 @@ module.exports = {
 
 						// Creating new comment instance
 						newComment = new r.Comment(req.body);
+						newComment.parentId = req.query.reportId;
 
 						// Saving comment
 						newComment.save(function(err) {

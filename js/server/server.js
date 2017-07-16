@@ -5,9 +5,6 @@ global.paths = {
 	server: __dirname
 };
 
-let serverResolve;
-global.$server = () => { return new r.Promise((resolve) => { serverResolve = resolve; }); };
-
 if (!process.env.LOADED_MOCHA_OPTS) { require('dotenv').config(); } else { require('dotenv').config({ path: global.paths.root + '/tests/end-to-end/.env' }); }
 
 
@@ -68,7 +65,6 @@ r.setups.setupConstants(() => {
 					server.listen(process.env.PORT, function () {
 				    	var log = 'App server listening on port ' + process.env.PORT;
 				        r.modules.utilModule.printFormattedLog(log);
-				        if (serverResolve) { serverResolve(r); }
 				    });
 				});
 			});

@@ -1,53 +1,57 @@
 const r = require(global.paths.server + '/requires');
 
-let createCollectionTask = (subject) => {
+let run = (subject) => {
 
-	return () => {
+	return new r.Promise((resolve, reject) => {
 
-		return new r.Promise((resolve, reject) => {
+		new r.Promise((resolve) => {
 
-			let collectionName = subject.toLowerCase() + 's';
+			if (subject == 'Report') {
+				r.User.find({}, (err, users) => {
+					if (!err) { resolve(users); } else { reject(err); }
+				});
 
-			t.mock[collectionName]().then(() => {
-				t.db.post[collectionName]().then(() => {
-					r[subject].find({}, (err, collection) => {
+			} else { resolve(); }
 
-						if (!err) {
-							t.data.db[collectionName] = collection;
+		}).then((users) => {
 
-							t.fs['read' + subject + 'Imgs']().then((files) => {
-								t.aws.uploadImgs(subject.toLowerCase() + '_photo', files).then((files) => {
-									t.db.updateFileNames(subject.toLowerCase() + '_photo', files).then(resolve, reject);
-								}, reject);
+			// Preparing data
+			r.setup.dataFactory['prepare' + subject + 's'](users).then((data) => {
+
+				// Populating db collection
+				r.setup.dbClient.post(subject, data).then(() => {
+
+					// Reading imgs from fs
+					r.setup.fileReader['read' + subject + 'Imgs'](data).then((files) => {
+
+						// Uploading imgs to S3
+						r.setup.awsUploader.uploadImgs(subject.toLowerCase() + '_photo', files).then((files) => {
+
+							// Updating filenames in db
+							r.setup.dbClient.updateFileNames(subject.toLowerCase() + '_photo', files).then(() => {
+
+								// Counting docs in db
+								r[subject].count((err, count) => {
+
+									// Finishing
+									if (!err) { resolve(count); } else { reject(err); }
+								});
 
 							}, reject);
-
-						} else { reject(err); }
-					});
+						}, reject);
+					}, reject);
 				}, reject);
 			}, reject);
 		});
-	};
+	});
 };
-
-let t = r.setup;
-
-t.data = {
-	mocks: { users: [], reports: [] },
-	db: { users: [], reports: [] },
-	fs: { userImgs: [], reportImgs: [] }
-};
-
-
 
 module.exports = (req, res, next) => {
 
-	let task = createCollectionTask(req.query.subject);
+	run(req.query.subject).then((count) => {
+		next(200, req.query.subject + 's created: ' + count);
 
-	task().then(() => {
-		next(200, req.query.subject + 's created: ' + t.data.db.users.length);
-
-	}, () => {
+	}, (err) => {
 		next(400, err);
 	});
 };

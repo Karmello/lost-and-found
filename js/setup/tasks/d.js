@@ -7,17 +7,10 @@ module.exports = (req, res, next) => {
 		if (!err) {
 
 			let tasks = [];
+			for (let doc of docs) { tasks.push(doc.remove()); }
 
-			for (let doc of docs) {
-				tasks.push(new r.Promise((resolve, reject) => {
-					doc.remove((err) => {
-						if (!err) { resolve(); } else { reject(err); }
- 					});
-				}));
-			}
-
-			r.Promise.all(tasks).then(() => {
-				next(200, req.query.subject + 's deleted: ' + docs.length);
+			r.Promise.all(tasks).then((results) => {
+				next(200, req.query.subject + 's deleted: ' + results.length);
 
 			}, () => { next(400); });
 

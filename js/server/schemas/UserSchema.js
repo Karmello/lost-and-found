@@ -106,7 +106,7 @@ UserSchema.methods = {
 	},
 	removeAvatarFromS3: function() {
 
-		var doc = this;
+		let doc = this;
 
 		return new r.Promise(function(resolve) {
 
@@ -158,15 +158,15 @@ UserSchema.pre('save', function(next) {
 
 UserSchema.post('remove', function(doc) {
 
+	// Removing avatar file from S3
+	doc.removeAvatarFromS3();
+
 	// Removing reports from db
 	r.Report.find({ userId: doc._id }, function(err, reports) {
 		if (!err && reports) {
 			reports.forEach(function(report) { report.remove(); });
 		}
 	});
-
-	// Removing avatar file from S3
-	doc.removeAvatarFromS3();
 
 	r.modules.socketModule.emitUsersCount();
 });

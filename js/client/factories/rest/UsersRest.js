@@ -38,6 +38,13 @@
 			password: {}
 		});
 
+		users.configModel = new MyDataModel({
+			config: {
+				language: {},
+				theme: {}
+			}
+		});
+
 		Restangular.extendModel('users', function(user) {
 
 			user._isTheOneLoggedIn = function() {

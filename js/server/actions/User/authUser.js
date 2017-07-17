@@ -13,20 +13,10 @@ module.exports = function(req, res, next) {
 
 				if (!err && user) {
 
-					r.AppConfig.findOne({ userId: user._id }, function(err, appConfig) {
+					req.session.theme = user.config.theme;
+					req.session.language = user.config.language;
 
-						if (!err && appConfig) {
-
-							req.session.theme = appConfig.theme;
-							req.session.language = appConfig.language;
-
-							resolve({
-								user: user,
-								appConfig: appConfig
-							});
-
-						} else { reject(err); }
-					});
+					resolve({ user: user });
 
 				} else { reject(err); }
 			});

@@ -15,7 +15,11 @@ module.exports = function(req, res, next) {
 				password: req.body.password,
 				firstname: req.body.firstname,
 				lastname: req.body.lastname,
-				country: req.body.country
+				country: req.body.country,
+				config: {
+					language: req.session.language,
+					theme: req.session.theme
+				}
 			});
 
 			if (req.body._id) { user._id = req.body._id; }
@@ -24,31 +28,12 @@ module.exports = function(req, res, next) {
 
 				if (!err) {
 
-					var appConfig = new r.AppConfig({
-						userId: user._id,
-						language: req.session.language,
-						theme: req.session.theme
-					});
-
-					appConfig.save(function(err) {
-
-						if (!err) {
-
-							resolve({
-								user: user,
-								appConfig: appConfig,
-								authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
-								msg: {
-									title: r.hardData[req.session.language].msgs.titles[0],
-									info: r.hardData[req.session.language].msgs.infos[0]
-								}
-							});
-
-						} else {
-
-							user.remove(function() {
-								reject(err);
-							});
+					resolve({
+						user: user,
+						authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
+						msg: {
+							title: r.hardData[req.session.language].msgs.titles[0],
+							info: r.hardData[req.session.language].msgs.infos[0]
 						}
 					});
 

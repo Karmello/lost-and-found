@@ -13,7 +13,7 @@ module.exports = function(app, route) {
 		} else { res.send(400); }
 	}]);
 
-	rest.before('get', [authorize.userAction, r.actions.user.get.before]);
+	rest.before('get', [authorize.userToken, r.actions.user.get.before]);
 	rest.before('put', [authorize.userToken, authorize.userAction, r.actions.user.put.before]);
 	rest.before('delete', [authorize.userToken, authorize.userAction, r.actions.user.delete.before]);
 

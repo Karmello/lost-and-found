@@ -58,11 +58,9 @@
 				service.state.authenticated = true;
 				service.state.loggedIn = true;
 
-				// Checking if logged in user's appConfig and current session settings defer or not
+				let loggedInUser = $rootScope.apiData.loggedInUser;
 
-				var appConfig = $rootScope.apiData.appConfig;
-
-				if (appConfig.language != sessionConst.language || appConfig.theme != sessionConst.theme) {
+				if (loggedInUser.config.language != sessionConst.language || loggedInUser.config.theme != sessionConst.theme) {
 					$window.location.reload();
 
 				} else if (cb) {

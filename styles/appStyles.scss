@@ -496,24 +496,6 @@ $avatarSize: 240px;
 		.isFound { #myPanel { background-color: $brand-info; } }
 	}
 }
-#appStats {
-
-	#bodySection {
-
-
-	}
-}
-@import '_vars';
-
-#userBadge {
-
-	position: relative;
-	display: table;
-	margin: 0 auto;
-	padding: 15px;
-
-	#mySrc { img { @extend .defaultAvatarSize; } }
-}
 #contactForm {
 
 	#myForm {
@@ -603,11 +585,23 @@ $avatarSize: 240px;
 		}
 	}
 }
-#reportAvatar {
+#appStats {
 
-	#mySrc {
-		img { width: 200px; object-fit: cover; }
+	#bodySection {
+
+
 	}
+}
+@import '_vars';
+
+#userBadge {
+
+	position: relative;
+	display: table;
+	margin: 0 auto;
+	padding: 15px;
+
+	#mySrc { img { @extend .defaultAvatarSize; } }
 }
 #reportPhotos {
 
@@ -647,6 +641,12 @@ $avatarSize: 240px;
 .tinyAvatarSize {
 	width: 60px;
 	height: 60px;
+}
+#reportAvatar {
+
+	#mySrc {
+		img { width: 200px; object-fit: cover; }
+	}
 }
 #myBtn {
 

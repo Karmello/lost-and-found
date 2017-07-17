@@ -4,7 +4,7 @@
 
 	var appModule = angular.module('appModule');
 
-	appModule.directive('appearanceForm', function($rootScope, MyForm, AppConfigsRest, Restangular) {
+	appModule.directive('appearanceForm', function($rootScope, MyForm, Restangular, UsersRest) {
 
 		var appearanceForm = {
 			restrict: 'E',
@@ -14,13 +14,13 @@
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'appearanceForm',
-					model: AppConfigsRest.appConfigModel,
+					model: UsersRest.configModel,
 					reload: true,
 					submitAction: function(args) {
 
-						var copy = Restangular.copy($rootScope.apiData.appConfig);
-						AppConfigsRest.appConfigModel.assignTo(copy);
-						return copy.put();
+						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
+						UsersRest.configModel.assignTo(copy);
+						return copy.put(undefined, { action: 'userConfigUpdate' });
 					}
 				});
 			}

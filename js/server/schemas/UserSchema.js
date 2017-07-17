@@ -53,6 +53,11 @@ var UserSchema = new r.mongoose.Schema({
 	reportsRecentlyViewed: [{ type: r.mongoose.Schema.Types.ObjectId, ref: 'user' }],
 	paymentId: {
 		type: String
+	},
+	config: {
+		type: r.mongoose.Schema.Types.Mixed,
+		ref: 'app_config',
+		required: true
 	}
 }, { versionKey: false });
 
@@ -63,7 +68,6 @@ UserSchema.methods = {
 
 		var user = this.toObject();
 		delete user.password;
-		delete user.paymentId;
 		return user;
 	},
 	comparePasswords: function(currentPassword, cb) {
@@ -153,11 +157,6 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.post('remove', function(doc) {
-
-	// Removing appConfig from db
-	r.AppConfig.findOne({ userId: doc._id }, function(err, appConfig) {
-		if (!err && appConfig) { appConfig.remove(); }
-	});
 
 	// Removing reports from db
 	r.Report.find({ userId: doc._id }, function(err, reports) {

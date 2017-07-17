@@ -6,7 +6,7 @@
 
 
 
-	appModule.directive('regionalForm', function($rootScope, MyForm, AppConfigsRest, Restangular) {
+	appModule.directive('regionalForm', function($rootScope, MyForm, UsersRest, Restangular) {
 
 		var regionalForm = {
 			restrict: 'E',
@@ -16,13 +16,13 @@
 
 				$scope.myForm = new MyForm({
 					ctrlId: 'regionalForm',
-					model: AppConfigsRest.appConfigModel,
+					model: UsersRest.configModel,
 					reload: true,
 					submitAction: function(args) {
 
-						var copy = Restangular.copy($rootScope.apiData.appConfig);
-						AppConfigsRest.appConfigModel.assignTo(copy);
-						return copy.put();
+						var copy = Restangular.copy($rootScope.apiData.loggedInUser);
+						UsersRest.configModel.assignTo(copy);
+						return copy.put(undefined, { action: 'userConfigUpdate' });
 					}
 				});
 			}

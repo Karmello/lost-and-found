@@ -46,7 +46,6 @@
 							case 'register':
 
 								$rootScope.apiData.loggedInUser = Restangular.restangularizeElement(undefined, data.user, 'users');
-								$rootScope.apiData.appConfig = Restangular.restangularizeElement(undefined, data.appConfig, 'app_configs');
 								break;
 						}
 					}
@@ -79,14 +78,6 @@
 					} else if (operation == 'post') {
 
 						return Restangular.restangularizeElement(undefined, data, 'reports');
-					}
-
-				} else if (what == 'app_configs') {
-
-					if (operation == 'put') {
-
-						$rootScope.apiData.appConfig.language = res.config.data.language;
-						$rootScope.apiData.appConfig.theme = res.config.data.theme;
 					}
 
 				} else if (what == 'comments') {

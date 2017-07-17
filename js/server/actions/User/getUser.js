@@ -19,7 +19,15 @@ module.exports = {
 					} else { reject(err); }
 				});
 
-			} else { next(); }
+			} else {
+
+				let query;
+				if (req.query._id !== req.decoded._id) { query = '-paymentId'; }
+
+				r.User.findOne({ _id: req.query._id }, query, function(err, user) {
+					if (!err && user) { resolve([user]); } else { reject(err); }
+				});
+			}
 
 		}).then(function(data) {
 			action.end(200, data);

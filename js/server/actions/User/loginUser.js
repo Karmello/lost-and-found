@@ -23,20 +23,12 @@ module.exports = function(req, res, next) {
 
 						if (isMatch) {
 
-							r.AppConfig.findOne({ userId: user._id }, function(err, appConfig) {
+							req.session.theme = user.config.theme;
+							req.session.language = user.config.language;
 
-								if (!err && appConfig) {
-
-									req.session.theme = appConfig.theme;
-									req.session.language = appConfig.language;
-
-									resolve({
-										user: user,
-										appConfig: appConfig,
-										authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') })
-									});
-
-								} else { reject(err); }
+							resolve({
+								user: user,
+								authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') })
 							});
 
 						} else {

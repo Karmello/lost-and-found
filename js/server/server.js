@@ -42,12 +42,12 @@ r.setups.setupConstants(() => {
 			r.setups.setupRoutes(() => {
 				r.setups.setupDb(() => {
 
-					r.AppConfig = r.mongoose.model('app_config');
+					r.AppConfig = r.mongoose.model('app_config', require('./schemas/AppConfigSchema'));
 					r.Comment = r.mongoose.model('comment');
 					r.ContactType = r.mongoose.model('contact_type');
 					r.Counter = r.mongoose.model('counter');
 					r.DeactivationReason = r.mongoose.model('deactivation_reason');
-					r.Password = r.mongoose.model('password');
+					r.Password = r.mongoose.model('password', require('./schemas/PasswordSchema'));
 					r.Payment = r.mongoose.model('payment');
 					r.Report = r.mongoose.model('report');
 					r.ReportEvent = r.mongoose.model('report_event', require('./schemas/ReportEventSchema'));

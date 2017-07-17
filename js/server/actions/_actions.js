@@ -1,7 +1,4 @@
 module.exports = {
-	app_config: {
-		put: require('./AppConfig/putAppConfig'),
-	},
 	comment: {
 		post: require('./Comment/postComment'),
 		get: require('./Comment/getComment'),

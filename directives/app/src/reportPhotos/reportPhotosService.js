@@ -25,7 +25,7 @@
 						}
 
 						// Asking server for upload credentials for all files
-						aws3Service.getCredentials('report_photos', { reportId: $rootScope.apiData.report._id, 'fileTypes': fileTypes }).then(function(res) {
+						aws3Service.getCredentials('report_photo', { reportId: $rootScope.apiData.report._id, 'fileTypes': fileTypes }).then(function(res) {
 
 							var args = {
 								inputData: inputData,

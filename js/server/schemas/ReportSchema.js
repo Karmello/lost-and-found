@@ -64,36 +64,32 @@ ReportSchema.path('photos').validate(reportVal.photos.validator, undefined, repo
 
 
 ReportSchema.methods = {
-	removePhotoFromS3: function(filename) {
+	removePhotosFromS3: function() {
 
-		var doc = this;
-		var promises = [];
+		return new r.Promise((resolve) => {
 
-		// Removing original photo
-		promises.push(new r.Promise(function(resolve) {
+			let doc = this;
+			let bucketNames = [process.env.AWS3_UPLOADS_BUCKET_URL, process.env.AWS3_RESIZED_UPLOADS_BUCKET_URL];
+			let keys = [doc.userId + '/reports/' + doc._id + '/', 'resized-' + doc.userId + '/reports/' + doc._id + '/'];
+			let tasks = [];
 
-			r.modules.aws3Module.s3.deleteObject({
-	            Bucket: process.env.AWS3_UPLOADS_BUCKET_URL,
-	            Key: doc.userId + '/reports/' + doc._id + '/' + filename
+			for (let photo of doc.photos) {
+				for (let i = 0; i < bucketNames.length; i++) {
 
-	        }, function(err, data) {
-	        	resolve(!Boolean(err));
-	        });
-		}));
+					tasks.push(new r.Promise((resolve) => {
+						r.modules.aws3Module.s3.deleteObject({
+				            Bucket: bucketNames[i],
+				            Key: keys[i] + photo.filename
 
-		// Removing thumbnail photo
-		promises.push(new r.Promise(function(resolve) {
+				        }, function(err, data) {
+				        	resolve(!Boolean(err));
+				        });
+					}));
+				}
+			}
 
-			r.modules.aws3Module.s3.deleteObject({
-	            Bucket: process.env.AWS3_RESIZED_UPLOADS_BUCKET_URL,
-	            Key: 'resized-' + doc.userId + '/reports/' + doc._id + '/' + filename
-
-	        }, function(err, data) {
-	        	resolve(!Boolean(err));
-	        });
-		}));
-
-		return r.Promise.all(promises);
+			r.Promise.all(() => { resolve(true); }, () => { resolve(false); });
+		});
 	}
 };
 
@@ -109,10 +105,15 @@ ReportSchema.pre('validate', function(next) {
 ReportSchema.post('remove', function(doc) {
 
 	// Removing photos from S3
-	for (var photo of doc.photos) { doc.removePhotoFromS3(photo.filename); }
+	doc.removePhotosFromS3();
 
 	// Removing comments
 	r.Comment.remove({ _id: { $in: doc.comments } }, function(err) {});
+
+	// Removing report id from reportsRecentlyViewed users array
+	r.User.update({ reportsRecentlyViewed: doc._id }, { $pull: { reportsRecentlyViewed: doc._id } }, function(err) {
+		if (err) { console.error(err); }
+	});
 
 	// Emiting event to all clients
 	r.modules.socketModule.emitReportsCount(doc.startEvent.type);

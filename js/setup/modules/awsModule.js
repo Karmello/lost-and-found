@@ -1,20 +1,6 @@
 const r = require(global.paths.server + '/requires');
 
 const m = {
-	emptyBuckets: () => {
-
-		return new r.Promise((resolve) => {
-
-			r.Promise.all([
-				r.modules.aws3Module.emptyBucket('laf.useruploads'),
-				r.modules.aws3Module.emptyBucket('laf.useruploadsresized')
-			])
-			.then(() => {
-				console.log('reset > s3 buckets');
-				resolve();
-			});
-		});
-	},
 	uploadImgs: (subject, files) => {
 
 		let tasks = [];

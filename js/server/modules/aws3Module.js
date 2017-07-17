@@ -116,10 +116,10 @@ module.exports = {
 
         new r.Promise(function(resolve) {
 
-            if (action.req.headers.subject == 'user_avatar') {
+            if (action.req.headers.subject == 'user_photo') {
                 resolve();
 
-            } else if (action.req.headers.subject == 'report_photos') {
+            } else if (action.req.headers.subject == 'report_photo') {
 
                 // Getting report from db
                 r.Report.findOne({ _id: action.req.body.reportId }, function(err, report) {
@@ -145,10 +145,10 @@ module.exports = {
                 extensions.push(action.req.body.fileTypes[i].split('/')[1].toLowerCase());
                 dates.push(new Date().getTime() + i);
 
-                if (action.req.headers.subject == 'user_avatar') {
+                if (action.req.headers.subject == 'user_photo') {
                     awsKey = action.req.decoded._id + '/avatar_' + dates[i] + '.' + extensions[i];
 
-                } else if (action.req.headers.subject == 'report_photos') {
+                } else if (action.req.headers.subject == 'report_photo') {
                     awsKey = action.req.decoded._id + '/reports/' + action.req.body.reportId + '/report_photo_' + dates[i] + '.' + extensions[i];
                 }
 
@@ -163,10 +163,10 @@ module.exports = {
 
                     if (paramsArr[i]) {
 
-                        if (action.req.headers.subject == 'user_avatar') {
+                        if (action.req.headers.subject == 'user_photo') {
                             paramsArr[i].awsFilename = 'avatar_' + dates[i] + '.' + extensions[i];
 
-                        } else if (action.req.headers.subject == 'report_photos') {
+                        } else if (action.req.headers.subject == 'report_photo') {
                             paramsArr[i].awsFilename = 'report_photo_' + dates[i] + '.' + extensions[i];
                         }
                     }

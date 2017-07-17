@@ -5,7 +5,7 @@ module.exports = function(cb) {
     let app = global.app;
 
     // Route for app setups
-    if (process.env.NODE_ENV === 'development') { app.post('/setup', require(global.paths.root + '/js/setup/main')); }
+    if (process.env.NODE_ENV === 'development') { app.post('/setup', require(global.paths.root + '/js/setup/onRequest')); }
 
     // Registering route models
     app.models = require(global.paths.server + '/models');

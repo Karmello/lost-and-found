@@ -7,17 +7,17 @@ const m = {
 
 			let tasks = [];
 
-			for (let i = 0; i < r.tasks.data.mocks.users.length; i++) {
+			for (let i = 0; i < r.setup.data.mocks.users.length; i++) {
 
 				tasks.push(new r.Promise((resolve, reject) => {
-					r.fs.readFile(global.paths.root + r.tasks.data.mocks.users[i].avatarPath, (err, fileData) => {
+					r.fs.readFile(global.paths.root + r.setup.data.mocks.users[i].avatarPath, (err, fileData) => {
 
 						if (!err) {
 
-							let imgPath = r.tasks.data.mocks.users[i].avatarPath;
+							let imgPath = r.setup.data.mocks.users[i].avatarPath;
 
 							resolve({
-								userId: r.tasks.data.db.users[i]._id,
+								userId: r.setup.data.db.users[i]._id,
 								fileType: 'image/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
 								fileData: fileData
 							});

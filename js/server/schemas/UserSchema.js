@@ -108,13 +108,23 @@ UserSchema.methods = {
 
 			if (doc.photos.length > 0) {
 
-				r.modules.aws3Module.s3.deleteObject({
-		            Bucket: process.env.AWS3_UPLOADS_BUCKET_URL,
-		            Key: doc._id + '/' + doc.photos[0].filename
+				let bucketNames = [process.env.AWS3_UPLOADS_BUCKET_URL, process.env.AWS3_RESIZED_UPLOADS_BUCKET_URL];
+				let keys = [doc._id + '/' + doc.photos[0].filename, 'resized-' + doc._id + '/' + doc.photos[0].filename];
+				let tasks = [];
 
-		        }, function(err, data) {
-		        	resolve(!Boolean(err));
-		        });
+				for (let i = 0; i < bucketNames.length; i++) {
+					tasks.push(new Promise((resolve) => {
+						r.modules.aws3Module.s3.deleteObject({
+				            Bucket: bucketNames[i],
+				            Key: keys[i]
+
+				        }, function(err, data) {
+				        	resolve(!Boolean(err));
+				        });
+					}));
+				}
+
+				r.Promise.all(() => { resolve(true); }, () => { resolve(false); });
 
 			} else { resolve(true); }
 		});

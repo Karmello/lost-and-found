@@ -1,22 +1,6 @@
 const r = require(global.paths.server + '/requires');
 
 const m = {
-	clear: () => {
-
-		return new r.Promise((resolve) => {
-
-			r.Promise.all([
-				r.User.remove(),
-				r.AppConfig.remove(),
-				r.Report.remove(),
-				r.Comment.remove()
-			])
-			.then(() => {
-				console.log('reset > db');
-				resolve();
-			});
-		});
-	},
 	post: {
 		users: () => {
 
@@ -24,9 +8,9 @@ const m = {
 
 				let tasks = [];
 
-				for (let user of r.tasks.data.mocks.users) {
+				for (let user of r.setup.data.mocks.users) {
 
-					let req = r.tasks.shared.getNewReq();
+					let req = r.setup.shared.getNewReq();
 					req.query.action = 'register';
 					req.body = user;
 
@@ -49,14 +33,14 @@ const m = {
 
 				let tasks = [];
 
-				for (var i = 0; i < r.tasks.data.mocks.users.length; i++) {
+				for (var i = 0; i < r.setup.data.mocks.users.length; i++) {
 
-					let mockedUser = r.tasks.data.mocks.users[i];
-					let dbUser = r.tasks.data.db.users[i];
+					let mockedUser = r.setup.data.mocks.users[i];
+					let dbUser = r.setup.data.db.users[i];
 
 					for (let report of mockedUser.reports) {
 
-						let req = r.tasks.shared.getNewReq();
+						let req = r.setup.shared.getNewReq();
 						req.decoded._id = dbUser._id;
 						req.body = report;
 
@@ -81,7 +65,7 @@ const m = {
 
 			let tasks = [];
 
-			if (subject == 'user_avatar') {
+			if (subject == 'user_photo') {
 
 				for (let file of files) {
 					tasks.push(new r.Promise((resolve, reject) => {
@@ -91,7 +75,7 @@ const m = {
 					}));
 				}
 
-			} else if (subject == 'report_photos') {
+			} else if (subject == 'report_photo') {
 
 				let data = {};
 

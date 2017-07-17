@@ -17,10 +17,10 @@ module.exports = (req, res, next) => {
 			}
 
 			r.Promise.all(tasks).then(() => {
-				res.status(200).send(req.query.subject + 's removed: ' + docs.length);
+				next(200, req.query.subject + 's deleted: ' + docs.length);
 
-			}, () => { res.status(400).send(); });
+			}, () => { next(400); });
 
-		} else { res.status(200).send(); }
+		} else { next(400); }
 	});
 };

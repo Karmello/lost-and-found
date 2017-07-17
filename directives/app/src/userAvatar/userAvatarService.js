@@ -31,7 +31,7 @@
 
 				return $q(function(resolve) {
 
-					aws3Service.getCredentials('user_avatar', { fileTypes: [args.file.type] }).then(function(res1) {
+					aws3Service.getCredentials('user_photo', { fileTypes: [args.file.type] }).then(function(res1) {
 
 						var formData = MySrcAction.createFormDataObject(res1.data[0].awsFormData, args.file);
 

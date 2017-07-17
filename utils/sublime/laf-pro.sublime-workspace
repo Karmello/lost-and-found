@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"bu",
+				"bucketName"
+			],
+			[
+				"res",
+				"resolve"
+			],
+			[
+				"remo",
+				"removeFromS3"
+			],
+			[
 				"fae",
 				"fakeDataPath"
 			],
@@ -128,10 +140,6 @@
 				"serverResolve(bool)"
 			],
 			[
-				"res",
-				"result\t(bool)"
-			],
-			[
 				"r",
 				"registeUser\t(?)"
 			],
@@ -180,40 +188,38 @@
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/js/setup/main.js",
+			"file": "/D/Workspace/laf/dev/js/setup/tasks/add.js",
 			"settings":
 			{
-				"buffer_size": 2249,
+				"buffer_size": 1057,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/js/setup/tasks/fsTasks.js",
+			"file": "/D/Workspace/laf/dev/js/setup/modules/dbModule.js",
 			"settings":
 			{
-				"buffer_size": 1970,
+				"buffer_size": 2502,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/js/setup/tasks/rm.js",
+			"settings":
+			{
+				"buffer_size": 526,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/laf/dev/js/setup/tasks/mockTasks.js",
+			"file": "/D/Workspace/laf/dev/js/setup/modules/awsModule.js",
 			"settings":
 			{
-				"buffer_size": 1664,
+				"buffer_size": 1150,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 339 files for \"hardcoded/places\"\n\nD:\\Workspace\\laf\\dev\\state:\n    ERROR: Unable to open file\n\n0 matches\n\nSearching 339 files for \"hardcoded/places\"\n\nD:\\Workspace\\laf\\dev\\state:\n    ERROR: Unable to open file\n\n0 matches\n\nSearching 339 files for \"/places\"\n\nD:\\Workspace\\laf\\dev\\state:\n    ERROR: Unable to open file\n\n0 matches",
-			"settings":
-			{
-				"buffer_size": 334,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
 			}
 		}
 	],
@@ -278,31 +284,58 @@
 	"expanded_folders":
 	[
 		"/D/Workspace/laf/dev/js/setup",
+		"/D/Workspace/laf/dev/js/setup/modules",
 		"/D/Workspace/laf/dev/js/setup/tasks"
 	],
 	"file_history":
 	[
 		"/D/Workspace/laf/dev/js/setup/run.js",
-		"/D/Workspace/laf/dev/run.cmd",
-		"/D/Workspace/laf/dev/js/setup/tasks/dbTasks.js",
-		"/D/Workspace/laf/dev/js/setup/tasks/mockTasks.js",
+		"/D/Workspace/laf/dev/js/setup/modules/sharedModule.js",
+		"/D/Workspace/laf/dev/js/setup/modules/mockModule.js",
+		"/D/Workspace/laf/dev/js/setup/modules/fsModule.js",
+		"/D/Workspace/laf/dev/js/setup/modules/dbModule.js",
+		"/D/Workspace/laf/dev/js/setup/modules/awsModule.js",
+		"/D/Workspace/laf/dev/js/setup/onPost.js",
+		"/D/Workspace/laf/dev/js/server/modules/aws3Module.js",
+		"/D/Workspace/laf/dev/js/server/schemas/ReportSchema.js",
+		"/D/Workspace/laf/dev/js/server/schemas/UserSchema.js",
+		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarService.js",
+		"/D/Workspace/laf/dev/directives/app/src/reportPhotos/reportPhotosService.js",
+		"/D/Workspace/laf/dev/js/server/actions/Report/deleteReport.js",
+		"/D/Workspace/laf/dev/js/server/schemas/CommentSchema.js",
+		"/D/Workspace/laf/dev/js/setup/tasks",
+		"/D/Workspace/laf/dev/js/setup/add.js",
+		"/D/Workspace/laf/dev/js/setup/rm.js",
+		"/D/Workspace/laf/dev/js/setup/hardcoded/places.js",
+		"/D/Workspace/laf/dev/js/setup/hardcoded/other.js",
+		"/D/Workspace/laf/dev/js/setup/modules/_modules.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/fsTasks.js",
+		"/D/Workspace/laf/dev/js/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/js/server/actions/Other/getStats.js",
 		"/D/Workspace/laf/dev/js/server/prototypes/Action.js",
 		"/D/Workspace/laf/dev/js/setup/states/1.js",
-		"/D/Workspace/laf/dev/js/setup/tasks/fsTasks.js",
-		"/D/Workspace/laf/dev/js/server/schemas/ReportSchema.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/deleteReport.js",
+		"/D/Workspace/laf/dev/js/setup/states/0.js",
 		"/D/Workspace/laf/dev/js/setup/main.js",
-		"/D/Workspace/laf/dev/js/setup/hardcoded/places.js",
-		"/D/Workspace/laf/dev/js/setup/tasks/awsTasks.js",
-		"/D/Workspace/laf/dev/js/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/run.cmd",
+		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000001/reports/000000000000000000000001/config.js",
+		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000002/reports/000000000000000000000006/config.js",
+		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000004/reports/000000000000000000000005/config.js",
+		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000005/reports/000000000000000000000002/config.js",
+		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000007/reports/000000000000000000000004/config.js",
+		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000008/reports/000000000000000000000003/config.js",
 		"/D/Workspace/laf/dev/js/server/server.js",
+		"/D/Workspace/laf/dev/node_modules/easy-extender/node_modules/lodash/internal/baseReduce.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/sharedTasks.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/mockTasks.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/dbTasks.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/awsTasks.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/_tasks.js",
 		"/D/Workspace/laf/dev/js/server/setups/setupConstants.js",
 		"/D/Workspace/laf/dev/setup/run.js",
 		"/D/Workspace/laf/dev/setup/main.js",
 		"/D/Workspace/laf/dev/gulpfile.js",
 		"/D/Workspace/laf/dev/setup/hardcoded/other.js",
 		"/D/Workspace/laf/dev/js/server/actions/User/putUser.js",
-		"/D/Workspace/laf/dev/js/server/schemas/CommentSchema.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/deleteComment.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/postComment.js",
 		"/D/Workspace/laf/dev/state/states/1.js",
@@ -320,7 +353,6 @@
 		"/D/Workspace/laf/dev/state/tasks/dbTasks.js",
 		"/D/Workspace/laf/dev/js/server/modules/socketModule.js",
 		"/D/Workspace/laf/dev/js/client/services/socketService.js",
-		"/D/Workspace/laf/dev/js/server/schemas/UserSchema.js",
 		"/D/Workspace/laf/dev/karma.conf.js",
 		"/D/Workspace/laf/dev/js/client/routes/app.route.js",
 		"/D/Workspace/laf/dev/js/client/services/apiService.js",
@@ -341,10 +373,8 @@
 		"/D/Workspace/laf/dev/js/client/controllers/SearchController.js",
 		"/D/Workspace/laf/dev/state/hardcoded/other.js",
 		"/D/Workspace/laf/dev/state/hardcoded/places.js",
-		"/D/Workspace/laf/dev/js/server/modules/aws3Module.js",
 		"/D/Workspace/laf/dev/js/client/services/aws3Service.js",
 		"/D/Workspace/laf/dev/js/client/factories/class/MySrcAction.js",
-		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarService.js",
 		"/D/Workspace/laf/dev/js/server/schemas/ReportPhotoSchema.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/postReport.js",
 		"/D/Workspace/laf/dev/state/users/Bill-Gates-United States/config.js",
@@ -386,30 +416,7 @@
 		"/D/Workspace/laf/dev/js/server/modules/mailModule.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/putComment.js",
 		"/D/Workspace/laf/dev/js/server/actions/ContactType/getContactTypes.js",
-		"/D/Workspace/laf/dev/js/server/actions/ContactType/postContactType.js",
-		"/D/Workspace/laf/dev/js/server/actions/DeactivationReason/getDeactivationReasons.js",
-		"/D/Workspace/laf/dev/js/server/actions/Other/getStats.js",
-		"/D/Workspace/laf/dev/js/server/actions/Password/recoverPassword.js",
-		"/D/Workspace/laf/dev/js/server/actions/Password/resetPassword.js",
-		"/D/Workspace/laf/dev/js/server/actions/Payment/postPayment.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/getReportById.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/getReportByIds.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/getReportBySearchQuery.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/putReport.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/runReportValidation.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/authUser.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/deleteUser.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/getUser.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/loginUser.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/updateUserPass.js",
-		"/D/Workspace/laf/dev/js/server/controllers/AppConfigController.js",
-		"/D/Workspace/laf/dev/js/server/controllers/CommentController.js",
-		"/D/Workspace/laf/dev/js/server/controllers/ContactTypeController.js",
-		"/D/Workspace/laf/dev/js/server/controllers/CounterController.js",
-		"/D/Workspace/laf/dev/js/server/controllers/DeactivationReasonController.js",
-		"/D/Workspace/laf/dev/js/server/controllers/PasswordController.js",
-		"/D/Workspace/laf/dev/js/server/controllers/PaymentController.js",
-		"/D/Workspace/laf/dev/js/server/controllers/ReportController.js"
+		"/D/Workspace/laf/dev/js/server/actions/ContactType/postContactType.js"
 	],
 	"find":
 	{
@@ -420,6 +427,8 @@
 		"height": 90.0,
 		"where_history":
 		[
+			"D:\\Workspace\\laf\\dev\\directives,D:\\Workspace\\laf\\dev\\js,D:\\Workspace\\laf\\dev\\styles,D:\\Workspace\\laf\\dev\\templates,D:\\Workspace\\laf\\dev\\tests,D:\\Workspace\\laf\\dev\\resources",
+			"D:\\Workspace\\laf\\dev\\directives,D:\\Workspace\\laf\\dev\\js,D:\\Workspace\\laf\\dev\\styles,D:\\Workspace\\laf\\dev\\templates,D:\\Workspace\\laf\\dev\\tests",
 			"D:\\Workspace\\laf\\dev\\directives,D:\\Workspace\\laf\\dev\\js,D:\\Workspace\\laf\\dev\\styles,D:\\Workspace\\laf\\dev\\templates,D:\\Workspace\\laf\\dev\\tests,D:\\Workspace\\laf\\dev\\state",
 			"D:\\Workspace\\laf\\dev\\directives,D:\\Workspace\\laf\\dev\\js,D:\\Workspace\\laf\\dev\\styles,D:\\Workspace\\laf\\dev\\templates,D:\\Workspace\\laf\\dev\\tests",
 			""
@@ -430,6 +439,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"uploadImgs",
+			"emptyBuckets",
+			"removePhotoFromS3",
+			"user_avatar",
+			"report_photos",
+			"_tasks",
+			"r.tasks",
+			"_tasks",
+			"setup/main",
+			"const other = require(global.paths.root + '/setup/hardcoded/other');",
+			"/other",
+			"const places = require(global.paths.root + '/setup/hardcoded/places');",
+			"places",
+			"mock",
+			"/places",
+			"places",
 			"/places",
 			"hardcoded/places",
 			"t.data = {",
@@ -486,6 +511,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"user_photo",
+			"report_photo",
+			"r.setup",
+			"const other = require(global.paths.root + '/js/setup/hardcoded/other');",
+			"const places = require(global.paths.root + '/js/setup/hardcoded/places');",
 			"fakeDataPath",
 			"/setup/",
 			"var r = require(global.paths.server + '/requires');"
@@ -499,24 +529,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/js/setup/main.js",
+					"file": "/D/Workspace/laf/dev/js/setup/tasks/add.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2249,
+						"buffer_size": 1057,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								204,
-								204
+								349,
+								349
 							]
 						],
 						"settings":
@@ -528,24 +558,53 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/js/setup/tasks/fsTasks.js",
+					"file": "/D/Workspace/laf/dev/js/setup/modules/dbModule.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1970,
+						"buffer_size": 2502,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								303,
-								303
+								645,
+								645
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 255.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/Workspace/laf/dev/js/setup/tasks/rm.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 526,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								463,
+								463
 							]
 						],
 						"settings":
@@ -561,20 +620,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/js/setup/tasks/mockTasks.js",
+					"buffer": 3,
+					"file": "/D/Workspace/laf/dev/js/setup/modules/awsModule.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1664,
+						"buffer_size": 1150,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								336,
-								336
+								466,
+								466
 							]
 						],
 						"settings":
@@ -583,45 +642,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 357.0,
+						"translation.y": 102.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 334,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								334,
-								334
-							]
-						],
-						"settings":
-						{
-							"default_dir": "D:\\Workspace\\laf\\dev",
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 3,
-							"result_base_dir": "",
-							"result_file_regex": "^([^ \t].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 221.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -676,28 +700,68 @@
 		"selected_items":
 		[
 			[
-				"run",
-				"dev\\run.cmd"
+				"awsm",
+				"setup\\modules\\awsModule.js"
 			],
 			[
-				"actio",
-				"server\\prototypes\\Action.js"
-			],
-			[
-				"action",
-				"server\\prototypes\\Action.js"
+				"aws3m",
+				"server\\modules\\aws3Module.js"
 			],
 			[
 				"reports",
 				"server\\schemas\\ReportSchema.js"
 			],
 			[
-				"deletere",
+				"users",
+				"server\\schemas\\UserSchema.js"
+			],
+			[
+				"user",
+				"server\\schemas\\UserSchema.js"
+			],
+			[
+				"comments",
+				"server\\schemas\\CommentSchema.js"
+			],
+			[
+				"report",
+				"server\\schemas\\ReportSchema.js"
+			],
+			[
+				"deleterepo",
 				"server\\actions\\Report\\deleteReport.js"
+			],
+			[
+				"action",
+				"server\\prototypes\\Action.js"
+			],
+			[
+				"gets",
+				"server\\actions\\Other\\getStats.js"
 			],
 			[
 				"setupr",
 				"server\\setups\\setupRoutes.js"
+			],
+			[
+				"run",
+				"dev\\run.cmd"
+			],
+			[
+				"ser",
+				"server\\server.js"
+			],
+			[
+				"sere",
+				"dev\\node_modules\\easy-extender\\node_modules\\lodash\\internal\\baseReduce.js"
+			],
+			[
+				"actio",
+				"server\\prototypes\\Action.js"
+			],
+			[
+				"deletere",
+				"server\\actions\\Report\\deleteReport.js"
 			],
 			[
 				"setupc",
@@ -738,14 +802,6 @@
 			[
 				"deletec",
 				"server\\actions\\Comment\\deleteComment.js"
-			],
-			[
-				"comments",
-				"server\\schemas\\CommentSchema.js"
-			],
-			[
-				"ser",
-				"server\\server.js"
 			],
 			[
 				"sockets",
@@ -794,14 +850,6 @@
 			[
 				"setuor",
 				"server\\setups\\setupRoutes.js"
-			],
-			[
-				"aws3m",
-				"server\\modules\\aws3Module.js"
-			],
-			[
-				"users",
-				"server\\schemas\\UserSchema.js"
 			],
 			[
 				"photosche",

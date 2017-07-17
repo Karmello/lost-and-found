@@ -12,7 +12,7 @@ const m = {
 
 					var config = require(global.paths.root + fakeDataPath + '/' + id + '/config');
 
-					r.tasks.data.mocks.users.push({
+					r.setup.data.mocks.users.push({
 						_id: id,
 						email: config.firstname.toLowerCase() + config.lastname.toLowerCase() + '@gmail.com',
 						username: config.firstname + config.lastname,
@@ -35,12 +35,12 @@ const m = {
 
 			let tasks = [];
 
-			for (let i = 0; i < r.tasks.data.mocks.users.length; i++) {
+			for (let i = 0; i < r.setup.data.mocks.users.length; i++) {
 
 				tasks.push(new r.Promise((resolve) => {
 
-					let mockedUser = r.tasks.data.mocks.users[i];
-					let dbUser = r.tasks.data.db.users[i];
+					let mockedUser = r.setup.data.mocks.users[i];
+					let dbUser = r.setup.data.db.users[i];
 
 					mockedUser.reports = [];
 

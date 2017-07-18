@@ -4,8 +4,6 @@
 
 	var appModule = angular.module('appModule');
 
-
-
 	appModule.directive('myCollectionBrowser', function($rootScope) {
 
 		var myCollectionBrowser = {

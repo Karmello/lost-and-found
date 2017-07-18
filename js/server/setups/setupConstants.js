@@ -39,7 +39,7 @@ module.exports = function(cb) {
 
 	// Max gets
 	app.set('REPORTS_MAX_GET', 25);
-	app.set('COMMENTS_MAX_GET', 10);
+	app.set('COMMENTS_MAX_GET', 5);
 
 	cb();
 };

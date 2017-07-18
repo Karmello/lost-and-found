@@ -1,5 +1,5 @@
 <div id="myPanel" ng-class="{ isSelected: data.isSelected }">
-	<div class="panel-default">
+	<div id="{{ ctrlId }}" class="panel-default">
 		<div class="panel-heading" ng-class="transparentHeading ? 'trasparentHeading' : ''">
 			<div id="headingImg" ng-transclude="headingImg"></div>
 			<div id="headingText" ng-transclude="headingText"></div>

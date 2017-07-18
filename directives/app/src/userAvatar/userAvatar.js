@@ -13,7 +13,8 @@
 				user: '=',
 				editable: '=',
 				noLink: '&',
-				withLabel: '='
+				withLabel: '=',
+				noLoader: '<'
 			},
 			controller: function($scope) {
 
@@ -35,6 +36,9 @@
 							if (scope.withLabel) { scope.src.label = scope.user.username.truncate(15); }
 							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
 							userAvatarService.loadPhoto(scope);
+
+						} else {
+							scope.src.url = undefined;
 						}
 					});
 				};

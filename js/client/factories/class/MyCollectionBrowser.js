@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var MyCollectionBrowser = function(hardDataService, MyCollectionSelector, MySwitchable, MyLoader) {
+	var MyCollectionBrowser = function($q, $timeout, hardDataService, MyCollectionSelector, MySwitchable, MyLoader) {
 
 		var hardData = hardDataService.get();
 
@@ -64,6 +64,9 @@
 					if (that.beforeInit) { that.beforeInit(); }
 
 					that.fetchData(that.createFetchQuery()).then(function(res) {
+
+						// Setting collection
+						that.collection = res.data;
 
 						// Initializing pager ctrl
 
@@ -136,12 +139,6 @@
 				that.flush();
 				that.loader.stop(function() { if (cb) { cb.call(that, false); } });
 			}
-		};
-
-		MyCollectionBrowser.prototype.setData = function(data) {
-
-			this.meta = data.meta;
-			this.collection = data.collection;
 		};
 
 		MyCollectionBrowser.prototype.onRefreshClick = function() {
@@ -260,7 +257,7 @@
 		return MyCollectionBrowser;
 	};
 
-	MyCollectionBrowser.$inject = ['hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader'];
+	MyCollectionBrowser.$inject = ['$q', '$timeout', 'hardDataService', 'MyCollectionSelector', 'MySwitchable', 'MyLoader'];
 	angular.module('appModule').factory('MyCollectionBrowser', MyCollectionBrowser);
 
 })();

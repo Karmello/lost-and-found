@@ -8,13 +8,15 @@
 				isAuthenticated: function(authentication, resolveService) {
 					return resolveService.isAuthenticated();
 				},
-				getUser: function(isAuthenticated, $rootScope, $state, $stateParams, $q, UsersRest, ui) {
+				getUser: function(isAuthenticated, $rootScope, $timeout, $state, $stateParams, $q, UsersRest, ui) {
 
 					return $q(function(resolve, reject) {
 
+						$rootScope.apiData.profileUser = undefined;
+
 						UsersRest.getList({ _id: $stateParams.id }).then(function(res) {
 							$rootScope.apiData.profileUser = res.data[0];
-							resolve(true);
+							$timeout(() => { resolve(true); });
 
 						}, function() {
 

@@ -12,7 +12,8 @@
 			scope: {
 				report: '=',
 				noLink: '&',
-				hideDefaultSrc: '='
+				hideDefaultSrc: '=',
+				noLoader: '<'
 			},
 			controller: function($scope) {
 

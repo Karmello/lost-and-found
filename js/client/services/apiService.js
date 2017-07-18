@@ -61,11 +61,8 @@
 							case 'byUser':
 							case 'lastViewed':
 
-								reportsService.collectionBrowser[res.config.params.subject].setData(data);
-
-								if (res.config.params.subject == 'searchReports') {
-									googleMapService.searchReportsMap.addMarkers(data.collection);
-								}
+								reportsService.collectionBrowser[res.config.params.subject].meta = data.meta;
+								if (res.config.params.subject == 'bySearchQuery') { googleMapService.searchReportsMap.addMarkers(data.collection); }
 
 								return data.collection;
 
@@ -85,7 +82,7 @@
 					if (operation == 'getList') {
 
 						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
-						CommentsRest.activeCollectionBrowser.setData(data);
+						CommentsRest.activeCollectionBrowser.meta = data.meta;
 						return data.collection;
 					}
 				}

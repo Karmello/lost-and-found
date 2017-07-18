@@ -3,7 +3,7 @@
 	ng-mouseenter="onMouseEnter()"
 	ng-mouseleave="onMouseLeave()"
 >
-	<my-loader ng-show="ins.loader.isLoading" abs-centered="true"></my-loader>
+	<my-loader ng-if="!noLoader" ng-show="ins.loader.isLoading" abs-centered="true"></my-loader>
 	<div ng-class="{ transparent: ins.loader.isLoading }">
 		<a
 			ng-href="{{ ins.href }}"

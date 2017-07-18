@@ -66,7 +66,7 @@ const m = {
 			let startDate = new Date(2017, 0, 1);
 			let endDate = new Date();
 
-			for (let i = 0; i < 100; i++) {
+			for (let i = 0; i < 7; i++) {
 
 				data.push({
 					parentId: '000000000000000000000005',

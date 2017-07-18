@@ -11,7 +11,7 @@
 			if (!scope.collectionBrowser) {
 
 				scope.collectionBrowser = new MyCollectionBrowser({
-					singlePageSize: 10,
+					singlePageSize: 5,
 					reverseOrder: true,
 					fetchData: function(query) {
 
@@ -82,17 +82,19 @@
 
 		service.fixScrollPos = function(scope) {
 
+			let delay = 500;
+
 			if (scope.nestingLevel === 0) {
 
 				$timeout(function() {
 					$('html, body').animate({ scrollTop: $('#commentsSection').offset().top - 5 }, 'fast');
-				}, 100);
+				}, delay);
 
 			} else {
 
 				$timeout(function() {
 					$('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
-				}, 100);
+				}, delay);
 			}
 		};
 

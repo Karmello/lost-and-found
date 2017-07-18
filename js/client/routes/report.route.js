@@ -9,9 +9,11 @@
 
 					return resolveService.isAuthenticated($state.current.name);
 				},
-				apiData: function(isAuthenticated, $q, $rootScope, $state, $stateParams, UsersRest, ReportsRest) {
+				apiData: function(isAuthenticated, $q, $rootScope, $timeout, $state, $stateParams, UsersRest, ReportsRest) {
 
 					return $q(function(resolve, reject) {
+
+						$rootScope.apiData.report = undefined;
 
 						var promises = [];
 
@@ -23,7 +25,7 @@
 							$rootScope.apiData.reportUser = results[0].data[0];
 							$rootScope.apiData.report = results[1].data[0];
 
-							resolve();
+							$timeout(() => { resolve(); });
 
 						}, function() {
 							reject();

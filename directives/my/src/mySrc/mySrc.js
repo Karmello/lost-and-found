@@ -14,7 +14,8 @@
 				type: '@',
 				isSelectable: '&',
 				contextMenuConf: '=',
-				hrefTarget: '@'
+				hrefTarget: '@',
+				noLoader: '<'
 			},
 			controller: function($scope) {
 

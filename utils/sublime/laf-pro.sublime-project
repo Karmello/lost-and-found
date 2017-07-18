@@ -14,6 +14,9 @@
 			"path": "D:\\Workspace\\laf\\dev\\templates"
 		},
 		{
+			"path": "D:\\Workspace\\laf\\dev\\styles"
+		},
+		{
 			"path": "D:\\Workspace\\laf\\dev\\directives"
 		},
 		{
@@ -24,6 +27,10 @@
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\setup"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\js\\server\\actions"
 		}
 	]
 }

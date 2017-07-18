@@ -436,64 +436,66 @@ $avatarSize: 240px;
 	#myCollectionBrowser {
 
 		#collectionContainer {
-			> div {
-				> div {
-					> * {
+			#collectionElems {
 
-						display: flex;
-						flex-flow: row wrap;
-						justify-content: center;
-						align-items: flex-end;
+				> * {
+					flex-flow: row wrap;
+					justify-content: center;
+					align-items: flex-end;
+
+					> * {
+						flex-basis: 31%;
+						flex-grow: 1;
+						max-width: 400px;
+						margin: 5px;
+						@media only screen and (min-width: 600px) { max-width: 250px; }
+					}
+				}
+
+				#myPanel {
+
+					min-width: 200px;
+
+					#headingText {
+						* { color: $brand-danger; }
+					}
+
+					#bodySection {
 
 						> * {
 
-							flex-basis: 31%;
-							flex-grow: 1;
-							max-width: 400px;
-							margin: 5px;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							flex-flow: row wrap;
 
-							@media only screen and (min-width: 600px) {
-								max-width: 250px;
+							#infoSection {
+								text-align: center;
+								font-size: 14px;
+								margin: 5px 10px 5px 10px;
+								p { margin: 0; }
+								span { white-space: nowrap; }
+							}
+
+							#avatarSection {
+								#mySrc {
+									margin: 5px 10px 5px 10px;
+									img { width: 150px; height: 100px; object-fit: cover; }
+								}
 							}
 						}
 					}
 				}
-			}
-		}
 
-		#myPanel {
-
-			background-color: $brand-danger;
-			min-width: 200px;
-
-			#bodySection {
-
-				> * {
-
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					flex-flow: row wrap;
-
-					#infoSection {
-						text-align: center;
-						font-size: 14px;
-						margin: 5px 10px 5px 10px;
-						p { margin: 0; }
-						span { white-space: nowrap; }
-					}
-
-					#avatarSection {
-						#mySrc {
-							margin: 5px 10px 5px 10px;
-							img { width: 150px; height: 100px; object-fit: cover; }
+				.isFound {
+					#myPanel {
+						#headingText {
+							* { color: $brand-info; }
 						}
 					}
 				}
 			}
 		}
-
-		.isFound { #myPanel { background-color: $brand-info; } }
 	}
 }
 #contactForm {
@@ -686,19 +688,10 @@ $avatarSize: 240px;
 
 		display: flex;
 		flex-flow: row wrap;
-		align-items: flex-start;
-		align-content: flex-start;
-
-		width: 100%;
 		padding: 0 15px 15px 15px;
 
-		> div.myPager {}
-
 		> div.refresher {
-
-			.glyphicon-refresh {
-				top: 2px;
-			}
+			.glyphicon-refresh { top: 2px; }
 		}
 	}
 
@@ -706,6 +699,25 @@ $avatarSize: 240px;
 
 		position: relative;
 		min-height: 75px;
+
+		#collectionElems {
+
+			> * {
+
+				display: flex;
+
+				.ng-enter {
+					-webkit-transform: scale(0);
+			      	-webkit-transition-property: all;
+			      	-webkit-transition-timing-function: ease-out-cubic;
+			      	-webkit-transition-duration: 200ms;
+			    }
+
+			    .ng-enter.ng-enter-active {
+			     	-webkit-transform: scale(1);
+			    }
+			}
+		}
 
 		#myLoader {
 			position: absolute;
@@ -723,32 +735,32 @@ $avatarSize: 240px;
 
 	#myCollectionBrowser {
 
-		#frontCtrls {
-			flex-grow: 1;
+		#basicCtrls {
+			justify-content: flex-end;
 		}
 
-		#myPanel {
+		#collectionContainer {
 
-			font-size: 14px;
-			margin-top: 10px;
+			#collectionElems {
 
-			#headingImg {
+				> * { flex-direction: column; }
 
-			}
+				#myPanel {
+					font-size: 14px;
+					margin-top: 10px;
 
-			#bodySection {
+					#bodySection {
 
-				#userAvatar {
-					float: left;
-					margin-right: 12px;
-					margin-bottom: 10px;
-					img { width: 50px; height: 50px; }
-				}
+						#userAvatar {
+							float: left;
+							margin-right: 12px;
+							margin-bottom: 10px;
+							img { width: 50px; height: 50px; }
+						}
 
-				#commentTextSection {
-
-					p {
-						text-align: justify;
+						#commentTextSection {
+							p { text-align: justify; }
+						}
 					}
 				}
 			}
@@ -756,7 +768,6 @@ $avatarSize: 240px;
 	}
 
 	#nestedCollectionSection {
-
 		max-width: 650px;
 		margin: 25px auto;
 	}
@@ -774,51 +785,6 @@ $avatarSize: 240px;
 		font-size: 13px;
 		color: $text-color;
 	}
-}
-#myForm {
-
-	position: relative;
-
-	form {
-
-		position: relative;
-		background-color: $gray-lighter;
-		padding: 10px;
-		border-radius: 5px;
-
-		input, select {
-			max-width: 300px;
-		}
-
-		input, textarea {
-			padding: 10px;
-		}
-
-		input, select, textarea {
-			margin: 5px 0 5px 0;
-		}
-
-		select {
-			padding: 5px;
-		}
-
-		textarea {
-			min-height: 200px;
-		}
-
-		#myLabel {
-			margin-top: 10px;
-			margin-bottom: -7px;
-		}
-
-		.myBtnsGroup {
-			margin-top: 25px;
-		}
-	}
-}
-#myFormErrorIcon {
-	margin-left: 3px;
-	font-size: 16px;
 }
 #myLoader {
 
@@ -1053,6 +1019,51 @@ $avatarSize: 240px;
 	.glyphicon-play {
 		top: 0 !important;
 	}
+}
+#myForm {
+
+	position: relative;
+
+	form {
+
+		position: relative;
+		background-color: $gray-lighter;
+		padding: 10px;
+		border-radius: 5px;
+
+		input, select {
+			max-width: 300px;
+		}
+
+		input, textarea {
+			padding: 10px;
+		}
+
+		input, select, textarea {
+			margin: 5px 0 5px 0;
+		}
+
+		select {
+			padding: 5px;
+		}
+
+		textarea {
+			min-height: 200px;
+		}
+
+		#myLabel {
+			margin-top: 10px;
+			margin-bottom: -7px;
+		}
+
+		.myBtnsGroup {
+			margin-top: 25px;
+		}
+	}
+}
+#myFormErrorIcon {
+	margin-left: 3px;
+	font-size: 16px;
 }
 #mySingleFileInput, #myMultipleFilesInput {
 

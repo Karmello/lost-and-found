@@ -32,18 +32,24 @@ CommentSchema.add({
 
 CommentSchema.post('save', function(doc) {
 
-	// Updating report
-	r.Report.findOneAndUpdate({ _id: doc.parentId }, { $push: { comments: doc._id } }, function(err) {
-		if (err) { console.error(err); }
-	});
+	if (doc.comments) {
+
+		// Updating report
+		r.Report.findOneAndUpdate({ _id: doc.parentId }, { $addToSet: { comments: doc._id } }, function(err) {
+			if (err) { console.error(err); }
+		});
+	}
 });
 
 CommentSchema.post('remove', function(doc) {
 
-	// Updating report
-	r.Report.findOneAndUpdate({ _id: doc.parentId }, { $pull: { comments: doc._id } }, function(err) {
-		if (err) { console.error(err); }
-	});
+	if (doc.comments) {
+
+		// Updating report
+		r.Report.findOneAndUpdate({ _id: doc.parentId }, { $pull: { comments: doc._id } }, function(err) {
+			if (err) { console.error(err); }
+		});
+	}
 });
 
 module.exports = CommentSchema;

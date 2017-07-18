@@ -28,11 +28,8 @@
 	</div>
 	<div id="collectionContainer">
 		<div ng-show="ins.collection.length > 0" ng-class="ins.loader.isLoading ? 'halfTransparent' : ''">
-			<br />
-			<div ng-transclude="elems"></div>
-			<br />
-			<my-scroll-top-btn ng-if="!noScrollTopBtn && ins.collection.length >= 5" ng-show="ins.pager"></my-scroll-top-btn>
-			<br />
+			<br /><div ng-transclude="elems" id="collectionElems"></div>
+			<br /><my-scroll-top-btn ng-if="!noScrollTopBtn && ins.collection.length >= 5" ng-show="ins.pager"></my-scroll-top-btn><br />
 		</div>
 		<my-loader ng-show="ins.loader.isLoading"></my-loader>
 	</div>

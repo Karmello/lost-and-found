@@ -20,11 +20,11 @@
 						<p>{{ report.getFullCategory() }}</p>
 						<p>
 							<span>{{ hardData.reportTypes[report.startEvent.type == 'lost' ? 0 : 1].label2 }}</span>
-							<span ng-bind="hardData.count[0]"></span>
+							<span ng-bind="::hardData.count[0]"></span>
 							<span>{{ $moment(report.startEvent.date).format('DD-MM-YYYY') }}</span>
 						</p>
 						<p>
-							<span ng-bind="hardData.count[7]"></span>
+							<span ng-bind="::hardData.count[7]"></span>
 							<span>{{ $moment.duration($moment(Date()).diff($moment(report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
 						</p>
 					</div>

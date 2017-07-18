@@ -15,7 +15,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<div class="navbar-brand" ng-bind="hardData.app.name"></div>
+				<div class="navbar-brand" ng-bind="::hardData.app.name"></div>
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<my-nav-menu ins="ui.menus.top"></my-nav-menu>
@@ -33,7 +33,7 @@
 			</div>
 			<div ng-if="!apiData.loggedInUser.paymentId">
 				<a ui-sref="app.upgrade({ id: apiData.loggedInUser._id })">
-					<span ng-bind="hardData.imperatives[35]" class="text-warning" style="font-weight: bold;"></span>
+					<span ng-bind="::hardData.imperatives[35]" class="text-warning" style="font-weight: bold;"></span>
 				</a>
 			</div>
 		</div>

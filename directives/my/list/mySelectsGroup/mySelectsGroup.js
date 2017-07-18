@@ -15,7 +15,7 @@
 			scope: {
 				collection: '=',
 				model: '=',
-				hardData: '='
+				hardData: '<'
 			}
 		};
 

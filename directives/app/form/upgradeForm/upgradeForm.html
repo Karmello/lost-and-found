@@ -5,7 +5,7 @@
 			<div>
 				<my-panel transparent-heading="true">
 					<heading-text>
-						<span>&nbsp;&nbsp;&nbsp;{{ hardData.labels[37] }}</span>
+						<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.labels[37] }}</span>
 						<span ng-show="myModel.currency.value.active">-</span>
 						<span class="text-warning">{{ myModel.amount.value.active }} {{ myModel.currency.value.active }}</span>
 					</heading-text>
@@ -31,7 +31,7 @@
 			<div ng-show="myModel.getValue('paymentMethod') == 'credit_card'">
 				<my-panel transparent-heading="true">
 					<heading-text>
-						<span>&nbsp;&nbsp;&nbsp;{{ hardData.payment.methods.credit_card }}</span>
+						<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.payment.methods.credit_card }}</span>
 					</heading-text>
 					<body-section>
 						<my-select

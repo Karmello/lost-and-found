@@ -16,7 +16,7 @@
 				ctrlMinValue: '=',
 				ctrlMaxValue: '=',
 				model: '=',
-				hardData: '=',
+				hardData: '<',
 				hideErrors: '=',
 				isDisabled: '='
 			},

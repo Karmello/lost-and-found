@@ -12,7 +12,7 @@
 			scope: {
 				ctrlId: '=',
 				model: '=',
-				hardData: '=',
+				hardData: '<',
 				hideErrors: '=',
 				autocomplete: '='
 			},

@@ -4,12 +4,20 @@
 		"selected_items":
 		[
 			[
-				"bu",
-				"bucketName"
+				"res",
+				"results"
 			],
 			[
-				"res",
-				"resolve"
+				"User",
+				"UsersRest\t(?)"
+			],
+			[
+				"App",
+				"AppConfig"
+			],
+			[
+				"bu",
+				"bucketName"
 			],
 			[
 				"remo",
@@ -187,41 +195,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/D/Workspace/laf/dev/js/setup/tasks/add.js",
-			"settings":
-			{
-				"buffer_size": 1057,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/js/setup/modules/dbModule.js",
-			"settings":
-			{
-				"buffer_size": 2502,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/js/setup/tasks/rm.js",
-			"settings":
-			{
-				"buffer_size": 526,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/laf/dev/js/setup/modules/awsModule.js",
-			"settings":
-			{
-				"buffer_size": 1150,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -283,22 +256,71 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/js/setup",
-		"/D/Workspace/laf/dev/js/setup/modules",
-		"/D/Workspace/laf/dev/js/setup/tasks"
+		"/D/Workspace/laf/dev/directives/app",
+		"/D/Workspace/laf/dev/js/client/factories"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/js/setup/onRequest.js",
+		"/D/Workspace/laf/dev/js/server/setups/setupRoutes.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/c.js",
 		"/D/Workspace/laf/dev/js/setup/run.js",
+		"/D/Workspace/laf/dev/js/setup/modules/awsUploader.js",
+		"/D/Workspace/laf/dev/js/setup/modules/fileReader.js",
+		"/D/Workspace/laf/dev/js/setup/modules/_modules.js",
+		"/D/Workspace/laf/dev/js/setup/modules/dbClient.js",
+		"/D/Workspace/laf/dev/js/setup/modules/dataFactory.js",
 		"/D/Workspace/laf/dev/js/setup/modules/sharedModule.js",
+		"/D/Workspace/laf/dev/js/setup/modules/dbModule.js",
+		"/D/Workspace/laf/dev/js/setup/tasks/d.js",
+		"/D/Workspace/laf/dev/js/server/schemas/UserSchema.js",
+		"/D/Workspace/laf/dev/js/server/actions/User/registerUser.js",
+		"/D/Workspace/laf/dev/js/server/actions/User/getUser.js",
+		"/D/Workspace/laf/dev/js/server/controllers/UserController.js",
+		"/D/Workspace/laf/dev/js/server/modules/authorize.js",
+		"/D/Workspace/laf/dev/js/client/routes/profile.route.js",
+		"/D/Workspace/laf/dev/js/server/actions/Password/resetPassword.js",
+		"/D/Workspace/laf/dev/js/client/services/apiService.js",
+		"/D/Workspace/laf/dev/js/server/actions/Payment/postPayment.js",
+		"/D/Workspace/laf/dev/templates/lost-and-found-app-main.html",
+		"/D/Workspace/laf/dev/js/server/server.js",
+		"/D/Workspace/laf/dev/js/server/routes.js",
+		"/D/Workspace/laf/dev/js/server/controllers/PaymentController.js",
+		"/D/Workspace/laf/dev/js/server/models.js",
+		"/D/Workspace/laf/dev/js/client/factories/rest/PaymentsRest.js",
+		"/D/Workspace/laf/dev/js/server/controllers/PasswordController.js",
+		"/D/Workspace/laf/dev/js/server/actions/User/putUser.js",
+		"/D/Workspace/laf/dev/js/server/actions/AppConfig/putAppConfig.js",
+		"/D/Workspace/laf/dev/js/client/controllers/SettingsController.js",
+		"/D/Workspace/laf/dev/directives/app/form/regionalForm/regionalForm.html",
+		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.html",
+		"/D/Workspace/laf/dev/public/templates/regionalForm.html",
+		"/D/Workspace/laf/dev/public/templates/appearanceForm.html",
+		"/D/Workspace/laf/dev/js/server/setups/setupSession.js",
+		"/D/Workspace/laf/dev/js/server/validators/userValidators.js",
+		"/D/Workspace/laf/dev/directives/app/form/regionalForm/regionalForm.js",
+		"/D/Workspace/laf/dev/directives/app/form/appearanceForm/appearanceForm.js",
+		"/D/Workspace/laf/dev/js/server/actions/User/authUser.js",
+		"/D/Workspace/laf/dev/js/server/actions/User/loginUser.js",
+		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
+		"/D/Workspace/laf/dev/js/client/services/authService.js",
+		"/D/Workspace/laf/dev/js/client/factories/class/MyDataModel.js",
+		"/D/Workspace/laf/dev/directives/app/form/personalDetailsForm/personalDetailsForm.js",
+		"/D/Workspace/laf/dev/js/client/factories/rest/UsersRest.js",
+		"/D/Workspace/laf/dev/js/client/factories/rest/AppConfigsRest.js",
+		"/D/Workspace/laf/dev/js/client/controllers/AppController.js",
+		"/D/Workspace/laf/dev/js/server/controllers/AppConfigController.js",
+		"/D/Workspace/laf/dev/js/server/schemas/AppConfigSchema.js",
+		"/D/Workspace/laf/dev/js/server/schemas/ReportSchema.js",
 		"/D/Workspace/laf/dev/js/setup/modules/mockModule.js",
 		"/D/Workspace/laf/dev/js/setup/modules/fsModule.js",
-		"/D/Workspace/laf/dev/js/setup/modules/dbModule.js",
+		"/D/Workspace/laf/dev/js/server/actions/User/deleteUser.js",
+		"/D/Workspace/laf/dev/js/server/actions/Report/postReport.js",
 		"/D/Workspace/laf/dev/js/setup/modules/awsModule.js",
+		"/D/Workspace/laf/dev/js/setup/onRequst.js",
+		"/D/Workspace/laf/dev/run.cmd",
 		"/D/Workspace/laf/dev/js/setup/onPost.js",
 		"/D/Workspace/laf/dev/js/server/modules/aws3Module.js",
-		"/D/Workspace/laf/dev/js/server/schemas/ReportSchema.js",
-		"/D/Workspace/laf/dev/js/server/schemas/UserSchema.js",
 		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarService.js",
 		"/D/Workspace/laf/dev/directives/app/src/reportPhotos/reportPhotosService.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/deleteReport.js",
@@ -308,22 +330,18 @@
 		"/D/Workspace/laf/dev/js/setup/rm.js",
 		"/D/Workspace/laf/dev/js/setup/hardcoded/places.js",
 		"/D/Workspace/laf/dev/js/setup/hardcoded/other.js",
-		"/D/Workspace/laf/dev/js/setup/modules/_modules.js",
 		"/D/Workspace/laf/dev/js/setup/tasks/fsTasks.js",
-		"/D/Workspace/laf/dev/js/server/setups/setupRoutes.js",
 		"/D/Workspace/laf/dev/js/server/actions/Other/getStats.js",
 		"/D/Workspace/laf/dev/js/server/prototypes/Action.js",
 		"/D/Workspace/laf/dev/js/setup/states/1.js",
 		"/D/Workspace/laf/dev/js/setup/states/0.js",
 		"/D/Workspace/laf/dev/js/setup/main.js",
-		"/D/Workspace/laf/dev/run.cmd",
 		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000001/reports/000000000000000000000001/config.js",
 		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000002/reports/000000000000000000000006/config.js",
 		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000004/reports/000000000000000000000005/config.js",
 		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000005/reports/000000000000000000000002/config.js",
 		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000007/reports/000000000000000000000004/config.js",
 		"/D/Workspace/laf/dev/resources/fake-data/000000000000000000000008/reports/000000000000000000000003/config.js",
-		"/D/Workspace/laf/dev/js/server/server.js",
 		"/D/Workspace/laf/dev/node_modules/easy-extender/node_modules/lodash/internal/baseReduce.js",
 		"/D/Workspace/laf/dev/js/setup/tasks/sharedTasks.js",
 		"/D/Workspace/laf/dev/js/setup/tasks/mockTasks.js",
@@ -335,7 +353,6 @@
 		"/D/Workspace/laf/dev/setup/main.js",
 		"/D/Workspace/laf/dev/gulpfile.js",
 		"/D/Workspace/laf/dev/setup/hardcoded/other.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/putUser.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/deleteComment.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/postComment.js",
 		"/D/Workspace/laf/dev/state/states/1.js",
@@ -355,20 +372,15 @@
 		"/D/Workspace/laf/dev/js/client/services/socketService.js",
 		"/D/Workspace/laf/dev/karma.conf.js",
 		"/D/Workspace/laf/dev/js/client/routes/app.route.js",
-		"/D/Workspace/laf/dev/js/client/services/apiService.js",
 		"/D/Workspace/laf/dev/js/client/appModule.js",
 		"/D/Workspace/laf/dev/js/client/config.js",
 		"/D/Workspace/laf/dev/js/client/run.js",
-		"/D/Workspace/laf/dev/js/server/actions/User/registerUser.js",
-		"/D/Workspace/laf/dev/js/server/models.js",
 		"/D/Workspace/laf/dev/js/server/requires.js",
-		"/D/Workspace/laf/dev/js/server/routes.js",
 		"/D/Workspace/laf/dev/resources/json/hardCoded/hard_coded_en.json",
 		"/D/Workspace/laf/dev/resources/json/hardCoded/hard_coded_pl.json",
 		"/D/Workspace/laf/dev/public/unminified/appScripts.js",
 		"/D/Workspace/laf/dev/package.json",
 		"/D/Workspace/laf/dev/public/json/hardCodedData.json",
-		"/D/Workspace/laf/dev/js/client/routes/profile.route.js",
 		"/D/Workspace/laf/dev/state/tasks/awsTasks.js",
 		"/D/Workspace/laf/dev/js/client/controllers/SearchController.js",
 		"/D/Workspace/laf/dev/state/hardcoded/other.js",
@@ -376,47 +388,7 @@
 		"/D/Workspace/laf/dev/js/client/services/aws3Service.js",
 		"/D/Workspace/laf/dev/js/client/factories/class/MySrcAction.js",
 		"/D/Workspace/laf/dev/js/server/schemas/ReportPhotoSchema.js",
-		"/D/Workspace/laf/dev/js/server/actions/Report/postReport.js",
-		"/D/Workspace/laf/dev/state/users/Bill-Gates-United States/config.js",
-		"/D/Workspace/laf/dev/state/users/Cristiano-Ronaldo-Portugal/config.js",
-		"/D/Workspace/laf/dev/state/users/Donald-Trump-United States/config.js",
-		"/D/Workspace/laf/dev/state/users/Karol-Wojtyła-Poland/config.js",
-		"/D/Workspace/laf/dev/state/users/Kate-Upton-United States/config.js",
-		"/D/Workspace/laf/dev/state/users/Lionel-Messi-Argentina/config.js",
-		"/D/Workspace/laf/dev/state/users/Michael-Jordan-United States/config.js",
-		"/D/Workspace/laf/dev/state/users/Pablo-Picasso-Spain/config.js",
-		"/D/Workspace/laf/dev/state/users/Steve-Jobs-United States/config.js",
-		"/D/Workspace/laf/dev/state/users/Steven-Spielberg-United States/config.js",
-		"/D/Workspace/laf/dev/state/users/Bill-Gates-United States/reports/Windows 7/config.js",
-		"/D/Workspace/laf/dev/node_modules/prettydiff/api/node-local.js",
-		"/D/Workspace/laf/dev/state/setup.js",
-		"/D/Workspace/laf/dev/state/tasks/sharedTasks.js",
-		"/D/Workspace/laf/dev/state/mockupData/users/Bill-Gates-United States/reports/Windows 7/config.js",
-		"/D/Workspace/laf/dev/js/server/schemas/ReportEventSchema.js",
-		"/D/Workspace/laf/dev/js/server/validators/reportEventValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/reportValidators.js",
-		"/D/Workspace/laf/dev/state/tasks/_tasks.js",
-		"/D/Workspace/laf/dev/state/tasks/reportTasks.js",
-		"/D/Workspace/laf/dev/state/tasks/userTasks.js",
-		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
-		"/D/Workspace/laf/dev/state/mockupData/users.js",
-		"/D/Workspace/laf/dev/js/server/controllers/UserController.js",
-		"/D/Workspace/laf/dev/.jshintrc",
-		"/D/Workspace/laf/dev/setup.js",
-		"/D/Workspace/laf/dev/directives/my/modal/myImgCropModal/myImgCropModal.js",
-		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatar.js",
-		"/D/Workspace/laf/dev/directives/app/src/userAvatar/userAvatarConf.js",
-		"/D/Workspace/laf/dev/js/server/setups/setupDb.js",
-		"/D/Workspace/laf/dev/js/server/setups/setupPaypal.js",
-		"/D/Workspace/laf/dev/js/server/setups/setupSession.js",
-		"/D/Workspace/mean-start-off/js/server/server.js",
-		"/D/Workspace/mean-start-off/gulpfile.js",
-		"/D/Workspace/laf/dev/js/server/setups/_setups.js",
-		"/D/Workspace/laf/dev/js/server/validators/userValidators.js",
-		"/D/Workspace/laf/dev/js/server/modules/mailModule.js",
-		"/D/Workspace/laf/dev/js/server/actions/Comment/putComment.js",
-		"/D/Workspace/laf/dev/js/server/actions/ContactType/getContactTypes.js",
-		"/D/Workspace/laf/dev/js/server/actions/ContactType/postContactType.js"
+		"/D/Workspace/laf/dev/state/users/Bill-Gates-United States/config.js"
 	],
 	"find":
 	{
@@ -436,9 +408,40 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"singleImgToAws",
+			"getNewReq",
+			"t.mock",
+			"mock",
+			"params.id",
+			"'-",
+			"findOne",
+			"/payment",
+			"/paypal/payment",
+			"/payment",
+			"PaymentController",
+			"appConfig",
+			"putAppConfig",
+			"action: ",
+			".put(",
+			"appConfig",
+			"AppConfigsRest",
+			"appConfig",
+			"r.setup.mock",
+			"t.mock",
+			".mock",
+			"mock",
+			"mockModule",
+			"db.users",
+			"data.fs",
+			"t.data.fs",
+			"var",
+			"console.log",
+			"add",
+			"rm",
+			"reportImgs",
 			"uploadImgs",
 			"emptyBuckets",
 			"removePhotoFromS3",
@@ -523,131 +526,14 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/js/setup/tasks/add.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1057,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								349,
-								349
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/Workspace/laf/dev/js/setup/modules/dbModule.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2502,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								645,
-								645
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 255.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/Workspace/laf/dev/js/setup/tasks/rm.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 526,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								463,
-								463
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/D/Workspace/laf/dev/js/setup/modules/awsModule.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1150,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								466,
-								466
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 102.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -700,24 +586,136 @@
 		"selected_items":
 		[
 			[
-				"awsm",
-				"setup\\modules\\awsModule.js"
+				"setupr",
+				"server\\setups\\setupRoutes.js"
 			],
 			[
-				"aws3m",
-				"server\\modules\\aws3Module.js"
-			],
-			[
-				"reports",
-				"server\\schemas\\ReportSchema.js"
+				"user",
+				"server\\schemas\\UserSchema.js"
 			],
 			[
 				"users",
 				"server\\schemas\\UserSchema.js"
 			],
 			[
-				"user",
-				"server\\schemas\\UserSchema.js"
+				"regis",
+				"server\\actions\\User\\registerUser.js"
+			],
+			[
+				"authori",
+				"server\\modules\\authorize.js"
+			],
+			[
+				"profile.r",
+				"client\\routes\\profile.route.js"
+			],
+			[
+				"autho",
+				"server\\modules\\authorize.js"
+			],
+			[
+				"userc",
+				"server\\controllers\\UserController.js"
+			],
+			[
+				"apis",
+				"client\\services\\apiService.js"
+			],
+			[
+				"main.htm",
+				"dev\\templates\\lost-and-found-app-main.html"
+			],
+			[
+				"putus",
+				"server\\actions\\User\\putUser.js"
+			],
+			[
+				"regionalform",
+				"directives\\app\\form\\regionalForm\\regionalForm.html"
+			],
+			[
+				"appeara",
+				"directives\\app\\form\\appearanceForm\\appearanceForm.html"
+			],
+			[
+				"regionalf",
+				"dev\\public\\templates\\regionalForm.html"
+			],
+			[
+				"appear",
+				"public\\templates\\appearanceForm.html"
+			],
+			[
+				"setting",
+				"client\\controllers\\SettingsController.js"
+			],
+			[
+				"setups",
+				"server\\setups\\setupSession.js"
+			],
+			[
+				"appea",
+				"directives\\app\\form\\appearanceForm\\appearanceForm.js"
+			],
+			[
+				"putuse",
+				"server\\actions\\User\\putUser.js"
+			],
+			[
+				"mydatam",
+				"client\\factories\\class\\MyDataModel.js"
+			],
+			[
+				"persona",
+				"directives\\app\\form\\personalDetailsForm\\personalDetailsForm.js"
+			],
+			[
+				"usersr",
+				"client\\factories\\rest\\UsersRest.js"
+			],
+			[
+				"serv",
+				"server\\server.js"
+			],
+			[
+				"reports",
+				"server\\schemas\\ReportSchema.js"
+			],
+			[
+				"appconfi",
+				"server\\schemas\\AppConfigSchema.js"
+			],
+			[
+				"deleteu",
+				"server\\actions\\User\\deleteUser.js"
+			],
+			[
+				"loginu",
+				"server\\actions\\User\\loginUser.js"
+			],
+			[
+				"putu",
+				"server\\actions\\User\\putUser.js"
+			],
+			[
+				"postre",
+				"server\\actions\\Report\\postReport.js"
+			],
+			[
+				"registeru",
+				"server\\actions\\User\\registerUser.js"
+			],
+			[
+				"run",
+				"dev\\run.cmd"
+			],
+			[
+				"awsm",
+				"setup\\modules\\awsModule.js"
+			],
+			[
+				"aws3m",
+				"server\\modules\\aws3Module.js"
 			],
 			[
 				"comments",
@@ -738,14 +736,6 @@
 			[
 				"gets",
 				"server\\actions\\Other\\getStats.js"
-			],
-			[
-				"setupr",
-				"server\\setups\\setupRoutes.js"
-			],
-			[
-				"run",
-				"dev\\run.cmd"
 			],
 			[
 				"ser",
@@ -774,10 +764,6 @@
 			[
 				"gulp",
 				"dev\\gulpfile.js"
-			],
-			[
-				"serv",
-				"server\\server.js"
 			],
 			[
 				"setup",
@@ -856,14 +842,6 @@
 				"server\\schemas\\ReportPhotoSchema.js"
 			],
 			[
-				"postre",
-				"server\\actions\\Report\\postReport.js"
-			],
-			[
-				"registeru",
-				"server\\actions\\User\\registerUser.js"
-			],
-			[
 				"aws3",
 				"server\\modules\\aws3Module.js"
 			],
@@ -912,14 +890,6 @@
 				"directives\\app\\src\\userAvatar\\userAvatar.js"
 			],
 			[
-				"putus",
-				"server\\actions\\User\\putUser.js"
-			],
-			[
-				"userc",
-				"server\\controllers\\UserController.js"
-			],
-			[
 				"putuser",
 				"server\\actions\\User\\putUser.js"
 			],
@@ -944,24 +914,12 @@
 				"server\\_requires.js"
 			],
 			[
-				"autho",
-				"server\\modules\\authorize.js"
-			],
-			[
-				"regis",
-				"server\\actions\\User\\registerUser.js"
-			],
-			[
 				"setus",
 				"server\\setups\\setupSession.js"
 			],
 			[
 				"setupd",
 				"server\\setups\\setupDb.js"
-			],
-			[
-				"setups",
-				"server\\setups\\setupSession.js"
 			],
 			[
 				"_req",
@@ -992,10 +950,6 @@
 				"client\\controllers\\MainController.js"
 			],
 			[
-				"main.htm",
-				"dev\\templates\\lost-and-found-app-main.html"
-			],
-			[
 				"upgrade.htm",
 				"dev\\templates\\lost-and-found-app-upgrade.html"
 			],
@@ -1014,14 +968,6 @@
 			[
 				"mypan",
 				"directives\\my\\display\\myPanel\\myPanel.scss"
-			],
-			[
-				"authori",
-				"server\\modules\\authorize.js"
-			],
-			[
-				"apis",
-				"client\\services\\apiService.js"
 			],
 			[
 				"contactt",
@@ -1055,7 +1001,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 299.0,
 	"status_bar_visible": true,
 	"template_settings":

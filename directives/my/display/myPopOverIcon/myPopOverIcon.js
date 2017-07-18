@@ -15,7 +15,7 @@
 			},
 			templateUrl: 'public/templates/myPopOverIcon.html',
 			scope: {
-				hardData: '='
+				hardData: '<'
 			}
 		};
 

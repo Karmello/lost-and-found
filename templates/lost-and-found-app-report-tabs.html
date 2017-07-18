@@ -3,7 +3,7 @@
 		<my-panel>
 			<heading-text>
 				<span class="glyphicon glyphicon-picture"></span>
-				<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[5] }} ({{ apiData.report.photos.length }})</span>
+				<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.sections[5] }} ({{ apiData.report.photos.length }})</span>
 			</heading-text>
 			<body-section>
 				<report-photos report="apiData.report" editable="apiData.reportUser._isTheOneLoggedIn()"></report-photos>
@@ -14,7 +14,7 @@
 		<my-panel>
 			<heading-text>
 				<span class="glyphicon glyphicon-comment"></span>
-				<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[6] }} ({{ commentsOutData.topCollectionBrowser.meta.count }})</span>
+				<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.sections[6] }} ({{ commentsOutData.topCollectionBrowser.meta.count }})</span>
 			</heading-text>
 			<body-section>
 				<my-comments nesting-level="0" api-obj="apiData.report" out="commentsOutData"></my-comments>

@@ -1,8 +1,8 @@
 <div id="lost-and-found-app-home" class="myPage">
 	<my-panel>
 		<heading-text>
-			<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
-			<span>&nbsp;&nbsp;&nbsp;{{ ui.frames.main.getActiveSwitcher().label }}</span>
+			<span ng-class="::ui.frames.main.getActiveSwitcher().icon"></span>
+			<span>&nbsp;&nbsp;&nbsp;{{ ::ui.frames.main.getActiveSwitcher().label }}</span>
 		</heading-text>
 		<body-section>
 			<br>
@@ -10,8 +10,8 @@
 			<br>
 			<my-panel transparent-heading="true">
 				<heading-text>
-					<span ng-class="ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[22] }}</span>
+					<span ng-class="::ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.sections[22] }}</span>
 				</heading-text>
 				<body-section>
 					<reports ctrl-id="newlyAdded"></reports>
@@ -20,7 +20,7 @@
 			<my-panel transparent-heading="true">
 				<heading-text>
 					<span class="glyphicon glyphicon-eye-open"></span>
-					<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[21] }}</span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.sections[21] }}</span>
 				</heading-text>
 				<body-section>
 					<reports ctrl-id="lastViewed"></reports>

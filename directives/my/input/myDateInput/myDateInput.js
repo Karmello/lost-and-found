@@ -17,7 +17,7 @@
 				ctrlMinValue: '=',
 				ctrlMaxValue: '=',
 				model: '=',
-				hardData: '=',
+				hardData: '<',
 				hideErrors: '=',
 				isRequired: '='
 			},

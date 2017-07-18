@@ -18,7 +18,7 @@
 				nestedCollectionFieldName: '=',
 				propNames: '=',
 				optionZero: '=',
-				hardData: '=',
+				hardData: '<',
 				hideErrors: '='
 			},
 			link: function(scope, elem, attrs) {

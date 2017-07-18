@@ -16,7 +16,7 @@
 				ctrlMaxLength: '=',
 				model: '=',
 				autoResizable: '<',
-				hardData: '='
+				hardData: '<'
 			},
 			controller: function($scope) {},
 			compile: function(elem, attrs) {

@@ -12,7 +12,7 @@
 			templateUrl: 'public/templates/myForm.html',
 			scope: {
 				ins: '=',
-				hardData: '='
+				hardData: '<'
 			},
 			controller: function($scope) {
 

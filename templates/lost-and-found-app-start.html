@@ -1,7 +1,7 @@
 <div id="lost-and-found-app-start" class="container" ng-controller="StartController">
 	<div id="section1">
 		<div class="page-header jumbotron">
-			<h2>{{ hardData.app.name }}<br /><small>{{ hardData.app.description }}</small></h2>
+			<h2>{{ ::hardData.app.name }}<br /><small>{{ ::hardData.app.description }}</small></h2>
 		</div>
 	</div>
 	<div id="section2">
@@ -19,8 +19,8 @@
 	<div id="section3">
 		<my-panel transparent-heading="true">
 			<heading-text>
-				<span ng-class="ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
-				<span>&nbsp;&nbsp;&nbsp;{{ hardData.sections[22] }}</span>
+				<span ng-class="::ui.frames.main.getSwitcher('_id', 'newreport').icon"></span>
+				<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.sections[22] }}</span>
 			</heading-text>
 			<body-section>
 				<reports ctrl-id="newlyAdded"></reports>

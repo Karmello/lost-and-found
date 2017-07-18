@@ -5,14 +5,18 @@ module.exports = {
 
 		let tasks = [];
 
+		let nameFields = {
+			User: 'username',
+			Report: 'title',
+			Comment: 'content'
+		};
+
 		for (let config of data) {
 
 			tasks.push(new r[subject](config).save((err) => {
 
 				if (!err) {
-					let name;
-					if (subject === 'User') { name = config.username; } else if (subject === 'Report') { name = config.title; }
-					console.log('"' + name + '" saved');
+					console.log('"' + config[nameFields[subject]] + '" saved');
 				}
 			}));
 		}

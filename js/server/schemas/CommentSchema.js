@@ -30,6 +30,14 @@ CommentSchema.add({
 	comments: [CommentSchema]
 });
 
+CommentSchema.post('save', function(doc) {
+
+	// Updating report
+	r.Report.findOneAndUpdate({ _id: doc.parentId }, { $push: { comments: doc._id } }, function(err) {
+		if (err) { console.error(err); }
+	});
+});
+
 CommentSchema.post('remove', function(doc) {
 
 	// Updating report

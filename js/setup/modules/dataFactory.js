@@ -55,6 +55,29 @@ const m = {
 		}
 
 		return r.Promise.all(tasks);
+	},
+	prepareComments: (users) => {
+
+		return new r.Promise((resolve, reject) => {
+
+			let comments = require(global.paths.root + '/js/setup/hardcoded/comments');
+			let data = [];
+
+			let startDate = new Date(2017, 0, 1);
+			let endDate = new Date();
+
+			for (let i = 0; i < 100; i++) {
+
+				data.push({
+					parentId: '000000000000000000000005',
+					userId: users[Math.floor(Math.random() * (users.length - 1))]._id,
+					content: comments[Math.floor(Math.random() * (comments.length - 1))],
+					dateAdded: new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()))
+				});
+			}
+
+			resolve(data);
+		});
 	}
 };
 

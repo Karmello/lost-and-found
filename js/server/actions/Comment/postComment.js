@@ -10,32 +10,13 @@ module.exports = {
 
 			if (req.query.reportId) {
 
-				// Getting report
-				r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
+				// Creating new comment instance
+				newComment = new r.Comment(req.body);
+				newComment.parentId = req.query.reportId;
 
-					if (!err && report) {
-
-						// Creating new comment instance
-						newComment = new r.Comment(req.body);
-						newComment.parentId = req.query.reportId;
-
-						// Saving comment
-						newComment.save(function(err) {
-
-							if (!err) {
-
-								// Updating report comments array
-								report.comments.push(newComment._id);
-
-								// Saving updated report
-								report.save(function(err) {
-									if (!err) { resolve(); } else { newComment.remove(); reject(err); }
-								});
-
-							} else { reject(err); }
-						});
-
-					} else { reject(err); }
+				// Saving comment
+				newComment.save(function(err) {
+					if (!err) { resolve(); } else { reject(err); }
 				});
 
 			} else if (req.query.parentId) {

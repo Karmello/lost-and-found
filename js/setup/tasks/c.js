@@ -6,7 +6,7 @@ let run = (subject) => {
 
 		new r.Promise((resolve) => {
 
-			if (subject == 'Report') {
+			if (subject !== 'User') {
 				r.User.find({}, (err, users) => {
 					if (!err) { resolve(users); } else { reject(err); }
 				});
@@ -21,25 +21,34 @@ let run = (subject) => {
 				// Populating db collection
 				r.setup.dbClient.post(subject, data).then(() => {
 
-					// Reading imgs from fs
-					r.setup.fileReader['read' + subject + 'Imgs'](data).then((files) => {
+					new r.Promise((resolve) => {
 
-						// Uploading imgs to S3
-						r.setup.awsUploader.uploadImgs(subject.toLowerCase() + '_photo', files).then((files) => {
+						if (subject !== 'Comment') {
 
-							// Updating filenames in db
-							r.setup.dbClient.updateFileNames(subject.toLowerCase() + '_photo', files).then(() => {
+							// Reading imgs from fs
+							r.setup.fileReader['read' + subject + 'Imgs'](data).then((files) => {
 
-								// Counting docs in db
-								r[subject].count((err, count) => {
+								// Uploading imgs to S3
+								r.setup.awsUploader.uploadImgs(subject.toLowerCase() + '_photo', files).then((files) => {
 
-									// Finishing
-									if (!err) { resolve(count); } else { reject(err); }
-								});
+									// Updating filenames in db
+									r.setup.dbClient.updateFileNames(subject.toLowerCase() + '_photo', files).then(resolve, reject);
 
+								}, reject);
 							}, reject);
-						}, reject);
-					}, reject);
+
+						} else { resolve(); }
+
+					}).then(() => {
+
+						// Counting docs in db
+						r[subject].count((err, count) => {
+
+							// Finishing
+							if (!err) { resolve(count); } else { reject(err); }
+						});
+					});
+
 				}, reject);
 			}, reject);
 		});

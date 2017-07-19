@@ -4,7 +4,7 @@ if "%1" == "app" (
 
 	cmd /k "mongod" -new_console:t:mongod
 	timeout 5
-	cmd /k "nodemon ./js/server/server.js --watch ./js/server --watch ./js/setup" -new_console:t:nodemon
+	cmd /k "nodemon ./js/server/server.js --watch ./js/server" -new_console:t:nodemon
 	cmd /k "gulp compile" -new_console:t:compile
 	echo. & echo App started
 )

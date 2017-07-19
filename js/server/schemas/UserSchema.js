@@ -162,10 +162,8 @@ UserSchema.post('remove', function(doc) {
 	doc.removeAvatarFromS3();
 
 	// Removing reports from db
-	r.Report.find({ userId: doc._id }, function(err, reports) {
-		if (!err && reports) {
-			reports.forEach(function(report) { report.remove(); });
-		}
+	r.Report.remove({ userId: doc._id }, (err) => {
+		if (err) { console.error(err); }
 	});
 
 	r.modules.socketModule.emitUsersCount();

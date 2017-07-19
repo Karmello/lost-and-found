@@ -23,14 +23,13 @@
 			"path": "D:\\Workspace\\laf\\dev\\js\\server"
 		},
 		{
+			"path": "D:\\Workspace\\laf\\dev\\js\\server\\actions"
+		},
+		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\client"
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\setup"
-		},
-		{
-			"follow_symlinks": true,
-			"path": "D:\\Workspace\\laf\\dev\\js\\server\\actions"
 		}
 	]
 }

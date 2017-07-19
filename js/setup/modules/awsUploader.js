@@ -35,12 +35,12 @@ let singleImgToAws = (subject, file) => {
 };
 
 module.exports = {
-	uploadImgs: (subject, files) => {
+	uploadImgs: (files) => {
 
 		let tasks = [];
 
 		for (let i = 0; i < files.length; i++) {
-			tasks.push(singleImgToAws(subject, files[i]));
+			tasks.push(singleImgToAws(r.setup.subject.toLowerCase() + '_photo', files[i]));
 		}
 
 		return r.Promise.all(tasks);

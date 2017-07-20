@@ -1,12 +1,12 @@
-const r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 module.exports = {
 	get: () => {
 
-		return new r.Promise((resolve, reject) => {
+		return new cm.libs.Promise((resolve, reject) => {
 
-			if (r.setup.subject !== 'User') {
-				r.User.find({}, (err, users) => {
+			if (cm.setup.subject !== 'User') {
+				cm.User.find({}, (err, users) => {
 					if (!err) { resolve(users); } else { reject(err); }
 				});
 
@@ -15,7 +15,7 @@ module.exports = {
 	},
 	post: (data) => {
 
-		return new r.Promise((resolve, reject) => {
+		return new cm.libs.Promise((resolve, reject) => {
 
 			let tasks = [];
 
@@ -27,30 +27,33 @@ module.exports = {
 
 			for (let config of data) {
 
-				tasks.push(new r[r.setup.subject](config).save((err) => {
+				tasks.push(new r[cm.setup.subject](config).save((err) => {
 
 					if (!err) {
-						console.log('"' + config[nameFields[r.setup.subject]] + '" saved');
+						console.log('"' + config[nameFields[cm.setup.subject]] + '" saved');
+
+					} else {
+						console.error(err);
 					}
 				}));
 			}
 
-			r.Promise.all(tasks).then(() => { resolve(data); }, reject);
+			cm.libs.Promise.all(tasks).then(() => { resolve(data); }, reject);
 		});
 	},
 	sync: (files) => {
 
-		return new r.Promise((resolve, reject) => {
+		return new cm.libs.Promise((resolve, reject) => {
 
 			let tasks = [];
 
-			switch (r.setup.subject) {
+			switch (cm.setup.subject) {
 
 				case 'User':
 
 					for (let file of files) {
-						tasks.push(new r.Promise((resolve, reject) => {
-							r.User.findOne({ _id: file.userId }, (err, user) => {
+						tasks.push(new cm.libs.Promise((resolve, reject) => {
+							cm.User.findOne({ _id: file.userId }, (err, user) => {
 								if (!err) { user.update({ photos: [{ filename: file.filename, size: 100 }] }, () => { resolve(); }); } else { reject(err); }
 							});
 						}));
@@ -73,8 +76,8 @@ module.exports = {
 					}
 
 					for (let reportId in data) {
-						tasks.push(new r.Promise((resolve, reject) => {
-							r.Report.findOne({ _id: reportId }, (err, report) => {
+						tasks.push(new cm.libs.Promise((resolve, reject) => {
+							cm.Report.findOne({ _id: reportId }, (err, report) => {
 
 								if (!err) {
 									report.update({ avatar: data[reportId][0].filename, photos: data[reportId] }, () => { resolve(); });
@@ -87,7 +90,7 @@ module.exports = {
 					break;
 			}
 
-			r.Promise.all(tasks).then(() => { resolve(); }, reject);
+			cm.libs.Promise.all(tasks).then(() => { resolve(); }, reject);
 		});
 	}
 };

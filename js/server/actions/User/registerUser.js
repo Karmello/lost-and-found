@@ -1,59 +1,47 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var action = new r.prototypes.Action(arguments);
-	action.id = req.query.action;
+	let action = new cm.prototypes.Action(args);
 
-	new r.Promise(function(resolve, reject) {
+	cm.User.validateCaptcha(action).then(() => {
 
-		r.modules.authorize.captcha(action).then(function() {
-
-			var user = new r.User({
-				email: req.body.email,
-				username: req.body.username,
-				password: req.body.password,
-				firstname: req.body.firstname,
-				lastname: req.body.lastname,
-				country: req.body.country,
-				config: {
-					language: req.session.language,
-					theme: req.session.theme
-				}
-			});
-
-			if (req.body._id) { user._id = req.body._id; }
-
-			user.save(function(err) {
-
-				if (!err) {
-
-					resolve({
-						user: user,
-						authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
-						msg: {
-							title: r.hardData[req.session.language].msgs.titles[0],
-							info: r.hardData[req.session.language].msgs.infos[0]
-						}
-					});
-
-				} else {
-
-					action.setAsBad();
-					reject(err);
-				}
-			});
+		let user = new cm.User({
+			email: action.req.body.email,
+			username: action.req.body.username,
+			password: action.req.body.password,
+			firstname: action.req.body.firstname,
+			lastname: action.req.body.lastname,
+			country: action.req.body.country,
+			config: {
+				language: action.req.session.language,
+				theme: action.req.session.theme
+			}
 		});
 
-	}).then(function(data) {
+		if (action.req.body._id) { user._id = action.req.body._id; }
 
-		r.modules.socketModule.emitUsersCount();
+		user.save((err) => {
 
-		action.resetBadCount();
-		action.end(200, data);
+			if (!err) {
 
-	}, function(err) {
+				cm.User.emitUsersCount();
+				action.resetBadCount();
 
-		action.end(400, err);
+				action.end(200, {
+					user: user,
+					authToken: cm.libs.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: cm.app.get('AUTH_TOKEN_EXPIRES_IN') }),
+					msg: {
+						title: cm.hardData[action.req.session.language].msgs.titles[0],
+						info: cm.hardData[action.req.session.language].msgs.infos[0]
+					}
+				});
+
+			} else {
+
+				action.setAsBad();
+				action.end(400, err);
+			}
+		});
 	});
 };

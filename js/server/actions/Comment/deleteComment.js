@@ -1,45 +1,32 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
 
-		new r.Promise(function(resolve, reject) {
+	// Deleting first level comment
+	if (action.req.query.reportId) {
 
-			// Deleting first level comment
-			if (req.query.reportId) {
+		// Getting comment
+		cm.Comment.findOne({ _id: action.req.params.id }, (err, comment) => {
 
-				// Getting comment
-				r.Comment.findOne({ _id: req.params.id }, function(err, comment) {
+			// Got comment
+			if (!err && comment) {
+				comment.remove((err) => { action.end(204); });
 
-					// Got comment
-					if (!err && comment) {
-						comment.remove(function(err) { resolve(); });
-
-					} else { reject(err); }
-				});
-
-			// Deleting nested comment
-			} else if (req.query.parentId) {
-
-				r.Comment.findOneAndUpdate(
-					{ _id: req.query.parentId },
-					{ $pull: { comments: { _id: req.params.id } } },
-					function(err, comment) {
-						if (!err) { resolve(); } else { reject(err); }
-					}
-				);
-
-			} else { reject('NO_REPORT_OR_PARENT_ID'); }
-
-		}).then(function() {
-
-			action.end(204);
-
-		}, function(err) {
-
-			action.end(400, err);
+			} else { action.end(400, err); }
 		});
-	}
+
+	// Deleting nested comment
+	} else if (action.req.query.parentId) {
+
+		cm.Comment.findOneAndUpdate(
+			{ _id: action.req.query.parentId },
+			{ $pull: { comments: { _id: action.req.params.id } } },
+			(err, comment) => {
+				if (!err) { action.end(204); } else { action.end(400, err); }
+			}
+		);
+
+	} else { action.end(400, 'NO_REPORT_OR_PARENT_ID'); }
 };

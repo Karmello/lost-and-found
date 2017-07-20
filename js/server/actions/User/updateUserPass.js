@@ -1,31 +1,29 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var action = new r.prototypes.Action(arguments);
-	action.id = req.query.action;
+	let action = new cm.prototypes.Action(args);
 
-	r.modules.authorize.userToken(req, res, function() {
+	cm.User.validateUserToken(action.req, action.res, () => {
 
-		new r.Promise(function(resolve, reject) {
-
-			r.User.findOne({ _id: req.decoded._id }, 'password', function(err, user) {
+		new cm.libs.Promise((resolve, reject) => {
+			cm.User.findOne({ _id: action.req.decoded._id }, 'password', (err, user) => {
 
 				if (!err && user) {
 
-					var password = new r.Password({
+					let password = new cm.Password({
 						userId: user._id,
-						currentPassword: req.body.currentPassword,
-						password: req.body.password
+						currentPassword: action.req.body.currentPassword,
+						password: action.req.body.password
 					});
 
-					password.validate(function(err) {
+					password.validate((err) => {
 
 						if (!err) {
 
 							user.password = password.password;
 
-							user.save(function(err) {
+							user.save((err) => {
 								if (!err) { resolve(user._id); } else { reject(err); }
 							});
 
@@ -35,17 +33,17 @@ module.exports = function(req, res, next) {
 				} else { reject(err); }
 			});
 
-		}).then(function(userId) {
+		}).then((userId) => {
 
 			action.end(200, {
-				authToken: r.jwt.sign({ _id: userId }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
+				authToken: cm.libs.jwt.sign({ _id: userId }, process.env.AUTH_SECRET, { expiresIn: cm.app.get('AUTH_TOKEN_EXPIRES_IN') }),
 				msg: {
-					title: r.hardData[req.session.language].msgs.titles[1],
-					info: r.hardData[req.session.language].msgs.infos[1]
+					title: cm.hardData[action.req.session.language].msgs.titles[1],
+					info: cm.hardData[action.req.session.language].msgs.infos[1]
 				}
 			});
 
-		}, function(err) {
+		}, (err) => {
 			action.end(400, err);
 		});
 	});

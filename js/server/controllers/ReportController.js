@@ -1,40 +1,57 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(app, route) {
+module.exports = (app, route) => {
 
-	var authorize = r.modules.authorize;
-	var rest = r.restful.model('report', app.models.Report).methods(['post', 'get', 'put', 'delete']);
+	let rest = cm.libs.restful.model('report', app.models.Report).methods(['post', 'get', 'put', 'delete']);
+	cm.Report = rest;
 
-	rest.before('post', [authorize.userToken, authorize.reportAction, r.actions.report.post.before]);
-	rest.after('post', r.actions.report.post.after);
+	rest.before('post', [
+		cm.User.validateUserToken,
+		cm.Report.validateReportAction,
+		cm.actions.report.post
+	]);
 
-	rest.before('get', [authorize.reportAction, function(req, res, next) {
+	rest.before('get', [cm.Report.validateReportAction, (req, res, next) => {
 
 		switch (req.query.subject) {
 
 			case 'bySearchQuery':
 			case 'newlyAdded':
 			case 'byUser':
-				r.actions.report.getByQuery(req, res, next);
+
+				cm.actions.report.getByQuery(req, res, next);
 				break;
 
 			case 'lastViewed':
-				authorize.userToken(req, res, function() {
-					r.actions.report.getByIds(req, res, next);
+
+				cm.User.validateUserToken(req, res, () => {
+					cm.actions.report.getByIds(req, res, next);
 				});
+
 				break;
 
 			case 'singleOne':
-				authorize.userToken(req, res, function() {
-					r.actions.report.getById(req, res, next);
+
+				cm.User.validateUserToken(req, res, () => {
+					cm.actions.report.getById(req, res, next);
 				});
+
 				break;
 		}
 	}]);
 
-	rest.before('put', [authorize.userToken, authorize.reportAction, r.actions.report.put.before]);
-	rest.before('delete', [authorize.userToken, authorize.reportAction, r.actions.report.delete.before]);
+	rest.before('put', [
+		cm.User.validateUserToken,
+		cm.Report.validateReportAction,
+		cm.actions.report.put
+	]);
+
+	rest.before('delete', [
+		cm.User.validateUserToken,
+		cm.Report.validateReportAction,
+		cm.actions.report.delete
+	]);
 
 	rest.register(app, route);
-	return function(req, res, next) { next(); };
+	return (req, res, next) => { next(); };
 };

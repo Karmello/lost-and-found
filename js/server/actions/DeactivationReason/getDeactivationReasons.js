@@ -1,22 +1,18 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		r.DeactivationReason.aggregate([
-			{
-				$project: {
-					'index': 1,
-					'label': '$label.' + req.session.language
-				}
+	let action = new cm.prototypes.Action(args);
+
+	cm.DeactivationReason.aggregate([
+		{
+			$project: {
+				'index': 1,
+				'label': '$label.' + action.req.session.language
 			}
+		}
 
-		], function(err, deactivationReasons) {
-
-			if (!err && deactivationReasons) {
-				res.status(200).send(deactivationReasons);
-
-			} else { res.status(500).send(); }
-		});
-	}
+	], (err, deactivationReasons) => {
+		if (!err && deactivationReasons) { action.end(200, deactivationReasons); } else { action.end(500, err); }
+	});
 };

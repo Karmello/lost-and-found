@@ -1,33 +1,25 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var action = new r.prototypes.Action(arguments);
-	action.id = req.query.action;
+	let action = new cm.prototypes.Action(args);
 
-	r.modules.authorize.userToken(req, res, function() {
+	// Authorizing user token
+	cm.User.validateUserToken(action.req, action.res, () => {
 
-		new r.Promise(function(resolve, reject) {
+		// Getting user from db
+		cm.User.findOne({ _id: action.req.decoded._id }, (err, user) => {
 
-			r.User.findOne({ _id: req.decoded._id }, function(err, user) {
+			if (!err && user) {
 
-				if (!err && user) {
+				// Updating current session
+				action.req.session.theme = user.config.theme;
+				action.req.session.language = user.config.language;
 
-					req.session.theme = user.config.theme;
-					req.session.language = user.config.language;
+				// Sending user back to client
+				action.end(200, { user: user });
 
-					resolve({ user: user });
-
-				} else { reject(err); }
-			});
-
-		}).then(function(data) {
-
-			action.end(200, data);
-
-		}, function(err) {
-
-			action.end(400, err);
+			} else { action.end(400, err); }
 		});
 	});
 };

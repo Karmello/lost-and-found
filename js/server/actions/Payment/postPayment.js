@@ -1,71 +1,56 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
+	action.req.body.userId = action.req.decoded._id;
 
-		new r.Promise(function(resolve, reject) {
+	let newPayment = new cm.Payment(action.req.body);
 
-			action.req.body.userId = action.req.decoded._id;
-			var newPayment = new r.Payment(action.req.body);
+	newPayment.validate((err) => {
 
-			// Validating form data
+		// Form data valid
+		if (!err) {
 
-			newPayment.validate(function(err) {
+			// Getting payment config
+			let paymentConfig = cm.modules.paypalModule.createPaymentConfig(action, newPayment);
 
-				// Form data valid
+			// Creating paypal payment object
+			cm.libs.paypal.payment.create(paymentConfig, (err, payment) => {
+
 				if (!err) {
 
-					// Getting payment config
-					var paymentConfig = r.modules.paypalModule.createPaymentConfig(action, newPayment);
+					action.req.session.paymentId = payment.id;
 
-					// Creating paypal payment object
-					r.paypal.payment.create(paymentConfig, function(err, payment) {
+					// Distinguishing between payment methods
+					switch (payment.payer.payment_method) {
 
-						if (!err) {
+						case 'credit_card':
 
-							req.session.paymentId = payment.id;
+							cm.modules.paypalModule.makeCreditCardPayment(payment).then(() => {
+								cm.modules.paypalModule.finalizePayment(payment).then(() => {
 
-							// Distinguishing between payment methods
-							switch (payment.payer.payment_method) {
+									action.end(200, data);
 
-								case 'credit_card':
+								}, (err) => { action.end(400, err); });
+							}, (err) => { action.end(400, err); });
 
-									r.modules.paypalModule.makeCreditCardPayment(payment).then(function() {
-										r.modules.paypalModule.finalizePayment(payment).then(function() {
-											resolve();
+							break;
 
-										}, function(err) { reject(err); });
+						case 'paypal':
 
-									}, function(err) { reject(err); });
-
-									break;
-
-								case 'paypal':
-
-									for (var i = 0; i < payment.links.length; i++) {
-										if (payment.links[i].method === 'REDIRECT') {
-											return resolve({ url: payment.links[i].href });
-										}
-									}
-
-									break;
+							for (let i = 0; i < payment.links.length; i++) {
+								if (payment.links[i].method === 'REDIRECT') {
+									return action.end(200, { url: payment.links[i].href });
+								}
 							}
 
-						} else { reject(err); }
-					});
+							break;
+					}
 
-				} else { reject(err); }
+				} else { action.end(400, err); }
 			});
 
-		}).then(function(data) {
-
-			action.end(200, data);
-
-		}, function(err) {
-
-			action.end(400, err);
-		});
-	}
+		} else { action.end(400, err); }
+	});
 };

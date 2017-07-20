@@ -1,64 +1,26 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var getPromise = function(user, i) {
+	let action = new cm.prototypes.Action(args);
 
-		return new r.Promise(function(resolve) {
+	cm.User.findOne({ _id: action.req.decoded._id }, (err, user) => {
 
-			r.Report.findOne({ _id: user.reportsRecentlyViewed[i] }, function(err, report) {
+		if (!err && user) {
 
-				if (!err && report) {
-					reports.push(report);
+			let tasks = [];
 
-				} else {
-					user.reportsRecentlyViewed.splice(i, 1);
-				}
+			for (let userId of user.reportsRecentlyViewed.reverse()) {
+				tasks.push(cm.Report.findOne({ _id: userId }));
+			}
 
-				resolve();
-			});
-		});
-	};
-
-
-
-	var action = new r.prototypes.Action(arguments);
-	var reports = [];
-
-	new r.Promise(function(resolve, reject) {
-
-		r.User.findOne({ _id: req.decoded._id }, function(err, user) {
-
-			if (!err && user) {
-
-				var promises = [];
-				var initialIdsCount = user.reportsRecentlyViewed.length;
-
-				for (var i = initialIdsCount - 1; i >= 0 ; i--) {
-					promises.push(getPromise(user, i));
-				}
-
-				r.Promise.all(promises).then(function() {
-
-					if (user.reportsRecentlyViewed.length < initialIdsCount) {
-						user.save({ validateBeforeSave: false });
-					}
-
-					resolve({
-						meta: { count: reports.length },
-						collection: reports
-					});
+			cm.libs.Promise.all(tasks).then((reports) => {
+				action.end(200, {
+					meta: { count: reports.length },
+					collection: reports
 				});
+			});
 
-			} else { reject(err); }
-		});
-
-	}).then(function(data) {
-
-		action.end(200, data);
-
-	}, function(err) {
-
-		action.end(400, err);
+		} else { action.end(400, err); }
 	});
 };

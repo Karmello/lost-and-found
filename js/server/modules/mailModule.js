@@ -1,14 +1,18 @@
-// jshint multistr:true
-var r = require(global.paths.server + '/requires');
-var transporter = r.nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_PASS } });
+const cm = require(global.paths.server + '/cm');
 
-
+let transporter = cm.libs.nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+		user: process.env.GMAIL_USER,
+		pass: process.env.GMAIL_PASS
+	}
+});
 
 module.exports = {
-	create: function(id, language, receiverMail, data) {
+	create: (id, language, receiverMail, data) => {
 
-		var hardData = require(global.paths.root + '/public/json/hardCodedData.json')[language];
-		var mail = { from: process.env.GMAIL_USER, to: receiverMail };
+		let hardData = require(global.paths.root + '/public/json/hardCodedData.json')[language];
+		let mail = { from: process.env.GMAIL_USER, to: receiverMail };
 
 		switch (id) {
 
@@ -53,9 +57,9 @@ module.exports = {
 				return mail;
 		}
 	},
-	send: function(mail, cb) {
+	send: (mail, cb) => {
 
-		transporter.sendMail(mail, function(err, info) {
+		transporter.sendMail(mail, (err, info) => {
 			cb(err, info);
 		});
 	}

@@ -1,22 +1,35 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(app, route) {
+module.exports = (app, route) => {
 
-	var authorize = r.modules.authorize;
-	var rest = r.restful.model('user', app.models.User).methods(['post', 'get', 'put', 'delete']);
+	let rest = cm.libs.restful.model('user', app.models.User).methods(['post', 'get', 'put', 'delete']);
+	cm.User = rest;
 
-	rest.before('post', [authorize.userAction, function(req, res, next) {
+	rest.before('post', [cm.User.validateUserAction, (req, res, next) => {
 
-		if (r.actions.user.post[req.query.action]) {
-			r.actions.user.post[req.query.action](req, res, next);
+		if (cm.actions.user.post[req.query.action]) {
+			cm.actions.user.post[req.query.action](req, res, next);
 
 		} else { res.send(400); }
 	}]);
 
-	rest.before('get', [authorize.userToken, r.actions.user.get.before]);
-	rest.before('put', [authorize.userToken, authorize.userAction, r.actions.user.put.before]);
-	rest.before('delete', [authorize.userToken, authorize.userAction, r.actions.user.delete.before]);
+	rest.before('get', [
+		cm.User.validateUserToken,
+		cm.actions.user.get
+	]);
+
+	rest.before('put', [
+		cm.User.validateUserToken,
+		cm.User.validateUserAction,
+		cm.actions.user.put
+	]);
+
+	rest.before('delete', [
+		cm.User.validateUserToken,
+		cm.User.validateUserAction,
+		cm.actions.user.delete
+	]);
 
 	rest.register(app, route);
-	return function(req, res, next) { next(); };
+	return (req, res, next) => { next(); };
 };

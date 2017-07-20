@@ -84,6 +84,6 @@
     "promise": "^7.1.1",
     "restangular": "^1.5.2",
     "rimraf": "^2.5.4",
-    "socket.io": "^1.7.1"
+    "socket.io": "^2.0.3"
   }
 }

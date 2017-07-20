@@ -1,49 +1,31 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var action = new r.prototypes.Action(arguments);
-	var query = {};
+	let action = new cm.prototypes.Action(args);
+	let query = {};
 
-	new r.Promise(function(resolve, reject) {
+	if (action.req.query.userId) { query.userId = action.req.query.userId; }
+	if (action.req.query.title) { query.title = { '$regex': action.req.query.title, '$options': 'i' }; }
+	if (action.req.query.filter && action.req.query.filter != 'all') { query['startEvent.type'] = action.req.query.filter; }
 
-		if (action.req.query.filter && action.req.query.filter != 'all') { query['startEvent.type'] = action.req.query.filter; }
-		if (action.req.query.title) { query.title = { '$regex': action.req.query.title, '$options': 'i' }; }
-		if (action.req.query.category1) { query.category1 = action.req.query.category1; }
-		if (action.req.query.category2) { query.category2 = action.req.query.category2; }
-		if (action.req.query.category3) { query.category3 = action.req.query.category3; }
-		if (action.req.query.userId) { query.userId = action.req.query.userId; }
+	for (let i = 1; i <= 3; i++) {
+		let category = 'category' + i;
+		if (action.req.query[category]) { query[category] = action.req.query[category]; }
+	}
 
-		// Getting requested reports count
-		r.Report.count(query, function(err, count) {
+	let tasks = [];
+	let limit = Number(action.req.query.limit) || cm.app.get('REPORTS_MAX_GET');
 
-			if (!err) {
+	tasks.push(cm.Report.count(query));
+	tasks.push(cm.Report.find(query).skip(Number(action.req.query.skip)).limit(limit).sort(action.req.query.sort).exec());
 
-				// Getting reports
-				r.Report.find(query)
-				.skip(Number(req.query.skip))
-				.limit(Number(req.query.limit) || global.app.get('REPORTS_MAX_GET'))
-				.sort(req.query.sort)
-				.exec(function(err, reports) {
+	cm.libs.Promise.all(tasks).then((data) => {
 
-					if (!err && reports) {
-						resolve({
-							meta: { count: count },
-							collection: reports
-						});
-
-					} else { reject(err); }
-				});
-
-			} else { reject(err); }
+		action.end(200, {
+			meta: { count: data[0] },
+			collection: data[1]
 		});
 
-	}).then(function(data) {
-
-		action.end(200, data);
-
-	}, function(err) {
-
-		action.end(400, err);
-	});
+	}, (err) => { action.end(400, err); });
 };

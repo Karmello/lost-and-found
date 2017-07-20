@@ -1,19 +1,18 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(report) {
+module.exports = (report) => {
 
-	return new r.Promise(function(resolve, reject) {
+	return new cm.libs.Promise((resolve, reject) => {
 
-		report.validate(function(err1) {
-
-			report.startEvent.validate(function(err2) {
+		report.validate((err1) => {
+			report.startEvent.validate((err2) => {
 
 				if (!err1 && !err2) {
 					resolve();
 
 				} else {
 
-					var err = { name: 'ValidationError', errors: {} };
+					let err = { name: 'ValidationError', errors: {} };
 
 					if (err1) {
 						Object.assign(err.errors, err1.errors);

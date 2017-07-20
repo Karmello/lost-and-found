@@ -1,13 +1,13 @@
-const r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 let singleImgToAws = (subject, file) => {
 
-	return new r.Promise((resolve, reject) => {
+	return new cm.libs.Promise((resolve, reject) => {
 
 		let body = { fileTypes: [file.fileType] };
 		if (file.reportId) { body.reportId = file.reportId; }
 
-		r.modules.aws3Module.get_upload_credentials({
+		cm.modules.aws3Module.getUploadCredentials({
 			headers: { subject: subject },
 			body: body,
 			decoded: { _id: file.userId }
@@ -15,7 +15,7 @@ let singleImgToAws = (subject, file) => {
 
 			file.filename = credentials[0].awsFilename;
 
-			r.modules.aws3Module.s3.putObject({
+			cm.modules.aws3Module.s3.putObject({
 				Bucket: 'laf.useruploads',
 				Key: credentials[0].awsFormData.key,
 				ACL: credentials[0].awsFormData.acl,
@@ -40,9 +40,9 @@ module.exports = {
 		let tasks = [];
 
 		for (let i = 0; i < files.length; i++) {
-			tasks.push(singleImgToAws(r.setup.subject.toLowerCase() + '_photo', files[i]));
+			tasks.push(singleImgToAws(cm.setup.subject.toLowerCase() + '_photo', files[i]));
 		}
 
-		return r.Promise.all(tasks);
+		return cm.libs.Promise.all(tasks);
 	}
 };

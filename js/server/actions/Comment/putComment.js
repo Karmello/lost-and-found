@@ -1,60 +1,47 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
 
-		new r.Promise(function(resolve, reject) {
+	// Getting zero level comment
+	cm.Comment.findOne({ _id: action.req.query.parentId || action.req.params.id }, (err, comment) => {
 
-			// Getting zero level comment
-			r.Comment.findOne({ _id: req.query.parentId || req.params.id }, function(err, comment) {
+		if (!err && comment) {
 
-				if (!err && comment) {
+			let commentToBeEdited;
 
-					var commentToBeEdited;
+			// Setting comment to be edited
+			if (action.req.query.parentId) {
+				commentToBeEdited = comment.comments.id(action.req.params.id);
 
-					// Setting comment to be edited
-					if (req.query.parentId) {
-						commentToBeEdited = comment.comments.id(req.params.id);
+			} else {
+				commentToBeEdited = comment;
+			}
+
+			switch (action.req.query.action) {
+
+				case 'toggleLike':
+
+					let index = commentToBeEdited.likes.indexOf(action.req.decoded._id);
+
+					if (index == -1) {
+						commentToBeEdited.likes.push(action.req.decoded._id);
 
 					} else {
-						commentToBeEdited = comment;
+						commentToBeEdited.likes.splice(index, 1);
 					}
 
-					switch (req.query.action) {
+					break;
 
-						case 'toggleLike':
+				default:
+					return action.end(400, 'NO_PUT_COMMENT_ACTION_NAME');
+			}
 
-							var index = commentToBeEdited.likes.indexOf(req.decoded._id);
-
-							if (index == -1) {
-								commentToBeEdited.likes.push(req.decoded._id);
-
-							} else {
-								commentToBeEdited.likes.splice(index, 1);
-							}
-
-							break;
-
-						default:
-							return reject('NO_PUT_COMMENT_ACTION_NAME');
-					}
-
-					comment.save({ validateBeforeSave: false }, function(err) {
-						if (!err) { resolve(commentToBeEdited); } else { reject(err); }
-					});
-
-				} else { reject(err); }
+			comment.save({ validateBeforeSave: false }, (err) => {
+				if (!err) { action.end(200, commentToBeEdited); } else { action.end(400, err); }
 			});
 
-		}).then(function(data) {
-
-			action.end(200, data);
-
-		}, function(err) {
-
-			action.end(400, err);
-		});
-	}
+		} else { action.end(400, err); }
+	});
 };

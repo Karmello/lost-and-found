@@ -1,11 +1,11 @@
-var path = global.paths.server + '/schemas/';
+let path = global.paths.server + '/schemas/';
 
 module.exports = {
-	Comment: require(path + 'CommentSchema'),
-	ContactType: require(path + 'ContactTypeSchema'),
-	Counter: require(path + 'CounterSchema'),
-	DeactivationReason: require(path + 'DeactivationReasonSchema'),
-	Payment: require(path + 'PaymentSchema'),
-	Report: require(path + 'ReportSchema'),
-	User: require(path + 'UserSchema')
+	Comment: require(path + 'Comment/Comment'),
+	ContactType: require(path + 'ContactType/ContactType'),
+	Counter: require(path + 'Counter/Counter'),
+	DeactivationReason: require(path + 'DeactivationReason/DeactivationReason'),
+	Payment: require(path + 'Payment/Payment'),
+	Report: require(path + 'Report/Report'),
+	User: require(path + 'User/User')
 };

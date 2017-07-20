@@ -1,13 +1,13 @@
 module.exports = {
 	comment: {
-		post: require('./Comment/postComment'),
+		delete: require('./Comment/deleteComment'),
 		get: require('./Comment/getComment'),
-		put: require('./Comment/putComment'),
-		delete: require('./Comment/deleteComment')
+		post: require('./Comment/postComment'),
+		put: require('./Comment/putComment')
 	},
 	contact_type: {
-		post: require('./ContactType/postContactType'),
-		get: require('./ContactType/getContactTypes')
+		get: require('./ContactType/getContactTypes'),
+		post: require('./ContactType/postContactType')
 	},
 	deactivation_reason: {
 		get: require('./DeactivationReason/getDeactivationReasons')
@@ -23,23 +23,23 @@ module.exports = {
 		post: require('./Payment/postPayment')
 	},
 	report: {
-		post: require('./Report/postReport'),
+		delete: require('./Report/deleteReport'),
 		getById: require('./Report/getReportById'),
 		getByIds: require('./Report/getReportByIds'),
 		getByQuery: require('./Report/getReportBySearchQuery'),
+		post: require('./Report/postReport'),
 		put: require('./Report/putReport'),
-		delete: require('./Report/deleteReport'),
 		runValidation: require('./Report/runReportValidation')
 	},
 	user: {
+		delete: require('./User/deleteUser'),
+		get: require('./User/getUser'),
 		post: {
 			auth: require('./User/authUser'),
 			login: require('./User/loginUser'),
 			register: require('./User/registerUser'),
 			updatePass: require('./User/updateUserPass')
 		},
-		get: require('./User/getUser'),
-		put: require('./User/putUser'),
-		delete: require('./User/deleteUser')
+		put: require('./User/putUser')
 	}
 };

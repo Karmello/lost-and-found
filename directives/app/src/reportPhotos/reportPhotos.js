@@ -50,9 +50,10 @@
 
 					scope.$watch(function() { return scope.report; }, function(report, oldReport) {
 
-						if (oldReport && oldReport._id == report._id && !firstLoad) { return; }
-
 						if (report) {
+
+							if (oldReport && oldReport._id == report._id && !firstLoad) { return; }
+
 							scope.srcThumbsCollection.init(scope.report.photos);
 							reportPhotosService.initSlidesCollection(scope);
 							firstLoad = false;

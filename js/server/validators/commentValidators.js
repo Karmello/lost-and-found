@@ -1,15 +1,15 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 module.exports = {
     content: {
         length: {
             type: 'wrong_length',
             limits: {
-                max: global.app.get('COMMENT_MAX_LENGTH')
+                max: cm.app.get('COMMENT_MAX_LENGTH')
             },
-            validator: function(content) {
+            validator: (content) => {
 
-                return content.length <= global.app.get('COMMENT_MAX_LENGTH');
+                return content.length <= cm.app.get('COMMENT_MAX_LENGTH');
             }
         }
     }

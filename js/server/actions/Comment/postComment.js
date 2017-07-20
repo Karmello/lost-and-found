@@ -1,62 +1,49 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
-		var newComment;
+	let action = new cm.prototypes.Action(args);
+	let newComment;
 
-		new r.Promise(function(resolve, reject) {
+	if (action.req.query.reportId) {
 
-			if (req.query.reportId) {
+		// Creating new comment instance
+		newComment = new cm.Comment(action.req.body);
+		newComment.parentId = action.req.query.reportId;
 
-				// Creating new comment instance
-				newComment = new r.Comment(req.body);
-				newComment.parentId = req.query.reportId;
+		// Saving comment
+		newComment.save((err) => {
+			if (!err) { action.end(200); } else { action.end(400, err); }
+		});
 
-				// Saving comment
-				newComment.save(function(err) {
-					if (!err) { resolve(); } else { reject(err); }
-				});
+	} else if (action.req.query.parentId) {
 
-			} else if (req.query.parentId) {
+		cm.Comment.findOne({ _id: action.req.query.parentId }, (err, comment) => {
 
-				r.Comment.findOne({ _id: req.query.parentId }, function(err, comment) {
+			if (!err && comment) {
 
-					if (!err && comment) {
+				// Creating new subcomment
+				newComment = new cm.Comment(action.req.body);
+				newComment.parentId = comment._id;
+				newComment.comments = null;
 
-						// Creating new subcomment
-						newComment = new r.Comment(req.body);
-						newComment.parentId = comment._id;
-						newComment.comments = null;
+				newComment.validate((err) => {
 
-						newComment.validate(function(err) {
+					if (!err) {
 
-							if (!err) {
+						// Pushing new subcomment to comments array
+						comment.comments.unshift(newComment);
 
-								// Pushing new subcomment to comments array
-								comment.comments.unshift(newComment);
-
-								// Saving updated comment
-								comment.save({ validateBeforeSave: false }, function(err) {
-									if (!err) { resolve(); } else { reject(err); }
-								});
-
-							} else { reject(err); }
+						// Saving updated comment
+						comment.save({ validateBeforeSave: false }, (err) => {
+							if (!err) { action.end(200); } else { action.end(400, err); }
 						});
 
-					} else { reject(err); }
+					} else { action.end(400, err); }
 				});
 
-			} else { reject('NO_REPORT_OR_COMMENT_ID'); }
-
-		}).then(function() {
-
-			action.end(200);
-
-		}, function(err) {
-
-			action.end(400, err);
+			} else { action.end(400, err); }
 		});
-	}
+
+	} else { action.end(400, 'NO_REPORT_OR_COMMENT_ID'); }
 };

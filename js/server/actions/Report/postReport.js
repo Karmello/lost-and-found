@@ -1,39 +1,31 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
 
-		var report = new r.Report({
-			userId: req.decoded._id,
-			category1: req.body.category1,
-			category2: req.body.category2,
-			category3: req.body.category3,
-			title: req.body.title,
-			description: req.body.description,
-			serialNo: req.body.serialNo
+	let report = new cm.Report({
+		userId: action.req.decoded._id,
+		category1: action.req.body.category1,
+		category2: action.req.body.category2,
+		category3: action.req.body.category3,
+		title: action.req.body.title,
+		description: action.req.body.description,
+		serialNo: action.req.body.serialNo
+	});
+
+	if (action.req.body._id) { report._id = action.req.body._id; }
+	report.startEvent = new cm.ReportEvent(action.req.body.startEvent);
+
+	cm.actions.report.runValidation(report).then(() => {
+		report.save({ validateBeforeSave: false }, (err) => {
+
+			if (!err) {
+				cm.Report.emitReportsCount(report.startEvent.type);
+				action.end(201, report);
+
+			} else { action.end(400, err); }
 		});
 
-		if (req.body._id) { report._id = req.body._id; }
-
-		report.startEvent = new r.ReportEvent(req.body.startEvent);
-
-
-
-		r.actions.report.runValidation(report).then(function () {
-
-			report.save({ validateBeforeSave: false }, function(err) {
-
-				if (!err) {
-					r.modules.socketModule.emitReportsCount(report.startEvent.type);
-					action.end(201, report);
-
-				} else { action.end(400, err); }
-			});
-
-		}, function(err) {
-			action.end(400, err);
-		});
-	}
+	}, (err) => { action.end(400, err); });
 };

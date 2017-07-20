@@ -1,14 +1,15 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(app, route) {
+module.exports = (app, route) => {
 
-	var rest = r.restful.model('comment', app.models.Comment).methods(['post', 'get', 'put', 'delete']);
+	let rest = cm.libs.restful.model('comment', app.models.Comment).methods(['post', 'get', 'put', 'delete']);
+	cm.Comment = rest;
 
-	rest.before('post', [r.modules.authorize.userToken, r.actions.comment.post.before]);
-	rest.before('get', [r.actions.comment.get.before]);
-	rest.before('put', [r.modules.authorize.userToken, r.actions.comment.put.before]);
-	rest.before('delete', [r.modules.authorize.userToken, r.actions.comment.delete.before]);
+	rest.before('post', [cm.User.validateUserToken, cm.actions.comment.post]);
+	rest.before('get', [cm.actions.comment.get]);
+	rest.before('put', [cm.User.validateUserToken, cm.actions.comment.put]);
+	rest.before('delete', [cm.User.validateUserToken, cm.actions.comment.delete]);
 
 	rest.register(app, route);
-	return function(req, res, next) { next(); };
+	return (req, res, next) => { next(); };
 };

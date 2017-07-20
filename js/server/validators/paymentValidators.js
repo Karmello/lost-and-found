@@ -1,14 +1,14 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 module.exports = {
     method: {
         correctness: {
             type: 'incorrect',
-            validator: function (method) {
+            validator: (method) => {
 
-                var methods = Object.keys(r.hardData.en.payment.methods);
+                let methods = Object.keys(cm.hardData.en.payment.methods);
 
-                for (var i = 0; i < methods.length; i++) {
+                for (let i = 0; i < methods.length; i++) {
                     if (methods[i] == method) {
                         return true;
                     }
@@ -21,10 +21,10 @@ module.exports = {
     currency: {
         correctness: {
             type: 'incorrect',
-            validator: function (currency) {
+            validator: (currency) => {
 
-                for (var i = 0; i < r.hardData.en.payment.currencies.length; i++) {
-                    if (r.hardData.en.payment.currencies[i].value == currency) {
+                for (let i = 0; i < cm.hardData.en.payment.currencies.length; i++) {
+                    if (cm.hardData.en.payment.currencies[i].value == currency) {
                         return true;
                     }
                 }
@@ -36,11 +36,11 @@ module.exports = {
     creditCardType: {
         correctness: {
             type: 'incorrect',
-            validator: function (creditCardType) {
+            validator: (creditCardType) => {
 
-                var creditCardTypes = Object.keys(r.hardData.en.payment.creditCardTypes);
+                let creditCardTypes = Object.keys(cm.hardData.en.payment.creditCardTypes);
 
-                for (var i = 0; i < creditCardTypes.length; i++) {
+                for (let i = 0; i < creditCardTypes.length; i++) {
                     if (creditCardTypes[i] == creditCardType) {
                         return true;
                     }
@@ -53,7 +53,7 @@ module.exports = {
     creditCardNumber: {
         correctness: {
             type: 'incorrect',
-            validator: function(creditCardNumber) {
+            validator: (creditCardNumber) => {
 
                 return /^[0-9]{12,19}$/.test(creditCardNumber);
             }
@@ -62,7 +62,7 @@ module.exports = {
     creditCardExpireMonth: {
         correctness: {
             type: 'incorrect',
-            validator: function(creditCardExpireMonth) {
+            validator: (creditCardExpireMonth) => {
 
                 return /^(0?[1-9]|1[012])$/.test(creditCardExpireMonth);
             }
@@ -71,7 +71,7 @@ module.exports = {
     creditCardExpireYear: {
         correctness: {
             type: 'incorrect',
-            validator: function(creditCardExpireYear) {
+            validator: (creditCardExpireYear) => {
 
                 return /^[0-9]{4}$/.test(creditCardExpireYear);
             }
@@ -80,7 +80,7 @@ module.exports = {
     cvv2: {
         correctness: {
             type: 'incorrect',
-            validator: function(cvv2) {
+            validator: (cvv2) => {
 
                 return /^[0-9]{3,4}$/.test(cvv2);
             }

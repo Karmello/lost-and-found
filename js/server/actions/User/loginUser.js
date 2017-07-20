@@ -1,58 +1,46 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var action = new r.prototypes.Action(arguments);
-	action.id = req.query.action;
+	let action = new cm.prototypes.Action(args);
 
-	var wrongCredentialsErr = {
+	let wrongCredentialsErr = {
 		name: 'ValidationError',
 		message: 'user validation failed',
 		errors: { username: { kind: 'wrong_credentials' } }
 	};
 
-	new r.Promise(function(resolve, reject) {
+	cm.User.validateCaptcha(action).then(() => {
+		cm.User.findOne({ username: action.req.body.username }, (err, user) => {
 
-		r.modules.authorize.captcha(action).then(function() {
+			if (!err && user) {
 
-			r.User.findOne({ username: req.body.username }, function(err, user) {
+				user.comparePasswords(action.req.body.password, (err, isMatch) => {
 
-				if (!err && user) {
+					if (isMatch) {
 
-					user.comparePasswords(req.body.password, function(err, isMatch) {
+						action.req.session.theme = user.config.theme;
+						action.req.session.language = user.config.language;
 
-						if (isMatch) {
+						action.resetBadCount();
 
-							req.session.theme = user.config.theme;
-							req.session.language = user.config.language;
+						action.end(200, {
+							user: user,
+							authToken: cm.libs.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: cm.app.get('AUTH_TOKEN_EXPIRES_IN') })
+						});
 
-							resolve({
-								user: user,
-								authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') })
-							});
+					} else {
 
-						} else {
+						action.setAsBad();
+						action.end(400, wrongCredentialsErr);
+					}
+				});
 
-							action.setAsBad();
-							reject(wrongCredentialsErr);
-						}
-					});
+			} else {
 
-				} else {
-
-					action.setAsBad();
-					reject(wrongCredentialsErr);
-				}
-			});
+				action.setAsBad();
+				action.end(400, wrongCredentialsErr);
+			}
 		});
-
-	}).then(function(data) {
-
-		action.resetBadCount();
-		action.end(200, data);
-
-	}, function(err) {
-
-		action.end(400, err);
 	});
 };

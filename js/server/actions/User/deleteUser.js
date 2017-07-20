@@ -1,45 +1,27 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
+	let tasks = [];
 
-		new r.Promise(function(resolve, reject) {
+	tasks.push(cm.User.findOne({ _id: action.req.decoded._id }));
+	tasks.push(cm.DeactivationReason.findOne({ _id: action.req.query.deactivationReasonId }));
 
-			r.User.findOne({ _id: req.decoded._id }, function(err, user) {
+	cm.libs.Promise.all(tasks).then((data) => {
 
-				if (!err && user) {
+		let user = data[0];
+		let deactivationReason = data[1];
 
-					r.DeactivationReason.findOne({ _id: req.query.deactivationReasonId }, function(err, deactivationReason) {
+		user.remove((err) => {
 
-						if (!err && deactivationReason) {
+			if (!err) {
+				deactivationReason.count += 1;
+				deactivationReason.save();
+				action.end(204);
 
-							user.remove(function(err) {
-
-								if (!err) {
-
-									deactivationReason.count += 1;
-									deactivationReason.save();
-
-									resolve();
-
-								} else { action.end(500, err); }
-							});
-
-						} else { reject(err); }
-					});
-
-				} else { reject(err); }
-			});
-
-		}).then(function(data) {
-
-			action.end(204, data);
-
-		}, function(err) {
-
-			action.end(400, err);
+			} else { action.end(500, err); }
 		});
-	}
+
+	}, (err) => { action.end(400, err); });
 };

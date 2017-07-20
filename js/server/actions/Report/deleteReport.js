@@ -1,33 +1,20 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
 
-		new r.Promise(function(resolve, reject) {
+	cm.Report.findOne({ _id: action.req.params.id }, (err, report) => {
 
-			r.Report.findOne({ _id: req.params.id }, function(err, report) {
+		if (!err && report) {
+			if (action.req.decoded._id == report.userId) {
 
-				if (!err && report) {
-					if (report.userId == req.decoded._id) {
+				report.remove((err) => {
+					if (!err) { action.end(204); } else { action.end(400, err); }
+				});
 
-						report.remove(function(err) {
-							if (!err) { resolve(); } else { reject(err); }
-						});
+			} else { action.end(400, 'REPORT_DELETE_NOT_ALLOWED'); }
 
-					} else { reject('REPORT_DELETE_NOT_ALLOWED'); }
-
-				} else { reject(err); }
-			});
-
-		}).then(function() {
-
-			action.end(204);
-
-		}, function(err) {
-
-			action.end(400, err);
-		});
-	}
+		} else { action.end(400, err); }
+	});
 };

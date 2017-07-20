@@ -1,39 +1,34 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
 
-		new r.Promise(function(resolve, reject) {
+	new cm.libs.Promise((resolve, reject) => {
 
-			if (req.query.reportId) {
+		if (action.req.query.reportId) {
 
-				r.Report.findOne({ _id: req.query.reportId }, function(err, report) {
+			cm.Report.findOne({ _id: action.req.query.reportId }, (err, report) => {
 
-					if (!err && report) {
-						r.User.findOne({ _id: report.userId }, function(err, user) {
-							if (!err && user) { resolve([user]); } else { reject(err); }
-						});
+				if (!err && report) {
+					resolve({ query: { _id: report.userId } });
 
-					} else { reject(err); }
-				});
+				} else { reject(err); }
+			});
 
-			} else {
+		} else {
 
-				let query;
-				if (req.query._id !== req.decoded._id) { query = '-paymentId'; }
+			resolve({
+				query: { _id: action.req.query._id },
+				select: action.req.decoded._id !== action.req.query._id ? '-paymentId' : undefined
+			});
+		}
 
-				r.User.findOne({ _id: req.query._id }, query, function(err, user) {
-					if (!err && user) { resolve([user]); } else { reject(err); }
-				});
-			}
+	}).then((params) => {
 
-		}).then(function(data) {
-			action.end(200, data);
-
-		}, function(err) {
-			action.end(400, err);
+		cm.User.findOne(params.query, params.select, (err, user) => {
+			if (!err && user) { action.end(200, [user]); } else { action.end(400, err); }
 		});
-	}
+
+	}, (err) => { action.end(400, err); });
 };

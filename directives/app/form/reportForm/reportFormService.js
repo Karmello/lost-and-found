@@ -86,7 +86,6 @@
 
 		service.getCurrentDateWithNoTime = function() {
 
-			// Setting max date to current date for all reportForm instances
 			var date = new Date();
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 		};

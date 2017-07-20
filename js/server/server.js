@@ -1,73 +1,53 @@
-const r = require( './requires');
+const cm = require( './cm');
+cm.reject = (err) => { console.error(err); return cm.libs.Promise.reject(err); };
 
-global.paths = {
-	root: r.path.resolve(__dirname, './../..'),
-	server: __dirname
+global.paths = { root: cm.libs.path.resolve(__dirname, './../..'), server: __dirname };
+global.paths.certs = global.paths.root + '/utils/https/certs';
+
+cm.app = cm.libs.express();
+
+cm.hardData = {
+	en: require(global.paths.root + '/public/json/hardCodedData.json').en,
+	pl: require(global.paths.root + '/public/json/hardCodedData.json').pl
 };
 
-if (!process.env.LOADED_MOCHA_OPTS) { require('dotenv').config(); } else { require('dotenv').config({ path: global.paths.root + '/tests/end-to-end/.env' }); }
+cm.init = require('./init/_init');
 
+cm.init.env().then(cm.init.app, cm.reject).then(() => {
 
+	try {
 
-var app = r.express();
-global.app = app;
+		cm.actions = require('./actions/_actions');
+		cm.modules = require('./modules/_modules');
+		cm.prototypes = require('./prototypes/_prototypes');
 
-app.use(r.morgan('dev'));
-app.use(r.bodyParser.urlencoded({ extended: true }));
-app.use(r.bodyParser.json());
-app.use(r.methodOverride('X-HTTP-Method-Override'));
+		cm.init.consts().then(cm.init.session).then(cm.init.paypal).then(() => {
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
+			try {
 
-var hardCodedData = require(global.paths.root + '/public/json/hardCodedData.json');
-r.hardData = { en: hardCodedData.en, pl: hardCodedData.pl };
+				cm.validators = require('./validators/_validators');
 
-r.setups = require('./setups/_setups');
-r.modules = require('./modules/_modules');
-r.prototypes = require('./prototypes/_prototypes');
-r.actions = require('./actions/_actions');
+				cm.init.routes().then(cm.init.db, cm.reject).then(cm.init.modelRefs, cm.reject).then(() => {
 
-r.setups.setupConstants(() => {
-	r.setups.setupSession(() => {
-		r.setups.setupPaypal(() => {
+					const server = cm.libs.https.createServer({
+						key: cm.libs.fs.readFileSync(global.paths.certs + '/server.key'),
+						cert: cm.libs.fs.readFileSync(global.paths.certs + '/server.crt'),
+						passphrase: process.env.HTTPS_PASSPHRASE
+					}, cm.app);
 
-			r.validators = require('./validators/_validators');
+					cm.init.sockets(server).then(() => {
 
-			r.setups.setupRoutes(() => {
-				r.setups.setupDb(() => {
+						server.listen(process.env.PORT, () => {
+					        cm.modules.utilModule.printFormattedLog('App server listening on port ' + process.env.PORT);
+					    });
 
-					r.AppConfig = r.mongoose.model('app_config', require('./schemas/AppConfigSchema'));
-					r.Comment = r.mongoose.model('comment');
-					r.ContactType = r.mongoose.model('contact_type');
-					r.Counter = r.mongoose.model('counter');
-					r.DeactivationReason = r.mongoose.model('deactivation_reason');
-					r.Password = r.mongoose.model('password', require('./schemas/PasswordSchema'));
-					r.Payment = r.mongoose.model('payment');
-					r.Report = r.mongoose.model('report');
-					r.ReportEvent = r.mongoose.model('report_event', require('./schemas/ReportEventSchema'));
-					r.ReportPhoto = r.mongoose.model('report_photo', require('./schemas/ReportPhotoSchema'));
-					r.User = r.mongoose.model('user');
+					}, cm.reject);
+				}, cm.reject);
 
-					var server = r.https.createServer({
-						key: r.fs.readFileSync(global.paths.root + '/utils/https/certs/server.key'),
-    					cert: r.fs.readFileSync(global.paths.root + '/utils/https/certs/server.crt'),
-    					passphrase: process.env.HTTPS_PASSPHRASE
-					}, app);
-
-					r.io = r.socketIO(server);
-
-					server.listen(process.env.PORT, function () {
-				    	var log = 'App server listening on port ' + process.env.PORT;
-				        r.modules.utilModule.printFormattedLog(log);
-				    });
-				});
-			});
+			} catch (ex) { cm.reject(ex); }
 		});
-	});
-});
+
+	} catch (ex) { cm.reject(ex); }
+}, cm.reject);
+
+module.exports = cm;

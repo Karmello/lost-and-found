@@ -1,4 +1,4 @@
-const r = require('./../server/requires');
+const cm = require('./../server/cm');
 const https = require('https');
 
 let task;

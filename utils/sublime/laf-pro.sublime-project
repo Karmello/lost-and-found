@@ -20,16 +20,19 @@
 			"path": "D:\\Workspace\\laf\\dev\\directives"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\js\\server"
-		},
-		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\server\\actions"
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\client"
 		},
 		{
+			"path": "D:\\Workspace\\laf\\dev\\js\\server"
+		},
+		{
 			"path": "D:\\Workspace\\laf\\dev\\js\\setup"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\tests"
 		}
 	]
 }

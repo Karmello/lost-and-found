@@ -139,7 +139,7 @@
 									service.collectionBrowser.byUser.init();
 
 									$timeout(function() {
-										$state.go('app.profile', { _id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
+										$state.go('app.profile', { id: $rootScope.apiData.loggedInUser._id }, { location: 'replace' });
 									});
 
 									break;

@@ -1,11 +1,12 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(app, route) {
+module.exports = (app, route) => {
 
-	var rest = r.restful.model('deactivation_reason', app.models.DeactivationReason).methods(['get']);
+	let rest = cm.libs.restful.model('deactivation_reason', app.models.DeactivationReason).methods(['get']);
+	cm.DeactivationReason = rest;
 
-	rest.before('get', r.actions.deactivation_reason.get.before);
+	rest.before('get', cm.actions.deactivation_reason.get);
 	rest.register(app, route);
 
-	return function(req, res, next) { next(); };
+	return (req, res, next) => { next(); };
 };

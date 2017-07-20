@@ -20,6 +20,7 @@
 
 				$scope.autocomplete = {};
 				$scope.minDate = new Date(2000, 0, 1);
+				$scope.currentDate = reportFormService.getCurrentDateWithNoTime();
 
 				$scope.myForm = reportFormService.getForm($scope);
 			},
@@ -35,8 +36,7 @@
 
 								$rootScope.$on('onAddReportFormShow', function(e, args) {
 
-									var date = reportFormService.getCurrentDateWithNoTime();
-									ReportsRest.addReportModel.set({ startEvent: { date: date } }, true);
+									ReportsRest.addReportModel.set({ startEvent: { date: scope.currentDate } }, true);
 								});
 							}
 
@@ -51,7 +51,7 @@
 								$rootScope.$on('onRespondToReportFormShow', function(e, args) {
 
 									var date = reportFormService.getCurrentDateWithNoTime();
-									ReportsRest.respondToReportModel.set({ date: date }, true);
+									ReportsRest.respondToReportModel.set({ date: scope.currentDate }, true);
 								});
 							}
 

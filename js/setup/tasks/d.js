@@ -1,4 +1,4 @@
-const r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 module.exports = (req, res, next) => {
 
@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 			let tasks = [];
 			for (let doc of docs) { tasks.push(doc.remove()); }
 
-			r.Promise.all(tasks).then((results) => {
+			cm.libs.Promise.all(tasks).then((results) => {
 				next(200, req.query.subject + 's deleted: ' + results.length);
 
 			}, () => { next(400); });

@@ -1,7 +1,7 @@
 module.exports = {
-    trimStrings: function(model, cb) {
+    trimStrings: (model, cb) => {
 
-        for (var key in model) {
+        for (let key in model) {
 
             if (model[key] !== undefined && typeof model[key] == 'string') {
 

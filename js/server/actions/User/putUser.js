@@ -1,72 +1,68 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		let action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
 
-		new r.Promise(function(resolve, reject) {
+	new cm.libs.Promise((resolve, reject) => {
 
-			r.User.findOne({ _id: req.params.id }, 'email firstname lastname country photos config', function(err, user) {
+		cm.User.findOne({ _id: action.req.params.id }, 'email firstname lastname country photos config', (err, user) => {
 
-				if (!err && user) {
+			if (!err && user) {
 
-					user.email = req.body.email;
-					user.firstname = req.body.firstname;
-					user.lastname = req.body.lastname;
-					user.country = req.body.country;
-					user.photos = req.body.photos.slice(0, 1);
-					user.config = req.body.config;
+				user.email = action.req.body.email;
+				user.firstname = action.req.body.firstname;
+				user.lastname = action.req.body.lastname;
+				user.country = action.req.body.country;
+				user.photos = action.req.body.photos.slice(0, 1);
+				user.config = action.req.body.config;
 
-					new r.Promise(function(resolve) {
+				new cm.libs.Promise((resolve) => {
 
-						user.validate(function(err) {
+					user.validate((err) => {
 
-							if (!err) {
-								resolve();
+						if (!err) {
+							resolve();
 
-							} else if (err) {
+						} else if (err) {
 
-								if (err.errors.email && err.errors.email.kind == 'not_unique' && user.email == req.body.email) {
-									delete err.errors.email;
-									if (Object.keys(err.errors).length === 0) { return resolve(); }
-								}
-
-								reject(err);
+							if (err.errors.email && err.errors.email.kind == 'not_unique' && user.email == action.req.body.email) {
+								delete err.errors.email;
+								if (Object.keys(err.errors).length === 0) { return resolve(); }
 							}
-						});
 
-					}).then(function() {
-
-						user.save({ validateBeforeSave: false }, function(err) {
-							if (!err) { resolve(user); } else { reject(err); }
-						});
+							reject(err);
+						}
 					});
 
-				} else { reject(err); }
-			});
+				}).then(() => {
 
-		}).then(function(user) {
+					user.save({ validateBeforeSave: false }, (err) => {
+						if (!err) { resolve(user); } else { reject(err); }
+					});
+				});
 
-			let msg = { title: r.hardData[req.session.language].msgs.titles[1] };
-
-			if (req.headers.action === 'userConfigUpdate') {
-                msg.info = r.hardData[req.session.language].msgs.infos[2];
-				msg.reload = true;
-				req.session.theme = user.config.theme;
-                req.session.language = user.config.language;
-
-			} else {
-				msg.info = r.hardData[req.session.language].msgs.infos[1];
-			}
-
-			action.end(200, {
-				authToken: r.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') }),
-				msg: msg
-			});
-
-		}, function(err) {
-			action.end(400, err);
+			} else { reject(err); }
 		});
-	}
+
+	}).then((user) => {
+
+		let msg = { title: cm.hardData[action.req.session.language].msgs.titles[1] };
+
+		if (action.req.headers.action === 'userConfigUpdate') {
+            msg.info = cm.hardData[action.req.session.language].msgs.infos[2];
+			msg.reload = true;
+			action.req.session.theme = user.config.theme;
+            action.req.session.language = user.config.language;
+
+		} else {
+			msg.info = cm.hardData[action.req.session.language].msgs.infos[1];
+		}
+
+		action.end(200, {
+			authToken: cm.libs.jwt.sign({ _id: user._id }, process.env.AUTH_SECRET, { expiresIn: cm.app.get('AUTH_TOKEN_EXPIRES_IN') }),
+			msg: msg
+		});
+
+	}, (err) => { action.end(400, err); });
 };

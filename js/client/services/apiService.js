@@ -81,7 +81,6 @@
 
 					if (operation == 'getList') {
 
-						for (var i in data.collection) { data.collection[i].user = data.users[i]; }
 						CommentsRest.activeCollectionBrowser.meta = data.meta;
 						return data.collection;
 					}

@@ -34,7 +34,7 @@
 				});
 				}
 			},
-			onEnter: function($rootScope, $stateParams, $timeout, ui, googleMapService) {
+			onEnter: function($rootScope, $stateParams, $timeout, ui, googleMapService, socketService) {
 
 				if ($stateParams.edit === '1') {
 					$rootScope.$broadcast('onEditReportFormShow');
@@ -47,13 +47,17 @@
 				ui.frames.main.activateSwitcher('report');
 				ui.frames.app.activateSwitcher('main');
 				ui.loaders.renderer.stop();
+
+				socketService.socket.emit('joinRoom', 'report/' + $rootScope.apiData.report._id);
 			},
-			onExit: function($rootScope, ReportsRest, reportFormService) {
+			onExit: function($rootScope, ReportsRest, reportFormService, socketService) {
 
 				$rootScope.$broadcast('toggleRespondToReportForm', { visible: false });
 
 				ReportsRest.editReportModel.reset(true, true);
 				reportFormService.editReportForm.scope.loader.start();
+
+				socketService.socket.emit('leaveRoom', 'report/' + $rootScope.apiData.report._id);
 			}
 		});
 	});

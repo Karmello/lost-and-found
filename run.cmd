@@ -27,6 +27,12 @@ if "%1" == "test" (
 		cmd /k "ls" -new_console:d:"%cd%\tests\end-to-end"
 		echo. & echo End to end tests started
 	)
+
+	if "%2" == "-db" (
+		cmd /k "mongod" -new_console:t:mongod
+		cmd /k "ls" -new_console:d:"%cd%\tests\db"
+		echo. & echo Db tests started
+	)
 )
 
 if "%1" == "zip" (

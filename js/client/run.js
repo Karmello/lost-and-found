@@ -1,8 +1,7 @@
 (function() {
 
 	angular.module('appModule')
-	.run(function($rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, socketService,
-					reportsService, uiSetupService) {
+	.run(function($rootScope, $timeout, $state, $moment, apiService, logService, ui, uiThemeService, sessionConst, reportsService, uiSetupService) {
 
 		ui.loaders.renderer.start();
 
@@ -10,7 +9,6 @@
 		uiSetupService.preloadImgs();
 		uiThemeService.include(sessionConst.theme);
 
-		socketService.init();
 		apiService.setup();
 
 		$moment.locale(sessionConst.language);

@@ -1,18 +1,18 @@
-const r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 module.exports = {
 	readImgs: (data) => {
 
 		let tasks = [];
 
-		switch (r.setup.subject) {
+		switch (cm.setup.subject) {
 
 			case 'User':
 
 				for (let config of data) {
 
-					tasks.push(new r.Promise((resolve, reject) => {
-						r.fs.readFile(global.paths.root + config.avatarPath, (err, fileData) => {
+					tasks.push(new cm.libs.Promise((resolve, reject) => {
+						cm.libs.fs.readFile(global.paths.root + config.avatarPath, (err, fileData) => {
 
 							if (!err) {
 								resolve({
@@ -31,24 +31,24 @@ module.exports = {
 			case 'Report':
 
 				let fakeDataPath = global.paths.root + '/resources/fake-data';
-				let userIds = r.fs.readdirSync(fakeDataPath);
+				let userIds = cm.libs.fs.readdirSync(fakeDataPath);
 
 				for (let userId of userIds) {
 
-					let reportIds = r.fs.readdirSync(fakeDataPath + '/' + userId + '/reports');
+					let reportIds = cm.libs.fs.readdirSync(fakeDataPath + '/' + userId + '/reports');
 
 					for (let reportId of reportIds) {
 
 						let imgsFolderPath = fakeDataPath + '/' + userId + '/reports/' + reportId + '/imgs';
-						let imgNames = r.fs.readdirSync(imgsFolderPath);
+						let imgNames = cm.libs.fs.readdirSync(imgsFolderPath);
 
 						for (let imgName of imgNames) {
 
-							tasks.push(new r.Promise((resolve) => {
+							tasks.push(new cm.libs.Promise((resolve) => {
 
 								let imgPath = imgsFolderPath + '/' + imgName;
 
-								r.fs.readFile(imgPath, (err, fileData) => {
+								cm.libs.fs.readFile(imgPath, (err, fileData) => {
 
 									if (!err) {
 										resolve({
@@ -68,6 +68,6 @@ module.exports = {
 				break;
 		}
 
-		return r.Promise.all(tasks);
+		return cm.libs.Promise.all(tasks);
 	}
 };

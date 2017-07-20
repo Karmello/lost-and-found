@@ -1,15 +1,15 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 module.exports = {
     compare: {
         type: 'incorrect',
         validator: function(currentPassword, cb) {
 
-            r.User.findOne({ _id: this.userId }, function(err, user) {
+            cm.User.findOne({ _id: this.userId }, (err, user) => {
 
                 if (!err && user) {
 
-                    user.comparePasswords(currentPassword, function(err, isMatch) {
+                    user.comparePasswords(currentPassword, (err, isMatch) => {
                         if (err) { cb(false); } else { cb(isMatch); }
                     });
 

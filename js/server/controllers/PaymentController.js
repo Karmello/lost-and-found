@@ -1,13 +1,13 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(app, route) {
+module.exports = (app, route) => {
 
-	var authorize = r.modules.authorize;
-	var rest = r.restful.model('payment', app.models.Payment).methods(['get', 'post']);
+	let rest = cm.libs.restful.model('payment', app.models.Payment).methods(['get', 'post']);
+	cm.Payment = rest;
 
-	rest.before('get', [authorize.userToken, authorize.paymentAction]);
-	rest.before('post', [authorize.userToken, r.actions.payment.post.before]);
+	rest.before('get', [cm.User.validateUserToken, cm.Payment.validatePaymentAction]);
+	rest.before('post', [cm.User.validateUserToken, cm.actions.payment.post]);
 	rest.register(app, route);
 
-	return function(req, res, next) { next(); };
+	return (req, res, next) => { next(); };
 };

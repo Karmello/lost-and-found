@@ -1,33 +1,31 @@
-var r = require(global.paths.server + '/requires');
-var countries = require(global.paths.root + '/public/json/countries.json');
-
-
+const cm = require(global.paths.server + '/cm');
+const countries = require(global.paths.root + '/public/json/countries.json');
 
 module.exports = {
     email: {
         correctness: {
             type: 'incorrect',
-            validator: function (email) {
+            validator: (email) => {
 
-                var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return regex.test(email);
             }
         },
         length: {
             type: 'wrong_length',
             limits: {
-                max: global.app.get('USER_EMAIL_MAX_LENGTH')
+                max: cm.app.get('USER_EMAIL_MAX_LENGTH')
             },
-            validator: function(email) {
+            validator: (email) => {
 
-                return email.length <= global.app.get('USER_EMAIL_MAX_LENGTH');
+                return email.length <= cm.app.get('USER_EMAIL_MAX_LENGTH');
             }
         },
         uniqueness: {
             type: 'not_unique',
-            validator: function(email, cb) {
+            validator: (email, cb) => {
 
-                return r.User.findOne({ email: email }, function (err, user) {
+                return cm.User.findOne({ email: email }, (err, user) => {
                     cb(user === null);
                 });
             }
@@ -37,12 +35,12 @@ module.exports = {
         length: {
             type: 'wrong_length',
             limits: {
-                min: global.app.get('USER_USERNAME_MIN_LENGTH'),
-                max: global.app.get('USER_USERNAME_MAX_LENGTH')
+                min: cm.app.get('USER_USERNAME_MIN_LENGTH'),
+                max: cm.app.get('USER_USERNAME_MAX_LENGTH')
             },
-            validator: function(username) {
+            validator: (username) => {
 
-                if (username.length >= global.app.get('USER_USERNAME_MIN_LENGTH') && username.length <= global.app.get('USER_USERNAME_MAX_LENGTH')) {
+                if (username.length >= cm.app.get('USER_USERNAME_MIN_LENGTH') && username.length <= cm.app.get('USER_USERNAME_MAX_LENGTH')) {
                     return true;
 
                 } else {
@@ -52,9 +50,9 @@ module.exports = {
         },
         uniqueness: {
             type: 'not_unique',
-            validator: function(username, cb) {
+            validator: (username, cb) => {
 
-                return r.User.findOne({ username: username }, function (err, user) {
+                return cm.User.findOne({ username: username }, (err, user) => {
                     cb(user === null);
                 });
             }
@@ -64,12 +62,12 @@ module.exports = {
         length: {
             type: 'wrong_length',
             limits: {
-                min: global.app.get('USER_PASSWORD_MIN_LENGTH'),
-                max: global.app.get('USER_PASSWORD_MAX_LENGTH')
+                min: cm.app.get('USER_PASSWORD_MIN_LENGTH'),
+                max: cm.app.get('USER_PASSWORD_MAX_LENGTH')
             },
-            validator: function(password) {
+            validator: (password) => {
 
-                if (password.length >= global.app.get('USER_PASSWORD_MIN_LENGTH') && password.length <= global.app.get('USER_PASSWORD_MAX_LENGTH')) { return true; } else { return false; }
+                if (password.length >= cm.app.get('USER_PASSWORD_MIN_LENGTH') && password.length <= cm.app.get('USER_PASSWORD_MAX_LENGTH')) { return true; } else { return false; }
             }
         }
     },
@@ -77,11 +75,11 @@ module.exports = {
         length: {
             type: 'wrong_length',
             limits: {
-                max: global.app.get('USER_FIRSTNAME_MAX_LENGTH')
+                max: cm.app.get('USER_FIRSTNAME_MAX_LENGTH')
             },
-            validator: function(firstname) {
+            validator: (firstname) => {
 
-                if (firstname.length <= global.app.get('USER_FIRSTNAME_MAX_LENGTH')) { return true; } else { return false; }
+                if (firstname.length <= cm.app.get('USER_FIRSTNAME_MAX_LENGTH')) { return true; } else { return false; }
             }
         }
     },
@@ -89,20 +87,20 @@ module.exports = {
         length: {
             type: 'wrong_length',
             limits: {
-                max: global.app.get('USER_LASTNAME_MAX_LENGTH')
+                max: cm.app.get('USER_LASTNAME_MAX_LENGTH')
             },
-            validator: function(lastname) {
+            validator: (lastname) => {
 
-                if (lastname.length <= global.app.get('USER_LASTNAME_MAX_LENGTH')) { return true; } else { return false; }
+                if (lastname.length <= cm.app.get('USER_LASTNAME_MAX_LENGTH')) { return true; } else { return false; }
             }
         }
     },
     country: {
         correctness: {
             type: 'incorrect',
-            validator: function(country) {
+            validator: (country) => {
 
-                for (var i = 0; i < countries.length; ++i) {
+                for (let i = 0; i < countries.length; ++i) {
                     if (countries[i].name.trim() == country) {
                         return true;
                     }

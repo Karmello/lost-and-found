@@ -1,12 +1,12 @@
 module.exports = {
-	printFormattedLog: function(log) {
+	printFormattedLog: (log) => {
 
 		if (process.env.NODE_ENV != 'testing') {
 
-			var sign = '-';
-			var line = sign;
+			let sign = '-';
+			let line = sign;
 
-			for (var i = 0; i < log.length; i++) { line += sign; }
+			for (let i = 0; i < log.length; i++) { line += sign; }
 			line += sign;
 
 			console.log(line);

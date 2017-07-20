@@ -1,10 +1,10 @@
-const r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 let run = (subject) => {
 
-	return new r.Promise((resolve, reject) => {
+	return new cm.libs.Promise((resolve, reject) => {
 
-		let s = r.setup;
+		let s = cm.setup;
 		s.subject = subject;
 
 		s.dbClient.get()

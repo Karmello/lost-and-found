@@ -1,20 +1,20 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var action = new r.prototypes.Action(arguments);
+	let action = new cm.prototypes.Action(args);
 	action.id = 'recover';
 
-	var query = { email: req.body.email };
-	var user = new r.User(query);
+	let query = { email: action.req.body.email };
+	let user = new cm.User(query);
 
-	new r.Promise(function(resolve) {
+	new cm.libs.Promise((resolve) => {
 
-		user.validate(function(err) {
+		user.validate((err) => {
 
 			if (!err.errors.email || err.errors.email.kind == 'not_unique') {
 
-				r.User.findOne(query, function(err, user) {
+				cm.User.findOne(query, (err, user) => {
 
 					if (!err && user) {
 						resolve(user);
@@ -36,16 +36,16 @@ module.exports = function(req, res, next) {
 			}
 		});
 
-	}).then(function(user) {
+	}).then((user) => {
 
-		var token = r.jwt.sign({ email: user.email }, process.env.AUTH_SECRET, { expiresIn: global.app.get('AUTH_TOKEN_EXPIRES_IN') });
+		let token = cm.libs.jwt.sign({ email: user.email }, process.env.AUTH_SECRET, { expiresIn: cm.app.get('AUTH_TOKEN_EXPIRES_IN') });
 
-		var mail = r.modules.mailModule.create('new_pass_link', req.session.language, user.email, {
+		let mail = cm.modules.mailModule.create('new_pass_link', action.req.session.language, user.email, {
 			username: user.username,
-            link: 'https://' + req.headers.host + '/reset_password?authToken=' + token
+            link: 'https://' + action.req.headers.host + '/reset_password?authToken=' + token
 		});
 
-        r.modules.mailModule.send(mail, function(err, info) {
+        cm.modules.mailModule.send(mail, (err, info) => {
 
             if (!err) {
 
@@ -53,14 +53,12 @@ module.exports = function(req, res, next) {
 
             	action.end(200, {
             		msg: {
-            			title: r.hardData[req.session.language].msgs.titles[2],
-						info: r.hardData[req.session.language].msgs.infos[3]
+            			title: cm.hardData[action.eq.session.language].msgs.titles[2],
+						info: cm.hardData[action.req.session.language].msgs.infos[3]
             		}
             	});
 
-            } else {
-            	action.end(500, 'COULD_NOT_SEND_EMAIL');
-            }
+            } else { action.end(500, 'COULD_NOT_SEND_EMAIL'); }
         });
 	});
 };

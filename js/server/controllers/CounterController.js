@@ -1,8 +1,10 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(app, route) {
+module.exports = (app, route) => {
 
-	var rest = r.restful.model('counter', app.models.Counter).methods([]);
+	let rest = cm.libs.restful.model('counter', app.models.Counter).methods([]);
+	cm.Counter = rest;
+
 	rest.register(app, route);
-	return function(req, res, next) { next(); };
+	return (req, res, next) => { next(); };
 };

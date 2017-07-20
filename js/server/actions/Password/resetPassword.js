@@ -1,35 +1,37 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-    var action = new r.prototypes.Action(arguments);
+    let action = new cm.prototypes.Action(args);
 
-    r.User.findOne({ email: req.decoded.email }, '-email -username', function(err, user) {
+    cm.User.findOne({ email: action.req.decoded.email }, '-email', (err, user) => {
 
         if (!err && user) {
 
             user.password = Math.random().toString(36).slice(-8);
 
-            var mail = r.modules.mailModule.create('new_pass', req.session.language, req.decoded.email, {
-                username: req.decoded.username,
+            let mail = cm.modules.mailModule.create('new_pass', action.req.session.language, action.req.decoded.email, {
+                username: user.username,
                 password: user.password
             });
 
-            r.modules.mailModule.send(mail, function(err, info) {
+            cm.modules.mailModule.send(mail, (err, info) => {
 
                 if (!err) {
 
-                    user.save(function(err) {
+                    delete user.username;
+
+                    user.save((err) => {
 
                         if (!err) {
-                            res.redirect('/#/start/login?action=pass_reset');
+                            action.res.redirect('/#/start/login?action=pass_reset');
 
-                        } else { res.redirect('/'); }
+                        } else { action.res.redirect('/'); }
                     });
 
-                } else { res.status(500).send('COULD_NOT_SEND_EMAIL'); }
+                } else { action.res.status(500).send('COULD_NOT_SEND_EMAIL'); }
             });
 
-        } else { res.redirect('/'); }
+        } else { action.res.redirect('/'); }
     });
 };

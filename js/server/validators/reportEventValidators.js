@@ -1,13 +1,13 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
 module.exports = {
     type: {
         correctness: {
             type: 'incorrect',
-            validator: function(type) {
+            validator: (type) => {
 
-                for (var i = 0; i < r.hardData.en.reportTypes.length; i++) {
-                    if (r.hardData.en.reportTypes[i].value == type) {
+                for (let i = 0; i < cm.hardData.en.reportTypes.length; i++) {
+                    if (cm.hardData.en.reportTypes[i].value == type) {
                         return true;
                     }
                 }
@@ -20,12 +20,12 @@ module.exports = {
         length: {
             type: 'wrong_length',
             limits: {
-                min: global.app.get('REPORT_EVENT_DETAILS_MIN_LENGTH'),
-                max: global.app.get('REPORT_EVENT_DETAILS_MAX_LENGTH')
+                min: cm.app.get('REPORT_EVENT_DETAILS_MIN_LENGTH'),
+                max: cm.app.get('REPORT_EVENT_DETAILS_MAX_LENGTH')
             },
-            validator: function(details) {
+            validator: (details) => {
 
-                if (details.length >= global.app.get('REPORT_EVENT_DETAILS_MIN_LENGTH') && details.length <= global.app.get('REPORT_EVENT_DETAILS_MAX_LENGTH')) {
+                if (details.length >= cm.app.get('REPORT_EVENT_DETAILS_MIN_LENGTH') && details.length <= cm.app.get('REPORT_EVENT_DETAILS_MAX_LENGTH')) {
                     return true;
 
                 } else { return false; }
@@ -37,16 +37,16 @@ module.exports = {
             type: 'incorrect',
             validator: function(address, cb) {
 
-                var doc = this;
-                var googleMapsClient = r.googleMaps.createClient({ keys: process.env.GOOGLE_MAPS_API_KEY });
+                let doc = this;
+                let googleMapsClient = cm.libs.googleMaps.createClient({ keys: process.env.GOOGLE_MAPS_API_KEY });
 
                 googleMapsClient.geocode({ 'address': address }, function(err, res) {
 
                     if (!err && res.json.status === 'OK') {
 
-                        var place = res.json.results[0];
-                        var lat = place.geometry.location.lat;
-                        var lng = place.geometry.location.lng;
+                        let place = res.json.results[0];
+                        let lat = place.geometry.location.lat;
+                        let lng = place.geometry.location.lng;
 
                         cb(doc.placeId == place.place_id && doc.lat.toFixed(7) == lat.toFixed(7) && doc.lng.toFixed(7) == lng.toFixed(7));
 

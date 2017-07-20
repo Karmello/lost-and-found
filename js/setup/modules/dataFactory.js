@@ -1,16 +1,16 @@
-const r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 const fakeDataPath = '/resources/fake-data';
 
 module.exports = {
 	prepare: (users) => {
 
-		switch (r.setup.subject) {
+		switch (cm.setup.subject) {
 
 			case 'User':
 
-				return new r.Promise((resolve) => {
+				return new cm.libs.Promise((resolve) => {
 
-					r.fs.readdir('.' + fakeDataPath, function(err, ids) {
+					cm.libs.fs.readdir('.' + fakeDataPath, function(err, ids) {
 
 						let data = [];
 
@@ -45,11 +45,11 @@ module.exports = {
 				for (let user of users) {
 
 					let reportsPath = global.paths.root + fakeDataPath + '/' + user._id + '/reports';
-					let reportIds = r.fs.readdirSync(reportsPath);
+					let reportIds = cm.libs.fs.readdirSync(reportsPath);
 
 					for (let reportId of reportIds) {
 
-						tasks.push(new r.Promise((resolve) => {
+						tasks.push(new cm.libs.Promise((resolve) => {
 							let config = require(reportsPath + '/' + reportId + '/config');
 							config._id = reportId;
 							config.userId = user._id;
@@ -58,11 +58,11 @@ module.exports = {
 					}
 				}
 
-				return r.Promise.all(tasks);
+				return cm.libs.Promise.all(tasks);
 
 			case 'Comment':
 
-				return new r.Promise((resolve, reject) => {
+				return new cm.libs.Promise((resolve, reject) => {
 
 					let comments = require(global.paths.root + '/js/setup/hardcoded/comments');
 					let data = [];

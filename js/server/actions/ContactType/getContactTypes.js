@@ -1,22 +1,18 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = {
-	before: function(req, res, next) {
+module.exports = (...args) => {
 
-		r.ContactType.aggregate([
-			{
-				$project: {
-					'index': 1,
-					'label': '$label.' + req.session.language
-				}
+	let action = new cm.prototypes.Action(args);
+
+	cm.ContactType.aggregate([
+		{
+			$project: {
+				'index': 1,
+				'label': '$label.' + action.req.session.language
 			}
+		}
 
-		], function(err, contactTypes) {
-
-			if (!err && contactTypes) {
-				res.status(200).send(contactTypes);
-
-			} else { res.status(500).send(); }
-		});
-	}
+	], (err, contactTypes) => {
+		if (!err && contactTypes) { action.end(200, contactTypes); } else { action.end(500); }
+	});
 };

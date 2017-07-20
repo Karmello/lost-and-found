@@ -1,55 +1,23 @@
-var r = require(global.paths.server + '/requires');
+const cm = require(global.paths.server + '/cm');
 
-module.exports = function(req, res, next) {
+module.exports = (...args) => {
 
-	var action = new r.prototypes.Action(arguments);
-	var data = {};
+	let action = new cm.prototypes.Action(args);
+	let tasks = [];
 
-	new r.Promise(function(resolve) {
+	tasks.push(cm.User.count());
+	tasks.push(cm.Report.count());
+	tasks.push(cm.Report.count({ 'startEvent.type': 'lost' }));
+	tasks.push(cm.Report.count({ 'startEvent.type': 'found' }));
 
-		// Getting users count
-		r.User.count({}, function(err, count) {
+	cm.libs.Promise.all(tasks).then((data) => {
 
-			if (!err) {
-
-				data.usersCount = count;
-
-				// Getting reports count
-				r.Report.count({}, function(err, count) {
-
-					if (!err) {
-
-						data.reportsCount = count;
-
-						// Getting lost reports count
-						r.Report.count({ 'startEvent.type': 'lost' }, function(err, count) {
-
-							if (!err) {
-
-								data.lostReportsCount = count;
-
-								// Getting found reports count
-								r.Report.count({ 'startEvent.type': 'found' }, function(err, count) {
-
-									if (!err) {
-
-										data.foundReportsCount = count;
-										resolve();
-
-									} else { resolve(err); }
-								});
-
-							} else { resolve(err); }
-						});
-
-					} else { resolve(err); }
-				});
-
-			} else { resolve(err); }
+		action.end(200, {
+			usersCount: data[0],
+			reportsCount: data[1],
+			lostReportsCount: data[2],
+			foundReportsCount: data[3]
 		});
 
-	}).then(function(err) {
-
-		if (!err) { action.end(200, data); } else { action.end(500, err); }
-	});
+	}, (err) => { action.end(500, err); });
 };

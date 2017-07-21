@@ -1,7 +1,7 @@
 const cm = require(global.paths.server + '/cm');
-const glVal = cm.validators.globalValidators;
-const userVal = cm.validators.userValidators;
-const passVal = cm.validators.passwordValidators;
+const glVal = cm.validators.global;
+const userVal = cm.validators.user;
+const passVal = cm.validators.password;
 
 module.exports = new cm.libs.mongoose.Schema({
 	userId: {

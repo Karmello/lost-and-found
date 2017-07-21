@@ -20,6 +20,7 @@ cm.init.env().then(cm.init.app, cm.reject).then(() => {
 		cm.actions = require('./actions/_actions');
 		cm.modules = require('./modules/_modules');
 		cm.prototypes = require('./prototypes/_prototypes');
+		cm.setup = require(global.paths.root + '/js/setup/modules/_modules');
 
 		cm.init.consts().then(cm.init.session).then(cm.init.paypal).then(() => {
 

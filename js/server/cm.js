@@ -5,6 +5,7 @@ const cm = {
 		bcrypt: require('bcrypt-nodejs'),
 		bodyParser: require('body-parser'),
 		crypto: require('crypto'),
+		chai: require('chai'),
 		express: require('express'),
 		fs: require('fs'),
 		googleMaps: require('@google/maps'),
@@ -27,4 +28,6 @@ const cm = {
 };
 
 cm.libs.MongoStore = require('connect-mongo')(cm.libs.session);
+cm.libs.expect = cm.libs.chai.expect;
+
 module.exports = cm;

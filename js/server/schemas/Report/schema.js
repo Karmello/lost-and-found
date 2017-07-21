@@ -1,5 +1,5 @@
 const cm = require(global.paths.server + '/cm');
-const reportVal = cm.validators.reportValidators;
+const reportVal = cm.validators.report;
 
 let ReportSchema = new cm.libs.mongoose.Schema({
 	dateAdded: {

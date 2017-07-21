@@ -1,6 +1,6 @@
 const cm = require(global.paths.server + '/cm');
-const glVal = cm.validators.globalValidators;
-const payVal = cm.validators.paymentValidators;
+const glVal = cm.validators.global;
+const payVal = cm.validators.payment;
 
 module.exports = new cm.libs.mongoose.Schema({
 	paymentId: {

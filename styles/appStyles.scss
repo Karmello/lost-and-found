@@ -605,12 +605,6 @@ $avatarSize: 240px;
 
 	#mySrc { img { @extend .defaultAvatarSize; } }
 }
-#reportAvatar {
-
-	#mySrc {
-		img { width: 200px; object-fit: cover; }
-	}
-}
 #reportPhotos {
 
 	#mySrc {
@@ -649,6 +643,12 @@ $avatarSize: 240px;
 .tinyAvatarSize {
 	width: 60px;
 	height: 60px;
+}
+#reportAvatar {
+
+	#mySrc {
+		img { width: 200px; object-fit: cover; }
+	}
 }
 #myBtn {
 

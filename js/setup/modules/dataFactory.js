@@ -1,5 +1,5 @@
 const cm = require(global.paths.server + '/cm');
-const fakeDataPath = '/resources/fake-data';
+const fakeDataPath = global.paths.root + '/resources/fake-data';
 
 module.exports = {
 	prepare: (users) => {
@@ -10,13 +10,13 @@ module.exports = {
 
 				return new cm.libs.Promise((resolve) => {
 
-					cm.libs.fs.readdir('.' + fakeDataPath, function(err, ids) {
+					cm.libs.fs.readdir(fakeDataPath, (err, ids) => {
 
 						let data = [];
 
-						for (var id of ids) {
+						for (let id of ids) {
 
-							var config = require(global.paths.root + fakeDataPath + '/' + id + '/config');
+							let config = require(fakeDataPath + '/' + id + '/config');
 
 							data.push({
 								_id: id,
@@ -44,7 +44,7 @@ module.exports = {
 
 				for (let user of users) {
 
-					let reportsPath = global.paths.root + fakeDataPath + '/' + user._id + '/reports';
+					let reportsPath = fakeDataPath + '/' + user._id + '/reports';
 					let reportIds = cm.libs.fs.readdirSync(reportsPath);
 
 					for (let reportId of reportIds) {

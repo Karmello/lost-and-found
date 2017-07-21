@@ -1,19 +1,17 @@
 /* jshint expr: true */
 
-const expect = require('chai').expect;
+const cm = require('./../../js/server/server');
+const expect = cm.libs.expect;
 
-describe('spec1', function() {
+describe('user validators', () => {
 
-	let ms;
+	let validateEmail = cm.validators.user;
 
-	beforeEach(function() {
+	beforeEach(() => {});
 
-		ms = require('./../../js/server/server');
-	});
+	it('?', (done) => {
 
-	it('ms should be defined', function(done) {
 
-		expect(ms).to.be.defined;
 		done();
 	});
 });

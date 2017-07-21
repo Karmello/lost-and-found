@@ -1,5 +1,5 @@
 const cm = require(global.paths.server + '/cm');
-const reportEventVal = cm.validators.reportEventValidators;
+const reportEventVal = cm.validators.reportEvent;
 
 module.exports = new cm.libs.mongoose.Schema({
 	type: {

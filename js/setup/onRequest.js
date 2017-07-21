@@ -1,5 +1,4 @@
 const cm = require(global.paths.server + '/cm');
-cm.setup = require(global.paths.root + '/js/setup/modules/_modules');
 
 let tasks = {
 	c: require(global.paths.root + '/js/setup/tasks/c'),

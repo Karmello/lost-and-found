@@ -1,9 +1,9 @@
 module.exports = {
-	commentValidators: require('./commentValidators'),
-	globalValidators: require('./globalValidators'),
-	passwordValidators: require('./passwordValidators'),
-	paymentValidators: require('./paymentValidators'),
-	reportEventValidators: require('./reportEventValidators'),
-	reportValidators: require('./reportValidators'),
-	userValidators: require('./userValidators')
+	comment: require('./comment'),
+	global: require('./global'),
+	password: require('./password'),
+	payment: require('./payment'),
+	reportEvent: require('./reportEvent'),
+	report: require('./report'),
+	user: require('./user')
 };

@@ -1,5 +1,5 @@
 const cm = require(global.paths.server + '/cm');
-const commentVal = cm.validators.commentValidators;
+const commentVal = cm.validators.comment;
 
 let CommentSchema = new cm.libs.mongoose.Schema({
 	parentId: {

@@ -13,7 +13,7 @@ let CommentSchema = new cm.libs.mongoose.Schema({
 	content: {
 		type: String,
 		required: true,
-		validate: [cm.validators.length.get('Comment', 'content')]
+		validate: [cm.validation.length.get('Comment', 'content')]
 	},
 	likes: [{
 		type: cm.libs.mongoose.Schema.Types.ObjectId,

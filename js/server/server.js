@@ -11,7 +11,7 @@ cm.hardData = {
 	pl: require(global.paths.root + '/public/json/hardCodedData.json').pl
 };
 
-cm.init = require('./init/_init');
+cm.init = require(global.paths.server + '/init/_init');
 
 cm.init.env().then(cm.init.app, cm.reject).then(() => {
 
@@ -26,7 +26,7 @@ cm.init.env().then(cm.init.app, cm.reject).then(() => {
 
 			try {
 
-				cm.validators = require('./validation/_validation');
+				cm.validation = require('./validation/_validation');
 
 				cm.init.routes().then(cm.init.db, cm.reject).then(cm.init.modelRefs, cm.reject).then(() => {
 

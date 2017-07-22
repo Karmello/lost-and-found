@@ -5,53 +5,53 @@ module.exports = new cm.libs.mongoose.Schema({
 		type: String,
 		required: true,
 		validate: [
-			cm.validators.get('User', 'email', 'correctness'),
-			cm.validators.length.get('User', 'email'),
-			cm.validators.get('User', 'email', 'uniqueness')
+			cm.validation.get('User', 'email', 'correctness'),
+			cm.validation.length.get('User', 'email'),
+			cm.validation.get('User', 'email', 'uniqueness')
 		]
 	},
 	username: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validators.string.noSpecialChars,
-			cm.validators.string.noMultipleWords,
-			cm.validators.length.get('User', 'username'),
-			cm.validators.get('User', 'username', 'uniqueness')
+			cm.validation.string.noSpecialChars,
+			cm.validation.string.noMultipleWords,
+			cm.validation.length.get('User', 'username'),
+			cm.validation.get('User', 'username', 'uniqueness')
 		]
 	},
 	password: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validators.string.noSpecialChars,
-			cm.validators.string.noMultipleWords,
-			cm.validators.length.get('User', 'password')
+			cm.validation.string.noSpecialChars,
+			cm.validation.string.noMultipleWords,
+			cm.validation.length.get('User', 'password')
 		]
 	},
 	firstname: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validators.string.noSpecialChars,
-			cm.validators.string.noDigits,
-			cm.validators.length.get('User', 'firstname')
+			cm.validation.string.noSpecialChars,
+			cm.validation.string.noDigits,
+			cm.validation.length.get('User', 'firstname')
 		]
 	},
 	lastname: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validators.string.noSpecialChars,
-			cm.validators.string.noDigits,
-			cm.validators.length.get('User', 'lastname')
+			cm.validation.string.noSpecialChars,
+			cm.validation.string.noDigits,
+			cm.validation.length.get('User', 'lastname')
 		]
 	},
 	country: {
 		type: String,
         required: true,
         validate: [
-        	cm.validators.get('User', 'country', 'correctness')
+        	cm.validation.get('User', 'country', 'correctness')
         ]
 	},
 	registration_date: {

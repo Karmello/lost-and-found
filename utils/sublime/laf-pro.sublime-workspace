@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"email",
+				"emailValidator"
+			],
+			[
+				"valida",
+				"validatorName"
+			],
+			[
+				"vali",
+				"validatorName"
+			],
+			[
 				"Report",
 				"ReportPhoto"
 			],
@@ -94,10 +106,6 @@
 			[
 				"wro",
 				"wrongCredentialsErr"
-			],
-			[
-				"valida",
-				"validateUserToken(req, res, next)"
 			],
 			[
 				"pos",
@@ -307,6 +315,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/D/Workspace/laf/dev/js/server/models/User/validators.js",
+			"settings":
+			{
+				"buffer_size": 902,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -368,15 +385,61 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/js/server/models"
+		"/D/Workspace/laf/dev/tests",
+		"/D/Workspace/laf/dev/tests/db",
+		"/D/Workspace/laf/dev/tests/db/validators"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/tests/db/validators/user-country-correctness.js",
+		"/D/Workspace/laf/dev/tests/db/validators/user-email-correctness.js",
+		"/D/Workspace/laf/dev/tests/db/validators/User/email-correctness.js",
+		"/D/Workspace/laf/dev/tests/db/models/User/spec1.js",
+		"/D/Workspace/laf/dev/js/server/init/env.js",
+		"/D/Workspace/laf/dev/tests/db/spec1.js",
+		"/D/Workspace/laf/dev/js/server/validation/get.js",
+		"/D/Workspace/laf/dev/js/server/server.js",
+		"/D/Workspace/laf/dev/js/server/init/app.js",
+		"/D/Workspace/laf/dev/js/server/init/_init.js",
+		"/D/Workspace/laf/dev/js/server/models/_actions.js",
+		"/D/Workspace/laf/dev/js/server/validation/length.js",
+		"/D/Workspace/laf/dev/js/server/validation/string.js",
+		"/D/Workspace/laf/dev/js/server/validation/number.js",
+		"/D/Workspace/laf/dev/js/server/validation/_validation.js",
+		"/D/Workspace/laf/dev/js/server/models/Comment/schema.js",
+		"/D/Workspace/laf/dev/js/server/models/Password/Password.js",
+		"/D/Workspace/laf/dev/js/server/models/Payment/schema.js",
+		"/D/Workspace/laf/dev/js/server/models/Report/schema.js",
+		"/D/Workspace/laf/dev/js/server/models/ReportEvent/schema.js",
+		"/D/Workspace/laf/dev/js/server/models/User/schema.js",
+		"/D/Workspace/laf/dev/js/server/models/User/validators.js",
+		"/D/Workspace/laf/dev/js/server/cm.js",
+		"/D/Workspace/laf/dev/js/server/models/User/User.js",
+		"/D/Workspace/laf/dev/js/server/models/ContactType/ContactType.js",
+		"/D/Workspace/laf/dev/js/server/models/Comment/Comment.js",
+		"/D/Workspace/laf/dev/js/server/models/Report/Report.js",
+		"/D/Workspace/laf/dev/js/server/validators/_validators.js",
+		"/D/Workspace/laf/dev/js/server/validators/get.js",
+		"/D/Workspace/laf/dev/js/server/validators/length.js",
+		"/D/Workspace/laf/dev/js/server/validators/string.js",
+		"/D/Workspace/laf/dev/js/server/init/paypal.js",
+		"/D/Workspace/laf/dev/js/server/init/routes.js",
+		"/D/Workspace/laf/dev/js/server/init/session.js",
+		"/D/Workspace/laf/dev/js/server/init/sockets.js",
+		"/D/Workspace/laf/dev/js/server/init/modelRefs.js",
+		"/D/Workspace/laf/dev/js/server/init/db.js",
+		"/D/Workspace/laf/dev/js/server/init/consts.js",
+		"/D/Workspace/laf/dev/js/server/models/Report/validators.js",
+		"/D/Workspace/laf/dev/js/server/models/Password/validators.js",
+		"/D/Workspace/laf/dev/js/server/models/Payment/validators.js",
+		"/D/Workspace/laf/dev/js/server/models/ReportEvent/validators.js",
+		"/D/Workspace/laf/dev/js/server/validators/number.js",
+		"/D/Workspace/laf/dev/js/server/models/getStats.js",
+		"/D/Workspace/laf/dev/js/server/models/controllers.js",
+		"/D/Workspace/laf/dev/js/server/models/models.js",
+		"/D/Workspace/laf/dev/js/server/modules/aws3Module.js",
 		"/D/Workspace/laf/dev/js/server/models/_common/actions/getStats.js",
 		"/D/Workspace/laf/dev/js/server/modules/paypalModule.js",
-		"/D/Workspace/laf/dev/js/server/server.js",
-		"/D/Workspace/laf/dev/js/server/models/_actions.js",
-		"/D/Workspace/laf/dev/js/server/init/routes.js",
 		"/D/Workspace/laf/dev/js/server/models/_Other/actions/getStats.js",
 		"/D/Workspace/laf/dev/js/server/actions/_actions.js",
 		"/D/Workspace/laf/dev/js/server/models/Password/requests/recoverPassword.js",
@@ -385,15 +448,8 @@
 		"/D/Workspace/laf/dev/js/server/models/Comment/requests/postComment.js",
 		"/D/Workspace/laf/dev/js/server/models/Comment/requests/putComment.js",
 		"/D/Workspace/laf/dev/js/server/models/User/requests/loginUser.js",
-		"/D/Workspace/laf/dev/js/server/cm.js",
 		"/D/Workspace/laf/dev/js/server/models/routes.js",
-		"/D/Workspace/laf/dev/js/server/init/_init.js",
 		"/D/Workspace/laf/dev/js/server/routes.js",
-		"/D/Workspace/laf/dev/js/server/validators/length.js",
-		"/D/Workspace/laf/dev/js/server/validators/get.js",
-		"/D/Workspace/laf/dev/js/server/models/Report/schema.js",
-		"/D/Workspace/laf/dev/js/server/models/models.js",
-		"/D/Workspace/laf/dev/js/server/init/modelRefs.js",
 		"/D/Workspace/laf/dev/js/server/schemas/models.js",
 		"/D/Workspace/laf/dev/js/server/models.js",
 		"/D/Workspace/laf/dev/js/server/schemas/schemas.js",
@@ -404,14 +460,12 @@
 		"/D/Workspace/laf/dev/js/server/schemas/ReportEvent/config.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Comment/config.js",
 		"/D/Workspace/laf/dev/node_modules/mongoose/examples/express/connection-sharing/routes.js",
-		"/D/Workspace/laf/dev/js/server/init/consts.js",
 		"/D/Workspace/laf/dev/js/server/actions/Comment/getComment.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/getReportBySearchQuery.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Comment/Comment.js",
 		"/D/Workspace/laf/dev/js/server/schemas/ReportEvent/ReportEvent.js",
 		"/D/Workspace/laf/dev/js/server/schemas/ReportEvent/schema.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Report/Report.js",
-		"/D/Workspace/laf/dev/js/server/modules/aws3Module.js",
 		"/D/Workspace/laf/dev/js/server/schemas/User/User.js",
 		"/D/Workspace/laf/dev/js/server/actions/Report/getReportById.js",
 		"/D/Workspace/laf/dev/js/server/schemas/User/schema.js",
@@ -422,7 +476,6 @@
 		"/D/Workspace/laf/dev/js/server/schemas/User/validators.js",
 		"/D/Workspace/laf/dev/js/server/schemas/ReportEvent/validators.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Comment/constraints.js",
-		"/D/Workspace/laf/dev/js/server/validators/_validators.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Password/Password.js",
 		"/D/Workspace/laf/dev/js/server/schemas/ReportEvent/constraints.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Report/limits.js",
@@ -431,8 +484,6 @@
 		"/D/Workspace/laf/dev/js/server/schemas/User/methods.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Report/schema.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Payment/schema.js",
-		"/D/Workspace/laf/dev/js/server/validators/number.js",
-		"/D/Workspace/laf/dev/js/server/validators/string.js",
 		"/D/Workspace/laf/dev/js/server/schemas/Password/validators.js",
 		"/D/Workspace/laf/dev/js/server/validators/uniqueness.js",
 		"/D/Workspace/laf/dev/js/server/validators/correctness.js",
@@ -463,43 +514,11 @@
 		"/D/Workspace/laf/dev/js/server/validators/getCorrectnessValidator.js",
 		"/D/Workspace/laf/dev/js/server/validators/getLengthValidator.js",
 		"/D/Workspace/laf/dev/js/server/validators/user.js",
-		"/D/Workspace/laf/dev/tests/db/spec1.js",
 		"/D/Workspace/laf/dev/js/server/validators/userValidators.js",
 		"/D/Workspace/laf/dev/js/server/validators/reportValidators.js",
 		"/D/Workspace/laf/dev/js/setup/modules/dbClient.js",
 		"/D/Workspace/laf/dev/js/setup/run.js",
-		"/D/Workspace/laf/dev/js/setup/modules/dataFactory.js",
-		"/D/Workspace/laf/dev/js/setup/modules/_modules.js",
-		"/D/Workspace/laf/dev/js/setup/onRequest.js",
-		"/D/Workspace/laf/dev/js/setup/modules/fileReader.js",
-		"/D/Workspace/laf/dev/js/server/init/env.js",
-		"/D/Workspace/laf/dev/js/server/init/paypal.js",
-		"/D/Workspace/laf/dev/js/server/init/session.js",
-		"/D/Workspace/laf/dev/js/server/modules/_modules.js",
-		"/D/Workspace/laf/dev/js/server/modules/mailModule.js",
-		"/D/Workspace/laf/dev/js/server/prototypes/Action.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Comment/postHooks.js",
-		"/D/Workspace/laf/dev/js/server/schemas/ContactType/ContactType.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Counter/Counter.js",
-		"/D/Workspace/laf/dev/js/server/schemas/DeactivationReason/DeactivationReason.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Payment/statics.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Report/methods.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Report/postHooks.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Report/preHooks.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Report/statics.js",
-		"/D/Workspace/laf/dev/js/server/validators/commentValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/globalValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/passwordValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/paymentValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/reportEventValidators.js",
-		"/D/Workspace/laf/dev/js/setup/modules/awsUploader.js",
-		"/D/Workspace/laf/dev/js/setup/tasks/c.js",
-		"/D/Workspace/laf/dev/js/setup/tasks/d.js",
-		"/D/Workspace/laf/dev/js/server/actions/Comment/deleteComment.js",
-		"/D/Workspace/laf/dev/js/server/actions/Comment/postComment.js",
-		"/D/Workspace/laf/dev/js/server/actions/Comment/putComment.js",
-		"/D/Workspace/laf/dev/js/server/actions/ContactType/getContactTypes.js",
-		"/D/Workspace/laf/dev/js/server/actions/ContactType/postContactType.js"
+		"/D/Workspace/laf/dev/js/setup/modules/dataFactory.js"
 	],
 	"find":
 	{
@@ -527,6 +546,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cm.validators",
+			"_validators",
+			"correctness",
+			"getStats",
+			"contact_type",
 			"_actions",
 			"other.getStats",
 			"/routes",
@@ -649,12 +673,7 @@
 			"getPaymentDetails",
 			"createPaymentConfig",
 			"createGetTokenConfig",
-			"createPaymentConfig",
-			"console.log",
-			"get_upload_credentials",
-			".update",
-			"r.User.validateUserToken",
-			"GMAIL_PASS"
+			"createPaymentConfig"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -662,6 +681,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"cm.validation",
+			"cm.validators",
 			"noMultipleWords",
 			"noDigits",
 			"noSpecialChars",
@@ -722,8 +743,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/D/Workspace/laf/dev/js/server/models/User/validators.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 902,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								902,
+								902
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -776,19 +826,11 @@
 		"selected_items":
 		[
 			[
-				"paypal",
-				"server\\modules\\paypalModule.js"
-			],
-			[
-				"routes",
-				"server\\init\\routes.js"
-			],
-			[
-				"routes.js",
-				"server\\init\\routes.js"
-			],
-			[
 				"server",
+				"server\\server.js"
+			],
+			[
+				"ser",
 				"server\\server.js"
 			],
 			[
@@ -796,8 +838,16 @@
 				"server\\server.js"
 			],
 			[
-				"ser",
-				"server\\server.js"
+				"routes.js",
+				"server\\init\\routes.js"
+			],
+			[
+				"paypal",
+				"server\\modules\\paypalModule.js"
+			],
+			[
+				"routes",
+				"server\\init\\routes.js"
 			],
 			[
 				"spec1",
@@ -1315,7 +1365,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 283.0,
 	"status_bar_visible": true,
 	"template_settings":

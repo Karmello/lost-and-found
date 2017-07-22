@@ -9,15 +9,15 @@ module.exports = new cm.libs.mongoose.Schema({
 	currentPassword: {
 		type: String,
 		required: true,
-		validate: [cm.validators.get('Password', 'currentPassword', 'correctness')]
+		validate: [cm.validation.get('Password', 'currentPassword', 'correctness')]
 	},
 	password: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validators.string.noSpecialChars,
-			cm.validators.string.noMultipleWords,
-			cm.validators.length.get('User', 'password')
+			cm.validation.string.noSpecialChars,
+			cm.validation.string.noMultipleWords,
+			cm.validation.length.get('User', 'password')
 		]
 	}
 }, { _id: false });

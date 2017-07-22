@@ -17,7 +17,7 @@ module.exports = {
 		}
 	},
 	country: {
-		correctness: function() {
+		correctness: function(country) {
         	for (let i = 0; i < countries.length; ++i) { if (countries[i].name.trim() == country) { return true; } }
             return false;
 		}

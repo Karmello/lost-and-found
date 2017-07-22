@@ -3,21 +3,21 @@ const cm = require(global.paths.server + '/cm');
 module.exports = {
     isInteger: {
         type: 'not_integer',
-        validator: (number) => {
+        validator: function(number) {
 
             return Number.isInteger(number);
         }
     },
     isPositive: {
         type: 'not_positive',
-        validator: (number) => {
+        validator: function(number) {
 
             return number > 0;
         }
     },
     isNotNegative: {
         type: 'negative',
-        validator: (number) => {
+        validator: function(number) {
 
             return number >= 0;
         }

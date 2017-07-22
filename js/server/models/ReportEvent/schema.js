@@ -4,7 +4,7 @@ module.exports = new cm.libs.mongoose.Schema({
 	type: {
 		type: String,
 		required: true,
-		validate: [cm.validators.get('ReportEvent', 'type', 'correctness')]
+		validate: [cm.validation.get('ReportEvent', 'type', 'correctness')]
 	},
 	date: {
 		type: Date,
@@ -17,7 +17,7 @@ module.exports = new cm.libs.mongoose.Schema({
 	address: {
 		type: String,
 		required: true,
-		validate: [cm.validators.get('ReportEvent', 'address', 'correctness')]
+		validate: [cm.validation.get('ReportEvent', 'address', 'correctness')]
 	},
 	lat: {
 		type: Number,
@@ -30,6 +30,6 @@ module.exports = new cm.libs.mongoose.Schema({
 	details: {
 		type: String,
 		required: true,
-		validate: [cm.validators.length.get('ReportEvent', 'details')]
+		validate: [cm.validation.length.get('ReportEvent', 'details')]
 	}
 });

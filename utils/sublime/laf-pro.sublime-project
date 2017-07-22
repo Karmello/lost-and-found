@@ -33,6 +33,10 @@
 		},
 		{
 			"path": "D:\\Workspace\\laf\\dev\\tests"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\Workspace\\laf\\dev\\js\\server\\models"
 		}
 	]
 }

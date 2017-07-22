@@ -14,12 +14,12 @@ module.exports = () => {
             }
 
             // Registering route models
-            app.models = require(global.paths.server + '/models');
+            app.models = require(global.paths.server + '/models/models');
 
-            let apiRoutes = require('./../routes');
+            let controllers = require(global.paths.server + '/models/controllers');
 
-            cm.libs._.each(apiRoutes, (controller, apiRoute) => {
-                app.use('/api' + apiRoute, controller(app, '/api' + apiRoute));
+            cm.libs._.each(controllers, (controller, route) => {
+                app.use('/api' + route, controller(app, '/api' + route));
             });
 
             // Route serving main page
@@ -34,7 +34,7 @@ module.exports = () => {
             app.get('/paypal/payment', [cm.User.validateUserToken, cm.modules.paypalModule.getPaymentDetails]);
 
             // Get stats route
-            app.get('/stats', cm.actions.other.getStats);
+            app.get('/stats', cm.actions.getStats);
 
             // Password recovering
             app.post('/recover', cm.actions.password.recover);

@@ -17,7 +17,7 @@ cm.init.env().then(cm.init.app, cm.reject).then(() => {
 
 	try {
 
-		cm.actions = require('./actions/_actions');
+		cm.actions = require('./models/_actions');
 		cm.modules = require('./modules/_modules');
 		cm.prototypes = require('./prototypes/_prototypes');
 		cm.setup = require(global.paths.root + '/js/setup/modules/_modules');
@@ -26,7 +26,7 @@ cm.init.env().then(cm.init.app, cm.reject).then(() => {
 
 			try {
 
-				cm.validators = require('./validators/_validators');
+				cm.validators = require('./validation/_validation');
 
 				cm.init.routes().then(cm.init.db, cm.reject).then(cm.init.modelRefs, cm.reject).then(() => {
 

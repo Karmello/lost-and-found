@@ -7,12 +7,12 @@ module.exports = new cm.libs.mongoose.Schema({
 	paymentMethod: {
 		type: String,
 		required: true,
-		validate: [cm.validation.get('Payment', 'paymentMethod', 'correctness')]
+		validate: [cm.modules.validator.get('Payment', 'paymentMethod', 'correctness')]
 	},
 	currency: {
 		type: String,
 		required: true,
-		validate: [cm.validation.get('Payment', 'currency', 'correctness')]
+		validate: [cm.modules.validator.get('Payment', 'currency', 'correctness')]
 	},
 	amount: {
 		type: Number,
@@ -23,35 +23,35 @@ module.exports = new cm.libs.mongoose.Schema({
 		required: function() {
 			return this.paymentMethod == 'credit_card';
 		},
-		validate: [cm.validation.get('Payment', 'creditCardType', 'correctness')]
+		validate: [cm.modules.validator.get('Payment', 'creditCardType', 'correctness')]
 	},
 	creditCardNumber: {
 		type: String,
 		required: function() {
 			return this.paymentMethod == 'credit_card';
 		},
-		validate: [cm.validation.get('Payment', 'creditCardNumber', 'correctness')]
+		validate: [cm.modules.validator.get('Payment', 'creditCardNumber', 'correctness')]
 	},
 	creditCardExpireMonth: {
 		type: String,
 		required: function() {
 			return this.paymentMethod == 'credit_card';
 		},
-		validate: [cm.validation.get('Payment', 'creditCardExpireMonth', 'correctness')]
+		validate: [cm.modules.validator.get('Payment', 'creditCardExpireMonth', 'correctness')]
 	},
 	creditCardExpireYear: {
 		type: String,
 		required: function() {
 			return this.paymentMethod == 'credit_card';
 		},
-		validate: [cm.validation.get('Payment', 'creditCardExpireYear', 'correctness')]
+		validate: [cm.modules.validator.get('Payment', 'creditCardExpireYear', 'correctness')]
 	},
 	cvv2: {
 		type: String,
 		required: function() {
 			return this.paymentMethod == 'credit_card';
 		},
-		validate: [cm.validation.get('Payment', 'cvv2', 'correctness')]
+		validate: [cm.modules.validator.get('Payment', 'cvv2', 'correctness')]
 	},
 	firstname: {
 		type: String,

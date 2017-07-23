@@ -5,12 +5,29 @@ const expect = cm.libs.expect;
 
 describe('user country correctness validation', () => {
 
-	let checkCountry;
+	let validate;
 
 	beforeEach(() => {
-		checkCountry = cm.validation.get('User', 'country', 'correctness').validator;
+		validate = cm.modules.validator.get('User', 'country', 'correctness').validator;
 	});
 
-	it('should return false', () => { expect(checkCountry('Not Existing Country')).to.be.false; });
-	it('should return true', () => { expect(checkCountry('Poland')).to.be.true; });
+	it('should return false', () => {
+		expect(validate()).to.be.false;
+	});
+
+	it('should return false', () => {
+		expect(validate('')).to.be.false;
+	});
+
+	it('should return false', () => {
+		expect(validate('Not Existing Country')).to.be.false;
+	});
+
+	it('should return false', () => {
+		expect(validate('poland')).to.be.false;
+	});
+
+	it('should return true', () => {
+		expect(validate('Poland')).to.be.true;
+	});
 });

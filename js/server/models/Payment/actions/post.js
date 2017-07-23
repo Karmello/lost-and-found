@@ -13,7 +13,7 @@ module.exports = (...args) => {
 		if (!err) {
 
 			// Getting payment config
-			let paymentConfig = cm.modules.paypalModule.createPaymentConfig(action, newPayment);
+			let paymentConfig = cm.modules.paypal.createPaymentConfig(action, newPayment);
 
 			// Creating paypal payment object
 			cm.libs.paypal.payment.create(paymentConfig, (err, payment) => {
@@ -27,8 +27,8 @@ module.exports = (...args) => {
 
 						case 'credit_card':
 
-							cm.modules.paypalModule.makeCreditCardPayment(payment).then(() => {
-								cm.modules.paypalModule.finalizePayment(payment).then(() => {
+							cm.modules.paypal.makeCreditCardPayment(payment).then(() => {
+								cm.modules.paypal.finalizePayment(payment).then(() => {
 
 									action.end(200, data);
 

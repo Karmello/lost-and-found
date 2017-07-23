@@ -5,53 +5,53 @@ module.exports = new cm.libs.mongoose.Schema({
 		type: String,
 		required: true,
 		validate: [
-			cm.validation.get('User', 'email', 'correctness'),
-			cm.validation.length.get('User', 'email'),
-			cm.validation.get('User', 'email', 'uniqueness')
+			cm.modules.validator.get('User', 'email', 'correctness'),
+			cm.modules.validator.length.get('User', 'email'),
+			cm.modules.validator.get('User', 'email', 'uniqueness')
 		]
 	},
 	username: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validation.string.noSpecialChars,
-			cm.validation.string.noMultipleWords,
-			cm.validation.length.get('User', 'username'),
-			cm.validation.get('User', 'username', 'uniqueness')
+			cm.modules.validator.string.noSpecialChars,
+			cm.modules.validator.string.noMultipleWords,
+			cm.modules.validator.length.get('User', 'username'),
+			cm.modules.validator.get('User', 'username', 'uniqueness')
 		]
 	},
 	password: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validation.string.noSpecialChars,
-			cm.validation.string.noMultipleWords,
-			cm.validation.length.get('User', 'password')
+			cm.modules.validator.string.noSpecialChars,
+			cm.modules.validator.string.noMultipleWords,
+			cm.modules.validator.length.get('User', 'password')
 		]
 	},
 	firstname: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validation.string.noSpecialChars,
-			cm.validation.string.noDigits,
-			cm.validation.length.get('User', 'firstname')
+			cm.modules.validator.string.noSpecialChars,
+			cm.modules.validator.string.noDigits,
+			cm.modules.validator.length.get('User', 'firstname')
 		]
 	},
 	lastname: {
 		type: String,
 		required: true,
 		validate: [
-			cm.validation.string.noSpecialChars,
-			cm.validation.string.noDigits,
-			cm.validation.length.get('User', 'lastname')
+			cm.modules.validator.string.noSpecialChars,
+			cm.modules.validator.string.noDigits,
+			cm.modules.validator.length.get('User', 'lastname')
 		]
 	},
 	country: {
 		type: String,
         required: true,
         validate: [
-        	cm.validation.get('User', 'country', 'correctness')
+        	cm.modules.validator.get('User', 'country', 'correctness')
         ]
 	},
 	registration_date: {

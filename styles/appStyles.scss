@@ -498,6 +498,24 @@ $avatarSize: 240px;
 		}
 	}
 }
+#appStats {
+
+	#bodySection {
+
+
+	}
+}
+@import '_vars';
+
+#userBadge {
+
+	position: relative;
+	display: table;
+	margin: 0 auto;
+	padding: 15px;
+
+	#mySrc { img { @extend .defaultAvatarSize; } }
+}
 #contactForm {
 
 	#myForm {
@@ -586,24 +604,6 @@ $avatarSize: 240px;
 			}
 		}
 	}
-}
-#appStats {
-
-	#bodySection {
-
-
-	}
-}
-@import '_vars';
-
-#userBadge {
-
-	position: relative;
-	display: table;
-	margin: 0 auto;
-	padding: 15px;
-
-	#mySrc { img { @extend .defaultAvatarSize; } }
 }
 #reportAvatar {
 
@@ -1153,11 +1153,11 @@ $avatarSize: 240px;
 		//background-color: $body-bg;
 	}
 }
-#mySelect {
+#myNavMenu {
 
 
 }
-#myNavMenu {
+#mySelect {
 
 
 }

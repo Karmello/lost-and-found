@@ -103,7 +103,7 @@ module.exports = {
 
 	        if (!err) {
 
-	        	cm.modules.paypalModule.finalizePayment(payment).then(() => {
+	        	cm.modules.paypal.finalizePayment(payment).then(() => {
 	        		res.redirect('https://' + req.headers.host + '/#/upgrade?id=' + payment.transactions[0].description);
 
 	        	}, () => {

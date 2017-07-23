@@ -12,10 +12,10 @@ module.exports = {
             let doc = this;
             if (!doc.category1) { return false; }
 
-            let category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
+            let Category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
 
-            if (category1) {
-                return Boolean(cm.libs._.find(category1.subcategories, (obj) => { return obj._id == category2; }));
+            if (Category1) {
+                return Boolean(cm.libs._.find(Category1.subcategories, (obj) => { return obj._id == category2; }));
 
             } else { return false; }
         }
@@ -26,14 +26,14 @@ module.exports = {
             let doc = this;
             if (!doc.category1 || !doc.category2) { return false; }
 
-            let category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
+            let Category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
 
-            if (category1) {
+            if (Category1) {
 
-                let category2 = cm.libs._.find(category1.subcategories, (obj) => { return obj._id == doc.category2; });
+                let Category2 = cm.libs._.find(Category1.subcategories, (obj) => { return obj._id == doc.category2; });
 
-                if (category2) {
-                    return Boolean(cm.libs._.find(category2.subcategories, (obj) => { return obj._id == category3; }));
+                if (Category2) {
+                    return Boolean(cm.libs._.find(Category2.subcategories, (obj) => { return obj._id == category3; }));
 
                 } else { return false; }
 

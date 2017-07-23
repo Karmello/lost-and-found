@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"ca",
+				"category1\t(bool)"
+			],
+			[
+				"report",
+				"reportCategories"
+			],
+			[
 				"email",
 				"emailValidator"
 			],
@@ -56,10 +64,6 @@
 				"getCorrectnessValidator(string, string)"
 			],
 			[
-				"ca",
-				"category1"
-			],
-			[
 				"mod",
 				"modelName"
 			],
@@ -97,10 +101,6 @@
 			],
 			[
 				"re",
-				"reports"
-			],
-			[
-				"report",
 				"reports"
 			],
 			[
@@ -316,10 +316,19 @@
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/laf/dev/js/server/models/User/validators.js",
+			"file": "/D/Workspace/laf/dev/js/server/models/Report/validators.js",
 			"settings":
 			{
-				"buffer_size": 902,
+				"buffer_size": 2319,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/tests/db/validators/report-category3-correctness.js",
+			"settings":
+			{
+				"buffer_size": 658,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -385,25 +394,50 @@
 	},
 	"expanded_folders":
 	[
+		"/D/Workspace/laf/dev/js/server/models/Report",
 		"/D/Workspace/laf/dev/tests",
 		"/D/Workspace/laf/dev/tests/db",
 		"/D/Workspace/laf/dev/tests/db/validators"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/resources/json/hardCoded/hard_coded_en.json",
+		"/D/Workspace/laf/dev/tests/db/validators/report-category2-correctness.js",
+		"/D/Workspace/laf/dev/tests/db/validators/report-category1-correctness.js",
+		"/D/Workspace/laf/dev/js/server/server.js",
+		"/D/Workspace/laf/dev/public/json/hardCodedData.json",
 		"/D/Workspace/laf/dev/tests/db/validators/user-country-correctness.js",
+		"/D/Workspace/laf/dev/js/server/models/Report/validators.js",
+		"/D/Workspace/laf/dev/js/server/models/User/hooks/post.js",
+		"/D/Workspace/laf/dev/js/server/models/User/hooks/pre.js",
+		"/D/Workspace/laf/dev/js/server/models/User/config.js",
+		"/D/Workspace/laf/dev/js/server/models/User/controller.js",
+		"/D/Workspace/laf/dev/js/server/models/User/methods.js",
+		"/D/Workspace/laf/dev/js/server/models/User/schema.js",
+		"/D/Workspace/laf/dev/js/server/models/User/statics.js",
+		"/D/Workspace/laf/dev/js/server/models/User/User.js",
+		"/D/Workspace/laf/dev/js/server/models/User/validators.js",
+		"/D/Workspace/laf/dev/tests/db/validators/user-username-uniqueness.js",
+		"/D/Workspace/laf/dev/tests/db/validators/user-email-uniqueness.js",
 		"/D/Workspace/laf/dev/tests/db/validators/user-email-correctness.js",
+		"/D/Workspace/laf/dev/js/server/validation/string.js",
+		"/D/Workspace/laf/dev/js/setup/modules/dataFactory.js",
+		"/D/Workspace/laf/dev/run.cmd",
+		"/D/Workspace/laf/dev/js/client/run.js",
+		"/D/Workspace/laf/dev/db/init.js",
+		"/D/Workspace/laf/dev/db/temp.js",
+		"/D/Workspace/laf/dev/db/findOneAndUpdate.js",
+		"/D/Workspace/laf/dev/db/clear.js",
+		"/D/Workspace/laf/dev/tests/unit/spec1.js",
 		"/D/Workspace/laf/dev/tests/db/validators/User/email-correctness.js",
 		"/D/Workspace/laf/dev/tests/db/models/User/spec1.js",
 		"/D/Workspace/laf/dev/js/server/init/env.js",
 		"/D/Workspace/laf/dev/tests/db/spec1.js",
 		"/D/Workspace/laf/dev/js/server/validation/get.js",
-		"/D/Workspace/laf/dev/js/server/server.js",
 		"/D/Workspace/laf/dev/js/server/init/app.js",
 		"/D/Workspace/laf/dev/js/server/init/_init.js",
 		"/D/Workspace/laf/dev/js/server/models/_actions.js",
 		"/D/Workspace/laf/dev/js/server/validation/length.js",
-		"/D/Workspace/laf/dev/js/server/validation/string.js",
 		"/D/Workspace/laf/dev/js/server/validation/number.js",
 		"/D/Workspace/laf/dev/js/server/validation/_validation.js",
 		"/D/Workspace/laf/dev/js/server/models/Comment/schema.js",
@@ -411,10 +445,7 @@
 		"/D/Workspace/laf/dev/js/server/models/Payment/schema.js",
 		"/D/Workspace/laf/dev/js/server/models/Report/schema.js",
 		"/D/Workspace/laf/dev/js/server/models/ReportEvent/schema.js",
-		"/D/Workspace/laf/dev/js/server/models/User/schema.js",
-		"/D/Workspace/laf/dev/js/server/models/User/validators.js",
 		"/D/Workspace/laf/dev/js/server/cm.js",
-		"/D/Workspace/laf/dev/js/server/models/User/User.js",
 		"/D/Workspace/laf/dev/js/server/models/ContactType/ContactType.js",
 		"/D/Workspace/laf/dev/js/server/models/Comment/Comment.js",
 		"/D/Workspace/laf/dev/js/server/models/Report/Report.js",
@@ -429,7 +460,6 @@
 		"/D/Workspace/laf/dev/js/server/init/modelRefs.js",
 		"/D/Workspace/laf/dev/js/server/init/db.js",
 		"/D/Workspace/laf/dev/js/server/init/consts.js",
-		"/D/Workspace/laf/dev/js/server/models/Report/validators.js",
 		"/D/Workspace/laf/dev/js/server/models/Password/validators.js",
 		"/D/Workspace/laf/dev/js/server/models/Payment/validators.js",
 		"/D/Workspace/laf/dev/js/server/models/ReportEvent/validators.js",
@@ -498,27 +528,7 @@
 		"/D/Workspace/laf/dev/js/server/validators/correctness/report.js",
 		"/D/Workspace/laf/dev/js/server/validators/length/length.js",
 		"/D/Workspace/laf/dev/js/server/validators/correctness/payment.js",
-		"/D/Workspace/laf/dev/js/server/validators/uniqueness/uniqueness.js",
-		"/D/Workspace/laf/dev/js/server/validators/correctness/user.js",
-		"/D/Workspace/laf/dev/js/server/validators/global.js",
-		"/D/Workspace/laf/dev/js/server/validators/correctness/reportEvent.js",
-		"/D/Workspace/laf/dev/js/server/validators/correctness/password.js",
-		"/D/Workspace/laf/dev/js/server/schemas/Payment/Payment.js",
-		"/D/Workspace/laf/dev/js/server/validators/password.js",
-		"/D/Workspace/laf/dev/js/server/validators/reportEvent.js",
-		"/D/Workspace/laf/dev/js/server/validators/payment.js",
-		"/D/Workspace/laf/dev/js/server/validators/length",
-		"/D/Workspace/laf/dev/js/server/validators/comment.js",
-		"/D/Workspace/laf/dev/js/server/validators/report.js",
-		"/D/Workspace/laf/dev/js/server/validators/x.js",
-		"/D/Workspace/laf/dev/js/server/validators/getCorrectnessValidator.js",
-		"/D/Workspace/laf/dev/js/server/validators/getLengthValidator.js",
-		"/D/Workspace/laf/dev/js/server/validators/user.js",
-		"/D/Workspace/laf/dev/js/server/validators/userValidators.js",
-		"/D/Workspace/laf/dev/js/server/validators/reportValidators.js",
-		"/D/Workspace/laf/dev/js/setup/modules/dbClient.js",
-		"/D/Workspace/laf/dev/js/setup/run.js",
-		"/D/Workspace/laf/dev/js/setup/modules/dataFactory.js"
+		"/D/Workspace/laf/dev/js/server/validators/uniqueness/uniqueness.js"
 	],
 	"find":
 	{
@@ -743,32 +753,64 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/laf/dev/js/server/models/User/validators.js",
+					"file": "/D/Workspace/laf/dev/js/server/models/Report/validators.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 902,
+						"buffer_size": 2319,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								902,
-								902
+								1180,
+								1180
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/tests/db/validators/report-category3-correctness.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 658,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								509,
+								509
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 51.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -826,11 +868,27 @@
 		"selected_items":
 		[
 			[
-				"server",
-				"server\\server.js"
+				"hardd",
+				"dev\\resources\\json\\hardCoded\\hard_coded_en.json"
 			],
 			[
 				"ser",
+				"server\\server.js"
+			],
+			[
+				"schema",
+				"models\\User\\schema.js"
+			],
+			[
+				"dataf",
+				"setup\\modules\\dataFactory.js"
+			],
+			[
+				"run",
+				"dev\\run.cmd"
+			],
+			[
+				"server",
 				"server\\server.js"
 			],
 			[
@@ -1022,10 +1080,6 @@
 				"actions\\Report\\getReportById.js"
 			],
 			[
-				"run",
-				"client\\run.js"
-			],
-			[
 				"mainc",
 				"client\\controllers\\MainController.js"
 			],
@@ -1060,10 +1114,6 @@
 			[
 				"commetns",
 				"server\\schemas\\CommentSchema.js"
-			],
-			[
-				"dataf",
-				"setup\\modules\\dataFactory.js"
 			],
 			[
 				"getcom",
@@ -1328,14 +1378,6 @@
 			[
 				"appconfi",
 				"server\\schemas\\AppConfigSchema.js"
-			],
-			[
-				"postre",
-				"server\\actions\\Report\\postReport.js"
-			],
-			[
-				"registeru",
-				"server\\actions\\User\\registerUser.js"
 			]
 		],
 		"width": 0.0

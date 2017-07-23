@@ -1,7 +1,8 @@
 module.exports = {
-	aws3Module: require('./aws3Module'),
-	mailModule: require('./mailModule'),
-	modelDataModule: require('./modelDataModule'),
-	paypalModule: require('./paypalModule'),
-	utilModule: require('./utilModule')
+	aws3: require('./aws3'),
+	email: require('./email'),
+	dataModel: require('./dataModel'),
+	paypal: require('./paypal'),
+	utils: require('./utils'),
+	validator: require('./validator')
 };

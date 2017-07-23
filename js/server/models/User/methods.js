@@ -56,7 +56,7 @@ module.exports = {
 
 				for (let i = 0; i < bucketNames.length; i++) {
 					tasks.push(new Promise((resolve) => {
-						cm.modules.aws3Module.s3.deleteObject({
+						cm.modules.aws3.s3.deleteObject({
 				            Bucket: bucketNames[i],
 				            Key: keys[i]
 

@@ -30,7 +30,7 @@ if "%1" == "test" (
 
 	if "%2" == "-db" (
 		cmd /k "mongod" -new_console:t:mongod
-		cmd /k "ls" -new_console:d:"%cd%\tests\db"
+		cmd /k "cd tests/db" -new_console:t:mocha
 		echo. & echo Db tests started
 	)
 )

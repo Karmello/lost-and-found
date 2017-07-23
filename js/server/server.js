@@ -26,8 +26,6 @@ cm.init.env().then(cm.init.app, cm.reject).then(() => {
 
 			try {
 
-				cm.validation = require('./validation/_validation');
-
 				cm.init.routes().then(cm.init.db, cm.reject).then(cm.init.modelRefs, cm.reject).then(() => {
 
 					const server = cm.libs.https.createServer({
@@ -39,7 +37,7 @@ cm.init.env().then(cm.init.app, cm.reject).then(() => {
 					cm.init.sockets(server).then(() => {
 
 						server.listen(process.env.PORT, () => {
-					        cm.modules.utilModule.printFormattedLog('App server listening on port ' + process.env.PORT);
+					        cm.modules.utils.printFormattedLog('App server listening on port ' + process.env.PORT);
 					    });
 
 					}, cm.reject);

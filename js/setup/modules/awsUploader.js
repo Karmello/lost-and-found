@@ -7,7 +7,7 @@ let singleImgToAws = (subject, file) => {
 		let body = { fileTypes: [file.fileType] };
 		if (file.reportId) { body.reportId = file.reportId; }
 
-		cm.modules.aws3Module.getUploadCredentials({
+		cm.modules.aws3.getUploadCredentials({
 			headers: { subject: subject },
 			body: body,
 			decoded: { _id: file.userId }
@@ -15,7 +15,7 @@ let singleImgToAws = (subject, file) => {
 
 			file.filename = credentials[0].awsFilename;
 
-			cm.modules.aws3Module.s3.putObject({
+			cm.modules.aws3.s3.putObject({
 				Bucket: 'laf.useruploads',
 				Key: credentials[0].awsFormData.key,
 				ACL: credentials[0].awsFormData.acl,

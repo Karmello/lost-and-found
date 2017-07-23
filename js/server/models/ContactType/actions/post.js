@@ -35,7 +35,7 @@ module.exports = (...args) => {
 
 	}).then((data) => {
 
-		let mail = cm.modules.mailModule.create('contact_msg', 'en', process.env.GMAIL_USER, {
+		let mail = cm.modules.email.create('contact_msg', 'en', process.env.GMAIL_USER, {
 			userId: data.user._id,
 			username: data.user.username,
 			contactType: data.contactType.label.en,
@@ -43,7 +43,7 @@ module.exports = (...args) => {
 			contactMsg: action.req.body.contactMsg
 		});
 
-		cm.modules.mailModule.send(mail, (err, info) => {
+		cm.modules.email.send(mail, (err, info) => {
 
 			if (!err) {
 

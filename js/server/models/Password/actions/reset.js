@@ -10,12 +10,12 @@ module.exports = (...args) => {
 
             user.password = Math.random().toString(36).slice(-8);
 
-            let mail = cm.modules.mailModule.create('new_pass', action.req.session.language, action.req.decoded.email, {
+            let mail = cm.modules.email.create('new_pass', action.req.session.language, action.req.decoded.email, {
                 username: user.username,
                 password: user.password
             });
 
-            cm.modules.mailModule.send(mail, (err, info) => {
+            cm.modules.email.send(mail, (err, info) => {
 
                 if (!err) {
 

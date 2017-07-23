@@ -12,25 +12,25 @@ let ReportSchema = new cm.libs.mongoose.Schema({
 	},
 	category1: {
 		type: String,
-		validate: [cm.validation.get('Report', 'category1', 'correctness')],
+		validate: [cm.modules.validator.get('Report', 'category1', 'correctness')],
 		required: true
 	},
 	category2: {
 		type: String,
-		validate: [cm.validation.get('Report', 'category2', 'correctness')]
+		validate: [cm.modules.validator.get('Report', 'category2', 'correctness')]
 	},
 	category3: {
 		type: String,
-		validate: [cm.validation.get('Report', 'category3', 'correctness')]
+		validate: [cm.modules.validator.get('Report', 'category3', 'correctness')]
 	},
 	title: {
 		type: String,
-		validate: [cm.validation.length.get('Report', 'title')],
+		validate: [cm.modules.validator.length.get('Report', 'title')],
 		required: true
 	},
 	description: {
 		type: String,
-		validate: [cm.validation.length.get('Report', 'description')],
+		validate: [cm.modules.validator.length.get('Report', 'description')],
 		required: true
 	},
 	serialNo: {
@@ -38,7 +38,7 @@ let ReportSchema = new cm.libs.mongoose.Schema({
 	},
 	avatar: {
 		type: String,
-		validate: [cm.validation.get('Report', 'avatar', 'correctness')]
+		validate: [cm.modules.validator.get('Report', 'avatar', 'correctness')]
 	},
 	photos: [global.paths.server + '/models/ReportPhoto/ReportPhoto'],
 	comments: [{
@@ -56,7 +56,7 @@ let ReportSchema = new cm.libs.mongoose.Schema({
 	}
 }, { versionKey: false });
 
-let photosValidator = cm.validation.get('Report', 'photos', 'correctness');
+let photosValidator = cm.modules.validator.get('Report', 'photos', 'correctness');
 ReportSchema.path('photos').validate(photosValidator.validator, undefined, photosValidator.type);
 
 module.exports = ReportSchema;

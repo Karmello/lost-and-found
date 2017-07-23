@@ -22,7 +22,7 @@
 				$scope.myModel = PaymentsRest.paymentModel;
 
 				$scope.myModel.set({
-					paymentMethod: 'paypal',
+					method: 'paypal',
 					currency: DEFAULT_CURRENCY,
 					amount: DEFAULT_AMOUNT,
 					creditCardExpireMonth: 1,
@@ -35,13 +35,13 @@
 					model: $scope.myModel,
 					submitAction: function(args) {
 
-						if ($scope.myModel.getValue('paymentMethod') == 'credit_card') {
+						if ($scope.myModel.getValue('method') == 'credit_card') {
 							return PaymentsRest.post($scope.myModel.getValues());
 
 						} else {
 
 							var body = {
-								paymentMethod: $scope.myModel.getValue('paymentMethod'),
+								method: $scope.myModel.getValue('method'),
 								amount: $scope.myModel.getValue('amount'),
 								currency: $scope.myModel.getValue('currency')
 							};
@@ -51,7 +51,7 @@
 					},
 					submitSuccessCb: function(res) {
 
-						switch ($scope.myModel.getValue('paymentMethod')) {
+						switch ($scope.myModel.getValue('method')) {
 
 							case 'credit_card':
 								$window.location.reload();

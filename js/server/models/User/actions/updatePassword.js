@@ -13,7 +13,7 @@ module.exports = (...args) => {
 
 					let password = new cm.Password({
 						userId: user._id,
-						currentPassword: action.req.body.currentPassword,
+						current: action.req.body.current,
 						password: action.req.body.password
 					});
 

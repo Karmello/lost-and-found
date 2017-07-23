@@ -3,7 +3,7 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('report category3 correctness validation', () => {
+describe('report avatar correctness validation', () => {
 
 	let validate;
 
@@ -11,12 +11,64 @@ describe('report category3 correctness validation', () => {
 		validate = cm.modules.validator.get('Report', 'avatar', 'correctness').validator;
 	});
 
-	it('should return false', () => {
+	it('should return false', (done) => {
+
+		let report = { photos: [], avatar: 'photo.png' };
+
+		validate.call(report, report.avatar, (valid) => {
+			expect(valid).to.be.false;
+			done();
+		});
+	});
+
+	it('should return false', (done) => {
 
 		let report = {
-
+			photos: [
+				{ filename: 'photo1.png', size: 100 },
+				{ filename: 'photo2.png', size: 200 }
+			]
 		};
 
-		expect(validate.call(report, report.avatar)).to.be.false;
+		validate.call(report, report.avatar, (valid) => {
+			expect(valid).to.be.false;
+			done();
+		});
+	});
+
+	it('should return false', (done) => {
+
+		let report = {
+			photos: [{ filename: 'photo1.png', size: 100 }],
+			avatar: 'photo2.png'
+		};
+
+		validate.call(report, report.avatar, (valid) => {
+			expect(valid).to.be.false;
+			done();
+		});
+	});
+
+	it('should return true', (done) => {
+
+		let report = { photos: [], avatar: '' };
+
+		validate.call(report, report.avatar, (valid) => {
+			expect(valid).to.be.true;
+			done();
+		});
+	});
+
+	it('should return true', (done) => {
+
+		let report = {
+			photos: [{ filename: 'photo.png', size: 100 }],
+			avatar: 'photo.png'
+		};
+
+		validate.call(report, report.avatar, (valid) => {
+			expect(valid).to.be.true;
+			done();
+		});
 	});
 });

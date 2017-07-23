@@ -6,10 +6,10 @@ module.exports = new cm.libs.mongoose.Schema({
 		ref: 'user',
 		required: true
 	},
-	currentPassword: {
+	current: {
 		type: String,
 		required: true,
-		validate: [cm.modules.validator.get('Password', 'currentPassword', 'correctness')]
+		validate: [cm.modules.validator.get('Password', 'current', 'correctness')]
 	},
 	password: {
 		type: String,

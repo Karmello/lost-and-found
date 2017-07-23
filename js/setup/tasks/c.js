@@ -8,14 +8,14 @@ let run = (subject) => {
 		s.subject = subject;
 
 		s.dbClient.get()
-		.then(s.dataFactory.prepare)
-		.then(s.dbClient.post)
-		.then(s.fileReader.readImgs)
-		.then(s.awsUploader.uploadImgs)
-		.then(s.dbClient.sync)
+		.then(s.dataFactory.prepare, reject)
+		.then(s.dbClient.post, reject)
+		.then(s.fileReader.readImgs, reject)
+		.then(s.awsUploader.uploadImgs, reject)
+		.then(s.dbClient.sync, reject)
 		.then(() => {
 
-			r[subject].count((err, count) => {
+			cm[subject].count((err, count) => {
 				if (!err) { resolve(count); } else { reject(err); }
 			});
 

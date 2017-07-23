@@ -1,20 +1,17 @@
 const cm = require(global.paths.server + '/cm');
 
 module.exports = {
-	currentPassword: {
-        correctness: function(currentPassword, cb) {
+	current: {
+        correctness: function(current, cb) {
 
             cm.User.findOne({ _id: this.userId }, (err, user) => {
 
                 if (!err && user) {
-
-                    user.comparePasswords(currentPassword, (err, isMatch) => {
+                    user.comparePasswords(current, (err, isMatch) => {
                         if (err) { cb(false); } else { cb(isMatch); }
                     });
 
-                } else {
-                    cb(false);
-                }
+                } else { cb(false); }
             });
         }
     }

@@ -7,9 +7,9 @@ module.exports = {
 		delete user.password;
 		return user;
 	},
-	comparePasswords: function(currentPassword, cb) {
+	comparePasswords: function(current, cb) {
 
-        cm.libs.bcrypt.compare(currentPassword, this.password, (err, isMatch) => {
+        cm.libs.bcrypt.compare(current, this.password, (err, isMatch) => {
             if (err) { cb(err); } else { cb(null, isMatch); }
         });
     },

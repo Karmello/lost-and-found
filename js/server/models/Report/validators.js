@@ -44,7 +44,7 @@ module.exports = {
         correctness: function(avatar, cb) {
 
             if (!this.photos || this.photos.length === 0) {
-                cb(avatar === undefined);
+                cb(!avatar);
 
             } else {
                 cb(Boolean(cm.libs._.find(this.photos, (obj) => { return obj.filename == avatar; })));
@@ -54,18 +54,14 @@ module.exports = {
 	photos: {
         correctness: function(photos, cb) {
 
-            let getSinglePromise = (i) => {
-                return new cm.libs.Promise((resolve) => {
-                    new cm.ReportPhoto(photos[i]).validate((err) => { resolve(err); });
-                });
-            };
+            if (photos.length > cm.Report.schema.statics.config.photos.length.max) {
+                cb(false);
 
-            let promises = [];
-            for (let i = 0; i < photos.length; i++) { promises.push(getSinglePromise(i)); }
-
-            cm.libs.Promise.all(promises).then((results) => {
-                cb(!Boolean(cm.libs._.find(results, (elem) => { return elem; })));
-            });
+            } else {
+                let tasks = [];
+                for (let photo of photos) { tasks.push(new cm.ReportPhoto(photo).validate()); }
+                cm.libs.Promise.all(tasks).then(() => { cb(true); }, (err) => { cb(false); });
+            }
         }
     }
 };

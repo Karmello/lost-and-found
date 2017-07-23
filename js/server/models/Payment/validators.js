@@ -1,7 +1,7 @@
 const cm = require(global.paths.server + '/cm');
 
 module.exports = {
-	paymentMethod: {
+	method: {
         correctness: function(method) {
             let methods = Object.keys(cm.hardData.en.payment.methods);
             for (let i = 0; i < methods.length; i++) { if (methods[i] == method) { return true; } }

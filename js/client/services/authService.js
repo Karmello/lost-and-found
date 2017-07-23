@@ -76,6 +76,7 @@
 				// Updating other services variables
 				storageService.authToken.remove();
 				$rootScope.apiData.loggedInUser = undefined;
+				$rootScope.apiData.payment = undefined;
 
 				if (cb) { cb(); }
 			}

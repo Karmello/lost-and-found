@@ -122,7 +122,7 @@ module.exports = {
                 // Getting report from db
                 cm.Report.findOne({ _id: action.req.body.reportId }, (err, report) => {
 
-                    if (!err && report && report.photos.length < cm.Report.schema.statics.config.photos.max) {
+                    if (!err && report && report.photos.length < cm.Report.schema.statics.config.photos.length.max) {
                         resolve();
 
                     } else {

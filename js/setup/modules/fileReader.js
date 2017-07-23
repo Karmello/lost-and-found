@@ -12,7 +12,7 @@ module.exports = {
 				for (let config of data) {
 
 					tasks.push(new cm.libs.Promise((resolve, reject) => {
-						cm.libs.fs.readFile(global.paths.root + config.avatarPath, (err, fileData) => {
+						cm.libs.fs.readFile(config.avatarPath, (err, fileData) => {
 
 							if (!err) {
 								resolve({

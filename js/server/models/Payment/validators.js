@@ -22,11 +22,7 @@ module.exports = {
         correctness: function(creditCardType) {
 
             let creditCardTypes = Object.keys(cm.hardData.en.payment.creditCardTypes);
-
-            for (let i = 0; i < creditCardTypes.length; i++) {
-                if (creditCardTypes[i] == creditCardType) { return true; }
-            }
-
+            for (let type in cm.hardData.en.payment.creditCardTypes) { if (type === creditCardType) { return true; } }
             return false;
         },
     },

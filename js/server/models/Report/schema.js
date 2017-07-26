@@ -25,12 +25,12 @@ let ReportSchema = new cm.libs.mongoose.Schema({
 	},
 	title: {
 		type: String,
-		validate: [cm.modules.validator.length.get('Report', 'title')],
+		validate: [cm.modules.validator.string.length('Report', 'title')],
 		required: true
 	},
 	description: {
 		type: String,
-		validate: [cm.modules.validator.length.get('Report', 'description')],
+		validate: [cm.modules.validator.string.length('Report', 'description')],
 		required: true
 	},
 	serialNo: {

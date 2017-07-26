@@ -6,6 +6,7 @@ module.exports = (...args) => {
 
 	new cm.libs.Promise((resolve, reject) => {
 
+		// Getting report owner
 		if (action.req.query.reportId) {
 
 			cm.Report.findOne({ _id: action.req.query.reportId }, (err, report) => {
@@ -16,6 +17,7 @@ module.exports = (...args) => {
 				} else { reject(err); }
 			});
 
+		// Getting user by id
 		} else {
 
 			resolve({

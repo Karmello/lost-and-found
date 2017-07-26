@@ -3,11 +3,11 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('report photos correctness validation', () => {
+describe('report photos correctness validator', () => {
 
 	let validate;
 
-	beforeEach(() => {
+	before(() => {
 		validate = cm.modules.validator.get('Report', 'photos', 'correctness').validator;
 	});
 
@@ -27,7 +27,7 @@ describe('report photos correctness validation', () => {
 
 		let photos = [];
 
-		for (let i = 0; i <= cm.Report.schema.statics.config.photos.length.max; i++) {
+		for (let i = 0; i <= cm.Report.config.photos.length.max; i++) {
 			photos.push({ filename: 'photo' + (i + 1) + '.png', size: 100 });
 		}
 

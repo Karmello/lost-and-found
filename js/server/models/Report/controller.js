@@ -6,7 +6,7 @@ module.exports = (app, route) => {
 	cm.Report = rest;
 
 	rest.before('post', [
-		cm.User.validateUserToken,
+		cm.User.authenticateToken,
 		cm.Report.validateReportAction,
 		cm.actions.report.post
 	]);
@@ -24,7 +24,7 @@ module.exports = (app, route) => {
 
 			case 'lastViewed':
 
-				cm.User.validateUserToken(req, res, () => {
+				cm.User.authenticateToken(req, res, () => {
 					cm.actions.report.getByIds(req, res, next);
 				});
 
@@ -32,7 +32,7 @@ module.exports = (app, route) => {
 
 			case 'singleOne':
 
-				cm.User.validateUserToken(req, res, () => {
+				cm.User.authenticateToken(req, res, () => {
 					cm.actions.report.getById(req, res, next);
 				});
 
@@ -41,13 +41,13 @@ module.exports = (app, route) => {
 	}]);
 
 	rest.before('put', [
-		cm.User.validateUserToken,
+		cm.User.authenticateToken,
 		cm.Report.validateReportAction,
 		cm.actions.report.put
 	]);
 
 	rest.before('delete', [
-		cm.User.validateUserToken,
+		cm.User.authenticateToken,
 		cm.Report.validateReportAction,
 		cm.actions.report.delete
 	]);

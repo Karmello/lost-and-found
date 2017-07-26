@@ -3,27 +3,18 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('user country correctness validation', () => {
+describe('user country correctness validator', () => {
 
 	let validate;
 
-	beforeEach(() => {
+	before(() => {
 		validate = cm.modules.validator.get('User', 'country', 'correctness').validator;
 	});
 
 	it('should return false', () => {
 		expect(validate()).to.be.false;
-	});
-
-	it('should return false', () => {
 		expect(validate('')).to.be.false;
-	});
-
-	it('should return false', () => {
 		expect(validate('Not Existing Country')).to.be.false;
-	});
-
-	it('should return false', () => {
 		expect(validate('poland')).to.be.false;
 	});
 

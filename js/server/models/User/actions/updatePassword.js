@@ -4,7 +4,7 @@ module.exports = (...args) => {
 
 	let action = new cm.prototypes.Action(args);
 
-	cm.User.validateUserToken(action.req, action.res, () => {
+	cm.User.authenticateToken(action.req, action.res, () => {
 
 		new cm.libs.Promise((resolve, reject) => {
 			cm.User.findOne({ _id: action.req.decoded._id }, 'password', (err, user) => {

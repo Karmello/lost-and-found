@@ -3,13 +3,14 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('reportEvent address correctness validation', () => {
+describe('reportEvent address correctness validator', () => {
 
 	let validate, places;
 
-	beforeEach(() => {
+	before((done) => {
 		validate = cm.modules.validator.get('ReportEvent', 'address', 'correctness').validator;
 		places = require(global.paths.root + '/js/setup/hardcoded/places');
+		done();
 	});
 
 	it('should return false', (done) => {

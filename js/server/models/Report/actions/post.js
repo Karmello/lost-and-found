@@ -18,6 +18,7 @@ module.exports = (...args) => {
 	report.startEvent = new cm.ReportEvent(action.req.body.startEvent);
 
 	cm.actions.report.runValidation(report).then(() => {
+
 		report.save({ validateBeforeSave: false }, (err) => {
 
 			if (!err) {

@@ -54,7 +54,7 @@ module.exports = {
 	photos: {
         correctness: function(photos, cb) {
 
-            if (photos.length > cm.Report.schema.statics.config.photos.length.max) {
+            if (photos.length > cm.Report.config.photos.length.max) {
                 cb(false);
 
             } else {

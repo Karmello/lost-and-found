@@ -3,11 +3,11 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('reportEvent type correctness validation', () => {
+describe('reportEvent type correctness validator', () => {
 
 	let validate, reportTypes;
 
-	beforeEach(() => {
+	before(() => {
 		validate = cm.modules.validator.get('ReportEvent', 'type', 'correctness').validator;
 		reportTypes = cm.hardData.en.reportTypes;
 	});

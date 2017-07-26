@@ -9,7 +9,7 @@ let run = (subject) => {
 
 		s.dbClient.get()
 		.then(s.dataFactory.prepare, reject)
-		.then(s.dbClient.post, reject)
+		.then(s.dbClient.create, reject)
 		.then(s.fileReader.readImgs, reject)
 		.then(s.awsUploader.uploadImgs, reject)
 		.then(s.dbClient.sync, reject)

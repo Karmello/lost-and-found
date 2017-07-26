@@ -14,36 +14,6 @@ module.exports = {
 		validator.validator = require(path)[propName][validatorName];
 		return validator;
 	},
-	length: {
-		get: (modelName, propName) => {
-
-			let validator = {
-				type: 'wrong_length',
-				limits: require(global.paths.server + '/models/' + modelName + '/config')[propName].length
-			};
-
-			validator.validator = (() => {
-
-				if (validator.limits.min && validator.limits.max) {
-					return function(string) {
-						return string.length >= validator.limits.min && string.length <= validator.limits.max;
-					};
-
-				} else if (validator.limits.min) {
-					return function(string) {
-						return string.length >= validator.limits.min;
-					};
-
-				} else if (validator.limits.max) {
-					return function(string) {
-						return string.length <= validator.limits.max;
-					};
-				}
-			})();
-
-			return validator;
-		}
-	},
 	number: {
 		isInteger: {
 	        type: 'not_integer',
@@ -73,6 +43,41 @@ module.exports = {
 	    noMultipleWords: {
 	        type: 'multiple_words_found',
 	        validator: function(string) { if (string.search(/([\ ])/) != -1) { return false; } else { return true; } }
-	    }
+	    },
+	    length: (...args) => {
+
+			let validator = { type: 'wrong_length' };
+
+			if (args.length === 1) {
+				validator.limits = args[0];
+
+			} else if (args.length === 2) {
+				validator.limits = require(global.paths.server + '/models/' + args[0] + '/config')[args[1]].length;
+			}
+
+			validator.validator = (() => {
+
+				if (validator.limits.min && validator.limits.max) {
+					return function(string) {
+						if (!string) { return false; }
+						return string.length >= validator.limits.min && string.length <= validator.limits.max;
+					};
+
+				} else if (validator.limits.min) {
+					return function(string) {
+						if (!string) { return false; }
+						return string.length >= validator.limits.min;
+					};
+
+				} else if (validator.limits.max) {
+					return function(string) {
+						if (!string) { return false; }
+						return string.length <= validator.limits.max;
+					};
+				}
+			})();
+
+			return validator;
+		}
 	}
 };

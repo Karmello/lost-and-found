@@ -28,6 +28,10 @@ const cm = {
 };
 
 cm.libs.MongoStore = require('connect-mongo')(cm.libs.session);
-cm.libs.expect = cm.libs.chai.expect;
+
+if (process.env.LOADED_MOCHA_OPTS) {
+	cm.libs.expect = cm.libs.chai.expect;
+	cm.test = { helpers: require('./../../tests/_helpers') };
+}
 
 module.exports = cm;

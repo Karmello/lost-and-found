@@ -6,7 +6,7 @@ module.exports = (app, route) => {
 	cm.ContactType = rest;
 
 	rest.before('get', cm.actions.contact_type.get);
-	rest.before('post', [cm.User.validateUserToken, cm.actions.contact_type.post]);
+	rest.before('post', [cm.User.authenticateToken, cm.actions.contact_type.post]);
 
 	rest.register(app, route);
 	return (req, res, next) => { next(); };

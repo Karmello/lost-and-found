@@ -21,7 +21,7 @@
 						// Auth token found
 						if (authToken) {
 
-							UsersRest.post(undefined, { action: 'auth' }, { 'x-access-token': authToken }).then(function(res) {
+							UsersRest.post(undefined, { action: 'authenticate' }, { 'x-access-token': authToken }).then(function(res) {
 
 								// Successful authentication
 								service.setAsLoggedIn(function() {

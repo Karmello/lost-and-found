@@ -94,7 +94,7 @@ module.exports = {
 
                 let items = data.Contents;
 
-                for (var i = 0; i < items.length; i++) {
+                for (let i = 0; i < items.length; i++) {
 
                     tasks.push(new cm.libs.Promise((resolve, reject) => {
                         s3.deleteObject({ Bucket: bucketName, Key: items[i].Key }, (err, data) => {
@@ -122,7 +122,7 @@ module.exports = {
                 // Getting report from db
                 cm.Report.findOne({ _id: action.req.body.reportId }, (err, report) => {
 
-                    if (!err && report && report.photos.length < cm.Report.schema.statics.config.photos.length.max) {
+                    if (!err && report && report.photos.length < cm.Report.config.photos.length.max) {
                         resolve();
 
                     } else {

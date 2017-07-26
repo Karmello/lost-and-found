@@ -6,7 +6,7 @@ module.exports = new cm.libs.mongoose.Schema({
 		required: true,
 		validate: [
 			cm.modules.validator.get('User', 'email', 'correctness'),
-			cm.modules.validator.length.get('User', 'email'),
+			cm.modules.validator.string.length('User', 'email'),
 			cm.modules.validator.get('User', 'email', 'uniqueness')
 		]
 	},
@@ -16,7 +16,7 @@ module.exports = new cm.libs.mongoose.Schema({
 		validate: [
 			cm.modules.validator.string.noSpecialChars,
 			cm.modules.validator.string.noMultipleWords,
-			cm.modules.validator.length.get('User', 'username'),
+			cm.modules.validator.string.length('User', 'username'),
 			cm.modules.validator.get('User', 'username', 'uniqueness')
 		]
 	},
@@ -26,7 +26,7 @@ module.exports = new cm.libs.mongoose.Schema({
 		validate: [
 			cm.modules.validator.string.noSpecialChars,
 			cm.modules.validator.string.noMultipleWords,
-			cm.modules.validator.length.get('User', 'password')
+			cm.modules.validator.string.length('User', 'password')
 		]
 	},
 	firstname: {
@@ -35,7 +35,7 @@ module.exports = new cm.libs.mongoose.Schema({
 		validate: [
 			cm.modules.validator.string.noSpecialChars,
 			cm.modules.validator.string.noDigits,
-			cm.modules.validator.length.get('User', 'firstname')
+			cm.modules.validator.string.length('User', 'firstname')
 		]
 	},
 	lastname: {
@@ -44,15 +44,13 @@ module.exports = new cm.libs.mongoose.Schema({
 		validate: [
 			cm.modules.validator.string.noSpecialChars,
 			cm.modules.validator.string.noDigits,
-			cm.modules.validator.length.get('User', 'lastname')
+			cm.modules.validator.string.length('User', 'lastname')
 		]
 	},
 	country: {
 		type: String,
         required: true,
-        validate: [
-        	cm.modules.validator.get('User', 'country', 'correctness')
-        ]
+        validate: [cm.modules.validator.get('User', 'country', 'correctness')]
 	},
 	registration_date: {
 		type: Date,
@@ -75,11 +73,13 @@ module.exports = new cm.libs.mongoose.Schema({
 	config: {
 		language: {
 			type: String,
-			required: false
+			required: true,
+			validate: [cm.modules.validator.get('User', 'configLanguage', 'correctness')]
 		},
 		theme: {
 			type: String,
-			required: true
+			required: true,
+			validate: [cm.modules.validator.get('User', 'configTheme', 'correctness')]
 		}
 	}
 }, { versionKey: false });

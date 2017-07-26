@@ -3,11 +3,11 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('payment method correctness validation', () => {
+describe('payment method correctness validator', () => {
 
 	let validate, methods;
 
-	beforeEach(() => {
+	before(() => {
 		validate = cm.modules.validator.get('Payment', 'method', 'correctness').validator;
 		methods = cm.hardData.en.payment.methods;
 	});

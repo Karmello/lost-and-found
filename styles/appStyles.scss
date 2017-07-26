@@ -1069,10 +1069,6 @@ $avatarSize: 240px;
 
 	display: none;
 }
-#myInput {
-
-
-}
 #myGooglePlaceAutoComplete {
 
 	#activePlaceSection {
@@ -1089,6 +1085,10 @@ $avatarSize: 240px;
 			padding-top: 2px;
 		}
 	}
+}
+#myInput {
+
+
 }
 #myTextArea {
 
@@ -1157,11 +1157,11 @@ $avatarSize: 240px;
 
 
 }
-#mySelectsGroup {
+#mySelect {
 
 
 }
-#mySelect {
+#mySelectsGroup {
 
 
 }
@@ -1272,16 +1272,6 @@ $avatarSize: 240px;
 
 	> div:first-child { text-align: center; }
 	@media only screen and (max-width: 600px) { > div { display: block; } }
-}
-#myAlert {
-	display: table;
-	margin: 0 auto;
-	text-align: center;
-	padding: 15px;
-}
-#myLabel {
-
-	padding: 1px;
 }
 #mySrc {
 
@@ -1428,4 +1418,14 @@ $avatarSize: 240px;
 			margin-top: 0;
 		}
 	}
+}
+#myAlert {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+	padding: 15px;
+}
+#myLabel {
+
+	padding: 1px;
 }

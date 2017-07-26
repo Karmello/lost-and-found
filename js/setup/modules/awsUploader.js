@@ -11,7 +11,7 @@ let singleImgToAws = (subject, file) => {
 			headers: { subject: subject },
 			body: body,
 			decoded: { _id: file.userId }
-		}, undefined, (credentials) => {
+		}, undefined, (status, credentials) => {
 
 			file.filename = credentials[0].awsFilename;
 

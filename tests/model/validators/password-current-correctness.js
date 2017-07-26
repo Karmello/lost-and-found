@@ -3,21 +3,23 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('password current correctness validation', () => {
+describe('password current correctness validator', () => {
 
 	let validate, users;
 
-	beforeEach((done) => {
+	before((done) => {
 
 		validate = cm.modules.validator.get('Password', 'current', 'correctness').validator;
 		cm.setup.subject = 'User';
 
-		cm.User.remove(() => {
-			cm.setup.dataFactory.prepare().then((_users) => {
-				users = _users;
-				new cm.User(users[0]).save(() => { done(); });
-			});
+		cm.setup.dataFactory.prepare().then((_users) => {
+			users = _users;
+			done();
 		});
+	});
+
+	beforeEach((done) => {
+		cm.User.remove(() => { new cm.User(users[0]).save(() => { done(); }); });
 	});
 
 	it('should return false', (done) => {

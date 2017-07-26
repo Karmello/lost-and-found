@@ -30,6 +30,6 @@ module.exports = new cm.libs.mongoose.Schema({
 	details: {
 		type: String,
 		required: true,
-		validate: [cm.modules.validator.length.get('ReportEvent', 'details')]
+		validate: [cm.modules.validator.string.length('ReportEvent', 'details')]
 	}
 });

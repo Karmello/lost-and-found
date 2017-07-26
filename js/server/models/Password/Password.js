@@ -17,7 +17,7 @@ module.exports = new cm.libs.mongoose.Schema({
 		validate: [
 			cm.modules.validator.string.noSpecialChars,
 			cm.modules.validator.string.noMultipleWords,
-			cm.modules.validator.length.get('User', 'password')
+			cm.modules.validator.string.length('User', 'password')
 		]
 	}
 }, { _id: false });

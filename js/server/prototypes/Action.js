@@ -24,11 +24,14 @@ Action.prototype.end = function(status, body) {
 	let that = this;
 
 	try {
+
 		that.res.status(status).send(body);
 
 	} catch(ex) {} finally {
 
-		if (process.env.NODE_ENV == 'testing' || process.env.NODE_ENV == 'setup') { that.next(body); }
+		if (process.env.LOADED_MOCHA_OPTS || process.env.NODE_ENV == 'setup') {
+			that.next(status, body);
+		}
 	}
 };
 

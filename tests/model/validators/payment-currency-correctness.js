@@ -3,11 +3,11 @@
 const cm = require('./../../../js/server/server');
 const expect = cm.libs.expect;
 
-describe('payment currency correctness validation', () => {
+describe('payment currency correctness validator', () => {
 
 	let validate, currencies;
 
-	beforeEach(() => {
+	before(() => {
 		validate = cm.modules.validator.get('Payment', 'currency', 'correctness').validator;
 		currencies = cm.hardData.en.payment.currencies;
 	});

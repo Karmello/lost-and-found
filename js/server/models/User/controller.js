@@ -8,24 +8,30 @@ module.exports = (app, route) => {
 	rest.before('post', [cm.User.validateUserAction, (req, res, next) => {
 
 		if (cm.actions.user.post[req.query.action]) {
-			cm.actions.user.post[req.query.action](req, res, next);
+
+			if (['login', 'register'].indexOf(req.query.action) > -1) {
+				cm.User.authenticateCaptchaRes(req, res, () => {
+					cm.actions.user.post[req.query.action](req, res, next);
+				});
+
+			} else { cm.actions.user.post[req.query.action](req, res, next); }
 
 		} else { res.send(400); }
 	}]);
 
 	rest.before('get', [
-		cm.User.validateUserToken,
+		cm.User.authenticateToken,
 		cm.actions.user.get
 	]);
 
 	rest.before('put', [
-		cm.User.validateUserToken,
+		cm.User.authenticateToken,
 		cm.User.validateUserAction,
 		cm.actions.user.put
 	]);
 
 	rest.before('delete', [
-		cm.User.validateUserToken,
+		cm.User.authenticateToken,
 		cm.User.validateUserAction,
 		cm.actions.user.delete
 	]);

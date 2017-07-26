@@ -13,7 +13,7 @@ module.exports = {
 			} else { resolve(); }
 		});
 	},
-	post: (data) => {
+	create: (data) => {
 
 		return new cm.libs.Promise((resolve, reject) => {
 

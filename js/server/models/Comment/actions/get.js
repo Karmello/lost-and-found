@@ -16,7 +16,7 @@ module.exports = (...args) => {
 						{ $match: { _id: { $in: report.comments } } },
 						{ $sort: { dateAdded: -1 } },
 						{ $skip: Number(action.req.query.skip) || 0 },
-						{ $limit: cm.Comment.schema.statics.config.get.max },
+						{ $limit: cm.Comment.config.get.max },
 						{
 							$project: {
 								parentId: '$parentId',
@@ -54,7 +54,7 @@ module.exports = (...args) => {
 						{ $unwind: { path: '$comments', preserveNullAndEmptyArrays: true } },
 						{ $sort: { 'comments.dateAdded': -1 } },
 						{ $skip: Number(action.req.query.skip) || 0 },
-						{ $limit: cm.Comment.schema.statics.config.get.max },
+						{ $limit: cm.Comment.config.get.max },
 						{
 							$group: {
 								_id: '$_id',

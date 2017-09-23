@@ -3,7 +3,7 @@ let preHooks = require('./hooks/pre');
 let postHooks = require('./hooks/post');
 
 UserSchema.pre('validate', preHooks.validate);
-UserSchema.pre('validate', preHooks.save);
+UserSchema.pre('save', preHooks.save);
 UserSchema.post('remove', postHooks.remove);
 
 UserSchema.methods = require('./methods');

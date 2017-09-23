@@ -8,7 +8,7 @@
   },
   "main": "server.js",
   "scripts": {
-    "preinstall": "npm i -g gulp-cli node-gyp karma-cli jshint",
+    "preinstall": "npm i -g gulp-cli node-gyp nodemon karma-cli jshint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kamil Noga",
@@ -42,15 +42,15 @@
     "karma-spec-reporter": "0.0.31",
     "merge-stream": "^1.0.1",
     "node-sass": "^4.5.3",
-    "nodemon": "^1.9.2",
+    "nodemon": "^1.12.1",
     "should": "^11.1.0",
     "sprity": "^1.0.8"
   },
   "dependencies": {
     "@google/maps": "^0.4.0",
     "accounting": "^0.4.1",
-    "angular": "^1.5.8",
-    "angular-animate": "^1.5.8",
+    "angular": "1.5.8",
+    "angular-animate": "1.5.8",
     "angular-local-storage": "^0.2.7",
     "angular-momentjs": "^0.2.2",
     "angular-ui-bootstrap": "^2.1.3",

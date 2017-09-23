@@ -429,6 +429,227 @@ $avatarSize: 240px;
 		}
 	}
 }
+#reports {
+
+	#actionBtns { margin-bottom: 25px; }
+
+	#myCollectionBrowser {
+
+		#collectionContainer {
+			#collectionElems {
+
+				> * {
+					flex-flow: row wrap;
+					justify-content: center;
+					align-items: flex-end;
+
+					> * {
+						flex-basis: 31%;
+						flex-grow: 1;
+						max-width: 400px;
+						margin: 5px;
+						@media only screen and (min-width: 600px) { max-width: 250px; }
+					}
+				}
+
+				#myPanel {
+
+					min-width: 200px;
+
+					#headingText {
+						* { color: $brand-danger; }
+					}
+
+					#bodySection {
+
+						> * {
+
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							flex-flow: row wrap;
+
+							#infoSection {
+								text-align: center;
+								font-size: 14px;
+								margin: 5px 10px 5px 10px;
+								p { margin: 0; }
+								span { white-space: nowrap; }
+							}
+
+							#avatarSection {
+								#mySrc {
+									margin: 5px 10px 5px 10px;
+									img { width: 150px; height: 100px; object-fit: cover; }
+								}
+							}
+						}
+					}
+				}
+
+				.isFound {
+					#myPanel {
+						#headingText {
+							* { color: $brand-info; }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+#contactForm {
+
+	#myForm {
+
+		form {
+			margin: 0 auto;
+			max-width: 400px;
+			@media only screen and (min-width: 768px) { max-width: 600px; }
+
+			#mySelect { display: table; }
+			#myTextArea { textarea { min-height: 300px !important; } }
+		}
+	}
+}
+#reportSearchForm {
+
+	#myForm {
+
+		form {
+
+			> div {
+
+				> div {
+
+					display: flex;
+					flex-flow: row wrap;
+
+					> div {
+						flex-grow: 1;
+						margin: 5px;
+					}
+				}
+			}
+		}
+	}
+}
+#reportForm {
+
+	#myForm {
+
+		form {
+
+			.formCtrls {
+
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+
+				> div {
+					margin: 5px;
+					flex-basis: 100%;
+					@media only screen and (min-width: 700px) {
+						flex-basis: 48%;
+					}
+				}
+
+				textarea {
+					max-width: 450px;
+					min-height: 150px !important;
+					text-align: justify;
+				}
+			}
+		}
+	}
+}
+#upgradeForm {
+
+	#myForm {
+
+		display: flex;
+		justify-content: center;
+
+		form {
+
+			background-color: transparent;
+
+			> div {
+
+				#formSection {
+
+					@media only screen and (min-width: 550px) { display: flex; }
+					@media only screen and (min-width: 768px) { width: 600px; }
+
+					> div { margin: 5px auto; }
+				}
+			}
+		}
+	}
+}
+#appStats {
+
+	#bodySection {
+
+
+	}
+}
+@import '_vars';
+
+#userBadge {
+
+	position: relative;
+	display: table;
+	margin: 0 auto;
+	padding: 15px;
+
+	#mySrc { img { @extend .defaultAvatarSize; } }
+}
+#reportPhotos {
+
+	#mySrc {
+
+		min-width: 100px;
+		min-height: 100px;
+
+		img {
+			max-width: 200px;
+			max-height: 200px;
+		}
+	}
+}
+#reportAvatar {
+
+	#mySrc {
+		img { width: 200px; object-fit: cover; }
+	}
+}
+#userAvatar {
+
+	display: table;
+	margin: 0 auto;
+
+	#mySrc {
+		.srcLabel {
+			margin-top: 3px;
+		}
+	}
+}
+
+.defaultAvatarSize {
+	width: 200px;
+	height: 200px;
+}
+
+.smallAvatarSize {
+	width: 150px;
+	height: 150px;
+}
+
+.tinyAvatarSize {
+	width: 60px;
+	height: 60px;
+}
 #myBtn {
 
 	button {
@@ -458,53 +679,6 @@ $avatarSize: 240px;
 
 	@extend .myBtnsGroup;
 	justify-content: flex-end;
-}
-#myComments {
-
-	#myForm {
-		.myLabel.text-info {
-			margin-top: 0 !important;
-		}
-	}
-
-	#myCollectionBrowser {
-
-		#basicCtrls {
-			justify-content: flex-end;
-		}
-
-		#collectionContainer {
-
-			#collectionElems {
-
-				> * { flex-direction: column; }
-
-				#myPanel {
-					font-size: 14px;
-					margin-top: 10px;
-
-					#bodySection {
-
-						#userAvatar {
-							float: left;
-							margin-right: 12px;
-							margin-bottom: 10px;
-							img { width: 50px; height: 50px; }
-						}
-
-						#commentTextSection {
-							p { text-align: justify; }
-						}
-					}
-				}
-			}
-		}
-	}
-
-	#nestedCollectionSection {
-		max-width: 650px;
-		margin: 25px auto;
-	}
 }
 #myCollectionBrowser {
 
@@ -551,65 +725,51 @@ $avatarSize: 240px;
 		}
 	}
 }
-#myElemSelector {
+#myComments {
 
-	button {
-		width: 28px;
-		height: 28px;
-		padding: 0;
-		border: 0;
+	#myForm {
+		.myLabel.text-info {
+			margin-top: 0 !important;
+		}
 	}
 
-	.glyphicon-ok {
-		font-size: 13px;
-		color: $text-color;
-	}
-}
-#myPanel {
+	#myCollectionBrowser {
 
-	&.isSelected { border: 2px solid; }
-	.trasparentHeading { background-color: transparent; }
-
-	border: 2px solid transparent;
-	border-radius: 5px;
-	.panel-default { border: 0 !important; }
-
-	.panel-heading {
-
-		display: flex;
-		align-items: center;
-		min-height: 41px;
-		padding: 5px 15px 5px 15px;
-
-		#headingImg {
-			#mySrc { margin-right: 10px; }
+		#basicCtrls {
+			justify-content: flex-end;
 		}
 
-		#headingText {
+		#collectionContainer {
 
-			flex-grow: 1;
-			font-weight: bold;
-			line-height: 18px;
-  			padding-right: 15px;
+			#collectionElems {
 
-			p {
-				display: inline-block;
-				margin: 0;
+				> * { flex-direction: column; }
+
+				#myPanel {
+					font-size: 14px;
+					margin-top: 10px;
+
+					#bodySection {
+
+						#userAvatar {
+							float: left;
+							margin-right: 12px;
+							margin-bottom: 10px;
+							img { width: 50px; height: 50px; }
+						}
+
+						#commentTextSection {
+							p { text-align: justify; }
+						}
+					}
+				}
 			}
-
-  			.glyphicon { top: 2px; }
-		}
-
-		#headingMenu {
-
-			display: flex;
 		}
 	}
 
-	.panel-body {
-
-		position: relative;
-		margin: 0 auto;
+	#nestedCollectionSection {
+		max-width: 650px;
+		margin: 25px auto;
 	}
 }
 #myLoader {
@@ -763,45 +923,66 @@ $avatarSize: 240px;
 		}
 	}
 }
-#myPopOverIcon {
+#myElemSelector {
 
-	display: table;
-	border-radius: 3px;
+	button {
+		width: 28px;
+		height: 28px;
+		padding: 0;
+		border: 0;
+	}
 
-	> div {
+	.glyphicon-ok {
+		font-size: 13px;
+		color: $text-color;
+	}
+}
+#myPanel {
 
-		display: table-cell;
-		vertical-align: middle;
+	&.isSelected { border: 2px solid; }
+	.trasparentHeading { background-color: transparent; }
 
-		> span {
+	border: 2px solid transparent;
+	border-radius: 5px;
+	.panel-default { border: 0 !important; }
 
-			display: table;
-			margin: 0 auto;
-			text-align: center;
+	.panel-heading {
 
-			&.glyphicon {
+		display: flex;
+		align-items: center;
+		min-height: 41px;
+		padding: 5px 15px 5px 15px;
 
-				display: table;
-				width: 28px;
-				height: 28px;
-				position: relative;
-				padding-top: 7px;
-				padding-left: 1px;
-				font-size: 15px;
-				color: $gray-lighter;
+		#headingImg {
+			#mySrc { margin-right: 10px; }
+		}
+
+		#headingText {
+
+			flex-grow: 1;
+			font-weight: bold;
+			line-height: 18px;
+  			padding-right: 15px;
+
+			p {
+				display: inline-block;
+				margin: 0;
 			}
+
+  			.glyphicon { top: 2px; }
+		}
+
+		#headingMenu {
+
+			display: flex;
 		}
 	}
 
-	.popover-content {}
+	.panel-body {
 
-	.glyphicon-play {
-		top: 0 !important;
+		position: relative;
+		margin: 0 auto;
 	}
-}
-#myFormErrorIcon {
-	margin-left: 3px;
-	font-size: 16px;
 }
 #myForm {
 
@@ -842,6 +1023,42 @@ $avatarSize: 240px;
 		.myBtnsGroup {
 			margin-top: 25px;
 		}
+	}
+}
+#myPopOverIcon {
+
+	display: table;
+	border-radius: 3px;
+
+	> div {
+
+		display: table-cell;
+		vertical-align: middle;
+
+		> span {
+
+			display: table;
+			margin: 0 auto;
+			text-align: center;
+
+			&.glyphicon {
+
+				display: table;
+				width: 28px;
+				height: 28px;
+				position: relative;
+				padding-top: 7px;
+				padding-left: 1px;
+				font-size: 15px;
+				color: $gray-lighter;
+			}
+		}
+	}
+
+	.popover-content {}
+
+	.glyphicon-play {
+		top: 0 !important;
 	}
 }
 #mySingleFileInput, #myMultipleFilesInput {
@@ -898,19 +1115,9 @@ $avatarSize: 240px;
 		transform: translate(16px, -31px);
 	}
 }
-@import '_vars';
-
-#myListGroup {
-
-	.list-group-item.active {}
-
-	.list-group-item:hover {
-		//background-color: $body-bg;
-	}
-
-	.list-group-item:focus {
-		//background-color: $body-bg;
-	}
+#myFormErrorIcon {
+	margin-left: 3px;
+	font-size: 16px;
 }
 #myDropDown {
 
@@ -932,15 +1139,25 @@ $avatarSize: 240px;
 		transform: translate(-50%, 0);
 	}
 }
+@import '_vars';
+
+#myListGroup {
+
+	.list-group-item.active {}
+
+	.list-group-item:hover {
+		//background-color: $body-bg;
+	}
+
+	.list-group-item:focus {
+		//background-color: $body-bg;
+	}
+}
 #myNavMenu {
 
 
 }
 #mySelectsGroup {
-
-
-}
-#mySelect {
 
 
 }
@@ -995,6 +1212,10 @@ $avatarSize: 240px;
 			margin: 50px auto;
 		}
 	}
+}
+#mySelect {
+
+
 }
 @import '_vars';
 
@@ -1198,234 +1419,13 @@ $avatarSize: 240px;
 		}
 	}
 }
+#myLabel {
+
+	padding: 1px;
+}
 #myAlert {
 	display: table;
 	margin: 0 auto;
 	text-align: center;
 	padding: 15px;
-}
-#myLabel {
-
-	padding: 1px;
-}
-#reports {
-
-	#actionBtns { margin-bottom: 25px; }
-
-	#myCollectionBrowser {
-
-		#collectionContainer {
-			#collectionElems {
-
-				> * {
-					flex-flow: row wrap;
-					justify-content: center;
-					align-items: flex-end;
-
-					> * {
-						flex-basis: 31%;
-						flex-grow: 1;
-						max-width: 400px;
-						margin: 5px;
-						@media only screen and (min-width: 600px) { max-width: 250px; }
-					}
-				}
-
-				#myPanel {
-
-					min-width: 200px;
-
-					#headingText {
-						* { color: $brand-danger; }
-					}
-
-					#bodySection {
-
-						> * {
-
-							display: flex;
-							justify-content: center;
-							align-items: center;
-							flex-flow: row wrap;
-
-							#infoSection {
-								text-align: center;
-								font-size: 14px;
-								margin: 5px 10px 5px 10px;
-								p { margin: 0; }
-								span { white-space: nowrap; }
-							}
-
-							#avatarSection {
-								#mySrc {
-									margin: 5px 10px 5px 10px;
-									img { width: 150px; height: 100px; object-fit: cover; }
-								}
-							}
-						}
-					}
-				}
-
-				.isFound {
-					#myPanel {
-						#headingText {
-							* { color: $brand-info; }
-						}
-					}
-				}
-			}
-		}
-	}
-}
-#contactForm {
-
-	#myForm {
-
-		form {
-			margin: 0 auto;
-			max-width: 400px;
-			@media only screen and (min-width: 768px) { max-width: 600px; }
-
-			#mySelect { display: table; }
-			#myTextArea { textarea { min-height: 300px !important; } }
-		}
-	}
-}
-#reportForm {
-
-	#myForm {
-
-		form {
-
-			.formCtrls {
-
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: space-around;
-
-				> div {
-					margin: 5px;
-					flex-basis: 100%;
-					@media only screen and (min-width: 700px) {
-						flex-basis: 48%;
-					}
-				}
-
-				textarea {
-					max-width: 450px;
-					min-height: 150px !important;
-					text-align: justify;
-				}
-			}
-		}
-	}
-}
-#reportSearchForm {
-
-	#myForm {
-
-		form {
-
-			> div {
-
-				> div {
-
-					display: flex;
-					flex-flow: row wrap;
-
-					> div {
-						flex-grow: 1;
-						margin: 5px;
-					}
-				}
-			}
-		}
-	}
-}
-#upgradeForm {
-
-	#myForm {
-
-		display: flex;
-		justify-content: center;
-
-		form {
-
-			background-color: transparent;
-
-			> div {
-
-				#formSection {
-
-					@media only screen and (min-width: 550px) { display: flex; }
-					@media only screen and (min-width: 768px) { width: 600px; }
-
-					> div { margin: 5px auto; }
-				}
-			}
-		}
-	}
-}
-#appStats {
-
-	#bodySection {
-
-
-	}
-}
-#reportPhotos {
-
-	#mySrc {
-
-		min-width: 100px;
-		min-height: 100px;
-
-		img {
-			max-width: 200px;
-			max-height: 200px;
-		}
-	}
-}
-@import '_vars';
-
-#userBadge {
-
-	position: relative;
-	display: table;
-	margin: 0 auto;
-	padding: 15px;
-
-	#mySrc { img { @extend .defaultAvatarSize; } }
-}
-#reportAvatar {
-
-	#mySrc {
-		img { width: 200px; object-fit: cover; }
-	}
-}
-#userAvatar {
-
-	display: table;
-	margin: 0 auto;
-
-	#mySrc {
-		.srcLabel {
-			margin-top: 3px;
-		}
-	}
-}
-
-.defaultAvatarSize {
-	width: 200px;
-	height: 200px;
-}
-
-.smallAvatarSize {
-	width: 150px;
-	height: 150px;
-}
-
-.tinyAvatarSize {
-	width: 60px;
-	height: 60px;
 }

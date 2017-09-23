@@ -2,7 +2,7 @@ const cm = require(global.paths.server + '/cm');
 
 module.exports = (req, res, next) => {
 
-	r[req.query.subject].find({}, (err, docs) => {
+	cm[req.query.subject].find({}, (err, docs) => {
 
 		if (!err) {
 

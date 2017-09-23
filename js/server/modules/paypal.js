@@ -26,7 +26,7 @@ module.exports = {
 		let config = {
 			'intent': 'sale',
 			'payer': {
-				'payment_method': newPayment.paymentMethod
+				'payment_method': newPayment.method
 			},
 			'transactions': [
 				{
@@ -39,20 +39,20 @@ module.exports = {
 			]
 		};
 
-		switch (newPayment.paymentMethod) {
+		switch (newPayment.method) {
 
 			case 'credit_card':
 
 				config.payer.funding_instruments = [
 					{
 						'credit_card': {
-							'type': newPayment.creditCardType,
-							'number': newPayment.creditCardNumber,
-							'first_name': newPayment.firstname,
-							'last_name': newPayment.lastname,
-							'expire_month': newPayment.creditCardExpireMonth,
-							'expire_year': newPayment.creditCardExpireYear,
-							'cvv2': newPayment.cvv2
+							'type': newPayment.creditCard.type,
+							'number': newPayment.creditCard.number,
+							'first_name': newPayment.creditCard.name.first,
+							'last_name': newPayment.creditCard.name.last,
+							'expire_month': newPayment.creditCard.expireMonth,
+							'expire_year': newPayment.creditCard.expireYear,
+							'cvv2': newPayment.creditCard.cvv2
 						}
 					}
 				];
@@ -103,7 +103,7 @@ module.exports = {
 
 	        if (!err) {
 
-	        	cm.modules.paypalModule.finalizePayment(payment).then(() => {
+	        	cm.modules.paypal.finalizePayment(payment).then(() => {
 	        		res.redirect('https://' + req.headers.host + '/#/upgrade?id=' + payment.transactions[0].description);
 
 	        	}, () => {

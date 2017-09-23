@@ -15,7 +15,7 @@ module.exports = (...args) => {
 
 		if (user.reportsRecentlyViewed.indexOf(report._id) === -1) {
 
-			if (user.reportsRecentlyViewed.length === cm.User.schema.statics.config.reportsRecentlyViewed.max) {
+			if (user.reportsRecentlyViewed.length === cm.User.config.reportsRecentlyViewed.max) {
 				user.reportsRecentlyViewed.shift();
 			}
 

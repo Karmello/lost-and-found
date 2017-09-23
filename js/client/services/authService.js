@@ -21,7 +21,7 @@
 						// Auth token found
 						if (authToken) {
 
-							UsersRest.post(undefined, { action: 'auth' }, { 'x-access-token': authToken }).then(function(res) {
+							UsersRest.post(undefined, { action: 'authenticate' }, { 'x-access-token': authToken }).then(function(res) {
 
 								// Successful authentication
 								service.setAsLoggedIn(function() {
@@ -76,6 +76,7 @@
 				// Updating other services variables
 				storageService.authToken.remove();
 				$rootScope.apiData.loggedInUser = undefined;
+				$rootScope.apiData.payment = undefined;
 
 				if (cb) { cb(); }
 			}

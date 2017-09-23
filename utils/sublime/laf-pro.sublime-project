@@ -11,6 +11,9 @@
 			"path": "D:\\Workspace\\laf\\dev\\public"
 		},
 		{
+			"path": "D:\\Workspace\\laf\\dev\\resources"
+		},
+		{
 			"path": "D:\\Workspace\\laf\\dev\\templates"
 		},
 		{
@@ -32,11 +35,13 @@
 			"path": "D:\\Workspace\\laf\\dev\\js\\setup"
 		},
 		{
-			"path": "D:\\Workspace\\laf\\dev\\tests"
+			"path": "D:\\Workspace\\laf\\dev\\js\\server\\models"
 		},
 		{
-			"follow_symlinks": true,
-			"path": "D:\\Workspace\\laf\\dev\\js\\server\\models"
+			"path": "D:\\Workspace\\laf\\dev\\js\\server\\models\\User"
+		},
+		{
+			"path": "D:\\Workspace\\laf\\dev\\tests"
 		}
 	]
 }

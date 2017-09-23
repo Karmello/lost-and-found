@@ -18,8 +18,18 @@ module.exports = {
 	},
 	country: {
 		correctness: function(country) {
-        	for (let i = 0; i < countries.length; ++i) { if (countries[i].name.trim() == country) { return true; } }
+        	for (let i = 0; i < countries.length; ++i) { if (countries[i].name.trim() === country) { return true; } }
             return false;
+		}
+	},
+	configLanguage: {
+		correctness: function(language) {
+			return Boolean(cm.libs._.find(cm.hardData.en.languages, { value: language }));
+		}
+	},
+	configTheme: {
+		correctness: function(theme) {
+			return Boolean(cm.libs._.find(cm.hardData.en.themes, { value: theme }));
 		}
 	}
 };

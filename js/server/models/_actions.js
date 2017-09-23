@@ -2,7 +2,7 @@ module.exports = {
 	user: {
 		get: require('./User/actions/get'),
 		post: {
-			auth: require('./User/actions/authorize'),
+			authenticate: require('./User/actions/authenticate'),
 			login: require('./User/actions/login'),
 			register: require('./User/actions/register'),
 			updatePass: require('./User/actions/updatePassword')

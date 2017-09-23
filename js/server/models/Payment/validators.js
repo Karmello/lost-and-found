@@ -1,7 +1,7 @@
 const cm = require(global.paths.server + '/cm');
 
 module.exports = {
-	paymentMethod: {
+	method: {
         correctness: function(method) {
             let methods = Object.keys(cm.hardData.en.payment.methods);
             for (let i = 0; i < methods.length; i++) { if (methods[i] == method) { return true; } }
@@ -22,11 +22,7 @@ module.exports = {
         correctness: function(creditCardType) {
 
             let creditCardTypes = Object.keys(cm.hardData.en.payment.creditCardTypes);
-
-            for (let i = 0; i < creditCardTypes.length; i++) {
-                if (creditCardTypes[i] == creditCardType) { return true; }
-            }
-
+            for (let type in cm.hardData.en.payment.creditCardTypes) { if (type === creditCardType) { return true; } }
             return false;
         },
     },

@@ -7,16 +7,20 @@
 		var payments = Restangular.service('payments');
 
 		payments.paymentModel = new MyDataModel({
-			paymentMethod: {},
-			creditCardType: {},
-			creditCardNumber: {},
-			creditCardExpireMonth: {},
-			creditCardExpireYear: {},
-			cvv2: {},
-			firstname: {},
-			lastname: {},
+			method: {},
 			amount: {},
-			currency: {}
+			currency: {},
+			creditCard: {
+				type: {},
+				number: {},
+				expireMonth: {},
+				expireYear: {},
+				cvv2: {},
+				name: {
+					firstname: {},
+					lastname: {}
+				}
+			}
 		});
 
 		return payments;

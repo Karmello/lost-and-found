@@ -4,7 +4,7 @@ module.exports = (...args) => {
 
 	let action = new cm.prototypes.Action(args);
 
-	cm.User.validateUserToken(action.req, action.res, () => {
+	cm.User.authenticateToken(action.req, action.res, () => {
 
 		new cm.libs.Promise((resolve, reject) => {
 			cm.User.findOne({ _id: action.req.decoded._id }, 'password', (err, user) => {
@@ -13,7 +13,7 @@ module.exports = (...args) => {
 
 					let password = new cm.Password({
 						userId: user._id,
-						currentPassword: action.req.body.currentPassword,
+						current: action.req.body.current,
 						password: action.req.body.password
 					});
 

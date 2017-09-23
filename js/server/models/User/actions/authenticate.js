@@ -4,8 +4,8 @@ module.exports = (...args) => {
 
 	let action = new cm.prototypes.Action(args);
 
-	// Authorizing user token
-	cm.User.validateUserToken(action.req, action.res, () => {
+	// Authenticating user token
+	cm.User.authenticateToken(action.req, action.res, () => {
 
 		// Getting user from db
 		cm.User.findOne({ _id: action.req.decoded._id }, (err, user) => {
@@ -19,7 +19,7 @@ module.exports = (...args) => {
 				// Sending user back to client
 				action.end(200, { user: user });
 
-			} else { action.end(400, err); }
+			} else { action.end(401, err); }
 		});
 	});
 };

@@ -41,7 +41,7 @@
 
 						switch (res.config.params.action) {
 
-							case 'auth':
+							case 'authenticate':
 							case 'login':
 							case 'register':
 

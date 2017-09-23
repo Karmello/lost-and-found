@@ -28,9 +28,9 @@ if "%1" == "test" (
 		echo. & echo End to end tests started
 	)
 
-	if "%2" == "-db" (
+	if "%2" == "-model" (
 		cmd /k "mongod" -new_console:t:mongod
-		cmd /k "ls" -new_console:d:"%cd%\tests\db"
+		cmd /k "cd tests/model" -new_console:t:mocha
 		echo. & echo Db tests started
 	)
 )

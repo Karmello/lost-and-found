@@ -6,7 +6,7 @@ module.exports = () => {
     cm.libs.mongoose.Promise = global.Promise;
 
     cm.libs.mongoose.connection.once('open', () => {
-        cm.modules.utilModule.printFormattedLog('MongoDB: [open]');
+        cm.modules.utils.printFormattedLog('MongoDB: [open]');
     });
 
     return cm.libs.mongoose.connect(process.env.MONGO_URL);

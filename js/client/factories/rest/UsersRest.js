@@ -34,7 +34,7 @@
 		});
 
 		users.passwordModel = new MyDataModel({
-			currentPassword: {},
+			current: {},
 			password: {}
 		});
 

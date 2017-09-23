@@ -13,7 +13,7 @@ module.exports = {
 			} else { resolve(); }
 		});
 	},
-	post: (data) => {
+	create: (data) => {
 
 		return new cm.libs.Promise((resolve, reject) => {
 
@@ -27,7 +27,7 @@ module.exports = {
 
 			for (let config of data) {
 
-				tasks.push(new r[cm.setup.subject](config).save((err) => {
+				tasks.push(new cm[cm.setup.subject](config).save((err) => {
 
 					if (!err) {
 						console.log('"' + config[nameFields[cm.setup.subject]] + '" saved');

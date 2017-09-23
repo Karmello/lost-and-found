@@ -12,10 +12,10 @@ module.exports = {
             let doc = this;
             if (!doc.category1) { return false; }
 
-            let category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
+            let Category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
 
-            if (category1) {
-                return Boolean(cm.libs._.find(category1.subcategories, (obj) => { return obj._id == category2; }));
+            if (Category1) {
+                return Boolean(cm.libs._.find(Category1.subcategories, (obj) => { return obj._id == category2; }));
 
             } else { return false; }
         }
@@ -26,14 +26,14 @@ module.exports = {
             let doc = this;
             if (!doc.category1 || !doc.category2) { return false; }
 
-            let category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
+            let Category1 = cm.libs._.find(cm.hardData.en.reportCategories, (obj) => { return obj._id == doc.category1; });
 
-            if (category1) {
+            if (Category1) {
 
-                let category2 = cm.libs._.find(category1.subcategories, (obj) => { return obj._id == doc.category2; });
+                let Category2 = cm.libs._.find(Category1.subcategories, (obj) => { return obj._id == doc.category2; });
 
-                if (category2) {
-                    return Boolean(cm.libs._.find(category2.subcategories, (obj) => { return obj._id == category3; }));
+                if (Category2) {
+                    return Boolean(cm.libs._.find(Category2.subcategories, (obj) => { return obj._id == category3; }));
 
                 } else { return false; }
 
@@ -44,7 +44,7 @@ module.exports = {
         correctness: function(avatar, cb) {
 
             if (!this.photos || this.photos.length === 0) {
-                cb(avatar === undefined);
+                cb(!avatar);
 
             } else {
                 cb(Boolean(cm.libs._.find(this.photos, (obj) => { return obj.filename == avatar; })));
@@ -54,18 +54,14 @@ module.exports = {
 	photos: {
         correctness: function(photos, cb) {
 
-            let getSinglePromise = (i) => {
-                return new cm.libs.Promise((resolve) => {
-                    new cm.ReportPhoto(photos[i]).validate((err) => { resolve(err); });
-                });
-            };
+            if (photos.length > cm.Report.config.photos.length.max) {
+                cb(false);
 
-            let promises = [];
-            for (let i = 0; i < photos.length; i++) { promises.push(getSinglePromise(i)); }
-
-            cm.libs.Promise.all(promises).then((results) => {
-                cb(!Boolean(cm.libs._.find(results, (elem) => { return elem; })));
-            });
+            } else {
+                let tasks = [];
+                for (let photo of photos) { tasks.push(new cm.ReportPhoto(photo).validate()); }
+                cm.libs.Promise.all(tasks).then(() => { cb(true); }, (err) => { cb(false); });
+            }
         }
     }
 };

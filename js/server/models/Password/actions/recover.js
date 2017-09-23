@@ -40,12 +40,12 @@ module.exports = (...args) => {
 
 		let token = cm.libs.jwt.sign({ email: user.email }, process.env.AUTH_SECRET, { expiresIn: cm.app.get('AUTH_TOKEN_EXPIRES_IN') });
 
-		let mail = cm.modules.mailModule.create('new_pass_link', action.req.session.language, user.email, {
+		let mail = cm.modules.email.create('new_pass_link', action.req.session.language, user.email, {
 			username: user.username,
             link: 'https://' + action.req.headers.host + '/reset_password?authToken=' + token
 		});
 
-        cm.modules.mailModule.send(mail, (err, info) => {
+        cm.modules.email.send(mail, (err, info) => {
 
             if (!err) {
 

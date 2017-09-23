@@ -15,7 +15,7 @@ module.exports = (...args) => {
 	}
 
 	let tasks = [];
-	let limit = Number(action.req.query.limit) || cm.Report.schema.statics.config.get.max;
+	let limit = Number(action.req.query.limit) || cm.Report.config.get.max;
 
 	tasks.push(cm.Report.count(query));
 	tasks.push(cm.Report.find(query).skip(Number(action.req.query.skip)).limit(limit).sort(action.req.query.sort).exec());

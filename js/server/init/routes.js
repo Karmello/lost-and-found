@@ -29,9 +29,9 @@ module.exports = () => {
             app.get('/session', (req, res) => { res.send(req.session); });
 
             // Paypal
-            app.get('/paypal/execute', cm.modules.paypalModule.makePaypalPayment);
+            app.get('/paypal/execute', cm.modules.paypal.makePaypalPayment);
             app.get('/paypal/cancel', (req, res) => { res.redirect('https://' + req.headers.host + '/#/upgrade'); });
-            app.get('/paypal/payment', [cm.User.validateUserToken, cm.modules.paypalModule.getPaymentDetails]);
+            app.get('/paypal/payment', [cm.User.authenticateToken, cm.modules.paypal.getPaymentDetails]);
 
             // Get stats route
             app.get('/stats', cm.actions.getStats);
@@ -40,10 +40,10 @@ module.exports = () => {
             app.post('/recover', cm.actions.password.recover);
 
             // Pasword resetting
-            app.get('/reset_password', [cm.User.validateUserToken, cm.actions.password.reset]);
+            app.get('/reset_password', [cm.User.authenticateToken, cm.actions.password.reset]);
 
             // AWS3 upload credentials
-            app.post('/get_aws3_upload_credentials', [cm.User.validateUserToken, cm.modules.aws3Module.getUploadCredentials]);
+            app.post('/get_aws3_upload_credentials', [cm.User.authenticateToken, cm.modules.aws3.getUploadCredentials]);
 
             // Static files
             if (process.env.NODE_ENV !== 'production') {

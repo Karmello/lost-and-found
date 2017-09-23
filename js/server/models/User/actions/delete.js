@@ -10,18 +10,21 @@ module.exports = (...args) => {
 
 	cm.libs.Promise.all(tasks).then((data) => {
 
-		let user = data[0];
-		let deactivationReason = data[1];
+		if (data[0] && data[1]) {
 
-		user.remove((err) => {
+			let user = data[0];
+			let deactivationReason = data[1];
+			let delPromise = user.remove();
 
-			if (!err) {
+			delPromise.then(() => {
+
 				deactivationReason.count += 1;
-				deactivationReason.save();
-				action.end(204);
+				let savePromise = deactivationReason.save();
+				savePromise.then(() => { action.end(204); }, () => { action.end(204); });
 
-			} else { action.end(500, err); }
-		});
+			}, (err) => { action.end(500, err); });
+
+		} else { action.end(400); }
 
 	}, (err) => { action.end(400, err); });
 };

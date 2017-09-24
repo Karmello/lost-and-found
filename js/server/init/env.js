@@ -10,7 +10,7 @@ module.exports = () => {
 				require('dotenv').config();
 
 			} else {
-				require('dotenv').config({ path: global.paths.root + '/tests/end-to-end/.env' });
+				require('dotenv').config({ path: global.paths.root + '/tests/.env' });
 			}
 
 			resolve();

@@ -36,7 +36,7 @@ describe('user authentication', () => {
 	it('should not authenticate', (done) => {
 
 		cm.User.remove(() => {
-			cm.actions.user.post.authenticate(req, undefined, (status, body) => {
+			cm.actions.user.post.authenticate(req, undefined, (status) => {
 				expect(status).to.equal(401);
 				done();
 			});

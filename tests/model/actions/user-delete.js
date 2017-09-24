@@ -23,7 +23,7 @@ describe('user deleting', () => {
 			req = cm.test.helpers.getReqObj();
 			req.query.action = 'register';
 			req.body = users[0];
-			cm.actions.user.post.register(req, undefined, (status, body) => { done(); });
+			cm.actions.user.post.register(req, undefined, () => { done(); });
 		});
 	});
 
@@ -32,7 +32,7 @@ describe('user deleting', () => {
 		req = cm.test.helpers.getReqObj();
 		req.decoded._id = users[0]._id;
 
-		cm.actions.user.delete(req, undefined, (status, body) => {
+		cm.actions.user.delete(req, undefined, (status) => {
 			expect(status).to.equal(400);
 			done();
 		});
@@ -44,7 +44,7 @@ describe('user deleting', () => {
 		req.decoded._id = users[1]._id;
 		req.query.deactivationReasonId = deactivationReasons[0]._id;
 
-		cm.actions.user.delete(req, undefined, (status, body) => {
+		cm.actions.user.delete(req, undefined, (status) => {
 			expect(status).to.equal(400);
 			done();
 		});
@@ -56,7 +56,7 @@ describe('user deleting', () => {
 		req.decoded._id = users[0]._id;
 		req.query.deactivationReasonId = deactivationReasons[0]._id;
 
-		cm.actions.user.delete(req, undefined, (status, body) => {
+		cm.actions.user.delete(req, undefined, (status) => {
 			expect(status).to.equal(204);
 			done();
 		});

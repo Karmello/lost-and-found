@@ -1,0 +1,40 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "jasmine": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:jasmine/recommended"
+    ],
+    "globals": {
+      "before": true
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "plugins": [
+      "jasmine"
+    ],
+    "rules": {
+        "indent": ["error", "tab"],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "jasmine/no-spec-dupes": 0,
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "no-console": 1,
+        "no-empty": 1,
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}

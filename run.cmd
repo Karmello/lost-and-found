@@ -24,7 +24,7 @@ if "%1" == "test" (
 
 	if "%2" == "-e2e" (
 		cmd /k "mongod" -new_console:t:mongod
-		cmd /k "ls" -new_console:d:"%cd%\tests\end-to-end"
+		cmd /k "dir" -new_console:d:"%cd%\tests\end-to-end"
 		echo. & echo End to end tests started
 	)
 

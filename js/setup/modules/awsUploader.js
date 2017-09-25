@@ -2,47 +2,47 @@ const cm = require(global.paths.server + '/cm');
 
 let singleImgToAws = (subject, file) => {
 
-	return new cm.libs.Promise((resolve, reject) => {
+  return new cm.libs.Promise((resolve, reject) => {
 
-		let body = { fileTypes: [file.fileType] };
-		if (file.reportId) { body.reportId = file.reportId; }
+    let body = { fileTypes: [file.fileType] };
+    if (file.reportId) { body.reportId = file.reportId; }
 
-		cm.modules.aws3.getUploadCredentials({
-			headers: { subject: subject },
-			body: body,
-			decoded: { _id: file.userId }
-		}, undefined, (status, credentials) => {
+    cm.modules.aws3.getUploadCredentials({
+      headers: { subject: subject },
+      body: body,
+      decoded: { _id: file.userId }
+    }, undefined, (status, credentials) => {
 
-			file.filename = credentials[0].awsFilename;
+      file.filename = credentials[0].awsFilename;
 
-			cm.modules.aws3.s3.putObject({
-				Bucket: 'laf.useruploads',
-				Key: credentials[0].awsFormData.key,
-				ACL: credentials[0].awsFormData.acl,
-				ContentType: credentials[0].awsFormData['content-type'],
-				Body: file.fileData
+      cm.modules.aws3.s3.putObject({
+        Bucket: 'laf.useruploads',
+        Key: credentials[0].awsFormData.key,
+        ACL: credentials[0].awsFormData.acl,
+        ContentType: credentials[0].awsFormData['content-type'],
+        Body: file.fileData
 
-			}, function(err, data) {
+      }, function(err) {
 
-				if (!err) {
-					console.log('"' + credentials[0].awsFilename + '" uploaded');
-					resolve(file);
+        if (!err) {
+          console.log('"' + credentials[0].awsFilename + '" uploaded');
+          resolve(file);
 
-				} else { reject(err); }
-			});
-		});
-	});
+        } else { reject(err); }
+      });
+    });
+  });
 };
 
 module.exports = {
-	uploadImgs: (files) => {
+  uploadImgs: (files) => {
 
-		let tasks = [];
+    let tasks = [];
 
-		for (let i = 0; i < files.length; i++) {
-			tasks.push(singleImgToAws(cm.setup.subject.toLowerCase() + '_photo', files[i]));
-		}
+    for (let i = 0; i < files.length; i++) {
+      tasks.push(singleImgToAws(cm.setup.subject.toLowerCase() + '_photo', files[i]));
+    }
 
-		return cm.libs.Promise.all(tasks);
-	}
+    return cm.libs.Promise.all(tasks);
+  }
 };

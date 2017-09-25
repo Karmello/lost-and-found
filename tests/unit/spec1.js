@@ -1,20 +1,20 @@
 describe('spec1', function() {
 
-    var scope, nestedScope;
+  var scope, nestedScope;
 
-    beforeEach(module('appModule'));
+  beforeEach(module('appModule'));
 
-    // beforeEach(inject(function($rootScope, $controller) {
+  // beforeEach(inject(function($rootScope, $controller) {
 
-    //     scope = $rootScope.$new();
-    //     nestedScope = scope.$new();
+  //     scope = $rootScope.$new();
+  //     nestedScope = scope.$new();
 
-    //     $controller('MyController', { $scope: scope });
-    //     $controller('MyNestedController', { $scope: nestedScope });
-    // }));
+  //     $controller('MyController', { $scope: scope });
+  //     $controller('MyNestedController', { $scope: nestedScope });
+  // }));
 
-    it('scope should be undefined', function() {
+  it('scope should be undefined', function() {
 
-    	expect(scope).toBe(undefined);
-    });
+    expect(scope).toBe(undefined);
+  });
 });

@@ -1,4 +1,3 @@
-const cm = require('./../server/cm');
 const https = require('https');
 
 let task;
@@ -8,26 +7,26 @@ if (process.argv[2]) { task = process.argv[2].substring(1, process.argv[2].lengt
 if (process.argv[3]) { subject = process.argv[3].substring(1, process.argv[3].length); }
 
 const req = https.request({
-	hostname: 'localhost',
-	port: 3000,
-	path: '/setup?task=' + task + '&subject=' + subject,
-	method: 'POST',
-	rejectUnauthorized: false
+  hostname: 'localhost',
+  port: 3000,
+  path: '/setup?task=' + task + '&subject=' + subject,
+  method: 'POST',
+  rejectUnauthorized: false
 }, (res) => {
 
-	let body = '';
+  let body = '';
 
-	res.on('data', function(chunk) {
-		body += chunk;
-	});
+  res.on('data', function(chunk) {
+    body += chunk;
+  });
 
-	res.on('end', () => {
-		console.log(body);
-	});
+  res.on('end', () => {
+    console.log(body);
+  });
 });
 
 req.on('error', (err) => {
-	console.error(err);
+  console.error(err);
 });
 
 req.end();

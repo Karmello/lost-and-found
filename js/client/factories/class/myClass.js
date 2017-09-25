@@ -1,32 +1,32 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var myClass = function(
-		MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyDataModel, MyCollectionBrowser, MySrcCollection,
-		MyForm, MySrcAction
-	) {
+  var myClass = function(
+    MySwitchable, MySwitcher, MyLoader, MyModal, MySrc, MyStorageItem, MyDataModel, MyCollectionBrowser, MySrcCollection,
+    MyForm, MySrcAction
+  ) {
 
-		return {
-			MySwitchable: MySwitchable,
-			MySwitcher: MySwitcher,
-			MyLoader: MyLoader,
-			MyModal: MyModal,
-			MySrc: MySrc,
-			MyStorageItem: MyStorageItem,
-			MyDataModel: MyDataModel,
-			MyCollectionBrowser: MyCollectionBrowser,
-			MySrcCollection: MySrcCollection,
-			MyForm: MyForm,
-			MySrcAction: MySrcAction
-		};
-	};
+    return {
+      MySwitchable: MySwitchable,
+      MySwitcher: MySwitcher,
+      MyLoader: MyLoader,
+      MyModal: MyModal,
+      MySrc: MySrc,
+      MyStorageItem: MyStorageItem,
+      MyDataModel: MyDataModel,
+      MyCollectionBrowser: MyCollectionBrowser,
+      MySrcCollection: MySrcCollection,
+      MyForm: MyForm,
+      MySrcAction: MySrcAction
+    };
+  };
 
-	myClass.$inject = [
-		'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyDataModel', 'MyCollectionBrowser',
-		'MySrcCollection', 'MyForm', 'MySrcAction'
-	];
+  myClass.$inject = [
+    'MySwitchable', 'MySwitcher', 'MyLoader', 'MyModal', 'MySrc', 'MyStorageItem', 'MyDataModel', 'MyCollectionBrowser',
+    'MySrcCollection', 'MyForm', 'MySrcAction'
+  ];
 
-	angular.module('appModule').factory('myClass', myClass);
+  angular.module('appModule').factory('myClass', myClass);
 
 })();

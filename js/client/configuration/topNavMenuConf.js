@@ -1,24 +1,24 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var topNavMenuConf = function() {
+  var topNavMenuConf = function() {
 
-		var config = {
-			_ctrlId: 'topNavMenu',
-			switchers: [
-				{ _id: 'home' },
-				{ _id: 'search' },
-				{ _id: 'newreport' }
-			]
-		};
+    var config = {
+      _ctrlId: 'topNavMenu',
+      switchers: [
+        { _id: 'home' },
+        { _id: 'search' },
+        { _id: 'newreport' }
+      ]
+    };
 
-		return config;
-	};
+    return config;
+  };
 
 
 
-	topNavMenuConf.$inject = [];
-	angular.module('appModule').service('topNavMenuConf', topNavMenuConf);
+  topNavMenuConf.$inject = [];
+  angular.module('appModule').service('topNavMenuConf', topNavMenuConf);
 
 })();

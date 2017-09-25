@@ -4,12 +4,12 @@ var expect = require('chai').expect;
 
 describe('spec1', function() {
 
-	var x;
+  var x;
 
-	beforeEach(function() {});
+  beforeEach(function() {});
 
-	it('x should be undefined', function() {
+  it('x should be undefined', function() {
 
-		expect(x).to.be.undefined;
-	});
+    expect(x).to.be.undefined;
+  });
 });

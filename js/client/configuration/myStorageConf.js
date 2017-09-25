@@ -1,25 +1,25 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var myStorageConf = function() {
+  var myStorageConf = function() {
 
-		var authToken = {
-			_id: 'auth_token',
-			type: 'cookie',
-			daysToExpire: 30
-		};
-
-
-
-		return {
-			authToken: authToken
-		};
-	};
+    var authToken = {
+      _id: 'auth_token',
+      type: 'cookie',
+      daysToExpire: 30
+    };
 
 
 
-	myStorageConf.$inject = [];
-	angular.module('appModule').service('myStorageConf', myStorageConf);
+    return {
+      authToken: authToken
+    };
+  };
+
+
+
+  myStorageConf.$inject = [];
+  angular.module('appModule').service('myStorageConf', myStorageConf);
 
 })();

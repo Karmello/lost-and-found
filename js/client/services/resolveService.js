@@ -1,34 +1,34 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var resolveService = function($q, $state, authService, ui) {
+  var resolveService = function($q, $state, authService, ui) {
 
-		return {
-			isAuthenticated: function(currentStateName) {
+    return {
+      isAuthenticated: function(currentStateName) {
 
-				return $q(function(resolve, reject) {
+        return $q(function(resolve, reject) {
 
-					if (authService.state.authenticated) {
-						resolve();
+          if (authService.state.authenticated) {
+            resolve();
 
-					} else {
+          } else {
 
-						reject();
+            reject();
 
-						if (currentStateName == 'app.start') {
-							ui.modals.accountRequiredModal.show();
+            if (currentStateName == 'app.start') {
+              ui.modals.accountRequiredModal.show();
 
-						} else {
-							$state.go('app.start', { tab: 'status' }, { location: 'replace' });
-						}
-					}
-				});
-			}
-		};
-	};
+            } else {
+              $state.go('app.start', { tab: 'status' }, { location: 'replace' });
+            }
+          }
+        });
+      }
+    };
+  };
 
-	resolveService.$inject = ['$q', '$state', 'authService', 'ui'];
-	angular.module('appModule').service('resolveService', resolveService);
+  resolveService.$inject = ['$q', '$state', 'authService', 'ui'];
+  angular.module('appModule').service('resolveService', resolveService);
 
 })();

@@ -1,27 +1,27 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var MainController = function($scope, exchangeRateService, socketService, UsersRest) {
+  var MainController = function($scope, exchangeRateService, socketService, UsersRest) {
 
-		$scope.exchangeRateService = exchangeRateService;
+    $scope.exchangeRateService = exchangeRateService;
 
-		$scope.$watch('apiData.loggedInUser', function(newUser) {
+    $scope.$watch('apiData.loggedInUser', function(newUser) {
 
-			if (newUser) {
+      if (newUser) {
 
-				let user = newUser.plain();
+        let user = newUser.plain();
 
-				UsersRest.personalDetailsModel.set(user, true);
-				UsersRest.personalDetailsModel.setValue('countryFirstLetter', newUser.country[0], true);
-				UsersRest.configModel.set(user, true);
+        UsersRest.personalDetailsModel.set(user, true);
+        UsersRest.personalDetailsModel.setValue('countryFirstLetter', newUser.country[0], true);
+        UsersRest.configModel.set(user, true);
 
-				socketService.init();
-			}
-		});
-	};
+        socketService.init();
+      }
+    });
+  };
 
-	MainController.$inject = ['$scope', 'exchangeRateService', 'socketService', 'UsersRest'];
-	angular.module('appModule').controller('MainController', MainController);
+  MainController.$inject = ['$scope', 'exchangeRateService', 'socketService', 'UsersRest'];
+  angular.module('appModule').controller('MainController', MainController);
 
 })();

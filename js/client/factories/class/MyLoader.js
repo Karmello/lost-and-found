@@ -1,50 +1,50 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var MyLoader = function($timeout) {
+  var MyLoader = function($timeout) {
 
-		var MyLoader = function(_minLoadTime, _stopTimeOut) {
+    var MyLoader = function(_minLoadTime, _stopTimeOut) {
 
-			if (_minLoadTime) { this.minLoadTime = _minLoadTime; } else { this.minLoadTime = 150; }
-			this.stopTimeOut = _stopTimeOut;
+      if (_minLoadTime) { this.minLoadTime = _minLoadTime; } else { this.minLoadTime = 150; }
+      this.stopTimeOut = _stopTimeOut;
 
-			this.isLoading = false;
-		};
+      this.isLoading = false;
+    };
 
-		MyLoader.prototype.start = function(stopAutomagically, cb) {
+    MyLoader.prototype.start = function(stopAutomagically, cb) {
 
-			var that = this;
-			that.isLoading = true;
+      var that = this;
+      that.isLoading = true;
 
-			$timeout(function() {
-				if (cb) { cb(); }
-				if (stopAutomagically) { that.stop(); }
-			}, that.minLoadTime);
-		};
+      $timeout(function() {
+        if (cb) { cb(); }
+        if (stopAutomagically) { that.stop(); }
+      }, that.minLoadTime);
+    };
 
-		MyLoader.prototype.stop = function(cb) {
+    MyLoader.prototype.stop = function(cb) {
 
-			var that = this;
+      var that = this;
 
-			if (that.stopTimeOut) {
+      if (that.stopTimeOut) {
 
-				$timeout(function() {
-					that.isLoading = false;
-					if (cb) { cb(); }
-				}, that.stopTimeOut);
+        $timeout(function() {
+          that.isLoading = false;
+          if (cb) { cb(); }
+        }, that.stopTimeOut);
 
-			} else {
+      } else {
 
-				that.isLoading = false;
-				if (cb) { cb(); }
-			}
-		};
+        that.isLoading = false;
+        if (cb) { cb(); }
+      }
+    };
 
-		return MyLoader;
-	};
+    return MyLoader;
+  };
 
-	MyLoader.$inject = ['$timeout'];
-	angular.module('appModule').factory('MyLoader', MyLoader);
+  MyLoader.$inject = ['$timeout'];
+  angular.module('appModule').factory('MyLoader', MyLoader);
 
 })();

@@ -1,20 +1,20 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var ContactTypesRest = function(Restangular, MyDataModel) {
+  var ContactTypesRest = function(Restangular, MyDataModel) {
 
-		var contactTypes = Restangular.service('contact_types');
+    var contactTypes = Restangular.service('contact_types');
 
-		contactTypes.contactTypeModel = new MyDataModel({
-			contactType: {},
-			contactMsg: {}
-		});
+    contactTypes.contactTypeModel = new MyDataModel({
+      contactType: {},
+      contactMsg: {}
+    });
 
-		return contactTypes;
-	};
+    return contactTypes;
+  };
 
-	ContactTypesRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
+  ContactTypesRest.$inject = ['Restangular', 'MyDataModel'];
+  angular.module('appModule').factory('ContactTypesRest', ContactTypesRest);
 
 })();

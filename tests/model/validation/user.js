@@ -5,30 +5,30 @@ const expect = cm.libs.expect;
 
 describe('user validation', () => {
 
-	let data, user;
+  let data, user;
 
-	before((done) => {
+  before((done) => {
 
-		cm.setup.subject = 'User';
+    cm.setup.subject = 'User';
 
-		cm.setup.dataFactory.prepare().then((_data) => {
-			data = _data;
-			done();
-		});
-	});
+    cm.setup.dataFactory.prepare().then((_data) => {
+      data = _data;
+      done();
+    });
+  });
 
-	beforeEach((done) => {
-		cm.User.remove(() => {
-			user = new cm.User(data[0]);
-			done();
-		});
-	});
+  beforeEach((done) => {
+    cm.User.remove(() => {
+      user = new cm.User(data[0]);
+      done();
+    });
+  });
 
-	it('should be valid', (done) => {
+  it('should be valid', (done) => {
 
-		user.validate().then((err) => {
-			expect(err).to.be.undefined;
-			done();
-		});
-	});
+    user.validate().then((err) => {
+      expect(err).to.be.undefined;
+      done();
+    });
+  });
 });

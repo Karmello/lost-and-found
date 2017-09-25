@@ -1,3 +1,3 @@
 module.exports = {
-	Action: require('./Action')
+  Action: require('./Action')
 };

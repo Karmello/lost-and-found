@@ -5,70 +5,70 @@ const expect = cm.libs.expect;
 
 describe('report avatar correctness validator', () => {
 
-	let validate;
+  let validate;
 
-	before(() => {
-		validate = cm.modules.validator.get('Report', 'avatar', 'correctness').validator;
-	});
+  before(() => {
+    validate = cm.modules.validator.get('Report', 'avatar', 'correctness').validator;
+  });
 
-	it('should return false', (done) => {
+  it('should return false', (done) => {
 
-		let report = { photos: [], avatar: 'photo.png' };
+    let report = { photos: [], avatar: 'photo.png' };
 
-		validate.call(report, report.avatar, (valid) => {
-			expect(valid).to.be.false;
-			done();
-		});
-	});
+    validate.call(report, report.avatar, (valid) => {
+      expect(valid).to.be.false;
+      done();
+    });
+  });
 
-	it('should return false', (done) => {
+  it('should return false', (done) => {
 
-		let report = {
-			photos: [
-				{ filename: 'photo1.png', size: 100 },
-				{ filename: 'photo2.png', size: 200 }
-			]
-		};
+    let report = {
+      photos: [
+        { filename: 'photo1.png', size: 100 },
+        { filename: 'photo2.png', size: 200 }
+      ]
+    };
 
-		validate.call(report, report.avatar, (valid) => {
-			expect(valid).to.be.false;
-			done();
-		});
-	});
+    validate.call(report, report.avatar, (valid) => {
+      expect(valid).to.be.false;
+      done();
+    });
+  });
 
-	it('should return false', (done) => {
+  it('should return false', (done) => {
 
-		let report = {
-			photos: [{ filename: 'photo1.png', size: 100 }],
-			avatar: 'photo2.png'
-		};
+    let report = {
+      photos: [{ filename: 'photo1.png', size: 100 }],
+      avatar: 'photo2.png'
+    };
 
-		validate.call(report, report.avatar, (valid) => {
-			expect(valid).to.be.false;
-			done();
-		});
-	});
+    validate.call(report, report.avatar, (valid) => {
+      expect(valid).to.be.false;
+      done();
+    });
+  });
 
-	it('should return true', (done) => {
+  it('should return true', (done) => {
 
-		let report = { photos: [], avatar: '' };
+    let report = { photos: [], avatar: '' };
 
-		validate.call(report, report.avatar, (valid) => {
-			expect(valid).to.be.true;
-			done();
-		});
-	});
+    validate.call(report, report.avatar, (valid) => {
+      expect(valid).to.be.true;
+      done();
+    });
+  });
 
-	it('should return true', (done) => {
+  it('should return true', (done) => {
 
-		let report = {
-			photos: [{ filename: 'photo.png', size: 100 }],
-			avatar: 'photo.png'
-		};
+    let report = {
+      photos: [{ filename: 'photo.png', size: 100 }],
+      avatar: 'photo.png'
+    };
 
-		validate.call(report, report.avatar, (valid) => {
-			expect(valid).to.be.true;
-			done();
-		});
-	});
+    validate.call(report, report.avatar, (valid) => {
+      expect(valid).to.be.true;
+      done();
+    });
+  });
 });

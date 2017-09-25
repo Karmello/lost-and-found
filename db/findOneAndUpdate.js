@@ -1,3 +1,4 @@
+/* eslint-disable-line */
 use laf-dev
 
 db.reports.findOneAndUpdate(

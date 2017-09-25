@@ -1,73 +1,75 @@
 const cm = require(global.paths.server + '/cm');
 
 module.exports = {
-	readImgs: (data) => {
+  readImgs: (data) => {
 
-		let tasks = [];
+    let tasks = [];
 
-		switch (cm.setup.subject) {
+    switch (cm.setup.subject) {
 
-			case 'User':
+      case 'User': {
 
-				for (let config of data) {
+        for (let config of data) {
 
-					tasks.push(new cm.libs.Promise((resolve, reject) => {
-						cm.libs.fs.readFile(config.avatarPath, (err, fileData) => {
+          tasks.push(new cm.libs.Promise((resolve, reject) => {
+            cm.libs.fs.readFile(config.avatarPath, (err, fileData) => {
 
-							if (!err) {
-								resolve({
-									userId: config._id,
-									fileType: 'image/' + config.avatarPath.substring(config.avatarPath.lastIndexOf('.') + 1, config.avatarPath.length),
-									fileData: fileData
-								});
+              if (!err) {
+                resolve({
+                  userId: config._id,
+                  fileType: 'image/' + config.avatarPath.substring(config.avatarPath.lastIndexOf('.') + 1, config.avatarPath.length),
+                  fileData: fileData
+                });
 
-							} else { reject(err); }
-						});
-					}));
-				}
+              } else { reject(err); }
+            });
+          }));
+        }
 
-				break;
+        break;
+      }
 
-			case 'Report':
+      case 'Report': {
 
-				let fakeDataPath = global.paths.root + '/resources/fake-data';
-				let userIds = cm.libs.fs.readdirSync(fakeDataPath);
+        let fakeDataPath = global.paths.root + '/resources/fake-data';
+        let userIds = cm.libs.fs.readdirSync(fakeDataPath);
 
-				for (let userId of userIds) {
+        for (let userId of userIds) {
 
-					let reportIds = cm.libs.fs.readdirSync(fakeDataPath + '/' + userId + '/reports');
+          let reportIds = cm.libs.fs.readdirSync(fakeDataPath + '/' + userId + '/reports');
 
-					for (let reportId of reportIds) {
+          for (let reportId of reportIds) {
 
-						let imgsFolderPath = fakeDataPath + '/' + userId + '/reports/' + reportId + '/imgs';
-						let imgNames = cm.libs.fs.readdirSync(imgsFolderPath);
+            let imgsFolderPath = fakeDataPath + '/' + userId + '/reports/' + reportId + '/imgs';
+            let imgNames = cm.libs.fs.readdirSync(imgsFolderPath);
 
-						for (let imgName of imgNames) {
+            for (let imgName of imgNames) {
 
-							tasks.push(new cm.libs.Promise((resolve) => {
+              tasks.push(new cm.libs.Promise((resolve, reject) => {
 
-								let imgPath = imgsFolderPath + '/' + imgName;
+                let imgPath = imgsFolderPath + '/' + imgName;
 
-								cm.libs.fs.readFile(imgPath, (err, fileData) => {
+                cm.libs.fs.readFile(imgPath, (err, fileData) => {
 
-									if (!err) {
-										resolve({
-											userId: userId,
-											reportId: reportId,
-											fileType: 'image/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
-											fileData: fileData
-										});
+                  if (!err) {
+                    resolve({
+                      userId: userId,
+                      reportId: reportId,
+                      fileType: 'image/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
+                      fileData: fileData
+                    });
 
-									} else { reject(err); }
-								});
-							}));
-						}
-					}
-				}
+                  } else { reject(err); }
+                });
+              }));
+            }
+          }
+        }
 
-				break;
-		}
+        break;
+      }
+    }
 
-		return cm.libs.Promise.all(tasks);
-	}
+    return cm.libs.Promise.all(tasks);
+  }
 };

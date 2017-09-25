@@ -11,7 +11,15 @@
       "plugin:jasmine/recommended"
     ],
     "globals": {
-      "before": true
+      "_": true,
+      "$": true,
+      "accounting": true,
+      "fx": true,
+      "angular": true,
+      "before": true,
+      "google":true,
+      "MarkerClusterer": true,
+      "io": true
     },
     "parserOptions": {
         "sourceType": "module"
@@ -20,7 +28,7 @@
       "jasmine"
     ],
     "rules": {
-        "indent": ["error", "tab"],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "linebreak-style": [
             "error",
             "windows"
@@ -32,6 +40,7 @@
         ],
         "no-console": 1,
         "no-empty": 1,
+        "no-unused-vars": 1,
         "semi": [
             "error",
             "always"

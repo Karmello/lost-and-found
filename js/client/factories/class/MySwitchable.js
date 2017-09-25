@@ -1,110 +1,110 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var MySwitchable = function(MySwitcher, jsonService, hardDataService) {
+  var MySwitchable = function(MySwitcher) {
 
-		var MySwitchable = function(config) {
+    var MySwitchable = function(config) {
 
-			Object.assign(this, $.extend(true, {}, config));
-			this.instantiateSwitchers();
-		};
+      Object.assign(this, $.extend(true, {}, config));
+      this.instantiateSwitchers();
+    };
 
 
 
-		MySwitchable.prototype.instantiateSwitchers = function(switchers, cb) {
+    MySwitchable.prototype.instantiateSwitchers = function(switchers, cb) {
 
-			var that = this;
-			if (switchers) { that.switchers = switchers; }
+      var that = this;
+      if (switchers) { that.switchers = switchers; }
 
-			if (that.switchers) {
+      if (that.switchers) {
 
-				that.switcherIds = [];
+        that.switcherIds = [];
 
-				angular.forEach(that.switchers, function(switcher, key) {
+        angular.forEach(that.switchers, function(switcher, key) {
 
-					if (typeof(switcher) == 'object') {
-						that.switchers[key] = new MySwitcher(switcher, that);
-						that.switcherIds.push(switcher._id);
-					}
-				});
+          if (typeof(switcher) == 'object') {
+            that.switchers[key] = new MySwitcher(switcher, that);
+            that.switcherIds.push(switcher._id);
+          }
+        });
 
-				that.activeSwitcherId = that.switcherIds[0];
-			}
+        that.activeSwitcherId = that.switcherIds[0];
+      }
 
-			if (cb) { cb(); }
-		};
+      if (cb) { cb(); }
+    };
 
-		MySwitchable.prototype.activateSwitcher = function(switcherId) {
+    MySwitchable.prototype.activateSwitcher = function(switcherId) {
 
-			var index;
+      var index;
 
-			switch(switcherId) {
+      switch(switcherId) {
 
-				case 'prev':
+        case 'prev':
 
-					index = this.getActiveSwitcherIndex();
-					if (index > 0) { this.switchers[index - 1].activate(); } else { this.switchers[this.switchers.length - 1].activate(); }
-					break;
+          index = this.getActiveSwitcherIndex();
+          if (index > 0) { this.switchers[index - 1].activate(); } else { this.switchers[this.switchers.length - 1].activate(); }
+          break;
 
-				case 'next':
+        case 'next':
 
-					index = this.getActiveSwitcherIndex();
-					if (index < this.switchers.length - 1) { this.switchers[index + 1].activate(); } else { this.switchers[0].activate(); }
-					break;
+          index = this.getActiveSwitcherIndex();
+          if (index < this.switchers.length - 1) { this.switchers[index + 1].activate(); } else { this.switchers[0].activate(); }
+          break;
 
-				default:
+        default:
 
-					var switcher = this.getSwitcher('_id', switcherId);
-					if (switcher) { switcher.activate(); } else { this.activeSwitcherId = undefined; }
-					break;
-			}
-		};
+          var switcher = this.getSwitcher('_id', switcherId);
+          if (switcher) { switcher.activate(); } else { this.activeSwitcherId = undefined; }
+          break;
+      }
+    };
 
-		MySwitchable.prototype.getSwitcher = function(key, value) {
+    MySwitchable.prototype.getSwitcher = function(key, value) {
 
-			var that = this;
+      var that = this;
 
-			if (that.switchers) {
+      if (that.switchers) {
 
-				return _.find(that.switchers, function(switcher) {
-					return switcher[key] == value;
-				});
+        return _.find(that.switchers, function(switcher) {
+          return switcher[key] == value;
+        });
 
-			} else { return null; }
-		};
+      } else { return null; }
+    };
 
-		MySwitchable.prototype.getActiveSwitcher = function() {
+    MySwitchable.prototype.getActiveSwitcher = function() {
 
-			var that = this;
+      var that = this;
 
-			return _.find(that.switchers, function(switcher) {
-				return switcher._id == that.activeSwitcherId;
-			});
-		};
+      return _.find(that.switchers, function(switcher) {
+        return switcher._id == that.activeSwitcherId;
+      });
+    };
 
-		MySwitchable.prototype.getActiveSwitcherIndex = function () {
+    MySwitchable.prototype.getActiveSwitcherIndex = function () {
 
-			var activeSwitcher = this.getActiveSwitcher();
+      var activeSwitcher = this.getActiveSwitcher();
 
-			for (var i = 0; i < this.switchers.length; i++) {
-				if (this.switchers[i]._id == activeSwitcher._id) {
-					return i;
-				}
-			}
+      for (var i = 0; i < this.switchers.length; i++) {
+        if (this.switchers[i]._id == activeSwitcher._id) {
+          return i;
+        }
+      }
 
-			return -1;
-		};
+      return -1;
+    };
 
-		MySwitchable.prototype.getFirstSwitcher = function() {
+    MySwitchable.prototype.getFirstSwitcher = function() {
 
-			return _.head(this.switchers);
-		};
+      return _.head(this.switchers);
+    };
 
-		return MySwitchable;
-	};
+    return MySwitchable;
+  };
 
-	MySwitchable.$inject = ['MySwitcher', 'jsonService', 'hardDataService'];
-	angular.module('appModule').factory('MySwitchable', MySwitchable);
+  MySwitchable.$inject = ['MySwitcher'];
+  angular.module('appModule').factory('MySwitchable', MySwitchable);
 
 })();

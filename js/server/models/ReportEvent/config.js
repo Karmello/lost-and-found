@@ -1,5 +1,5 @@
 module.exports = {
-	details: {
-		length: { min: 50, max: 1000 }
-	}
+  details: {
+    length: { min: 50, max: 1000 }
+  }
 };

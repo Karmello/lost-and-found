@@ -1,32 +1,32 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.filter('filterByCategory', function() {
+  appModule.filter('filterByCategory', function() {
 
-		return function(data, category) {
+    return function(data, category) {
 
-			if (category) {
+      if (category) {
 
-				var filteredData = [];
+        var filteredData = [];
 
-				angular.forEach(data, function(item) {
+        angular.forEach(data, function(item) {
 
-					if (item.name[0] == category) {
-						filteredData.push(item);
-					}
-				});
+          if (item.name[0] == category) {
+            filteredData.push(item);
+          }
+        });
 
-				return filteredData;
+        return filteredData;
 
-			} else {
-				return data;
-			}
-		};
-	});
+      } else {
+        return data;
+      }
+    };
+  });
 
 })();

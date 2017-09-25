@@ -1,38 +1,36 @@
-const cm = require(global.paths.server + '/cm');
-
 let Action = function(args) {
 
-	this.req = args[0];
-	this.res = args[1];
-	this.next = args[2];
+  this.req = args[0];
+  this.res = args[1];
+  this.next = args[2];
 
-	if (this.req.query && this.req.query.action) {
-		this.id = this.req.query.action;
-	}
+  if (this.req.query && this.req.query.action) {
+    this.id = this.req.query.action;
+  }
 };
 
 Action.prototype.setAsBad = function() {
-	this.req.session.badActionsCount[this.id] += 1;
+  this.req.session.badActionsCount[this.id] += 1;
 };
 
 Action.prototype.resetBadCount = function() {
-	this.req.session.badActionsCount[this.id] = 0;
+  this.req.session.badActionsCount[this.id] = 0;
 };
 
 Action.prototype.end = function(status, body) {
 
-	let that = this;
+  let that = this;
 
-	try {
+  try {
 
-		that.res.status(status).send(body);
+    that.res.status(status).send(body);
 
-	} catch(ex) {} finally {
+  } catch(ex) {} finally {
 
-		if (process.env.LOADED_MOCHA_OPTS || process.env.NODE_ENV == 'setup') {
-			that.next(status, body);
-		}
-	}
+    if (process.env.LOADED_MOCHA_OPTS || process.env.NODE_ENV == 'setup') {
+      that.next(status, body);
+    }
+  }
 };
 
 module.exports = Action;

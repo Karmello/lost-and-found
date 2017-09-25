@@ -5,53 +5,53 @@ const expect = cm.libs.expect;
 
 describe('report photos correctness validator', () => {
 
-	let validate;
+  let validate;
 
-	before(() => {
-		validate = cm.modules.validator.get('Report', 'photos', 'correctness').validator;
-	});
+  before(() => {
+    validate = cm.modules.validator.get('Report', 'photos', 'correctness').validator;
+  });
 
-	it('should return false', (done) => {
+  it('should return false', (done) => {
 
-		let report = {
-			photos: [{ filename: 'photo.png' }]
-		};
+    let report = {
+      photos: [{ filename: 'photo.png' }]
+    };
 
-		validate.call(report, report.photos, (valid) => {
-			expect(valid).to.be.false;
-			done();
-		});
-	});
+    validate.call(report, report.photos, (valid) => {
+      expect(valid).to.be.false;
+      done();
+    });
+  });
 
-	it('should return false', (done) => {
+  it('should return false', (done) => {
 
-		let photos = [];
+    let photos = [];
 
-		for (let i = 0; i <= cm.Report.config.photos.length.max; i++) {
-			photos.push({ filename: 'photo' + (i + 1) + '.png', size: 100 });
-		}
+    for (let i = 0; i <= cm.Report.config.photos.length.max; i++) {
+      photos.push({ filename: 'photo' + (i + 1) + '.png', size: 100 });
+    }
 
-		let report = { photos: photos };
+    let report = { photos: photos };
 
-		validate.call(report, report.photos, (valid) => {
-			expect(valid).to.be.false;
-			done();
-		});
-	});
+    validate.call(report, report.photos, (valid) => {
+      expect(valid).to.be.false;
+      done();
+    });
+  });
 
-	it('should return true', (done) => {
+  it('should return true', (done) => {
 
-		let report = {
-			photos: [
-				{ filename: 'photo1.png', size: 100 },
-				{ filename: 'photo2.png', size: 200 },
-				{ filename: 'photo3.png', size: 300 }
-			]
-		};
+    let report = {
+      photos: [
+        { filename: 'photo1.png', size: 100 },
+        { filename: 'photo2.png', size: 200 },
+        { filename: 'photo3.png', size: 300 }
+      ]
+    };
 
-		validate.call(report, report.photos, (valid) => {
-			expect(valid).to.be.true;
-			done();
-		});
-	});
+    validate.call(report, report.photos, (valid) => {
+      expect(valid).to.be.true;
+      done();
+    });
+  });
 });

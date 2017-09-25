@@ -1,14 +1,14 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var CommentsRest = function(Restangular, MyDataModel) {
+  var CommentsRest = function(Restangular) {
 
-		var comments = Restangular.service('comments');
-		return comments;
-	};
+    var comments = Restangular.service('comments');
+    return comments;
+  };
 
-	CommentsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('CommentsRest', CommentsRest);
+  CommentsRest.$inject = ['Restangular'];
+  angular.module('appModule').factory('CommentsRest', CommentsRest);
 
 })();

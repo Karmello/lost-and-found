@@ -1,19 +1,19 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var DeactivationReasonsRest = function(Restangular, MyDataModel) {
+  var DeactivationReasonsRest = function(Restangular, MyDataModel) {
 
-		var deactivationReasons = Restangular.service('deactivation_reasons')
+    var deactivationReasons = Restangular.service('deactivation_reasons');
 
-		deactivationReasons.deactivationReasonModel = new MyDataModel({
-			deactivationReasonId: {}
-		});
+    deactivationReasons.deactivationReasonModel = new MyDataModel({
+      deactivationReasonId: {}
+    });
 
-		return deactivationReasons;
-	};
+    return deactivationReasons;
+  };
 
-	DeactivationReasonsRest.$inject = ['Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
+  DeactivationReasonsRest.$inject = ['Restangular', 'MyDataModel'];
+  angular.module('appModule').factory('DeactivationReasonsRest', DeactivationReasonsRest);
 
 })();

@@ -1,33 +1,33 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var settingsListGroupConf = function(hardDataService) {
+  var settingsListGroupConf = function(hardDataService) {
 
-		var hardData = hardDataService.get();
+    var hardData = hardDataService.get();
 
-		var config = {
-			_ctrlId: 'settingsListGroup',
-			switchers: [
-				{
-					_id: 'application',
-					label: hardData.sections[7]
-				},
-				{
-					_id: 'account',
-					label: hardData.sections[8]
-				},
-				{
-					_id: 'danger',
-					label: hardData.sections[24]
-				}
-			]
-		};
+    var config = {
+      _ctrlId: 'settingsListGroup',
+      switchers: [
+        {
+          _id: 'application',
+          label: hardData.sections[7]
+        },
+        {
+          _id: 'account',
+          label: hardData.sections[8]
+        },
+        {
+          _id: 'danger',
+          label: hardData.sections[24]
+        }
+      ]
+    };
 
-		return config;
-	};
+    return config;
+  };
 
-	settingsListGroupConf.$inject = ['hardDataService'];
-	angular.module('appModule').service('settingsListGroupConf', settingsListGroupConf);
+  settingsListGroupConf.$inject = ['hardDataService'];
+  angular.module('appModule').service('settingsListGroupConf', settingsListGroupConf);
 
 })();

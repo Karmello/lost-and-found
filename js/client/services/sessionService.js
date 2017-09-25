@@ -1,22 +1,22 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var sessionService = function($http) {
+  var sessionService = function($http) {
 
-		var session = {
-			get: function(callback) {
+    var session = {
+      get: function() {
 
-				return $http.get('/session');
-			}
-		};
+        return $http.get('/session');
+      }
+    };
 
-		return session;
-	};
+    return session;
+  };
 
 
 
-	sessionService.$inject = ['$http'];
-	angular.module('appModule').service('sessionService', sessionService);
+  sessionService.$inject = ['$http'];
+  angular.module('appModule').service('sessionService', sessionService);
 
 })();

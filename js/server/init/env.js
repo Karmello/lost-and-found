@@ -2,19 +2,19 @@ const cm = require(global.paths.server + '/cm');
 
 module.exports = () => {
 
-	return new cm.libs.Promise((resolve, reject) => {
+  return new cm.libs.Promise((resolve, reject) => {
 
-		try {
+    try {
 
-			if (!process.env.LOADED_MOCHA_OPTS) {
-				require('dotenv').config();
+      if (!process.env.LOADED_MOCHA_OPTS) {
+        require('dotenv').config();
 
-			} else {
-				require('dotenv').config({ path: global.paths.root + '/tests/.env' });
-			}
+      } else {
+        require('dotenv').config({ path: global.paths.root + '/tests/.env' });
+      }
 
-			resolve();
+      resolve();
 
-		} catch(ex) { reject(ex); }
-	});
+    } catch(ex) { reject(ex); }
+  });
 };

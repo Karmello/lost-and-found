@@ -1,7 +1,7 @@
 let ReportEventSchema = require('./schema');
 
 ReportEventSchema.statics = {
-	config: require('./config')
+  config: require('./config')
 };
 
 module.exports = ReportEventSchema;

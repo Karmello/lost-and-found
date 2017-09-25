@@ -1,261 +1,261 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var MySrcCollection = function($rootScope, $q, MyCollectionSelector, MySrc, MyLoader) {
+  var MySrcCollection = function($rootScope, $q, MyCollectionSelector, MySrc, MyLoader) {
 
-		var MySrcCollection = function(conf) {
+    var MySrcCollection = function(conf) {
 
-			Object.assign(MySrcCollection.prototype, MyCollectionSelector.prototype);
+      Object.assign(MySrcCollection.prototype, MyCollectionSelector.prototype);
 
-			if (conf) {
+      if (conf) {
 
-				this.srcArgs = {
-					defaultUrl: conf.defaultUrl,
-					constructUrl: conf.constructUrl,
-					uploadRequest: conf.uploadRequest,
-					removeRequest: conf.removeRequest
-				};
-			}
+        this.srcArgs = {
+          defaultUrl: conf.defaultUrl,
+          constructUrl: conf.constructUrl,
+          uploadRequest: conf.uploadRequest,
+          removeRequest: conf.removeRequest
+        };
+      }
 
-			this.collection = [];
-			this.loader = new MyLoader(250);
-		};
+      this.collection = [];
+      this.loader = new MyLoader(250);
+    };
 
-		MySrcCollection.prototype.init = function(collection, cb, args) {
+    MySrcCollection.prototype.init = function(collection, cb, args) {
 
-			var that = this;
+      var that = this;
 
-			that.loader.start(false, function() {
+      that.loader.start(false, function() {
 
-				// When there is some init data
-				if (collection.length > 0) {
+        // When there is some init data
+        if (collection.length > 0) {
 
-					// Emptying collection array
-					that.collection.length = 0;
+          // Emptying collection array
+          that.collection.length = 0;
 
-					var loadPromises = [];
+          var loadPromises = [];
 
-					// For all elem in collection
-					for (var i in collection) {
+          // For all elem in collection
+          for (var i in collection) {
 
-						// Creating src
-						var src = new MySrc(that.srcArgs);
-						src.index = Number(i);
+            // Creating src
+            var src = new MySrc(that.srcArgs);
+            src.index = Number(i);
 
-						// Assigning collection elem fields to newly created src
-						Object.assign(src, collection[i]);
+            // Assigning collection elem fields to newly created src
+            Object.assign(src, collection[i]);
 
-						// Pushing to an array
-						that.collection.push(src);
+            // Pushing to an array
+            that.collection.push(src);
 
-						// Loading
-						if (!args || !args.doNotLoad) {
-							loadPromises.push(that.collection[i].load(src.constructUrl(i)));
-						}
-					}
+            // Loading
+            if (!args || !args.doNotLoad) {
+              loadPromises.push(that.collection[i].load(src.constructUrl(i)));
+            }
+          }
 
-					if (!args || !args.doNotLoad) {
+          if (!args || !args.doNotLoad) {
 
-						// Returning all loading finished promises
-						$q.all(loadPromises).then(function(results) {
+            // Returning all loading finished promises
+            $q.all(loadPromises).then(function(results) {
 
-							that.loader.stop();
-							if (cb) { cb(results); }
-						});
+              that.loader.stop();
+              if (cb) { cb(results); }
+            });
 
-					} else {
+          } else {
 
-						that.loader.stop();
-						if (cb) { cb(); }
-					}
+            that.loader.stop();
+            if (cb) { cb(); }
+          }
 
-				} else {
+        } else {
 
-					// Emptying collection array
-					that.collection.length = 0;
+          // Emptying collection array
+          that.collection.length = 0;
 
-					that.loader.stop();
-					if (cb) { cb(); }
-				}
-			});
-		};
+          that.loader.stop();
+          if (cb) { cb(); }
+        }
+      });
+    };
 
-		MySrcCollection.prototype.updateSingle = function(args, cb) {
+    MySrcCollection.prototype.updateSingle = function(args, cb) {
 
-			var that = this;
+      var that = this;
 
-			// Creating new src
-			var newSrc = new MySrc(that.srcArgs);
-			newSrc.index = args.src.index;
+      // Creating new src
+      var newSrc = new MySrc(that.srcArgs);
+      newSrc.index = args.src.index;
 
-			// Replacing in new array
-			that.collection[newSrc.index] = newSrc;
+      // Replacing in new array
+      that.collection[newSrc.index] = newSrc;
 
-			// Updating
-			newSrc.update(args, 0).then(function(success) {
+      // Updating
+      newSrc.update(args, 0).then(function(success) {
 
-				// If error while updating
-				if (!success) {
+        // If error while updating
+        if (!success) {
 
-					// Setting new src back to old one
-					that.collection[args.src.index] = args.src;
+          // Setting new src back to old one
+          that.collection[args.src.index] = args.src;
 
-					// Showing modal
-					$rootScope.ui.modals.tryAgainLaterModal.show();
-				}
+          // Showing modal
+          $rootScope.ui.modals.tryAgainLaterModal.show();
+        }
 
-				if (cb) { cb(success); }
-			});
-		};
+        if (cb) { cb(success); }
+      });
+    };
 
-		MySrcCollection.prototype.addToSet = function(args, cb) {
+    MySrcCollection.prototype.addToSet = function(args, cb) {
 
-			var that = this;
-			var updatePromises = [];
+      var that = this;
+      var updatePromises = [];
 
-			// Getting current collection count
-			var count = that.collection.length;
+      // Getting current collection count
+      var count = that.collection.length;
 
-			// For all input files
-			for (var i in args.inputData) {
+      // For all input files
+      for (var i in args.inputData) {
 
-				// If inputData element is of File class
-				if (args.inputData[i] instanceof File) {
+        // If inputData element is of File class
+        if (args.inputData[i] instanceof File) {
 
-					// Creating src
-					var src = new MySrc(that.srcArgs);
-					src.index = Number(i) + count;
-					that.collection.push(src);
+          // Creating src
+          var src = new MySrc(that.srcArgs);
+          src.index = Number(i) + count;
+          that.collection.push(src);
 
-					// Updating src
-					updatePromises.push(src.update(args, i));
-				}
-			}
+          // Updating src
+          updatePromises.push(src.update(args, i));
+        }
+      }
 
-			// When all updates done
-			$q.all(updatePromises).then(function(results) {
+      // When all updates done
+      $q.all(updatePromises).then(function(results) {
 
-				// For all results backwards
-				for (var i = results.length - 1; i >= 0; i--) {
+        // For all results backwards
+        for (var i = results.length - 1; i >= 0; i--) {
 
-					// If unsuccessfull update
-					if (!results[i]) {
+          // If unsuccessfull update
+          if (!results[i]) {
 
-						// Removing src from array
-						that.collection.splice(Number(i) + count, 1);
-					}
-				}
+            // Removing src from array
+            that.collection.splice(Number(i) + count, 1);
+          }
+        }
 
-				if (results.length > that.collection.length) {
-					that.resetIndexes();
-				}
+        if (results.length > that.collection.length) {
+          that.resetIndexes();
+        }
 
-				if (cb) { cb(results); }
-			});
-		};
+        if (cb) { cb(results); }
+      });
+    };
 
-		MySrcCollection.prototype.removeFromSet = function(args, cb) {
+    MySrcCollection.prototype.removeFromSet = function(args, cb) {
 
-			var that = this;
+      var that = this;
 
-			if (args.collection.length === 0) {
+      if (args.collection.length === 0) {
 
-				// Showing info modal
-				$rootScope.ui.modals.infoModal.show({
-					title: $rootScope.apiData.loggedInUser.username,
-					message: $rootScope.hardData.rejections[8],
-					hideCb: function() { cb(false); }
-				});
+        // Showing info modal
+        $rootScope.ui.modals.infoModal.show({
+          title: $rootScope.apiData.loggedInUser.username,
+          message: $rootScope.hardData.rejections[8],
+          hideCb: function() { cb(false); }
+        });
 
-			} else {
+      } else {
 
-				// Showing confirmation modal
-				$rootScope.ui.modals.confirmProceedModal.show({
-					title: $rootScope.hardData.labels[28] + ' (' + args.collection.length + ')',
-					acceptCb: function() {
+        // Showing confirmation modal
+        $rootScope.ui.modals.confirmProceedModal.show({
+          title: $rootScope.hardData.labels[28] + ' (' + args.collection.length + ')',
+          acceptCb: function() {
 
-						var promises = [];
+            var promises = [];
 
-						for (var i = 0; i < args.collection.length; i++) {
-							promises.push(args.collection[i].remove());
-						}
+            for (var i = 0; i < args.collection.length; i++) {
+              promises.push(args.collection[i].remove());
+            }
 
-						$q.all(promises).then(function(results) {
+            $q.all(promises).then(function(results) {
 
-							// For all results backwards
-							for (var i = results.length - 1; i >= 0; i--) {
+              // For all results backwards
+              for (var i = results.length - 1; i >= 0; i--) {
 
-								// If successfull delete
-								if (results[i]) {
+                // If successfull delete
+                if (results[i]) {
 
-									// Removing src from array
-									that.collection.splice(args.collection[i].index, 1);
-								}
-							}
+                  // Removing src from array
+                  that.collection.splice(args.collection[i].index, 1);
+                }
+              }
 
-							that.resetIndexes();
-							cb(results);
-						});
-					},
-					dismissCb: function() {
+              that.resetIndexes();
+              cb(results);
+            });
+          },
+          dismissCb: function() {
 
-						if (cb) { cb(); }
-					}
-				});
-			}
-		};
+            if (cb) { cb(); }
+          }
+        });
+      }
+    };
 
-		MySrcCollection.prototype.moveSingle = function(direction, src, cb) {
+    MySrcCollection.prototype.moveSingle = function(direction, src, cb) {
 
-			var that = this;
+      var that = this;
 
-			if (that.collection.length > 1) {
+      if (that.collection.length > 1) {
 
-				src = that.collection.splice(src.index, 1)[0];
+        src = that.collection.splice(src.index, 1)[0];
 
-				switch (direction) {
+        switch (direction) {
 
-					case 'moveLeft':
+          case 'moveLeft':
 
-						if (src.index > 0) {
-							that.collection.splice(src.index - 1, 0, src);
+            if (src.index > 0) {
+              that.collection.splice(src.index - 1, 0, src);
 
-						} else {
-							that.collection.splice(that.collection.length, 0, src);
-						}
+            } else {
+              that.collection.splice(that.collection.length, 0, src);
+            }
 
-						break;
+            break;
 
-					case 'moveRight':
+          case 'moveRight':
 
-						if (src.index < that.collection.length) {
-							that.collection.splice(src.index + 1, 0, src);
+            if (src.index < that.collection.length) {
+              that.collection.splice(src.index + 1, 0, src);
 
-						} else {
-							that.collection.splice(0, 0, src);
-						}
+            } else {
+              that.collection.splice(0, 0, src);
+            }
 
-						break;
-				}
+            break;
+        }
 
-				that.resetIndexes();
+        that.resetIndexes();
 
-				if (cb) { cb(); }
-			}
-		};
+        if (cb) { cb(); }
+      }
+    };
 
-		MySrcCollection.prototype.resetIndexes = function() {
+    MySrcCollection.prototype.resetIndexes = function() {
 
-			for (var i in this.collection) {
-				this.collection[i].index = Number(i);
-			}
-		};
+      for (var i in this.collection) {
+        this.collection[i].index = Number(i);
+      }
+    };
 
-		return MySrcCollection;
-	};
+    return MySrcCollection;
+  };
 
-	MySrcCollection.$inject = ['$rootScope', '$q', 'MyCollectionSelector', 'MySrc', 'MyLoader'];
-	angular.module('appModule').factory('MySrcCollection', MySrcCollection);
+  MySrcCollection.$inject = ['$rootScope', '$q', 'MyCollectionSelector', 'MySrc', 'MyLoader'];
+  angular.module('appModule').factory('MySrcCollection', MySrcCollection);
 
 })();

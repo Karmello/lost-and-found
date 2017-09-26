@@ -1,23 +1,23 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myLoader', function($timeout) {
+  appModule.directive('myLoader', function($timeout) {
 
-		var myLoader = {
-			restrict: 'E',
-			templateUrl: 'public/templates/myLoader.html',
-			scope: {
-				fixedCentered: '=',
-				absCentered: '='
-			}
-		};
+    var myLoader = {
+      restrict: 'E',
+      templateUrl: 'public/templates/myLoader.html',
+      scope: {
+        fixedCentered: '=',
+        absCentered: '='
+      }
+    };
 
-		return myLoader;
-	});
+    return myLoader;
+  });
 
 })();

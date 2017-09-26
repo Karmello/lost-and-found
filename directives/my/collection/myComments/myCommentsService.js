@@ -1,107 +1,107 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var myCommentsService = function($rootScope, $timeout, MyCollectionBrowser, CommentsRest, Restangular) {
+  var myCommentsService = function($rootScope, $timeout, MyCollectionBrowser, CommentsRest, Restangular) {
 
-		var service = this;
+    var service = this;
 
-		service.init = function(scope, doNotScroll) {
+    service.init = function(scope, doNotScroll) {
 
-			if (!scope.collectionBrowser) {
+      if (!scope.collectionBrowser) {
 
-				scope.collectionBrowser = new MyCollectionBrowser({
-					singlePageSize: 5,
-					reverseOrder: true,
-					fetchData: function(query) {
+        scope.collectionBrowser = new MyCollectionBrowser({
+          singlePageSize: 5,
+          reverseOrder: true,
+          fetchData: function(query) {
 
-						return CommentsRest.getList(Object.assign(query, service.getIdParam(scope)));
-					}
-				});
+            return CommentsRest.getList(Object.assign(query, service.getIdParam(scope)));
+          }
+        });
 
-				scope.collectionBrowser.beforeInit = function() {
-					delete CommentsRest.activeCollectionBrowser;
-					CommentsRest.activeCollectionBrowser = this;
-					if (scope.nestingLevel === 0 && service.activeComment) { service.activeComment.showReplies = false; }
-				};
+        scope.collectionBrowser.beforeInit = function() {
+          delete CommentsRest.activeCollectionBrowser;
+          CommentsRest.activeCollectionBrowser = this;
+          if (scope.nestingLevel === 0 && service.activeComment) { service.activeComment.showReplies = false; }
+        };
 
-				scope.collectionBrowser.refreshCb = function() {
-					service.fixScrollPos(scope);
-				};
-			}
+        scope.collectionBrowser.refreshCb = function() {
+          service.fixScrollPos(scope);
+        };
+      }
 
-			scope.collectionBrowser.init(function() {
-				if (!doNotScroll) { service.fixScrollPos(scope); }
-			});
-		};
+      scope.collectionBrowser.init(function() {
+        if (!doNotScroll) { service.fixScrollPos(scope); }
+      });
+    };
 
-		service.getIdParam = function(scope) {
+    service.getIdParam = function(scope) {
 
-			var query = {};
+      var query = {};
 
-			if (scope.nestingLevel === 0) {
-				query[scope.apiObj.route.substring(0, scope.apiObj.route.length - 1) + 'Id'] = scope.apiObj._id;
+      if (scope.nestingLevel === 0) {
+        query[scope.apiObj.route.substring(0, scope.apiObj.route.length - 1) + 'Id'] = scope.apiObj._id;
 
-			} else {
-				query.parentId = service.activeComment._id;
-			}
+      } else {
+        query.parentId = service.activeComment._id;
+      }
 
-			return query;
-		};
+      return query;
+    };
 
-		service.toggleReplies = function(scope, comment) {
+    service.toggleReplies = function(scope, comment) {
 
-			// Showing replies
-			if (scope.nestingLevel === 0 && !comment.showReplies) {
+      // Showing replies
+      if (scope.nestingLevel === 0 && !comment.showReplies) {
 
-				// Clearing model
-				scope.myForm.model.reset(true, true);
+        // Clearing model
+        scope.myForm.model.reset(true, true);
 
-				// Hiding comment reply section if shown
-				if (service.activeComment) { service.activeComment.showReplies = false; }
+        // Hiding comment reply section if shown
+        if (service.activeComment) { service.activeComment.showReplies = false; }
 
-				// Setting new comment as active and showing reply section
-				service.activeComment = comment;
-				service.activeComment.showReplies = true;
+        // Setting new comment as active and showing reply section
+        service.activeComment = comment;
+        service.activeComment.showReplies = true;
 
-			// Hiding replies
-			} else {
+        // Hiding replies
+      } else {
 
-				comment.showReplies = false;
-				$('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
-				service.activeComment = undefined;
-			}
-		};
+        comment.showReplies = false;
+        $('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
+        service.activeComment = undefined;
+      }
+    };
 
-		service.makeLikeReq = function(scope, comment) {
+    service.makeLikeReq = function(scope, comment) {
 
-			comment.put(Object.assign(service.getIdParam(scope), { action: 'toggleLike' })).then(function(res) {
-				comment.likes = res.data.likes;
-			});
-		};
+      comment.put(Object.assign(service.getIdParam(scope), { action: 'toggleLike' })).then(function(res) {
+        comment.likes = res.data.likes;
+      });
+    };
 
-		service.fixScrollPos = function(scope) {
+    service.fixScrollPos = function(scope) {
 
-			let delay = 500;
+      let delay = 500;
 
-			if (scope.nestingLevel === 0) {
+      if (scope.nestingLevel === 0) {
 
-				$timeout(function() {
-					$('html, body').animate({ scrollTop: $('#commentsSection').offset().top - 5 }, 'fast');
-				}, delay);
+        $timeout(function() {
+          $('html, body').animate({ scrollTop: $('#commentsSection').offset().top - 5 }, 'fast');
+        }, delay);
 
-			} else {
+      } else {
 
-				$timeout(function() {
-					$('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
-				}, delay);
-			}
-		};
+        $timeout(function() {
+          $('html, body').animate({ scrollTop: $('#comment_' + service.activeComment._id).offset().top - 5 }, 'fast');
+        }, delay);
+      }
+    };
 
-		return service;
-	};
+    return service;
+  };
 
-	myCommentsService.$inject = ['$rootScope', '$timeout', 'MyCollectionBrowser', 'CommentsRest', 'Restangular'];
-	angular.module('appModule').service('myCommentsService', myCommentsService);
+  myCommentsService.$inject = ['$rootScope', '$timeout', 'MyCollectionBrowser', 'CommentsRest', 'Restangular'];
+  angular.module('appModule').service('myCommentsService', myCommentsService);
 
 })();

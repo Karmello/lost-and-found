@@ -1,46 +1,46 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
-	appModule.directive('reportAvatar', function(reportAvatarService, MySrc, URLS) {
+  appModule.directive('reportAvatar', function(reportAvatarService, MySrc, URLS) {
 
-		var reportAvatar = {
-			restrict: 'E',
-			templateUrl: 'public/templates/reportAvatar.html',
-			scope: {
-				report: '=',
-				noLink: '&',
-				hideDefaultSrc: '=',
-				noLoader: '<'
-			},
-			controller: function($scope) {
+    var reportAvatar = {
+      restrict: 'E',
+      templateUrl: 'public/templates/reportAvatar.html',
+      scope: {
+        report: '=',
+        noLink: '&',
+        hideDefaultSrc: '=',
+        noLoader: '<'
+      },
+      controller: function($scope) {
 
-				$scope.src = new MySrc({ defaultUrl: URLS.itemImg });
-			},
-			compile: function(elem, attrs) {
+        $scope.src = new MySrc({ defaultUrl: URLS.itemImg });
+      },
+      compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
+        return function(scope, elem, attrs) {
 
-					scope.$watch(function() {
-						if (scope.report) { return scope.report.avatar; } else { return false; }
+          scope.$watch(function() {
+            if (scope.report) { return scope.report.avatar; } else { return false; }
 
-					}, function(avatar) {
+          }, function(avatar) {
 
-						if (scope.report) {
+            if (scope.report) {
 
-							if (!scope.noLink()) { scope.src.href = '/#/report?id=' + scope.report._id; }
+              if (!scope.noLink()) { scope.src.href = '/#/report?id=' + scope.report._id; }
 
-							var url = reportAvatarService.constructPhotoUrl(scope, true);
-							if (!scope.hideDefaultSrc || url != scope.src.defaultUrl) { scope.src.load(url); }
-						}
-					});
-				};
-			}
-		};
+              var url = reportAvatarService.constructPhotoUrl(scope, true);
+              if (!scope.hideDefaultSrc || url != scope.src.defaultUrl) { scope.src.load(url); }
+            }
+          });
+        };
+      }
+    };
 
-		return reportAvatar;
-	});
+    return reportAvatar;
+  });
 
 })();

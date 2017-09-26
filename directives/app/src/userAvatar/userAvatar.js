@@ -1,51 +1,51 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
-	appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
+  appModule.directive('userAvatar', function(userAvatarService, userAvatarConf, MySrc, ui) {
 
-		var userAvatar = {
-			restrict: 'E',
-			templateUrl: 'public/templates/userAvatar.html',
-			scope: {
-				user: '=',
-				editable: '=',
-				noLink: '&',
-				withLabel: '=',
-				noLoader: '<'
-			},
-			controller: function($scope) {
+    var userAvatar = {
+      restrict: 'E',
+      templateUrl: 'public/templates/userAvatar.html',
+      scope: {
+        user: '=',
+        editable: '=',
+        noLink: '&',
+        withLabel: '=',
+        noLoader: '<'
+      },
+      controller: function($scope) {
 
-				$scope.src = new MySrc({
-					defaultUrl: userAvatarConf.defaultUrl,
-					uploadRequest: userAvatarService.uploadRequest,
-					removeRequest: userAvatarService.removeRequest
-				});
+        $scope.src = new MySrc({
+          defaultUrl: userAvatarConf.defaultUrl,
+          uploadRequest: userAvatarService.uploadRequest,
+          removeRequest: userAvatarService.removeRequest
+        });
 
-				$scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
-			},
-			compile: function(elem, attrs) {
+        $scope.srcContextMenuConf = userAvatarConf.getSrcContextMenuConf($scope);
+      },
+      compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
+        return function(scope, elem, attrs) {
 
-					scope.$watch(function() { return scope.user; }, function(user) {
+          scope.$watch(function() { return scope.user; }, function(user) {
 
-						if (user) {
-							if (scope.withLabel) { scope.src.label = scope.user.username.truncate(15); }
-							if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
-							userAvatarService.loadPhoto(scope);
+            if (user) {
+              if (scope.withLabel) { scope.src.label = scope.user.username.truncate(15); }
+              if (!scope.noLink()) { scope.src.href = '/#/profile?id=' + scope.user._id; }
+              userAvatarService.loadPhoto(scope);
 
-						} else {
-							scope.src.url = undefined;
-						}
-					});
-				};
-			}
-		};
+            } else {
+              scope.src.url = undefined;
+            }
+          });
+        };
+      }
+    };
 
-		return userAvatar;
-	});
+    return userAvatar;
+  });
 
 })();

@@ -1,23 +1,23 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myDirective', function(hardDataService) {
+  appModule.directive('myDirective', function(hardDataService) {
 
-		var myDirective = {
-			restrict: 'A',
-			controller: function($scope) {
+    var myDirective = {
+      restrict: 'A',
+      controller: function($scope) {
 
-				// Binding hard coded strings
-				hardDataService.bind($scope);
-			}
-		};
+        // Binding hard coded strings
+        hardDataService.bind($scope);
+      }
+    };
 
-		return myDirective;
-	});
+    return myDirective;
+  });
 
 })();

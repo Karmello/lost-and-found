@@ -1,80 +1,80 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
-	appModule.directive('reportForm', function($rootScope, $timeout, reportFormService, ReportsRest) {
+  appModule.directive('reportForm', function($rootScope, $timeout, reportFormService, ReportsRest) {
 
-		var reportForm = {
-			restrict: 'E',
-			templateUrl: 'public/templates/reportForm.html',
-			scope: {
-				action: '@'
-			},
-			controller: function($scope) {
+    var reportForm = {
+      restrict: 'E',
+      templateUrl: 'public/templates/reportForm.html',
+      scope: {
+        action: '@'
+      },
+      controller: function($scope) {
 
-				$scope.ui = $rootScope.ui;
-				$scope.apiData = $rootScope.apiData;
-				$scope.hardData = $rootScope.hardData;
+        $scope.ui = $rootScope.ui;
+        $scope.apiData = $rootScope.apiData;
+        $scope.hardData = $rootScope.hardData;
 
-				$scope.autocomplete = {};
-				$scope.minDate = new Date(2000, 0, 1);
-				$scope.currentDate = reportFormService.getCurrentDateWithNoTime();
+        $scope.autocomplete = {};
+        $scope.minDate = new Date(2000, 0, 1);
+        $scope.currentDate = reportFormService.getCurrentDateWithNoTime();
 
-				$scope.myForm = reportFormService.getForm($scope);
-			},
-			compile: function(elem, attrs) {
+        $scope.myForm = reportFormService.getForm($scope);
+      },
+      compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
+        return function(scope, elem, attrs) {
 
-					switch (scope.action) {
+          switch (scope.action) {
 
-						case 'addReport':
+            case 'addReport':
 
-							if (!$rootScope.$$listeners.onAddReportFormShow) {
+              if (!$rootScope.$$listeners.onAddReportFormShow) {
 
-								$rootScope.$on('onAddReportFormShow', function(e, args) {
+                $rootScope.$on('onAddReportFormShow', function(e, args) {
 
-									ReportsRest.addReportModel.set({ startEvent: { date: scope.currentDate } }, true);
-								});
-							}
+                  ReportsRest.addReportModel.set({ startEvent: { date: scope.currentDate } }, true);
+                });
+              }
 
-							$rootScope.$broadcast('onAddReportFormShow');
+              $rootScope.$broadcast('onAddReportFormShow');
 
-							break;
+              break;
 
-						case 'respondToReport':
+            case 'respondToReport':
 
-							if (!$rootScope.$$listeners.onRespondToReportFormShow) {
+              if (!$rootScope.$$listeners.onRespondToReportFormShow) {
 
-								$rootScope.$on('onRespondToReportFormShow', function(e, args) {
+                $rootScope.$on('onRespondToReportFormShow', function(e, args) {
 
-									var date = reportFormService.getCurrentDateWithNoTime();
-									ReportsRest.respondToReportModel.set({ date: scope.currentDate }, true);
-								});
-							}
+                  var date = reportFormService.getCurrentDateWithNoTime();
+                  ReportsRest.respondToReportModel.set({ date: scope.currentDate }, true);
+                });
+              }
 
-							break;
+              break;
 
-						case 'editReport':
+            case 'editReport':
 
-							if (!$rootScope.$$listeners.onEditReportFormShow) {
+              if (!$rootScope.$$listeners.onEditReportFormShow) {
 
-								$rootScope.$on('onEditReportFormShow', function(e, args) {
+                $rootScope.$on('onEditReportFormShow', function(e, args) {
 
-									ReportsRest.editReportModel.set($rootScope.apiData.report.plain(), true);
-									$timeout(function() { scope.myForm.scope.loader.stop(); });
-								});
-							}
+                  ReportsRest.editReportModel.set($rootScope.apiData.report.plain(), true);
+                  $timeout(function() { scope.myForm.scope.loader.stop(); });
+                });
+              }
 
-							break;
-					}
-				};
-			}
-		};
+              break;
+          }
+        };
+      }
+    };
 
-		return reportForm;
-	});
+    return reportForm;
+  });
 
 })();

@@ -1,47 +1,47 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myModal', function($rootScope, $timeout) {
+  appModule.directive('myModal', function($rootScope, $timeout) {
 
-		return {
-			restrict: 'E',
-			templateUrl: 'public/templates/myModal.html',
-			transclude: {
-				header: '?myModalHeader',
-				body: '?myModalBody',
-				footer: '?myModalFooter'
-			},
-			scope: {
-				ins: '=',
-				slideInFromLeft: '='
-			},
-			controller: function($scope) {},
-			compile: function(elem, attrs) {
+    return {
+      restrict: 'E',
+      templateUrl: 'public/templates/myModal.html',
+      transclude: {
+        header: '?myModalHeader',
+        body: '?myModalBody',
+        footer: '?myModalFooter'
+      },
+      scope: {
+        ins: '=',
+        slideInFromLeft: '='
+      },
+      controller: function($scope) {},
+      compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
+        return function(scope, elem, attrs) {
 
-					// onShow
-					$('.modal').on('show.bs.modal', function() {
+          // onShow
+          $('.modal').on('show.bs.modal', function() {
 
-						$rootScope.isAnyModalOpen = true;
-					});
+            $rootScope.isAnyModalOpen = true;
+          });
 
-					// onHide
-					$('.modal').on('hide.bs.modal', function() {
+          // onHide
+          $('.modal').on('hide.bs.modal', function() {
 
-						$rootScope.isAnyModalOpen = false;
+            $rootScope.isAnyModalOpen = false;
 
-						if (scope.ins.hideCb) {
-							$timeout(function() { scope.ins.hideCb(); }, 500);
-						}
-					});
-				};
-			}
-		};
-	});
+            if (scope.ins.hideCb) {
+              $timeout(function() { scope.ins.hideCb(); }, 500);
+            }
+          });
+        };
+      }
+    };
+  });
 })();

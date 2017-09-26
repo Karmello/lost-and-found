@@ -1,29 +1,29 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
-	appModule.directive('myForm', function(MyLoader) {
+  appModule.directive('myForm', function(MyLoader) {
 
-		return {
-			restrict: 'E',
-			transclude: true,
-			templateUrl: 'public/templates/myForm.html',
-			scope: {
-				ins: '=',
-				hardData: '<'
-			},
-			controller: function($scope) {
+    return {
+      restrict: 'E',
+      transclude: true,
+      templateUrl: 'public/templates/myForm.html',
+      scope: {
+        ins: '=',
+        hardData: '<'
+      },
+      controller: function($scope) {
 
-				$scope.ins.scope = $scope;
-				$scope.loader = new MyLoader();
-			},
-			compile: function(elem, attrs) {
+        $scope.ins.scope = $scope;
+        $scope.loader = new MyLoader();
+      },
+      compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {};
-			}
-		};
-	});
+        return function(scope, elem, attrs) {};
+      }
+    };
+  });
 
 })();

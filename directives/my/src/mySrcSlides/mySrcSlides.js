@@ -1,45 +1,45 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
-	appModule.directive('mySrcSlides', function(MySwitchable) {
+  appModule.directive('mySrcSlides', function(MySwitchable) {
 
-		var mySrcSlides = {
-			restrict: 'E',
-			templateUrl: 'public/templates/mySrcSlides.html',
-			scope: {
-				mySrcCollection: '=',
-				srcType: '@'
-			},
-			controller: function($scope) {
+    var mySrcSlides = {
+      restrict: 'E',
+      templateUrl: 'public/templates/mySrcSlides.html',
+      scope: {
+        mySrcCollection: '=',
+        srcType: '@'
+      },
+      controller: function($scope) {
 
 
-			},
-			compile: function(elem, attrs) {
+      },
+      compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
+        return function(scope, elem, attrs) {
 
-					scope.$watchCollection('mySrcCollection.collection', function(collection) {
+          scope.$watchCollection('mySrcCollection.collection', function(collection) {
 
-						if (collection) {
+            if (collection) {
 
-							var switchers = [];
+              var switchers = [];
 
-							for (var i in collection) {
-								switchers.push({ _id: collection[i].index, index: collection[i].index });
-							}
+              for (var i in collection) {
+                switchers.push({ _id: collection[i].index, index: collection[i].index });
+              }
 
-							scope.mySwitchable = new MySwitchable({ switchers: switchers });
-							scope.mySrcCollection.switchable = scope.mySwitchable;
-						}
-					});
-				};
-			}
-		};
+              scope.mySwitchable = new MySwitchable({ switchers: switchers });
+              scope.mySrcCollection.switchable = scope.mySwitchable;
+            }
+          });
+        };
+      }
+    };
 
-		return mySrcSlides;
-	});
+    return mySrcSlides;
+  });
 
 })();

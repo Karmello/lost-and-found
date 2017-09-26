@@ -1,25 +1,25 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myScrollTopBtn', function() {
+  appModule.directive('myScrollTopBtn', function() {
 
-		var myScrollTopBtn = {
-			restrict: 'E',
-			templateUrl: 'public/templates/myScrollTopBtn.html',
-			controller: function($scope) {
+    var myScrollTopBtn = {
+      restrict: 'E',
+      templateUrl: 'public/templates/myScrollTopBtn.html',
+      controller: function($scope) {
 
-				$scope.scroll = function() {
-					$('html, body').animate({ scrollTop: 0 }, 'fast');
-				};
-			}
-		};
+        $scope.scroll = function() {
+          $('html, body').animate({ scrollTop: 0 }, 'fast');
+        };
+      }
+    };
 
-		return myScrollTopBtn;
-	});
+    return myScrollTopBtn;
+  });
 
 })();

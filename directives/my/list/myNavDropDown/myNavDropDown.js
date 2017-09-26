@@ -1,22 +1,22 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myNavDropDown', function() {
+  appModule.directive('myNavDropDown', function() {
 
-		var myNavDropDown = {
-			restrict: 'E',
-			templateUrl: 'public/templates/myNavDropDown.html',
-			scope: {
-				ins: '='
-			}
-		};
+    var myNavDropDown = {
+      restrict: 'E',
+      templateUrl: 'public/templates/myNavDropDown.html',
+      scope: {
+        ins: '='
+      }
+    };
 
-		return myNavDropDown;
-	});
+    return myNavDropDown;
+  });
 
 })();

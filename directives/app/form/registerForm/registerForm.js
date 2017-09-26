@@ -1,48 +1,48 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
+  appModule.directive('registerForm', function($rootScope, $timeout, $state, authService, MyForm, UsersRest) {
 
-		var registerForm = {
-			restrict: 'E',
-			templateUrl: 'public/templates/registerForm.html',
-			scope: true,
-			controller: function($scope) {
+    var registerForm = {
+      restrict: 'E',
+      templateUrl: 'public/templates/registerForm.html',
+      scope: true,
+      controller: function($scope) {
 
-				$scope.countries = $rootScope.localData.countries;
+        $scope.countries = $rootScope.localData.countries;
 
-				$scope.myForm = new MyForm({
-					ctrlId: 'registerForm',
-					model: UsersRest.registerModel,
-					submitAction: function(args) {
+        $scope.myForm = new MyForm({
+          ctrlId: 'registerForm',
+          model: UsersRest.registerModel,
+          submitAction: function(args) {
 
-						var body = UsersRest.registerModel.getValues();
-						return UsersRest.post(body, { action: 'register' }, { captcha_response: args.captchaResponse });
-					},
-					submitSuccessCb: function(res) {
+            var body = UsersRest.registerModel.getValues();
+            return UsersRest.post(body, { action: 'register' }, { captcha_response: args.captchaResponse });
+          },
+          submitSuccessCb: function(res) {
 
-						UsersRest.registerModel.reset(true, true);
+            UsersRest.registerModel.reset(true, true);
 
-						authService.setAsLoggedIn(function() {
-							$timeout(function() {
-								$state.go('app.start', { tab: 'status' });
-							});
-						});
-					},
-					submitErrorCb: function(res) {
+            authService.setAsLoggedIn(function() {
+              $timeout(function() {
+                $state.go('app.start', { tab: 'status' });
+              });
+            });
+          },
+          submitErrorCb: function(res) {
 
-						authService.setAsLoggedOut();
-					}
-				});
-			}
-		};
+            authService.setAsLoggedOut();
+          }
+        });
+      }
+    };
 
-		return registerForm;
-	});
+    return registerForm;
+  });
 
 })();

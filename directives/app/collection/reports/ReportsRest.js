@@ -1,97 +1,97 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var ReportsRest = function($rootScope, Restangular, MyDataModel) {
+  var ReportsRest = function($rootScope, Restangular, MyDataModel) {
 
-		var getReportEventModelConf = function() {
-			return {
-				type: {},
-				date: {},
-				placeId: {},
-				address: {},
-				lat: {},
-				lng: {},
-				details: {}
-			};
-		};
+    var getReportEventModelConf = function() {
+      return {
+        type: {},
+        date: {},
+        placeId: {},
+        address: {},
+        lat: {},
+        lng: {},
+        details: {}
+      };
+    };
 
-		var getReportModelConf = function() {
-			return {
-				category1: {},
-				category2: {},
-				category3: {},
-				title: {},
-				serialNo: {},
-				description: {},
-				startEvent: getReportEventModelConf()
-			};
-		};
+    var getReportModelConf = function() {
+      return {
+        category1: {},
+        category2: {},
+        category3: {},
+        title: {},
+        serialNo: {},
+        description: {},
+        startEvent: getReportEventModelConf()
+      };
+    };
 
-		var reports = Restangular.service('reports');
+    var reports = Restangular.service('reports');
 
-		reports.addReportModel = new MyDataModel(getReportModelConf());
-		reports.editReportModel = new MyDataModel(getReportModelConf());
-		reports.respondToReportModel = new MyDataModel(getReportEventModelConf());
+    reports.addReportModel = new MyDataModel(getReportModelConf());
+    reports.editReportModel = new MyDataModel(getReportModelConf());
+    reports.respondToReportModel = new MyDataModel(getReportEventModelConf());
 
-		reports.reportSearchModel = new MyDataModel({
-			title: {},
-			category1: {},
-			category2: {},
-			category3: {}
-		});
+    reports.reportSearchModel = new MyDataModel({
+      title: {},
+      category1: {},
+      category2: {},
+      category3: {}
+    });
 
-		Restangular.extendModel('reports', function(report) {
+    Restangular.extendModel('reports', function(report) {
 
-			report._isOwn = function() {
+      report._isOwn = function() {
 
-				if ($rootScope.apiData.loggedInUser) {
-					return this.userId == $rootScope.apiData.loggedInUser._id;
-				}
-			};
+        if ($rootScope.apiData.loggedInUser) {
+          return this.userId == $rootScope.apiData.loggedInUser._id;
+        }
+      };
 
-			report.getFullCategory = function() {
+      report.getFullCategory = function() {
 
-				var category1, category2, category3;
-				var labels = [];
+        var category1, category2, category3;
+        var labels = [];
 
-				if (report.category1) {
+        if (report.category1) {
 
-					category1 = _.find($rootScope.hardData.reportCategories, function(obj) {
-						return obj._id == report.category1;
-					});
+          category1 = _.find($rootScope.hardData.reportCategories, function(obj) {
+            return obj._id == report.category1;
+          });
 
-					labels.push(category1.label);
-				}
+          labels.push(category1.label);
+        }
 
-				if (report.category2) {
+        if (report.category2) {
 
-					category2 = _.find(category1.subcategories, function(obj) {
-						return obj._id == report.category2;
-					});
+          category2 = _.find(category1.subcategories, function(obj) {
+            return obj._id == report.category2;
+          });
 
-					labels.push(category2.label);
-				}
+          labels.push(category2.label);
+        }
 
-				if (report.category3) {
+        if (report.category3) {
 
-					category3 = _.find(category2.subcategories, function(obj) {
-						return obj._id == report.category3;
-					});
+          category3 = _.find(category2.subcategories, function(obj) {
+            return obj._id == report.category3;
+          });
 
-					labels.push(category3.label);
-				}
+          labels.push(category3.label);
+        }
 
-				return labels.join(' / ');
-			};
+        return labels.join(' / ');
+      };
 
-			return report;
-		});
+      return report;
+    });
 
-		return reports;
-	};
+    return reports;
+  };
 
-	ReportsRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
-	angular.module('appModule').factory('ReportsRest', ReportsRest);
+  ReportsRest.$inject = ['$rootScope', 'Restangular', 'MyDataModel'];
+  angular.module('appModule').factory('ReportsRest', ReportsRest);
 
 })();

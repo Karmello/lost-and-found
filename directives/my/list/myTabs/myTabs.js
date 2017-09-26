@@ -1,20 +1,20 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myTabs', function() {
+  appModule.directive('myTabs', function() {
 
-		return {
-			restrict: 'E',
-			templateUrl: 'public/templates/myTabs.html',
-			scope: {
-				ins: '='
-			}
-		};
-	});
+    return {
+      restrict: 'E',
+      templateUrl: 'public/templates/myTabs.html',
+      scope: {
+        ins: '='
+      }
+    };
+  });
 
 })();

@@ -1,42 +1,42 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
-	appModule.directive('contactForm', function($rootScope, myClass, ContactTypesRest) {
+  appModule.directive('contactForm', function($rootScope, myClass, ContactTypesRest) {
 
-		var contactForm = {
-			restrict: 'E',
-			templateUrl: 'public/templates/contactForm.html',
-			scope: true,
-			controller: function($scope) {
+    var contactForm = {
+      restrict: 'E',
+      templateUrl: 'public/templates/contactForm.html',
+      scope: true,
+      controller: function($scope) {
 
-				$scope.myForm = new myClass.MyForm({
-					ctrlId: 'contactForm',
-					model: ContactTypesRest.contactTypeModel,
-					submitAction: function(args) {
+        $scope.myForm = new myClass.MyForm({
+          ctrlId: 'contactForm',
+          model: ContactTypesRest.contactTypeModel,
+          submitAction: function(args) {
 
-						return ContactTypesRest.post(ContactTypesRest.contactTypeModel.getValues());
-					},
-					submitSuccessCb: function(res) {
+            return ContactTypesRest.post(ContactTypesRest.contactTypeModel.getValues());
+          },
+          submitSuccessCb: function(res) {
 
-						ContactTypesRest.contactTypeModel.reset(true, true);
-					}
-				});
-			},
-			compile: function(elem, attrs) {
+            ContactTypesRest.contactTypeModel.reset(true, true);
+          }
+        });
+      },
+      compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
+        return function(scope, elem, attrs) {
 
-					scope.$watch(function() { return $rootScope.apiData.contactTypes; }, function(newValue) {
-						scope.contactTypes = newValue;
-					});
-				};
-			}
-		};
+          scope.$watch(function() { return $rootScope.apiData.contactTypes; }, function(newValue) {
+            scope.contactTypes = newValue;
+          });
+        };
+      }
+    };
 
-		return contactForm;
-	});
+    return contactForm;
+  });
 
 })();

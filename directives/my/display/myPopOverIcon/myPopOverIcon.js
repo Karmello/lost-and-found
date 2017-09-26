@@ -1,25 +1,25 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myPopOverIcon', function() {
+  appModule.directive('myPopOverIcon', function() {
 
-		var myPopOverIcon = {
-			restrict: 'E',
-			transclude: {
-				icon: 'span'
-			},
-			templateUrl: 'public/templates/myPopOverIcon.html',
-			scope: {
-				hardData: '<'
-			}
-		};
+    var myPopOverIcon = {
+      restrict: 'E',
+      transclude: {
+        icon: 'span'
+      },
+      templateUrl: 'public/templates/myPopOverIcon.html',
+      scope: {
+        hardData: '<'
+      }
+    };
 
-		return myPopOverIcon;
-	});
+    return myPopOverIcon;
+  });
 
 })();

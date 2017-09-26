@@ -1,22 +1,22 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myDropDown', function() {
+  appModule.directive('myDropDown', function() {
 
-		return {
-			restrict: 'E',
-			templateUrl: 'public/templates/myDropDown.html',
-			scope: {
-				ins: '=',
-				openDirection: '=',
-				ctrlClass: '='
-			}
-		};
-	});
+    return {
+      restrict: 'E',
+      templateUrl: 'public/templates/myDropDown.html',
+      scope: {
+        ins: '=',
+        openDirection: '=',
+        ctrlClass: '='
+      }
+    };
+  });
 
 })();

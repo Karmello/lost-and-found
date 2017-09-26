@@ -1,33 +1,33 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
-
-
-
-	appModule.directive('myContextMenu', function() {
-
-		var myContextMenu = {
-			restrict: 'E',
-			templateUrl: 'public/templates/myContextMenu.html',
-			scope: {
-				ins: '='
-			},
-			controller: function($scope) {
+  var appModule = angular.module('appModule');
 
 
-			},
-			compile: function(elem, attrs) {
 
-				return function(scope, elem, attrs) {
+  appModule.directive('myContextMenu', function() {
+
+    var myContextMenu = {
+      restrict: 'E',
+      templateUrl: 'public/templates/myContextMenu.html',
+      scope: {
+        ins: '='
+      },
+      controller: function($scope) {
 
 
-				};
-			}
-		};
+      },
+      compile: function(elem, attrs) {
 
-		return myContextMenu;
-	});
+        return function(scope, elem, attrs) {
+
+
+        };
+      }
+    };
+
+    return myContextMenu;
+  });
 
 })();

@@ -1,23 +1,23 @@
 (function() {
 
-	'use strict';
+  'use strict';
 
-	var appModule = angular.module('appModule');
+  var appModule = angular.module('appModule');
 
 
 
-	appModule.directive('myLabel', function() {
+  appModule.directive('myLabel', function() {
 
-		var myLabel = {
-			restrict: 'E',
-			templateUrl: 'public/templates/myLabel.html',
-			scope: {
-				text: '=',
-				cssClass: '='
-			}
-		};
+    var myLabel = {
+      restrict: 'E',
+      templateUrl: 'public/templates/myLabel.html',
+      scope: {
+        text: '=',
+        cssClass: '='
+      }
+    };
 
-		return myLabel;
-	});
+    return myLabel;
+  });
 
 })();

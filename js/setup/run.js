@@ -1,3 +1,5 @@
+/* eslint no-console: 0  */
+
 const https = require('https');
 
 let task;
@@ -16,7 +18,7 @@ const req = https.request({
 
   let body = '';
 
-  res.on('data', function(chunk) {
+  res.on('data', (chunk) => {
     body += chunk;
   });
 

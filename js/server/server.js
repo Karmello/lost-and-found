@@ -1,3 +1,5 @@
+/* eslint no-console: 0  */
+
 const cm = require( './cm');
 cm.reject = (err) => { console.error(err); return cm.libs.Promise.reject(err); };
 

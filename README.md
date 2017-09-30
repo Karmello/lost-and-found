@@ -1,6 +1,6 @@
-<b>LAF project</b>
+# LAF project
 
-<b>1. Fake data setup examples:</b>
+#### 1. Fake data setup examples:
   - run setup -d -User
   - run setup -c -User
   - run setup -c Reports

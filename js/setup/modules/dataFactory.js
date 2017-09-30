@@ -48,15 +48,18 @@ module.exports = {
           let reportsPath = fakeDataPath + '/' + user._id + '/reports';
           let reportIds = [];
 
-          try { reportIds = cm.libs.fs.readdirSync(reportsPath); } catch(ex) {}
+          if (cm.libs.fs.existsSync(reportsPath)) {
 
-          for (let reportId of reportIds) {
-            tasks.push(new cm.libs.Promise((resolve) => {
-              let config = require(reportsPath + '/' + reportId + '/config');
-              config._id = reportId;
-              config.userId = user._id;
-              resolve(config);
-            }));
+            reportIds = cm.libs.fs.readdirSync(reportsPath);
+
+            for (let reportId of reportIds) {
+              tasks.push(new cm.libs.Promise((resolve) => {
+                let config = require(reportsPath + '/' + reportId + '/config');
+                config._id = reportId;
+                config.userId = user._id;
+                resolve(config);
+              }));
+            }
           }
         }
 

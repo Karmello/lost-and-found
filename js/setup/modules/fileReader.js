@@ -36,32 +36,37 @@ module.exports = {
 
         for (let userId of userIds) {
 
-          let reportIds = cm.libs.fs.readdirSync(fakeDataPath + '/' + userId + '/reports');
+          let reportsPath = fakeDataPath + '/' + userId + '/reports';
 
-          for (let reportId of reportIds) {
+          if (cm.libs.fs.existsSync(reportsPath)) {
 
-            let imgsFolderPath = fakeDataPath + '/' + userId + '/reports/' + reportId + '/imgs';
-            let imgNames = cm.libs.fs.readdirSync(imgsFolderPath);
+            let reportIds = cm.libs.fs.readdirSync(reportsPath);
 
-            for (let imgName of imgNames) {
+            for (let reportId of reportIds) {
 
-              tasks.push(new cm.libs.Promise((resolve, reject) => {
+              let imgsFolderPath = fakeDataPath + '/' + userId + '/reports/' + reportId + '/imgs';
+              let imgNames = cm.libs.fs.readdirSync(imgsFolderPath);
 
-                let imgPath = imgsFolderPath + '/' + imgName;
+              for (let imgName of imgNames) {
 
-                cm.libs.fs.readFile(imgPath, (err, fileData) => {
+                tasks.push(new cm.libs.Promise((resolve, reject) => {
 
-                  if (!err) {
-                    resolve({
-                      userId: userId,
-                      reportId: reportId,
-                      fileType: 'image/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
-                      fileData: fileData
-                    });
+                  let imgPath = imgsFolderPath + '/' + imgName;
 
-                  } else { reject(err); }
-                });
-              }));
+                  cm.libs.fs.readFile(imgPath, (err, fileData) => {
+
+                    if (!err) {
+                      resolve({
+                        userId: userId,
+                        reportId: reportId,
+                        fileType: 'image/' + imgPath.substring(imgPath.lastIndexOf('.') + 1, imgPath.length),
+                        fileData: fileData
+                      });
+
+                    } else { reject(err); }
+                  });
+                }));
+              }
             }
           }
         }

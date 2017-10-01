@@ -8,8 +8,7 @@
   },
   "main": "server.js",
   "scripts": {
-    "preinstall": "npm i -g gulp-cli node-gyp nodemon karma-cli mocha jshint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preinstall": "npm i -g gulp-cli node-gyp nodemon karma-cli mocha jshint"
   },
   "author": "Kamil Noga",
   "license": "ISC",

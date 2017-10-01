@@ -1,9 +1,10 @@
 /bower_components/
 /db/dump/
-/utils/https/certs/
+/directives/node_modules/
 /minified/
 /node_modules/
 /public/
 /tests/server/.env
 /unminified/
+/utils/https/certs/
 .env

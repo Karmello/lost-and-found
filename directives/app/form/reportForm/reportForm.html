@@ -9,7 +9,7 @@
 				<div class="formCtrls">
 					<div>
 						<my-input
-							ctrl-id="'title'"
+							ctrl-id="myForm.ctrlId + '_title'"
 							ctrl-type="'text'"
 							ctrl-max-length="50"
 							model="myForm.model.title"
@@ -17,7 +17,7 @@
 						></my-input>
 						<my-selects-group collection="hardData.reportCategories">
 							<my-select
-								ctrl-id="'category1'"
+								ctrl-id="myForm.ctrlId + '_category1'"
 								collection=""
 								model="myForm.model.category1"
 								prop-names="{ optionValue: '_id', optionLabel: 'label' }"
@@ -25,7 +25,7 @@
 								hard-data="{ label: ['labels', 12], placeholder: ['imperatives', 18] }"
 							></my-select>
 							<my-select
-								ctrl-id="'category2'"
+								ctrl-id="myForm.ctrlId + '_category2'"
 								collection=""
 								nested-collection-field-name="'subcategories'"
 								model="myForm.model.category2"
@@ -35,7 +35,7 @@
 								hard-data="{ placeholder: ['imperatives', 18] }"
 							></my-select>
 							<my-select
-								ctrl-id="'category3'"
+								ctrl-id="myForm.ctrlId + '_category3'"
 								collection=""
 								nested-collection-field-name="'subcategories'"
 								model="myForm.model.category3"
@@ -48,14 +48,14 @@
 					</div>
 					<div>
 						<my-input
-							ctrl-id="'serialNo'"
+							ctrl-id="myForm.ctrlId + '_serialNo'"
 							ctrl-type="'text'"
 							ctrl-max-length="50"
 							model="myForm.model.serialNo"
 							hard-data="{ label: ['labels', 20] }"
 						></my-input>
 						<my-text-area
-							ctrl-id="'description'"
+							ctrl-id="myForm.ctrlId + '_description'"
 							ctrl-max-length="1000"
 							model="myForm.model.description"
 							hard-data="{ label: ['labels', 10] }"
@@ -73,7 +73,7 @@
 				<div class="formCtrls">
 					<div>
 						<my-select
-							ctrl-id="'startEvent_type'"
+							ctrl-id="myForm.ctrlId + '_startEvent_type'"
 							collection="hardData.reportTypes"
 							model="myForm.model.startEvent.type"
 							prop-names="{ optionValue: 'value', optionLabel: 'label' }"
@@ -81,7 +81,7 @@
 							hard-data="{ label: ['labels', 16], placeholder: ['imperatives', 18] }"
 						></my-select>
 						<my-date-input
-							ctrl-id="'startEvent_date'"
+							ctrl-id="myForm.ctrlId + '_startEvent_date'"
 							ctrl-min-value="minDate"
 							ctrl-max-value="currentDate"
 							model="myForm.model.startEvent.date"
@@ -89,7 +89,7 @@
 							is-required="true"
 						></my-date-input>
 						<my-google-place-auto-complete
-							ctrl-id="'startEvent_address'"
+							ctrl-id="myForm.ctrlId + '_startEvent_address'"
 							model="myForm.model.startEvent.address"
 							hard-data="{ label: ['labels', 17] }"
 							autocomplete="autocomplete"
@@ -97,7 +97,7 @@
 					</div>
 					<div>
 						<my-text-area
-							ctrl-id="'startEvent_details'"
+							ctrl-id="myForm.ctrlId + '_startEvent_details'"
 							ctrl-max-length="1000"
 							model="myForm.model.startEvent.details"
 							hard-data="{ label: ['labels', 19] }"
@@ -119,7 +119,7 @@
 				<div class="formCtrls">
 					<div>
 						<my-date-input
-							ctrl-id="'endEvent_date'"
+							ctrl-id="myForm.ctrlId + '_endEvent_date'"
 							ctrl-min-value="minDate"
 							ctrl-max-value="currentDate"
 							model="myForm.model.date"
@@ -127,7 +127,7 @@
 							is-required="true"
 						></my-date-input>
 						<my-google-place-auto-complete
-							ctrl-id="'endEvent_address'"
+							ctrl-id="myForm.ctrlId + '_endEvent_address'"
 							model="myForm.model.address"
 							hard-data="{ label: ['labels', 17] }"
 							autocomplete="autocomplete"
@@ -135,7 +135,7 @@
 					</div>
 					<div>
 						<my-text-area
-							ctrl-id="'endEvent_details'"
+							ctrl-id="myForm.ctrlId + '_endEvent_details'"
 							ctrl-max-length="1000"
 							model="myForm.model.details"
 							hard-data="{ label: ['labels', 19] }"

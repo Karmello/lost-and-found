@@ -6,35 +6,35 @@
 			action-name="'register'"
 		></my-captcha>
 		<my-input
-			ctrl-id="'email'"
+			ctrl-id="'registerForm_email'"
 			ctrl-type="'text'"
 			ctrl-max-length="254"
 			model="myForm.model.email"
 			hard-data="{ label: ['labels', 0] }"
 		></my-input>
 		<my-input
-			ctrl-id="'username'"
+			ctrl-id="'registerForm_username'"
 			ctrl-type="'text'"
 			ctrl-max-length="20"
 			model="myForm.model.username"
 			hard-data="{ label: ['labels', 1] }"
 		></my-input>
 		<my-input
-			ctrl-id="'password'"
+			ctrl-id="'registerForm_password'"
 			ctrl-type="'password'"
 			ctrl-max-length="25"
 			model="myForm.model.password"
 			hard-data="{ label: ['labels', 2] }"
 		></my-input>
 		<my-input
-			ctrl-id="'firstname'"
+			ctrl-id="'registerForm_firstname'"
 			ctrl-type="'text'"
 			ctrl-max-length="20"
 			model="myForm.model.firstname"
 			hard-data="{ label: ['labels', 5] }"
 		></my-input>
 		<my-input
-			ctrl-id="'lastname'"
+			ctrl-id="'registerForm_lastname'"
 			ctrl-type="'text'"
 			ctrl-max-length="20"
 			model="myForm.model.lastname"
@@ -46,13 +46,13 @@
 			hard-data="{ label: ['labels', 8] }"
 		>
 			<my-select
-				ctrl-id="'countryFirstLetter'"
+				ctrl-id="'registerForm_countryFirstLetter'"
 				collection=""
 				model="myForm.model.countryFirstLetter"
 				prop-names="{ optionValue: 'label', optionLabel: 'label' }"
 			></my-select>
 			<my-select
-				ctrl-id="'country'"
+				ctrl-id="'registerForm_country'"
 				collection=""
 				nested-collection-field-name="'children'"
 				model="myForm.model.country"

@@ -4,7 +4,7 @@
 			<div>
 				<my-selects-group collection="reportCategories">
 					<my-select
-						ctrl-id="'category1'"
+						ctrl-id="'reportSearchForm_category1'"
 						collection=""
 						model="myForm.model.category1"
 						prop-names="{ optionValue: '_id', optionLabel: 'label' }"
@@ -12,7 +12,7 @@
 						hard-data="{ label: ['labels', 12], placeholder: ['imperatives', 18] }"
 					></my-select>
 					<my-select
-						ctrl-id="'category2'"
+						ctrl-id="'reportSearchForm_category2'"
 						collection=""
 						nested-collection-field-name="'subcategories'"
 						model="myForm.model.category2"
@@ -21,7 +21,7 @@
 						hard-data="{ placeholder: ['imperatives', 18] }"
 					></my-select>
 					<my-select
-						ctrl-id="'category3'"
+						ctrl-id="'reportSearchForm_category3'"
 						collection=""
 						nested-collection-field-name="'subcategories'"
 						model="myForm.model.category3"
@@ -33,7 +33,7 @@
 			</div>
 			<div>
 				<my-input
-					ctrl-id="'title'"
+					ctrl-id="'reportSearchForm_title'"
 					ctrl-type="'text'"
 					ctrl-max-length="50"
 					model="myForm.model.title"

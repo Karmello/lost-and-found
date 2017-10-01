@@ -69,9 +69,9 @@ r.gulp.task('client_js', function() {
 
   r.gulp.src(['js/client/**/*.js', 'directives/**/*.js'])
     .pipe(r.concat('appScripts.js'))
-    .pipe(r.gulp.dest('public/unminified/'))
     .pipe(r.ngAnnotate())
     .pipe(r.babel({ presets: ['es2015'], compact: false }))
+    .pipe(r.gulp.dest('public/unminified/'))
     .pipe(r.uglify().on('error', r.util.log))
     .pipe(r.gulp.dest('public/minified/'))
     .pipe(r.browserSync.stream());

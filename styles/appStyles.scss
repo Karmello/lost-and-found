@@ -649,6 +649,119 @@ $avatarSize: 240px;
 		}
 	}
 }
+#contactForm {
+
+	#myForm {
+
+		form {
+			margin: 0 auto;
+			max-width: 400px;
+			@media only screen and (min-width: 768px) { max-width: 600px; }
+
+			#mySelect { display: table; }
+			#myTextArea { textarea { min-height: 300px !important; } }
+		}
+	}
+}
+#reportForm {
+
+	#myForm {
+
+		form {
+
+			.formCtrls {
+
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+
+				> div {
+					margin: 5px;
+					flex-basis: 100%;
+					@media only screen and (min-width: 700px) {
+						flex-basis: 48%;
+					}
+				}
+
+				textarea {
+					max-width: 450px;
+					min-height: 150px !important;
+					text-align: justify;
+				}
+			}
+		}
+	}
+}
+#reportSearchForm {
+
+	#myForm {
+
+		form {
+
+			> div {
+
+				> div {
+
+					display: flex;
+					flex-flow: row wrap;
+
+					> div {
+						flex-grow: 1;
+						margin: 5px;
+					}
+				}
+			}
+		}
+	}
+}
+#upgradeForm {
+
+	#myForm {
+
+		display: flex;
+		justify-content: center;
+
+		form {
+
+			background-color: transparent;
+
+			> div {
+
+				#formSection {
+
+					@media only screen and (min-width: 550px) { display: flex; }
+					@media only screen and (min-width: 768px) { width: 600px; }
+
+					> div { margin: 5px auto; }
+				}
+			}
+		}
+	}
+}
+#appStats {
+
+	#bodySection {
+
+
+	}
+}
+@import '_vars';
+
+#userBadge {
+
+	position: relative;
+	display: table;
+	margin: 0 auto;
+	padding: 15px;
+
+	#mySrc { img { @extend .defaultAvatarSize; } }
+}
+#reportAvatar {
+
+	#mySrc {
+		img { width: 200px; object-fit: cover; }
+	}
+}
 #reportPhotos {
 
 	#mySrc {
@@ -687,6 +800,36 @@ $avatarSize: 240px;
 .tinyAvatarSize {
 	width: 60px;
 	height: 60px;
+}
+#myBtn {
+
+	button {
+		font-size: 14px;
+		padding: 5px 10px 5px 10px;
+		min-width: 80px;
+	}
+
+	.icon {
+		top: 2px;
+	}
+}
+
+.myBtnsGroup {
+
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.myBtnsGroupCenter {
+
+	@extend .myBtnsGroup;
+	justify-content: center;
+}
+
+.myBtnsGroupRight {
+
+	@extend .myBtnsGroup;
+	justify-content: flex-end;
 }
 #myCollectionBrowser {
 
@@ -780,12 +923,6 @@ $avatarSize: 240px;
 		margin: 25px auto;
 	}
 }
-#reportAvatar {
-
-	#mySrc {
-		img { width: 200px; object-fit: cover; }
-	}
-}
 #myElemSelector {
 
 	button {
@@ -799,363 +936,6 @@ $avatarSize: 240px;
 		font-size: 13px;
 		color: $text-color;
 	}
-}
-#myForm {
-
-	position: relative;
-
-	form {
-
-		position: relative;
-		background-color: $gray-lighter;
-		padding: 10px;
-		border-radius: 5px;
-
-		input, select {
-			max-width: 300px;
-		}
-
-		input, textarea {
-			padding: 10px;
-		}
-
-		input, select, textarea {
-			margin: 5px 0 5px 0;
-		}
-
-		select {
-			padding: 5px;
-		}
-
-		textarea {
-			min-height: 200px;
-		}
-
-		#myLabel {
-			margin-top: 10px;
-			margin-bottom: -7px;
-		}
-
-		.myBtnsGroup {
-			margin-top: 25px;
-		}
-	}
-}
-#myFormErrorIcon {
-	margin-left: 3px;
-	font-size: 16px;
-}
-#contactForm {
-
-	#myForm {
-
-		form {
-			margin: 0 auto;
-			max-width: 400px;
-			@media only screen and (min-width: 768px) { max-width: 600px; }
-
-			#mySelect { display: table; }
-			#myTextArea { textarea { min-height: 300px !important; } }
-		}
-	}
-}
-#reportForm {
-
-	#myForm {
-
-		form {
-
-			.formCtrls {
-
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: space-around;
-
-				> div {
-					margin: 5px;
-					flex-basis: 100%;
-					@media only screen and (min-width: 700px) {
-						flex-basis: 48%;
-					}
-				}
-
-				textarea {
-					max-width: 450px;
-					min-height: 150px !important;
-					text-align: justify;
-				}
-			}
-		}
-	}
-}
-#reportSearchForm {
-
-	#myForm {
-
-		form {
-
-			> div {
-
-				> div {
-
-					display: flex;
-					flex-flow: row wrap;
-
-					> div {
-						flex-grow: 1;
-						margin: 5px;
-					}
-				}
-			}
-		}
-	}
-}
-#upgradeForm {
-
-	#myForm {
-
-		display: flex;
-		justify-content: center;
-
-		form {
-
-			background-color: transparent;
-
-			> div {
-
-				#formSection {
-
-					@media only screen and (min-width: 550px) { display: flex; }
-					@media only screen and (min-width: 768px) { width: 600px; }
-
-					> div { margin: 5px auto; }
-				}
-			}
-		}
-	}
-}
-#myGooglePlaceAutoComplete {
-
-	#activePlaceSection {
-
-		display: flex;
-		padding-top: 2px;
-
-		img {
-			max-width: 20px;
-			max-height: 20px;
-		}
-
-		span {
-			padding-top: 2px;
-		}
-	}
-}
-#myInput {
-
-
-}
-#myTextArea {
-
-	textarea.form-control {
-		resize: none;
-		min-height: 65px;
-	}
-}
-#appStats {
-
-	#bodySection {
-
-
-	}
-}
-#mySingleFileInput, #myMultipleFilesInput {
-
-	display: none;
-}
-@import '_vars';
-
-#userBadge {
-
-	position: relative;
-	display: table;
-	margin: 0 auto;
-	padding: 15px;
-
-	#mySrc { img { @extend .defaultAvatarSize; } }
-}
-#mySrcSlides {
-
-	.carousel {
-
-		.carousel-control {}
-
-		.carousel-inner {
-
-			> div {
-
-				display: table;
-				margin: 0 auto;
-
-				#mySrc {
-
-					img {
-						max-width: 100%;
-						max-height: calc(100vh - 300px);
-						overflow-y: auto;
-					}
-
-					.thumbnail {
-						padding: 1px;
-						border-radius: 0;
-					}
-				}
-			}
-		}
-	}
-
-	.carousel-indicators {
-
-		position: relative;
-		top: 0;
-
-		li {
-			margin-left: 1px;
-			margin-right: 1px;
-			border-radius: 1px;
-			width: 15px;
-			height: 15px;
-		}
-
-		li.active {
-			position: relative;
-			top: -1px;
-		}
-	}
-}
-#myAlert {
-	display: table;
-	margin: 0 auto;
-	text-align: center;
-	padding: 15px;
-}
-#myLabel {
-
-	padding: 1px;
-}
-#myContextMenu {
-
-	position: relative;
-
-	button {
-		width: 28px;
-		height: 28px;
-		border: 0;
-
-		span {
-			top: -4px;
-			left: -8px;
-		}
-	}
-
-	.dropdown-menu {
-		min-width: 50px;
-		left: auto;
-		right: 50%;
-		transform: translate(16px, -31px);
-	}
-}
-#myDropDown {
-
-	button {
-		font-size: 14px;
-		padding: 5px 10px 5px 10px;
-		min-width: 80px;
-	}
-
-	.dropdown-menu {
-
-		overflow-y: auto;
-		font-size: 14px;
-
-		min-width: 100px;
-		max-height: 282px;
-		left: 50%;
-		right: auto;
-		transform: translate(-50%, 0);
-	}
-}
-@import '_vars';
-
-#myListGroup {
-
-	.list-group-item.active {}
-
-	.list-group-item:hover {
-		//background-color: $body-bg;
-	}
-
-	.list-group-item:focus {
-		//background-color: $body-bg;
-	}
-}
-#myNavMenu {
-
-
-}
-#mySelect {
-
-
-}
-#mySelectsGroup {
-
-
-}
-#myTabs {
-
-	.nav-tabs {}
-	.tab-content {}
-
-	.nav-tabs > li > a {
-		//background-color: $body-bg;
-	}
-
-	.nav-tabs > li > a:hover {}
-
-	h5 {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-}
-#myBtn {
-
-	button {
-		font-size: 14px;
-		padding: 5px 10px 5px 10px;
-		min-width: 80px;
-	}
-
-	.icon {
-		top: 2px;
-	}
-}
-
-.myBtnsGroup {
-
-	display: flex;
-	flex-flow: row wrap;
-}
-
-.myBtnsGroupCenter {
-
-	@extend .myBtnsGroup;
-	justify-content: center;
-}
-
-.myBtnsGroupRight {
-
-	@extend .myBtnsGroup;
-	justify-content: flex-end;
 }
 #myPanel {
 
@@ -1240,48 +1020,165 @@ $avatarSize: 240px;
 		top: 0 !important;
 	}
 }
-#mySrc {
-
-	$srcCtrlsMargin: 10px;
+#myForm {
 
 	position: relative;
 
-	a.linkDisabled {
-		cursor: default !important;
-	}
+	form {
 
-	.imgContainer {
-		border-radius: 3px;
-		overflow: hidden;
-		img { margin: 0; }
-	}
+		position: relative;
+		background-color: $gray-lighter;
+		padding: 10px;
+		border-radius: 5px;
 
-	.srcLabel {
-		text-align: center;
-		font-size: 14px;
-		font-weight: bold;
-		margin: 0;
-	}
-
-	.srcCtrls {
-
-		#myElemSelector, #myContextMenu {
-			position: absolute;
-			top: $srcCtrlsMargin;
+		input, select {
+			max-width: 300px;
 		}
 
-		#myElemSelector { left: $srcCtrlsMargin; }
-		#myContextMenu { right: $srcCtrlsMargin; }
+		input, textarea {
+			padding: 10px;
+		}
+
+		input, select, textarea {
+			margin: 5px 0 5px 0;
+		}
+
+		select {
+			padding: 5px;
+		}
+
+		textarea {
+			min-height: 200px;
+		}
+
+		#myLabel {
+			margin-top: 10px;
+			margin-bottom: -7px;
+		}
+
+		.myBtnsGroup {
+			margin-top: 25px;
+		}
+	}
+}
+#myFormErrorIcon {
+	margin-left: 3px;
+	font-size: 16px;
+}
+#mySingleFileInput, #myMultipleFilesInput {
+
+	display: none;
+}
+#myGooglePlaceAutoComplete {
+
+	#activePlaceSection {
+
+		display: flex;
+		padding-top: 2px;
+
+		img {
+			max-width: 20px;
+			max-height: 20px;
+		}
+
+		span {
+			padding-top: 2px;
+		}
+	}
+}
+#myInput {
+
+
+}
+#myTextArea {
+
+	textarea.form-control {
+		resize: none;
+		min-height: 65px;
+	}
+}
+#myContextMenu {
+
+	position: relative;
+
+	button {
+		width: 28px;
+		height: 28px;
+		border: 0;
+
+		span {
+			top: -4px;
+			left: -8px;
+		}
 	}
 
-	.isSelected {
-		background-color: black;
-		img { opacity: 0.3; }
+	.dropdown-menu {
+		min-width: 50px;
+		left: auto;
+		right: 50%;
+		transform: translate(16px, -31px);
+	}
+}
+#myDropDown {
+
+	button {
+		font-size: 14px;
+		padding: 5px 10px 5px 10px;
+		min-width: 80px;
 	}
 
-	#myLoader {
-		padding: 0;
-		.sk-circle { width: 30px; height: 30px; }
+	.dropdown-menu {
+
+		overflow-y: auto;
+		font-size: 14px;
+
+		min-width: 100px;
+		max-height: 282px;
+		left: 50%;
+		right: auto;
+		transform: translate(-50%, 0);
+	}
+}
+@import '_vars';
+
+#myListGroup {
+
+	.list-group-item.active {}
+
+	.list-group-item:hover {
+		//background-color: $body-bg;
+	}
+
+	.list-group-item:focus {
+		//background-color: $body-bg;
+	}
+}
+#myNavMenu {
+
+
+}
+#mySelect {
+
+
+}
+#mySelectsGroup {
+
+
+}
+#myTabs {
+
+	.nav-tabs {}
+	.tab-content {}
+
+	.nav-tabs > li > a {
+		//background-color: $body-bg;
+	}
+
+	.nav-tabs > li > a:hover {}
+
+	h5 {
+		margin-left: 10px;
+		margin-right: 10px;
 	}
 }
 #myImgCropModal {
@@ -1376,6 +1273,99 @@ $avatarSize: 240px;
 	> div:first-child { text-align: center; }
 	@media only screen and (max-width: 600px) { > div { display: block; } }
 }
+#mySrc {
+
+	$srcCtrlsMargin: 10px;
+
+	position: relative;
+
+	a.linkDisabled {
+		cursor: default !important;
+	}
+
+	.imgContainer {
+		border-radius: 3px;
+		overflow: hidden;
+		img { margin: 0; }
+	}
+
+	.srcLabel {
+		text-align: center;
+		font-size: 14px;
+		font-weight: bold;
+		margin: 0;
+	}
+
+	.srcCtrls {
+
+		#myElemSelector, #myContextMenu {
+			position: absolute;
+			top: $srcCtrlsMargin;
+		}
+
+		#myElemSelector { left: $srcCtrlsMargin; }
+		#myContextMenu { right: $srcCtrlsMargin; }
+	}
+
+	.isSelected {
+		background-color: black;
+		img { opacity: 0.3; }
+	}
+
+	#myLoader {
+		padding: 0;
+		.sk-circle { width: 30px; height: 30px; }
+	}
+}
+#mySrcSlides {
+
+	.carousel {
+
+		.carousel-control {}
+
+		.carousel-inner {
+
+			> div {
+
+				display: table;
+				margin: 0 auto;
+
+				#mySrc {
+
+					img {
+						max-width: 100%;
+						max-height: calc(100vh - 300px);
+						overflow-y: auto;
+					}
+
+					.thumbnail {
+						padding: 1px;
+						border-radius: 0;
+					}
+				}
+			}
+		}
+	}
+
+	.carousel-indicators {
+
+		position: relative;
+		top: 0;
+
+		li {
+			margin-left: 1px;
+			margin-right: 1px;
+			border-radius: 1px;
+			width: 15px;
+			height: 15px;
+		}
+
+		li.active {
+			position: relative;
+			top: -1px;
+		}
+	}
+}
 #mySrcThumbs {
 
 	position: relative;
@@ -1428,4 +1418,14 @@ $avatarSize: 240px;
 			margin-top: 0;
 		}
 	}
+}
+#myAlert {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+	padding: 15px;
+}
+#myLabel {
+
+	padding: 1px;
 }

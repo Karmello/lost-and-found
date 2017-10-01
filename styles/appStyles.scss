@@ -429,6 +429,36 @@ $avatarSize: 240px;
 		}
 	}
 }
+#myBtn {
+
+	button {
+		font-size: 14px;
+		padding: 5px 10px 5px 10px;
+		min-width: 80px;
+	}
+
+	.icon {
+		top: 2px;
+	}
+}
+
+.myBtnsGroup {
+
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.myBtnsGroupCenter {
+
+	@extend .myBtnsGroup;
+	justify-content: center;
+}
+
+.myBtnsGroupRight {
+
+	@extend .myBtnsGroup;
+	justify-content: flex-end;
+}
 #myLoader {
 
 	position: relative;
@@ -738,24 +768,6 @@ $avatarSize: 240px;
 		}
 	}
 }
-#appStats {
-
-	#bodySection {
-
-
-	}
-}
-@import '_vars';
-
-#userBadge {
-
-	position: relative;
-	display: table;
-	margin: 0 auto;
-	padding: 15px;
-
-	#mySrc { img { @extend .defaultAvatarSize; } }
-}
 #reportAvatar {
 
 	#mySrc {
@@ -775,106 +787,16 @@ $avatarSize: 240px;
 		}
 	}
 }
-#userAvatar {
+@import '_vars';
 
-	display: table;
-	margin: 0 auto;
-
-	#mySrc {
-		.srcLabel {
-			margin-top: 3px;
-		}
-	}
-}
-
-.defaultAvatarSize {
-	width: 200px;
-	height: 200px;
-}
-
-.smallAvatarSize {
-	width: 150px;
-	height: 150px;
-}
-
-.tinyAvatarSize {
-	width: 60px;
-	height: 60px;
-}
-#myBtn {
-
-	button {
-		font-size: 14px;
-		padding: 5px 10px 5px 10px;
-		min-width: 80px;
-	}
-
-	.icon {
-		top: 2px;
-	}
-}
-
-.myBtnsGroup {
-
-	display: flex;
-	flex-flow: row wrap;
-}
-
-.myBtnsGroupCenter {
-
-	@extend .myBtnsGroup;
-	justify-content: center;
-}
-
-.myBtnsGroupRight {
-
-	@extend .myBtnsGroup;
-	justify-content: flex-end;
-}
-#myCollectionBrowser {
+#userBadge {
 
 	position: relative;
+	display: table;
+	margin: 0 auto;
+	padding: 15px;
 
-	#basicCtrls {
-
-		display: flex;
-		flex-flow: row wrap;
-		padding: 0 15px 15px 15px;
-
-		> div.refresher {
-			.glyphicon-refresh { top: 2px; }
-		}
-	}
-
-	#collectionContainer {
-
-		position: relative;
-		min-height: 75px;
-
-		#collectionElems {
-
-			> * {
-
-				display: flex;
-
-				.ng-enter {
-					-webkit-transform: scale(0);
-			      	-webkit-transition-property: all;
-			      	-webkit-transition-timing-function: ease-out-cubic;
-			      	-webkit-transition-duration: 200ms;
-			    }
-
-			    .ng-enter.ng-enter-active {
-			     	-webkit-transform: scale(1);
-			    }
-			}
-		}
-
-		#myLoader {
-			position: absolute;
-			top: 0;
-		}
-	}
+	#mySrc { img { @extend .defaultAvatarSize; } }
 }
 #myComments {
 
@@ -921,20 +843,6 @@ $avatarSize: 240px;
 	#nestedCollectionSection {
 		max-width: 650px;
 		margin: 25px auto;
-	}
-}
-#myElemSelector {
-
-	button {
-		width: 28px;
-		height: 28px;
-		padding: 0;
-		border: 0;
-	}
-
-	.glyphicon-ok {
-		font-size: 13px;
-		color: $text-color;
 	}
 }
 #myPanel {
@@ -984,6 +892,13 @@ $avatarSize: 240px;
 		margin: 0 auto;
 	}
 }
+#appStats {
+
+	#bodySection {
+
+
+	}
+}
 #myPopOverIcon {
 
 	display: table;
@@ -1020,50 +935,49 @@ $avatarSize: 240px;
 		top: 0 !important;
 	}
 }
-#myForm {
+#myElemSelector {
 
-	position: relative;
+	button {
+		width: 28px;
+		height: 28px;
+		padding: 0;
+		border: 0;
+	}
 
-	form {
+	.glyphicon-ok {
+		font-size: 13px;
+		color: $text-color;
+	}
+}
+#userAvatar {
 
-		position: relative;
-		background-color: $gray-lighter;
-		padding: 10px;
-		border-radius: 5px;
+	display: table;
+	margin: 0 auto;
 
-		input, select {
-			max-width: 300px;
-		}
-
-		input, textarea {
-			padding: 10px;
-		}
-
-		input, select, textarea {
-			margin: 5px 0 5px 0;
-		}
-
-		select {
-			padding: 5px;
-		}
-
-		textarea {
-			min-height: 200px;
-		}
-
-		#myLabel {
-			margin-top: 10px;
-			margin-bottom: -7px;
-		}
-
-		.myBtnsGroup {
-			margin-top: 25px;
+	#mySrc {
+		.srcLabel {
+			margin-top: 3px;
 		}
 	}
 }
-#myFormErrorIcon {
-	margin-left: 3px;
-	font-size: 16px;
+
+.defaultAvatarSize {
+	width: 200px;
+	height: 200px;
+}
+
+.smallAvatarSize {
+	width: 150px;
+	height: 150px;
+}
+
+.tinyAvatarSize {
+	width: 60px;
+	height: 60px;
+}
+#myInput {
+
+
 }
 #mySingleFileInput, #myMultipleFilesInput {
 
@@ -1086,15 +1000,25 @@ $avatarSize: 240px;
 		}
 	}
 }
-#myInput {
-
-
-}
 #myTextArea {
 
 	textarea.form-control {
 		resize: none;
 		min-height: 65px;
+	}
+}
+@import '_vars';
+
+#myListGroup {
+
+	.list-group-item.active {}
+
+	.list-group-item:hover {
+		//background-color: $body-bg;
+	}
+
+	.list-group-item:focus {
+		//background-color: $body-bg;
 	}
 }
 #myContextMenu {
@@ -1119,40 +1043,6 @@ $avatarSize: 240px;
 		transform: translate(16px, -31px);
 	}
 }
-#myDropDown {
-
-	button {
-		font-size: 14px;
-		padding: 5px 10px 5px 10px;
-		min-width: 80px;
-	}
-
-	.dropdown-menu {
-
-		overflow-y: auto;
-		font-size: 14px;
-
-		min-width: 100px;
-		max-height: 282px;
-		left: 50%;
-		right: auto;
-		transform: translate(-50%, 0);
-	}
-}
-@import '_vars';
-
-#myListGroup {
-
-	.list-group-item.active {}
-
-	.list-group-item:hover {
-		//background-color: $body-bg;
-	}
-
-	.list-group-item:focus {
-		//background-color: $body-bg;
-	}
-}
 #myNavMenu {
 
 
@@ -1164,58 +1054,6 @@ $avatarSize: 240px;
 #mySelectsGroup {
 
 
-}
-#myTabs {
-
-	.nav-tabs {}
-	.tab-content {}
-
-	.nav-tabs > li > a {
-		//background-color: $body-bg;
-	}
-
-	.nav-tabs > li > a:hover {}
-
-	h5 {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-}
-#myImgCropModal {
-
-	img { max-width: 100%; }
-	input { display: none; }
-
-	.modal-body { position: relative; max-height: calc(100vh - 275px); }
-
-	#modalHeader {
-
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: center;
-		align-items: center;
-
-		> div {
-			flex-grow: 1;
-			align-content: center;
-		}
-	}
-
-	#cropImgContainer {
-		height: 350px;
-		> * { margin: 0 auto; }
-	}
-
-	#alertContainer {
-		position: absolute;
-		top: 120px;
-		left: 0;
-		right: 0;
-
-		#myAlert {
-			margin: 50px auto;
-		}
-	}
 }
 @import '_vars';
 
@@ -1272,6 +1110,42 @@ $avatarSize: 240px;
 
 	> div:first-child { text-align: center; }
 	@media only screen and (max-width: 600px) { > div { display: block; } }
+}
+#myImgCropModal {
+
+	img { max-width: 100%; }
+	input { display: none; }
+
+	.modal-body { position: relative; max-height: calc(100vh - 275px); }
+
+	#modalHeader {
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+
+		> div {
+			flex-grow: 1;
+			align-content: center;
+		}
+	}
+
+	#cropImgContainer {
+		height: 350px;
+		> * { margin: 0 auto; }
+	}
+
+	#alertContainer {
+		position: absolute;
+		top: 120px;
+		left: 0;
+		right: 0;
+
+		#myAlert {
+			margin: 50px auto;
+		}
+	}
 }
 #mySrc {
 
@@ -1428,4 +1302,130 @@ $avatarSize: 240px;
 #myLabel {
 
 	padding: 1px;
+}
+#myDropDown {
+
+	button {
+		font-size: 14px;
+		padding: 5px 10px 5px 10px;
+		min-width: 80px;
+	}
+
+	.dropdown-menu {
+
+		overflow-y: auto;
+		font-size: 14px;
+
+		min-width: 100px;
+		max-height: 282px;
+		left: 50%;
+		right: auto;
+		transform: translate(-50%, 0);
+	}
+}
+#myTabs {
+
+	.nav-tabs {}
+	.tab-content {}
+
+	.nav-tabs > li > a {
+		//background-color: $body-bg;
+	}
+
+	.nav-tabs > li > a:hover {}
+
+	h5 {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+#myCollectionBrowser {
+
+	position: relative;
+
+	#basicCtrls {
+
+		display: flex;
+		flex-flow: row wrap;
+		padding: 0 15px 15px 15px;
+
+		> div.refresher {
+			.glyphicon-refresh { top: 2px; }
+		}
+	}
+
+	#collectionContainer {
+
+		position: relative;
+		min-height: 75px;
+
+		#collectionElems {
+
+			> * {
+
+				display: flex;
+
+				.ng-enter {
+					-webkit-transform: scale(0);
+			      	-webkit-transition-property: all;
+			      	-webkit-transition-timing-function: ease-out-cubic;
+			      	-webkit-transition-duration: 200ms;
+			    }
+
+			    .ng-enter.ng-enter-active {
+			     	-webkit-transform: scale(1);
+			    }
+			}
+		}
+
+		#myLoader {
+			position: absolute;
+			top: 0;
+		}
+	}
+}
+#myFormErrorIcon {
+	margin-left: 3px;
+	font-size: 16px;
+}
+#myForm {
+
+	position: relative;
+
+	form {
+
+		position: relative;
+		background-color: $gray-lighter;
+		padding: 10px;
+		border-radius: 5px;
+
+		input, select {
+			max-width: 300px;
+		}
+
+		input, textarea {
+			padding: 10px;
+		}
+
+		input, select, textarea {
+			margin: 5px 0 5px 0;
+		}
+
+		select {
+			padding: 5px;
+		}
+
+		textarea {
+			min-height: 200px;
+		}
+
+		#myLabel {
+			margin-top: 10px;
+			margin-bottom: -7px;
+		}
+
+		.myBtnsGroup {
+			margin-top: 25px;
+		}
+	}
 }

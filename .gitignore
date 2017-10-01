@@ -1,6 +1,6 @@
 /bower_components/
 /db/dump/
-/directives/node_modules/
+/directives/standalone/**/
 /minified/
 /node_modules/
 /public/

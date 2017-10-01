@@ -3,6 +3,6 @@
 #### Fake data setup:
 ['js/setup', 'resources/fake-data']
 
-<code>run app</code>
-<code>run setup -d -User</code> *// empties collection*
-<code>run setup -c -User</code> *// fills collection*
+`run app`
+`run setup -d -User` *// empties collection*
+`run setup -c -User` *// fills collection*

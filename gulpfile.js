@@ -67,7 +67,7 @@ r.gulp.task('all_in_one_templates', function() {
 
 r.gulp.task('client_js', function() {
 
-  r.gulp.src(['js/client/**/*.js', 'directives/**/*.js'])
+  r.gulp.src(['js/client/**/*.js', 'directives/**/*.js', '!directives/**/*.spec.js'])
     .pipe(r.concat('appScripts.js'))
     .pipe(r.ngAnnotate())
     .pipe(r.babel({ presets: ['es2015'], compact: false }))

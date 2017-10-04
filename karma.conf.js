@@ -1,6 +1,6 @@
 module.exports = function(config) {
   config.set({
-    basePath: 'D:/Workspace/laf/dev',
+    basePath: 'C:/Workspace/laf/dev',
     proxies: {
       '/session': 'https://localhost:3000/session',
       '/public': 'https://localhost:3000/public'
@@ -10,7 +10,7 @@ module.exports = function(config) {
     preprocessors: {
       'js/client/**/*.js': ['babel'],
       'directives/**/*.js': ['babel'],
-      'tests/client/**/*Spec.js': ['babel']
+      'tests/**/*.js': ['babel']
     },
     files: [
       'node_modules/jquery/dist/jquery.min.js',
@@ -34,10 +34,10 @@ module.exports = function(config) {
       'node_modules/babel-polyfill/dist/polyfill.js',
       'js/client/**/*.js',
       'directives/**/*.js',
-      'tests/client/helpers.js',
-      'tests/client/**/*Spec.js'
+      'tests/_helpers.js',
+      'tests/unit/**/*.js'
     ],
-    //exclude: ['tests/client/*Spec.js'],
+    //exclude: ['tests/*Spec.js'],
     reporters: ['spec'],
     port: 9876,
     colors: true,

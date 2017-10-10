@@ -1,8 +1,10 @@
 module.exports = function(config) {
   config.set({
+    base: '/',
     proxies: {
-      '/session': 'https://localhost:3000/session',
-      '/public': 'https://localhost:3000/public'
+      '/public/json': '/base/public/json',
+      '/public/imgs': '/base/public/imgs',
+      '/public/appStyles.css': '/base/public/unminified/appStyles.css'
     },
     plugins: ['karma-phantomjs-launcher', 'karma-jasmine-jquery', 'karma-jasmine', 'karma-babel-preprocessor', 'karma-spec-reporter'],
     frameworks: ['jasmine-jquery', 'jasmine'],
@@ -33,9 +35,11 @@ module.exports = function(config) {
       'node_modules/babel-polyfill/dist/polyfill.js',
       'js/client/**/*.js',
       'directives/**/*.js',
-      'tests/_helpers.js'
+      'tests/_helpers.js',
+      { pattern: 'public/json/hardCodedData.json', watched: false, included: false, served: true },
+      { pattern: 'public/imgs/*.png', watched: false, included: false, served: true },
+      { pattern: 'public/unminified/appStyles.css', watched: false, included: false, served: true }
     ],
-    //exclude: ['tests/*Spec.js'],
     reporters: ['spec'],
     port: 9876,
     colors: true,

@@ -679,6 +679,20 @@ $avatarSize: 240px;
 		}
 	}
 }
+#contactForm {
+
+	#myForm {
+
+		form {
+			margin: 0 auto;
+			max-width: 400px;
+			@media only screen and (min-width: 768px) { max-width: 600px; }
+
+			#mySelect { display: table; }
+			#myTextArea { textarea { min-height: 300px !important; } }
+		}
+	}
+}
 #reportForm {
 
 	#myForm {
@@ -772,6 +786,12 @@ $avatarSize: 240px;
 
 	#mySrc { img { @extend .defaultAvatarSize; } }
 }
+#reportAvatar {
+
+	#mySrc {
+		img { width: 200px; object-fit: cover; }
+	}
+}
 #reportPhotos {
 
 	#mySrc {
@@ -853,20 +873,6 @@ $avatarSize: 240px;
 		.myLoader {
 			position: absolute;
 			top: 0;
-		}
-	}
-}
-#contactForm {
-
-	#myForm {
-
-		form {
-			margin: 0 auto;
-			max-width: 400px;
-			@media only screen and (min-width: 768px) { max-width: 600px; }
-
-			#mySelect { display: table; }
-			#myTextArea { textarea { min-height: 300px !important; } }
 		}
 	}
 }
@@ -1063,10 +1069,6 @@ $avatarSize: 240px;
 
 	display: none;
 }
-#myInput {
-
-
-}
 #myGooglePlaceAutoComplete {
 
 	#activePlaceSection {
@@ -1083,6 +1085,10 @@ $avatarSize: 240px;
 			padding-top: 2px;
 		}
 	}
+}
+#myInput {
+
+
 }
 #myTextArea {
 
@@ -1311,12 +1317,6 @@ $avatarSize: 240px;
 		.sk-circle { width: 30px; height: 30px; }
 	}
 }
-#myAlert {
-	display: table;
-	margin: 0 auto;
-	text-align: center;
-	padding: 15px;
-}
 #mySrcSlides {
 
 	.carousel {
@@ -1365,10 +1365,6 @@ $avatarSize: 240px;
 			top: -1px;
 		}
 	}
-}
-#myLabel {
-
-	padding: 1px;
 }
 #mySrcThumbs {
 
@@ -1423,9 +1419,13 @@ $avatarSize: 240px;
 		}
 	}
 }
-#reportAvatar {
+#myAlert {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+	padding: 15px;
+}
+#myLabel {
 
-	#mySrc {
-		img { width: 200px; object-fit: cover; }
-	}
+	padding: 1px;
 }

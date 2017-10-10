@@ -359,6 +359,32 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/D/Workspace/laf/dev/js/client/appModule.js",
+			"settings":
+			{
+				"buffer_size": 712,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/karma.conf.js",
+			"settings":
+			{
+				"buffer_size": 2064,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/D/Workspace/laf/dev/directives/standalone/myloader/MyLoader.spec.js",
+			"settings":
+			{
+				"buffer_size": 307,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -420,10 +446,17 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/laf/dev/tests"
+		"/D/Workspace/laf/dev/directives/standalone",
+		"/D/Workspace/laf/dev/directives/standalone",
+		"/D/Workspace/laf/dev/directives/standalone/myloader",
+		"/D/Workspace/laf/dev/js/server/actions"
 	],
 	"file_history":
 	[
+		"/D/Workspace/laf/dev/gulpfile.js",
+		"/D/Workspace/laf/dev/tests/unit/spec1.js",
+		"/D/Workspace/laf/dev/directives/root/root.js",
+		"/D/Workspace/laf/dev/js/client/config.js",
 		"/D/Workspace/javascript-lambda-template/src/stock.js",
 		"/D/Workspace/laf/dev/js/server/models/User/actions/put.js",
 		"/D/Workspace/laf/dev/tests/model/actions/user-put.js",
@@ -547,11 +580,7 @@
 		"/D/Workspace/laf/dev/js/server/init/consts.js",
 		"/D/Workspace/laf/dev/directives/app/form/passwordForm/passwordForm.html",
 		"/D/Workspace/laf/dev/js/client/factories/rest/UsersRest.js",
-		"/D/Workspace/laf/dev/js/server/models/Report/config.js",
-		"/D/Workspace/laf/dev/node_modules/browser-sync/node_modules/micromatch/lib/utils.js",
-		"/D/Workspace/laf/dev/js/server/init/modelRefs.js",
-		"/D/Workspace/laf/dev/js/server/init/_init.js",
-		"/D/Workspace/laf/dev/js/server/models/ReportPhoto/ReportPhoto.js"
+		"/D/Workspace/laf/dev/js/server/models/Report/config.js"
 	],
 	"find":
 	{
@@ -790,8 +819,98 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/D/Workspace/laf/dev/js/client/appModule.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 712,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								464,
+								464
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Workspace/laf/dev/karma.conf.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2064,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								793,
+								793
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/Workspace/laf/dev/directives/standalone/myloader/MyLoader.spec.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 307,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								307,
+								307
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jasmine JS/syntax/Jasmine.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -843,6 +962,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"gulp",
+				"dev\\gulpfile.js"
+			],
 			[
 				"post",
 				"models\\Report\\actions\\post.js"
@@ -1350,10 +1473,6 @@
 			[
 				"mycomments.htm",
 				"directives\\my\\collection\\myComments\\myComments.html"
-			],
-			[
-				"mycom",
-				"dev\\public\\templates\\myComments.html"
 			]
 		],
 		"width": 0.0
@@ -1383,7 +1502,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 326.0,
 	"status_bar_visible": true,
 	"template_settings":

@@ -1,6 +1,5 @@
 module.exports = function(config) {
   config.set({
-    basePath: 'C:/Workspace/laf/dev',
     proxies: {
       '/session': 'https://localhost:3000/session',
       '/public': 'https://localhost:3000/public'
@@ -10,7 +9,7 @@ module.exports = function(config) {
     preprocessors: {
       'js/client/**/*.js': ['babel'],
       'directives/**/*.js': ['babel'],
-      'tests/**/*.js': ['babel']
+      'tests/_helpers.js': ['babel']
     },
     files: [
       'node_modules/jquery/dist/jquery.min.js',
@@ -26,7 +25,7 @@ module.exports = function(config) {
       'node_modules/ng-text-truncate/ng-text-truncate.js',
       'node_modules/lodash/lodash.min.js',
       'node_modules/restangular/dist/restangular.min.js',
-      'node_modules/socket.io-client/dist/socket.io.min.js',
+      'node_modules/socket.io-client/dist/socket.io.slim.js',
       'node_modules/cropper/dist/cropper.min.js',
       'node_modules/accounting/accounting.min.js',
       'node_modules/money/money.js',
@@ -34,8 +33,7 @@ module.exports = function(config) {
       'node_modules/babel-polyfill/dist/polyfill.js',
       'js/client/**/*.js',
       'directives/**/*.js',
-      'tests/_helpers.js',
-      'tests/unit/**/*.js'
+      'tests/_helpers.js'
     ],
     //exclude: ['tests/*Spec.js'],
     reporters: ['spec'],

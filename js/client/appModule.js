@@ -17,7 +17,7 @@
 
   $q.all([
 
-    $http.get('public/json/hardCodedData.json', { cache: true }),
+    $http.get('/public/json/hardCodedData.json', { cache: true }),
     $http.get('/session')
 
   ]).then(function(res) {

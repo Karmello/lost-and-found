@@ -1,0 +1,70 @@
+<div id="profile" ng-controller="ProfileController">
+	<my-panel>
+		<heading-text>
+			<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>
+			<span class="text-info">&nbsp;&nbsp;&nbsp;{{ apiData.profileUser.username }}</span>
+		</heading-text>
+		<body-section>
+			<div id="userSection">
+				<div>
+					<user-avatar
+						user="apiData.profileUser"
+						editable="true"
+						no-link="true"
+					></user-avatar>
+				</div>
+				<div>
+					<table class="table">
+						<tr>
+							<td>
+								<span class="text-info">{{ ::hardData.labels[23] }}</span> -
+								<span ng-bind="apiData.profileUser.firstname"></span>
+								<span ng-bind="apiData.profileUser.lastname"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="text-info">{{ ::hardData.labels[8] }}</span> -
+								<span ng-bind="apiData.profileUser.country"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="text-info">{{ ::hardData.labels[0] }}</span> -
+								<span ng-bind="apiData.profileUser.email"></span>
+							</td>
+						</tr>
+						<tr ng-if="apiData.loggedInUser._isTheOneLoggedIn()">
+							<td>
+								<span class="text-info">{{ ::hardData.sections[8] }}</span> -
+								<a ui-sref="app.upgrade({ id: apiData.loggedInUser._id })">
+									<span
+										class="text-warning"
+										style="font-weight: bold;"
+										ng-bind="hardData.accountTypes[apiData.profileUser.paymentId ? 'full' : 'basic']"
+									></span>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="text-info">{{ ::hardData.count[1] }}</span>
+								<span ng-bind="userSince"></span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div style="height: 50px;"></div>
+			<my-panel context-menu-conf="apiData.profileUser._isTheOneLoggedIn() ? profileReportsContextMenuConf : undefined">
+				<heading-text>
+					<span class="glyphicon glyphicon-list"></span>
+					<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.sections[11] }} ({{ collectionBrowser.meta.count }})</span>
+				</heading-text>
+				<body-section>
+					<reports ctrl-id="byUser"></reports>
+				</body-section>
+			</my-panel>
+		</body-section>
+	</my-panel>
+</div>

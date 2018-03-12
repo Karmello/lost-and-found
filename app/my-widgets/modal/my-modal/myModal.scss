@@ -1,0 +1,29 @@
+.myModal {
+
+	text-align: left;
+
+	.modal-dialog {
+
+		.modal-header {
+			p {
+				font-weight: bold;
+				overflow-wrap: break-word;
+				word-wrap: break-word;
+				word-break: break-all;
+				word-break: break-word;
+				hyphens: auto;
+			}
+		}
+
+		.modal-title {}
+		.modal-body {}
+		.modal-footer { .btn { margin: 0; } }
+	}
+
+	&.modalSlideInFromLeft {
+		&.modal.fade:not(.in) .modal-dialog {
+		    -webkit-transform: translate3d(-25%, 0, 0);
+		    transform: translate3d(-25%, 0, 0);
+		}
+	}
+}

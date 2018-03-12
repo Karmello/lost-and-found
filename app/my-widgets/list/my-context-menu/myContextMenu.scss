@@ -1,0 +1,22 @@
+#myContextMenu {
+
+	position: relative;
+
+	button {
+		width: 28px;
+		height: 28px;
+		border: 0;
+
+		span {
+			top: -4px;
+			left: -8px;
+		}
+	}
+
+	.dropdown-menu {
+		min-width: 50px;
+		left: auto;
+		right: 50%;
+		transform: translate(16px, -31px);
+	}
+}

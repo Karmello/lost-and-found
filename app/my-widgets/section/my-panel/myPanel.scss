@@ -1,0 +1,47 @@
+#myPanel {
+
+	&.isSelected { border: 2px solid; }
+	.trasparentHeading { background-color: transparent; }
+
+	border: 2px solid transparent;
+	border-radius: 5px;
+	.panel-default { border: 0 !important; }
+
+	.panel-heading {
+
+		display: flex;
+		align-items: center;
+		min-height: 41px;
+		padding: 5px 15px 5px 15px;
+
+		#headingImg {
+			#mySrc { margin-right: 10px; }
+		}
+
+		#headingText {
+
+			flex-grow: 1;
+			font-weight: bold;
+			line-height: 18px;
+  			padding-right: 15px;
+
+			p {
+				display: inline-block;
+				margin: 0;
+			}
+
+  			.glyphicon { top: 2px; }
+		}
+
+		#headingMenu {
+
+			display: flex;
+		}
+	}
+
+	.panel-body {
+
+		position: relative;
+		margin: 0 auto;
+	}
+}

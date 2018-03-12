@@ -1,0 +1,47 @@
+#myComments {
+
+	.myForm {
+		.myLabel.text-info {
+			margin-top: 0 !important;
+		}
+	}
+
+	#myCollectionBrowser {
+
+		#basicCtrls {
+			justify-content: flex-end;
+		}
+
+		#collectionContainer {
+
+			#collectionElems {
+
+				> * { flex-direction: column; }
+
+				#myPanel {
+					font-size: 14px;
+					margin-top: 10px;
+
+					#bodySection {
+
+						#userAvatar {
+							float: left;
+							margin-right: 12px;
+							margin-bottom: 10px;
+							img { width: 50px; height: 50px; }
+						}
+
+						#commentTextSection {
+							p { text-align: justify; }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#nestedCollectionSection {
+		max-width: 650px;
+		margin: 25px auto;
+	}
+}

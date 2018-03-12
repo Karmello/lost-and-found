@@ -1,0 +1,26 @@
+#userAvatar {
+
+	display: table;
+	margin: 0 auto;
+
+	#mySrc {
+		.srcLabel {
+			margin-top: 3px;
+		}
+	}
+}
+
+.defaultAvatarSize {
+	width: 200px;
+	height: 200px;
+}
+
+.smallAvatarSize {
+	width: 150px;
+	height: 150px;
+}
+
+.tinyAvatarSize {
+	width: 60px;
+	height: 60px;
+}

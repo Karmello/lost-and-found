@@ -1,0 +1,19 @@
+<div id="root">
+  <div ng-class="{ transparent: ui.loaders.renderer.isLoading }">
+    <ng-include
+      ng-repeat="page in ui.frames.app.switchers"
+      ng-if="page.use"
+      src="'public/templates/' + page._id + '.html'"
+      ng-show="page._id == ui.frames.app.activeSwitcherId"
+    ></ng-include>
+  </div>
+
+  <div ng-show="ui.loaders.renderer.isLoading">
+    <my-loader fixed-centered="true"></my-loader>
+  </div>
+
+  <my-functional-modal type="info"></my-functional-modal>
+  <my-functional-modal type="confirm"></my-functional-modal>
+  <my-functional-modal type="confirmDanger"></my-functional-modal>
+  <my-img-crop-modal max-file-size="NUMS.photoMaxSize" win-title="hardData.sections[19]"></my-img-crop-modal>
+</div>

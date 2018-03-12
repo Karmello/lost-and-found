@@ -1,0 +1,37 @@
+<div id="formActionBtns" class="myBtnsGroupCenter">
+
+	<div ng-transclude></div>
+
+	<!-- Cancel button -->
+	<my-btn
+		ng-show="myForm.showCancelBtn"
+		btn-class="[['btn-warning']]"
+		hard-data="{ label_0_0: ['imperatives', 2] }"
+		on-click="onCancel()"
+	></my-btn>
+
+	<!-- Reset button -->
+	<my-btn
+		ng-show="myForm.showResetBtn"
+		btn-class="[['btn-default']]"
+		hard-data="{ label_0_0: ['imperatives', 10] }"
+		on-click="onReset()"
+	></my-btn>
+
+	<!-- Clear button -->
+	<my-btn
+		ng-show="myForm.showClearBtn"
+		btn-class="[['btn-default']]"
+		hard-data="{ label_0_0: ['imperatives', 11] }"
+		on-click="onClear()"
+	></my-btn>
+
+	<!-- Submit button -->
+	<my-btn
+		ng-show="myForm.submitBtnPhraseIndex != undefined"
+		btn-class="[['btn-primary']]"
+		hard-data="{ label_0_0: ['imperatives', myForm.submitBtnPhraseIndex] }"
+		on-click="onSubmit()"
+	></my-btn>
+
+</div>

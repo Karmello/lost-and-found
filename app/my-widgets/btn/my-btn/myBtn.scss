@@ -1,0 +1,24 @@
+.myBtn {
+
+	button {
+		font-size: 14px;
+		padding: 5px 10px 6px 10px;
+		min-width: 80px;
+		.icon { top: 2px; }
+	}
+}
+
+.myBtnsGroup {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.myBtnsGroupCenter {
+	@extend .myBtnsGroup;
+	justify-content: center;
+}
+
+.myBtnsGroupRight {
+	@extend .myBtnsGroup;
+	justify-content: flex-end;
+}

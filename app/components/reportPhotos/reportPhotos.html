@@ -1,0 +1,21 @@
+<div id="reportPhotos">
+	<div ng-if="!editable()">
+		<my-src-thumbs
+			src-thumbs-collection="srcThumbsCollection"
+			src-slides-collection="srcSlidesCollection"
+			browsing-window-id="reportPhotoSlidesWindow"
+			src-type="img"
+		></my-src-thumbs>
+	</div>
+	<div ng-if="editable()">
+		<my-src-thumbs
+			src-thumbs-collection="srcThumbsCollection"
+			src-slides-collection="srcSlidesCollection"
+			main-context-menu-conf="mainContextMenuConf"
+			src-context-menu-conf="srcContextMenuConf"
+			browsing-window-id="reportPhotoSlidesWindow"
+			src-type="img"
+			is-src-selectable="true"
+		></my-src-thumbs>
+	</div>
+</div>

@@ -1,0 +1,51 @@
+<div id="myImgCropModal">
+	<my-modal ins="myModal" slide-in-from-left="true">
+		<my-modal-header>
+			<br />
+			<div id="modalHeader" ng-show="selectedFile">
+				<div>
+					<div class="myBtnsGroupCenter">
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 23] }" on-click="onZoomInClick()"></my-btn>
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 24] }" on-click="onZoomOutClick()"></my-btn>
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 22] }" on-click="onRotateClick()"></my-btn>
+						<my-btn btn-class="[['btn-info']]" hard-data="{ label_0_0: ['imperatives', 10] }" on-click="onResetClick()"></my-btn>
+						<my-btn ng-if="mode == 'crop'" btn-class="[['btn-default']]" hard-data="{ label_0_0: ['labels', 25] }" on-click="onSwitchModeClick()"></my-btn>
+						<my-btn ng-if="mode == 'move'" btn-class="[['btn-default']]" hard-data="{ label_0_0: ['labels', 26] }" on-click="onSwitchModeClick()"></my-btn>
+					</div>
+				</div>
+			</div>
+		</my-modal-header>
+		<my-modal-body>
+			<div id="alertContainer" ng-show="!selectedFile && !loader.isLoading">
+				<my-alert ctrl-class="'alert-warning'" hard-data="{ message: ['imperatives', 27] }"></my-alert>
+			</div>
+			<my-loader abs-centered="true" ng-show="loader.isLoading"></my-loader>
+			<div id="cropImgContainer"><img id="cropImg" ng-show="!loader.isLoading"></div>
+		</my-modal-body>
+		<my-modal-footer>
+			<div class="myBtnsGroupCenter">
+				<my-btn
+					btn-class="[['btn-info']]"
+					hard-data="{ label_0_0: ['imperatives', 9] }"
+					on-click="onBrowseClick()"
+				></my-btn>
+	        	<my-btn
+	        		btn-class="[['btn-primary']]"
+	        		hard-data="{ label_0_0: ['imperatives', 6] }"
+	        		on-click="myModal.accept()"
+	        	></my-btn>
+	        	<my-btn
+	        		btn-class="[['btn-default']]"
+	        		hard-data="{ label_0_0: ['imperatives', 2] }"
+	        		on-click="myModal.dismiss()"
+	        	></my-btn>
+			</div>
+		</my-modal-footer>
+	</my-modal>
+	<input
+		id="cropInput"
+		name="file"
+		type="file"
+		onchange="angular.element(this).scope().onFileSelected(event)"
+	/>
+</div>

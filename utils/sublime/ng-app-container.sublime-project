@@ -1,0 +1,12 @@
+{
+	"folders":
+	[
+		{
+			"path": "C:\\Workspace\\ng-app-container"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "C:\\Workspace\\ng-app-container\\dev\\server"
+		}
+	]
+}

@@ -1,0 +1,44 @@
+#mySrc {
+
+	$srcCtrlsMargin: 10px;
+
+	position: relative;
+
+	a.linkDisabled {
+		cursor: default !important;
+	}
+
+	.imgContainer {
+		border-radius: 3px;
+		overflow: hidden;
+		img { margin: 0; }
+	}
+
+	.srcLabel {
+		text-align: center;
+		font-size: 14px;
+		font-weight: bold;
+		margin: 0;
+	}
+
+	.srcCtrls {
+
+		#myElemSelector, #myContextMenu {
+			position: absolute;
+			top: $srcCtrlsMargin;
+		}
+
+		#myElemSelector { left: $srcCtrlsMargin; }
+		#myContextMenu { right: $srcCtrlsMargin; }
+	}
+
+	.isSelected {
+		background-color: black;
+		img { opacity: 0.3; }
+	}
+
+	.myLoader {
+		padding: 0;
+		.sk-circle { width: 30px; height: 30px; }
+	}
+}

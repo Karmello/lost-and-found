@@ -1,0 +1,25 @@
+<div
+	id="mySrc"
+	ng-mouseenter="onMouseEnter()"
+	ng-mouseleave="onMouseLeave()"
+>
+	<my-info>mySrc</my-info>
+	<my-loader ng-if="!noLoader" ng-show="ins.loader.isLoading" abs-centered="true"></my-loader>
+	<div ng-class="{ transparent: ins.loader.isLoading }">
+		<a
+			ng-href="{{ ins.href }}"
+			ng-click="ins.onClick()"
+			ng-class="!ins.href && !ins.onClick ? 'linkDisabled' : ''"
+			target="{{ hrefTarget ? hrefTarget : '_top' }}"
+		>
+			<div ng-show="type == 'img'" class="imgContainer" ng-class="{ isSelected: ins.isSelected }">
+				<img ng-src="{{ ins.url }}">
+			</div>
+		</a>
+		<p ng-show="ins.label" ng-bind="ins.label" class="srcLabel truncated"></p>
+		<div class="srcCtrls" ng-if="srcCtrlsVisible">
+			<my-elem-selector ng-show="isSelectable()" is-selected="ins.isSelected"></my-elem-selector>
+			<my-context-menu ng-show="contextMenu" ins="contextMenu"></my-context-menu>
+		</div>
+	</div>
+</div>

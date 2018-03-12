@@ -1,0 +1,24 @@
+#upgradeForm {
+
+	.myForm {
+
+		display: flex;
+		justify-content: center;
+
+		form {
+
+			background-color: transparent;
+
+			> div {
+
+				#formSection {
+
+					@media only screen and (min-width: 550px) { display: flex; }
+					@media only screen and (min-width: 768px) { width: 600px; }
+
+					> div { margin: 5px auto; }
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+#myGooglePlaceAutoComplete {
+
+	#activePlaceSection {
+
+		display: flex;
+		padding-top: 2px;
+
+		img {
+			max-width: 20px;
+			max-height: 20px;
+		}
+
+		span {
+			padding-top: 2px;
+		}
+	}
+}

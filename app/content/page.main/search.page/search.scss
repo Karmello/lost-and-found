@@ -1,0 +1,17 @@
+#search {
+
+	#mapSection {
+
+		> div:first-child {
+			text-align: right;
+			a { font-weight: bold; }
+			margin-bottom: 5px;
+		}
+
+		.myGoogleMap {
+			max-width: 100%;
+			height: 500px;
+			margin-bottom: 50px;
+		}
+	}
+}

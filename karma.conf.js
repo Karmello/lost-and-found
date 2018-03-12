@@ -9,9 +9,8 @@ module.exports = function(config) {
     plugins: ['karma-phantomjs-launcher', 'karma-jasmine-jquery', 'karma-jasmine', 'karma-babel-preprocessor', 'karma-spec-reporter'],
     frameworks: ['jasmine-jquery', 'jasmine'],
     preprocessors: {
-      'js/client/**/*.js': ['babel'],
-      'directives/**/*.js': ['babel'],
-      'tests/_helpers.js': ['babel']
+      'directives/**/*spec.js': ['babel'],
+      'tests/helpers/*.js': ['babel']
     },
     files: [
       'node_modules/jquery/dist/jquery.min.js',
@@ -33,9 +32,9 @@ module.exports = function(config) {
       'node_modules/money/money.js',
       'node_modules/js-marker-clusterer/src/markerclusterer_compiled.js',
       'node_modules/babel-polyfill/dist/polyfill.js',
-      'js/client/**/*.js',
+      'app/**/*.js',
       'directives/**/*.js',
-      'tests/_helpers.js',
+      'tests/helpers/*.js',
       { pattern: 'public/json/hardCodedData.json', watched: false, included: false, served: true },
       { pattern: 'public/imgs/*.png', watched: false, included: false, served: true },
       { pattern: 'public/unminified/appStyles.css', watched: false, included: false, served: true }

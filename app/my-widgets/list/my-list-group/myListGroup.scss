@@ -1,0 +1,14 @@
+@import '_vars';
+
+#myListGroup {
+
+	.list-group-item.active {}
+
+	.list-group-item:hover {
+		//background-color: $body-bg;
+	}
+
+	.list-group-item:focus {
+		//background-color: $body-bg;
+	}
+}

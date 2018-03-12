@@ -1,0 +1,76 @@
+#report {
+
+	#subjectSection, #startEventSection {
+		.text-info, .text-warning { font-weight: bold; }
+		margin-bottom: 50px;
+	}
+
+	#endEventSection {
+
+		.myBtnsGroupRight {
+			margin-bottom: 15px;
+		}
+	}
+
+	#subjectSection {
+
+		display: flex;
+		flex-flow: row wrap;
+		align-items: flex-start;
+
+		> div {
+			flex-grow: 1;
+		}
+
+		> div:first-child {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: center;
+			> div { margin: 10px; }
+		}
+
+		> div:last-child {
+			> div { margin: 10px; }
+		}
+
+		@media only screen and (min-width: 768px) {
+
+			> div:first-child { flex-basis: 35%; }
+			> div:last-child { flex-basis: 65%; }
+		}
+	}
+
+	#startEventSection {
+
+		display: flex;
+		flex-flow: row wrap;
+		align-items: flex-start;
+
+		> div {
+			flex-grow: 1;
+			> div {
+				margin: 10px;
+			}
+		}
+
+		@media only screen and (min-width: 768px) {
+			> div:first-child { flex-basis: 60%; }
+			> div:last-child { flex-basis: 40%; }
+		}
+
+		#mapContainer {
+
+			display: flex;
+			justify-content: center;
+
+			> div {
+				width: 200px;
+				@media only screen and (min-width: 400px) { width: 300px; }
+			}
+		}
+	}
+
+	#tabsSection {
+		min-height: 400px;
+	}
+}

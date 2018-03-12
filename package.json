@@ -1,12 +1,11 @@
 {
-  "name": "laf",
+  "name": "ng-app-container",
   "version": "1.0.0",
-  "description": "Lost And Found Web Application",
+  "description": "AngularJs 1.5.x application container",
   "repository": {
     "type": "bitbucket",
     "url": "https://Karmello@bitbucket.org/Karmello/laf.git"
   },
-  "main": "server.js",
   "scripts": {
     "preinstall": "npm i -g gulp-cli node-gyp nodemon karma-cli mocha jshint"
   },
@@ -27,7 +26,6 @@
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^3.1.0",
     "gulp-merge-json": "^1.0.0",
-    "gulp-ng-annotate": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-rimraf": "^0.2.1",
     "gulp-sass": "^2.3.2",

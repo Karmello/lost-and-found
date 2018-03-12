@@ -1,0 +1,18 @@
+<div id="myContextMenu" class="dropdown" ng-hide="ins.isHidden()">
+	<button
+		class="btn"
+		type="button"
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="true"
+		ng-focus="ins.isOpen = true"
+		ng-blur="ins.isOpen = false"
+	>
+		<span ng-class="ins.icon"></span>
+	</button>
+	<ul class="dropdown-menu">
+		<li ng-repeat="switcher in ins.switchers" ng-hide="switcher.isHidden()">
+			<a ng-click="switcher.onClick()">{{ switcher.label }}</a>
+		</li>
+	</ul>
+</div>

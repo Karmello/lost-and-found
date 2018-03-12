@@ -1,10 +1,5 @@
-/bower_components/
-/db/dump/
-/directives/standalone/**/
-/minified/
 /node_modules/
 /public/
 /tests/server/.env
-/unminified/
 /utils/https/certs/
 .env

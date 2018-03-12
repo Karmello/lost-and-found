@@ -1,0 +1,46 @@
+'.source.js':
+  'AngularJs directive':
+    'prefix': 'ng_directive'
+    'body': '''
+      angular.module('appModule').directive('directiveName', function() {
+        return {
+          restrict: 'E',
+          templateUrl: 'templateName.html',
+          scope: {},
+          controller: function($scope) {},
+          compile: function(elem, attrs) {
+            return function(scope, elem, attrs) {};
+          }
+        };
+      });
+    '''
+  'AngularJs controller':
+    'prefix': 'ng_controller'
+    'body': '''
+      var AngularController = function($scope) {};
+
+      AngularController.$inject = ['$scope'];
+      angular.module('appModule').controller('AngularController', AngularController);
+    '''
+  'AngularJs service':
+    'prefix': 'ng_service'
+    'body': '''
+      var angularService = function() {
+
+        this.method = function() {};
+      };
+
+      angularService.$inject = [];
+      angular.module('appModule').service('angularService', angularService);
+    '''
+  'AngularJs factory':
+    'prefix': 'ng_factory'
+    'body': '''
+      var AngularFactory = function() {
+
+        return {}
+      };
+
+      AngularFactory.$inject = [];
+      angular.module('appModule').factory('AngularFactory', AngularFactory);
+    '''

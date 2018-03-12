@@ -1,0 +1,13 @@
+<div id="regionalForm">
+	<my-form ctrl-id="regionalForm" ins="myForm">
+		<my-select
+			ctrl-id="'language'"
+			model="myForm.model.config.language"
+			collection="hardData.languages"
+			option-zero="false"
+			prop-names="{ optionValue: 'value', optionLabel: 'label' }"
+			hard-data="{ label: ['labels', 9] }"
+		></my-select>
+		<form-action-btns my-form="myForm"></form-action-btns>
+	</my-form>
+</div>

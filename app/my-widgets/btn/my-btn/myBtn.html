@@ -1,0 +1,15 @@
+<div class="myBtn" my-directive>
+	<button
+		type="button"
+		class="btn"
+		ng-class="ins.btnClass"
+		ng-mouseenter="onMouseEnter()"
+		ng-mouseleave="onMouseLeave()"
+		ng-click="onClick()"
+	>
+		<span ng-if="ins.iconClass">
+			<span class="icon" ng-class="ins.iconClass"></span>&nbsp;&nbsp;
+		</span>
+		<span ng-bind="ins.label"></span>
+	</button>
+</div>

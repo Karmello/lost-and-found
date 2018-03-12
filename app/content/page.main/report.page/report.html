@@ -1,0 +1,112 @@
+<div id="report" ng-controller="ReportController">
+	<div ng-show="params.edit !== '1'">
+		<my-panel context-menu-conf="contextMenuConf" data="apiData.report">
+			<heading-text>
+				<span ng-class="ui.frames.main.getActiveSwitcher().icon"></span>&nbsp;&nbsp;&nbsp;
+				<span ng-bind="apiData.report.title" class="text-info"></span>
+			</heading-text>
+			<body-section>
+				<div id="endEventSection" ng-if="!apiData.report._isOwn()">
+					<div class="myBtnsGroupRight">
+						<my-btn
+							ng-if="apiData.report.startEvent.type == 'lost'"
+							btn-class="[['btn-primary']]"
+							hard-data="{ label_0_0: ['declaratives', 0] }"
+							on-click="showRespondToReportForm()"
+						></my-btn>
+						<my-btn
+							ng-if="apiData.report.startEvent.type == 'found'"
+							btn-class="[['btn-primary']]"
+							hard-data="{ label_0_0: ['declaratives', 1] }"
+							on-click="showRespondToReportForm()"
+						></my-btn>
+					</div>
+					<report-form ng-show="isRespondToReportFormVisible" action="respondToReport"></report-form>
+				</div>
+			</body-section>
+		</my-panel>
+		<my-panel transparent-heading="true">
+			<heading-text>
+				<span ng-bind="::hardData.sections[16]"></span>
+			</heading-text>
+			<body-section>
+				<div id="subjectSection">
+					<div>
+						<div>
+							<div>
+								<span class="text-info">{{ ::hardData.labels[18] }}</span> -
+								<span ng-bind="apiData.report._id"></span>
+							</div>
+							<div>
+								<span class="text-info">{{ ::hardData.count[7] }}</span>
+								<span>{{ $moment.duration($moment(Date()).diff($moment(apiData.report.dateAdded))).humanize() + ' ' + hardData.count[8] }}</span>
+								<span style="white-space: nowrap;">({{ $moment(apiData.report.dateAdded).format('DD-MM-YYYY HH:mm') }})</span>
+							</div>
+							<div>
+								<span class="text-info">{{ ::hardData.count[6] }}</span>
+								<a ui-sref="app.profile({ id: apiData.reportUser._id })">
+									<span ng-bind="apiData.reportUser.username" class="text-warning"></span>
+								</a>
+							</div>
+						</div>
+						<div>
+							<report-avatar report="apiData.report" no-link="true"></report-avatar>
+						</div>
+					</div>
+					<div>
+						<div>
+							<span class="text-info">{{ ::hardData.labels[12] }}</span> -
+							<span ng-bind="apiData.report.getFullCategory()"></span>
+						</div>
+						<div style="text-align: justify;">
+							<span class="text-info">{{ ::hardData.labels[10] }}</span><br>
+							<span ng-bind="apiData.report.description"></span>
+						</div>
+						<div>
+							<span class="text-info">{{ ::hardData.labels[20] }}</span> -
+							<span ng-bind="apiData.report.serialNo"></span>
+						</div>
+					</div>
+				</div>
+			</body-section>
+		</my-panel>
+		<my-panel transparent-heading="true">
+			<heading-text>
+				<span>{{ hardData.reportTypes[apiData.report.startEvent.type == 'lost' ? 0 : 1].label2 }} {{ hardData.count[0] }}</span>
+				<span>{{ $moment(apiData.report.startEvent.date).format('DD-MM-YYYY') }}</span>
+			</heading-text>
+			<body-section>
+				<div id="startEventSection">
+					<div>
+						<div style="text-align: justify;">
+							<span class="text-info">{{ ::hardData.labels[19] }}</span><br>
+							<span ng-bind="apiData.report.startEvent.details"></span>
+						</div>
+					</div>
+					<div id="mapContainer">
+						<div>
+							<span class="text-info">{{ ::hardData.labels[17] }}</span>
+							<div id="reportMap" class="myGoogleMap"></div>
+						</div>
+					</div>
+				</div>
+			</body-section>
+		</my-panel>
+		<div id="tabsSection">
+			<my-tabs ins="ui.tabs.report"></my-tabs>
+			<ng-include src="'public/templates/report-tabs.html'"></ng-include>
+		</div>
+	</div>
+	<div ng-show="params.edit === '1'">
+		<my-panel>
+			<heading-text>
+				<span class="glyphicon glyphicon-edit"></span>
+				<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.labels[27] }}</span>
+				<span class="text-info">{{ apiData.report._id }}</span>
+			</heading-text>
+			<body-section>
+				<report-form action="editReport"></report-form>
+			</body-section>
+		</my-panel>
+	</div>
+</div>

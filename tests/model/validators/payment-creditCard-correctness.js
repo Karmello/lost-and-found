@@ -1,6 +1,6 @@
 /* jshint expr: true */
 
-const cm = require('./../../../js/server/server');
+const cm = require('./../../../server/server');
 const expect = cm.libs.expect;
 
 describe('payment creditCard correctness validator', () => {

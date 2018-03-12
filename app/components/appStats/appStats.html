@@ -1,0 +1,36 @@
+<div id="appStats">
+	<my-panel transparent-heading="true">
+		<heading-text>
+			<span class="glyphicon glyphicon-stats"></span>
+			<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.sections[14] }}</span>
+		</heading-text>
+		<body-section>
+			<table class="table">
+				<tr>
+					<td>
+						<span class="text-info">{{ ::hardData.count[2] }}:</span>
+						<span ng-bind="apiData.stats.usersCount"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="text-info">{{ ::hardData.count[3] }}:</span>
+						<span ng-bind="apiData.stats.reportsCount"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="text-info">{{ ::hardData.count[4] }}:</span>
+						<span ng-bind="apiData.stats.lostReportsCount"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="text-info">{{ ::hardData.count[5] }}:</span>
+						<span ng-bind="apiData.stats.foundReportsCount"></span>
+					</td>
+				</tr>
+			</table>
+		</body-section>
+	</my-panel>
+</div>

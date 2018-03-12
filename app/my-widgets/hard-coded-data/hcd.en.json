@@ -1,0 +1,21 @@
+{
+  "en": {
+    "imperatives": [
+      "OK", "Save", "Cancel", "Submit", "Send", "Update", "Upload", "Continue", "Enter", "Browse ...",
+      "Reset", "Clear", "Logout", "Remove", "Delete", "Change", "Add", "Search", "Choose", "Refresh",
+      "Move left", "Move right", "Rotate", "Zoom in", "Zoom out", "Scroll to top", "Delete account", "Choose an image", "Set as avatar", "Deselect all",
+      "Select all", "Delete selected", "Report", "Edit", "Adjust appearance.", "Upgrade to full account", "Pay", "Hide map", "Show map", "Close",
+      "Reply", "Expand", "Collapse", "Like"
+    ],
+    "labels": [
+      "Email", "Username", "Password", "Current password", "New password", "First name", "Last name", "Title", "Country", "Language",
+      "Description", "Message", "Category", "Subcategory", "Theme", "Date", "Type", "Location", "ID", "Details",
+      "Serial number", "Subject", "Name", "Full name", "Deactivating", "Crop mode", "Move mode", "Editing report", "Deleting", "",
+      "Method", "Type", "Number", "Expiration month", "Expiration year", "Currency", "Amount", "Payment", "Cvv2", "Date and time",
+      "Transaction ID", "Expiration date", "Payer ID", "Comment"
+    ],
+    "status": [
+      "Logged out", "All", "Nothing to show", "Ascending", "Descending", "No access", "Error", "By title", "By date", "Liked"
+    ]
+  }
+}

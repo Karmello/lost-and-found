@@ -1,0 +1,16 @@
+<div id="myGooglePlaceAutoComplete" my-directive>
+	<my-label text="label" css-class="'text-info'"></my-label>
+	<my-form-error-icon args="{ error: model.error.message, hideErrors: hideErrors }"></my-form-error-icon>
+	<input
+		id="{{ ctrlId }}"
+		class="form-control"
+		type="text"
+		placeholder="{{ placeholder || '...' }}"
+		ng-model="model.value.active"
+		autocomplete="autocomplete"
+	>
+	<div id="activePlaceSection" ng-show="autocomplete.label">
+		<img src="https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png">&nbsp;
+		<span ng-bind="autocomplete.label"></span>
+	</div>
+</div>

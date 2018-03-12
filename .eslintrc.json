@@ -29,11 +29,10 @@
     ],
     "rules": {
         "indent": ["error", 2, { "SwitchCase": 1 }],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
+        "linebreak-style": 0,
         "jasmine/no-spec-dupes": 0,
+        "jasmine/new-line-between-declarations": 0,
+        "jasmine/new-line-before-expect": 0,
         "quotes": [
             "error",
             "single"

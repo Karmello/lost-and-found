@@ -1,0 +1,45 @@
+#myCollectionBrowser {
+
+	position: relative;
+
+	#basicCtrls {
+
+		display: flex;
+		flex-flow: row wrap;
+		padding: 0 15px 15px 15px;
+
+		> div.refresher {
+			.glyphicon-refresh { top: 2px; }
+		}
+	}
+
+	#collectionContainer {
+
+		position: relative;
+		min-height: 75px;
+
+		#collectionElems {
+
+			> * {
+
+				display: flex;
+
+				.ng-enter {
+					-webkit-transform: scale(0);
+			      	-webkit-transition-property: all;
+			      	-webkit-transition-timing-function: ease-out-cubic;
+			      	-webkit-transition-duration: 200ms;
+			    }
+
+			    .ng-enter.ng-enter-active {
+			     	-webkit-transform: scale(1);
+			    }
+			}
+		}
+
+		.myLoader {
+			position: absolute;
+			top: 0;
+		}
+	}
+}

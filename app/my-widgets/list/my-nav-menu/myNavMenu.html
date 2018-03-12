@@ -1,0 +1,14 @@
+<ul id="myNavMenu" class="nav navbar-nav myNavMenu" my-directive>
+	<li
+		ng-repeat="switcher in ins.switchers"
+		ng-class="{ active: switcher._id == ins.activeSwitcherId }"
+	>
+		<a
+			ng-href="{{ switcher.getRoute ? switcher.getRoute() : switcher.route }}"
+		>
+			<span ng-class="switcher.icon"></span>
+			<span>&nbsp;&nbsp;&nbsp;{{ switcher.label }}</span>
+			<span class="sr-only">(current)</span>
+		</a>
+	</li>
+</ul>

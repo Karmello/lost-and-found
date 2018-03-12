@@ -1,0 +1,27 @@
+<div id="myTabs" my-directive>
+	<my-info>myTabs</my-info>
+	<ul class="nav nav-tabs" role="tablist">
+		<li
+			ng-repeat="switcher in ins.switchers"
+			ng-class="{ active: ins.activeSwitcherId == switcher._id }"
+			role="presentation"
+			ng-show="switcher.isVisible != undefined ? switcher.isVisible : true"
+		>
+			<a
+				id="{{ switcher._id }}"
+				ng-href="{{ switcher.getRoute ? switcher.getRoute() : switcher.route }}"
+				data-target="#{{ switcher._id }}"
+				aria-controls="{{ switcher._id }}"
+				role="tab"
+			>
+				{{ switcher.label }}
+			</a>
+		</li>
+	</ul>
+	<h5
+		ng-repeat="switcher in ins.switchers"
+		ng-show="ins.activeSwitcherId == switcher._id"
+		ng-bind="switcher.info"
+		class="text-info"
+	></h5>
+</div>

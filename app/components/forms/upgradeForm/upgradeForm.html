@@ -1,0 +1,96 @@
+<div id="upgradeForm">
+	<br />
+	<my-form ctrl-id="upgradeForm" ins="myForm" redirect-on-success="true">
+		<div id="formSection">
+			<div>
+				<my-panel transparent-heading="true">
+					<heading-text>
+						<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.labels[37] }}</span>
+						<span ng-show="myModel.currency.value.active">-</span>
+						<span class="text-warning">{{ myModel.amount.value.active }} {{ myModel.currency.value.active }}</span>
+					</heading-text>
+					<body-section>
+						<my-select
+							ctrl-id="'method'"
+							collection="hardData.payment.methods"
+							model="myModel.method"
+							option-zero="true"
+							hard-data="{ label: ['labels', 30], placeholder: ['imperatives', 18] }"
+						></my-select>
+						<my-select
+							ctrl-id="'currency'"
+							collection="hardData.payment.currencies"
+							model="myModel.currency"
+							prop-names="{ optionValue: 'value', optionLabel: 'label' }"
+							option-zero="true"
+							hard-data="{ label: ['labels', 35], placeholder: ['imperatives', 18] }"
+						></my-select>
+					</body-section>
+				</my-panel>
+			</div>
+			<div ng-show="myModel.getValue('method') == 'credit_card'">
+				<my-panel transparent-heading="true">
+					<heading-text>
+						<span>&nbsp;&nbsp;&nbsp;{{ ::hardData.payment.methods.credit_card }}</span>
+					</heading-text>
+					<body-section>
+						<my-select
+							ctrl-id="'creditCard_type'"
+							collection="hardData.payment.creditCardTypes"
+							model="myModel.creditCard.type"
+							option-zero="true"
+							hard-data="{ label: ['labels', 31], placeholder: ['imperatives', 18] }"
+						></my-select>
+						<my-input
+							ctrl-id="'creditCard_number'"
+							ctrl-type="'text'"
+							ctrl-max-length="19"
+							model="myModel.creditCard.number"
+							hard-data="{ label: ['labels', 32] }"
+						></my-input>
+						<my-input
+							ctrl-id="'creditCard_name_first'"
+							ctrl-type="'text'"
+							ctrl-max-length="25"
+							model="myModel.creditCard.name.first"
+							hard-data="{ label: ['labels', 5] }"
+						></my-input>
+						<my-input
+							ctrl-id="'creditCard_name_last'"
+							ctrl-type="'text'"
+							model="myModel.creditCard.name.last"
+							hard-data="{ label: ['labels', 6] }"
+						></my-input>
+						<my-input
+							ctrl-id="'creditCard_expireMonth'"
+							ctrl-type="'number'"
+							ctrl-min-value="1"
+							ctrl-max-value="12"
+							model="myModel.creditCard.expireMonth"
+							hard-data="{ label: ['labels', 33] }"
+						></my-input>
+						<my-input
+							ctrl-id="'creditCard_expireYear'"
+							ctrl-type="'number'"
+							ctrl-min-value="currentYear"
+							ctrl-max-value="currentYear + 30"
+							model="myModel.creditCard.expireYear"
+							hard-data="{ label: ['labels', 34] }"
+						></my-input>
+						<my-input
+							ctrl-id="'cvv2'"
+							ctrl-type="'number'"
+							ctrl-min-value="111"
+							ctrl-max-value="9999"
+							model="myModel.creditCard.cvv2"
+							hard-data="{ label: ['labels', 38] }"
+						></my-input>
+					</body-section>
+				</my-panel>
+			</div>
+		</div>
+		<div>
+			<form-action-btns my-form="myForm"></form-action-btns>
+		</div>
+	</my-form>
+</div>

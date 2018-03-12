@@ -1,0 +1,48 @@
+<div id="personalDetailsForm">
+	<my-form ctrl-id="personalDetailsForm" ins="myForm">
+		<my-input
+			ctrl-id="'personalDetailsForm_email'"
+			ctrl-type="'text'"
+			ctrl-max-length="254"
+			model="myForm.model.email"
+			hard-data="{ label: ['labels', 0] }"
+		></my-input>
+		<my-input
+			ctrl-id="'personalDetailsForm_firstname'"
+			ctrl-type="'text'"
+			ctrl-max-length="20"
+			model="myForm.model.firstname"
+			hard-data="{ label: ['labels', 5] }"
+		></my-input>
+		<my-input
+			ctrl-id="'personalDetailsForm_lastname'"
+			ctrl-type="'text'"
+			ctrl-max-length="20"
+			model="myForm.model.lastname"
+			hard-data="{ label: ['labels', 6] }"
+		></my-input>
+		<my-selects-group
+			collection="countries.data"
+			model="myForm.model.country"
+			hard-data="{ label: ['labels', 8] }"
+		>
+			<my-select
+				ctrl-id="'personalDetailsForm_countryFirstLetter'"
+				collection=""
+				model="myForm.model.countryFirstLetter"
+				prop-names="{ optionValue: 'label', optionLabel: 'label' }"
+			></my-select>
+			<my-select
+				ctrl-id="'personalDetailsForm_country'"
+				collection=""
+				nested-collection-field-name="'children'"
+				model="myForm.model.country"
+				option-zero="true"
+				prop-names="{ optionValue: 'name', optionLabel: 'name' }"
+				hard-data="{ placeholder: ['imperatives', 18] }"
+				hide-errors="true"
+			></my-select>
+		</my-selects-group>
+		<form-action-btns my-form="myForm"></form-action-btns>
+	</my-form>
+</div>

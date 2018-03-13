@@ -7,3 +7,10 @@
 [MongoDB](https://www.mongodb.com) | [mongoose](http://mongoosejs.com) |
 [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) | [bcrypt](https://www.npmjs.com/package/bcrypt-nodejs) |
 [AWS SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/index.html)
+### Local setup
+* make sure you have `Node.js` and `MongoDB` installed on your system
+* `git clone` repo and `npm install` from root
+* create `mongod` instance
+* run `nodemon ./server/server.js --watch ./server` to start backend server
+* run `gulp compile` to compile and open ui
+* if you use [ConEmu](https://conemu.github.io) console, start project by simply running `run app` (see `run.cmd` file)

@@ -14,8 +14,9 @@
 * run `nodemon ./server/server.js --watch ./server` to start backend server
 * run `node mockup/setup/run.js -[c|d] -[User|Report|Comment]` to fill or empty a given db collection
 * run `gulp compile` to compile and open ui
-### [ConEmu](https://conemu.github.io) (see `run.cmd` file)
+### [ConEmu](https://conemu.github.io)
 * `run app` from root to start up the project
 * `run setup -[c|d] -[User|Report|Comment]` to fill or empty a given db collection
+* see `run.cmd` file
 ### Other links
 * [Videos](https://tinyurl.com/y8br2p60)

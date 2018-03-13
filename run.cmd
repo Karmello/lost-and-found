@@ -1,5 +1,11 @@
 @echo off
 
+if "%1" == "recreate-db" (
+
+  cmd /k "mongo localhost:27017/laf-dev < db/recreate.js"
+  echo. & echo Done
+)
+
 if "%1" == "app" (
 
 	cmd /k "mongod" -new_console:t:mongod

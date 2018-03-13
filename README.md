@@ -16,8 +16,8 @@
 * `gulp compile` to compile and open app ui
 * `node mockup/setup/run.js -[c|d] -[User|Report|Comment]` to create or delete fake db data for a given model
 ### [ConEmu](https://conemu.github.io)
-* `run recreate-db` to create and populate db with static data
-* `run app` from root to start up the project
+* `run recreate-db` from root to create and populate db with static data
+* `run app` to start up the project
 * `run setup -[c|d] -[User|Report|Comment]` to create or delete fake db data for a given model
 * see `run.cmd` file
 ### Other links

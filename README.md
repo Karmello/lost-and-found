@@ -14,5 +14,5 @@
 * run `nodemon ./server/server.js --watch ./server` to start backend server
 * run `gulp compile` to compile and open ui
 * if you use [ConEmu](https://conemu.github.io) console, start project by simply running `run app` (see `run.cmd` file)
-### Links
+### Other links
 * [Videos](https://tinyurl.com/y8br2p60)

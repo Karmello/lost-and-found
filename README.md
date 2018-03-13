@@ -13,8 +13,8 @@
 * create `mongod` instance
 * `run recreate-db` to create and populate db with static data
 * `nodemon ./server/server.js --watch ./server` to start backend server
+* `gulp compile` to compile and open app ui
 * `node mockup/setup/run.js -[c|d] -[User|Report|Comment]` to create or delete fake db data for a given model
-* `gulp compile` to compile and open ui
 ### [ConEmu](https://conemu.github.io)
 * `run app` from root to start up the project
 * `run setup -[c|d] -[User|Report|Comment]` to create or delete fake db data for a given model

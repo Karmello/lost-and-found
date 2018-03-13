@@ -12,7 +12,11 @@
 * `git clone` repo and `npm install` from root
 * create `mongod` instance
 * run `nodemon ./server/server.js --watch ./server` to start backend server
+* run `node mockup/setup/run.js -[c|d] -[User|Report|Comment]` to fill or empty a given db collection
 * run `gulp compile` to compile and open ui
-* if you use [ConEmu](https://conemu.github.io) console, start project by simply running `run app` (see `run.cmd` file)
+### ConEmu
+* if you use [ConEmu](https://conemu.github.io) console see `run.cmd` file
+* `run app` from root to start up the project
+* `run setup -[c|d] -[User|Report|Comment]` to fill or empty a given db collection
 ### Other links
 * [Videos](https://tinyurl.com/y8br2p60)

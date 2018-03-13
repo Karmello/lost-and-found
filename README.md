@@ -11,11 +11,12 @@
 * make sure you have `Node.js` and `MongoDB` installed on your system
 * `git clone` repo and `npm install` from root
 * create `mongod` instance
-* `run recreate-db` to create and populate db with static data
+* `mongo localhost:27017/laf-dev < db/recreate.js` to create and populate db with static data
 * `nodemon ./server/server.js --watch ./server` to start backend server
 * `gulp compile` to compile and open app ui
 * `node mockup/setup/run.js -[c|d] -[User|Report|Comment]` to create or delete fake db data for a given model
 ### [ConEmu](https://conemu.github.io)
+* `run recreate-db` to create and populate db with static data
 * `run app` from root to start up the project
 * `run setup -[c|d] -[User|Report|Comment]` to create or delete fake db data for a given model
 * see `run.cmd` file
